@@ -19,8 +19,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 public class BuildingGame extends JavaPlugin
 {
-	//GameTimer timer;
-	
 	int counter = 0;
 	List<Player> players = new ArrayList<Player>();
 	List<Player> playersdone = new ArrayList<Player>();
@@ -38,6 +36,7 @@ public class BuildingGame extends JavaPlugin
 	public Permission reload = new Permission("bg.reload");
 	public Permission reloadconfig = new Permission("bg.reload.config");
 	public Permission reloadarenas = new Permission("bg.reload.arenas");
+	public Permission generatesettings = new Permission("bg.generatesettings");
 	//files
 	File arenasFile = new File("arenas.yml");
 	File configFile = new File("config.yml");
@@ -59,11 +58,12 @@ public class BuildingGame extends JavaPlugin
 			}
 			catch (IOException e)
 			{
-				getLogger().info("Building Game failed to create the arenas.yml file");
+				getLogger().warning("Building Game's arenas.yml had some problems.");
+				getLogger().warning("If you don't see the arenas.yml folder, please restart your server!");
 			}
 			arenasFile.getParentFile().mkdirs();
 		}
-		if (!configFile.exists())
+		else if (!configFile.exists())
 		{
 			try
 			{
@@ -71,26 +71,16 @@ public class BuildingGame extends JavaPlugin
 			}
 			catch (IOException e)
 			{
-				getLogger().info("Building Game failed to create the config.yml file");
+				getLogger().warning("Building Game's config.yml had some problems.");
+				getLogger().warning("If you don't see the config.yml folder, please restart your server!");
 			}
-			List<String> setsubjects = new ArrayList<String>();
-			setsubjects.add("carrot");
-			setsubjects.add("frog");
-			setsubjects.add("superhero");
-			setsubjects.add("octopus");
-			setsubjects.add("maze");
-			setsubjects.add("dog house");
-			setsubjects.add("spiderman");
-			setsubjects.add("baseball");
-			setsubjects.add("birthday");
-			setsubjects.add("cannon");
 			configFile.getParentFile().mkdirs();
-			config.set("timer", 300);
-			config.set("subjects", setsubjects);
 		}
+		saveYamls();
+		generateSettings();
+		saveYamls();
 		loadYamls();
 		
-		//timer = new GameTimer(this);
 		//other things
 		getLogger().info("Building Game has been enabled succesfully!");
 		PluginManager pm = getServer().getPluginManager();
@@ -105,7 +95,7 @@ public class BuildingGame extends JavaPlugin
 		pm.addPermission(reload);
 		pm.addPermission(reloadconfig);
 		pm.addPermission(reloadarenas);
-		saveYamls();
+		pm.addPermission(generatesettings);
 	}
 	@Override
 	public void onDisable()
@@ -115,11 +105,11 @@ public class BuildingGame extends JavaPlugin
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		Player player = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("bg"))
 		{
 			if (args[0].equalsIgnoreCase("setmainspawn") && sender instanceof Player)
 			{
+				Player player = (Player) sender;
 				if (player.hasPermission("setmainspawn"))
 				{
 					arenas.set("main-spawn.world", player.getLocation().getWorld().getName());
@@ -140,38 +130,39 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("createarena"))
 			{
-				if (player.hasPermission("createarena"))
+				if (sender.hasPermission("createarena"))
 				{
 					if (args.length == 2)
 					{
 						arenas.set(args[1], null);
 						saveYamls();
-						player.sendMessage(ChatColor.GREEN + "Arena " + args[1] + " created!");
+						sender.sendMessage(ChatColor.GREEN + "Arena " + args[1] + " created!");
 					}
 					else if (args.length < 2)
 					{
-						player.sendMessage(ChatColor.RED + "Please specify the arena name!");
+						sender.sendMessage(ChatColor.RED + "Please specify the arena name!");
 					}
 					else if (args.length > 2)
 					{
-						player.sendMessage(ChatColor.RED + "Please only specify the arena name!");
+						sender.sendMessage(ChatColor.RED + "Please only specify the arena name!");
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "An unexpected error occured! Error: bg.createarena.args.length");
+						sender.sendMessage(ChatColor.RED + "An unexpected error occured! Error: bg.createarena.args.length");
 					}
 				}
-				else if (!player.hasPermission("createarena"))
+				else if (!sender.hasPermission("createarena"))
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
 				}
 				else
 				{
-					player.sendMessage(ChatColor.RED + "An unexpected error occurred. Error: bg.createarena.permission");
+					sender.sendMessage(ChatColor.RED + "An unexpected error occurred. Error: bg.createarena.permission");
 				}
 			}
 			else if (args[0].equalsIgnoreCase("setspawn") && sender instanceof Player)
 			{
+				Player player = (Player) sender;
 				if (player.hasPermission("setspawn"))
 				{
 					if (args.length == 2)
@@ -209,6 +200,7 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("join") && sender instanceof Player)
 			{
+				Player player = (Player) sender;
 				if (args.length == 2)
 				{
 					if (player.hasPermission("join"))
@@ -278,6 +270,7 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("leave") && sender instanceof Player)
 			{
+				Player player = (Player) sender;
 				if (player.hasPermission("leave"))
 				{
 					String worldstr = arenas.getString("main-spawn.world");
@@ -309,49 +302,49 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("help"))
 			{
-				player.sendMessage(ChatColor.DARK_GRAY + "---------------------" + ChatColor.GOLD + "BuildingGame" + ChatColor.DARK_GRAY + "---------------------");
-				player.sendMessage(ChatColor.GOLD + "/bg setmainspawn" + ChatColor.DARK_GRAY + " - Sets the main spawn location for the buildinggame");
-				player.sendMessage(ChatColor.GOLD + "/bg createarena <arenaname>" + ChatColor.DARK_GRAY + " - Create a new arena");
-				player.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
-				player.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
-				player.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
-				player.sendMessage(ChatColor.GOLD + "/bg done" + ChatColor.DARK_GRAY + " - Mark your building as done");
+				sender.sendMessage(ChatColor.DARK_GRAY + "---------------------" + ChatColor.GOLD + "BuildingGame" + ChatColor.DARK_GRAY + "---------------------");
+				sender.sendMessage(ChatColor.GOLD + "/bg setmainspawn" + ChatColor.DARK_GRAY + " - Sets the main spawn location for the buildinggame");
+				sender.sendMessage(ChatColor.GOLD + "/bg createarena <arenaname>" + ChatColor.DARK_GRAY + " - Create a new arena");
+				sender.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
+				sender.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
+				sender.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
+				sender.sendMessage(ChatColor.GOLD + "/bg done" + ChatColor.DARK_GRAY + " - Mark your building as done");
 			}
 			else if (args[0].equalsIgnoreCase("setting"))
 			{
 				if (args[1].equalsIgnoreCase("timer"))
 				{
-					if (player.hasPermission("bg.setting.timer"))
+					if (sender.hasPermission("bg.setting.timer"))
 					{
 						if (isInt(args[2]))
 						{
 							config.set("timer", args[2]);
 							saveYamls();
-							player.sendMessage(ChatColor.GREEN + "The timer setting has been set to " + args[2]);
+							sender.sendMessage(ChatColor.GREEN + "The timer setting has been set to " + args[2]);
 						}
 						else if (!isInt(args[2]))
 						{
-							player.sendMessage(ChatColor.RED + "This setting can only be an integer!");
+							sender.sendMessage(ChatColor.RED + "This setting can only be an integer!");
 						}
 						else
 						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.timer.integer");
+							sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.timer.integer");
 						}
 					}
-					else if (!player.hasPermission("bg.setting.timer"))
+					else if (!sender.hasPermission("bg.setting.timer"))
 					{
-						player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+						sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.timer.permission");
+						sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.timer.permission");
 					}
 				}
 				else if (args[1].equalsIgnoreCase("subjects"))
 				{
 					if (args[2].equalsIgnoreCase("add"))
 					{
-						if (player.hasPermission("bg.setting.subjects.add"))
+						if (sender.hasPermission("bg.setting.subjects.add"))
 						{
 							List<String> subjects = new ArrayList<String>();
 							subjects = config.getStringList("subjects");
@@ -366,18 +359,18 @@ public class BuildingGame extends JavaPlugin
 							}
 							subjects.add(subject);
 						}
-						else if (!player.hasPermission("bg.setting.subjects.add"))
+						else if (!sender.hasPermission("bg.setting.subjects.add"))
 						{
-							player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+							sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
 						}
 						else
 						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.subjects.add.permission");
+							sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.subjects.add.permission");
 						}
 					}
 					else if (args[2].equalsIgnoreCase("remove"))
 					{
-						if (player.hasPermission("bg.setting.subjects.remove"))
+						if (sender.hasPermission("bg.setting.subjects.remove"))
 						{
 							List<String> subjects = new ArrayList<String>();
 							subjects = config.getStringList("subjects");
@@ -392,23 +385,23 @@ public class BuildingGame extends JavaPlugin
 							}
 							subjects.remove(subject);
 						}
-						else if (!player.hasPermission("bg.setting.subjects.remove"))
+						else if (!sender.hasPermission("bg.setting.subjects.remove"))
 						{
-							player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+							sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
 						}
 						else
 						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.subjects.remove.permission");
+							sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.subjects.remove.permission");
 						}
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "That option is not available");
+						sender.sendMessage(ChatColor.RED + "That option is not available");
 					}
 				}
 				else
 				{
-					player.sendMessage(ChatColor.RED + "That setting does not exist");
+					sender.sendMessage(ChatColor.RED + "That setting does not exist");
 				}
 			}
 			else if (args[0].equalsIgnoreCase("reload"))
@@ -417,72 +410,88 @@ public class BuildingGame extends JavaPlugin
 				{
 					if (args[1].equalsIgnoreCase("config"))
 					{
-						if (player.hasPermission("bg.reload.config"))
+						if (sender.hasPermission("bg.reload.config"))
 						{
 							YamlConfiguration.loadConfiguration(configFile);
-							player.sendMessage(ChatColor.GREEN + "Configuration reloaded!");
+							sender.sendMessage(ChatColor.GREEN + "Configuration reloaded!");
 						}
-						else if (!player.hasPermission("bg.reload.config"))
+						else if (!sender.hasPermission("bg.reload.config"))
 						{
-							player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+							sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
 						}
 						else
 						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.config.permission");
+							sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.config.permission");
 						}
 					}
 					else if (args[1].equalsIgnoreCase("arenas"))
 					{
-						if (player.hasPermission("bg.reload.arenas"))
+						if (sender.hasPermission("bg.reload.arenas"))
 						{
 							YamlConfiguration.loadConfiguration(arenasFile);
-							player.sendMessage(ChatColor.GREEN + "Arenas reloaded!");
+							sender.sendMessage(ChatColor.GREEN + "Arenas reloaded!");
 						}
-						else if (player.hasPermission("bg.reload.arenas"))
+						else if (sender.hasPermission("bg.reload.arenas"))
 						{
-							player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+							sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
 						}
 						else
 						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.arenas.permission");
+							sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.arenas.permission");
 						}
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "That's not a correct file");
+						sender.sendMessage(ChatColor.RED + "That's not a correct file");
 					}
 				}
 				else if (args.length != 2)
-				{;
-					if (player.hasPermission("bg.reload") || (player.hasPermission("bg.reload.config") && player.hasPermission("bg.reload.arenas")))
+				{
+					if (sender.hasPermission("bg.reload") || (sender.hasPermission("bg.reload.config") && sender.hasPermission("bg.reload.arenas")))
 					{
 						YamlConfiguration.loadConfiguration(configFile);
 						YamlConfiguration.loadConfiguration(arenasFile);
-						player.sendMessage(ChatColor.GREEN + "All the files have been reloaded!");
+						sender.sendMessage(ChatColor.GREEN + "All the files have been reloaded!");
 					}
-					else if (!player.hasPermission("bg.reload") || !player.hasPermission("bg.reload.config") || !player.hasPermission("bg.reload.arenas"))
+					else if (!sender.hasPermission("bg.reload") || !sender.hasPermission("bg.reload.config") || !sender.hasPermission("bg.reload.arenas"))
 					{
-						player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+						sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.permission");
+						sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.permission");
 					}
 				}
 				else
 				{
-					player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.args.length");
+					sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.reload.args.length");
+				}
+			}
+			else if (args[0].equalsIgnoreCase("generatesettings"))
+			{
+				if (sender.hasPermission("bg.generatesettings"))
+				{
+					generateSettings();
+					sender.sendMessage(ChatColor.GREEN + "Default setting generated!");
+				}
+				else if (sender.hasPermission("bg.generatesettings"))
+				{
+					sender.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+				}
+				else
+				{
+					sender.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.generatesettings.permission");
 				}
 			}
 			else if (args.length == 0)
 			{
-				player.sendMessage(ChatColor.DARK_GRAY + "---------------------" + ChatColor.GOLD + "BuildingGame" + ChatColor.DARK_GRAY + "---------------------");
-				player.sendMessage(ChatColor.GOLD + "/bg setmainspawn" + ChatColor.DARK_GRAY + " - Sets the main spawn location for the buildinggame");
-				player.sendMessage(ChatColor.GOLD + "/bg createarena <arenaname>" + ChatColor.DARK_GRAY + " - Create a new arena");
-				player.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
-				player.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
-				player.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
-				player.sendMessage(ChatColor.GOLD + "/bg done" + ChatColor.DARK_GRAY + " - Mark your building as done");
+				sender.sendMessage(ChatColor.DARK_GRAY + "---------------------" + ChatColor.GOLD + "BuildingGame" + ChatColor.DARK_GRAY + "---------------------");
+				sender.sendMessage(ChatColor.GOLD + "/bg setmainspawn" + ChatColor.DARK_GRAY + " - Sets the main spawn location for the buildinggame");
+				sender.sendMessage(ChatColor.GOLD + "/bg createarena <arenaname>" + ChatColor.DARK_GRAY + " - Create a new arena");
+				sender.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
+				sender.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
+				sender.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
+				sender.sendMessage(ChatColor.GOLD + "/bg done" + ChatColor.DARK_GRAY + " - Mark your building as done");
 			}
 			else
 			{
@@ -492,6 +501,23 @@ public class BuildingGame extends JavaPlugin
 		return false;
 	}
 	// for the files
+	public void generateSettings()
+	{
+		List<String> setsubjects = new ArrayList<String>();
+		setsubjects.add("carrot");
+		setsubjects.add("frog");
+		setsubjects.add("superhero");
+		setsubjects.add("octopus");
+		setsubjects.add("maze");
+		setsubjects.add("dog house");
+		setsubjects.add("spiderman");
+		setsubjects.add("baseball");
+		setsubjects.add("birthday");
+		setsubjects.add("cannon");
+		config.set("timer", 300);
+		config.set("subjects", setsubjects);
+		saveYamls();
+	}
 	public void saveYamls()
 	{
 	    try
@@ -504,7 +530,8 @@ public class BuildingGame extends JavaPlugin
 	        e.printStackTrace();
 	    }
 	}
-	public void loadYamls() {
+	public void loadYamls()
+	{
 	    try
 	    {
 	        arenas.load(arenasFile);
@@ -566,7 +593,6 @@ public class BuildingGame extends JavaPlugin
 					int y = arenas.getInt("main-spawn.y");
 					int z = arenas.getInt("main-spawn.z");
 					Location location = new Location(world, x, y, z);
-					players.clear();
 					for (Player pl : players)
 					{
 						pl.teleport(location);
@@ -574,7 +600,7 @@ public class BuildingGame extends JavaPlugin
 					}
 					players.clear();
 					seconds = config.getInt("timer");
-					firstrun = false;
+					firstrun = true;
 				}
 				else
 				{
