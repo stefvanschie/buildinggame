@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +30,7 @@ public class BuildingGame extends JavaPlugin
 	HashMap<Player, String> players = new HashMap<Player, String>();
 	HashMap<Integer, Player> playernumbers = new HashMap<Integer, Player>();
 	HashMap<Player, Integer> votes = new HashMap<Player, Integer>();
+	HashMap<String,Integer> playersInArena = new HashMap<String,Integer>();
 	//files
 	File arenasFile = new File("arenas.yml");
 	File configFile = new File("config.yml");
@@ -42,6 +44,7 @@ public class BuildingGame extends JavaPlugin
 		config = new YamlConfiguration();
 		arenasFile = new File(getDataFolder(), "arenas.yml");
 		configFile = new File(getDataFolder(), "config.yml");
+		loadYamls();
 		if (!arenasFile.exists())
 		{
 			try
@@ -51,11 +54,11 @@ public class BuildingGame extends JavaPlugin
 			catch (IOException e)
 			{
 				getLogger().warning("Building Game's arenas.yml had some problems.");
-				getLogger().warning("If you don't see the arenas.yml folder, please restart your server!");
+				getLogger().warning("If you don't see the arenas.yml file, please restart your server!");
 			}
 			arenasFile.getParentFile().mkdirs();
 		}
-		else if (!configFile.exists())
+		if (!configFile.exists())
 		{
 			try
 			{
@@ -64,14 +67,11 @@ public class BuildingGame extends JavaPlugin
 			catch (IOException e)
 			{
 				getLogger().warning("Building Game's config.yml had some problems.");
-				getLogger().warning("If you don't see the config.yml folder, please restart your server!");
+				getLogger().warning("If you don't see the config.yml file, please restart your server!");
 			}
 			configFile.getParentFile().mkdirs();
 			generateSettings();
 		}
-		saveYamls();
-		loadYamls();
-		//other things
 		getLogger().info("Building Game has been enabled succesfully!");
 		saveYamls();
 	}
@@ -183,26 +183,39 @@ public class BuildingGame extends JavaPlugin
 					{
 						if (arenas.contains(args[1]))
 						{
-							if (players.size() < arenas.getInt(args[1] + ".maxplayers"))
+							//mogelijke error
+							if (!playersInArena.containsKey(args[1]))
+							{
+								playersInArena.put(args[1], 0);
+							}
+							if (playersInArena.get(args[1]) < arenas.getInt(args[1] + ".maxplayers"))
 							{
 								player.sendMessage(ChatColor.GOLD + "You have joined the game");
-								for (Player p : players.keySet())
+								for (Player pl : players.keySet())
 								{
-									p.sendMessage(ChatColor.GOLD + "" + player.getName() + " joined the game!");
+									if (players.get(pl).equals(args[1]))
+									{
+										pl.sendMessage(ChatColor.GOLD + "" + player.getName() + " joined the game!");
+									}
 								}
-								playernumbers.put(players.size() + 1, player);
+								playersInArena.put(args[1], playersInArena.get(args[1]) + 1);
 								players.put(player, args[1]);
-								if (players.size() == arenas.getInt(args[1] + ".maxplayers"))
+								votes.put(player, 0);
+								if (playersInArena.get(args[1]) == arenas.getInt(args[1] + ".maxplayers"))
 								{
-									List<String> subjects = new ArrayList<String>(); 
-									subjects = config.getStringList("subjects");
-									Random rndm = new Random();
-									int subjectint = rndm.nextInt(subjects.size());
-									String subject = subjects.get(subjectint);
-									int places = 1;         
+									String subject = "";
+									if (config.contains("subjects"))
+									{
+										List<String> subjects = new ArrayList<String>(); 
+										subjects = config.getStringList("subjects");
+										Random rndm = new Random();
+										int subjectint = rndm.nextInt(subjects.size());
+										subject = subjects.get(subjectint);
+									}
+									int places = 1;
 									for (Player pl : players.keySet())
 									{
-										if (players.get(pl) == args[1])
+										if (players.get(pl).equals(args[1]))
 										{
 											String worldstr = arenas.getString(args[1] + "." + places + ".world");
 											World world = getServer().getWorld(worldstr);
@@ -211,15 +224,19 @@ public class BuildingGame extends JavaPlugin
 											int z = arenas.getInt(args[1] + "." + places + ".z");
 											Location location = new Location(world, x, y, z);
 											pl.teleport(location);
-											places++;
 											pl.sendMessage(ChatColor.GOLD + "The game has started!");
-											pl.sendMessage(ChatColor.GOLD + "The subject is " + subject);
+											if (config.contains("subjects"))
+											{
+												pl.sendMessage(ChatColor.GOLD + "The subject is " + subject);
+											}
+											playernumbers.put(places, player);
+											places++;
 										}
 									}
 									timer(args[1]);
 								}
 							}
-							else if (players.size() >= getConfig().getInt(args[1] + ".maxplayers"))
+							else if (playersInArena.get(args[1]) >= getConfig().getInt(args[1] + ".maxplayers"))
 							{
 								player.sendMessage(ChatColor.RED + "This arena is currently full");
 							}
@@ -268,7 +285,7 @@ public class BuildingGame extends JavaPlugin
 					Location location = new Location(world, arenas.getInt("main-spawn.x"), arenas.getInt("main-spawn.y"), arenas.getInt("main-spawn.z"));
 					if (players.containsKey(player))
 					{
-						String arena = players.get(player);
+						playersInArena.put(players.get(player), playersInArena.get(players.get(player)) - 1);
 						players.remove(player);
 						playernumbers.remove(player);
 						votes.remove(player);
@@ -276,7 +293,7 @@ public class BuildingGame extends JavaPlugin
 						player.sendMessage(ChatColor.GOLD + "You have left the game!");
 						for (Player pl : players.keySet())
 						{
-							if (players.get(pl) == arena)
+							if (players.get(pl).equals(players.get(player)))
 							{
 								pl.sendMessage(ChatColor.GOLD + "" + player.getName() + " has left the arena!");
 							}
@@ -315,7 +332,14 @@ public class BuildingGame extends JavaPlugin
 						{
 							Player pl = playernumbers.get(place);
 							votes.put(pl, args1 + votes.get(pl));
-							player.sendMessage(ChatColor.GOLD + "You gave" + playernumbers.get(place).getName() + "'s plot a " + args[2]);
+							if (args1 == 8)
+							{
+								player.sendMessage(ChatColor.GOLD + "You gave " + pl.getName() + "'s plot an " + args[1]);
+							}
+							else
+							{
+								player.sendMessage(ChatColor.GOLD + "You gave " + pl.getName() + "'s plot a " + args[1]);
+							}
 						}
 						else if (!(args1 >= 1 && args1 <= 10))
 						{
@@ -362,7 +386,7 @@ public class BuildingGame extends JavaPlugin
 					{
 						if (isInt(args[2]))
 						{
-							config.set("timer", args[2]);
+							config.set("timer", Integer.parseInt(args[2]));
 							saveYamls();
 							player.sendMessage(ChatColor.GREEN + "The timer setting has been set to " + args[2]);
 						}
@@ -390,7 +414,7 @@ public class BuildingGame extends JavaPlugin
 					{
 						if (isInt(args[2]))
 						{
-							config.set("votetimer", args[2]);
+							config.set("votetimer", Integer.parseInt(args[2]));
 							saveYamls();
 							player.sendMessage(ChatColor.GREEN + "The votetimer setting has been set to " + args[2]);
 						}
@@ -425,11 +449,12 @@ public class BuildingGame extends JavaPlugin
 							{ 
 								if (subject != "")
 								{
-									subject = subject + "_"; 
+									subject = subject + " "; 
 								}
 								subject = subject + args[i];
 							}
 							subjects.add(subject);
+							saveYamls();
 						}
 						else if (!player.hasPermission("bg.setting.subjects.add"))
 						{
@@ -451,11 +476,12 @@ public class BuildingGame extends JavaPlugin
 							{ 
 								if (subject != "")
 								{
-									subject = subject + "_"; 
+									subject = subject + " "; 
 								}
 								subject = subject + args[i];
 							}
 							subjects.remove(subject);
+							saveYamls();
 						}
 						else if (!player.hasPermission("bg.setting.subjects.remove"))
 						{
@@ -484,6 +510,7 @@ public class BuildingGame extends JavaPlugin
 					{
 						if (player.hasPermission("bg.reload.config"))
 						{
+							saveYamls();
 							YamlConfiguration.loadConfiguration(configFile);
 							player.sendMessage(ChatColor.GREEN + "Configuration reloaded!");
 						}
@@ -500,6 +527,7 @@ public class BuildingGame extends JavaPlugin
 					{
 						if (player.hasPermission("bg.reload.arenas"))
 						{
+							saveYamls();
 							YamlConfiguration.loadConfiguration(arenasFile);
 							player.sendMessage(ChatColor.GREEN + "Arenas reloaded!");
 						}
@@ -521,6 +549,7 @@ public class BuildingGame extends JavaPlugin
 				{;
 					if (player.hasPermission("bg.reload") || (player.hasPermission("bg.reload.config") && player.hasPermission("bg.reload.arenas")))
 					{
+						saveYamls();
 						YamlConfiguration.loadConfiguration(configFile);
 						YamlConfiguration.loadConfiguration(arenasFile);
 						player.sendMessage(ChatColor.GREEN + "All the files have been reloaded!");
@@ -543,6 +572,7 @@ public class BuildingGame extends JavaPlugin
 			{
 				if (player.hasPermission("bg.generatesettings"))
 				{
+					saveYamls();
 					generateSettings();
 				}
 				else if (!player.hasPermission("bg.generatesettings"))
@@ -635,13 +665,25 @@ public class BuildingGame extends JavaPlugin
         	public void run()
 			{
 				firstrun = false;
-				if (seconds == 60 || seconds == 30 || seconds == 15 || (seconds >= 1 && seconds <= 10))
+				if (seconds == 30 || seconds == 15 || (seconds >= 1 && seconds <= 10))
 				{
 					for (Player pl : players.keySet())
 					{
-						if (players.get(pl) == arena)
+						if (players.get(pl).equals(arena))
 						{
 							pl.sendMessage(ChatColor.GOLD + "You have " + seconds + " seconds left!");
+						}
+					}
+					seconds--;
+					timer(arena);
+				}
+				else if (seconds % 60 == 0 && seconds != config.getInt("timer") && seconds != 0)
+				{
+					for (Player pl : players.keySet())
+					{
+						if (players.get(pl).equals(arena))
+						{
+							pl.sendMessage(ChatColor.GOLD + "You have " + seconds / 60 + " minutes left!");
 						}
 					}
 					seconds--;
@@ -656,7 +698,7 @@ public class BuildingGame extends JavaPlugin
 					Location location = new Location(world, x, y, z);
 					for (Player pl : players.keySet())
 					{
-						if (players.get(pl) == arena)
+						if (players.get(pl).equals(arena))
 						{
 							votes.put(pl, 0);
 							pl.teleport(location);
@@ -698,11 +740,11 @@ public class BuildingGame extends JavaPlugin
 				{
 					everyrun = true;
 					place++;
-					if (place > config.getInt(arena))
+					if (place > arenas.getInt(arena + ".maxplayers"))
 					{
 						for (Player pl : players.keySet())
 						{
-							if (players.get(pl) == arena)
+							if (players.get(pl).equals(arena))
 							{
 								if (votes.get(pl) > first)
 								{
@@ -733,9 +775,11 @@ public class BuildingGame extends JavaPlugin
 						int y = arenas.getInt("main-spawn.y");
 						int z = arenas.getInt("main-spawn.z");
 						Location location = new Location(world, x, y, z);
-						for (Player pl : players.keySet())
+						Iterator<Player> iterator = players.keySet().iterator();
+						while (iterator.hasNext())
 						{
-							if (players.get(pl) == arena)
+							Player pl = iterator.next();
+							if (players.get(pl).equals(arena))
 							{
 								pl.teleport(location);
 								pl.sendMessage(ChatColor.GOLD + "Game done!");
@@ -756,29 +800,32 @@ public class BuildingGame extends JavaPlugin
 								third = 0;
 								votes.remove(pl);
 								playernumbers.remove(pl);
-								players.remove(pl);
+								iterator.remove();
 							}
 						}
 						once = true;
 						everyrun = true;
 						voteseconds = config.getInt("votetimer");
+						playersInArena.put(arena, 0);
 					}
 					else
 					{
-						String worldstr = arenas.getString("main-spawn.world");
+						String worldstr = arenas.getString(arena + "." + place + ".world");
 						World world = getServer().getWorld(worldstr);
-						int x = arenas.getInt("main-spawn.x");
-						int y = arenas.getInt("main-spawn.y");
-						int z = arenas.getInt("main-spawn.z");
+						int x = arenas.getInt(arena + "." + place + ".x");
+						int y = arenas.getInt(arena + "." + place + ".y");
+						int z = arenas.getInt(arena + "." + place + ".z");
 						Location location = new Location(world, x, y, z);
 						for (Player pl : players.keySet())
 						{
-							if (players.get(pl) == arena)
+							if (players.get(pl).equals(arena))
 							{
 								pl.teleport(location);
+								pl.sendMessage(ChatColor.GOLD + "" + playernumbers.get(place).getName() + "'s plot");
 							}
 						}
 						voting(arena);
+						everyrun = true;
 					}
 				}
 				else
