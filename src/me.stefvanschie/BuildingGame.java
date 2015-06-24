@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 public class BuildingGame extends JavaPlugin
 {
+	public static BuildingGame main;
 	int first = 0;
 	int second = 0;
 	int third = 0;
@@ -39,6 +39,8 @@ public class BuildingGame extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
+		main = this;
+		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 		//files
 		arenas = new YamlConfiguration();
 		config = new YamlConfiguration();
@@ -80,6 +82,7 @@ public class BuildingGame extends JavaPlugin
 	{
 		getLogger().info("Building Game has been disabled succesfully!");
 		saveYamls();
+		main = null;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
@@ -179,89 +182,7 @@ public class BuildingGame extends JavaPlugin
 			{
 				if (args.length == 2)
 				{
-					if (player.hasPermission("join"))
-					{
-						if (arenas.contains(args[1]))
-						{
-							//mogelijke error
-							if (!playersInArena.containsKey(args[1]))
-							{
-								playersInArena.put(args[1], 0);
-							}
-							if (playersInArena.get(args[1]) < arenas.getInt(args[1] + ".maxplayers"))
-							{
-								player.sendMessage(ChatColor.GOLD + "You have joined the game");
-								for (Player pl : players.keySet())
-								{
-									if (players.get(pl).equals(args[1]))
-									{
-										pl.sendMessage(ChatColor.GOLD + "" + player.getName() + " joined the game!");
-									}
-								}
-								playersInArena.put(args[1], playersInArena.get(args[1]) + 1);
-								players.put(player, args[1]);
-								votes.put(player, 0);
-								if (playersInArena.get(args[1]) == arenas.getInt(args[1] + ".maxplayers"))
-								{
-									String subject = "";
-									if (config.contains("subjects"))
-									{
-										List<String> subjects = new ArrayList<String>(); 
-										subjects = config.getStringList("subjects");
-										Random rndm = new Random();
-										int subjectint = rndm.nextInt(subjects.size());
-										subject = subjects.get(subjectint);
-									}
-									int places = 1;
-									for (Player pl : players.keySet())
-									{
-										if (players.get(pl).equals(args[1]))
-										{
-											String worldstr = arenas.getString(args[1] + "." + places + ".world");
-											World world = getServer().getWorld(worldstr);
-											int x = arenas.getInt(args[1] + "." + places + ".x");
-											int y = arenas.getInt(args[1] + "." + places + ".y");
-											int z = arenas.getInt(args[1] + "." + places + ".z");
-											Location location = new Location(world, x, y, z);
-											pl.teleport(location);
-											pl.sendMessage(ChatColor.GOLD + "The game has started!");
-											if (config.contains("subjects"))
-											{
-												pl.sendMessage(ChatColor.GOLD + "The subject is " + subject);
-											}
-											playernumbers.put(places, player);
-											places++;
-										}
-									}
-									timer(args[1]);
-								}
-							}
-							else if (playersInArena.get(args[1]) >= getConfig().getInt(args[1] + ".maxplayers"))
-							{
-								player.sendMessage(ChatColor.RED + "This arena is currently full");
-							}
-							else
-							{
-								player.sendMessage(ChatColor.RED + "An unexpected error occured: Error: bg.join.playersingame");
-							}
-						}
-						else if (!config.contains(args[1]))
-						{
-							player.sendMessage(ChatColor.RED + "This arena does not exists!");
-						}
-						else
-						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.join.config.contains");
-						}
-					}
-					else if (!player.hasPermission("join"))
-					{
-						player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
-					}
-					else
-					{
-						player.sendMessage(ChatColor.RED + "An unexpected error occured: Error: bg.join.permission");
-					}
+					Join.joinGame(player, args[1]);
 				}
 				else if (args.length < 2)
 				{
@@ -278,40 +199,7 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("leave") && sender instanceof Player)
 			{
-				if (player.hasPermission("leave"))
-				{
-					String worldstr = arenas.getString("main-spawn.world");
-					World world = getServer().getWorld(worldstr);
-					Location location = new Location(world, arenas.getInt("main-spawn.x"), arenas.getInt("main-spawn.y"), arenas.getInt("main-spawn.z"));
-					if (players.containsKey(player))
-					{
-						playersInArena.put(players.get(player), playersInArena.get(players.get(player)) - 1);
-						players.remove(player);
-						playernumbers.remove(player);
-						votes.remove(player);
-						player.teleport(location);
-						player.sendMessage(ChatColor.GOLD + "You have left the game!");
-						for (Player pl : players.keySet())
-						{
-							if (players.get(pl).equals(players.get(player)))
-							{
-								pl.sendMessage(ChatColor.GOLD + "" + player.getName() + " has left the arena!");
-							}
-						}
-					}
-					else
-					{
-						player.sendMessage(ChatColor.GOLD + "You're not in a game!");
-					}
-				}
-				else if (!player.hasPermission("leave"))
-				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
-				}
-				else
-				{
-					player.sendMessage(ChatColor.RED + "An unexpected error occured: Error: bg.leave.permission");
-				}
+				Leave.leaveGame(player);
 			}
 			else if (args[0].equalsIgnoreCase("vote"))
 			{
