@@ -15,9 +15,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 public class BuildingGame extends JavaPlugin
 {
 	public static BuildingGame main;
+	//Scoreboard
+	Scoreboard scoreboard;
+	Objective objective;
+	Score score;
+	ScoreboardManager manager = Bukkit.getScoreboardManager();
+	//other
 	int first = 0;
 	int second = 0;
 	int third = 0;
@@ -40,6 +50,8 @@ public class BuildingGame extends JavaPlugin
 	public void onEnable()
 	{
 		main = this;
+		//scoreboard
+		Scoreboardsetup.setup();
 		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 		//files
 		arenas = new YamlConfiguration();
@@ -84,6 +96,7 @@ public class BuildingGame extends JavaPlugin
 		saveYamls();
 		main = null;
 	}
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		Player player = (Player) sender;
@@ -178,6 +191,77 @@ public class BuildingGame extends JavaPlugin
 					player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setspawn.permission");
 				}
 			}
+			else if (args[0].equalsIgnoreCase("setlobby") && sender instanceof Player)
+			{
+				if (player.hasPermission("bg.setlobby"))
+				{
+					if (args.length == 2)
+					{
+						Setlobby.setlobby(player, args[1]);
+					}
+					else if (args.length < 2)
+					{
+						player.sendMessage(ChatColor.RED + "Please specify the arena name");
+					}
+					else if (args.length > 2)
+					{
+						player.sendMessage(ChatColor.RED + "Please only specify the arena name");
+					}
+					else
+					{
+						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.BuildingGame.onCommand.setlobby.args.length");
+					}
+				}
+				else if (!player.hasPermission("bg.setlobby"))
+				{
+					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+				}
+				else
+				{
+					player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.BuildingGame.onCommand.setlobby.permission");
+				}
+			}
+			else if (args[0].equalsIgnoreCase("setminplayers"))
+			{
+				if (player.hasPermission("bg.setminplayers"))
+				{
+					if (args.length == 3)
+					{
+						if (isInt(args[2]))
+						{
+							Setminplayers.setminplayers(player, args[1], Integer.parseInt(args[2]));
+						}
+						else if (!isInt(args[2]))
+						{
+							player.sendMessage(ChatColor.RED + "The minimal amount of players can only be an integer");
+						}
+						else
+						{
+							player.sendMessage(ChatColor.RED + "An unexpected error occured. bg.BuildingGame.onCommand.setminplayers.isInt");
+						}
+					}
+					else if (args.length < 3)
+					{
+						player.sendMessage(ChatColor.RED + "Please specify the arena name and the minimal amount of players");
+					}
+					else if (args.length > 3)
+					{
+						player.sendMessage(ChatColor.RED + "Please only specify the arena name and the minimal amount of players");
+					}
+					else
+					{
+						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.BuildingGame.onCommand.setminplayers.args.length");
+					}
+				}
+				else if (!player.hasPermission("bg.setminplayers"))
+				{
+					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+				}
+				else
+				{
+					player.sendMessage(ChatColor.RED + "An unexpected error occurred. Error: bg.BuildingGame.onCommand.setminplayers.permission");
+				}
+			}
 			else if (args[0].equalsIgnoreCase("join") && sender instanceof Player)
 			{
 				if (args.length == 2)
@@ -220,6 +304,9 @@ public class BuildingGame extends JavaPlugin
 						{
 							Player pl = playernumbers.get(place);
 							votes.put(pl, args1 + votes.get(pl));
+							//scoreboard
+							BuildingGame.main.score = BuildingGame.main.objective.getScore(playernumbers.get(place));
+							BuildingGame.main.score.setScore(votes.get(playernumbers.get(place)));
 							if (args1 == 8)
 							{
 								player.sendMessage(ChatColor.GOLD + "You gave " + pl.getName() + "'s plot an " + args[1]);
@@ -262,6 +349,8 @@ public class BuildingGame extends JavaPlugin
 				player.sendMessage(ChatColor.GOLD + "/bg setmainspawn" + ChatColor.DARK_GRAY + " - Sets the main spawn location for the buildinggame");
 				player.sendMessage(ChatColor.GOLD + "/bg createarena <arenaname>" + ChatColor.DARK_GRAY + " - Create a new arena");
 				player.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
+				player.sendMessage(ChatColor.GOLD + "/bg setlobby <arenaname>" + ChatColor.DARK_GRAY + " - Set the lobby");
+				player.sendMessage(ChatColor.GOLD + "/bg setminplayers <arenaname> <amount>" + ChatColor.DARK_GRAY + " - Set the minimal amount of players");
 				player.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
 				player.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
 				player.sendMessage(ChatColor.GOLD + "/bg vote <1-10>" + ChatColor.DARK_GRAY + " - Vote on a player's building");
@@ -322,6 +411,34 @@ public class BuildingGame extends JavaPlugin
 					else
 					{
 						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.votetimer.permission");
+					}
+				}
+				else if (args[1].equalsIgnoreCase("waittimer"))
+				{
+					if (player.hasPermission("bg.setting.waittimer"))
+					{
+						if (isInt(args[2]))
+						{
+							config.set("waittimer", Integer.parseInt(args[2]));
+							saveYamls();
+							player.sendMessage(ChatColor.GREEN + "The waittimer setting has been set to " + args[2]);
+						}
+						else if (!isInt(args[2]))
+						{
+							player.sendMessage(ChatColor.RED + "This setting can only be an integer!");
+						}
+						else
+						{
+							player.sendMessage(ChatColor.RED + "An unexpected error occurred. Error: bg.BuildingGame.onCommand.setting.waittimer.isInt");
+						}
+					}
+					else if (!player.hasPermission("bg.setting.waittimer"))
+					{
+						player.sendMessage(ChatColor.RED + "You don't have the rquired permission for that!");
+					}
+					else
+					{
+						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.BuildingGame.onCommand.setting.waittimer.permission");
 					}
 				}
 				else if (args[1].equalsIgnoreCase("subjects"))
@@ -434,7 +551,7 @@ public class BuildingGame extends JavaPlugin
 					}
 				}
 				else if (args.length != 2)
-				{;
+				{
 					if (player.hasPermission("bg.reload") || (player.hasPermission("bg.reload.config") && player.hasPermission("bg.reload.arenas")))
 					{
 						saveYamls();
@@ -462,6 +579,7 @@ public class BuildingGame extends JavaPlugin
 				{
 					saveYamls();
 					generateSettings();
+					player.sendMessage(ChatColor.GREEN + "Default settings generated!");
 				}
 				else if (!player.hasPermission("bg.generatesettings"))
 				{
@@ -472,12 +590,14 @@ public class BuildingGame extends JavaPlugin
 					player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.generatesettings.permission");
 				}
 			}
-			else
+			else if (args.length == 0)
 			{
 				player.sendMessage(ChatColor.DARK_GRAY + "---------------------" + ChatColor.GOLD + "BuildingGame" + ChatColor.DARK_GRAY + "---------------------");
 				player.sendMessage(ChatColor.GOLD + "/bg setmainspawn" + ChatColor.DARK_GRAY + " - Sets the main spawn location for the buildinggame");
 				player.sendMessage(ChatColor.GOLD + "/bg createarena <arenaname>" + ChatColor.DARK_GRAY + " - Create a new arena");
 				player.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
+				player.sendMessage(ChatColor.GOLD + "/bg setlobby <arenaname>" + ChatColor.DARK_GRAY + " - Set the lobby");
+				player.sendMessage(ChatColor.GOLD + "/bg setminplayers <arenaname> <amount>" + ChatColor.DARK_GRAY + " - Set the minimal amount of players");
 				player.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
 				player.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
 				player.sendMessage(ChatColor.GOLD + "/bg vote <1-10>" + ChatColor.DARK_GRAY + " - Mark your building as done");
@@ -535,6 +655,7 @@ public class BuildingGame extends JavaPlugin
 		setsubjects.add("cannon");
 		configFile.getParentFile().mkdirs();
 		config.set("timer", 300);
+		config.set("waittimer", 60);
 		config.set("votetimer", 15);
 		config.set("subjects", setsubjects);
 		saveYamls();
@@ -615,6 +736,13 @@ public class BuildingGame extends JavaPlugin
 		}
 		if (once == true)
 		{
+			for (Player player : players.keySet())
+			{
+				if (players.get(player).equals(arena))
+				{
+					player.setScoreboard(scoreboard);
+				}
+			}
 			place = 1;
 		}
 		Bukkit.getScheduler().runTaskLater(this, new Runnable()
@@ -628,7 +756,7 @@ public class BuildingGame extends JavaPlugin
 				{
 					everyrun = true;
 					place++;
-					if (place > arenas.getInt(arena + ".maxplayers"))
+					if (place > playersInArena.get(arena))
 					{
 						for (Player pl : players.keySet())
 						{
@@ -636,16 +764,34 @@ public class BuildingGame extends JavaPlugin
 							{
 								if (votes.get(pl) > first)
 								{
-									third = second;
+									try
+									{
+										third = votes.get(secondplayer);
+									}
+									catch (NullPointerException e)
+									{
+									}
 									thirdplayer = secondplayer;
-									second = first;
+									try
+									{
+										second = votes.get(firstplayer);
+									}
+									catch (NullPointerException e)
+									{
+									}
 									secondplayer = firstplayer;
 									first = votes.get(pl);
 									firstplayer = pl;
 								}
 								else if (votes.get(pl) < first && votes.get(pl) > second)
 								{
-									third = second;
+									try
+									{
+										third = votes.get(thirdplayer);
+									}
+									catch (NullPointerException e)
+									{
+									}
 									thirdplayer = secondplayer;
 									second = votes.get(pl);
 									secondplayer = pl;
@@ -683,14 +829,16 @@ public class BuildingGame extends JavaPlugin
 								{
 									pl.sendMessage(ChatColor.GREEN + "You went third with " + third + " points!");
 								}
-								first = 0;
-								second = 0;
-								third = 0;
 								votes.remove(pl);
 								playernumbers.remove(pl);
 								iterator.remove();
+								scoreboard.resetScores(pl.getName());
+								pl.setScoreboard(manager.getNewScoreboard());
 							}
 						}
+						first = 0;
+						second = 0;
+						third = 0;
 						once = true;
 						everyrun = true;
 						voteseconds = config.getInt("votetimer");
