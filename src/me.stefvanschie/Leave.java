@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 public class Leave
 {
+	//public static Leave leave;
 	public static void leaveGame(Player player)
 	{
 		if (player.hasPermission("leave"))
