@@ -1,8 +1,5 @@
 package me.stefvanschie;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -28,6 +25,9 @@ public class Join
 					}
 					if (BuildingGame.main.playersInArena.get(arena) < BuildingGame.main.arenas.getInt(arena + ".maxplayers"))
 					{
+						World lobbyworld = BuildingGame.main.getServer().getWorld(BuildingGame.main.arenas.getString(arena + ".lobby.world"));
+						Location lobbylocation = new Location(lobbyworld, BuildingGame.main.arenas.getInt(arena + ".lobby.x"), BuildingGame.main.arenas.getInt(arena + ".lobby.y"), BuildingGame.main.arenas.getInt(arena + ".lobby.z"));
+						player.teleport(lobbylocation);
 						player.sendMessage(ChatColor.GOLD + "You have joined the game");
 						for (Player pl : BuildingGame.main.players.keySet())
 						{
@@ -39,39 +39,44 @@ public class Join
 						BuildingGame.main.playersInArena.put(arena, BuildingGame.main.playersInArena.get(arena) + 1);
 						BuildingGame.main.players.put(player, arena);
 						BuildingGame.main.votes.put(player, 0);
+						if (BuildingGame.main.playersInArena.get(arena) == BuildingGame.main.arenas.getInt(arena + ".minplayers"))
+						{
+							GameStartCountdown.gamestartcountdown(arena);
+						}
 						if (BuildingGame.main.playersInArena.get(arena) == BuildingGame.main.arenas.getInt(arena + ".maxplayers"))
 						{
-							String subject = "";
-							if (BuildingGame.main.config.contains("subjects"))
-							{
-								List<String> subjects = new ArrayList<String>(); 
-								subjects = BuildingGame.main.config.getStringList("subjects");
-								Random rndm = new Random();
-									int subjectint = rndm.nextInt(subjects.size());
-									subject = subjects.get(subjectint);
-							}
-							int places = 1;
-							for (Player pl : BuildingGame.main.players.keySet())
-							{
-								if (BuildingGame.main.players.get(pl).equals(arena))
-								{
-									String worldstr = BuildingGame.main.arenas.getString(arena + "." + places + ".world");
-									World world = BuildingGame.main.getServer().getWorld(worldstr);
-									int x = BuildingGame.main.arenas.getInt(arena + "." + places + ".x");
-									int y = BuildingGame.main.arenas.getInt(arena + "." + places + ".y");
-									int z = BuildingGame.main.arenas.getInt(arena + "." + places + ".z");
-									Location location = new Location(world, x, y, z);
-									pl.teleport(location);
-									pl.sendMessage(ChatColor.GOLD + "The game has started!");
-									if (BuildingGame.main.config.contains("subjects"))
-									{
-										pl.sendMessage(ChatColor.GOLD + "The subject is " + subject);
-									}
-									BuildingGame.main.playernumbers.put(places, player);
-									places++;
-								}
-							}
-							BuildingGame.main.timer(arena);
+							//String subject = "";
+							//if (BuildingGame.main.config.contains("subjects"))
+							//{
+								//List<String> subjects = new ArrayList<String>(); 
+								//subjects = BuildingGame.main.config.getStringList("subjects");
+								//Random rndm = new Random();
+								//int subjectint = rndm.nextInt(subjects.size());
+								//subject = subjects.get(subjectint);
+							//}
+							//int places = 1;
+							//for (Player pl : BuildingGame.main.players.keySet())
+							//{
+								//if (BuildingGame.main.players.get(pl).equals(arena))
+								//{
+									//String worldstr = BuildingGame.main.arenas.getString(arena + "." + places + ".world");
+									//World world = BuildingGame.main.getServer().getWorld(worldstr);
+									//int x = BuildingGame.main.arenas.getInt(arena + "." + places + ".x");
+									//int y = BuildingGame.main.arenas.getInt(arena + "." + places + ".y");
+									//int z = BuildingGame.main.arenas.getInt(arena + "." + places + ".z");
+									//Location location = new Location(world, x, y, z);
+									//pl.teleport(location);
+									//pl.sendMessage(ChatColor.GOLD + "The game has started!");
+									//if (BuildingGame.main.config.contains("subjects"))
+									//{
+										//pl.sendMessage(ChatColor.GOLD + "The subject is " + subject);
+									//}
+									//BuildingGame.main.playernumbers.put(places, player);
+									//places++;
+								//}
+							//}
+							GameStartCountdown.seconds = 0;
+							//BuildingGame.main.timer(arena);
 						}
 					}
 					else if (BuildingGame.main.playersInArena.get(arena) >= BuildingGame.main.config.getInt(arena + ".maxplayers"))
@@ -83,13 +88,13 @@ public class Join
 					player.sendMessage(ChatColor.RED + "An unexpected error occured: Error: bg.join.playersingame");
 					}
 				}
-				else if (!BuildingGame.main.config.contains(arena))
+				else if (!BuildingGame.main.arenas.contains(arena))
 				{
-				player.sendMessage(ChatColor.RED + "This arena does not exists!");
+					player.sendMessage(ChatColor.RED + "This arena does not exists!");
 				}
 				else
 				{
-				player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.join.config.contains");
+					player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.join.arenas.contains");
 				}
 			}
 			else if (BuildingGame.main.players.containsKey(player))
