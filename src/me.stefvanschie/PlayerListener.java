@@ -1,7 +1,9 @@
 package me.stefvanschie;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -50,7 +52,8 @@ public class PlayerListener implements Listener
 				}
 				else if (!e.getPlayer().hasPermission("bg.sign.create"))
 				{
-					e.getPlayer().sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					e.getPlayer().sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -67,7 +70,8 @@ public class PlayerListener implements Listener
 				}
 				else if (!e.getPlayer().hasPermission("bg.sign.create"))
 				{
-					e.getPlayer().sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					e.getPlayer().sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -107,9 +111,53 @@ public class PlayerListener implements Listener
 					else if (sign.getLine(1).equals(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "leave"))
 					{
 						Leave.leaveGame(e.getPlayer());
+						//update all signs
+						//if (BuildingGame.main.config.getBoolean("update-signs")) {
+							//for (World world : Bukkit.getWorlds()) {
+								//for (Chunk chunk : world.getLoadedChunks()) {
+									//for (BlockState blockState : chunk.getTileEntities()) {
+										//if (blockState.getBlock().getState() instanceof Sign) {
+											//Sign joinSign = (Sign) blockState.getBlock().getState();
+											//if (joinSign.getLine(0).equals(ChatColor.BOLD + "BuildingGame")) {
+												//if (joinSign.getLine(1).equals(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "join")) {
+													//joinSign.setLine(3, BuildingGame.main.playersInArena.get(joinSign.getLine(2).replace(ChatColor.UNDERLINE + "Map: ", "")).toString() + "/" + BuildingGame.main.arenas.get(joinSign.getLine(2).replace(ChatColor.UNDERLINE + "Map: ", "") + ".maxplayers").toString());
+												//}
+											//}
+										//}
+									//}
+								//}
+							//}
+						//}
 					}
 				}
 			}
+		}
+		// voting
+		Player player = e.getPlayer();
+		if (!e.getAction().equals(Action.RIGHT_CLICK_AIR) && !e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+			return;
+		}
+		if (player.getItemInHand().getType() == Material.COAL_BLOCK && player.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.DARK_RED + "Very Bad")) {
+			Vote.vote(player, 2);
+			e.setCancelled(true);
+		} else if (player.getItemInHand().getType() == Material.IRON_BLOCK && player.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.RED + "Bad")) {
+			Vote.vote(player, 3);
+			e.setCancelled(true);
+		} else if (player.getItemInHand().getType() == Material.LAPIS_BLOCK && player.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Mwoah")) {
+			Vote.vote(player, 4);
+			e.setCancelled(true);
+		} else if (player.getItemInHand().getType() == Material.REDSTONE_BLOCK && player.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.DARK_GREEN + "Good")) {
+			Vote.vote(player, 5);
+			e.setCancelled(true);
+		} else if (player.getItemInHand().getType() == Material.GOLD_BLOCK && player.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Very Good")) {
+			Vote.vote(player, 6);
+			e.setCancelled(true);
+		} else if (player.getItemInHand().getType() == Material.DIAMOND_BLOCK && player.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.LIGHT_PURPLE + "Awesome")) {
+			Vote.vote(player, 7);
+			e.setCancelled(true);
+		} else if (player.getItemInHand().getType() == Material.EMERALD_BLOCK && player.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.DARK_PURPLE + "Excellent")) {
+			Vote.vote(player, 8);
+			e.setCancelled(true);
 		}
 	}
 }
