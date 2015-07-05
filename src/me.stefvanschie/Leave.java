@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 public class Leave
 {
-	//public static Leave leave;
 	public static void leaveGame(Player player)
 	{
 		if (player.hasPermission("leave"))
@@ -22,14 +21,19 @@ public class Leave
 				BuildingGame.main.playernumbers.remove(player);
 				BuildingGame.main.votes.remove(player);
 				player.teleport(location);
-				player.sendMessage(ChatColor.GOLD + "You have left the game!");
+				player.sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("leave.message")
+						.replaceAll("&", "§"));
 				for (Player pl : BuildingGame.main.players.keySet())
 				{
 					if (BuildingGame.main.players.get(pl).equals(BuildingGame.main.players.get(player)))
 					{
-						pl.sendMessage(ChatColor.GOLD + "" + player.getName() + " has left the arena!");
+						pl.sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("leave.otherPlayers")
+								.replace("%player%", pl.getName())
+								.replaceAll("&", "§"));
 					}
 				}
+				//update all signs
+				SignUpdate.update();
 			}
 			else
 			{
@@ -38,7 +42,8 @@ public class Leave
 		}
 		else if (!player.hasPermission("leave"))
 		{
-			player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+			player.sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("global.permissionNode")
+					.replaceAll("&", "§"));
 		}
 		else
 		{
