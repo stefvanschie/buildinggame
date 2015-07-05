@@ -9,11 +9,14 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -44,20 +47,22 @@ public class BuildingGame extends JavaPlugin
 	//files
 	File arenasFile = new File("arenas.yml");
 	File configFile = new File("config.yml");
+	File messagesFile = new File ("messages.yml");
 	YamlConfiguration arenas = YamlConfiguration.loadConfiguration(arenasFile);
 	YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+	YamlConfiguration messages = YamlConfiguration.loadConfiguration(messagesFile);
 	@Override
 	public void onEnable()
 	{
 		main = this;
-		//scoreboard
-		Scoreboardsetup.setup();
 		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 		//files
 		arenas = new YamlConfiguration();
 		config = new YamlConfiguration();
+		messages = new YamlConfiguration();
 		arenasFile = new File(getDataFolder(), "arenas.yml");
 		configFile = new File(getDataFolder(), "config.yml");
+		messagesFile = new File(getDataFolder(), "messages.yml");
 		loadYamls();
 		if (!arenasFile.exists())
 		{
@@ -86,8 +91,22 @@ public class BuildingGame extends JavaPlugin
 			configFile.getParentFile().mkdirs();
 			generateSettings();
 		}
+		if (!messagesFile.exists())
+		{
+			try
+			{
+				messagesFile.createNewFile();
+			}
+			catch (IOException e)
+			{
+				getLogger().warning("Building Game's messages.yml had some problems.");
+				getLogger().warning("If you don't see the messages.yml file, please restart your server!");
+			}
+			generateMessages();
+		}
 		getLogger().info("Building Game has been enabled succesfully!");
 		saveYamls();
+		Scoreboardsetup.setup();
 	}
 	@Override
 	public void onDisable()
@@ -96,7 +115,6 @@ public class BuildingGame extends JavaPlugin
 		saveYamls();
 		main = null;
 	}
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		Player player = (Player) sender;
@@ -111,11 +129,13 @@ public class BuildingGame extends JavaPlugin
 					arenas.set("main-spawn.y", player.getLocation().getBlockY());
 					arenas.set("main-spawn.z", player.getLocation().getBlockZ());
 					saveYamls();
-					player.sendMessage(ChatColor.GREEN + "Buildinggame main spawn has been set!");
+					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("setMainSpawn.succes")
+							.replaceAll("&", "§"));
 				}
 				else if (!player.hasPermission("setmainspawn"))
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -130,7 +150,9 @@ public class BuildingGame extends JavaPlugin
 					{
 						arenas.set(args[1], null);
 						saveYamls();
-						player.sendMessage(ChatColor.GREEN + "Arena " + args[1] + " created!");
+						player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("createArena.succes")
+								.replace("%arena%", args[1])
+								.replaceAll("&", "§"));
 					}
 					else if (args.length < 2)
 					{
@@ -147,7 +169,8 @@ public class BuildingGame extends JavaPlugin
 				}
 				else if (!player.hasPermission("createarena"))
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -167,7 +190,9 @@ public class BuildingGame extends JavaPlugin
 						arenas.set(args[1] + "." + counter + ".z", player.getLocation().getBlockZ());
 						arenas.set(args[1] + ".maxplayers", counter);
 						saveYamls();
-						player.sendMessage(ChatColor.GREEN + "Spawn " + counter + " set!");
+						player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("setSpawn.succes")
+								.replace("%place%", counter + "")
+								.replaceAll("&", "§"));
 					}
 					else if (args.length > 2)
 					{
@@ -184,7 +209,8 @@ public class BuildingGame extends JavaPlugin
 				}
 				else if (!player.hasPermission("setspawn"))
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the permission for that");
+					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -214,7 +240,8 @@ public class BuildingGame extends JavaPlugin
 				}
 				else if (!player.hasPermission("bg.setlobby"))
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -255,7 +282,8 @@ public class BuildingGame extends JavaPlugin
 				}
 				else if (!player.hasPermission("bg.setminplayers"))
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -287,61 +315,16 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("vote"))
 			{
-				if (player.hasPermission("bg.vote"))
+				int args1 = 0;
+				try
 				{
-					if (players.containsKey(player))
-					{
-						int args1 = 0;
-						try
-						{
-							args1 = Integer.parseInt(args[1]);
-						}
-						catch (NumberFormatException nfe)
-						{
-							player.sendMessage(ChatColor.RED + "This value must be an integer!");
-						}
-						if (args1 >= 1 && args1 <= 10)
-						{
-							Player pl = playernumbers.get(place);
-							votes.put(pl, args1 + votes.get(pl));
-							//scoreboard
-							BuildingGame.main.score = BuildingGame.main.objective.getScore(playernumbers.get(place));
-							BuildingGame.main.score.setScore(votes.get(playernumbers.get(place)));
-							if (args1 == 8)
-							{
-								player.sendMessage(ChatColor.GOLD + "You gave " + pl.getName() + "'s plot an " + args[1]);
-							}
-							else
-							{
-								player.sendMessage(ChatColor.GOLD + "You gave " + pl.getName() + "'s plot a " + args[1]);
-							}
-						}
-						else if (!(args1 >= 1 && args1 <= 10))
-						{
-							player.sendMessage(ChatColor.RED + "Choose a number between 1 and 10");
-						}
-						else
-						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.vote.number");
-						}
-					}
-					else if (!players.containsKey(player))
-					{
-						player.sendMessage(ChatColor.RED + "You're not in a game");
-					}
-					else
-					{
-						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.vote.cotains");
-					}
+					args1 = Integer.parseInt(args[1]);
 				}
-				else if (!player.hasPermission("bg.vote"))
+				catch (NumberFormatException nfe)
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					player.sendMessage(ChatColor.RED + "This value must be an integer!");
 				}
-				else
-				{
-					player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.vote.permission");
-				}
+				Vote.vote(player, args1);
 			}
 			else if (args[0].equalsIgnoreCase("help"))
 			{
@@ -378,7 +361,8 @@ public class BuildingGame extends JavaPlugin
 					}
 					else if (!player.hasPermission("bg.setting.timer"))
 					{
-						player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+						player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+								.replaceAll("&", "§"));
 					}
 					else
 					{
@@ -406,7 +390,8 @@ public class BuildingGame extends JavaPlugin
 					}
 					else if (!player.hasPermission("bg.setting.votetimer"))
 					{
-						player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+						player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+								.replaceAll("&", "§"));
 					}
 					else
 					{
@@ -434,7 +419,8 @@ public class BuildingGame extends JavaPlugin
 					}
 					else if (!player.hasPermission("bg.setting.waittimer"))
 					{
-						player.sendMessage(ChatColor.RED + "You don't have the rquired permission for that!");
+						player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+								.replaceAll("&", "§"));
 					}
 					else
 					{
@@ -463,7 +449,8 @@ public class BuildingGame extends JavaPlugin
 						}
 						else if (!player.hasPermission("bg.setting.subjects.add"))
 						{
-							player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+							player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+									.replaceAll("&", "§"));
 						}
 						else
 						{
@@ -521,7 +508,8 @@ public class BuildingGame extends JavaPlugin
 						}
 						else if (!player.hasPermission("bg.reload.config"))
 						{
-							player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+							player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+									.replaceAll("&", "§"));
 						}
 						else
 						{
@@ -538,7 +526,8 @@ public class BuildingGame extends JavaPlugin
 						}
 						else if (player.hasPermission("bg.reload.arenas"))
 						{
-							player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+							player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+									.replaceAll("&", "§"));
 						}
 						else
 						{
@@ -557,11 +546,13 @@ public class BuildingGame extends JavaPlugin
 						saveYamls();
 						YamlConfiguration.loadConfiguration(configFile);
 						YamlConfiguration.loadConfiguration(arenasFile);
+						YamlConfiguration.loadConfiguration(messagesFile);
 						player.sendMessage(ChatColor.GREEN + "All the files have been reloaded!");
 					}
 					else if (!player.hasPermission("bg.reload") || !player.hasPermission("bg.reload.config") || !player.hasPermission("bg.reload.arenas"))
 					{
-						player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+						player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+								.replaceAll("&", "§"));
 					}
 					else
 					{
@@ -577,13 +568,23 @@ public class BuildingGame extends JavaPlugin
 			{
 				if (player.hasPermission("bg.generatesettings"))
 				{
-					saveYamls();
-					generateSettings();
-					player.sendMessage(ChatColor.GREEN + "Default settings generated!");
+					if (args[1].equalsIgnoreCase("config"))
+					{
+						saveYamls();
+						generateSettings();
+						player.sendMessage(ChatColor.GREEN + "Default settings generated!");
+					}
+					else if (args[1].equalsIgnoreCase("messages"))
+					{
+						saveYamls();
+						generateMessages();
+						player.sendMessage(ChatColor.GREEN + "Default messages generated!");
+					}
 				}
 				else if (!player.hasPermission("bg.generatesettings"))
 				{
-					player.sendMessage(ChatColor.RED + "You don't have the required permission for that!");
+					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
+							.replaceAll("&", "§"));
 				}
 				else
 				{
@@ -611,6 +612,7 @@ public class BuildingGame extends JavaPlugin
 	    {
 	        arenas.save(arenasFile);
 	        config.save(configFile);
+	        messages.save(messagesFile);
 	    }
 	    catch (IOException e)
 	    {
@@ -623,6 +625,7 @@ public class BuildingGame extends JavaPlugin
 	    {
 	        arenas.load(arenasFile);
 	        config.load(configFile);
+	        messages.load(messagesFile);
 	    }
 	    catch (Exception e)
 	    {
@@ -660,6 +663,31 @@ public class BuildingGame extends JavaPlugin
 		config.set("subjects", setsubjects);
 		saveYamls();
 	}
+	public void generateMessages()
+	{
+		messages.set("global.prefix", "&2[&9BuildingGame&2]&r ");
+		messages.set("global.permissionNode", "&cYou don't have the required permission for that!");
+		messages.set("global.scoreboardHeader", "&ePoints");
+		messages.set("setMainSpawn.succes", "&aBuildinggame main spawn has been set!");
+		messages.set("createArena.succes", "&aArena %arena% created!");
+		messages.set("setSpawn.succes", "&aSpawn %place% set!");
+		messages.set("setLobby.succes", "&aLobby set!");
+		messages.set("setMinPlayers.succes", "&aMinimal amount of players set!");
+		messages.set("leave.message", "&6You have left the game!");
+		messages.set("leave.otherPlayers", "&6%player% has left the arena!");
+		messages.set("vote.message", "&6You gave %playerpoints%'s build a %points%");
+		messages.set("join.message", "&6You have joined the game!");
+		messages.set("join.otherPlayers", "&6%player% joined the game!");
+		messages.set("lobbyCountdown.message", "&6The game starts in %seconds% seconds!");
+		messages.set("gameStarts.message", "&6The game has started!");
+		messages.set("gameStarts.subject", "&6 The subject is %subject%");
+		messages.set("buildingCountdown.message", "&6You have %seconds% seconds left!");
+		messages.set("voting.message", "&6%playerplot%'s plot!");
+		messages.set("winner.first", "&aYou went first with %points%!");
+		messages.set("winner.second", "&aYou went second with %points%!");
+		messages.set("winner.third", "&aYou went third with %points%!");
+		saveYamls();
+	}
 	boolean firstrun = true;
 	int seconds;
 	public void timer(final String arena)
@@ -680,7 +708,9 @@ public class BuildingGame extends JavaPlugin
 					{
 						if (players.get(pl).equals(arena))
 						{
-							pl.sendMessage(ChatColor.GOLD + "You have " + seconds + " seconds left!");
+							pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("buildingCountdown.message")
+									.replace("%seconds%", seconds + "")
+									.replaceAll("&", "§"));
 						}
 					}
 					seconds--;
@@ -692,7 +722,9 @@ public class BuildingGame extends JavaPlugin
 					{
 						if (players.get(pl).equals(arena))
 						{
-							pl.sendMessage(ChatColor.GOLD + "You have " + seconds / 60 + " minutes left!");
+							pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.arenas.getString("buildingCountdown.message")
+									.replace("%seconds%", seconds / 60 + "")
+									.replaceAll("&", "§"));
 						}
 					}
 					seconds--;
@@ -711,7 +743,9 @@ public class BuildingGame extends JavaPlugin
 						{
 							votes.put(pl, 0);
 							pl.teleport(location);
-							pl.sendMessage(ChatColor.GOLD + "" + playernumbers.get(1).getName() + "'s plot.");
+							pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("voting.message")
+									.replace("%playerplot%", playernumbers.get(1).getName() + "")
+									.replaceAll("&", "§"));
 						}
 					}
 					firstrun = true;
@@ -744,6 +778,54 @@ public class BuildingGame extends JavaPlugin
 				}
 			}
 			place = 1;
+			//give items
+			for (Player player : players.keySet()) {
+				if (players.get(player).equals(arena)) {
+					//create items
+					//coal
+					ItemStack coal = new ItemStack(Material.COAL_BLOCK, 1);
+					ItemMeta coalMeta = coal.getItemMeta();
+					coalMeta.setDisplayName(ChatColor.DARK_RED + "Very Bad");
+					coal.setItemMeta(coalMeta);
+					player.getInventory().setItem(1, coal);
+					//iron
+					ItemStack iron = new ItemStack(Material.IRON_BLOCK, 1);
+					ItemMeta ironMeta = iron.getItemMeta();
+					ironMeta.setDisplayName(ChatColor.RED + "Bad");
+					iron.setItemMeta(ironMeta);
+					player.getInventory().setItem(2, iron);
+					//lapis
+					ItemStack lapisLazuli = new ItemStack(Material.LAPIS_BLOCK, 1);
+					ItemMeta lapisLazuliMeta = lapisLazuli.getItemMeta();
+					lapisLazuliMeta.setDisplayName(ChatColor.GREEN + "Mwoah");
+					lapisLazuli.setItemMeta(lapisLazuliMeta);
+					player.getInventory().setItem(3, lapisLazuli);
+					//redstone
+					ItemStack redstone = new ItemStack(Material.REDSTONE_BLOCK, 1);
+					ItemMeta redstoneMeta = redstone.getItemMeta();
+					redstoneMeta.setDisplayName(ChatColor.DARK_GREEN + "Good");
+					redstone.setItemMeta(redstoneMeta);
+					player.getInventory().setItem(4, redstone);
+					//gold
+					ItemStack gold = new ItemStack(Material.GOLD_BLOCK, 1);
+					ItemMeta goldMeta = gold.getItemMeta();
+					goldMeta.setDisplayName(ChatColor.YELLOW + "Very Good");
+					gold.setItemMeta(goldMeta);
+					player.getInventory().setItem(5, gold);
+					//diamond
+					ItemStack diamond = new ItemStack(Material.DIAMOND_BLOCK, 1);
+					ItemMeta diamondMeta = diamond.getItemMeta();
+					diamondMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Awesome");
+					diamond.setItemMeta(diamondMeta);
+					player.getInventory().setItem(6, diamond);
+					//emerald
+					ItemStack emerald = new ItemStack(Material.EMERALD_BLOCK, 1);
+					ItemMeta emeraldMeta = emerald.getItemMeta();
+					emeraldMeta.setDisplayName(ChatColor.DARK_PURPLE + "Excellent");
+					emerald.setItemMeta(emeraldMeta);
+					player.getInventory().setItem(7, emerald);
+				}
+			}
 		}
 		Bukkit.getScheduler().runTaskLater(this, new Runnable()
 		{
@@ -819,15 +901,21 @@ public class BuildingGame extends JavaPlugin
 								pl.sendMessage(ChatColor.GOLD + "Game done!");
 								if (firstplayer == pl)
 								{
-									pl.sendMessage(ChatColor.GREEN + "You went first with " + first + " points!");
+									pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("winner.first")
+											.replace("%points%", first + "")
+											.replaceAll("&", "§"));
 								}
 								else if (secondplayer == pl)
 								{
-									pl.sendMessage(ChatColor.GREEN + "You went second with " + second + " points!");
+									pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("winner.second")
+											.replace("%points%", second + "")
+											.replaceAll("&", "§"));
 								}
 								else if (thirdplayer == pl)
 								{
-									pl.sendMessage(ChatColor.GREEN + "You went third with " + third + " points!");
+									pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("winner.third")
+											.replace("%points%", third + "")
+											.replaceAll("&", "§"));
 								}
 								votes.remove(pl);
 								playernumbers.remove(pl);
@@ -857,7 +945,9 @@ public class BuildingGame extends JavaPlugin
 							if (players.get(pl).equals(arena))
 							{
 								pl.teleport(location);
-								pl.sendMessage(ChatColor.GOLD + "" + playernumbers.get(place).getName() + "'s plot");
+								pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.arenas.getString("voting.message")
+										.replace("%playerplot%", playernumbers.get(1).getName() + "")
+										.replaceAll("&", "§"));
 							}
 						}
 						voting(arena);
