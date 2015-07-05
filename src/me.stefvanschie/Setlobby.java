@@ -1,6 +1,5 @@
 package me.stefvanschie;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Setlobby
@@ -11,6 +10,7 @@ public class Setlobby
 		BuildingGame.main.arenas.set(arena + ".lobby.x", player.getLocation().getBlockX());
 		BuildingGame.main.arenas.set(arena + ".lobby.y", player.getLocation().getBlockY());
 		BuildingGame.main.arenas.set(arena + ".lobby.z", player.getLocation().getBlockZ());
-		player.sendMessage(ChatColor.GREEN + "Lobby set!");
+		player.sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("setLobby.succes")
+				.replaceAll("&", "§"));
 	}
 }
