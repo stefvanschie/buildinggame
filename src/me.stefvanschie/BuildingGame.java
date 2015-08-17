@@ -6,6 +6,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import me.confuser.barapi.BarAPI;
+import me.stefvanschie.listeners.blocks.Bounds;
+import me.stefvanschie.listeners.blocks.Break;
+import me.stefvanschie.listeners.blocks.Place;
+import me.stefvanschie.listeners.players.PlayerListener;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,9 +35,12 @@ public class BuildingGame extends JavaPlugin
 	public static BuildingGame main;
 	//Scoreboard
 	Scoreboard scoreboard;
+	//Scoreboard startScoreboard;
 	Objective objective;
+	//Objective startObjective;
 	Score score;
-	ScoreboardManager manager = Bukkit.getScoreboardManager();
+	//Score startScore;
+	ScoreboardManager manager;
 	//other
 	int first = 0;
 	int second = 0;
@@ -40,22 +51,32 @@ public class BuildingGame extends JavaPlugin
 	String arena;
 	int place;
 	int counter = 0;
-	HashMap<Player, String> players = new HashMap<Player, String>();
-	HashMap<Integer, Player> playernumbers = new HashMap<Integer, Player>();
+	HashMap<Player, Integer> playervotes = new HashMap<Player, Integer>();
+	public HashMap<Player, String> players = new HashMap<Player, String>();
+	public HashMap<Integer, Player> playernumbers = new HashMap<Integer, Player>();
 	HashMap<Player, Integer> votes = new HashMap<Player, Integer>();
-	HashMap<String,Integer> playersInArena = new HashMap<String,Integer>();
+	public HashMap<String,Integer> playersInArena = new HashMap<String,Integer>();
 	//files
 	File arenasFile = new File("arenas.yml");
 	File configFile = new File("config.yml");
 	File messagesFile = new File ("messages.yml");
-	YamlConfiguration arenas = YamlConfiguration.loadConfiguration(arenasFile);
+	
+	public YamlConfiguration arenas = YamlConfiguration.loadConfiguration(arenasFile);
 	YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-	YamlConfiguration messages = YamlConfiguration.loadConfiguration(messagesFile);
+	public YamlConfiguration messages = YamlConfiguration.loadConfiguration(messagesFile);
+	
+	private Economy econ = null;
+	private boolean vault = false;
+	
 	@Override
 	public void onEnable()
 	{
+		manager = Bukkit.getScoreboardManager();
 		main = this;
 		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+		getServer().getPluginManager().registerEvents(new Bounds(), this);
+		getServer().getPluginManager().registerEvents(new Break(), this);
+		getServer().getPluginManager().registerEvents(new Place(), this);
 		//files
 		arenas = new YamlConfiguration();
 		config = new YamlConfiguration();
@@ -90,6 +111,7 @@ public class BuildingGame extends JavaPlugin
 			}
 			configFile.getParentFile().mkdirs();
 			generateSettings();
+			saveYamls();
 		}
 		if (!messagesFile.exists())
 		{
@@ -103,10 +125,25 @@ public class BuildingGame extends JavaPlugin
 				getLogger().warning("If you don't see the messages.yml file, please restart your server!");
 			}
 			generateMessages();
+			saveYamls();
 		}
+		
+		//vault setup
+		VaultSetup vaultSetup = new VaultSetup(this, econ);
+		econ = vaultSetup.setup();
+		
+		if (econ != null)
+			vault = true;
+		
 		getLogger().info("Building Game has been enabled succesfully!");
 		saveYamls();
 		Scoreboardsetup.setup();
+		
+		if (!config.contains("version")) {
+			config.set("version", getDescription().getVersion());
+		} else if (config.getString("version") != getDescription().getVersion()) {
+			VersionSetup.setup();
+		}
 	}
 	@Override
 	public void onDisable()
@@ -120,9 +157,20 @@ public class BuildingGame extends JavaPlugin
 		Player player = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("bg"))
 		{
-			if (args[0].equalsIgnoreCase("setmainspawn") && sender instanceof Player)
+			if (args.length == 0) {
+				player.sendMessage(ChatColor.DARK_GRAY + "---------------------" + ChatColor.GOLD + "BuildingGame" + ChatColor.DARK_GRAY + "---------------------");
+				player.sendMessage(ChatColor.GOLD + "/bg setmainspawn" + ChatColor.DARK_GRAY + " - Sets the main spawn location for the buildinggame");
+				player.sendMessage(ChatColor.GOLD + "/bg createarena <arenaname>" + ChatColor.DARK_GRAY + " - Create a new arena");
+				player.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
+				player.sendMessage(ChatColor.GOLD + "/bg setlobby <arenaname>" + ChatColor.DARK_GRAY + " - Set the lobby");
+				player.sendMessage(ChatColor.GOLD + "/bg setminplayers <arenaname> <amount>" + ChatColor.DARK_GRAY + " - Set the minimal amount of players");
+				player.sendMessage(ChatColor.GOLD + "/bg setbounds <arenaname> <plotnumber>" + ChatColor.DARK_GRAY + " - Set the boundaries of a plot");
+				player.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
+				player.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
+				player.sendMessage(ChatColor.GOLD + "/bg vote <1-10>" + ChatColor.DARK_GRAY + " - Vote on a player's building");
+			} else if (args[0].equalsIgnoreCase("setmainspawn") && sender instanceof Player)
 			{
-				if (player.hasPermission("setmainspawn"))
+				if (player.hasPermission("bg.setmainspawn"))
 				{
 					arenas.set("main-spawn.world", player.getLocation().getWorld().getName());
 					arenas.set("main-spawn.x", player.getLocation().getBlockX());
@@ -132,7 +180,7 @@ public class BuildingGame extends JavaPlugin
 					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("setMainSpawn.succes")
 							.replaceAll("&", "§"));
 				}
-				else if (!player.hasPermission("setmainspawn"))
+				else if (!player.hasPermission("bg.setmainspawn"))
 				{
 					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
 							.replaceAll("&", "§"));
@@ -144,7 +192,7 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("createarena"))
 			{
-				if (player.hasPermission("createarena"))
+				if (player.hasPermission("bg.createarena"))
 				{
 					if (args.length == 2)
 					{
@@ -167,7 +215,7 @@ public class BuildingGame extends JavaPlugin
 						player.sendMessage(ChatColor.RED + "An unexpected error occured! Error: bg.createarena.args.length");
 					}
 				}
-				else if (!player.hasPermission("createarena"))
+				else if (!player.hasPermission("bg.createarena"))
 				{
 					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
 							.replaceAll("&", "§"));
@@ -179,7 +227,7 @@ public class BuildingGame extends JavaPlugin
 			}
 			else if (args[0].equalsIgnoreCase("setspawn") && sender instanceof Player)
 			{
-				if (player.hasPermission("setspawn"))
+				if (player.hasPermission("bg.setspawn"))
 				{
 					if (args.length == 2)
 					{
@@ -207,7 +255,7 @@ public class BuildingGame extends JavaPlugin
 						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setspawn.args.length");
 					}
 				}
-				else if (!player.hasPermission("setspawn"))
+				else if (!player.hasPermission("bg.setspawn"))
 				{
 					player.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + messages.getString("global.permissionNode")
 							.replaceAll("&", "§"));
@@ -290,6 +338,31 @@ public class BuildingGame extends JavaPlugin
 					player.sendMessage(ChatColor.RED + "An unexpected error occurred. Error: bg.BuildingGame.onCommand.setminplayers.permission");
 				}
 			}
+			else if (args[0].equalsIgnoreCase("setbounds") && sender instanceof Player) {
+				if (args.length == 3) {
+					if (!isInt(args[2])) {
+						player.sendMessage(ChatColor.RED + args[2] + " is not an integer!");
+						return false;
+					}
+					if (player.hasPermission("bg.setbounds")) {
+						SetBounds.set(Integer.parseInt(args[2]), args[1], player);
+						return true;
+					} else if (!player.hasPermission("bg.setbounds")) {
+						player.sendMessage(messages.getString("global.permissionNode")
+								.replaceAll("&", "§"));
+						return false;
+					}
+				} else if (args.length < 3) {
+					player.sendMessage(ChatColor.RED + "Please specify the arenaname and the plotnumber");
+					return false;
+				} else if (args.length > 3) {
+					player.sendMessage(ChatColor.RED + "Please only specify the arenaname and the plotnumber");
+					return false;
+				} else {
+					player.sendMessage(ChatColor.RED + "An unexpected error occurred. Error: bg.BuildingGame.onCommand.setbounds.args.length");
+					return false;
+				}
+			}
 			else if (args[0].equalsIgnoreCase("join") && sender instanceof Player)
 			{
 				if (args.length == 2)
@@ -334,6 +407,7 @@ public class BuildingGame extends JavaPlugin
 				player.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
 				player.sendMessage(ChatColor.GOLD + "/bg setlobby <arenaname>" + ChatColor.DARK_GRAY + " - Set the lobby");
 				player.sendMessage(ChatColor.GOLD + "/bg setminplayers <arenaname> <amount>" + ChatColor.DARK_GRAY + " - Set the minimal amount of players");
+				player.sendMessage(ChatColor.GOLD + "/bg setbounds <arenaname> <plotnumber>" + ChatColor.DARK_GRAY + " - Set the boundaries of a plot");
 				player.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
 				player.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
 				player.sendMessage(ChatColor.GOLD + "/bg vote <1-10>" + ChatColor.DARK_GRAY + " - Vote on a player's building");
@@ -344,19 +418,27 @@ public class BuildingGame extends JavaPlugin
 				{
 					if (player.hasPermission("bg.setting.timer"))
 					{
-						if (isInt(args[2]))
-						{
-							config.set("timer", Integer.parseInt(args[2]));
-							saveYamls();
-							player.sendMessage(ChatColor.GREEN + "The timer setting has been set to " + args[2]);
-						}
-						else if (!isInt(args[2]))
-						{
-							player.sendMessage(ChatColor.RED + "This setting can only be an integer!");
-						}
-						else
-						{
-							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.timer.integer");
+						if (args.length == 3) {
+							if (isInt(args[2]))
+							{
+								config.set("timer", Integer.parseInt(args[2]));
+								saveYamls();
+								player.sendMessage(ChatColor.GREEN + "The timer setting has been set to " + args[2]);
+							}
+							else if (!isInt(args[2]))
+							{
+								player.sendMessage(ChatColor.RED + "This setting can only be an integer!");
+							}
+							else
+							{
+								player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.timer.integer");
+							}
+						} else if (args.length < 3) {
+							player.sendMessage(ChatColor.RED + "Please specify the time!");
+						} else if (args.length > 3) {
+							player.sendMessage(ChatColor.RED + "Please only specify the time!");
+						} else {
+							player.sendMessage(ChatColor.RED + "An unexpected error occurred. Error: bg.BuildingGame.onCommand.bg.setting.timer.args.length");
 						}
 					}
 					else if (!player.hasPermission("bg.setting.timer"))
@@ -426,6 +508,14 @@ public class BuildingGame extends JavaPlugin
 					{
 						player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.BuildingGame.onCommand.setting.waittimer.permission");
 					}
+				} else if (args[1].equalsIgnoreCase("update-signs")) {
+					if (args[2].equalsIgnoreCase("true")) {
+						config.set("update-signs", true);
+					} else if (args[2].equalsIgnoreCase("false")) {
+						config.set("update-signs", false);
+					} else {
+						player.sendMessage(ChatColor.RED + "This setting can only be a boolean");
+					}
 				}
 				else if (args[1].equalsIgnoreCase("subjects"))
 				{
@@ -483,10 +573,40 @@ public class BuildingGame extends JavaPlugin
 						{
 							player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.setting.subjects.remove.permission");
 						}
-					}
-					else
-					{
+					} else {
 						player.sendMessage(ChatColor.RED + "That option is not available");
+					}
+				}
+				else if (args[1].equalsIgnoreCase("money")) {
+					if (args[2].equalsIgnoreCase("first")) {
+						try {
+							Double.parseDouble(args[3]);
+						} catch (NumberFormatException e) {
+							player.sendMessage(ChatColor.RED + "That's not a double!");
+							return false;
+						}
+						double money = Double.parseDouble(args[3]);
+						config.set("money.first", money);
+					} else if (args[2].equalsIgnoreCase("second")) {
+						try {
+							Double.parseDouble(args[3]);
+						} catch (NumberFormatException e) {
+							player.sendMessage(ChatColor.RED + "That's not a double!");
+							return false;
+						}
+						double money = Double.parseDouble(args[4]);
+						config.set("money.second", money);
+					} else if (args[2].equalsIgnoreCase("third")) {
+						try {
+							Double.parseDouble(args[3]);
+						} catch (NumberFormatException e) {
+							player.sendMessage(ChatColor.RED + "That's not a double!");
+							return false;
+						}
+						double money = Double.parseDouble(args[3]);
+						config.set("money.third", money);
+					} else {
+						player.sendMessage(ChatColor.RED + "That's not a valid option");
 					}
 				}
 				else
@@ -579,6 +699,11 @@ public class BuildingGame extends JavaPlugin
 						saveYamls();
 						generateMessages();
 						player.sendMessage(ChatColor.GREEN + "Default messages generated!");
+					} else {
+						saveYamls();
+						generateSettings();
+						generateMessages();
+						player.sendMessage(ChatColor.GREEN + "All default settings generated!");
 					}
 				}
 				else if (!player.hasPermission("bg.generatesettings"))
@@ -599,6 +724,7 @@ public class BuildingGame extends JavaPlugin
 				player.sendMessage(ChatColor.GOLD + "/bg setspawn <arenaname>" + ChatColor.DARK_GRAY + " - Set a new spawn location");
 				player.sendMessage(ChatColor.GOLD + "/bg setlobby <arenaname>" + ChatColor.DARK_GRAY + " - Set the lobby");
 				player.sendMessage(ChatColor.GOLD + "/bg setminplayers <arenaname> <amount>" + ChatColor.DARK_GRAY + " - Set the minimal amount of players");
+				player.sendMessage(ChatColor.GOLD + "/bg setbounds <arenaname> <plotnumber>" + ChatColor.DARK_GRAY + " - Set the boundaries of a plot");
 				player.sendMessage(ChatColor.GOLD + "/bg join <arenaname>" + ChatColor.DARK_GRAY + " - Join an arena");
 				player.sendMessage(ChatColor.GOLD + "/bg leave" + ChatColor.DARK_GRAY + " - Leave your game");
 				player.sendMessage(ChatColor.GOLD + "/bg vote <1-10>" + ChatColor.DARK_GRAY + " - Mark your building as done");
@@ -660,6 +786,7 @@ public class BuildingGame extends JavaPlugin
 		config.set("timer", 300);
 		config.set("waittimer", 60);
 		config.set("votetimer", 15);
+		config.set("update-signs", true);
 		config.set("subjects", setsubjects);
 		saveYamls();
 	}
@@ -668,14 +795,16 @@ public class BuildingGame extends JavaPlugin
 		messages.set("global.prefix", "&2[&9BuildingGame&2]&r ");
 		messages.set("global.permissionNode", "&cYou don't have the required permission for that!");
 		messages.set("global.scoreboardHeader", "&ePoints");
+		messages.set("global.buildingScoreboardHeader", "&eBuilding Game");
 		messages.set("setMainSpawn.succes", "&aBuildinggame main spawn has been set!");
 		messages.set("createArena.succes", "&aArena %arena% created!");
 		messages.set("setSpawn.succes", "&aSpawn %place% set!");
 		messages.set("setLobby.succes", "&aLobby set!");
 		messages.set("setMinPlayers.succes", "&aMinimal amount of players set!");
+		messages.set("setBounds.succes", "&aBoundaries for plot %place% in arena %arena% set!");
 		messages.set("leave.message", "&6You have left the game!");
 		messages.set("leave.otherPlayers", "&6%player% has left the arena!");
-		messages.set("vote.message", "&6You gave %playerpoints%'s build a %points%");
+		messages.set("vote.message", "&6You gave %playerlot%'s build a %points%");
 		messages.set("join.message", "&6You have joined the game!");
 		messages.set("join.otherPlayers", "&6%player% joined the game!");
 		messages.set("lobbyCountdown.message", "&6The game starts in %seconds% seconds!");
@@ -683,6 +812,13 @@ public class BuildingGame extends JavaPlugin
 		messages.set("gameStarts.subject", "&6 The subject is %subject%");
 		messages.set("buildingCountdown.message", "&6You have %seconds% seconds left!");
 		messages.set("voting.message", "&6%playerplot%'s plot!");
+		messages.set("voting.coal-block", "&4Very Bad");
+		messages.set("voting.iron-block", "&cBad");
+		messages.set("voting.lapis-block", "&aMwoah");
+		messages.set("voting.redstone-block", "&2Good");
+		messages.set("voting.gold-block", "&eVery Good");
+		messages.set("voting.diamond-block", "&dAwesome");
+		messages.set("voting.emerald-block", "&5Excellent");
 		messages.set("winner.first", "&aYou went first with %points%!");
 		messages.set("winner.second", "&aYou went second with %points%!");
 		messages.set("winner.third", "&aYou went third with %points%!");
@@ -690,11 +826,23 @@ public class BuildingGame extends JavaPlugin
 	}
 	boolean firstrun = true;
 	int seconds;
+	int originalSeconds;
 	public void timer(final String arena)
 	{
 		if (firstrun == true)
 		{
 			seconds = config.getInt("timer");
+			originalSeconds = config.getInt("timer");
+			for (Player pl : players.keySet()) {
+				if (players.get(pl).equals(arena)) {
+					//pl.setScoreboard(startScoreboard);
+					if (Bukkit.getPluginManager().isPluginEnabled("BarAPI")) {
+						FileCheck.check("global.barHeader", "Time", messages, BuildingGame.main);
+						BarAPI.setMessage(pl, (messages.getString("global.barHeader")
+								.replaceAll("&", "§")), seconds);
+					}
+				}
+			}
 		}
 		Bukkit.getScheduler().runTaskLater(this, new Runnable()
 		{
@@ -702,7 +850,7 @@ public class BuildingGame extends JavaPlugin
         	public void run()
 			{
 				firstrun = false;
-				if (seconds == 30 || seconds == 15 || (seconds >= 1 && seconds <= 10))
+				if ((seconds % 60 == 0 && seconds != originalSeconds && seconds != 0) || seconds == 30 || seconds == 15 || (seconds >= 1 && seconds <= 10))
 				{
 					for (Player pl : players.keySet())
 					{
@@ -715,22 +863,8 @@ public class BuildingGame extends JavaPlugin
 					}
 					seconds--;
 					timer(arena);
-				}
-				else if (seconds % 60 == 0 && seconds != config.getInt("timer") && seconds != 0)
-				{
-					for (Player pl : players.keySet())
-					{
-						if (players.get(pl).equals(arena))
-						{
-							pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.arenas.getString("buildingCountdown.message")
-									.replace("%seconds%", seconds / 60 + "")
-									.replaceAll("&", "§"));
-						}
-					}
-					seconds--;
-					timer(arena);
-				}
-				else if (seconds == 0)
+					//ScoreboardUpdate.update(seconds, GameStartCountdown.subject, playersInArena.get(arena), arena);
+				} else if (seconds == 0)
 				{
 					World world = getServer().getWorld(arenas.getString(arena + ".1.world"));
 					int x = arenas.getInt(arena + ".1.x");
@@ -746,6 +880,10 @@ public class BuildingGame extends JavaPlugin
 							pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("voting.message")
 									.replace("%playerplot%", playernumbers.get(1).getName() + "")
 									.replaceAll("&", "§"));
+							if (Bukkit.getPluginManager().isPluginEnabled("BarAPI")) {
+								if (BarAPI.hasBar(pl))
+									BarAPI.removeBar(pl);
+							}
 						}
 					}
 					firstrun = true;
@@ -755,6 +893,11 @@ public class BuildingGame extends JavaPlugin
 				{
 					seconds--;
 					timer(arena);
+					for (Player pl : players.keySet()) {
+						if (players.get(pl).equals(arena)) {
+						}
+					}
+					//ScoreboardUpdate.update(seconds, GameStartCountdown.subject, playersInArena.get(arena), arena);
 				}
 			}
 		}, 20L);
@@ -783,45 +926,60 @@ public class BuildingGame extends JavaPlugin
 				if (players.get(player).equals(arena)) {
 					//create items
 					//coal
+					player.getInventory().clear();
 					ItemStack coal = new ItemStack(Material.COAL_BLOCK, 1);
 					ItemMeta coalMeta = coal.getItemMeta();
-					coalMeta.setDisplayName(ChatColor.DARK_RED + "Very Bad");
+					FileCheck.check("voting.coal-block", "&4Very Bad", messages, this);
+					coalMeta.setDisplayName(messages.getString("voting.coal-block")
+							.replaceAll("&", "§"));
 					coal.setItemMeta(coalMeta);
 					player.getInventory().setItem(1, coal);
 					//iron
 					ItemStack iron = new ItemStack(Material.IRON_BLOCK, 1);
 					ItemMeta ironMeta = iron.getItemMeta();
-					ironMeta.setDisplayName(ChatColor.RED + "Bad");
+					FileCheck.check("voting.iron-block", "&cBad", messages, this);
+					ironMeta.setDisplayName(messages.getString("voting.iron-block")
+							.replaceAll("&", "§"));
 					iron.setItemMeta(ironMeta);
 					player.getInventory().setItem(2, iron);
 					//lapis
 					ItemStack lapisLazuli = new ItemStack(Material.LAPIS_BLOCK, 1);
 					ItemMeta lapisLazuliMeta = lapisLazuli.getItemMeta();
-					lapisLazuliMeta.setDisplayName(ChatColor.GREEN + "Mwoah");
+					FileCheck.check("voting.lapis-block", "&aMwoah", messages, this);
+					lapisLazuliMeta.setDisplayName(messages.getString("voting.lapis-block")
+							.replaceAll("&", "§"));
 					lapisLazuli.setItemMeta(lapisLazuliMeta);
 					player.getInventory().setItem(3, lapisLazuli);
 					//redstone
 					ItemStack redstone = new ItemStack(Material.REDSTONE_BLOCK, 1);
 					ItemMeta redstoneMeta = redstone.getItemMeta();
-					redstoneMeta.setDisplayName(ChatColor.DARK_GREEN + "Good");
+					FileCheck.check("voting.redstone-block", "&2Good", messages, this);
+					redstoneMeta.setDisplayName(messages.getString("voting.redstone-block")
+							.replaceAll("&", "§"));
 					redstone.setItemMeta(redstoneMeta);
 					player.getInventory().setItem(4, redstone);
 					//gold
 					ItemStack gold = new ItemStack(Material.GOLD_BLOCK, 1);
 					ItemMeta goldMeta = gold.getItemMeta();
-					goldMeta.setDisplayName(ChatColor.YELLOW + "Very Good");
+					FileCheck.check("voting.gold-block", "&eVery Good", messages, this);
+					goldMeta.setDisplayName(messages.getString("voting.gold-block")
+							.replaceAll("&", "§"));
 					gold.setItemMeta(goldMeta);
 					player.getInventory().setItem(5, gold);
 					//diamond
 					ItemStack diamond = new ItemStack(Material.DIAMOND_BLOCK, 1);
 					ItemMeta diamondMeta = diamond.getItemMeta();
-					diamondMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Awesome");
+					FileCheck.check("voting.diamond-block", "&dAwesome", messages, this);
+					diamondMeta.setDisplayName(messages.getString("voting.diamond-block")
+							.replaceAll("&", "§"));
 					diamond.setItemMeta(diamondMeta);
 					player.getInventory().setItem(6, diamond);
 					//emerald
 					ItemStack emerald = new ItemStack(Material.EMERALD_BLOCK, 1);
 					ItemMeta emeraldMeta = emerald.getItemMeta();
-					emeraldMeta.setDisplayName(ChatColor.DARK_PURPLE + "Excellent");
+					FileCheck.check("voting.emerald-block", "&5Excellent", messages, this);
+					emeraldMeta.setDisplayName(messages.getString("voting.emerald-block")
+							.replaceAll("&", "§"));
 					emerald.setItemMeta(emeraldMeta);
 					player.getInventory().setItem(7, emerald);
 				}
@@ -901,27 +1059,103 @@ public class BuildingGame extends JavaPlugin
 								pl.sendMessage(ChatColor.GOLD + "Game done!");
 								if (firstplayer == pl)
 								{
-									pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("winner.first")
+									if (vault) {
+										//vault
+										try {
+											FileCheck.check("money.first", 20, config);
+											double money = config.getDouble("money.first");
+											EconomyResponse r = econ.depositPlayer(pl, money);
+							            
+											if (r.transactionSuccess()) {
+												FileCheck.check("vault.message", "&aYou've won %money%!", messages, BuildingGame.main);
+												pl.sendMessage(messages.getString("global.prefix")
+														.replaceAll("&", "§") + messages.getString("vault.message")
+														.replace("%money%", money + "")
+														.replaceAll("&", "§"));
+											} else {
+												pl.sendMessage(ChatColor.RED + "Couldn't withdraw money");
+											}
+										} catch (Exception e) {}
+									}
+									pl.sendMessage(messages.getString("global.prefix")
+											.replaceAll("&", "§") + messages.getString("winner.first")
 											.replace("%points%", first + "")
 											.replaceAll("&", "§"));
+									try {
+										for (String command : config.getStringList("commands.first")) {
+											pl.performCommand(command);
+										}
+									} catch (NullPointerException npe) {}
 								}
 								else if (secondplayer == pl)
 								{
-									pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("winner.second")
+									//vault
+									if (vault) {
+										try {
+											FileCheck.check("money.second", 10, config);
+											double money = config.getDouble("money.second");
+											EconomyResponse r = econ.depositPlayer(pl, money);
+									
+											if (r.transactionSuccess()) {
+												FileCheck.check("vault.message", "&aYou've won %money%!", messages, BuildingGame.main);
+												pl.sendMessage(messages.getString("global.prefix")
+														.replaceAll("&", "§") + messages.getString("vault.message")
+														.replace("%money%", money + "")
+														.replaceAll("&", "§"));
+											} else {
+												pl.sendMessage(ChatColor.RED + "Couldn't withdraw money");
+											}
+										} catch (Exception e) {}
+									}
+									pl.sendMessage(messages.getString("global.prefix")
+											.replaceAll("&", "§") + messages.getString("winner.second")
 											.replace("%points%", second + "")
 											.replaceAll("&", "§"));
+									
+									try {
+										for (String command : config.getStringList("commands.second")) {
+											pl.performCommand(command);
+										}
+									} catch (NullPointerException npe) {}
 								}
 								else if (thirdplayer == pl)
 								{
-									pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("winner.third")
+									//vault
+									if (vault) {
+										try {
+											FileCheck.check("money.third", 5, config);
+											double money = config.getDouble("money.third");
+											EconomyResponse r = econ.depositPlayer(pl, money);
+										
+											if (r.transactionSuccess()) {
+												FileCheck.check("vault.message", "&aYou've won %money%!", messages, BuildingGame.main);
+												pl.sendMessage(messages.getString("global.prefix")
+														.replaceAll("&", "§") + messages.getString("vault.message")
+														.replace("%money%", money + "")
+														.replaceAll("&", "§"));
+											} else {
+												pl.sendMessage(ChatColor.RED + "Couldn't withdraw money");
+											}
+										} catch (Exception e) {}
+									}
+									
+									pl.sendMessage(messages.getString("global.prefix")
+											.replaceAll("&", "§") + messages.getString("winner.third")
 											.replace("%points%", third + "")
 											.replaceAll("&", "§"));
+									
+									try {
+										for (String command : config.getStringList("commands.third")) {
+											pl.performCommand(command);
+										}
+									} catch (NullPointerException npe) {}
 								}
 								votes.remove(pl);
 								playernumbers.remove(pl);
 								iterator.remove();
 								scoreboard.resetScores(pl.getName());
 								pl.setScoreboard(manager.getNewScoreboard());
+								pl.getInventory().clear();
 							}
 						}
 						first = 0;
@@ -931,6 +1165,8 @@ public class BuildingGame extends JavaPlugin
 						everyrun = true;
 						voteseconds = config.getInt("votetimer");
 						playersInArena.put(arena, 0);
+						SignUpdate.update();
+						Arena.restore(arena);
 					}
 					else
 					{
@@ -945,8 +1181,8 @@ public class BuildingGame extends JavaPlugin
 							if (players.get(pl).equals(arena))
 							{
 								pl.teleport(location);
-								pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.arenas.getString("voting.message")
-										.replace("%playerplot%", playernumbers.get(1).getName() + "")
+								pl.sendMessage(messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("voting.message")
+										.replace("%playerplot%", playernumbers.get(place).getName() + "")
 										.replaceAll("&", "§"));
 							}
 						}
