@@ -1,5 +1,8 @@
 package me.stefvanschie;
 
+import me.confuser.barapi.BarAPI;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,7 +12,7 @@ public class Leave
 {
 	public static void leaveGame(Player player)
 	{
-		if (player.hasPermission("leave"))
+		if (player.hasPermission("bg.leave"))
 		{
 			String worldstr = BuildingGame.main.arenas.getString("main-spawn.world");
 			World world = BuildingGame.main.getServer().getWorld(worldstr);
@@ -17,6 +20,9 @@ public class Leave
 			if (BuildingGame.main.players.containsKey(player))
 			{
 				BuildingGame.main.playersInArena.put(BuildingGame.main.players.get(player), BuildingGame.main.playersInArena.get(BuildingGame.main.players.get(player)) - 1);
+				if (BuildingGame.main.playersInArena.get(BuildingGame.main.players.get(player)) == 0) {
+					GameStartCountdown.seconds = 0;
+				}
 				BuildingGame.main.players.remove(player);
 				BuildingGame.main.playernumbers.remove(player);
 				BuildingGame.main.votes.remove(player);
@@ -34,13 +40,18 @@ public class Leave
 				}
 				//update all signs
 				SignUpdate.update();
+				if (Bukkit.getPluginManager().isPluginEnabled("BarAPI")) {
+					if (BarAPI.hasBar(player)) {
+						BarAPI.removeBar(player);
+					}
+				}
 			}
 			else
 			{
 				player.sendMessage(ChatColor.GOLD + "You're not in a game!");
 			}
 		}
-		else if (!player.hasPermission("leave"))
+		else if (!player.hasPermission("bg.leave"))
 		{
 			player.sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("global.permissionNode")
 					.replaceAll("&", "§"));
