@@ -2,6 +2,7 @@ package me.stefvanschie;
 
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -10,9 +11,10 @@ import me.stefvanschie.BuildingGame;
 
 public class Join
 {
+	//public static Join join;
 	public static void joinGame (Player player, String arena)
 	{
-		if (player.hasPermission("join"))
+		if (player.hasPermission("bg.join"))
 		{
 			if (!BuildingGame.main.players.containsKey(player))
 			{
@@ -24,6 +26,7 @@ public class Join
 					}
 					if (BuildingGame.main.playersInArena.get(arena) < BuildingGame.main.arenas.getInt(arena + ".maxplayers"))
 					{
+						player.setGameMode(GameMode.ADVENTURE);
 						World lobbyworld = BuildingGame.main.getServer().getWorld(BuildingGame.main.arenas.getString(arena + ".lobby.world"));
 						Location lobbylocation = new Location(lobbyworld, BuildingGame.main.arenas.getInt(arena + ".lobby.x"), BuildingGame.main.arenas.getInt(arena + ".lobby.y"), BuildingGame.main.arenas.getInt(arena + ".lobby.z"));
 						player.teleport(lobbylocation);
@@ -81,7 +84,7 @@ public class Join
 				player.sendMessage(ChatColor.RED + "An unexpected error occured. Error: bg.join.joinGame.BuildingGame.main.players.containskey");
 			}
 		}
-		else if (!player.hasPermission("join"))
+		else if (!player.hasPermission("bg.join"))
 		{
 			player.sendMessage(BuildingGame.main.messages.getString("global.prefix").replaceAll("&", "§") + BuildingGame.main.messages.getString("global.permissionNode")
 					.replaceAll("&", "§"));
