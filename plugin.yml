@@ -1,6 +1,9 @@
 name: BuildingGame
 main: me.stefvanschie.BuildingGame
-version: 0.4.0
+version: 1.0.1
+authors: [stefvanschie]
 commands:
   bg:
+    description: BuildingGame command
+  buildinggame:
     description: BuildingGame command
