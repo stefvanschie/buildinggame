@@ -149,9 +149,9 @@ public class Arena {
 			}
 		}
 		
-		for (int i = 1; i <= getPlots().size(); i++) {
-			if (getPlot(i).getPlayerData() == null) {
-				getPlot(i).join(new PlayerData(player));
+		for (Plot plot : getPlots()) {
+			if (plot.getPlayerData() == null) {
+				plot.join(new PlayerData(player));
 				break;
 			}
 		}
