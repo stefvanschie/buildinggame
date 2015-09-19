@@ -16,16 +16,17 @@ public class UpdateSigns extends SubCommand {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		if (args.length == 0) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "Please specifyt the setting");
+			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the setting");
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		
-		if (!args[0].equalsIgnoreCase("true") || !args[0].equalsIgnoreCase("false")) {
+		if (!args[0].equalsIgnoreCase("true") && !args[0].equalsIgnoreCase("false")) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid setting");
 			return CommandResult.ERROR;
 		}
+		boolean setting;
+		setting = Boolean.parseBoolean(args[0]);
 		
-		boolean setting = Boolean.parseBoolean(args[0]);
 		
 		config.set("update-signs", setting);
 		SettingsManager.getInstance().save();
