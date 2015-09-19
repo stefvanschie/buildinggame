@@ -18,7 +18,7 @@ import me.stefvanschie.buildinggame.events.player.Bounds;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
-import me.stefvanschie.buildinggame.utils.Plot;
+import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 public class SetBounds extends SubCommand {
 	
