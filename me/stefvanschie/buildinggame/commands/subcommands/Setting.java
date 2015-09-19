@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
 import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.subcommands.settings.Money;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.Subjects;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.Timer;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.UpdateSigns;
@@ -24,11 +25,12 @@ public class Setting extends SubCommand {
 	public CommandResult onCommand(Player player, String[] args) {
 
 		//add settings to list
+		subCommands.add(new Money());
+		subCommands.add(new Subjects());
 		subCommands.add(new Timer());
+		subCommands.add(new UpdateSigns());
 		subCommands.add(new VoteTimer());
 		subCommands.add(new WaitTimer());
-		subCommands.add(new UpdateSigns());
-		subCommands.add(new Subjects());
 		//test for right setting
 		
 		if (args.length == 0) {
