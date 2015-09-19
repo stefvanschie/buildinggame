@@ -29,7 +29,7 @@ public class WaitTimer extends SubCommand {
 		
 		int time = Integer.parseInt(args[0]);
 		
-		config.set("votetimer", time);
+		config.set("waittimer", time);
 		SettingsManager.getInstance().save();
 		
 		MessageManager.getInstance().send(player, ChatColor.GREEN + "Waittimer setting set to " + time);
