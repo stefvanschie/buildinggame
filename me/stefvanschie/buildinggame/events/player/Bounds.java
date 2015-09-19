@@ -4,7 +4,7 @@ import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.managers.plots.BoundaryManager;
 import me.stefvanschie.buildinggame.utils.Arena;
-import me.stefvanschie.buildinggame.utils.Plot;
+import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
