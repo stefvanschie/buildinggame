@@ -2,10 +2,9 @@ package me.stefvanschie.buildinggame.events.player;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
-import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
-import me.stefvanschie.buildinggame.utils.Plot;
 import me.stefvanschie.buildinggame.utils.Vote;
+import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -39,57 +38,36 @@ public class VoteEvent implements Listener {
 		if (type == Material.COAL_BLOCK && name.equals(messages.getString("voting.coal-block")
 				.replaceAll("&", "§"))) {
 			plot.addVote(new Vote(2, player));
-			MessageManager.getInstance().send(player, messages.getString("vote.message")
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerData().getPlayer().getName())
-					.replace("%points%", 2 + ""));
 			e.setCancelled(true);
 			return;
 		} else if (type == Material.IRON_BLOCK && name.equals(messages.getString("voting.iron-block")
 				.replaceAll("&", "§"))) {
 			plot.addVote(new Vote(3, player));
-			MessageManager.getInstance().send(player, messages.getString("vote.message")
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerData().getPlayer().getName())
-					.replace("%points%", 3 + ""));
 			e.setCancelled(true);
 			return;
 		} else if (type == Material.LAPIS_BLOCK && name.equals(messages.getString("voting.lapis-block")
 				.replaceAll("&", "§"))) {
 			plot.addVote(new Vote(4, player));
-			MessageManager.getInstance().send(player, messages.getString("vote.message")
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerData().getPlayer().getName())
-					.replace("%points%", 4 + ""));
 			e.setCancelled(true);
 			return;
 		} else if (type == Material.REDSTONE_BLOCK && name.equals(messages.getString("voting.redstone-block")
 				.replaceAll("&", "§"))) {
 			plot.addVote(new Vote(5, player));
-			MessageManager.getInstance().send(player, messages.getString("vote.message")
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerData().getPlayer().getName())
-					.replace("%points%", 5 + ""));
 			e.setCancelled(true);
 			return;
 		} else if (type == Material.GOLD_BLOCK && name.equals(messages.getString("voting.gold-block")
 				.replaceAll("&", "§"))) {
 			plot.addVote(new Vote(6, player));
-			MessageManager.getInstance().send(player, messages.getString("vote.message")
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerData().getPlayer().getName())
-					.replace("%points%", 6 + ""));
 			e.setCancelled(true);
 			return;
 		} else if (type == Material.DIAMOND_BLOCK && name.equals(messages.getString("voting.diamond-block")
 				.replaceAll("&", "§"))) {
 			plot.addVote(new Vote(7, player));
-			MessageManager.getInstance().send(player, messages.getString("vote.message")
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerData().getPlayer().getName())
-					.replace("%points%", 7 + ""));
 			e.setCancelled(true);
 			return;
 		} else if (type == Material.EMERALD_BLOCK && name.equals(messages.getString("voting.emerald-block")
 				.replaceAll("&", "§"))) {
 			plot.addVote(new Vote(8, player));
-			MessageManager.getInstance().send(player, messages.getString("vote.message")
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerData().getPlayer().getName())
-					.replace("%points%", 8 + ""));
 			e.setCancelled(true);
 			return;
 		} else {
