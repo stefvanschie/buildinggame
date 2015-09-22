@@ -19,6 +19,7 @@ public class MainSpawnManager {
 	private Location mainSpawn;
 	
 	public void setup() {
+		mainSpawn = null;
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		try {
 			setMainSpawn(new Location(Bukkit.getWorld(arenas.getString("main-spawn.world")),
