@@ -15,17 +15,23 @@ import me.stefvanschie.buildinggame.managers.softdependencies.SDVault;
 import me.stefvanschie.buildinggame.timers.BuildTimer;
 import me.stefvanschie.buildinggame.timers.VoteTimer;
 import me.stefvanschie.buildinggame.timers.WaitTimer;
+import me.stefvanschie.buildinggame.utils.plot.Plot;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.WeatherType;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class Arena {
 
@@ -138,6 +144,7 @@ public class Arena {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		player.teleport(getLobby().getLocation());
+		player.setGameMode(GameMode.ADVENTURE);
 		
 		MessageManager.getInstance().send(player, messages.getString("join.message"));
 		
@@ -156,6 +163,7 @@ public class Arena {
 			}
 		}
 		
+		player.getInventory().clear();
 		setPlayers(getPlayers() + 1);
 		
 		if (getPlayers() >= getMinPlayers()) {
@@ -196,6 +204,11 @@ public class Arena {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
+		player.teleport(MainSpawnManager.getInstance().getMainSpawn());
+		player.getInventory().setContents(getPlot(player).getPlayerData().getInventory());
+		player.setLevel(getPlot(player).getPlayerData().getLevels());
+		player.setExp(getPlot(player).getPlayerData().getExp());
+		
 		for (Plot plot : getPlots()) {
 			if (plot.getPlayerData() != null) {
 				Player p = plot.getPlayerData().getPlayer();
@@ -216,7 +229,12 @@ public class Arena {
 			}
 		}
 		
-		player.teleport(MainSpawnManager.getInstance().getMainSpawn());
+		if (getPlayers() == 1) {
+			if (getState() == GameState.BUILDING || getState() == GameState.VOTING || getState() == GameState.INGAME) {
+				stop();
+			}
+		}
+		
 		if (isEmpty()) {
 			try {
 				waitTimer.cancel();
@@ -308,7 +326,7 @@ public class Arena {
 		for (Plot plot : getPlots()) {
 			if (plot.getPlayerData() != null) {
 				Player player = plot.getPlayerData().getPlayer();
-				player.teleport(plot.getLocation());
+				player.teleport(votingPlot.getLocation());
 				
 				//give blocks
 				player.getInventory().clear();
@@ -343,7 +361,19 @@ public class Arena {
 						.replace("%subject%", subject)
 						.replaceAll("&", "§"));
 				Player player = plot.getPlayerData().getPlayer();
-						
+				player.setGameMode(GameMode.CREATIVE);
+				
+				ItemStack emerald = new ItemStack(Material.EMERALD, 1);
+				ItemMeta emeraldMeta = emerald.getItemMeta();
+				emeraldMeta.setDisplayName(ChatColor.GREEN + "Options");
+				List<String> emeraldLores = new ArrayList<String>();
+				emeraldLores.add(ChatColor.GRAY + "Change how your build looks,");
+				emeraldLores.add(ChatColor.GRAY + "and add lots of cool features");
+				emeraldMeta.setLore(emeraldLores);
+				emerald.setItemMeta(emeraldMeta);
+				
+				player.getInventory().setItem(8, emerald);
+				
 				if (SDBarApi.getInstance().isEnabled()) {
 					BarAPI.setMessage(player, messages.getString("global.barHeader")
 						.replaceAll("&", "§"), buildTimer.getSeconds());
@@ -454,6 +484,8 @@ public class Arena {
 		setWaitTimer(new WaitTimer(config.getInt("waittimer"), this));
 		setBuildTimer(new BuildTimer(config.getInt("timer"), this));
 		setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
+		getVotedPlots().clear();
+		setScoreboard(new VoteScoreboard());
 		
 		for (Plot plot : getPlots()) {
 			if (plot.getPlayerData() != null) {
@@ -461,10 +493,17 @@ public class Arena {
 				
 				player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 				player.getInventory().setContents(plot.getPlayerData().getInventory());
+				player.setLevel(plot.getPlayerData().getLevels());
+				player.setExp(plot.getPlayerData().getExp());
+				player.setFlySpeed(plot.getPlayerData().getFlySpeed());
+				player.setPlayerTime(player.getWorld().getTime(), true);
+				player.setPlayerWeather(player.getWorld().hasStorm() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 				
 				plot.setPlayer(null);
 			}
 			plot.restore();
+			plot.getVotes().clear();
+			plot.getParticles().clear();
 		}
 		
 		if (config.getBoolean("update-signs")) {
