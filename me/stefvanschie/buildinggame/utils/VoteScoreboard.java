@@ -16,11 +16,11 @@ public class VoteScoreboard {
 	YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	ScoreboardManager manager = Bukkit.getScoreboardManager();
 	Scoreboard scoreboard = manager.getNewScoreboard();  
-    Objective objective = scoreboard.registerNewObjective("votes", "dummy");
+    	Objective objective = scoreboard.registerNewObjective("votes", "dummy");
 	
 	public VoteScoreboard() {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.setDisplayName(messages.getString("global.scoreboardHeader")
+        	objective.setDisplayName(messages.getString("global.scoreboardHeader")
          		.replaceAll("&", "§"));
 	}
 	
