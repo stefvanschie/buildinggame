@@ -3,7 +3,7 @@ package me.stefvanschie.buildinggame.managers.plots;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.Arena;
-import me.stefvanschie.buildinggame.utils.Plot;
+import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 public class PlotManager {
 
