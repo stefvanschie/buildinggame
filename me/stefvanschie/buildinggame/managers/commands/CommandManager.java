@@ -9,7 +9,9 @@ import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
 import me.stefvanschie.buildinggame.commands.subcommands.CreateArena;
 import me.stefvanschie.buildinggame.commands.subcommands.Join;
 import me.stefvanschie.buildinggame.commands.subcommands.Leave;
+import me.stefvanschie.buildinggame.commands.subcommands.Reload;
 import me.stefvanschie.buildinggame.commands.subcommands.SetBounds;
+import me.stefvanschie.buildinggame.commands.subcommands.SetFloor;
 import me.stefvanschie.buildinggame.commands.subcommands.SetLobby;
 import me.stefvanschie.buildinggame.commands.subcommands.SetMainSpawn;
 import me.stefvanschie.buildinggame.commands.subcommands.SetMinPlayers;
@@ -29,10 +31,13 @@ public class CommandManager implements CommandExecutor {
 	private List<SubCommand> subCommands = new ArrayList<SubCommand>();
 	
 	public void setup() {
+		subCommands.clear();
 		subCommands.add(new CreateArena());
 		subCommands.add(new Join());
 		subCommands.add(new Leave());
+		subCommands.add(new Reload());
 		subCommands.add(new SetBounds());
+		subCommands.add(new SetFloor());
 		subCommands.add(new SetLobby());
 		subCommands.add(new SetMainSpawn());
 		subCommands.add(new SetMinPlayers());
