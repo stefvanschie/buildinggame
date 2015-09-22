@@ -7,8 +7,9 @@ import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.managers.softdependencies.SDBarApi;
 import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.GameState;
-import me.stefvanschie.buildinggame.utils.Plot;
+import me.stefvanschie.buildinggame.utils.plot.Plot;
 
+import org.bukkit.GameMode;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -16,12 +17,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class BuildTimer extends BukkitRunnable {
 
 	private int seconds;
-	private int originalSeconds;
 	private Arena arena;
 	
 	public BuildTimer(int seconds, Arena arena) {
 		this.seconds = seconds;
-		originalSeconds = seconds;
 		this.arena = arena;
 	}
 	
@@ -34,6 +33,7 @@ public class BuildTimer extends BukkitRunnable {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getPlayerData() != null) {
 					Player player = plot.getPlayerData().getPlayer();
+					player.setGameMode(GameMode.CREATIVE);
 					if (SDBarApi.getInstance().isEnabled()) {
 						if (BarAPI.hasBar(player)) {
 							BarAPI.removeBar(player);
@@ -44,7 +44,7 @@ public class BuildTimer extends BukkitRunnable {
 			arena.getVoteTimer().runTaskTimer(Main.getInstance(), 20L, 20L);
 			arena.setState(GameState.VOTING);
 			this.cancel();
-		} else if ((seconds != originalSeconds && seconds % 60 == 0) || seconds == 30 || seconds == 15 || (seconds <= 10 && seconds >= 1)) {
+		} else if (seconds % 60 == 0 || seconds == 30 || seconds == 15 || (seconds <= 10 && seconds >= 1)) {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getPlayerData() != null) {
 					Player player = plot.getPlayerData().getPlayer();
