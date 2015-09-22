@@ -1,5 +1,6 @@
 package me.stefvanschie.buildinggame.timers;
 
+import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -7,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
-import me.stefvanschie.buildinggame.utils.Plot;
+import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 public class VoteTimer extends BukkitRunnable {
 
@@ -39,10 +40,14 @@ public class VoteTimer extends BukkitRunnable {
 				if (plot.getPlayerData() != null) {
 					Player player = plot.getPlayerData().getPlayer();
 					MessageManager.getInstance().send(player, messages.getString("voting.message")
-							.replace("%playerplot%", player.getName()
+							.replace("%playerplot%", this.plot.getPlayerData().getPlayer().getName()
 							.replaceAll("&", "§")));
-					arena.getScoreboard().show(player);
+					plot.getPlayerData().sendTitle(messages.getString("global.title")
+							.replace("%playerplot%", this.plot.getPlayerData().getPlayer().getName()));
 					
+					arena.getScoreboard().show(player);
+					player.setPlayerTime(this.plot.getTime().decode(this.plot.getTime()), false);
+					player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 				}
 			}
 		}
