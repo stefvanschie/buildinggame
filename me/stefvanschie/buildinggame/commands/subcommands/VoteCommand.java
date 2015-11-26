@@ -57,7 +57,7 @@ public class VoteCommand extends SubCommand {
 		
 		plot.addVote(vote);
 		MessageManager.getInstance().send(player, messages.getString("vote.message")
-				.replace("%playerplot%", plot.getPlayerData().getPlayer().getName())
+				.replace("%playerplot%", plot.getGamePlayer().getPlayer().getName())
 				.replace("%points%", points + "")
 				.replaceAll("&", "§"));
 		return null;
