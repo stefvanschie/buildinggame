@@ -15,12 +15,20 @@ public class MessageManager {
 	}
 	
 	public void send(CommandSender sender, String message) {
+		if (message.equals("")) {
+			return;
+		}
+		
 		sender.sendMessage(SettingsManager.getInstance().getMessages().getString("global.prefix")
 				.replaceAll("&", "§") + message
 				.replaceAll("&", "§"));
 	}
 	
 	public void sendWithoutPrefix(CommandSender sender, String message) {
+		if (message.equals("")) {
+			return;
+		}
+		
 		sender.sendMessage(message
 				.replaceAll("&", "§"));
 	}
