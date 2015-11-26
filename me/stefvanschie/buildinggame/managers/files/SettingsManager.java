@@ -11,9 +11,7 @@ import org.bukkit.plugin.Plugin;
 
 public class SettingsManager {
 
-	private SettingsManager() {
-		
-	}
+	private SettingsManager() {}
 	
 	private static SettingsManager instance = new SettingsManager();
 	
@@ -27,6 +25,8 @@ public class SettingsManager {
 	private File configFile;
 	private YamlConfiguration messages;
 	private File messagesFile;
+	private YamlConfiguration signs;
+	private File signsFile;
 	
 	public void setup(Plugin p) {
 		if (!p.getDataFolder().exists())
@@ -34,10 +34,12 @@ public class SettingsManager {
 		arenasFile = new File(p.getDataFolder(), "arenas.yml");
 		configFile = new File(p.getDataFolder(), "config.yml");
 		messagesFile = new File(p.getDataFolder(), "messages.yml");
+		signsFile = new File(p.getDataFolder(), "signs.yml");
 		
 		arenas = YamlConfiguration.loadConfiguration(arenasFile);
 		config = YamlConfiguration.loadConfiguration(configFile);
 		messages = YamlConfiguration.loadConfiguration(messagesFile);
+		signs = YamlConfiguration.loadConfiguration(signsFile);
 		if (!arenasFile.exists()) {
 			try {
 				arenasFile.createNewFile();
@@ -61,6 +63,15 @@ public class SettingsManager {
 				e.printStackTrace();
 			}
 		}	
+		if (!signsFile.exists()) {
+			try {
+				signsFile.createNewFile();
+				save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		generateSettings();
 		generateMessages();
 	}
@@ -77,11 +88,16 @@ public class SettingsManager {
 		return messages;
 	}
 	
+	public YamlConfiguration getSigns() {
+		return signs;
+	}
+	
 	public void save() {
 		try {
 			arenas.save(arenasFile);
 			config.save(configFile);
 			messages.save(messagesFile);
+			signs.save(signsFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
