@@ -1,8 +1,10 @@
 package me.stefvanschie.buildinggame.utils;
 
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+import me.stefvanschie.buildinggame.managers.id.IDDecompiler;
+import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 
-import org.bukkit.Material;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -10,56 +12,82 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class VoteBlocks {
 
+	private YamlConfiguration config = SettingsManager.getInstance().getConfig();
 	private YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	
 	public void give(Player player) {
-		ItemStack coal = new ItemStack(Material.COAL_BLOCK);
-		ItemMeta coalMeta = coal.getItemMeta();
-		coalMeta.setDisplayName(messages.getString("voting.coal-block")
-				.replaceAll("&", "§"));
-		coal.setItemMeta(coalMeta);
-		player.getInventory().setItem(1, coal);
+		try {
+			CustomBlock twoBlock = IDDecompiler.getInstance().decompile(config.getString("voting.two-points-id"));
+			
+			ItemStack two = new ItemStack(twoBlock.getMaterial());
+			two.setDurability(twoBlock.getData());
+			ItemMeta twoMeta = two.getItemMeta();
+			twoMeta.setDisplayName(messages.getString("voting.two-points-block")
+					.replaceAll("&", "§"));
+			two.setItemMeta(twoMeta);
+			player.getInventory().setItem(1, two);
 		
-		ItemStack iron = new ItemStack(Material.IRON_BLOCK);
-		ItemMeta ironMeta = iron.getItemMeta();
-		ironMeta.setDisplayName(messages.getString("voting.iron-block")
-				.replaceAll("&", "§"));
-		iron.setItemMeta(ironMeta);
-		player.getInventory().setItem(2, iron);
+			CustomBlock threeBlock = IDDecompiler.getInstance().decompile(config.getString("voting.three-points-id"));
+			
+			ItemStack three = new ItemStack(threeBlock.getMaterial());
+			three.setDurability(threeBlock.getData());
+			ItemMeta threeMeta = three.getItemMeta();
+			threeMeta.setDisplayName(messages.getString("voting.three-points-block")
+					.replaceAll("&", "§"));
+			three.setItemMeta(threeMeta);
+			player.getInventory().setItem(2, three);
 		
-		ItemStack lapis = new ItemStack(Material.LAPIS_BLOCK);
-		ItemMeta lapisMeta = lapis.getItemMeta();
-		lapisMeta.setDisplayName(messages.getString("voting.lapis-block")
-				.replaceAll("&", "§"));
-		lapis.setItemMeta(lapisMeta);
-		player.getInventory().setItem(3, lapis);
+			CustomBlock fourBlock = IDDecompiler.getInstance().decompile(config.getString("voting.four-points-id"));
+			
+			ItemStack four = new ItemStack(fourBlock.getMaterial());
+			four.setDurability(fourBlock.getData());
+			ItemMeta fourMeta = four.getItemMeta();
+			fourMeta.setDisplayName(messages.getString("voting.four-points-block")
+					.replaceAll("&", "§"));
+			four.setItemMeta(fourMeta);
+			player.getInventory().setItem(3, four);
 		
-		ItemStack redstone = new ItemStack(Material.REDSTONE_BLOCK);
-		ItemMeta redstoneMeta = redstone.getItemMeta();
-		redstoneMeta.setDisplayName(messages.getString("voting.redstone-block")
-				.replaceAll("&", "§"));
-		redstone.setItemMeta(redstoneMeta);
-		player.getInventory().setItem(4, redstone);
+			CustomBlock fiveBlock = IDDecompiler.getInstance().decompile(config.getString("voting.five-points-id"));
+			
+			ItemStack five = new ItemStack(fiveBlock.getMaterial());
+			five.setDurability(fiveBlock.getData());
+			ItemMeta fiveMeta = five.getItemMeta();
+			fiveMeta.setDisplayName(messages.getString("voting.five-points-block")
+					.replaceAll("&", "§"));
+			five.setItemMeta(fiveMeta);
+			player.getInventory().setItem(4, five);
 		
-		ItemStack gold = new ItemStack(Material.GOLD_BLOCK);
-		ItemMeta goldMeta = gold.getItemMeta();
-		goldMeta.setDisplayName(messages.getString("voting.gold-block")
-				.replaceAll("&", "§"));
-		gold.setItemMeta(goldMeta);
-		player.getInventory().setItem(5, gold);
+			CustomBlock sixBlock = IDDecompiler.getInstance().decompile(config.getString("voting.six-points-id"));
+			
+			ItemStack six = new ItemStack(sixBlock.getMaterial());
+			six.setDurability(sixBlock.getData());
+			ItemMeta sixMeta = six.getItemMeta();
+			sixMeta.setDisplayName(messages.getString("voting.six-points-block")
+					.replaceAll("&", "§"));
+			six.setItemMeta(sixMeta);
+			player.getInventory().setItem(5, six);
 		
-		ItemStack diamond = new ItemStack(Material.DIAMOND_BLOCK);
-		ItemMeta diamondMeta = diamond.getItemMeta();
-		diamondMeta.setDisplayName(messages.getString("voting.diamond-block")
-				.replaceAll("&", "§"));
-		diamond.setItemMeta(diamondMeta);
-		player.getInventory().setItem(6, diamond);
-		
-		ItemStack emerald = new ItemStack(Material.EMERALD_BLOCK);
-		ItemMeta emeraldMeta = emerald.getItemMeta();
-		emeraldMeta.setDisplayName(messages.getString("voting.emerald-block")
-				.replaceAll("&", "§"));
-		emerald.setItemMeta(emeraldMeta);
-		player.getInventory().setItem(7, emerald);
+			CustomBlock sevenBlock = IDDecompiler.getInstance().decompile(config.getString("voting.seven-points-id"));
+			
+			ItemStack seven = new ItemStack(sevenBlock.getMaterial());
+			seven.setDurability(sevenBlock.getData());
+			ItemMeta sevenMeta = seven.getItemMeta();
+			sevenMeta.setDisplayName(messages.getString("voting.seven-points-block")
+					.replaceAll("&", "§"));
+			seven.setItemMeta(sevenMeta);
+			player.getInventory().setItem(6, seven);
+			
+			CustomBlock eightBlock = IDDecompiler.getInstance().decompile(config.getString("voting.eight-points-id"));
+			
+			ItemStack eight = new ItemStack(eightBlock.getMaterial());
+			eight.setDurability(eightBlock.getData());
+			ItemMeta eightMeta = eight.getItemMeta();
+			eightMeta.setDisplayName(messages.getString("voting.eight-points-block")
+					.replaceAll("&", "§"));
+			eight.setItemMeta(eightMeta);
+			player.getInventory().setItem(7, eight);
+		} catch (NullPointerException npe) {
+			MessageManager.getInstance().send(player, ChatColor.RED + "There's a wrong id in your config. Please fix this in order to open the menu.");
+		}
 	}
 }
