@@ -10,7 +10,7 @@ public class SDVault {
 	public SDVault() {}
 	
 	public static SDVault instance = new SDVault();
-	public static Economy econ;
+	private static Economy econ;
 	public boolean enabled = false;
 	
 	public static SDVault getInstance() {
@@ -25,7 +25,7 @@ public class SDVault {
 		enabled = true;
 		return econ;
 	}
-		
+	
 	private boolean setupEconomy() {
 		if (Main.getInstance().getServer().getPluginManager().getPlugin("Vault") == null)
 			return false;
@@ -35,8 +35,8 @@ public class SDVault {
 		econ = rsp.getProvider();
 		return econ != null;
 	}
-		
-	public Economy getVault() {
+    
+	public Economy getEconomy() {
 		return econ;
 	}
 	
