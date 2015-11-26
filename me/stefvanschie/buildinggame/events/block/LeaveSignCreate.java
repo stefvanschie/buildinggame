@@ -3,7 +3,6 @@ package me.stefvanschie.buildinggame.events.block;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,9 +28,18 @@ public class LeaveSignCreate implements Listener {
 			return;
 		}
 		
-		e.setLine(0, ChatColor.BOLD + "BuildingGame");
-		e.setLine(1, ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "leave");
-		e.setLine(2, "");
-		e.setLine(3, "");
+		String line1 = messages.getString("leave-sign.line-1");
+		String line2 = messages.getString("leave-sign.line-2");
+		String line3 = messages.getString("leave-sign.line-3");
+		String line4 = messages.getString("leave-sign.line-4");
+		
+		e.setLine(0, line1
+				.replaceAll("&", "§"));
+		e.setLine(1, line2
+				.replaceAll("&", "§"));
+		e.setLine(2, line3
+				.replaceAll("&", "§"));
+		e.setLine(3, line4
+				.replaceAll("&", "§"));
 	}
 }
