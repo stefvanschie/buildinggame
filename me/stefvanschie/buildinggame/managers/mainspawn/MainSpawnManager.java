@@ -1,5 +1,6 @@
 package me.stefvanschie.buildinggame.managers.mainspawn;
 
+import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 
 import org.bukkit.Bukkit;
@@ -26,6 +27,9 @@ public class MainSpawnManager {
 					arenas.getInt("main-spawn.x"),
 					arenas.getInt("main-spawn.y"),
 					arenas.getInt("main-spawn.z")));
+			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+				Main.getInstance().getLogger().info("Loaded main spawn");
+			}
 		} catch (NullPointerException e) {
 			setMainSpawn(null);
 		} catch (IllegalArgumentException iae) {
