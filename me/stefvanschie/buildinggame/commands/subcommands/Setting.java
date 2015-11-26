@@ -12,7 +12,6 @@ import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.Money;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.Subjects;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.Timer;
-import me.stefvanschie.buildinggame.commands.subcommands.settings.UpdateSigns;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.VoteTimer;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.WaitTimer;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
@@ -28,7 +27,6 @@ public class Setting extends SubCommand {
 		subCommands.add(new Money());
 		subCommands.add(new Subjects());
 		subCommands.add(new Timer());
-		subCommands.add(new UpdateSigns());
 		subCommands.add(new VoteTimer());
 		subCommands.add(new WaitTimer());
 		//test for right setting
@@ -77,7 +75,7 @@ public class Setting extends SubCommand {
 
 	@Override
 	public String getPermission() {
-		return null;
+		return "bg.setting";
 	}
 
 }
