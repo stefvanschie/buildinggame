@@ -1,22 +1,18 @@
 package me.stefvanschie.buildinggame.commands.subcommands;
 
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
 import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
+
+import org.bukkit.entity.Player;
 
 public class Reload extends SubCommand {
 
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {
-		MessageManager.getInstance().send(player, ChatColor.GOLD + "I'm sorry this command is diabled, due to unexpected behavior.");
-		MessageManager.getInstance().send(player, ChatColor.GOLD + "You don't have to contact me, I already know about this bug.");
-		MessageManager.getInstance().send(player, ChatColor.GOLD + "Please use /reload or /restart to reload this plugin.");
 		
+		MessageManager.getInstance().send(player, "Command disabled due to weird behavior");
 		return CommandResult.ERROR;
-		
 		/*
 		long start = System.nanoTime();
 		MessageManager.getInstance().send(player, ChatColor.GOLD + "Loading files");
