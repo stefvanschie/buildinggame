@@ -3,6 +3,7 @@ package me.stefvanschie.buildinggame.managers.plots;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.Arena;
@@ -31,6 +32,9 @@ public class BoundaryManager {
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".low.x"),
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".low.y"),
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".low.z")));
+					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+						Main.getInstance().getLogger().info("Loaded boundary for plot " + plot.getID() + " in arena " + arena.getName());
+					}
 				} catch (NullPointerException e) {
 					plot.setBoundary(null);
 				} catch (IllegalArgumentException iae) {
