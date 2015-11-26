@@ -1,21 +1,24 @@
 package me.stefvanschie.buildinggame.commands.subcommands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
 import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
+import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
-import me.stefvanschie.buildinggame.utils.GameState;
 
 public class Join extends SubCommand {
 
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
 		if (args.length == 0) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arena");
+			MessageManager.getInstance().send(player, messages.getString("join.no-arena"));
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		
@@ -26,13 +29,9 @@ public class Join extends SubCommand {
 			return CommandResult.ERROR;
 		}
 		
-		if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) {
-			arena.join(player);
-			return CommandResult.SUCCES;
-		}
+		arena.join(player);
 		
-		MessageManager.getInstance().send(player, ChatColor.RED + "This arena is full");
-		return CommandResult.ERROR;
+		return CommandResult.SUCCES;
 	}
 
 	@Override
