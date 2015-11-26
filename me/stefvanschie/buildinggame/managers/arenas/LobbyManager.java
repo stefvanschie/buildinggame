@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.Lobby;
@@ -22,15 +23,12 @@ public class LobbyManager {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 			
-			try {
-				arena.setLobby(new Lobby(new Location(Bukkit.getWorld(arenas.getString(arena.getName() + ".lobby.world")),
-						arenas.getInt(arena.getName() + ".lobby.x"),
-						arenas.getInt(arena.getName() + ".lobby.y"),
-						arenas.getInt(arena.getName() + ".lobby.z"))));
-			} catch (NullPointerException npe) {
-				arena.setLobby(null);
-			} catch (IllegalArgumentException iae) {
-				arena.setLobby(null);
+			arena.setLobby(new Lobby(new Location(Bukkit.getWorld(arenas.getString(arena.getName() + ".lobby.world")),
+					arenas.getInt(arena.getName() + ".lobby.x"),
+					arenas.getInt(arena.getName() + ".lobby.y"),
+					arenas.getInt(arena.getName() + ".lobby.z"))));
+			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+				Main.getInstance().getLogger().info("Loaded lobby for " + arena.getName());
 			}
 		}
 	}
