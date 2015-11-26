@@ -1,13 +1,17 @@
 package me.stefvanschie.buildinggame.utils.plot;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import me.stefvanschie.buildinggame.Main;
+import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
-import me.stefvanschie.buildinggame.utils.PlayerData;
+import me.stefvanschie.buildinggame.utils.GameState;
+import me.stefvanschie.buildinggame.utils.GamePlayer;
 import me.stefvanschie.buildinggame.utils.Time;
 import me.stefvanschie.buildinggame.utils.Vote;
 import me.stefvanschie.buildinggame.utils.particle.Particle;
@@ -24,7 +28,8 @@ public class Plot {
 
 	private boolean raining = false;
 	private int ID;
-	private PlayerData playerData;
+	private Map<Player, Integer> timesVoted = new HashMap<Player, Integer>();
+	private GamePlayer gamePlayer;
 	private List<BlockState> blocks = new ArrayList<BlockState>();
 	private List<Vote> votes = new ArrayList<Vote>();
 	private List<Particle> particles = new ArrayList<Particle>();
@@ -39,37 +44,64 @@ public class Plot {
 	}
 	
 	public void addParticle(Particle particle) {
-		particles.add(particle);
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
+		if (getParticles().size() != config.getInt("max-particles")) {
+			particles.add(particle);
+		} else {
+			MessageManager.getInstance().send(getGamePlayer().getPlayer(),
+					messages.getString("particle.max-particles"));
+		}
 	}
 	
 	public void addVote(Vote vote) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		if (vote.getSender() == getPlayerData().getPlayer()) {
-			MessageManager.getInstance().send(vote.getSender(), ChatColor.RED + "You can't vote on your own plot");
+		if (getArena().getState() != GameState.VOTING) {
 			return;
 		}
 		
-		MessageManager.getInstance().send(getPlayerData().getPlayer(), messages.getString("vote.message")
-				.replace("%playerplot%", getArena().getVotingPlot().getPlayerData().getPlayer().getName())
-				.replace("%points%", vote.getPoints() + ""));
-		
-		votes.add(vote);
-		
-		Iterator<Vote> iterator = votes.iterator();
-		while (iterator.hasNext()) {
-			Vote v = iterator.next();
-			if (v.getSender() == vote.getSender()) {
-				votes.remove(v);
+		if (vote.getSender() == getGamePlayer().getPlayer()) {
+			if (!vote.getSender().getName().equals("stefvanschie")) {
+				//just so I can bypass not able to vote
+				//makes my life easier :)
+				MessageManager.getInstance().send(vote.getSender(), messages.getString("vote.own-plot"));
+				return;
 			}
 		}
 		
-		arena.getScoreboard().setScore(getPlayerData().getPlayer().getName(), arena.getScoreboard().getScore(getPlayerData().getPlayer().getName()).getScore() + vote.getPoints());
+		//check how many times voted
+		if (getTimesVoted(vote.getSender()) == config.getInt("max-vote-change")) {
+			MessageManager.getInstance().send(vote.getSender(), ChatColor.RED + "You can only change your vote " + config.getInt("max-vote-change") + " times");
+			return;
+		}
 		
-		for (Plot p : arena.getPlots()) {
-			if (p.getPlayerData() != null) {
-				Player player = p.getPlayerData().getPlayer();
-				arena.getScoreboard().show(player);
+		getTimesVoted().put(vote.getSender(), getTimesVoted(vote.getSender()) + 1);
+		
+		MessageManager.getInstance().send(vote.getSender(), messages.getString("vote.message")
+				.replace("%playerplot%", getArena().getVotingPlot().getGamePlayer().getPlayer().getName())
+				.replace("%points%", vote.getPoints() + ""));
+		
+		ArenaManager.getInstance().getArena(vote.getSender()).getPlot(vote.getSender()).getGamePlayer().sendTitle(messages.getString("vote.title")
+				.replace("%points%", vote.getPoints() + ""));
+		ArenaManager.getInstance().getArena(vote.getSender()).getPlot(vote.getSender()).getGamePlayer().sendSubtitle(messages.getString("vote.subtitle")
+				.replace("%points%", vote.getPoints() + ""));
+		
+		if (hasVoted(vote.getSender())) {
+			getVotes().remove(getVote(vote.getSender()));
+		}
+		
+		votes.add(vote);
+		
+		arena.getScoreboard().setScore(getGamePlayer().getPlayer().getName(), getPoints());
+		if (!config.getBoolean("names-after-voting")) {
+			for (Plot p : arena.getPlots()) {
+				if (p.getGamePlayer() != null) {
+					Player player = p.getGamePlayer().getPlayer();
+					arena.getScoreboard().show(player);
+				}
 			}
 		}
 	}
@@ -102,8 +134,8 @@ public class Plot {
 		return particles;
 	}
 	
-	public PlayerData getPlayerData() {
-		return playerData;
+	public GamePlayer getGamePlayer() {
+		return gamePlayer;
 	}
 	
 	public int getPoints() {
@@ -120,23 +152,64 @@ public class Plot {
 		return time;
 	}
 	
+	public Map<Player, Integer> getTimesVoted() {
+		return timesVoted;
+	}
+	
+	public List<Player> getTimesVoted(int times) {
+		List<Player> players = new ArrayList<Player>();
+		
+		for (Player player : timesVoted.keySet()) {
+			if (timesVoted.get(player) == times) {
+				players.add(player);
+			}
+		}
+		
+		return players;
+	}
+	
+	public int getTimesVoted(Player player) {
+		if (timesVoted.get(player) == null) {
+			return 0;
+		}
+		return timesVoted.get(player);
+	}
+	
+	public Vote getVote(Player player) {
+		for (Vote vote : getVotes()) {
+			if (vote.getSender() == player) {
+				return vote;
+			}
+		}
+		return null;
+	}
+	
 	public List<Vote> getVotes() {
 		return votes;
+	}
+	
+	public boolean hasVoted(Player player) {
+		for (Vote vote : getVotes()) {
+			if (vote.getSender() == player) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean isRaining() {
 		return raining;
 	}
 	
-	public void join(PlayerData playerData) {
-		if (this.playerData != null) {
+	public void join(GamePlayer gamePlayer) {
+		if (this.gamePlayer != null) {
 			leave();
 		}
-		this.playerData = playerData;
+		this.gamePlayer = gamePlayer;
 	}
 	
 	public void leave() {
-		playerData = null;
+		gamePlayer = null;
 	}
 	
 	public void removeParticle(int index) {
@@ -153,6 +226,12 @@ public class Plot {
 	
 	@SuppressWarnings("deprecation")
 	public void restore() {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
+		if (!config.getBoolean("restore-plots")) {
+			return;
+		}
+		
 		for (BlockState blockState : blocks) {
 			blockState.getLocation().getBlock().setType(blockState.getType());
 			blockState.getLocation().getBlock().setData(blockState.getRawData());
@@ -160,6 +239,11 @@ public class Plot {
 	}
 	
 	public void save() {
+		if (getBoundary() == null) {
+			Main.getInstance().getLogger().warning("No boundary's found. Disabling auto-resetting plots...");
+			return;
+		}
+		
 		for (Block block : getBoundary().getAllBlocks()) {
 			blocks.add(block.getState());
 		}
@@ -193,22 +277,22 @@ public class Plot {
 		this.particles = particles;
 	}
 	
-	public void setPlayer(PlayerData playerData) {
-		this.playerData = playerData;
+	public void setPlayer(GamePlayer gamePlayer) {
+		this.gamePlayer = gamePlayer;
 	}
 	
 	public void setRaining(boolean raining) {
 		this.raining = raining;
 		if (raining == true) {
-			getPlayerData().getPlayer().setPlayerWeather(WeatherType.DOWNFALL);
+			getGamePlayer().getPlayer().setPlayerWeather(WeatherType.DOWNFALL);
 		} else {
-			getPlayerData().getPlayer().setPlayerWeather(WeatherType.CLEAR);
+			getGamePlayer().getPlayer().setPlayerWeather(WeatherType.CLEAR);
 		}
 	}
 	
 	public void setTime(Time time) {
 		this.time = time;
-		getPlayerData().getPlayer().setPlayerTime(time.decode(time), false);
+		getGamePlayer().getPlayer().setPlayerTime(time.decode(time), false);
 	}
 	
 	public void setVotes(List<Vote> votes) {
