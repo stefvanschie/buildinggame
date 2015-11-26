@@ -1,0 +1,69 @@
+timer: 300
+votetimer: 15
+waittimer: 60
+wintimer: 10
+
+restore-plots: true
+scoreboard-update-delay: 20
+max-vote-change: -1
+max-particles: -1
+names-after-voting: false
+
+subjects:
+- dog
+- house
+- toilet
+- superman
+- superhero
+- car
+- book
+- candy
+- flower
+- headset
+
+title:
+  fade_in: 0
+  stay: 20
+  fade_out: 20
+
+voting:
+  two-points-id: 'coal_block'
+  three-points-id: 'iron_block'
+  four-points-id: 'lapis_block'
+  five-points-id: 'redstone_block'
+  six-points-id: 'gold_block'
+  seven-points-id: 'diamond_block'
+  eight-points-id: 'emerald_block'
+
+command-whitelist:
+- give
+- gamemode
+
+win-commands:
+- 'execute %winner% ~1 ~ ~-4 summon FireworksRocketEntity ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[14263784,581228,995542,3255052,13888116,4175055],FadeColors:[8848460]}]}}}}'
+- 'execute %winner% ~-2 ~ ~3 summon FireworksRocketEntity ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:2,Colors:[14495340,12909992,8969028,7924605],FadeColors:[10438567,12267580,2724499,9942861]}]}}}}'
+- 'execute %winner% ~-4 ~ ~1 summon FireworksRocketEntity ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[2540754],FadeColors:[14655338,2417053,631931,4555299,15572482,3482736,693669]}]}}}}'
+
+money:
+  first: 20
+  second: 10
+  third: 5
+  others: 0
+commands:
+  first:
+  -
+  second:
+  -
+  third:
+  -
+  others:
+  -
+gui:
+  particle-id: 'red_rose'
+  floor-id: 'hard_clay'
+  time-id: 'watch'
+  rain-id: 'water_bucket'
+  fly-speed-id: 'feather'
+
+debug: false
+clean-files: false
