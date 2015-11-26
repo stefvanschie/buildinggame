@@ -1,10 +1,12 @@
-package me.stefvanschie.buildinggame.utils.guis;
+package me.stefvanschie.buildinggame.utils.guis.buildmenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+import me.stefvanschie.buildinggame.managers.id.IDDecompiler;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
+import me.stefvanschie.buildinggame.utils.CustomBlock;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,17 +19,20 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class BuildMenu {
 
-	public BuildMenu() {
-	}
+	public BuildMenu() {}
 
 	public void show(Player player) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		Inventory inventory = Bukkit.createInventory(null, 36, messages.getString("gui.options-title").replaceAll("&", "§"));
+		Inventory inventory = Bukkit.createInventory(null, 36, messages.getString("gui.options-title")
+				.replaceAll("&", "§"));
 		try {
 			// particles item
-			ItemStack particle = new ItemStack(Material.getMaterial(config.getString("gui.particle-id").toUpperCase()), 1);
+			CustomBlock particleBlock = IDDecompiler.getInstance().decompile(config.getString("gui.particle-id"));
+			
+			ItemStack particle = new ItemStack(particleBlock.getMaterial(), 1);
+			particle.setDurability(particleBlock.getData());
 			{
 				ItemMeta particleMeta = particle.getItemMeta();
 				particleMeta.setDisplayName(messages.getString("gui.particles.name")
@@ -44,7 +49,10 @@ public class BuildMenu {
 			}
 
 			// floor block item
-			ItemStack floor = new ItemStack(Material.getMaterial(config.getString("gui.floor-id").toUpperCase()), 1);
+			CustomBlock floorBlock = IDDecompiler.getInstance().decompile(config.getString("gui.floor-id"));
+			
+			ItemStack floor = new ItemStack(floorBlock.getMaterial(), 1);
+			floor.setDurability(floorBlock.getData());
 			{
 				ItemMeta floorMeta = floor.getItemMeta();
 				floorMeta.setDisplayName(messages.getString("gui.floor.name")
@@ -61,7 +69,10 @@ public class BuildMenu {
 			}
 
 			// plot time item
-			ItemStack time = new ItemStack(Material.getMaterial(config.getString("gui.time-id").toUpperCase()), 1);
+			CustomBlock timeBlock = IDDecompiler.getInstance().decompile(config.getString("gui.time-id"));
+			
+			ItemStack time = new ItemStack(timeBlock.getMaterial(), 1);
+			time.setDurability(timeBlock.getData());
 			{
 				ItemMeta timeMeta = time.getItemMeta();
 				timeMeta.setDisplayName(messages.getString("gui.time.name")
@@ -78,7 +89,10 @@ public class BuildMenu {
 			}
 
 			// rain item
-			ItemStack rain = new ItemStack(Material.getMaterial(config.getString("gui.rain-id").toUpperCase()), 1);
+			CustomBlock rainBlock = IDDecompiler.getInstance().decompile(config.getString("gui.rain-id"));
+			
+			ItemStack rain = new ItemStack(rainBlock.getMaterial(), 1);
+			rain.setDurability(rainBlock.getData());
 			{
 				ItemMeta rainMeta = rain.getItemMeta();
 				rainMeta.setDisplayName(messages.getString("gui.rain.name")
@@ -95,7 +109,10 @@ public class BuildMenu {
 			}
 
 			// flight speed item
-			ItemStack speed = new ItemStack(Material.getMaterial(config.getString("gui.fly-speed-id").toUpperCase()), 1);
+			CustomBlock speedBlock = IDDecompiler.getInstance().decompile(config.getString("gui.fly-speed-id"));
+			
+			ItemStack speed = new ItemStack(speedBlock.getMaterial(), 1);
+			speed.setDurability(speedBlock.getData());
 			{
 				ItemMeta speedMeta = speed.getItemMeta();
 				speedMeta.setDisplayName(messages.getString("gui.fly-speed.name")
@@ -115,10 +132,13 @@ public class BuildMenu {
 			ItemStack close = new ItemStack(Material.BOOK, 1);
 			{
 				ItemMeta closeMeta = close.getItemMeta();
-				closeMeta.setDisplayName(ChatColor.GREEN + "Close menu");
+				closeMeta.setDisplayName(messages.getString("gui.close-menu.name")
+						.replaceAll("&", "§"));
 				{
 					List<String> closeLores = new ArrayList<String>();
-					closeLores.add(ChatColor.GRAY + "Close the options menu");
+					for (String lore : messages.getStringList("gui.close-menu.lores")) {
+						closeLores.add(lore.replaceAll("&", "§"));
+					}
 					closeMeta.setLore(closeLores);
 				}
 				close.setItemMeta(closeMeta);
