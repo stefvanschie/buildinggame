@@ -6,6 +6,7 @@ import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.arenas.MaxPlayersManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
+import me.stefvanschie.buildinggame.managers.plots.LocationManager;
 import me.stefvanschie.buildinggame.managers.plots.PlotManager;
 import me.stefvanschie.buildinggame.utils.Arena;
 
@@ -42,6 +43,7 @@ public class SetSpawn extends SubCommand {
 		SettingsManager.getInstance().save();
 		
 		PlotManager.getInstance().setup();
+		LocationManager.getInstance().setup();
 		MaxPlayersManager.getInstance().setup();
 		
 		MessageManager.getInstance().send(player, messages.getString("setSpawn.succes")
