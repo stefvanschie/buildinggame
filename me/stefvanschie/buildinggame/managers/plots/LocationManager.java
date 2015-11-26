@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.Arena;
@@ -29,6 +30,9 @@ public class LocationManager {
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".x"),
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".y"),
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".z")));
+					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+						Main.getInstance().getLogger().info("Loaded spawn for plot " + plot.getID() + " in arena " + arena.getName());
+					}
 				} catch (NullPointerException npe) {
 					plot.setLocation(null);
 				} catch (IllegalArgumentException iae) {
