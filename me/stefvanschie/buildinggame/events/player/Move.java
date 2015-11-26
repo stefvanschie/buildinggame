@@ -3,13 +3,14 @@ package me.stefvanschie.buildinggame.events.player;
 import java.util.Random;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
+import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.GameState;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,6 +20,8 @@ public class Move implements Listener {
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e) {
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
 		Player player = e.getPlayer();
 		Location to = e.getTo();
 		Location from = e.getFrom();
@@ -28,9 +31,41 @@ public class Move implements Listener {
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);
-		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
+		Plot plot = arena.getPlot(player);
 		
-		if (arena.getState() != GameState.BUILDING && arena.getState() != GameState.VOTING) {
+		if (arena.getState() == GameState.VOTING) {
+			if (arena.getVotingPlot() == null) {
+				return;
+			}
+			if (!arena.getVotingPlot().getBoundary().isInside(from)) {
+				player.teleport(arena.getVotingPlot().getBoundary().getAllBlocks().get(new Random().nextInt(arena.getVotingPlot().getBoundary().getAllBlocks().size())).getLocation());
+				return;
+			}
+			
+			if (!arena.getVotingPlot().getBoundary().isInside(to)) {
+				player.teleport(from);
+				MessageManager.getInstance().send(player, messages.getString("in-game.move-out-bounds"));
+				return;
+			}
+		}
+		
+		if (arena.getState() == GameState.RESETING) {		
+			if (arena.getWinner() == null) {
+				return;
+			}
+			if (!arena.getWinner().getBoundary().isInside(from)) {
+				player.teleport(arena.getWinner().getBoundary().getAllBlocks().get(new Random().nextInt(arena.getWinner().getBoundary().getAllBlocks().size())).getLocation());
+				return;
+			}
+			
+			if (!arena.getWinner().getBoundary().isInside(to)) {
+				player.teleport(from);
+				MessageManager.getInstance().send(player, messages.getString("in-game.move-out-bounds"));
+				return;
+			}
+		}
+		
+		if (arena.getState() != GameState.BUILDING) {
 			return;
 		}
 		
@@ -41,9 +76,8 @@ public class Move implements Listener {
 		
 		if (!plot.getBoundary().isInside(to)) {
 			player.teleport(from);
-			MessageManager.getInstance().send(player, ChatColor.RED + "You can't move outside your plot");
+			MessageManager.getInstance().send(player, messages.getString("in-game.move-out-bounds"));
 			return;
 		}
-		return;
 	}
 }
