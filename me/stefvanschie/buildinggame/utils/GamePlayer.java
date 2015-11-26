@@ -2,35 +2,54 @@ package me.stefvanschie.buildinggame.utils;
 
 import java.lang.reflect.Constructor;
 
-import me.stefvanschie.buildinggame.Main;
+import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerData {
+public class GamePlayer {
 
-	private int levels;
 	private float exp;
+	private float flySpeed;
+	private GameMode gameMode;
+	private int levels;
+	private int blocksPlaced = 0;
 	private Player player;
 	private ItemStack[] inventory;
-	private float flySpeed;
+	private ItemStack[] armor;
 	
-	public PlayerData(Player player) {
+	public GamePlayer(Player player) {
 		exp = player.getExp();
 		flySpeed = player.getFlySpeed();
+		gameMode = player.getGameMode();
 		levels = player.getLevel();
 		this.player = player;
 		inventory = player.getInventory().getContents();
+		armor = player.getInventory().getArmorContents();
 	}
 
+	public ItemStack[] getArmor() {
+		return armor;
+	}
+	
+	public int getBlocksPlaced() {
+		return blocksPlaced;
+	}
+	
 	public float getExp() {
 		return exp;
 	}
 	
 	public float getFlySpeed() {
 		return flySpeed;
+	}
+	
+	public GameMode getGameMode() {
+		return gameMode;
 	}
 	
 	public ItemStack[] getInventory() {
@@ -45,11 +64,19 @@ public class PlayerData {
 		return player;
 	}
 	
+	public void restore() {
+		player.getInventory().setArmorContents(armor);
+		setBlocksPlaced(0);
+		player.setExp(exp);
+		player.setFlySpeed(flySpeed);
+		player.setGameMode(gameMode);
+		player.getInventory().setContents(inventory);
+		player.setLevel(levels);
+	}
+	
 	public void sendSubtitle(String subtitle) {
-		if (!getVersion().startsWith("v1_8R") || getVersion().replace("v1_8_R", "").equals("1")) {
-			Main.getInstance().getLogger().info("Version outdated for title use!");
-			return;
-		}
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
 		try {
 			Constructor<?> constructor = getNMSClass("PacketPlayOutTitle")
 					.getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0],
@@ -62,7 +89,7 @@ public class PlayerData {
 			Object chatSerializer = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0]
 					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + subtitle + "\"}"));
 			
-			Object packet = constructor.newInstance(enumTitle, chatSerializer, 0, 20, 20);
+			Object packet = constructor.newInstance(enumTitle, chatSerializer, config.getInt("title.fade_in"), config.getInt("title.stay"), config.getInt("title.fade_out"));
 			sendPacket(packet);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,10 +98,8 @@ public class PlayerData {
 	}
 	
 	public void sendTitle(String title) {
-		if (!getVersion().startsWith("v1_8_R") || getVersion().replace("v1_8_R", "").equals("1")) {
-			Main.getInstance().getLogger().info("Version outdated for title use!");
-			return;
-		}
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
 		try {
 			Constructor<?> constructor = getNMSClass("PacketPlayOutTitle")
 					.getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0],
@@ -87,12 +112,20 @@ public class PlayerData {
 			Object chatSerializer = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0]
 					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + title + "\"}"));
 			
-			Object packet = constructor.newInstance(enumTitle, chatSerializer, 0, 20, 20);
+			Object packet = constructor.newInstance(enumTitle, chatSerializer, config.getInt("title.fade_in"), config.getInt("title.stay"), config.getInt("title.fade_out"));
 			sendPacket(packet);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
+	}
+	
+	public void setArmor(ItemStack[] armor) {
+		this.armor = armor;
+	}
+	
+	public void setBlocksPlaced(int blocksPlaced) {
+		this.blocksPlaced = blocksPlaced;
 	}
 	
 	public void setExp(int exp) {
@@ -101,6 +134,10 @@ public class PlayerData {
 	
 	public void setFlySpeed(float flySpeed) {
 		this.flySpeed = flySpeed;
+	}
+	
+	public void setGameMode(GameMode gameMode) {
+		this.gameMode = gameMode;
 	}
 	
 	public void setInventory(ItemStack[] inventory) {
