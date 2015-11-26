@@ -1,15 +1,13 @@
-package me.stefvanschie.buildinggame.utils.guis;
+package me.stefvanschie.buildinggame.utils.guis.buildmenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
-import me.stefvanschie.buildinggame.utils.Time;
-import me.stefvanschie.buildinggame.utils.plot.Plot;
+import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,19 +18,22 @@ public class TimeMenu {
 	public TimeMenu() {}
 	
 	public void show(Player player) {
-		Inventory inventory = Bukkit.createInventory(null, 18, ChatColor.GREEN + "Time selection");
-		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+		Inventory inventory = Bukkit.createInventory(null, 18, messages.getString("gui.time.title")
+				.replaceAll("&", "§"));
 		
 		//midnight
 		ItemStack midnight = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta midnightMeta = midnight.getItemMeta();
-			midnightMeta.setDisplayName(ChatColor.GREEN + "Midnight");
+			midnightMeta.setDisplayName(messages.getString("gui.time.midnight.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> midnightLores = new ArrayList<String>();
-				midnightLores.add(ChatColor.GRAY + "Set the time of your build to Midnight");
-				if (plot.getTime() == Time.MIDNIGHT) {
-					midnightLores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.midnight.lores")) {
+					midnightLores.add(lore
+							.replaceAll("&", "§"));
 				}
 				midnightMeta.setLore(midnightLores);
 			}
@@ -43,12 +44,13 @@ public class TimeMenu {
 		ItemStack am2 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta am2Meta = am2.getItemMeta();
-			am2Meta.setDisplayName(ChatColor.GREEN + "2 AM");
+			am2Meta.setDisplayName(messages.getString("gui.time.2am.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> am2Lores = new ArrayList<String>();
-				am2Lores.add(ChatColor.GRAY + "Set the time of your build to 2 AM");
-				if (plot.getTime() == Time.AM2) {
-					am2Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.2am.lores")) {
+					am2Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				am2Meta.setLore(am2Lores);
 			}
@@ -59,12 +61,13 @@ public class TimeMenu {
 		ItemStack am4 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta am4Meta = am4.getItemMeta();
-			am4Meta.setDisplayName(ChatColor.GREEN + "4 AM");
+			am4Meta.setDisplayName(messages.getString("gui.time.4am.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> am4Lores = new ArrayList<String>();
-				am4Lores.add(ChatColor.GRAY + "Set the time of your build to 4 AM");
-				if (plot.getTime() == Time.AM4) {
-					am4Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.4am.lores")) {
+					am4Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				am4Meta.setLore(am4Lores);
 			}
@@ -75,12 +78,13 @@ public class TimeMenu {
 		ItemStack am6 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta am6Meta = am6.getItemMeta();
-			am6Meta.setDisplayName(ChatColor.GREEN + "6 AM");
+			am6Meta.setDisplayName(messages.getString("gui.time.6am.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> am6Lores = new ArrayList<String>();
-				am6Lores.add(ChatColor.GRAY + "Set the time of your build to 6 AM");
-				if (plot.getTime() == Time.AM6) {
-					am6Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.6am.lores")) {
+					am6Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				am6Meta.setLore(am6Lores);
 			}
@@ -91,12 +95,13 @@ public class TimeMenu {
 		ItemStack am8 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta am8Meta = am8.getItemMeta();
-			am8Meta.setDisplayName(ChatColor.GREEN + "8 AM");
+			am8Meta.setDisplayName(messages.getString("gui.time.8am.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> am8Lores = new ArrayList<String>();
-				am8Lores.add(ChatColor.GRAY + "Set the time of your build to 8 AM");
-				if (plot.getTime() == Time.AM8) {
-					am8Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.8am.lores")) {
+					am8Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				am8Meta.setLore(am8Lores);
 			}
@@ -107,12 +112,13 @@ public class TimeMenu {
 		ItemStack am10 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta am10Meta = am10.getItemMeta();
-			am10Meta.setDisplayName(ChatColor.GREEN + "10 AM");
+			am10Meta.setDisplayName(messages.getString("gui.time.10am.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> am10Lores = new ArrayList<String>();
-				am10Lores.add(ChatColor.GRAY + "Set the time of your build to 10 AM");
-				if (plot.getTime() == Time.AM10) {
-					am10Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.10am.lores")) {
+					am10Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				am10Meta.setLore(am10Lores);
 			}
@@ -123,12 +129,13 @@ public class TimeMenu {
 		ItemStack midday = new ItemStack(Material.WATCH, 1); 
 		{
 			ItemMeta middayMeta = midday.getItemMeta();
-			middayMeta.setDisplayName(ChatColor.GREEN + "Midday");
+			middayMeta.setDisplayName(messages.getString("gui.time.midday.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> middayLores = new ArrayList<String>();
-				middayLores.add(ChatColor.GRAY + "Set the time of your build to Midday");
-				if (plot.getTime() == Time.MIDDAY) {
-					middayLores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.midday.lores")) {
+					middayLores.add(lore
+							.replaceAll("&", "§"));
 				}
 				middayMeta.setLore(middayLores);
 			}
@@ -139,12 +146,13 @@ public class TimeMenu {
 		ItemStack pm2 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta pm2Meta = pm2.getItemMeta();
-			pm2Meta.setDisplayName(ChatColor.GREEN + "2 PM");
+			pm2Meta.setDisplayName(messages.getString("gui.time.2pm.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm2Lores = new ArrayList<String>();
-				pm2Lores.add(ChatColor.GRAY + "Set the time of your build to 2 PM");
-				if (plot.getTime() == Time.PM2) {
-					pm2Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.2pm.lores")) {
+					pm2Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				pm2Meta.setLore(pm2Lores);
 			}
@@ -155,12 +163,13 @@ public class TimeMenu {
 		ItemStack pm4 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta pm4Meta = pm4.getItemMeta();
-			pm4Meta.setDisplayName(ChatColor.GREEN + "4 PM");
+			pm4Meta.setDisplayName(messages.getString("gui.time.4pm.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm4Lores = new ArrayList<String>();
-				pm4Lores.add(ChatColor.GRAY + "Set the time of your build to 4 PM");
-				if (plot.getTime() == Time.PM4) {
-					pm4Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.4pm.lores")) {
+					pm4Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				pm4Meta.setLore(pm4Lores);
 			}
@@ -171,12 +180,13 @@ public class TimeMenu {
 		ItemStack pm6 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta pm6Meta = pm6.getItemMeta();
-			pm6Meta.setDisplayName(ChatColor.GREEN + "6 PM");
+			pm6Meta.setDisplayName(messages.getString("gui.time.6pm.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm6Lores = new ArrayList<String>();
-				pm6Lores.add(ChatColor.GRAY + "Set the time of your build to 6 PM");
-				if (plot.getTime() == Time.PM6) {
-					pm6Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.6pm.lores")) {
+					pm6Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				pm6Meta.setLore(pm6Lores);
 			}
@@ -187,12 +197,13 @@ public class TimeMenu {
 		ItemStack pm8 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta pm8Meta = pm8.getItemMeta();
-			pm8Meta.setDisplayName(ChatColor.GREEN + "8 PM");
+			pm8Meta.setDisplayName(messages.getString("gui.time.8pm.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm8Lores = new ArrayList<String>();
-				pm8Lores.add(ChatColor.GRAY + "Set the time of your build to 8 PM");
-				if (plot.getTime() == Time.PM8) {
-					pm8Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.8pm.lores")) {
+					pm8Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				pm8Meta.setLore(pm8Lores);
 			}
@@ -203,12 +214,13 @@ public class TimeMenu {
 		ItemStack pm10 = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta pm10Meta = pm10.getItemMeta();
-			pm10Meta.setDisplayName(ChatColor.GREEN + "10 PM");
+			pm10Meta.setDisplayName(messages.getString("gui.time.10pm.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm10Lores = new ArrayList<String>();
-				pm10Lores.add(ChatColor.GRAY + "Set the time of your build to 10 PM");
-				if (plot.getTime() == Time.PM10) {
-					pm10Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.time.10pm.lores")) {
+					pm10Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				pm10Meta.setLore(pm10Lores);
 			}
@@ -219,10 +231,14 @@ public class TimeMenu {
 		ItemStack back = new ItemStack(Material.BOOK, 1);
 		{
 			ItemMeta backMeta = back.getItemMeta();
-			backMeta.setDisplayName(ChatColor.GREEN + "Back");
+			backMeta.setDisplayName(messages.getString("gui.time.back.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> backLores = new ArrayList<String>();
-				backLores.add(ChatColor.GRAY + "Go back to the options menu");
+				for (String lore : messages.getStringList("gui.time.back.lores")) {
+					backLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				backMeta.setLore(backLores);
 			}
 			back.setItemMeta(backMeta);
