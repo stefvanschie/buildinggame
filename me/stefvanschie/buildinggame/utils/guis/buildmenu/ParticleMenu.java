@@ -1,11 +1,13 @@
-package me.stefvanschie.buildinggame.utils.guis;
+package me.stefvanschie.buildinggame.utils.guis.buildmenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,16 +18,23 @@ public class ParticlesMenu {
 	public ParticlesMenu() {}
 	
 	public void show(Player player) {
-		Inventory inventory = Bukkit.createInventory(null, 18, ChatColor.GREEN + "Particles");
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
+		Inventory inventory = Bukkit.createInventory(null, 18, messages.getString("gui.particles.title")
+				.replaceAll("&", "§"));
 		
 		//flames
 		ItemStack flames = new ItemStack(Material.FLINT_AND_STEEL, 1);
 		{
 			ItemMeta flamesMeta = flames.getItemMeta();
-			flamesMeta.setDisplayName(ChatColor.GREEN + "Flames");
+			flamesMeta.setDisplayName(messages.getString("gui.particles.flames.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> flamesLores = new ArrayList<String>();
-				flamesLores.add(ChatColor.GRAY + "Place a flames particle effect");
+				for (String lore : messages.getStringList("gui.particles.flames.lores")) {
+					flamesLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				flamesMeta.setLore(flamesLores);
 			}
 			flames.setItemMeta(flamesMeta);
@@ -35,10 +44,14 @@ public class ParticlesMenu {
 		ItemStack magicCrit = new ItemStack(Material.DIAMOND_SWORD, 1);
 		{
 			ItemMeta magicCritMeta = magicCrit.getItemMeta();
-			magicCritMeta.setDisplayName(ChatColor.GREEN + "Magic crit");
+			magicCritMeta.setDisplayName(messages.getString("gui.particles.magic-crit.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> magicCritLores = new ArrayList<String>();
-				magicCritLores.add(ChatColor.GRAY + "Place a magic crit particle effect");
+				for (String lore : messages.getStringList("gui.particles.magic-crit.lores")) {
+					magicCritLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				magicCritMeta.setLore(magicCritLores);
 			}
 			magicCrit.setItemMeta(magicCritMeta);
@@ -48,10 +61,13 @@ public class ParticlesMenu {
 		ItemStack lavaDrip = new ItemStack(Material.LAVA_BUCKET, 1);
 		{
 			ItemMeta lavaDripMeta = lavaDrip.getItemMeta();
-			lavaDripMeta.setDisplayName(ChatColor.GREEN + "Lava drip");
+			lavaDripMeta.setDisplayName(messages.getString("gui.particles.lava-drip.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> lavaDripLores = new ArrayList<String>();
-				lavaDripLores.add(ChatColor.GRAY + "Place a lava drip particle effect");
+				for (String lore : messages.getStringList("gui.particles.lava-drip.lores")) {
+					lavaDripLores.add(lore.replaceAll("&", "§"));
+				}
 				lavaDripMeta.setLore(lavaDripLores);
 			}
 			lavaDrip.setItemMeta(lavaDripMeta);
@@ -61,10 +77,13 @@ public class ParticlesMenu {
 		ItemStack waterDrip = new ItemStack(Material.WATER_BUCKET, 1);
 		{
 			ItemMeta waterDripMeta = waterDrip.getItemMeta();
-			waterDripMeta.setDisplayName(ChatColor.GREEN + "Water drip");
+			waterDripMeta.setDisplayName(messages.getString("gui.particles.water-drip.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> waterDripLores = new ArrayList<String>();
-				waterDripLores.add(ChatColor.GRAY + "Place a water drip particle effect");
+				for (String lore : messages.getStringList("gui.particles.water-drip.lores")) {
+					waterDripLores.add(lore.replaceAll("&", "§"));
+				}
 				waterDripMeta.setLore(waterDripLores);
 			}
 			waterDrip.setItemMeta(waterDripMeta);
@@ -74,10 +93,14 @@ public class ParticlesMenu {
 		ItemStack enchantment = new ItemStack(Material.ENCHANTMENT_TABLE, 1);
 		{
 			ItemMeta enchantmentMeta = enchantment.getItemMeta();
-			enchantmentMeta.setDisplayName(ChatColor.GREEN + "Enchantment");
+			enchantmentMeta.setDisplayName(messages.getString("gui.particles.enchantment.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> enchantmentLores = new ArrayList<String>();
-				enchantmentLores.add(ChatColor.GRAY + "Place an enchantment particle effect");
+				for (String lore : messages.getStringList("gui.particles.enchantment.lores")) {
+					enchantmentLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				enchantmentMeta.setLore(enchantmentLores);
 			}
 			enchantment.setItemMeta(enchantmentMeta);
@@ -87,10 +110,14 @@ public class ParticlesMenu {
 		ItemStack hearts = new ItemStack(Material.RED_ROSE, 1);
 		{
 			ItemMeta heartsMeta = hearts.getItemMeta();
-			heartsMeta.setDisplayName(ChatColor.GREEN + "Hearts");
+			heartsMeta.setDisplayName(messages.getString("gui.particles.hearts.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> heartsLores = new ArrayList<String>();
-				heartsLores.add(ChatColor.GRAY + "Place a hearts particle effect");
+				for (String lore : messages.getStringList("gui.particles.hearts.lores")) {
+					heartsLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				heartsMeta.setLore(heartsLores);
 			}
 			hearts.setItemMeta(heartsMeta);
@@ -100,10 +127,14 @@ public class ParticlesMenu {
 		ItemStack angryVillager = new ItemStack(Material.CLAY, 1);
 		{
 			ItemMeta angryVillagerMeta = angryVillager.getItemMeta();
-			angryVillagerMeta.setDisplayName(ChatColor.GREEN + "Angry villager");
+			angryVillagerMeta.setDisplayName(messages.getString("gui.particles.angry-villager.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> angryVillagerLores = new ArrayList<String>();
-				angryVillagerLores.add(ChatColor.GRAY + "Place an angry villager particle effect");
+				for (String lore : messages.getStringList("gui.particles.angry-villager.lores")) {
+					angryVillagerLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				angryVillagerMeta.setLore(angryVillagerLores);
 			}
 			angryVillager.setItemMeta(angryVillagerMeta);
@@ -113,10 +144,14 @@ public class ParticlesMenu {
 		ItemStack happyVillager = new ItemStack(Material.EMERALD, 1);
 		{
 			ItemMeta happyVillagerMeta = happyVillager.getItemMeta();
-			happyVillagerMeta.setDisplayName(ChatColor.GREEN + "Happy villager");
+			happyVillagerMeta.setDisplayName(messages.getString("gui.particles.happy-villager.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> happyVillagerLores = new ArrayList<String>();
-				happyVillagerLores.add(ChatColor.GRAY + "Place an happy villager particle effect");
+				for (String lore : messages.getStringList("gui.particles.happy-villager.lores")) {
+					happyVillagerLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				happyVillagerMeta.setLore(happyVillagerLores);
 			}
 			happyVillager.setItemMeta(happyVillagerMeta);
@@ -126,10 +161,14 @@ public class ParticlesMenu {
 		ItemStack redstoneMagic = new ItemStack(Material.REDSTONE, 1);
 		{
 			ItemMeta redstoneMagicMeta = redstoneMagic.getItemMeta();
-			redstoneMagicMeta.setDisplayName(ChatColor.GREEN + "Redstone magic");
+			redstoneMagicMeta.setDisplayName(messages.getString("gui.particles.redstone-magic.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> redstoneMagicLores = new ArrayList<String>();
-				redstoneMagicLores.add(ChatColor.GRAY + "Place a redstone magic particle effect");
+				for (String lore : messages.getStringList("gui.particles.redstone-magic.lores")) {
+					redstoneMagicLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				redstoneMagicMeta.setLore(redstoneMagicLores);
 			}
 			redstoneMagic.setItemMeta(redstoneMagicMeta);
@@ -139,10 +178,14 @@ public class ParticlesMenu {
 		ItemStack spell = new ItemStack(Material.POTION, 1);
 		{
 			ItemMeta spellMeta = spell.getItemMeta();
-			spellMeta.setDisplayName(ChatColor.GREEN + "Spell");
+			spellMeta.setDisplayName(messages.getString("gui.particles.spell.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> spellLores = new ArrayList<String>();
-				spellLores.add(ChatColor.GRAY + "Place a spell particle effect");
+				for (String lore : messages.getStringList("gui.particles.spell.lores")) {
+					spellLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				spellMeta.setLore(spellLores);
 			}
 			spell.setItemMeta(spellMeta);
@@ -152,10 +195,14 @@ public class ParticlesMenu {
 		ItemStack snowballPoof = new ItemStack(Material.SNOW_BALL, 1);
 		{
 			ItemMeta snowballPoofMeta = snowballPoof.getItemMeta();
-			snowballPoofMeta.setDisplayName(ChatColor.GREEN + "Snowball poof");
+			snowballPoofMeta.setDisplayName(messages.getString("gui.particles.snowball-poof.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> snowballPoofLores = new ArrayList<String>();
-				snowballPoofLores.add(ChatColor.GRAY + "Place a snowball poof particle effect");
+				for (String lore : messages.getStringList("gui.particles.snowball-poof.lores")) {
+					snowballPoofLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				snowballPoofMeta.setLore(snowballPoofLores);
 			}
 			snowballPoof.setItemMeta(snowballPoofMeta);
@@ -165,10 +212,14 @@ public class ParticlesMenu {
 		ItemStack smoke = new ItemStack(Material.FURNACE, 1);
 		{
 			ItemMeta smokeMeta = smoke.getItemMeta();
-			smokeMeta.setDisplayName(ChatColor.GREEN + "Smoke");
+			smokeMeta.setDisplayName(messages.getString("gui.particles.smoke.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> smokeLores = new ArrayList<String>();
-				smokeLores.add(ChatColor.GRAY + "Place a smoke particle effect");
+				for (String lore : messages.getStringList("gui.particles.smoke.lores")) {
+					smokeLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				smokeMeta.setLore(smokeLores);
 			}
 			smoke.setItemMeta(smokeMeta);
@@ -178,11 +229,14 @@ public class ParticlesMenu {
 		ItemStack clearParticles = new ItemStack(Material.BARRIER, 1);
 		{
 			ItemMeta clearParticlesMeta = clearParticles.getItemMeta();
-			clearParticlesMeta.setDisplayName(ChatColor.RED + "Clear particles");
+			clearParticlesMeta.setDisplayName(messages.getString("gui.particles.clear-particles.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> clearParticlesLores = new ArrayList<String>();
-				clearParticlesLores.add(ChatColor.GRAY + "Clear all the particles on your plot");
-				clearParticlesLores.add(ChatColor.RED + "Warning: " + ChatColor.GRAY + "Cannot be undone!");
+				for (String lore : messages.getStringList("gui.particles.clear-particles.lores")) {
+					clearParticlesLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				clearParticlesMeta.setLore(clearParticlesLores);
 			}
 			clearParticles.setItemMeta(clearParticlesMeta);
@@ -192,10 +246,14 @@ public class ParticlesMenu {
 		ItemStack back = new ItemStack(Material.BOOK, 1);
 		{
 			ItemMeta backMeta = back.getItemMeta();
-			backMeta.setDisplayName(ChatColor.GREEN + "Back");
+			backMeta.setDisplayName(messages.getString("gui.particles.back.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> backLores = new ArrayList<String>();
-				backLores.add(ChatColor.GRAY + "Go back to the options menu");
+				for (String lore : messages.getStringList("gui.particles.back.lores")) {
+					backLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				backMeta.setLore(backLores);
 			}
 			back.setItemMeta(backMeta);
