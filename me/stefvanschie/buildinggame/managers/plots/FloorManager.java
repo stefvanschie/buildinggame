@@ -3,6 +3,7 @@ package me.stefvanschie.buildinggame.managers.plots;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.Arena;
@@ -31,6 +32,9 @@ public class FloorManager {
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".floor.low.x"),
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".floor.low.y"),
 							arenas.getInt(arena.getName() + "." + plot.getID() + ".floor.low.z")));
+					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+						Main.getInstance().getLogger().info("Loaded floor for plot " + plot.getID() + " in arena " + arena.getName());
+					}
 				} catch (NullPointerException npe) {
 					plot.setFloor(null);
 				} catch (IllegalArgumentException iae) {
