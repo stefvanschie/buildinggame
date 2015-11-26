@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
 import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
-import me.stefvanschie.buildinggame.events.player.Floors;
+import me.stefvanschie.buildinggame.events.player.create.Floors;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
