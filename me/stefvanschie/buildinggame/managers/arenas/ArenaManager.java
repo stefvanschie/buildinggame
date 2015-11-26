@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
@@ -28,8 +29,12 @@ public class ArenaManager {
 		arenas.clear();
 		Set<String> arenas = SettingsManager.getInstance().getArenas().getKeys(false);
 		for (String arena : arenas) {
-			if (!arena.equals("main-spawn"))
+			if (!arena.equals("main-spawn")) {
 				this.arenas.add(new Arena(arena));
+				if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+					Main.getInstance().getLogger().info("Loaded arena " + arena);
+				}
+			}
 		}
 	}
 	
@@ -47,11 +52,9 @@ public class ArenaManager {
 	
 	public Arena getArena(Player player) {
 		for (Arena arena : arenas) {
-			for (Plot plot : arena.getPlots()) {
-				if (plot.getPlayerData() != null) {
-					if (plot.getPlayerData().getPlayer() == player) {
-						return arena;
-					}
+			for (Plot plot : arena.getUsedPlots()) {
+				if (plot.getGamePlayer().getPlayer() == player) {
+					return arena;
 				}
 			}
 		}
