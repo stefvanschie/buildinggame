@@ -3,6 +3,7 @@ package me.stefvanschie.buildinggame.utils.plot;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -38,6 +39,18 @@ public class Floor {
 			}
 		}
 		return blocks;
+	}
+	
+	public List<Chunk> getAllChunks() {
+		List<Chunk> chunks = new ArrayList<Chunk>();
+		
+		for (Block block : getAllBlocks()) {
+			if (!chunks.contains(block.getChunk())) {
+				chunks.add(block.getChunk());
+			}
+		}
+		
+		return chunks;
 	}
 	
 	public int getHighX() {
