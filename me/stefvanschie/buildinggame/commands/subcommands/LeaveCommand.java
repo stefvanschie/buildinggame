@@ -9,7 +9,7 @@ import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.utils.Arena;
 
-public class Leave extends SubCommand {
+public class LeaveCommand extends SubCommand {
 
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {
@@ -22,7 +22,7 @@ public class Leave extends SubCommand {
 		
 		arena.leave(player);
 		
-		return CommandResult.ERROR;
+		return CommandResult.SUCCES;
 	}
 
 	@Override
