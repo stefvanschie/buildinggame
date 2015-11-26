@@ -1,11 +1,13 @@
-package me.stefvanschie.buildinggame.utils.guis;
+package me.stefvanschie.buildinggame.utils.guis.buildmenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,18 +18,22 @@ public class SpeedMenu {
 	public SpeedMenu() {}
 	
 	public void show(Player player) {
-		Inventory inventory = Bukkit.createInventory(null, 18, ChatColor.GRAY + "Fly speed selection");
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
+		Inventory inventory = Bukkit.createInventory(null, 18, messages.getString("gui.fly-speed.title")
+				.replaceAll("&", "§"));
 		
 		//fly speed 1
 		ItemStack speed1 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed1Meta = speed1.getItemMeta();
-			speed1Meta.setDisplayName(ChatColor.GREEN + "Fly speed 1");
+			speed1Meta.setDisplayName(messages.getString("gui.fly-speed.speed-1.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> speed1Lores = new ArrayList<String>();
-				speed1Lores.add(ChatColor.GRAY + "Set your fly speed to 1");
-				if (player.getFlySpeed() == (float) 0.1) {
-					speed1Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.fly-speed.speed-1.lores")) {
+					speed1Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				speed1Meta.setLore(speed1Lores);
 			}
@@ -38,12 +44,13 @@ public class SpeedMenu {
 		ItemStack speed2 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed2Meta = speed2.getItemMeta();
-			speed2Meta.setDisplayName(ChatColor.GREEN + "Fly speed 2");
+			speed2Meta.setDisplayName(messages.getString("gui.fly-speed.speed-2.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> speed2Lores = new ArrayList<String>();
-				speed2Lores.add(ChatColor.GRAY + "Set your fly speed to 2");
-				if (player.getFlySpeed() == (float) 0.2) {
-					speed2Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.fly-speed.speed-2.lores")) {
+					speed2Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				speed2Meta.setLore(speed2Lores);
 			}
@@ -54,12 +61,13 @@ public class SpeedMenu {
 		ItemStack speed3 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed3Meta = speed3.getItemMeta();
-			speed3Meta.setDisplayName(ChatColor.GREEN + "Fly speed 3");
+			speed3Meta.setDisplayName(messages.getString("gui.fly-speed.speed-3.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> speed3Lores = new ArrayList<String>();
-				speed3Lores.add(ChatColor.GRAY + "Set your fly speed to 3");
-				if (player.getFlySpeed() == (float) 0.3) {
-					speed3Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.fly-speed.speed-3.lores")) {
+					speed3Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				speed3Meta.setLore(speed3Lores);
 			}
@@ -70,12 +78,13 @@ public class SpeedMenu {
 		ItemStack speed4 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed4Meta = speed4.getItemMeta();
-			speed4Meta.setDisplayName(ChatColor.GREEN + "Fly speed 4");
+			speed4Meta.setDisplayName(messages.getString("gui.fly-speed.speed-4.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> speed4Lores = new ArrayList<String>();
-				speed4Lores.add(ChatColor.GRAY + "Set your fly speed to 4");
-				if (player.getFlySpeed() == (float) 0.4) {
-					speed4Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.fly-speed.speed-4.lores")) {
+					speed4Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				speed4Meta.setLore(speed4Lores);
 			}
@@ -86,12 +95,13 @@ public class SpeedMenu {
 		ItemStack speed5 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed5Meta = speed5.getItemMeta();
-			speed5Meta.setDisplayName(ChatColor.GREEN + "Fly speed 5");
+			speed5Meta.setDisplayName(messages.getString("gui.fly-speed.speed-5.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> speed5Lores = new ArrayList<String>();
-				speed5Lores.add(ChatColor.GRAY + "Set your fly speed to 5");
-				if (player.getFlySpeed() == (float) 0.5) {
-					speed5Lores.add(ChatColor.GOLD + "Currently selected!");
+				for (String lore : messages.getStringList("gui.fly-speed.speed-5.lores")) {
+					speed5Lores.add(lore
+							.replaceAll("&", "§"));
 				}
 				speed5Meta.setLore(speed5Lores);
 			}
@@ -102,10 +112,14 @@ public class SpeedMenu {
 		ItemStack back = new ItemStack(Material.BOOK, 1);
 		{
 			ItemMeta backMeta = back.getItemMeta();
-			backMeta.setDisplayName(ChatColor.GREEN + "Back");
+			backMeta.setDisplayName(messages.getString("gui.fly-speed.back.name")
+					.replaceAll("&", "§"));
 			{
 				List<String> backLores = new ArrayList<String>();
-				backLores.add(ChatColor.GRAY + "Go back to the options menu");
+				for (String lore : messages.getStringList("gui.fly-speed.back.lores")) {
+					backLores.add(lore
+							.replaceAll("&", "§"));
+				}
 				backMeta.setLore(backLores);
 			}
 			back.setItemMeta(backMeta);
