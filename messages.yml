@@ -1,0 +1,284 @@
+global:
+  barHeader: "Time"
+  prefix: "&2[&9BuildingGame&2]&r "
+  permissionNode: "&cYou don't have the required permission for that!"
+  scoreboardHeader: "&ePoints"
+  buildScoreboardHeader: "&e&lBuilding Game"
+  buildScoreboardText:
+  - "&5Map:"
+  - "&a%arena%"
+  - ""
+  - "&5Players:"
+  - "&a%players%/%max_players%"
+  title: "&a%playerplot%'s build"
+setMainSpawn:
+  succes: "&aBuildinggame main spawn has been set!"
+createArena:
+  succes: "&aArena %arena% created!"
+deleteArena:
+  succes: "&aArena %arena% deleted!"
+setSpawn:
+  succes: "&aSpawn %place% set!"
+deleteSpawn:
+  succes: "&aSpawn %place% deleted!"
+setLobby:
+  succes: "&aLobby set!"
+setMinPlayers:
+  succes: "&aMinimal amount of players set!"
+setBounds:
+  succes: "&aBoundaries for plot %place% in arena %arena% set!"
+leave:
+  message: "&6You have left the game!"
+  otherPlayers: "&6%player% has left the arena!"
+vote:
+  message: "&6You gave %playerplot%'s build a %points%"
+  own-plot: "&cYou can't vote on your own plot"
+  title: ""
+  subtitle: ""
+join:
+  message: "&6You have joined the game!"
+  otherPlayers: "&6%player% joined the game!"
+  no-arena: "&cPlease specify the arena"
+  in-game: "&cArena is already in game"
+lobbyCountdown:
+  message: "&6The game starts in %seconds% seconds!"
+gameStarts:
+  message: "&6The game has started!"
+  subject: "&6The subject is %subject%"
+  title: "&aBuild theme: %subject%"
+  subtitle: ""
+in-game:
+  build-out-bounds: "&cYou can't build here"
+  move-out-bounds: "&cYou can't move here"
+  command-blocked: "&cYou can't use that command while in-game"
+buildingCountdown:
+  message: "&6You have %seconds% seconds left!"
+  title: ""
+  subtitle: ""
+  time-up:
+    message: ""
+    title: "&cTime is up!"
+    subtitle: ""
+voting:
+  message: "&6%playerplot%'s plot!"
+  two-points-block: "&4Very Bad"
+  three-points-block: "&cBad"
+  four-points-block: "&aMwoah"
+  five-points-block: "&2Good"
+  six-points-block: "&eVery Good"
+  seven-points-block: "&dAwesome"
+  eight-points-block: "&5Excellent"
+game-ends:
+  message: "&6The game ended!"
+winner:
+  first: "&aYou went first with %points%!"
+  second: "&aYou went second with %points%!"
+  third: "&aYou went third with %points%!"
+  title: "&6%first% won the game with %first_points%!"
+  subtitle: ""
+vault:
+  message: "&aYou received %money% money!"
+  
+particle:
+  max-particles: "&cYou've reached the maximum amount of particles"
+
+join-sign:
+  line-1: "&lBuildingGame"
+  line-2: "&8&ojoin"
+  line-3: "&nMap: %arena%"
+  line-4: "%players%/%max_players%"
+leave-sign:
+  line-1: "&lBuildingGame"
+  line-2: "&8&oleave"
+  line-3: ""
+  line-4: ""
+
+subject-gui:
+  title: "&aVote for a subject"
+  item:
+    name: "&aVote menu"
+    lores:
+    -
+  subject:
+    name: "&7%subject%"
+    lores:
+    - "&a%votes% votes"
+  previous-page:
+    name: "&aPrevious page"
+    lores:
+    -
+  close-menu:
+    name: "&aClose menu"
+    lores:
+    -
+  next-page:
+    name: "&aNext page"
+    lores:
+    -
+
+gui:
+  options-emerald: "&aOptions"
+  options-lores:
+  - "&7Change how your build looks,"
+  - "&7and add lots of cool features"
+  options-title: "&aOptions menu"
+  particles:
+    name: "&aParticles"
+    lores:
+    - "&7Add particle effects to your build"
+    title: "&aParticles"
+    flames:
+      name: "&aFlames"
+      lores:
+      - "&7Place a flame particle effect"
+    magic-crit:
+      name: "&aMagic crit"
+      lores:
+      - "&7Place a magic crit particle effect"
+    lava-drip:
+      name: "&aLava drip"
+      lores:
+      - "&7Place a lava drip particle effect"
+    water-drip:
+      name: "&aWater drip"
+      lores:
+      - "&7Place a water drip particle effect"
+    enchantment:
+      name: "&aEnchantment"
+      lores:
+      - "&7Place an enchantment particle effect"
+    hearts:
+      name: "&aHearts"
+      lores:
+      - "&7Place a hearts particle effect"
+    angry-villager:
+      name: "&aAngry Villager"
+      lores:
+      - "&7Place an angry villager particle effect"
+    happy-villager:
+      name: "&aHappy villager"
+      lores:
+      - "&7Place a happy villager particle effect"
+    redstone-magic:
+      name: "&aRedstone magic"
+      lores:
+      - "&7Place a redstone magic particle effect"
+    spell:
+      name: "&aSpell"
+      lores:
+      - "&7Place a spell particle effect"
+    snowball-poof:
+      name: "&aSnowball poof"
+      lores: 
+      - "&7Place a snowball poof particle effect"
+    smoke:
+      name: "&aSmoke"
+      lores:
+      - "&7Place a smoke particle effect"
+    clear-particles:
+      name: "&cClear particles"
+      lores:
+      - "&7Clear all the particles on your plot"
+      - "&cWarning: &7Cannot be undone!"
+    back:
+      name: "&aBack"
+      lores:
+      - "&7Go back to the options menu"
+  floor:
+    name: "&aFloor block"
+    lores:
+    - "&7Change the block on the floor of your plot"
+  time:
+    name: "&aPlot time"
+    lores:
+    - "&7Change the time that your plot is viewed at"
+    title: "&aTime selection"
+    midnight:
+      name: "&aMidnight"
+      lores:
+      - "&7Set the time of your building to Midnight"
+    2am:
+      name: "&a2 AM"
+      lores:
+      - "&7Set the time of your building to 2 AM"
+    4am:
+      name: "&a4 AM"
+      lores:
+      - "&7Set the time of your building to 4 AM"
+    6am:
+      name: "&a6 AM"
+      lores:
+      - "&7Set the time of your building to 6 AM"
+    8am:
+      name: "&a8 AM"
+      lores:
+      - "&7Set the time of your building to 8 AM"
+    10am:
+      name: "&a10 AM"
+      lores:
+      - "&7Set the time of your building to 10 AM"
+    midday:
+      name: "&aMidday"
+      lores:
+      - "&7Set the time of your building to Midday"
+    2pm:
+      name: "&a2 PM"
+      lores:
+      - "&7Set the time of your building to 2 PM"
+    4pm:
+      name: "&a4 PM"
+      lores:
+      - "&7Set the time of your building to 4 PM"
+    6pm:
+      name: "&a6 PM"
+      lores:
+      - "&7Set the time of your building to 6 PM"
+    8pm:
+      name: "&a8 PM"
+      lores:
+      - "&7Set the time of your building to 8 PM"
+    10pm:
+      name: "&a10 PM"
+      lores:
+      - "&7Set the time of your building to 10 PM"
+    back:
+      name: "&aBack"
+      lores:
+      - "&7Go back to the options menu"
+  rain:
+    name: "&aToggle rain"
+    lores:
+    - "&7Toggle rain on your build plot"
+  fly-speed:
+    name: "&aFlight speed"
+    lores:
+    - "&7Change the speed which you fly at"
+    title: "&7Fly speed selection"
+    speed-1:
+      name: "&aFly speed 1"
+      lores:
+      - "&7Set your fly speed to 1"
+    speed-2:
+      name: "&aFly speed 2"
+      lores:
+      - "&7Set your fly speed to 2"
+    speed-3:
+      name: "&aFly speed 3"
+      lores:
+      - "&7Set your fly speed to 3"
+    speed-4:
+      name: "&aFly speed 4"
+      lores:
+      - "&7Set your fly speed to 4"
+    speed-5:
+      name: "&aFly speed 5"
+      lores:
+      - "&7Set your fly speed to 5" 
+    back:
+      name: "&aBack"
+      lores:
+      - "&7Go back to the options menu"
+  close-menu:
+    name: "&aClose menu"
+    lores:
+    - "&7Close the options menu"
