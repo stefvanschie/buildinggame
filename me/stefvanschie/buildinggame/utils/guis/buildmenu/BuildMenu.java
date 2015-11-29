@@ -26,6 +26,12 @@ public class BuildMenu {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Inventory inventory = Bukkit.createInventory(null, 36, messages.getString("gui.options-title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"));
 		try {
 			// particles item
@@ -36,11 +42,23 @@ public class BuildMenu {
 			{
 				ItemMeta particleMeta = particle.getItemMeta();
 				particleMeta.setDisplayName(messages.getString("gui.particles.name")
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replaceAll("&", "§"));
 				{
 					List<String> particleLores = new ArrayList<String>();
 					for (String lore : messages.getStringList("gui.particles.lores")) {
 						particleLores.add((lore)
+								.replace("%:a%", "ä")
+								.replace("%:e%", "ë")
+								.replace("%:i%", "ï")
+								.replace("%:o%", "ö")
+								.replace("%:u%", "ü")
+								.replace("%ss%", "ß")
 								.replaceAll("&", "§"));
 					}
 					particleMeta.setLore(particleLores);
@@ -56,11 +74,23 @@ public class BuildMenu {
 			{
 				ItemMeta floorMeta = floor.getItemMeta();
 				floorMeta.setDisplayName(messages.getString("gui.floor.name")
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replaceAll("&", "§"));
 				{
 					List<String> floorLores = new ArrayList<String>();
 					for (String lore : messages.getStringList("gui.floor.lores")) {
 						floorLores.add((lore)
+								.replace("%:a%", "ä")
+								.replace("%:e%", "ë")
+								.replace("%:i%", "ï")
+								.replace("%:o%", "ö")
+								.replace("%:u%", "ü")
+								.replace("%ss%", "ß")
 								.replaceAll("&", "§"));
 					}
 					floorMeta.setLore(floorLores);
@@ -76,11 +106,23 @@ public class BuildMenu {
 			{
 				ItemMeta timeMeta = time.getItemMeta();
 				timeMeta.setDisplayName(messages.getString("gui.time.name")
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replaceAll("&", "§"));
 				{
 					List<String> timeLores = new ArrayList<String>();
 					for (String lore : messages.getStringList("gui.time.lores")) {
 						timeLores.add((lore)
+								.replace("%:a%", "ä")
+								.replace("%:e%", "ë")
+								.replace("%:i%", "ï")
+								.replace("%:o%", "ö")
+								.replace("%:u%", "ü")
+								.replace("%ss%", "ß")
 								.replaceAll("&", "§"));
 					}
 					timeMeta.setLore(timeLores);
@@ -96,11 +138,23 @@ public class BuildMenu {
 			{
 				ItemMeta rainMeta = rain.getItemMeta();
 				rainMeta.setDisplayName(messages.getString("gui.rain.name")
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replaceAll("&", "§"));
 				{
 					List<String> rainLores = new ArrayList<String>();
 					for (String lore : messages.getStringList("gui.rain.lores")) {
 						rainLores.add((lore)
+								.replace("%:a%", "ä")
+								.replace("%:e%", "ë")
+								.replace("%:i%", "ï")
+								.replace("%:o%", "ö")
+								.replace("%:u%", "ü")
+								.replace("%ss%", "ß")
 								.replaceAll("&", "§"));
 					}
 					rainMeta.setLore(rainLores);
@@ -116,11 +170,23 @@ public class BuildMenu {
 			{
 				ItemMeta speedMeta = speed.getItemMeta();
 				speedMeta.setDisplayName(messages.getString("gui.fly-speed.name")
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replaceAll("&", "§"));
 				{
 					List<String> speedLores = new ArrayList<String>();
 					for (String lore : messages.getStringList("gui.fly-speed.lores")) {
 						speedLores.add((lore)
+								.replace("%:a%", "ä")
+								.replace("%:e%", "ë")
+								.replace("%:i%", "ï")
+								.replace("%:o%", "ö")
+								.replace("%:u%", "ü")
+								.replace("%ss%", "ß")
 								.replaceAll("&", "§"));
 					}
 					speedMeta.setLore(speedLores);
@@ -133,11 +199,24 @@ public class BuildMenu {
 			{
 				ItemMeta closeMeta = close.getItemMeta();
 				closeMeta.setDisplayName(messages.getString("gui.close-menu.name")
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replaceAll("&", "§"));
 				{
 					List<String> closeLores = new ArrayList<String>();
 					for (String lore : messages.getStringList("gui.close-menu.lores")) {
-						closeLores.add(lore.replaceAll("&", "§"));
+						closeLores.add(lore
+								.replace("%:a%", "ä")
+								.replace("%:e%", "ë")
+								.replace("%:i%", "ï")
+								.replace("%:o%", "ö")
+								.replace("%:u%", "ü")
+								.replace("%ss%", "ß")
+								.replaceAll("&", "§"));
 					}
 					closeMeta.setLore(closeLores);
 				}
