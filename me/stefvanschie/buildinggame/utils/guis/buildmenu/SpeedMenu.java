@@ -21,6 +21,12 @@ public class SpeedMenu {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Inventory inventory = Bukkit.createInventory(null, 18, messages.getString("gui.fly-speed.title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"));
 		
 		//fly speed 1
@@ -28,11 +34,23 @@ public class SpeedMenu {
 		{
 			ItemMeta speed1Meta = speed1.getItemMeta();
 			speed1Meta.setDisplayName(messages.getString("gui.fly-speed.speed-1.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replaceAll("&", "§"));
 			{
 				List<String> speed1Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.fly-speed.speed-1.lores")) {
 					speed1Lores.add(lore
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
 							.replaceAll("&", "§"));
 				}
 				speed1Meta.setLore(speed1Lores);
@@ -45,11 +63,23 @@ public class SpeedMenu {
 		{
 			ItemMeta speed2Meta = speed2.getItemMeta();
 			speed2Meta.setDisplayName(messages.getString("gui.fly-speed.speed-2.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replaceAll("&", "§"));
 			{
 				List<String> speed2Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.fly-speed.speed-2.lores")) {
 					speed2Lores.add(lore
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
 							.replaceAll("&", "§"));
 				}
 				speed2Meta.setLore(speed2Lores);
@@ -62,11 +92,23 @@ public class SpeedMenu {
 		{
 			ItemMeta speed3Meta = speed3.getItemMeta();
 			speed3Meta.setDisplayName(messages.getString("gui.fly-speed.speed-3.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replaceAll("&", "§"));
 			{
 				List<String> speed3Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.fly-speed.speed-3.lores")) {
 					speed3Lores.add(lore
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
 							.replaceAll("&", "§"));
 				}
 				speed3Meta.setLore(speed3Lores);
@@ -79,11 +121,23 @@ public class SpeedMenu {
 		{
 			ItemMeta speed4Meta = speed4.getItemMeta();
 			speed4Meta.setDisplayName(messages.getString("gui.fly-speed.speed-4.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replaceAll("&", "§"));
 			{
 				List<String> speed4Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.fly-speed.speed-4.lores")) {
 					speed4Lores.add(lore
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
 							.replaceAll("&", "§"));
 				}
 				speed4Meta.setLore(speed4Lores);
@@ -96,11 +150,23 @@ public class SpeedMenu {
 		{
 			ItemMeta speed5Meta = speed5.getItemMeta();
 			speed5Meta.setDisplayName(messages.getString("gui.fly-speed.speed-5.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replaceAll("&", "§"));
 			{
 				List<String> speed5Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.fly-speed.speed-5.lores")) {
 					speed5Lores.add(lore
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
 							.replaceAll("&", "§"));
 				}
 				speed5Meta.setLore(speed5Lores);
@@ -113,11 +179,23 @@ public class SpeedMenu {
 		{
 			ItemMeta backMeta = back.getItemMeta();
 			backMeta.setDisplayName(messages.getString("gui.fly-speed.back.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replaceAll("&", "§"));
 			{
 				List<String> backLores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.fly-speed.back.lores")) {
 					backLores.add(lore
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
 							.replaceAll("&", "§"));
 				}
 				backMeta.setLore(backLores);
