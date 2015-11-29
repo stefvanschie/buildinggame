@@ -61,6 +61,8 @@ import me.stefvanschie.buildinggame.events.player.gui.subjectmenu.NextPage;
 import me.stefvanschie.buildinggame.events.player.gui.subjectmenu.OpenSubjectMenu;
 import me.stefvanschie.buildinggame.events.player.gui.subjectmenu.PreviousPage;
 import me.stefvanschie.buildinggame.events.player.gui.subjectmenu.VoteSubjectMenu;
+import me.stefvanschie.buildinggame.events.player.gui.teamselection.OpenTeamSelection;
+import me.stefvanschie.buildinggame.events.player.gui.teamselection.TeamClick;
 import me.stefvanschie.buildinggame.events.player.signs.ClickJoinSign;
 import me.stefvanschie.buildinggame.events.player.signs.ClickLeaveSign;
 import me.stefvanschie.buildinggame.events.player.voting.Interact;
@@ -68,6 +70,7 @@ import me.stefvanschie.buildinggame.events.player.voting.InventoryMove;
 import me.stefvanschie.buildinggame.events.player.voting.VoteEvent;
 import me.stefvanschie.buildinggame.events.stats.unsaved.blocksplaced.UnsavedStatsPlace;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
+import me.stefvanschie.buildinggame.managers.arenas.ArenaModeManager;
 import me.stefvanschie.buildinggame.managers.arenas.LobbyManager;
 import me.stefvanschie.buildinggame.managers.arenas.MaxPlayersManager;
 import me.stefvanschie.buildinggame.managers.arenas.MinPlayersManager;
@@ -83,7 +86,7 @@ import me.stefvanschie.buildinggame.managers.softdependencies.SDBarApi;
 import me.stefvanschie.buildinggame.managers.softdependencies.SDVault;
 import me.stefvanschie.buildinggame.timers.ParticleRender;
 import me.stefvanschie.buildinggame.timers.ScoreboardUpdater;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -102,6 +105,7 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("Loading arenas");
 		ArenaManager.getInstance().setup();
+		ArenaModeManager.getInstance().setup();
 		LobbyManager.getInstance().setup();
 		MinPlayersManager.getInstance().setup();
 		MaxPlayersManager.getInstance().setup();
@@ -203,6 +207,9 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new OpenSubjectMenu(), this);
 		Bukkit.getPluginManager().registerEvents(new PreviousPage(), this);
 		Bukkit.getPluginManager().registerEvents(new VoteSubjectMenu(), this);
+		
+		Bukkit.getPluginManager().registerEvents(new OpenTeamSelection(), this);
+		Bukkit.getPluginManager().registerEvents(new TeamClick(), this);
 		
 		Bukkit.getPluginManager().registerEvents(new UnsavedStatsPlace(), this);
 		
