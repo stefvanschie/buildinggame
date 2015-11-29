@@ -1,7 +1,7 @@
 package me.stefvanschie.buildinggame.timers;
 
 import me.stefvanschie.buildinggame.timers.utils.Timer;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
 public class WinTimer extends Timer {
 
