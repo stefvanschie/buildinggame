@@ -3,7 +3,8 @@ package me.stefvanschie.buildinggame.timers;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.timers.utils.Timer;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.GamePlayer;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -32,18 +33,22 @@ public class WaitTimer extends Timer {
 			return;
 		} else if (seconds % 15 == 0 || (seconds <= 10 && seconds >= 1)) {
 			for (Plot plot : arena.getUsedPlots()) {
-				Player player = plot.getGamePlayer().getPlayer();
-				MessageManager.getInstance().send(player, messages.getString("lobbyCountdown.message")
-						.replace("%seconds%", seconds + "")
-						.replace("%minutes", getMinutes() + "")
-						.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
-						.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
+				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+					Player player = gamePlayer.getPlayer();
+					MessageManager.getInstance().send(player, messages.getString("lobbyCountdown.message")
+							.replace("%seconds%", seconds + "")
+							.replace("%minutes", getMinutes() + "")
+							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
+							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
+				}
 			}
 		}
 		for (Plot plot : arena.getUsedPlots()) {
-			Player player = plot.getGamePlayer().getPlayer();
+			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+				Player player = gamePlayer.getPlayer();
 				
-			player.setLevel(seconds);
+				player.setLevel(seconds);
+			}
 		}
 		seconds--;
 	}
