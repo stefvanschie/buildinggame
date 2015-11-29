@@ -14,8 +14,9 @@ import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.managers.softdependencies.SDVault;
 import me.stefvanschie.buildinggame.timers.utils.Timer;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.GamePlayer;
 import me.stefvanschie.buildinggame.utils.GameState;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 public class VoteTimer extends Timer {
@@ -69,99 +70,105 @@ public class VoteTimer extends Timer {
 				arena.setWinner(first);
 				
 				for (Plot plot : arena.getUsedPlots()) {
-					Player player = plot.getGamePlayer().getPlayer();
+					for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+						Player player = gamePlayer.getPlayer();
 						
-					player.getInventory().clear();
-					player.teleport(first.getLocation());
+						player.getInventory().clear();
+						player.teleport(first.getLocation());
 						
-					MessageManager.getInstance().send(player, messages.getString("game-ends.message"));
-				
-					MessageManager.getInstance().send(player, first.getGamePlayer() == null ? "" : ChatColor.GOLD + "1. " + ChatColor.AQUA + first.getGamePlayer().getPlayer().getName());
-					MessageManager.getInstance().send(player, second.getGamePlayer() == null ? "" : ChatColor.GOLD + "2. " + ChatColor.AQUA + second.getGamePlayer().getPlayer().getName());
-					MessageManager.getInstance().send(player, third.getGamePlayer() == null ? "" : ChatColor.GOLD + "3. " + ChatColor.AQUA + third.getGamePlayer().getPlayer().getName());
+						MessageManager.getInstance().send(player, messages.getString("game-ends.message"));
+						if (first != null)
+							MessageManager.getInstance().send(player, first.getGamePlayers().isEmpty() ? "" : ChatColor.GOLD + "1. " + ChatColor.AQUA + first.getPlayerFormat());
+						if (second != null)
+							MessageManager.getInstance().send(player, second.getGamePlayers().isEmpty() ? "" : ChatColor.GOLD + "2. " + ChatColor.AQUA + second.getPlayerFormat());
+						if (third != null)
+							MessageManager.getInstance().send(player, third.getGamePlayers().isEmpty() ? "" : ChatColor.GOLD + "3. " + ChatColor.AQUA + third.getPlayerFormat());
 					
-					plot.getGamePlayer().sendTitle(messages.getString("winner.title")
-							.replace("%first%", first.getGamePlayer() == null ? "" : first.getGamePlayer().getPlayer().getName())
-							.replace("%second%", second.getGamePlayer() == null ? "" : second.getGamePlayer().getPlayer().getName())
-							.replace("%third%", third.getGamePlayer() == null ? "" : third.getGamePlayer().getPlayer().getName())
-							.replace("%first_points%", first == null ? "0" : first.getPoints() + "")
-							.replace("%second_points%", second == null ? "0" : second.getPoints() + "")
-							.replace("%third_points%", third == null ? "0" : third.getPoints() + ""));
-					plot.getGamePlayer().sendSubtitle(messages.getString("winner.subtitle")
-							.replace("%first%", first.getGamePlayer() == null ? "" : first.getGamePlayer().getPlayer().getName())
-							.replace("%second%", second.getGamePlayer() == null ? "" : second.getGamePlayer().getPlayer().getName())
-							.replace("%third%", third.getGamePlayer() == null ? "" : third.getGamePlayer().getPlayer().getName())
-							.replace("%first_points%", first == null ? "0" : first.getPoints() + "")
-							.replace("%second_points%", second == null ? "0" : second.getPoints() + "")
-							.replace("%third_points%", third == null ? "0" : second.getPoints() + ""));
+						gamePlayer.sendTitle(messages.getString("winner.title")
+								.replace("%first%", first == null ? "" : first.getPlayerFormat())
+								.replace("%second%", second == null ? "" : second.getPlayerFormat())
+								.replace("%third%", third == null ? "" : third.getPlayerFormat())
+								.replace("%first_points%", first == null ? "0" : first.getPoints() + "")
+								.replace("%second_points%", second == null ? "0" : second.getPoints() + "")
+								.replace("%third_points%", third == null ? "0" : third.getPoints() + ""));
+						gamePlayer.sendSubtitle(messages.getString("winner.subtitle")
+								.replace("%first%", first == null ? "" : first.getPlayerFormat())
+								.replace("%second%", second == null ? "" : second.getPlayerFormat())
+								.replace("%third%", third == null ? "" : third.getPlayerFormat())
+								.replace("%first_points%", first == null ? "0" : first.getPoints() + "")
+								.replace("%second_points%", second == null ? "0" : second.getPoints() + "")
+								.replace("%third_points%", third == null ? "0" : second.getPoints() + ""));
 					
-					if(SDVault.getInstance().isEnabled()) {
-						Economy vault = SDVault.getInstance().getEconomy();
-						if (first == plot) {
-							double money = config.getInt("money.first");
-							EconomyResponse r = vault.depositPlayer(player, money);
+						if(SDVault.getInstance().isEnabled()) {
+							Economy vault = SDVault.getInstance().getEconomy();
+							if (first == plot) {
+								double money = config.getInt("money.first");
+								EconomyResponse r = vault.depositPlayer(player, money);
 					
-							MessageManager.getInstance().send(player, messages.getString("winner.first")
-									.replace("%points%", plot.getPoints() + ""));
+								MessageManager.getInstance().send(player, messages.getString("winner.first")
+										.replace("%points%", plot.getPoints() + ""));
 						
-							for (String command : config.getStringList("commands.first")) {
-								player.performCommand(command);
-							}
+								for (String command : config.getStringList("commands.first")) {
+									player.performCommand(command);
+								}
 						
-							if (r.transactionSuccess()) {
-								MessageManager.getInstance().send(player, messages.getString("vault.message")
-										.replace("%money%", money + ""));
-							}
-						} else if (second == plot) {
-							double money = config.getInt("money.second");
-							EconomyResponse r = vault.depositPlayer(player, money);
+								if (r.transactionSuccess()) {
+									MessageManager.getInstance().send(player, messages.getString("vault.message")
+											.replace("%money%", money + ""));
+								}
+							} else if (second == plot) {
+								double money = config.getInt("money.second");
+								EconomyResponse r = vault.depositPlayer(player, money);
 								
-							MessageManager.getInstance().send(player, messages.getString("winner.second")
-									.replace("%points%", plot.getPoints() + ""));
+								MessageManager.getInstance().send(player, messages.getString("winner.second")
+										.replace("%points%", plot.getPoints() + ""));
 						
-							for (String command : config.getStringList("commands.second")) {
-								player.performCommand(command);
-							}
+								for (String command : config.getStringList("commands.second")) {
+									player.performCommand(command);
+								}
 						
-							if (r.transactionSuccess()) {
-								MessageManager.getInstance().send(player, messages.getString("vault.message")
-										.replace("%money%", money + ""));
-							}
-						} else if (third == plot) {
-							double money = config.getInt("money.third");
-							EconomyResponse r = vault.depositPlayer(player, money);
+								if (r.transactionSuccess()) {
+									MessageManager.getInstance().send(player, messages.getString("vault.message")
+											.replace("%money%", money + ""));
+								}
+							} else if (third == plot) {
+								double money = config.getInt("money.third");
+								EconomyResponse r = vault.depositPlayer(player, money);
 					
-							MessageManager.getInstance().send(player, messages.getString("winner.third")
-									.replace("%points%", plot.getPoints() + ""));
+								MessageManager.getInstance().send(player, messages.getString("winner.third")
+										.replace("%points%", plot.getPoints() + ""));
 						
-							for (String command : config.getStringList("commands.third")) {
-								player.performCommand(command);
-							}
+								for (String command : config.getStringList("commands.third")) {
+									player.performCommand(command);
+								}
 						
-							if (r.transactionSuccess()) {
-								MessageManager.getInstance().send(player, messages.getString("vault.message")
-										.replace("%money%", money + ""));
-							}
-						} else {
-							double money = config.getInt("money.others");
-							EconomyResponse r = vault.depositPlayer(player, money);
+								if (r.transactionSuccess()) {
+									MessageManager.getInstance().send(player, messages.getString("vault.message")
+											.replace("%money%", money + ""));
+								}
+							} else {
+								double money = config.getInt("money.others");
+								EconomyResponse r = vault.depositPlayer(player, money);
 							
-							for (String command : config.getStringList("commands.others")) {
-								player.performCommand(command);
-							}
+								for (String command : config.getStringList("commands.others")) {
+									player.performCommand(command);
+								}
 						
-							if (r.transactionSuccess()) {
-								MessageManager.getInstance().send(player, messages.getString("vault.message")
-										.replace("%money%", money + ""));
+								if (r.transactionSuccess()) {
+									MessageManager.getInstance().send(player, messages.getString("vault.message")
+											.replace("%money%", money + ""));
+								}
 							}
 						}
 					}
 				}
-				if (first.getGamePlayer() != null) {
-					for (String command : config.getStringList("win-commands")) {
-						Bukkit.dispatchCommand(first.getGamePlayer().getPlayer(), command
-								.replace("%winner%", first.getGamePlayer().getPlayer().getName())
-								.replaceAll("&", "§"));
+				if (first.getGamePlayers().isEmpty()) {
+					for (GamePlayer gamePlayer : first.getGamePlayers()) {
+						for (String command : config.getStringList("win-commands")) {
+							Bukkit.dispatchCommand(gamePlayer.getPlayer(), command
+									.replace("%winner%", gamePlayer.getPlayer().getName())
+									.replaceAll("&", "§"));
+						}
 					}
 				}
 				running = false;
@@ -171,22 +178,25 @@ public class VoteTimer extends Timer {
 
 			arena.setVotingPlot(plot);
 			for (Plot plot : arena.getUsedPlots()) {
-				Player player = plot.getGamePlayer().getPlayer();
+				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+					Player player = gamePlayer.getPlayer();
 					
-				arena.getScoreboard().show(player);
-				player.setPlayerTime(this.plot.getTime().decode(this.plot.getTime()), false);
-				player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
+					arena.getScoreboard().show(player);
+					player.setPlayerTime(this.plot.getTime().decode(this.plot.getTime()), false);
+					player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
+				}
 			}
 		}
 		seconds--;
 		if (seconds <= 0) {
 			if (config.getBoolean("names-after-voting")) {
 				for (Plot plot : arena.getUsedPlots()) {
-					MessageManager.getInstance().send(plot.getGamePlayer().getPlayer(), messages.getString("voting.message")
-							.replace("%playerplot%", this.plot.getGamePlayer().getPlayer().getName()
-									.replaceAll("&", "§")));
-					plot.getGamePlayer().sendTitle(messages.getString("global.title")
-							.replace("%playerplot%", this.plot.getGamePlayer().getPlayer().getName()));
+					for (GamePlayer player : plot.getGamePlayers()) {
+						MessageManager.getInstance().send(player.getPlayer(), messages.getString("voting.message")
+								.replace("%playerplot%", this.plot.getPlayerFormat()));
+						player.sendTitle(messages.getString("global.title")
+							.replace("%playerplot%", this.plot.getPlayerFormat()));
+					}
 				}
 			}
 			seconds = config.getInt("votetimer");
@@ -197,7 +207,7 @@ public class VoteTimer extends Timer {
 	public Plot getNextPlot() {
 		for (Plot plot : arena.getPlots()) {
 			if (!arena.getVotedPlots().contains(plot)) {
-				if (plot.getGamePlayer() != null) {
+				if (!plot.getGamePlayers().isEmpty()) {
 					return plot;
 				}
 			}
