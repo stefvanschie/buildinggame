@@ -20,7 +20,19 @@ public class MessageManager {
 		}
 		
 		sender.sendMessage(SettingsManager.getInstance().getMessages().getString("global.prefix")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§") + message
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"));
 	}
 	
@@ -30,6 +42,12 @@ public class MessageManager {
 		}
 		
 		sender.sendMessage(message
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"));
 	}
 	
