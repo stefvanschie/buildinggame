@@ -27,6 +27,7 @@ public class CreateArena extends SubCommand {
 		}
 		
 		arenas.createSection(args[0]);
+		arenas.set(args[0] + ".mode", "SOLO");
 		SettingsManager.getInstance().save();
 		
 		ArenaManager.getInstance().setup();
