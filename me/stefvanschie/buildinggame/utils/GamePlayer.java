@@ -87,7 +87,13 @@ public class GamePlayer {
 			
 			Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("SUBTITLE").get(null);
 			Object chatSerializer = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0]
-					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + subtitle + "\"}"));
+					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + subtitle
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß") + "\"}"));
 			
 			Object packet = constructor.newInstance(enumTitle, chatSerializer, config.getInt("title.fade_in"), config.getInt("title.stay"), config.getInt("title.fade_out"));
 			sendPacket(packet);
@@ -110,7 +116,13 @@ public class GamePlayer {
 			
 			Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TITLE").get(null);
 			Object chatSerializer = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0]
-					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + title + "\"}"));
+					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + title
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß") + "\"}"));
 			
 			Object packet = constructor.newInstance(enumTitle, chatSerializer, config.getInt("title.fade_in"), config.getInt("title.stay"), config.getInt("title.fade_out"));
 			sendPacket(packet);
