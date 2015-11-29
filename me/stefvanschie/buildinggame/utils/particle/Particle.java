@@ -3,7 +3,8 @@ package me.stefvanschie.buildinggame.utils.particle;
 import java.lang.reflect.Constructor;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.GamePlayer;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.Bukkit;
@@ -55,7 +56,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -79,7 +82,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -103,7 +108,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -127,7 +134,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -151,7 +160,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -175,7 +186,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -199,7 +212,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -223,7 +238,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -247,7 +264,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -271,7 +290,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -295,7 +316,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -319,7 +342,9 @@ public class Particle {
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
-						sendPacket(plot.getGamePlayer().getPlayer(), packet);
+						for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+							sendPacket(gamePlayer.getPlayer(), packet);
+						}
 					}
 				}
 			} catch (Exception e) {
