@@ -31,7 +31,7 @@ public class RedstoneMagicClick implements Listener{
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
 		if (!inventory.getName().equals(messages.getString("gui.particles.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -48,11 +48,11 @@ public class RedstoneMagicClick implements Listener{
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.particles.redstone-magic.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
-		plot.addParticle(new Particle(player.getLocation(), ParticleType.REDSTONE_MAGIC));
+		plot.addParticle(new Particle(player.getLocation(), ParticleType.REDSTONE_MAGIC), player);
 		e.setCancelled(true);
 	}
 }

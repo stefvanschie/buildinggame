@@ -1,7 +1,7 @@
 package me.stefvanschie.buildinggame.commands.subcommands;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
-import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.commandutils.PlayerCommand;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.mainspawn.MainSpawnManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
@@ -9,7 +9,7 @@ import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class SetMainSpawn extends SubCommand {
+public class SetMainSpawn extends PlayerCommand {
 
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {
@@ -24,7 +24,7 @@ public class SetMainSpawn extends SubCommand {
 		
 		MainSpawnManager.getInstance().setMainSpawn(player.getLocation());
 		MessageManager.getInstance().send(player, messages.getString("setMainSpawn.succes")
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 		return CommandResult.SUCCES;
 	}
 

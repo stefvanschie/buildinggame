@@ -1,28 +1,28 @@
 package me.stefvanschie.buildinggame.commands.subcommands;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
-import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.commandutils.ConsoleCommand;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
-public class CreateArena extends SubCommand {
+public class CreateArena extends ConsoleCommand {
 
 	@Override
-	public CommandResult onCommand(Player player, String[] args) {
+	public CommandResult onCommand(CommandSender sender, String[] args) {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		if (args.length == 0) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arenaname");
+			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arenaname");
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		if (arenas.contains(args[0])) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "That arena does already exists");
+			MessageManager.getInstance().send(sender, ChatColor.RED + "That arena does already exists");
 			return CommandResult.ERROR;
 		}
 		
@@ -32,9 +32,9 @@ public class CreateArena extends SubCommand {
 		
 		ArenaManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(player, messages.getString("createArena.succes")
+		MessageManager.getInstance().send(sender, messages.getString("createArena.succes")
 				.replace("%arena%", args[0])
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 		
 		return CommandResult.SUCCES;
 	}

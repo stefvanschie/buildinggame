@@ -30,7 +30,7 @@ public class AM10Click implements Listener {
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
 		if (!inventory.getName().equals(messages.getString("gui.time.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -47,7 +47,7 @@ public class AM10Click implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.time.10am.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

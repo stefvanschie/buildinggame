@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
+import me.stefvanschie.buildinggame.commands.commandutils.ConsoleCommand;
 import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.title.FadeIn;
 import me.stefvanschie.buildinggame.commands.subcommands.settings.title.FadeOut;
@@ -12,14 +13,14 @@ import me.stefvanschie.buildinggame.commands.subcommands.settings.title.Stay;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
-public class Title extends SubCommand {
+public class Title extends ConsoleCommand {
 
 private List<SubCommand> subCommands = new ArrayList<SubCommand>();
 	
 	@Override
-	public CommandResult onCommand(Player player, String[] args) {
+	public CommandResult onCommand(CommandSender sender, String[] args) {
 		
 		subCommands.add(new FadeIn());
 		subCommands.add(new Stay());
@@ -27,14 +28,14 @@ private List<SubCommand> subCommands = new ArrayList<SubCommand>();
 		
 		if (args.length == 0) {
 			for (SubCommand sc : subCommands) {
-				MessageManager.getInstance().sendWithoutPrefix(player, ChatColor.GREEN + "/bg setting title " + sc.getName() + " - " + sc.getInfo());
+				MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting title " + sc.getName() + " - " + sc.getInfo());
 			}
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		
 		for (SubCommand subCommand : subCommands) {
 			if (subCommand.getName().equalsIgnoreCase(args[0])) {
-				if (player.hasPermission(subCommand.getPermission())) {
+				if (sender.hasPermission(subCommand.getPermission())) {
 					//remove first argument
 				
 					List<String> arguments = new ArrayList<String>();
@@ -42,13 +43,13 @@ private List<SubCommand> subCommands = new ArrayList<SubCommand>();
 					arguments.remove(0);
 					args = arguments.toArray(new String[arguments.size()]);
 				
-					CommandResult result = subCommand.onCommand(player, args);
+					CommandResult result = subCommand.onCommand(sender, args);
 					return result;
 				}
 			}
 		}
 		
-		MessageManager.getInstance().send(player, ChatColor.RED + "That's not a setting");
+		MessageManager.getInstance().send(sender, ChatColor.RED + "That's not a setting");
 		return CommandResult.ERROR;
 	}
 

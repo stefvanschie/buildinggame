@@ -28,7 +28,7 @@ public class ParticleClick implements Listener {
 			return;
 		}
 		if (!inventory.getName().equals(messages.getString("gui.options-title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -52,7 +52,7 @@ public class ParticleClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.particles.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

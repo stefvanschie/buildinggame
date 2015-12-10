@@ -30,7 +30,7 @@ public class MidnightClick implements Listener {
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
 		if (!inventory.getName().equals(messages.getString("gui.time.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -47,7 +47,7 @@ public class MidnightClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.time.midnight.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

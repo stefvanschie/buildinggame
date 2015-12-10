@@ -37,13 +37,13 @@ public class SubjectMenu {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 				
 		Inventory inventory = Bukkit.createInventory(null, 36, messages.getString("subject-gui.title")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 		
 		for (int i = 0; i < 27; i++) {
 			if (page.getPage() < 1) {
@@ -63,25 +63,25 @@ public class SubjectMenu {
 			ItemStack item = new ItemStack(Material.PAPER);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(messages.getString("subject-gui.subject.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replace("%subject%", subject)
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			List<String> lores = new ArrayList<String>();
 			for (String lore : messages.getStringList("subject-gui.subject.lores")) {
 				lores.add(lore
-						.replace("%:a%", "Ã¤")
-						.replace("%:e%", "Ã«")
-						.replace("%:i%", "Ã¯")
-						.replace("%:o%", "Ã¶")
-						.replace("%:u%", "Ã¼")
-						.replace("%ss%", "ÃŸ")
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replace("%votes%", votes.get(subject).getVotes() + "")
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 			}
 			meta.setLore(lores);
 			item.setItemMeta(meta);
@@ -93,23 +93,23 @@ public class SubjectMenu {
 		ItemStack prevItem = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta prevMeta = prevItem.getItemMeta();
 		prevMeta.setDisplayName(messages.getString("subject-gui.previous-page.name")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 		List<String> prevLores = new ArrayList<String>();
 		for (String lore : messages.getStringList("subject-gui.previous-page.lores")) {
 			prevLores.add(lore
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 		}
 		prevMeta.setLore(prevLores);
 		prevItem.setItemMeta(prevMeta);
@@ -118,23 +118,23 @@ public class SubjectMenu {
 		ItemStack closeItem = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = closeItem.getItemMeta();
 		closeMeta.setDisplayName(messages.getString("subject-gui.close-menu.name")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 		List<String> closeLores = new ArrayList<String>();
 		for (String lore : messages.getStringList("subject-gui.close-menu.lores")) {
 			closeLores.add(lore
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 		}
 		closeMeta.setLore(closeLores);
 		closeItem.setItemMeta(closeMeta);
@@ -143,23 +143,23 @@ public class SubjectMenu {
 		ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextMeta = nextItem.getItemMeta();
 		nextMeta.setDisplayName(messages.getString("subject-gui.next-page.name")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 		List<String> nextLores = new ArrayList<String>();
 		for (String lore : messages.getStringList("subject-gui.next-page.lores")) {
 			nextLores.add(lore
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 		}
 		nextMeta.setLore(nextLores);
 		nextItem.setItemMeta(nextMeta);

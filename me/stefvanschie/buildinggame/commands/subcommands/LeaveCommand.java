@@ -4,12 +4,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
-import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.commandutils.PlayerCommand;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
-public class LeaveCommand extends SubCommand {
+public class LeaveCommand extends PlayerCommand {
 
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {

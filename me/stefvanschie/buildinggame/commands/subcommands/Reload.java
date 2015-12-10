@@ -1,17 +1,17 @@
 package me.stefvanschie.buildinggame.commands.subcommands;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
-import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.commandutils.ConsoleCommand;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
-public class Reload extends SubCommand {
+public class Reload extends ConsoleCommand {
 
 	@Override
-	public CommandResult onCommand(Player player, String[] args) {
+	public CommandResult onCommand(CommandSender sender, String[] args) {
 		
-		MessageManager.getInstance().send(player, "Command disabled due to weird behavior");
+		MessageManager.getInstance().send(sender, "Command disabled due to weird behavior");
 		return CommandResult.ERROR;
 		/*
 		long start = System.nanoTime();

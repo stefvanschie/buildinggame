@@ -21,13 +21,13 @@ public class VoteScoreboard {
 	public VoteScoreboard() {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName(messages.getString("global.scoreboardHeader")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-         		.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+         		.replaceAll("&", "§"));
 	}
 	
 	public String getDisplayName() {

@@ -1,29 +1,29 @@
 package me.stefvanschie.buildinggame.commands.subcommands.settings;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
-import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.commandutils.ConsoleCommand;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 
-public class VoteTimer extends SubCommand {
+public class VoteTimer extends ConsoleCommand {
 
 	@Override
-	public CommandResult onCommand(Player player, String[] args) {
+	public CommandResult onCommand(CommandSender sender, String[] args) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		if (args.length == 0) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the time");
+			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the time");
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		
 		try {
 			Integer.parseInt(args[0]);
 		} catch (NumberFormatException nfe) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid number");
+			MessageManager.getInstance().send(sender, ChatColor.RED + "That's not a valid number");
 			return CommandResult.ERROR;
 		}
 		
@@ -32,7 +32,7 @@ public class VoteTimer extends SubCommand {
 		config.set("votetimer", time);
 		SettingsManager.getInstance().save();
 		
-		MessageManager.getInstance().send(player, ChatColor.GREEN + "Votetimer setting set to " + time);
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Votetimer setting set to " + time);
 		
 		return CommandResult.SUCCES;
 	}

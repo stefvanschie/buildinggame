@@ -15,8 +15,10 @@ import me.stefvanschie.buildinggame.commands.subcommands.LeaveCommand;
 import me.stefvanschie.buildinggame.commands.subcommands.Reload;
 import me.stefvanschie.buildinggame.commands.subcommands.SetBounds;
 import me.stefvanschie.buildinggame.commands.subcommands.SetFloor;
+import me.stefvanschie.buildinggame.commands.subcommands.SetGameMode;
 import me.stefvanschie.buildinggame.commands.subcommands.SetLobby;
 import me.stefvanschie.buildinggame.commands.subcommands.SetMainSpawn;
+import me.stefvanschie.buildinggame.commands.subcommands.SetMaxPlayers;
 import me.stefvanschie.buildinggame.commands.subcommands.SetMinPlayers;
 import me.stefvanschie.buildinggame.commands.subcommands.SetSpawn;
 import me.stefvanschie.buildinggame.commands.subcommands.Setting;
@@ -29,7 +31,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 public class CommandManager implements CommandExecutor {
 
@@ -46,8 +47,10 @@ public class CommandManager implements CommandExecutor {
 		subCommands.add(new Reload());
 		subCommands.add(new SetBounds());
 		subCommands.add(new SetFloor());
+		subCommands.add(new SetGameMode());
 		subCommands.add(new SetLobby());
 		subCommands.add(new SetMainSpawn());
+		subCommands.add(new SetMaxPlayers());
 		subCommands.add(new SetMinPlayers());
 		subCommands.add(new SetSpawn());
 		subCommands.add(new Setting());
@@ -58,18 +61,11 @@ public class CommandManager implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		if (!(sender instanceof Player)) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Only players can perform this command");
-			return false;
-		}
-		
-		Player player = (Player) sender;
-		
 		if (cmd.getName().equalsIgnoreCase("bg") || cmd.getName().equalsIgnoreCase("buildinggame")) {
 			if (args.length == 0) {
 				for (SubCommand sc : subCommands) {
-					if (player.hasPermission(sc.getPermission())) {
-						MessageManager.getInstance().sendWithoutPrefix(player, ChatColor.GREEN + "/bg " + sc.getName() + " - " + sc.getInfo());
+					if (sender.hasPermission(sc.getPermission())) {
+						MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.AQUA + "/bg " + sc.getName() + " - " + ChatColor.GOLD + sc.getInfo());
 					}
 				}
 				return false;
@@ -78,12 +74,12 @@ public class CommandManager implements CommandExecutor {
 			SubCommand target = getSubCommand(args[0]);
 			
 			if (target == null) {
-				MessageManager.getInstance().send(player, ChatColor.RED + args[0] + " is not valid.");
+				MessageManager.getInstance().send(sender, ChatColor.RED + args[0] + " is not valid.");
 				return false;
 			}
 			
-			if (!player.hasPermission(target.getPermission())) {
-				MessageManager.getInstance().send(player, messages.getString("global.permissionNode"));
+			if (!sender.hasPermission(target.getPermission())) {
+				MessageManager.getInstance().send(sender, messages.getString("global.permissionNode"));
 				return false;
 			}
 			
@@ -93,7 +89,7 @@ public class CommandManager implements CommandExecutor {
 			
 			args = arguments.toArray(new String[arguments.size()]);
 			
-			CommandResult result = target.onCommand(player, args);
+			CommandResult result = target.onCommand(sender, args);
 			
 			if (result == CommandResult.SUCCES) {
 				return true;
@@ -105,8 +101,9 @@ public class CommandManager implements CommandExecutor {
 
 	private SubCommand getSubCommand(String name) {
 		for (SubCommand subCommand : subCommands) {
-			if (subCommand.getName().equalsIgnoreCase(name))
+			if (subCommand.getName().equalsIgnoreCase(name)) {
 				return subCommand;
+			}
 		}
 		return null;
 	}

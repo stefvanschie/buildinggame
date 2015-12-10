@@ -6,6 +6,7 @@ import me.stefvanschie.buildinggame.events.block.JoinSignBreak;
 import me.stefvanschie.buildinggame.events.block.JoinSignCreate;
 import me.stefvanschie.buildinggame.events.block.LeaveSignCreate;
 import me.stefvanschie.buildinggame.events.entity.EntityExplode;
+import me.stefvanschie.buildinggame.events.entity.EntitySpawn;
 import me.stefvanschie.buildinggame.events.player.BonemealEvent;
 import me.stefvanschie.buildinggame.events.player.CommandBlocker;
 import me.stefvanschie.buildinggame.events.player.Drop;
@@ -84,6 +85,7 @@ import me.stefvanschie.buildinggame.managers.plots.LocationManager;
 import me.stefvanschie.buildinggame.managers.plots.PlotManager;
 import me.stefvanschie.buildinggame.managers.softdependencies.SDBarApi;
 import me.stefvanschie.buildinggame.managers.softdependencies.SDVault;
+import me.stefvanschie.buildinggame.timers.LoadCooldown;
 import me.stefvanschie.buildinggame.timers.ParticleRender;
 import me.stefvanschie.buildinggame.timers.ScoreboardUpdater;
 import me.stefvanschie.buildinggame.utils.arena.Arena;
@@ -99,7 +101,26 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
+		getLogger().info("Waiting until other plugins are loaded");
+		
+		new LoadCooldown().runTaskTimer(this, 20L, 20L);
+	}
+	
+	public void onDisable() {
+		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+			if (arena.getPlayers() > 0) {
+				arena.stop();
+			}
+		}
+		
+		getLogger().info("BuildingGame has been disabled");
+		
+		instance = null;
+	}
+	
+	public void loadPlugin() {
 		long start = System.currentTimeMillis();
+		
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this);
 		
@@ -148,8 +169,10 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new EntityDamage(), this);
 		Bukkit.getPluginManager().registerEvents(new TakeDamage(), this);
 		Bukkit.getPluginManager().registerEvents(new LoseFood(), this);
+		
 		//entity events
 		Bukkit.getPluginManager().registerEvents(new EntityExplode(), this);
+		Bukkit.getPluginManager().registerEvents(new EntitySpawn(), this);
 		
 		//gui, long long list... :(
 		//going from top to bottom
@@ -228,15 +251,6 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("BuildingGame has been enabled in " + (end - start) + " milliseconds!");
 		
-	}
-	
-	public void onDisable() {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			arena.stop();
-		}
-		getLogger().info("BuildingGame has been disabled");
-		
-		instance = null;
 	}
 	
 	public static Main getInstance() {

@@ -1,11 +1,16 @@
 package me.stefvanschie.buildinggame.utils.guis;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.arena.Arena;
+import me.stefvanschie.buildinggame.utils.nbt.NBTItem;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,14 +25,49 @@ public class TeamSelection {
 	}
 	
 	public void show(Player player) {
-		Inventory inventory = Bukkit.createInventory(null, round(arena.getPlots().size()), ChatColor.GREEN + "Team selection");
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
+		Inventory inventory = Bukkit.createInventory(null, round(arena.getPlots().size()), messages.getString("team-gui.title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 		
 		int iteration = 0;
 		for (Plot plot : arena.getPlots()) {
 			ItemStack item = new ItemStack(Material.PAPER);
 			ItemMeta itemMeta = item.getItemMeta();
-			itemMeta.setDisplayName("Team " + plot.getID());
+			itemMeta.setDisplayName(messages.getString("team-gui.team.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replace("%plot%", plot.getID() + "")
+					.replaceAll("&", "§"));
+			
+			List<String> lores = new ArrayList<String>();
+			for (String lore : messages.getStringList("team-gui.team.lores")) {
+				lores.add(lore
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
+						.replaceAll("&", "§"));
+			}
+			itemMeta.setLore(lores);
+			
 			item.setItemMeta(itemMeta);
+			
+			NBTItem nbtItem = new NBTItem(item);
+			nbtItem.setInteger("team", iteration + 1);
+			item = nbtItem.getItem();
 			
 			inventory.setItem(iteration, item);
 			

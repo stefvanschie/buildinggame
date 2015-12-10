@@ -20,20 +20,20 @@ public class MessageManager {
 		}
 		
 		sender.sendMessage(SettingsManager.getInstance().getMessages().getString("global.prefix")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§") + message
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§") + message
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 	}
 	
 	public void sendWithoutPrefix(CommandSender sender, String message) {
@@ -42,13 +42,13 @@ public class MessageManager {
 		}
 		
 		sender.sendMessage(message
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 	}
 	
 }

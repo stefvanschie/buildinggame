@@ -3,7 +3,7 @@ package me.stefvanschie.buildinggame.events.player.create;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.managers.plots.FloorManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.ChatColor;

@@ -1,8 +1,8 @@
 package me.stefvanschie.buildinggame.events.stats.unsaved.blocksplaced;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
-import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.GameState;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,6 +25,6 @@ public class UnsavedStatsPlace implements Listener {
 			return;
 		}
 		
-		arena.getPlot(player).getGamePlayer().setBlocksPlaced(arena.getPlot(player).getGamePlayer().getBlocksPlaced() + 1);
+		arena.getPlot(player).getGamePlayer(player).setBlocksPlaced(arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + 1);
 	}
 }

@@ -31,7 +31,7 @@ public class HappyVillagerClick implements Listener {
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
 		if (!inventory.getName().equals(messages.getString("gui.particles.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -48,11 +48,11 @@ public class HappyVillagerClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.particles.happy-villager.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
-		plot.addParticle(new Particle(player.getLocation(), ParticleType.HAPPY_VILLAGER));
+		plot.addParticle(new Particle(player.getLocation(), ParticleType.HAPPY_VILLAGER), player);
 		e.setCancelled(true);
 	}
 }

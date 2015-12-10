@@ -32,7 +32,7 @@ public class WaterDripClick implements Listener {
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
 		if (!inventory.getName().equals(messages.getString("gui.particles.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -49,11 +49,11 @@ public class WaterDripClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.particles.water-drip.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
-		plot.addParticle(new Particle(player.getLocation(), ParticleType.WATER_DRIP));
+		plot.addParticle(new Particle(player.getLocation(), ParticleType.WATER_DRIP), player);
 		e.setCancelled(true);
 	}
 }

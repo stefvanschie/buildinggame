@@ -28,7 +28,7 @@ public class SpeedClick implements Listener {
 			return;
 		}
 		if (!inventory.getName().equals(messages.getString("gui.options-title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -51,7 +51,7 @@ public class SpeedClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.fly-speed.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

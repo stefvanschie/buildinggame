@@ -116,6 +116,13 @@ subject-gui:
     lores:
     -
 
+team-gui:
+  title: "&aTeam selection"
+  team:
+    name: "Team %plot%"
+    lores:
+    -
+
 gui:
   options-emerald: "&aOptions"
   options-lores:

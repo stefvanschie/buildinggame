@@ -3,6 +3,8 @@ votetimer: 15
 waittimer: 60
 wintimer: 10
 
+allow-fly-out-bounds: false
+enable-subject-voting: true
 restore-plots: true
 scoreboard-update-delay: 20
 max-vote-change: -1
@@ -20,6 +22,11 @@ subjects:
 - candy
 - flower
 - headset
+
+blocked-entities:
+- 'ender_crystal'
+- 'ender_dragon'
+- 'wither'
 
 title:
   fade_in: 0

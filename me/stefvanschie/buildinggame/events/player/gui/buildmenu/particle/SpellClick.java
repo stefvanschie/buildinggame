@@ -31,7 +31,7 @@ public class SpellClick implements Listener {
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
 		if (!inventory.getName().equals(messages.getString("gui.particles.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -48,11 +48,11 @@ public class SpellClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.particles.spell.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
-		plot.addParticle(new Particle(player.getLocation(), ParticleType.SPELL));
+		plot.addParticle(new Particle(player.getLocation(), ParticleType.SPELL), player);
 		e.setCancelled(true);
 	}
 }

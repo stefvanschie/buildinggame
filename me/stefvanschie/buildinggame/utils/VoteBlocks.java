@@ -23,13 +23,13 @@ public class VoteBlocks {
 			two.setDurability(twoBlock.getData());
 			ItemMeta twoMeta = two.getItemMeta();
 			twoMeta.setDisplayName(messages.getString("voting.two-points-block")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			two.setItemMeta(twoMeta);
 			player.getInventory().setItem(1, two);
 		
@@ -39,13 +39,13 @@ public class VoteBlocks {
 			three.setDurability(threeBlock.getData());
 			ItemMeta threeMeta = three.getItemMeta();
 			threeMeta.setDisplayName(messages.getString("voting.three-points-block")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			three.setItemMeta(threeMeta);
 			player.getInventory().setItem(2, three);
 		
@@ -55,13 +55,13 @@ public class VoteBlocks {
 			four.setDurability(fourBlock.getData());
 			ItemMeta fourMeta = four.getItemMeta();
 			fourMeta.setDisplayName(messages.getString("voting.four-points-block")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			four.setItemMeta(fourMeta);
 			player.getInventory().setItem(3, four);
 		
@@ -71,13 +71,13 @@ public class VoteBlocks {
 			five.setDurability(fiveBlock.getData());
 			ItemMeta fiveMeta = five.getItemMeta();
 			fiveMeta.setDisplayName(messages.getString("voting.five-points-block")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			five.setItemMeta(fiveMeta);
 			player.getInventory().setItem(4, five);
 		
@@ -87,13 +87,13 @@ public class VoteBlocks {
 			six.setDurability(sixBlock.getData());
 			ItemMeta sixMeta = six.getItemMeta();
 			sixMeta.setDisplayName(messages.getString("voting.six-points-block")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			six.setItemMeta(sixMeta);
 			player.getInventory().setItem(5, six);
 		
@@ -103,13 +103,13 @@ public class VoteBlocks {
 			seven.setDurability(sevenBlock.getData());
 			ItemMeta sevenMeta = seven.getItemMeta();
 			sevenMeta.setDisplayName(messages.getString("voting.seven-points-block")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			seven.setItemMeta(sevenMeta);
 			player.getInventory().setItem(6, seven);
 			
@@ -119,13 +119,13 @@ public class VoteBlocks {
 			eight.setDurability(eightBlock.getData());
 			ItemMeta eightMeta = eight.getItemMeta();
 			eightMeta.setDisplayName(messages.getString("voting.eight-points-block")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			eight.setItemMeta(eightMeta);
 			player.getInventory().setItem(7, eight);
 		} catch (NullPointerException npe) {

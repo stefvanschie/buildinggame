@@ -3,7 +3,7 @@ package me.stefvanschie.buildinggame.events.player.signs;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
@@ -33,19 +33,19 @@ public class ClickLeaveSign implements Listener {
 		Sign sign = (Sign) e.getClickedBlock().getState();
 		
 		if (!sign.getLine(0).equals(messages.getString("leave-sign.line-1")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		if (!sign.getLine(1).equals(messages.getString("leave-sign.line-2")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		if (!sign.getLine(2).equals(messages.getString("leave-sign.line-3")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		if (!sign.getLine(3).equals(messages.getString("leave-sign.line-4")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 

@@ -13,14 +13,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
-import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.commandutils.PlayerCommand;
 import me.stefvanschie.buildinggame.events.player.create.Bounds;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
-public class SetBounds extends SubCommand {
+public class SetBounds extends PlayerCommand {
 	
 	HashMap<String, Plot> editingPlot = new HashMap<String, Plot>();
 	HashMap<String, Arena> editingArena = new HashMap<String, Arena>();

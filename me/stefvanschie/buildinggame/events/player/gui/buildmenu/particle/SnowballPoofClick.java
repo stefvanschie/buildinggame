@@ -31,7 +31,7 @@ public class SnowballPoofClick implements Listener {
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
 		if (!inventory.getName().equals(messages.getString("gui.particles.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -48,11 +48,11 @@ public class SnowballPoofClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.particles.snowball-poof.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
-		plot.addParticle(new Particle(player.getLocation(), ParticleType.SNOWBALL_POOF));
+		plot.addParticle(new Particle(player.getLocation(), ParticleType.SNOWBALL_POOF), player);
 		e.setCancelled(true);
 	}
 }

@@ -2,8 +2,8 @@ package me.stefvanschie.buildinggame.events.player.gui.subjectmenu;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
-import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.GuiPage;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -31,7 +31,7 @@ public class NextPage implements Listener {
 		}
 		
 		if (!inventory.getName().equals(messages.getString("subject-gui.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -48,7 +48,7 @@ public class NextPage implements Listener {
 		}
 		
 		if (!item.getItemMeta().getDisplayName().equals(messages.getString("subject-gui.next-page.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

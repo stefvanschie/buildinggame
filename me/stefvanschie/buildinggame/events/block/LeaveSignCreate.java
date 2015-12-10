@@ -34,12 +34,12 @@ public class LeaveSignCreate implements Listener {
 		String line4 = messages.getString("leave-sign.line-4");
 		
 		e.setLine(0, line1
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 		e.setLine(1, line2
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 		e.setLine(2, line3
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 		e.setLine(3, line4
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 	}
 }

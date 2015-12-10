@@ -21,37 +21,37 @@ public class TimeMenu {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
 		Inventory inventory = Bukkit.createInventory(null, 18, messages.getString("gui.time.title")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 		
 		//midnight
 		ItemStack midnight = new ItemStack(Material.WATCH, 1);
 		{
 			ItemMeta midnightMeta = midnight.getItemMeta();
 			midnightMeta.setDisplayName(messages.getString("gui.time.midnight.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> midnightLores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.midnight.lores")) {
 					midnightLores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				midnightMeta.setLore(midnightLores);
 			}
@@ -63,24 +63,24 @@ public class TimeMenu {
 		{
 			ItemMeta am2Meta = am2.getItemMeta();
 			am2Meta.setDisplayName(messages.getString("gui.time.2am.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> am2Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.2am.lores")) {
 					am2Lores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				am2Meta.setLore(am2Lores);
 			}
@@ -92,24 +92,24 @@ public class TimeMenu {
 		{
 			ItemMeta am4Meta = am4.getItemMeta();
 			am4Meta.setDisplayName(messages.getString("gui.time.4am.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> am4Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.4am.lores")) {
 					am4Lores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				am4Meta.setLore(am4Lores);
 			}
@@ -121,24 +121,24 @@ public class TimeMenu {
 		{
 			ItemMeta am6Meta = am6.getItemMeta();
 			am6Meta.setDisplayName(messages.getString("gui.time.6am.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> am6Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.6am.lores")) {
 					am6Lores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				am6Meta.setLore(am6Lores);
 			}
@@ -150,24 +150,24 @@ public class TimeMenu {
 		{
 			ItemMeta am8Meta = am8.getItemMeta();
 			am8Meta.setDisplayName(messages.getString("gui.time.8am.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> am8Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.8am.lores")) {
 					am8Lores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				am8Meta.setLore(am8Lores);
 			}
@@ -179,24 +179,24 @@ public class TimeMenu {
 		{
 			ItemMeta am10Meta = am10.getItemMeta();
 			am10Meta.setDisplayName(messages.getString("gui.time.10am.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> am10Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.10am.lores")) {
 					am10Lores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				am10Meta.setLore(am10Lores);
 			}
@@ -208,24 +208,24 @@ public class TimeMenu {
 		{
 			ItemMeta middayMeta = midday.getItemMeta();
 			middayMeta.setDisplayName(messages.getString("gui.time.midday.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> middayLores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.midday.lores")) {
 					middayLores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				middayMeta.setLore(middayLores);
 			}
@@ -237,24 +237,24 @@ public class TimeMenu {
 		{
 			ItemMeta pm2Meta = pm2.getItemMeta();
 			pm2Meta.setDisplayName(messages.getString("gui.time.2pm.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm2Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.2pm.lores")) {
 					pm2Lores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				pm2Meta.setLore(pm2Lores);
 			}
@@ -266,24 +266,24 @@ public class TimeMenu {
 		{
 			ItemMeta pm4Meta = pm4.getItemMeta();
 			pm4Meta.setDisplayName(messages.getString("gui.time.4pm.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm4Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.4pm.lores")) {
 					pm4Lores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				pm4Meta.setLore(pm4Lores);
 			}
@@ -295,18 +295,18 @@ public class TimeMenu {
 		{
 			ItemMeta pm6Meta = pm6.getItemMeta();
 			pm6Meta.setDisplayName(messages.getString("gui.time.6pm.name")
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
-					.replaceAll("&", "Â§"));
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
 			{
 				List<String> pm6Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.6pm.lores")) {
 					pm6Lores.add(lore
-							.replaceAll("&", "Â§"));
+							.replaceAll("&", "§"));
 				}
 				pm6Meta.setLore(pm6Lores);
 			}
@@ -318,12 +318,12 @@ public class TimeMenu {
 		{
 			ItemMeta pm8Meta = pm8.getItemMeta();
 			pm8Meta.setDisplayName(messages.getString("gui.time.8pm.name")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			{
 				List<String> pm8Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.8pm.lores")) {
 					pm8Lores.add(lore
-							.replaceAll("&", "Â§"));
+							.replaceAll("&", "§"));
 				}
 				pm8Meta.setLore(pm8Lores);
 			}
@@ -335,12 +335,12 @@ public class TimeMenu {
 		{
 			ItemMeta pm10Meta = pm10.getItemMeta();
 			pm10Meta.setDisplayName(messages.getString("gui.time.10pm.name")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			{
 				List<String> pm10Lores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.10pm.lores")) {
 					pm10Lores.add(lore
-							.replaceAll("&", "Â§"));
+							.replaceAll("&", "§"));
 				}
 				pm10Meta.setLore(pm10Lores);
 			}
@@ -352,18 +352,18 @@ public class TimeMenu {
 		{
 			ItemMeta backMeta = back.getItemMeta();
 			backMeta.setDisplayName(messages.getString("gui.time.back.name")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			{
 				List<String> backLores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.time.back.lores")) {
 					backLores.add(lore
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"));
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
 				}
 				backMeta.setLore(backLores);
 			}

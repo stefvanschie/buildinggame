@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Boundary;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 

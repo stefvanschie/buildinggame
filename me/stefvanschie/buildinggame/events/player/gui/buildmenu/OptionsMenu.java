@@ -33,7 +33,7 @@ public class OptionsMenu implements Listener {
 			return;
 		}
 		if (!player.getItemInHand().getItemMeta().getDisplayName().equals(messages.getString("gui.options-emerald")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

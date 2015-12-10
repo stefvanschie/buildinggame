@@ -25,7 +25,7 @@ public class Speed3Click implements Listener {
 			return;
 		}
 		if (!inventory.getName().equals(messages.getString("gui.fly-speed.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -42,7 +42,7 @@ public class Speed3Click implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.fly-speed.speed-3.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

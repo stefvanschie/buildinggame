@@ -22,7 +22,7 @@ public class CloseMenu implements Listener {
 		Inventory inventory = e.getInventory();
 		
 		if (!inventory.getName().equals(messages.getString("gui.options-title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

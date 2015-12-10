@@ -27,13 +27,13 @@ public class BuildScoreboard {
 	public BuildScoreboard(Arena arena) {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		objective.setDisplayName(messages.getString("global.buildScoreboardHeader")
-				.replace("%:a%", "Ã¤")
-				.replace("%:e%", "Ã«")
-				.replace("%:i%", "Ã¯")
-				.replace("%:o%", "Ã¶")
-				.replace("%:u%", "Ã¼")
-				.replace("%ss%", "ÃŸ")
-				.replaceAll("&", "Â§"));
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"));
 		
 		this.arena = arena;
 	}
@@ -66,23 +66,24 @@ public class BuildScoreboard {
 		int place = 0;
 		for (int i = list.size(); i > 0; i--) {
 			setScore(list.get(place)
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
 					.replace("%subject%", arena.getSubject() != null ? arena.getSubject() : "?")
 					.replace("%seconds%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getSeconds() + "")
 					.replace("%minutes", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getMinutes() + "")
+					.replace("%plot%", arena.getPlot(player).getID() + "")
 					.replace("%time%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getMinutes() + ":" + arena.getActiveTimer().getSecondsFromMinute())
 					.replace("%seconds_from_minute%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getSecondsFromMinute() + "")
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
-					.replaceAll("&", "Â§"), i);
+					.replaceAll("&", "§"), i);
 			place++;
 		}
 		
@@ -108,23 +109,24 @@ public class BuildScoreboard {
 				continue;
 			}
 			setScore(list.get(place)
-					.replace("%:a%", "Ã¤")
-					.replace("%:e%", "Ã«")
-					.replace("%:i%", "Ã¯")
-					.replace("%:o%", "Ã¶")
-					.replace("%:u%", "Ã¼")
-					.replace("%ss%", "ÃŸ")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
 					.replace("%subject%", arena.getSubject() != null ? arena.getSubject() : "?")
 					.replace("%seconds%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getSeconds() + "")
 					.replace("%minutes", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getMinutes() + "")
+					.replace("%plot%", arena.getPlot(player).getID() + "")
 					.replace("%time%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getMinutes() + ":" + arena.getActiveTimer().getSecondsFromMinute())
 					.replace("%seconds_from_minute%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getSecondsFromMinute() + "")
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
-					.replaceAll("&", "Â§"), i);
+					.replaceAll("&", "§"), i);
 			place++;
 		}
 		player.setScoreboard(scoreboard);

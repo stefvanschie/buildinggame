@@ -1,8 +1,8 @@
 package me.stefvanschie.buildinggame.events.player.voting;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
-import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.GameState;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

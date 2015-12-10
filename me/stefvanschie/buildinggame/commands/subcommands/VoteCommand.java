@@ -5,16 +5,16 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import me.stefvanschie.buildinggame.commands.commandutils.CommandResult;
-import me.stefvanschie.buildinggame.commands.commandutils.SubCommand;
+import me.stefvanschie.buildinggame.commands.commandutils.PlayerCommand;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
-import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.GameState;
 import me.stefvanschie.buildinggame.utils.Vote;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
-public class VoteCommand extends SubCommand {
+public class VoteCommand extends PlayerCommand {
 
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {
@@ -57,9 +57,9 @@ public class VoteCommand extends SubCommand {
 		
 		plot.addVote(vote);
 		MessageManager.getInstance().send(player, messages.getString("vote.message")
-				.replace("%playerplot%", plot.getGamePlayer().getPlayer().getName())
+				.replace("%playerplot%", plot.getPlayerFormat())
 				.replace("%points%", points + "")
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 		return null;
 	}
 

@@ -3,7 +3,7 @@ package me.stefvanschie.buildinggame.events.player;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.Material;
@@ -45,7 +45,7 @@ public class BonemealEvent implements Listener {
 		}
 		
 		MessageManager.getInstance().send(player, messages.getString("in-game.build-out-bounds")
-				.replaceAll("&", "ยง"));
+				.replaceAll("&", "ง"));
 		e.setCancelled(true);
 	}
 }

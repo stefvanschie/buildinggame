@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 
 public class SignManager {
 
@@ -66,25 +66,49 @@ public class SignManager {
 				String line4 = messages.getString("join-sign.line-4");
 				
 				sign.setLine(0, line1
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replace("%arena%", arena.getName())
 						.replace("%players%", arena.getPlayers() + "")
 						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 				sign.setLine(1, line2
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replace("%arena%", arena.getName())
 						.replace("%players%", arena.getPlayers() + "")
 						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 				sign.setLine(2, line3
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replace("%arena%", arena.getName())
 						.replace("%players%", arena.getPlayers() + "")
 						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 				sign.setLine(3, line4
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
 						.replace("%arena%", arena.getName())
 						.replace("%players%", arena.getPlayers() + "")
 						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 				sign.update();
 			}
 		}
@@ -101,25 +125,49 @@ public class SignManager {
 			String line4 = messages.getString("join-sign.line-4");
 				
 			sign.setLine(0, line1
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			sign.setLine(1, line2
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			sign.setLine(2, line3
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			sign.setLine(3, line4
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			sign.update();	
 		}
 	}

@@ -6,7 +6,7 @@ import java.util.Set;
 
 import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.entity.Player;
@@ -53,8 +53,10 @@ public class ArenaManager {
 	public Arena getArena(Player player) {
 		for (Arena arena : arenas) {
 			for (Plot plot : arena.getUsedPlots()) {
-				if (plot.getGamePlayer().getPlayer() == player) {
-					return arena;
+				if (plot.getGamePlayer(player) != null) {
+					if (plot.getGamePlayer(player).getPlayer() == player) {
+						return arena;
+					}
 				}
 			}
 		}

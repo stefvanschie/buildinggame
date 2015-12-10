@@ -2,6 +2,7 @@ package me.stefvanschie.buildinggame.utils.arena;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import me.confuser.barapi.BarAPI;
 import me.stefvanschie.buildinggame.Main;
@@ -340,11 +341,11 @@ public class Arena {
 			ItemStack map = new ItemStack(Material.PAPER, 1);
 			ItemMeta mapMeta = map.getItemMeta();
 			mapMeta.setDisplayName(messages.getString("subject-gui.item.name")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			List<String> mapLores = new ArrayList<String>();
 			for (String lore : messages.getStringList("subject-gui.item.lores")) {
 				mapLores.add(lore
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 			}
 			mapMeta.setLore(mapLores);
 			map.setItemMeta(mapMeta);
@@ -452,11 +453,11 @@ public class Arena {
 			ItemStack map = new ItemStack(Material.PAPER, 1);
 			ItemMeta mapMeta = map.getItemMeta();
 			mapMeta.setDisplayName(messages.getString("subject-gui.item.name")
-					.replaceAll("&", "Â§"));
+					.replaceAll("&", "§"));
 			List<String> mapLores = new ArrayList<String>();
 			for (String lore : messages.getStringList("subject-gui.item.lores")) {
 				mapLores.add(lore
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 			}
 			mapMeta.setLore(mapLores);
 			map.setItemMeta(mapMeta);
@@ -617,8 +618,8 @@ public class Arena {
 					gamePlayer.sendTitle(messages.getString("global.title")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
-			
-				player.teleport(votingPlot.getLocation());
+				
+				player.teleport(votingPlot.getBoundary().getAllBlocks().get(new Random().nextInt(votingPlot.getBoundary().getAllBlocks().size())).getLocation());
 				
 				//give blocks
 				player.getInventory().clear();
@@ -653,10 +654,10 @@ public class Arena {
 				gamePlayer.getPlayer().teleport(plot.getLocation());
 				
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages.getString("gameStarts.message")
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages.getString("gameStarts.subject")
 						.replace("%subject%", getSubject())
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 				
 				gamePlayer.sendTitle(messages.getString("gameStarts.title")
 						.replace("%subject%", getSubject()));
@@ -670,11 +671,11 @@ public class Arena {
 				ItemStack emerald = new ItemStack(Material.EMERALD, 1);
 				ItemMeta emeraldMeta = emerald.getItemMeta();
 				emeraldMeta.setDisplayName(messages.getString("gui.options-emerald")
-						.replaceAll("&", "Â§"));
+						.replaceAll("&", "§"));
 				List<String> emeraldLores = new ArrayList<String>();
 				for (String lore : messages.getStringList("gui.options-lores")) {
 					emeraldLores.add(lore
-							.replaceAll("&", "Â§"));
+							.replaceAll("&", "§"));
 				}
 				emeraldMeta.setLore(emeraldLores);
 				emerald.setItemMeta(emeraldMeta);
@@ -683,13 +684,13 @@ public class Arena {
 				
 				if (SDBarApi.getInstance().isEnabled()) {
 					BarAPI.setMessage(player, messages.getString("global.barHeader")
-							.replace("%:a%", "Ã¤")
-							.replace("%:e%", "Ã«")
-							.replace("%:i%", "Ã¯")
-							.replace("%:o%", "Ã¶")
-							.replace("%:u%", "Ã¼")
-							.replace("%ss%", "ÃŸ")
-							.replaceAll("&", "Â§"), buildTimer.getSeconds());
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"), buildTimer.getSeconds());
 				}
 			}
 		}

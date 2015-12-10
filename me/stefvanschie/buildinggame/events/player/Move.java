@@ -5,8 +5,8 @@ import java.util.Random;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
-import me.stefvanschie.buildinggame.utils.Arena;
 import me.stefvanschie.buildinggame.utils.GameState;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.Location;
@@ -20,6 +20,7 @@ public class Move implements Listener {
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Player player = e.getPlayer();
@@ -27,6 +28,10 @@ public class Move implements Listener {
 		Location from = e.getFrom();
 		
 		if (ArenaManager.getInstance().getArena(player) == null) {
+			return;
+		}
+		
+		if (config.getBoolean("allow-fly-out-bounds")) {
 			return;
 		}
 		

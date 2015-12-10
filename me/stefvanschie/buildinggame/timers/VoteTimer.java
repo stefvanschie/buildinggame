@@ -167,7 +167,7 @@ public class VoteTimer extends Timer {
 						for (String command : config.getStringList("win-commands")) {
 							Bukkit.dispatchCommand(gamePlayer.getPlayer(), command
 									.replace("%winner%", gamePlayer.getPlayer().getName())
-									.replaceAll("&", "ยง"));
+									.replaceAll("&", "ง"));
 						}
 					}
 				}

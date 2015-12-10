@@ -27,7 +27,7 @@ public class TimeBackClick implements Listener {
 		}
 		
 		if (!inventory.getName().equals(messages.getString("gui.time.title")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		
@@ -44,7 +44,7 @@ public class TimeBackClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.time.back.name")
-				.replaceAll("&", "ยง"))) {
+				.replaceAll("&", "ง"))) {
 			return;
 		}
 		

@@ -1,10 +1,10 @@
 package me.stefvanschie.buildinggame.commands.commandutils;
 
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public abstract class SubCommand {
 
-	public abstract CommandResult onCommand(Player player, String[] args);
+	public abstract CommandResult onCommand(CommandSender sender, String[] args);
 	
 	public abstract String getName();
 	

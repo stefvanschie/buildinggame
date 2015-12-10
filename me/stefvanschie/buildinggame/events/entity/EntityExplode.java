@@ -1,7 +1,7 @@
 package me.stefvanschie.buildinggame.events.entity;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
-import me.stefvanschie.buildinggame.utils.Arena;
+import me.stefvanschie.buildinggame.utils.arena.Arena;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.entity.TNTPrimed;
