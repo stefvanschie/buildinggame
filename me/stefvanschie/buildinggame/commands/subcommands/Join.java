@@ -1,6 +1,6 @@
 package me.stefvanschie.buildinggame.commands.subcommands;
 
-import org.bukkit.ChatColor;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -25,7 +25,7 @@ public class Join extends PlayerCommand {
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
 		
 		if (arena == null) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid arena");
+			MessageManager.getInstance().send(player, messages.getString("join.invalid"));
 			return CommandResult.ERROR;
 		}
 		

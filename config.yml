@@ -34,6 +34,7 @@ title:
   fade_out: 20
 
 voting:
+  default-vote-points: 5
   two-points-id: 'coal_block'
   three-points-id: 'iron_block'
   four-points-id: 'lapis_block'
@@ -65,6 +66,19 @@ commands:
   -
   others:
   -
+
+subject-gui:
+  item:
+    id: 'paper'
+  
+team-selection:
+  show-names-as-lore: false
+  item:
+    id: 'paper'
+  team:
+    1:
+      id: 'paper'
+  
 gui:
   particle-id: 'red_rose'
   floor-id: 'hard_clay'

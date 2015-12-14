@@ -19,8 +19,19 @@ public class MaxPlayersManager {
 	public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+			YamlConfiguration config = SettingsManager.getInstance().getConfig();
+			
 			try {
-				arena.setMaxPlayers(arenas.getInt(arena.getName() + ".maxplayers"));
+				int maxPlayers = arenas.getInt(arena.getName() + ".maxplayers");
+				
+				arena.setMaxPlayers(maxPlayers);
+				
+				for (int i = 1; i <= maxPlayers; i++) {
+					if (!config.contains("team-selection.team." + i)) {
+						config.set("team-selection.team." + i + ".id", "paper");
+					}
+				}
+				
 				if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
 					Main.getInstance().getLogger().info("Loaded max players for " + arena.getName());
 				}

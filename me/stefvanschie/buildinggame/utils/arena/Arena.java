@@ -9,6 +9,7 @@ import me.stefvanschie.buildinggame.Main;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.arenas.SignManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+import me.stefvanschie.buildinggame.managers.id.IDDecompiler;
 import me.stefvanschie.buildinggame.managers.mainspawn.MainSpawnManager;
 import me.stefvanschie.buildinggame.managers.messages.MessageManager;
 import me.stefvanschie.buildinggame.managers.softdependencies.SDBarApi;
@@ -17,9 +18,11 @@ import me.stefvanschie.buildinggame.timers.VoteTimer;
 import me.stefvanschie.buildinggame.timers.WaitTimer;
 import me.stefvanschie.buildinggame.timers.WinTimer;
 import me.stefvanschie.buildinggame.timers.utils.Timer;
+import me.stefvanschie.buildinggame.utils.CustomBlock;
 import me.stefvanschie.buildinggame.utils.GamePlayer;
 import me.stefvanschie.buildinggame.utils.GameState;
 import me.stefvanschie.buildinggame.utils.Lobby;
+import me.stefvanschie.buildinggame.utils.Vote;
 import me.stefvanschie.buildinggame.utils.VoteBlocks;
 import me.stefvanschie.buildinggame.utils.guis.SubjectMenu;
 import me.stefvanschie.buildinggame.utils.guis.TeamSelection;
@@ -328,28 +331,34 @@ public class Arena {
 		
 		//give team selection
 		if (getMode() == ArenaMode.TEAM) {
-			ItemStack paper = new ItemStack(Material.PAPER, 1);
-			ItemMeta paperMeta = paper.getItemMeta();
-			paperMeta.setDisplayName(ChatColor.GREEN + "Team selection");
-			paper.setItemMeta(paperMeta);
+			CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("team-selection.item.id"));
 			
-			player.getInventory().setItem(0, paper);
+			ItemStack item = new ItemStack(cb.getMaterial(), 1);
+			item.setDurability(cb.getData());
+			ItemMeta itemMeta = item.getItemMeta();
+			itemMeta.setDisplayName(ChatColor.GREEN + "Team selection");
+			item.setItemMeta(itemMeta);
+			
+			player.getInventory().setItem(0, item);
 		}
 		
 		//give paper for subject
 		if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
-			ItemStack map = new ItemStack(Material.PAPER, 1);
-			ItemMeta mapMeta = map.getItemMeta();
-			mapMeta.setDisplayName(messages.getString("subject-gui.item.name")
+			CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id"));
+			
+			ItemStack item = new ItemStack(cb.getMaterial(), 1);
+			item.setDurability(cb.getData());
+			ItemMeta itemMeta = item.getItemMeta();
+			itemMeta.setDisplayName(messages.getString("subject-gui.item.name")
 					.replaceAll("&", "§"));
-			List<String> mapLores = new ArrayList<String>();
+			List<String> itemLores = new ArrayList<String>();
 			for (String lore : messages.getStringList("subject-gui.item.lores")) {
-				mapLores.add(lore
+				itemLores.add(lore
 						.replaceAll("&", "§"));
 			}
-			mapMeta.setLore(mapLores);
-			map.setItemMeta(mapMeta);
-			player.getInventory().setItem(8, map);
+			itemMeta.setLore(itemLores);
+			item.setItemMeta(itemMeta);
+			player.getInventory().setItem(8, item);
 		}
 		
 		player.updateInventory();
@@ -477,6 +486,8 @@ public class Arena {
 			return;
 		}
 		
+		getPlot(player).getGamePlayer(player).restore();
+		
 		if (getPlot(player) == null) {
 			MessageManager.getInstance().send(player, "You're not in a game");
 			ArenaManager.getInstance().getArena(player).leave(player);
@@ -487,7 +498,6 @@ public class Arena {
 			player.teleport(MainSpawnManager.getInstance().getMainSpawn());
 		}
 		
-		getPlot(player).getGamePlayer(player).restore();
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 		
 		for (Plot plot : getUsedPlots()) {
@@ -608,6 +618,8 @@ public class Arena {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
+		this.votingPlot = votingPlot;
+		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 				Player player = gamePlayer.getPlayer();
@@ -619,6 +631,10 @@ public class Arena {
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
 				
+				if (!plot.hasVoted(player)) {
+					plot.addVote(new Vote(config.getInt("voting.default-vote-points"), player));
+				}
+				
 				player.teleport(votingPlot.getBoundary().getAllBlocks().get(new Random().nextInt(votingPlot.getBoundary().getAllBlocks().size())).getLocation());
 				
 				//give blocks
@@ -628,8 +644,8 @@ public class Arena {
 				blocks.give(player);
 			}
 		}
+		
 		getVotedPlots().add(votingPlot);
-		this.votingPlot = votingPlot;
 	}
 	
 	public void setWaitTimer(WaitTimer waitTimer) {

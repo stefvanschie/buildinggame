@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+import me.stefvanschie.buildinggame.managers.id.IDDecompiler;
+import me.stefvanschie.buildinggame.utils.GamePlayer;
 import me.stefvanschie.buildinggame.utils.arena.Arena;
-import me.stefvanschie.buildinggame.utils.nbt.NBTItem;
+import me.stefvanschie.buildinggame.utils.nbt.item.NBTItem;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -25,6 +26,7 @@ public class TeamSelection {
 	}
 	
 	public void show(Player player) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Inventory inventory = Bukkit.createInventory(null, round(arena.getPlots().size()), messages.getString("team-gui.title")
@@ -38,7 +40,7 @@ public class TeamSelection {
 		
 		int iteration = 0;
 		for (Plot plot : arena.getPlots()) {
-			ItemStack item = new ItemStack(Material.PAPER);
+			ItemStack item = new ItemStack(IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + (iteration + 1) + ".id")).getMaterial());
 			ItemMeta itemMeta = item.getItemMeta();
 			itemMeta.setDisplayName(messages.getString("team-gui.team.name")
 					.replace("%:a%", "ä")
@@ -48,18 +50,26 @@ public class TeamSelection {
 					.replace("%:u%", "ü")
 					.replace("%ss%", "ß")
 					.replace("%plot%", plot.getID() + "")
+					.replace("%plot_players%", plot.getPlayers() + "")
+					.replace("%plot_max_players%", plot.getMaxPlayers() + "")
 					.replaceAll("&", "§"));
 			
 			List<String> lores = new ArrayList<String>();
-			for (String lore : messages.getStringList("team-gui.team.lores")) {
-				lores.add(lore
-						.replace("%:a%", "ä")
-						.replace("%:e%", "ë")
-						.replace("%:i%", "ï")
-						.replace("%:o%", "ö")
-						.replace("%:u%", "ü")
-						.replace("%ss%", "ß")
-						.replaceAll("&", "§"));
+			if (!config.getBoolean("team-selection.show-names-as-lore")) {
+				for (String lore : messages.getStringList("team-gui.team.lores")) {
+					lores.add(lore
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
+				}
+			} else {
+				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+					lores.add(gamePlayer.getPlayer().getName());
+				}
 			}
 			itemMeta.setLore(lores);
 			

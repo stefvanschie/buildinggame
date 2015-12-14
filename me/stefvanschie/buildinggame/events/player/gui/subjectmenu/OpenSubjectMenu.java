@@ -2,10 +2,10 @@ package me.stefvanschie.buildinggame.events.player.gui.subjectmenu;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+import me.stefvanschie.buildinggame.managers.id.IDDecompiler;
 import me.stefvanschie.buildinggame.utils.GuiPage;
 import me.stefvanschie.buildinggame.utils.arena.Arena;
 
-import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +17,7 @@ public class OpenSubjectMenu implements Listener {
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Player player = e.getPlayer();
@@ -27,7 +28,7 @@ public class OpenSubjectMenu implements Listener {
 			return;
 		}
 		
-		if (item.getType() != Material.PAPER) {
+		if (item.getType() != IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id")).getMaterial()) {
 			return;
 		}
 		

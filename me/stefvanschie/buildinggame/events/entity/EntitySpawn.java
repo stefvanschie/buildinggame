@@ -3,6 +3,9 @@ package me.stefvanschie.buildinggame.events.entity;
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
 import me.stefvanschie.buildinggame.utils.arena.Arena;
+import me.stefvanschie.buildinggame.utils.nbt.entity.NbtFactory;
+import me.stefvanschie.buildinggame.utils.nbt.entity.NbtFactory.NbtCompound;
+import me.stefvanschie.buildinggame.utils.nbt.entity.NmsClasses;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -26,10 +29,17 @@ public class EntitySpawn implements Listener {
 					for (String ent : config.getStringList("blocked-entities")) {
 						if (entity.getType() == EntityType.valueOf(ent.toUpperCase())) {
 							entity.remove();
+							return;
 						}
 					}
 				}
 			}
 		}
+		
+		NbtCompound compound = NbtFactory.createCompound();
+		compound.put("NoAI", 1);
+		Object nmsCompound = compound.getHandle();
+		
+		NmsClasses.setTag(entity, nmsCompound);
 	}
 }

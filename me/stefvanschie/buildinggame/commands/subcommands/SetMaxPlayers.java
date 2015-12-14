@@ -18,6 +18,7 @@ public class SetMaxPlayers extends ConsoleCommand {
 	@Override
 	public CommandResult onCommand(CommandSender sender, String[] args) {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		if (args.length < 1) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and the max players");
@@ -51,6 +52,15 @@ public class SetMaxPlayers extends ConsoleCommand {
 		}
 		
 		arenas.set(arena.getName() + ".maxplayers", maxPlayers);
+		
+		//add parts to config
+		for (int i = 0; i < maxPlayers; i++) {
+			if (config.contains("team-selection.team." + i)) {
+				continue;
+			}
+			
+			config.set("team-selection.team." + i + ".id", "paper");
+		}
 		SettingsManager.getInstance().save();
 		
 		MaxPlayersManager.getInstance().setup();

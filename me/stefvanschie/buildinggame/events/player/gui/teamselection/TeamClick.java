@@ -2,12 +2,12 @@ package me.stefvanschie.buildinggame.events.player.gui.teamselection;
 
 import me.stefvanschie.buildinggame.managers.arenas.ArenaManager;
 import me.stefvanschie.buildinggame.managers.files.SettingsManager;
+import me.stefvanschie.buildinggame.managers.id.IDDecompiler;
 import me.stefvanschie.buildinggame.utils.GamePlayer;
 import me.stefvanschie.buildinggame.utils.arena.Arena;
-import me.stefvanschie.buildinggame.utils.nbt.NBTItem;
+import me.stefvanschie.buildinggame.utils.nbt.item.NBTItem;
 import me.stefvanschie.buildinggame.utils.plot.Plot;
 
-import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,6 +20,7 @@ public class TeamClick implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Player player = (Player) e.getWhoClicked();
@@ -53,15 +54,17 @@ public class TeamClick implements Listener {
 			return;
 		}
 		
-		if (item.getType() != Material.PAPER) {
+		NBTItem nbtItem = new NBTItem(item);
+		
+		int team = nbtItem.getInteger("team");
+		
+		if (item.getType() != IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + team + ".id")).getMaterial()) {
 			return;
 		}
 		
 		GamePlayer gamePlayer = arena.getPlot(player).getGamePlayer(player);
 		
-		NBTItem nbtItem = new NBTItem(item);
-		
-		boolean succes = arena.getPlot(nbtItem.getInteger("team")).join(gamePlayer);
+		boolean succes = arena.getPlot(team).join(gamePlayer);
 		if (succes) {
 			plot.leave(gamePlayer);
 		}

@@ -40,6 +40,7 @@ join:
   otherPlayers: "&6%player% joined the game!"
   no-arena: "&cPlease specify the arena"
   in-game: "&cArena is already in game"
+  invalid: "&cThat's not a valid arena"
 lobbyCountdown:
   message: "&6The game starts in %seconds% seconds!"
 gameStarts:

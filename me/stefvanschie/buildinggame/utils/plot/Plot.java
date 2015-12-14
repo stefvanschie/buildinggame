@@ -144,8 +144,16 @@ public class Plot {
 		return location;
 	}
 	
+	public int getMaxPlayers() {
+		return arena.getMaxPlayers() / arena.getPlots().size();
+	}
+	
 	public List<Particle> getParticles() {
 		return particles;
+	}
+	
+	public int getPlayers() {
+		return getGamePlayers().size();
 	}
 	
 	public String getPlayerFormat() {
