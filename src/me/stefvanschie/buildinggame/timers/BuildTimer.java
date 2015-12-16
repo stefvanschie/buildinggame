@@ -19,12 +19,14 @@ import org.bukkit.entity.Player;
 public class BuildTimer extends Timer {
 
 	private boolean running = false;
-	private int seconds;
+	private int originalSeconds = 0;
+	private int seconds = 0;
 	private Arena arena;
 	
 	public BuildTimer(int seconds, Arena arena) {
 		this.seconds = seconds;
 		this.arena = arena;
+		originalSeconds = seconds;
 	}
 	
 	@Override
@@ -87,6 +89,22 @@ public class BuildTimer extends Timer {
 				Player player = gamePlayer.getPlayer();
 				
 				player.setLevel(getSeconds());
+				if (SDBarApi.getInstance().isEnabled()) {
+					if (BarAPI.hasBar(player)) {
+						BarAPI.removeBar(player);
+					}
+					BarAPI.setMessage(player, messages.getString("global.barHeader")
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replace("%seconds%", getSeconds() + "")
+							.replace("%seconds_from_minutes%", getSecondsFromMinute() + "")
+							.replace("%minutes%", getMinutes() + "")
+							.replace("&", "§"), (float) ((float) getSeconds() / originalSeconds) * 100);
+				}
 			}
 		}
 		seconds--;

@@ -697,17 +697,6 @@ public class Arena {
 				emerald.setItemMeta(emeraldMeta);
 				
 				player.getInventory().setItem(8, emerald);
-				
-				if (SDBarApi.getInstance().isEnabled()) {
-					BarAPI.setMessage(player, messages.getString("global.barHeader")
-							.replace("%:a%", "ä")
-							.replace("%:e%", "ë")
-							.replace("%:i%", "ï")
-							.replace("%:o%", "ö")
-							.replace("%:u%", "ü")
-							.replace("%ss%", "ß")
-							.replaceAll("&", "§"), buildTimer.getSeconds());
-				}
 			}
 		}
 		

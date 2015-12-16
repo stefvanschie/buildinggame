@@ -303,6 +303,9 @@ public class Plot {
 			blockState.getLocation().getBlock().setType(blockState.getType());
 			blockState.getLocation().getBlock().setData(blockState.getRawData());
 		}
+		
+		setRaining(false);
+		setTime(Time.AM6);
 	}
 	
 	public void save() {
