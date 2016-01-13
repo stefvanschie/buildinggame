@@ -1,7 +1,8 @@
 global:
   barHeader: "Time"
   prefix: "&2[&9BuildingGame&2]&r "
-  permissionNode: "&cYou don't have the required permission for that!"
+  permissionNode:
+  - "&cYou don't have the required permission for that!"
   scoreboardHeader: "&ePoints"
   buildScoreboardHeader: "&e&lBuilding Game"
   buildScoreboardText:
@@ -10,58 +11,86 @@ global:
   - ""
   - "&5Players:"
   - "&a%players%/%max_players%"
-  title: "&a%playerplot%'s build"
+  combine-names: " and "
 setMainSpawn:
-  succes: "&aBuildinggame main spawn has been set!"
+  succes:
+  - "&aBuildinggame main spawn has been set!"
 createArena:
-  succes: "&aArena %arena% created!"
+  succes:
+  - "&aArena %arena% created!"
 deleteArena:
-  succes: "&aArena %arena% deleted!"
+  succes:
+  - "&aArena %arena% deleted!"
 setSpawn:
-  succes: "&aSpawn %place% set!"
+  succes:
+  - "&aSpawn %place% set!"
 deleteSpawn:
-  succes: "&aSpawn %place% deleted!"
+  succes:
+  - "&aSpawn %place% deleted!"
 setLobby:
-  succes: "&aLobby set!"
+  succes:
+  - "&aLobby set!"
 setMinPlayers:
-  succes: "&aMinimal amount of players set!"
+  succes:
+  - "&aMinimal amount of players set!"
 setBounds:
-  succes: "&aBoundaries for plot %place% in arena %arena% set!"
+  succes:
+  - "&aBoundaries for plot %place% in arena %arena% set!"
 leave:
-  message: "&6You have left the game!"
-  otherPlayers: "&6%player% has left the arena!"
+  message:
+  - "&6You have left the game!"
+  otherPlayers:
+  - "&6%player% has left the arena!"
 vote:
-  message: "&6You gave %playerplot%'s build a %points%"
-  own-plot: "&cYou can't vote on your own plot"
+  message:
+  - "&6You gave %playerplot%'s build a %points%"
+  own-plot:
+  - "&cYou can't vote on your own plot"
   title: ""
   subtitle: ""
 join:
-  message: "&6You have joined the game!"
-  otherPlayers: "&6%player% joined the game!"
-  no-arena: "&cPlease specify the arena"
-  in-game: "&cArena is already in game"
-  invalid: "&cThat's not a valid arena"
+  message:
+  - "&6You have joined the game!"
+  otherPlayers:
+  - "&6%player% joined the game!"
+  no-arena:
+  - "&cNo arena found"
+  in-game:
+  - "&cArena is already in game"
+  invalid:
+  - "&cThat's not a valid arena"
 lobbyCountdown:
-  message: "&6The game starts in %seconds% seconds!"
+  message:
+  - "&6The game starts in %seconds% seconds!"
 gameStarts:
-  message: "&6The game has started!"
-  subject: "&6The subject is %subject%"
+  message:
+  - "&6The game has started!"
+  subject: 
+  - "&6The subject is %subject%"
   title: "&aBuild theme: %subject%"
   subtitle: ""
 in-game:
-  build-out-bounds: "&cYou can't build here"
-  move-out-bounds: "&cYou can't move here"
-  command-blocked: "&cYou can't use that command while in-game"
+  build-out-bounds:
+  - "&cYou can't build here"
+  move-out-bounds:
+  - "&cYou can't move here"
+  command-blocked:
+  - "&cYou can't use that command while in-game"
 buildingCountdown:
-  message: "&6You have %seconds% seconds left!"
+  message:
+  - "&6You have %seconds% seconds left!"
   title: ""
   subtitle: ""
   time-up:
-    message: ""
+    message:
+    - ""
     title: "&cTime is up!"
     subtitle: ""
 voting:
-  message: "&6%playerplot%'s plot!"
+  message:
+  - "&6%playerplot%'s plot!"
+  title: "&a%playerplot%'s build"
+  subtitle: "" 
   two-points-block: "&4Very Bad"
   three-points-block: "&cBad"
   four-points-block: "&aMwoah"
@@ -70,18 +99,28 @@ voting:
   seven-points-block: "&dAwesome"
   eight-points-block: "&5Excellent"
 game-ends:
-  message: "&6The game ended!"
+  message:
+  - "&6The game ended!"
+  winners:
+  - "&61. &b%first_players%"
+  - "&62. &b%second_players%"
+  - "&63. &b%third_players%"
 winner:
-  first: "&aYou went first with %points%!"
-  second: "&aYou went second with %points%!"
-  third: "&aYou went third with %points%!"
+  first:
+  - "&aYou went first with %points%!"
+  second:
+  - "&aYou went second with %points%!"
+  third:
+  - "&aYou went third with %points%!"
   title: "&6%first% won the game with %first_points%!"
   subtitle: ""
 vault:
-  message: "&aYou received %money% money!"
+  message:
+  - "&aYou received %money% money!"
   
 particle:
-  max-particles: "&cYou've reached the maximum amount of particles"
+  max-particles:
+  - "&cYou've reached the maximum amount of particles"
 
 join-sign:
   line-1: "&lBuildingGame"
@@ -286,6 +325,10 @@ gui:
       name: "&aBack"
       lores:
       - "&7Go back to the options menu"
+  heads:
+    name: "&aHeads"
+    lores:
+    - "&7Get nice heads to decorate your build"
   close-menu:
     name: "&aClose menu"
     lores:

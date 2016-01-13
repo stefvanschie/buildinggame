@@ -28,6 +28,14 @@ blocked-entities:
 - 'ender_dragon'
 - 'wither'
 
+blocks:
+  blocked:
+  - 'command'
+  - 'command_minecart'
+
+mobs:
+  enable-noai: true
+
 title:
   fade_in: 0
   stay: 20
@@ -85,6 +93,7 @@ gui:
   time-id: 'watch'
   rain-id: 'water_bucket'
   fly-speed-id: 'feather'
+  heads-id: 'skull_item:3'
 
 debug: false
 clean-files: false
