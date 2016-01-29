@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class InteriorHeadsMenuOne {
@@ -34,8 +35,6 @@ public class InteriorHeadsMenuOne {
 		ItemMeta toiletrollMeta = toiletroll.getItemMeta();
 		toiletrollMeta.setDisplayName(ChatColor.GOLD + "Toiletroll");
 		toiletroll.setItemMeta(toiletrollMeta);
-		
-		//"WinRAR" is an application made by "Eugene Roshal" and "Alexander Roshal" and is not affiliated with this plugin
 		
 		ItemStack winRARBooks = SkullItem.getSkull("http://textures.minecraft.net/texture/8d1b28f886ca3c8fc4301b785bf38c619ea66b68352a882bf8080e63034e0");
 		ItemMeta winRARBooksMeta = winRARBooks.getItemMeta();
@@ -243,18 +242,19 @@ public class InteriorHeadsMenuOne {
 		fishTank.setItemMeta(fishTankMeta);
 		
 		//close
-		
 		ItemStack close = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = close.getItemMeta();
 		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
 		close.setItemMeta(closeMeta);
 				
-		//next page
-				
+		//next page		
 		ItemStack next = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 2);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, pottedRosePlant);
 		inventory.setItem(1, pottedSalviaPlant);

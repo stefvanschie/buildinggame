@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class MiscHeadsMenuOne {
@@ -94,23 +95,17 @@ public class MiscHeadsMenuOne {
 		ItemMeta cactusMeta = cactus.getItemMeta();
 		cactusMeta.setDisplayName(ChatColor.GOLD + "Cactus");
 		cactus.setItemMeta(cactusMeta);
-		
-		//"Facebook" is an application made by "Facebook Inc." and is not affiliated with this plugin
-		
+
 		ItemStack facebook = SkullItem.getSkull("http://textures.minecraft.net/texture/deb46126904463f07ecfc972aaa37373a22359b5ba271821b689cd5367f75762");
 		ItemMeta facebookMeta = facebook.getItemMeta();
 		facebookMeta.setDisplayName(ChatColor.GOLD + "Facebook");
 		facebook.setItemMeta(facebookMeta);
-		
-		//"Twitter" is an application made by "Twitter, Inc." and is not affiliated with this plugin
-		
+
 		ItemStack twitter = SkullItem.getSkull("http://textures.minecraft.net/texture/3685a0be743e9067de95cd8c6d1ba21ab21d37371b3d597211bb75e43279");
 		ItemMeta twitterMeta = twitter.getItemMeta();
 		twitterMeta.setDisplayName(ChatColor.GOLD + "Twitter");
 		twitter.setItemMeta(twitterMeta);
-		
-		//"Youtube" is an application made by "Google" and is not affiliated with this plugin
-		
+
 		ItemStack youtube = SkullItem.getSkull("http://textures.minecraft.net/texture/b4353fd0f86314353876586075b9bdf0c484aab0331b872df11bd564fcb029ed");
 		ItemMeta youtubeMeta = youtube.getItemMeta();
 		youtubeMeta.setDisplayName(ChatColor.GOLD + "Youtube");
@@ -160,9 +155,7 @@ public class MiscHeadsMenuOne {
 		ItemMeta moltenCoreMeta = moltenCore.getItemMeta();
 		moltenCoreMeta.setDisplayName(ChatColor.GOLD + "Molten Core");
 		moltenCore.setItemMeta(moltenCoreMeta);
-		
-		//"Reddit" is an application made by "Advance Publications Inc." and is not affiliated with this plugin
-		
+
 		ItemStack reddit = SkullItem.getSkull("http://textures.minecraft.net/texture/4d9bd4b2fa8da8247a82c3d1fa246715f9b6d98c778374da6efc10c89cd64");
 		ItemMeta redditMeta = reddit.getItemMeta();
 		redditMeta.setDisplayName(ChatColor.GOLD + "Reddit");
@@ -193,7 +186,7 @@ public class MiscHeadsMenuOne {
 		cocoaBeanMeta.setDisplayName(ChatColor.GOLD + "Cocoa Bean");
 		cocoaBean.setItemMeta(cocoaBeanMeta);
 		
-		ItemStack lightBrownMushroom = SkullItem.getSkull("textures.minecraft.net/texture/3fa39ccf4788d9179a8795e6b72382d49297b39217146eda68ae78384355b13");
+		ItemStack lightBrownMushroom = SkullItem.getSkull("http://textures.minecraft.net/texture/3fa39ccf4788d9179a8795e6b72382d49297b39217146eda68ae78384355b13");
 		ItemMeta lightBrownMushroomMeta = lightBrownMushroom.getItemMeta();
 		lightBrownMushroomMeta.setDisplayName(ChatColor.GOLD + "Light Brown Mushroom");
 		lightBrownMushroom.setItemMeta(lightBrownMushroomMeta);
@@ -207,9 +200,7 @@ public class MiscHeadsMenuOne {
 		ItemMeta bundleOfBurntTorchesMeta = bundleOfBurntTorches.getItemMeta();
 		bundleOfBurntTorchesMeta.setDisplayName(ChatColor.GOLD + "Bundle of Burnt Torches");
 		bundleOfBurntTorches.setItemMeta(bundleOfBurntTorchesMeta);
-		
-		//"Skype" is an application developed by "Microsoft" and is not affiliated with this plugin
-		
+
 		ItemStack skype = SkullItem.getSkull("http://textures.minecraft.net/texture/2ec182da7d3c0a8acc3be9b77c29be47e08c20b050b13fd4c4c7d71f66273");
 		ItemMeta skypeMeta = skype.getItemMeta();
 		skypeMeta.setDisplayName(ChatColor.GOLD + "Skype");
@@ -251,18 +242,19 @@ public class MiscHeadsMenuOne {
 		embarrased.setItemMeta(embarrasedMeta);
 		
 		//close
-		
 		ItemStack close = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = close.getItemMeta();
 		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
 		close.setItemMeta(closeMeta);
 				
-		//next page
-				
+		//next page		
 		ItemStack next = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 2);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, goldPot);
 		inventory.setItem(1, lavaBucket);
@@ -310,8 +302,8 @@ public class MiscHeadsMenuOne {
 		inventory.setItem(43, angel);
 		inventory.setItem(44, embarrased);
 		
-		inventory.setItem(49, next);
-		inventory.setItem(51, close);
+		inventory.setItem(49, close);
+		inventory.setItem(51, next);
 		
 		player.openInventory(inventory);
 	}

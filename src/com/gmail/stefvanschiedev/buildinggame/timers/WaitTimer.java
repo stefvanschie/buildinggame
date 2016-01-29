@@ -38,7 +38,7 @@ public class WaitTimer extends Timer {
 					for (String message : messages.getStringList("lobbyCountdown.message")) {
 						MessageManager.getInstance().send(player, message
 								.replace("%seconds%", seconds + "")
-								.replace("%minutes", getMinutes() + "")
+								.replace("%minutes%", getMinutes() + "")
 								.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
 								.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
 					}

@@ -74,7 +74,7 @@ public class Money extends ConsoleCommand {
 
 	@Override
 	public String getPermission() {
-		return null;
+		return "bg.setting.money";
 	}
 
 }

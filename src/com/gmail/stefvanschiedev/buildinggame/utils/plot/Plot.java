@@ -75,7 +75,10 @@ public class Plot {
 		
 		//check how many times voted
 		if (getTimesVoted(vote.getSender()) == config.getInt("max-vote-change")) {
-			MessageManager.getInstance().send(vote.getSender(), ChatColor.RED + "You can only change your vote " + config.getInt("max-vote-change") + " times");
+			for (String message : messages.getStringList("vote.maximum-votes")) {
+				MessageManager.getInstance().send(vote.getSender(), message
+						.replace("%max_votes%", config.getInt("max-votes-change") + ""));
+			}
 			return;
 		}
 		

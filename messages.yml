@@ -46,6 +46,8 @@ vote:
   - "&6You gave %playerplot%'s build a %points%"
   own-plot:
   - "&cYou can't vote on your own plot"
+  maxium-votes:
+  - "&cYou can only change your vote %max_votes% times"
   title: ""
   subtitle: ""
 join:
@@ -158,6 +160,10 @@ subject-gui:
 
 team-gui:
   title: "&aTeam selection"
+  item:
+    name: "&aTeam Selection"
+    lores:
+    -
   team:
     name: "Team %plot%"
     lores:

@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class BlocksHeadsMenuTwo {
@@ -245,6 +246,9 @@ public class BlocksHeadsMenuTwo {
 		ItemMeta previousMeta = previous.getItemMeta();
 		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
 		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 1);
+		previous = previousNbt.getItem();
 		
 		//close
 		ItemStack close = new ItemStack(Material.BOOK);
@@ -257,6 +261,9 @@ public class BlocksHeadsMenuTwo {
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 3);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, dropper);
 		inventory.setItem(1, redstoneTorch);

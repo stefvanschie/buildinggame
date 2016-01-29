@@ -25,6 +25,12 @@ public class Speed4Click implements Listener {
 			return;
 		}
 		if (!inventory.getName().equals(messages.getString("gui.fly-speed.title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}
@@ -42,6 +48,12 @@ public class Speed4Click implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.fly-speed.speed-4.name")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}

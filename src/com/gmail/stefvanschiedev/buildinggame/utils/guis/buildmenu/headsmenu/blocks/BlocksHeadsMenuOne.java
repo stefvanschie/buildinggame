@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class BlocksHeadsMenuOne {
@@ -17,7 +18,7 @@ public class BlocksHeadsMenuOne {
 		
 		ItemStack lightBlueStainedClay = SkullItem.getSkull("http://textures.minecraft.net/texture/87bc8f5ac2bf3369741a962de2addbaa17d15cc4dadb19aef6e944817e6c24");
 		ItemMeta lightBlueStainedClayMeta = lightBlueStainedClay.getItemMeta();
-		lightBlueStainedClayMeta.setDisplayName(ChatColor.GOLD + "Light Bue Stained Clay");
+		lightBlueStainedClayMeta.setDisplayName(ChatColor.GOLD + "Light Blue Stained Clay");
 		lightBlueStainedClay.setItemMeta(lightBlueStainedClayMeta);
 		
 		ItemStack blueWool = SkullItem.getSkull("http://textures.minecraft.net/texture/3f3e406291174d24cdf0f953f8a174a82bb3489dce8f679a443ef1aae0169061");
@@ -256,6 +257,9 @@ public class BlocksHeadsMenuOne {
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 2);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, lightBlueStainedClay);
 		inventory.setItem(1, blueWool);

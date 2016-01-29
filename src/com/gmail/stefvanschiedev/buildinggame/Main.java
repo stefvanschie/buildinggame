@@ -19,11 +19,53 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.LoseFood;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Move;
 import com.gmail.stefvanschiedev.buildinggame.events.player.PlaceBucket;
 import com.gmail.stefvanschiedev.buildinggame.events.player.TakeDamage;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.GuiRemove;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.CloseMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.OptionsMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.floor.FloorClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.AlphabetHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.BlocksHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.CharactersHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.ColorsHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.DevicesHeadsClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.FoodHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.GamesHeadsClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.HeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.InteriorHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.MiscHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.MobsHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.PokemonHeadsClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.alphabet.AlphabetHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.alphabet.AlphabetHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.alphabet.AlphabetHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.blocks.BlocksHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.blocks.BlocksHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.blocks.BlocksHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.characters.CharactersHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.characters.CharactersHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.characters.CharactersHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.colors.ColorsHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.colors.ColorsHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.devices.DevicesHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.devices.DevicesHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.devices.DevicesHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.food.FoodHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.food.FoodHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.food.FoodHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.games.GamesHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.games.GamesHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.interior.InteriorHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.interior.InteriorHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.interior.InteriorHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.misc.MiscHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.misc.MiscHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.misc.MiscHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.mobs.MobsHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.mobs.MobsHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.mobs.MobsHeadsSkullClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.pokemon.PokemonHeadsCloseClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.pokemon.PokemonHeadsPageClick;
+import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.pokemon.PokemonHeadsSkullClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.AngryVillagerClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.ClearParticlesClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.EnchantmentClick;
@@ -98,14 +140,23 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 public class Main extends JavaPlugin {
 
 	private static Main instance;
+	private LoadCooldown load = new LoadCooldown();
+	private boolean loadedListeners = false;
+	private boolean loadedCommands = false;
 	
 	@Override
 	public void onEnable() {
 		instance = this;
 		
-		getLogger().info("Waiting until other plugins are loaded");
+		getLogger().info("Loading files");
+		SettingsManager.getInstance().setup(this);
 		
-		new LoadCooldown().runTaskTimer(this, 20L, 20L);
+		if (SettingsManager.getInstance().getConfig().getBoolean("loading.load-after-plugins")) {
+			getLogger().info("Waiting until other plugins are loaded");
+		
+			load.runTaskTimer(this, 20L, 20L);
+		} else
+			loadPlugin();
 	}
 	
 	public void onDisable() {
@@ -152,94 +203,153 @@ public class Main extends JavaPlugin {
 		}
 		
 		getLogger().info("Loading listeners");
-		Bukkit.getPluginManager().registerEvents(new VoteEvent(), this);
-		Bukkit.getPluginManager().registerEvents(new JoinSignBreak(), this);
-		Bukkit.getPluginManager().registerEvents(new JoinSignCreate(), this);
-		Bukkit.getPluginManager().registerEvents(new LeaveSignCreate(), this);
-		Bukkit.getPluginManager().registerEvents(new ClickJoinSign(), this);
-		Bukkit.getPluginManager().registerEvents(new ClickLeaveSign(), this);
-		Bukkit.getPluginManager().registerEvents(new Drop(), this);
-		Bukkit.getPluginManager().registerEvents(new Interact(), this);
-		Bukkit.getPluginManager().registerEvents(new InventoryMove(), this);
-		Bukkit.getPluginManager().registerEvents(new BlockBreak(), this);
-		Bukkit.getPluginManager().registerEvents(new BlockPlace(), this);
-		Bukkit.getPluginManager().registerEvents(new Leave(), this);
-		Bukkit.getPluginManager().registerEvents(new Move(), this);
-		Bukkit.getPluginManager().registerEvents(new PlaceBucket(), this);
-		Bukkit.getPluginManager().registerEvents(new BonemealEvent(), this);
-		Bukkit.getPluginManager().registerEvents(new CommandBlocker(), this);
-		Bukkit.getPluginManager().registerEvents(new EntityDamage(), this);
-		Bukkit.getPluginManager().registerEvents(new TakeDamage(), this);
-		Bukkit.getPluginManager().registerEvents(new LoseFood(), this);
+		if (!loadedListeners) {
+			Bukkit.getPluginManager().registerEvents(new VoteEvent(), this);
+			Bukkit.getPluginManager().registerEvents(new JoinSignBreak(), this);
+			Bukkit.getPluginManager().registerEvents(new JoinSignCreate(), this);
+			Bukkit.getPluginManager().registerEvents(new LeaveSignCreate(), this);
+			Bukkit.getPluginManager().registerEvents(new ClickJoinSign(), this);
+			Bukkit.getPluginManager().registerEvents(new ClickLeaveSign(), this);
+			Bukkit.getPluginManager().registerEvents(new Drop(), this);
+			Bukkit.getPluginManager().registerEvents(new Interact(), this);
+			Bukkit.getPluginManager().registerEvents(new InventoryMove(), this);
+			Bukkit.getPluginManager().registerEvents(new BlockBreak(), this);
+			Bukkit.getPluginManager().registerEvents(new BlockPlace(), this);
+			Bukkit.getPluginManager().registerEvents(new Leave(), this);
+			Bukkit.getPluginManager().registerEvents(new Move(), this);
+			Bukkit.getPluginManager().registerEvents(new PlaceBucket(), this);
+			Bukkit.getPluginManager().registerEvents(new BonemealEvent(), this);
+			Bukkit.getPluginManager().registerEvents(new CommandBlocker(), this);
+			Bukkit.getPluginManager().registerEvents(new EntityDamage(), this);
+			Bukkit.getPluginManager().registerEvents(new TakeDamage(), this);
+			Bukkit.getPluginManager().registerEvents(new LoseFood(), this);
+			
+			//entity events
+			Bukkit.getPluginManager().registerEvents(new EntityExplode(), this);
+			Bukkit.getPluginManager().registerEvents(new EntitySpawn(), this);
+			
+			//gui, long long list... :(
+			//going from top to bottom
+			Bukkit.getPluginManager().registerEvents(new GuiRemove(), this);
+			
+			//options menu
+			Bukkit.getPluginManager().registerEvents(new CloseMenu(), this);
+			Bukkit.getPluginManager().registerEvents(new OptionsMenu(), this);
+			//floor
+			Bukkit.getPluginManager().registerEvents(new FloorClick(), this);
+			//heads
+			Bukkit.getPluginManager().registerEvents(new HeadsClick(), this);
+			
+			Bukkit.getPluginManager().registerEvents(new AlphabetHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new BlocksHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new CharactersHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new ColorsHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new DevicesHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new FoodHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new GamesHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new InteriorHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MiscHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MobsHeadsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new PokemonHeadsClick(), this);
 		
-		//entity events
-		Bukkit.getPluginManager().registerEvents(new EntityExplode(), this);
-		Bukkit.getPluginManager().registerEvents(new EntitySpawn(), this);
+			Bukkit.getPluginManager().registerEvents(new AlphabetHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new AlphabetHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new AlphabetHeadsSkullClick(), this);
 		
-		//gui, long long list... :(
-		//going from top to bottom
-		//options menu
-		Bukkit.getPluginManager().registerEvents(new CloseMenu(), this);
-		Bukkit.getPluginManager().registerEvents(new OptionsMenu(), this);
-		//floor
-		Bukkit.getPluginManager().registerEvents(new FloorClick(), this);
-		//heads
-		Bukkit.getPluginManager().registerEvents(new HeadsClick(), this);
-		Bukkit.getPluginManager().registerEvents(new FoodHeadsClick(), this);
-		//particles
-		Bukkit.getPluginManager().registerEvents(new AngryVillagerClick(), this);
-		Bukkit.getPluginManager().registerEvents(new ClearParticlesClick(), this);
-		Bukkit.getPluginManager().registerEvents(new EnchantmentClick(), this);
-		Bukkit.getPluginManager().registerEvents(new FlamesClick(), this);
-		Bukkit.getPluginManager().registerEvents(new HappyVillagerClick(), this);
-		Bukkit.getPluginManager().registerEvents(new HeartsClick(), this);
-		Bukkit.getPluginManager().registerEvents(new LavaDripClick(), this);
-		Bukkit.getPluginManager().registerEvents(new MagicCritClick(), this);
-		Bukkit.getPluginManager().registerEvents(new ParticleBackClick(), this);
-		Bukkit.getPluginManager().registerEvents(new ParticleClick(), this);
-		Bukkit.getPluginManager().registerEvents(new RedstoneMagicClick(), this);
-		Bukkit.getPluginManager().registerEvents(new SmokeClick(), this);
-		Bukkit.getPluginManager().registerEvents(new SnowballPoofClick(), this);
-		Bukkit.getPluginManager().registerEvents(new SpellClick(), this);
-		Bukkit.getPluginManager().registerEvents(new WaterDripClick(), this);
-		//rain
-		Bukkit.getPluginManager().registerEvents(new RainClick(), this);
-		//speed
-		Bukkit.getPluginManager().registerEvents(new Speed1Click(), this);
-		Bukkit.getPluginManager().registerEvents(new Speed2Click(), this);
-		Bukkit.getPluginManager().registerEvents(new Speed3Click(), this);
-		Bukkit.getPluginManager().registerEvents(new Speed4Click(), this);
-		Bukkit.getPluginManager().registerEvents(new Speed5Click(), this);
-		Bukkit.getPluginManager().registerEvents(new SpeedBackClick(), this);
-		Bukkit.getPluginManager().registerEvents(new SpeedClick(), this);
-		//time
-		Bukkit.getPluginManager().registerEvents(new AM10Click(), this);
-		Bukkit.getPluginManager().registerEvents(new AM2Click(), this);
-		Bukkit.getPluginManager().registerEvents(new AM4Click(), this);
-		Bukkit.getPluginManager().registerEvents(new AM6Click(), this);
-		Bukkit.getPluginManager().registerEvents(new AM8Click(), this);
-		Bukkit.getPluginManager().registerEvents(new MiddayClick(), this);
-		Bukkit.getPluginManager().registerEvents(new MidnightClick(), this);
-		Bukkit.getPluginManager().registerEvents(new PM10Click(), this);
-		Bukkit.getPluginManager().registerEvents(new PM2Click(), this);
-		Bukkit.getPluginManager().registerEvents(new PM4Click(), this);
-		Bukkit.getPluginManager().registerEvents(new PM6Click(), this);
-		Bukkit.getPluginManager().registerEvents(new PM8Click(), this);
-		Bukkit.getPluginManager().registerEvents(new TimeBackClick(), this);
-		Bukkit.getPluginManager().registerEvents(new TimeClick(), this);
+			Bukkit.getPluginManager().registerEvents(new BlocksHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new BlocksHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new BlocksHeadsSkullClick(), this);
 		
-		//subjectmenu
-		Bukkit.getPluginManager().registerEvents(new CloseSubjectMenu(), this);
-		Bukkit.getPluginManager().registerEvents(new ExitSubjectMenu(), this);
-		Bukkit.getPluginManager().registerEvents(new NextPage(), this);
-		Bukkit.getPluginManager().registerEvents(new OpenSubjectMenu(), this);
-		Bukkit.getPluginManager().registerEvents(new PreviousPage(), this);
-		Bukkit.getPluginManager().registerEvents(new VoteSubjectMenu(), this);
+			Bukkit.getPluginManager().registerEvents(new CharactersHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new CharactersHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new CharactersHeadsSkullClick(), this);
 		
-		Bukkit.getPluginManager().registerEvents(new OpenTeamSelection(), this);
-		Bukkit.getPluginManager().registerEvents(new TeamClick(), this);
+			Bukkit.getPluginManager().registerEvents(new ColorsHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new ColorsHeadsSkullClick(), this);
 		
-		Bukkit.getPluginManager().registerEvents(new UnsavedStatsPlace(), this);
+			Bukkit.getPluginManager().registerEvents(new DevicesHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new DevicesHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new DevicesHeadsSkullClick(), this);
+		
+			Bukkit.getPluginManager().registerEvents(new FoodHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new FoodHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new FoodHeadsSkullClick(), this);
+		
+			Bukkit.getPluginManager().registerEvents(new GamesHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new GamesHeadsSkullClick(), this);
+		
+			Bukkit.getPluginManager().registerEvents(new InteriorHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new InteriorHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new InteriorHeadsSkullClick(), this);
+		
+			Bukkit.getPluginManager().registerEvents(new MiscHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MiscHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MiscHeadsSkullClick(), this);
+		
+			Bukkit.getPluginManager().registerEvents(new MobsHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MobsHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MobsHeadsSkullClick(), this);
+			
+			Bukkit.getPluginManager().registerEvents(new PokemonHeadsCloseClick(), this);
+			Bukkit.getPluginManager().registerEvents(new PokemonHeadsPageClick(), this);
+			Bukkit.getPluginManager().registerEvents(new PokemonHeadsSkullClick(), this);
+			//particles
+			Bukkit.getPluginManager().registerEvents(new AngryVillagerClick(), this);
+			Bukkit.getPluginManager().registerEvents(new ClearParticlesClick(), this);
+			Bukkit.getPluginManager().registerEvents(new EnchantmentClick(), this);
+			Bukkit.getPluginManager().registerEvents(new FlamesClick(), this);
+			Bukkit.getPluginManager().registerEvents(new HappyVillagerClick(), this);
+			Bukkit.getPluginManager().registerEvents(new HeartsClick(), this);
+			Bukkit.getPluginManager().registerEvents(new LavaDripClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MagicCritClick(), this);
+			Bukkit.getPluginManager().registerEvents(new ParticleBackClick(), this);
+			Bukkit.getPluginManager().registerEvents(new ParticleClick(), this);
+			Bukkit.getPluginManager().registerEvents(new RedstoneMagicClick(), this);
+			Bukkit.getPluginManager().registerEvents(new SmokeClick(), this);
+			Bukkit.getPluginManager().registerEvents(new SnowballPoofClick(), this);
+			Bukkit.getPluginManager().registerEvents(new SpellClick(), this);
+			Bukkit.getPluginManager().registerEvents(new WaterDripClick(), this);
+			//rain
+			Bukkit.getPluginManager().registerEvents(new RainClick(), this);
+			//speed
+			Bukkit.getPluginManager().registerEvents(new Speed1Click(), this);
+			Bukkit.getPluginManager().registerEvents(new Speed2Click(), this);
+			Bukkit.getPluginManager().registerEvents(new Speed3Click(), this);
+			Bukkit.getPluginManager().registerEvents(new Speed4Click(), this);
+			Bukkit.getPluginManager().registerEvents(new Speed5Click(), this);
+			Bukkit.getPluginManager().registerEvents(new SpeedBackClick(), this);
+			Bukkit.getPluginManager().registerEvents(new SpeedClick(), this);
+			//time
+			Bukkit.getPluginManager().registerEvents(new AM10Click(), this);
+			Bukkit.getPluginManager().registerEvents(new AM2Click(), this);
+			Bukkit.getPluginManager().registerEvents(new AM4Click(), this);
+			Bukkit.getPluginManager().registerEvents(new AM6Click(), this);
+			Bukkit.getPluginManager().registerEvents(new AM8Click(), this);
+			Bukkit.getPluginManager().registerEvents(new MiddayClick(), this);
+			Bukkit.getPluginManager().registerEvents(new MidnightClick(), this);
+			Bukkit.getPluginManager().registerEvents(new PM10Click(), this);
+			Bukkit.getPluginManager().registerEvents(new PM2Click(), this);
+			Bukkit.getPluginManager().registerEvents(new PM4Click(), this);
+			Bukkit.getPluginManager().registerEvents(new PM6Click(), this);
+			Bukkit.getPluginManager().registerEvents(new PM8Click(), this);
+			Bukkit.getPluginManager().registerEvents(new TimeBackClick(), this);
+			Bukkit.getPluginManager().registerEvents(new TimeClick(), this);
+		
+			//subjectmenu
+			Bukkit.getPluginManager().registerEvents(new CloseSubjectMenu(), this);
+			Bukkit.getPluginManager().registerEvents(new ExitSubjectMenu(), this);
+			Bukkit.getPluginManager().registerEvents(new NextPage(), this);
+			Bukkit.getPluginManager().registerEvents(new OpenSubjectMenu(), this);
+			Bukkit.getPluginManager().registerEvents(new PreviousPage(), this);
+			Bukkit.getPluginManager().registerEvents(new VoteSubjectMenu(), this);
+		
+			Bukkit.getPluginManager().registerEvents(new OpenTeamSelection(), this);
+			Bukkit.getPluginManager().registerEvents(new TeamClick(), this);
+		
+			Bukkit.getPluginManager().registerEvents(new UnsavedStatsPlace(), this);
+		
+			loadedListeners = true;
+		}
 		
 		getLogger().info("Loading commands");
 		CommandManager command = new CommandManager();
@@ -252,8 +362,12 @@ public class Main extends JavaPlugin {
 		//getLogger().info("Loading bungeecord support");
 		//getServer().getMessenger().registerOutgoingPluginChannel(Main.getInstance(), "BungeeCord");
 		
-		getCommand("bg").setExecutor(command);
-		getCommand("buildinggame").setExecutor(command);
+		if (!loadedCommands) {
+			getCommand("bg").setExecutor(command);
+			getCommand("buildinggame").setExecutor(command);
+			
+			loadedCommands = true;
+		}
 		
 		long end = System.currentTimeMillis();
 		

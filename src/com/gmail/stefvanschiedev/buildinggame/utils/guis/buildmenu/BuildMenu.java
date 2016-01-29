@@ -257,9 +257,9 @@ public class BuildMenu {
 			inventory.setItem(11, particle);
 			inventory.setItem(13, floor);
 			inventory.setItem(15, time);
-			inventory.setItem(21, rain);
-			inventory.setItem(23, speed);
-			//inventory.setItem(22, heads);
+			inventory.setItem(20, rain);
+			inventory.setItem(22, speed);
+			inventory.setItem(24, heads);
 			//banners: 24
 			inventory.setItem(31, close);
 			

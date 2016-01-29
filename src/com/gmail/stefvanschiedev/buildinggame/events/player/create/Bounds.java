@@ -94,11 +94,6 @@ public class Bounds implements Listener {
 				arenas.set(arena.getName() + "." + plot.getID() + ".low.z", location.getBlockZ());
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.z", previousLocation.getBlockZ());
 			}
-			
-			previousLocation = null;
-			this.player = null;
-			arena = null;
-			plot = null;
 			SettingsManager.getInstance().save();
 			
 			BoundaryManager.getInstance().setup();
@@ -111,6 +106,11 @@ public class Bounds implements Listener {
 			e.setCancelled(true);
 			
 			System.gc();
+			
+			previousLocation = null;
+			this.player = null;
+			arena = null;
+			plot = null;
 			
 			return;
 		}

@@ -43,6 +43,8 @@ public class EntitySpawn implements Listener {
 	public boolean isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
+				if (plot.getBoundary() == null) 
+					return false;
 				if (plot.getBoundary().isInside(location)) {
 					return true;
 				}

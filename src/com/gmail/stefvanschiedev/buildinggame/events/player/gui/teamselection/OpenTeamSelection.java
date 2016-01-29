@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.gui.teamselection;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +17,7 @@ public class OpenTeamSelection implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Player player = e.getPlayer();
 		ItemStack item = player.getItemInHand();
@@ -35,7 +35,14 @@ public class OpenTeamSelection implements Listener {
 			return;
 		}
 		
-		if (!item.getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Team selection")) {
+		if (!item.getItemMeta().getDisplayName().equals(messages.getString("team-gui.item.name")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
+				.replaceAll("&", "§"))) {
 			return;
 		}
 		

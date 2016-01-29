@@ -1,5 +1,5 @@
 main: com.gmail.stefvanschiedev.buildinggame.Main
-version: 1.11.2
+version: 1.12.0
 name: BuildingGame
 author: stefvanschie
 commands:

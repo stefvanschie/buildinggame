@@ -15,6 +15,7 @@ public class GamePlayer {
 
 	private float exp;
 	private float flySpeed;
+	private int foodLevel;
 	private GameMode gameMode;
 	private int levels;
 	private int blocksPlaced = 0;
@@ -24,6 +25,7 @@ public class GamePlayer {
 	
 	public GamePlayer(Player player) {
 		exp = player.getExp();
+		foodLevel = player.getFoodLevel();
 		flySpeed = player.getFlySpeed();
 		gameMode = player.getGameMode();
 		levels = player.getLevel();
@@ -42,6 +44,10 @@ public class GamePlayer {
 	
 	public float getExp() {
 		return exp;
+	}
+	
+	public int getFoodLevel() {
+		return foodLevel;
 	}
 	
 	public float getFlySpeed() {
@@ -68,6 +74,7 @@ public class GamePlayer {
 		player.getInventory().setArmorContents(armor);
 		setBlocksPlaced(0);
 		player.setExp(exp);
+		player.setFoodLevel(foodLevel);
 		player.setFlySpeed(flySpeed);
 		player.setGameMode(gameMode);
 		player.getInventory().setContents(inventory);
@@ -150,6 +157,10 @@ public class GamePlayer {
 	
 	public void setExp(int exp) {
 		this.exp = exp;
+	}
+	
+	public void setFoodLevel(int foodLevel) {
+		this.foodLevel = foodLevel;
 	}
 	
 	public void setFlySpeed(float flySpeed) {

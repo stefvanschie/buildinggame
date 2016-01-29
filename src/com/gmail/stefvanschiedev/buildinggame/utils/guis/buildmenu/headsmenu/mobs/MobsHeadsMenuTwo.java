@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class MobsHeadsMenuTwo {
@@ -25,8 +26,6 @@ public class MobsHeadsMenuTwo {
 		elephantMeta.setDisplayName(ChatColor.GOLD + "Elephant");
 		elephant.setItemMeta(elephantMeta);
 		
-		//"Furby" is a product made by "Hasbro" and is not affiliated with this site.
-		
 		ItemStack furby = SkullItem.getSkull("http://textures.minecraft.net/texture/7bff527562889e16a544f2f996fba3d9541d0aacf81462bffc9fb5cad8aedd5");
 		ItemMeta furbyMeta = furby.getItemMeta();
 		furbyMeta.setDisplayName(ChatColor.GOLD + "Furby");
@@ -37,6 +36,9 @@ public class MobsHeadsMenuTwo {
 		ItemMeta previousMeta = previous.getItemMeta();
 		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
 		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 1);
+		previous = previousNbt.getItem();
 		
 		//close
 		ItemStack close = new ItemStack(Material.BOOK);

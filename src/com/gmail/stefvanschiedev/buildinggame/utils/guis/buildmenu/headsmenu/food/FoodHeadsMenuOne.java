@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class FoodHeadsMenuOne {
@@ -219,9 +220,7 @@ public class FoodHeadsMenuOne {
 		ItemMeta popcornMeta = popcorn.getItemMeta();
 		popcornMeta.setDisplayName(ChatColor.GOLD + "Popcorn");
 		popcorn.setItemMeta(popcornMeta);
-		
-		//"Coca-Cola" is a brand from "The Coca-Cola Company" and is not affiliated with this plugin
-		
+
 		ItemStack glassOfCocaCola = SkullItem.getSkull("http://textures.minecraft.net/texture/e9b41e9fe543f2375d0a97dd5922e4d65b8a523baf2265d42398d64c364ef95");
 		ItemMeta glassOfCocaColaMeta = glassOfCocaCola.getItemMeta();
 		glassOfCocaColaMeta.setDisplayName(ChatColor.GOLD + "Glass of Coca-Cola");
@@ -243,18 +242,19 @@ public class FoodHeadsMenuOne {
 		sushiRoll.setItemMeta(sushiRollMeta);
 		
 		//close
-		
 		ItemStack close = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = close.getItemMeta();
 		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
 		close.setItemMeta(closeMeta);
 		
 		//next page
-		
 		ItemStack next = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 2);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, nutella);
 		inventory.setItem(1, vegemite);

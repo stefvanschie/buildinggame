@@ -28,6 +28,12 @@ public class SpeedClick implements Listener {
 			return;
 		}
 		if (!inventory.getName().equals(messages.getString("gui.options-title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}
@@ -51,6 +57,12 @@ public class SpeedClick implements Listener {
 			return;
 		}
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.fly-speed.name")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}

@@ -2,20 +2,20 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.fo
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class FoodHeadsMenuThree {
 
 	public void show(Player player) {
 		Inventory inventory = Bukkit.createInventory(null, 54, ChatColor.GREEN + "Food");
-		
-		//"Mountain Dew" is a brand from "PepsiCo" and is not affiliated with this plugin
-		
+
 		ItemStack mountainDew = SkullItem.getSkull("http://textures.minecraft.net/texture/86e5bf657ab897ad5e54867a4c3c2e71b2da24e7518b2f834488da76f62f5216");
 		ItemMeta mountainDewMeta = mountainDew.getItemMeta();
 		mountainDewMeta.setDisplayName(ChatColor.GOLD + "Mountain Dew");
@@ -91,6 +91,21 @@ public class FoodHeadsMenuThree {
 		plasticCupMeta.setDisplayName(ChatColor.GOLD + "Plastic Cup");
 		plasticCup.setItemMeta(plasticCupMeta);
 		
+		//previous page
+		ItemStack previous = new ItemStack (Material.SUGAR_CANE);
+		ItemMeta previousMeta = previous.getItemMeta();
+		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
+		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 2);
+		previous = previousNbt.getItem();
+		
+		//close
+		ItemStack close = new ItemStack(Material.BOOK);
+		ItemMeta closeMeta = close.getItemMeta();
+		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
+		close.setItemMeta(closeMeta);
+		
 		inventory.setItem(0, mountainDew);
 		inventory.setItem(1, tomato);
 		inventory.setItem(2, ripeTomato);
@@ -106,5 +121,10 @@ public class FoodHeadsMenuThree {
 		inventory.setItem(12, sushi);
 		inventory.setItem(13, sushi2);
 		inventory.setItem(14, plasticCup);
+		
+		inventory.setItem(47, previous);
+		inventory.setItem(49, close);
+		
+		player.openInventory(inventory);
 	}
 }

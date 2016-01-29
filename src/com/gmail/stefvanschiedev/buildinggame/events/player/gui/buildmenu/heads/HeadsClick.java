@@ -29,6 +29,12 @@ public class HeadsClick implements Listener {
 		}
 
 		if (!inventory.getName().equals(messages.getString("gui.options-title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}
@@ -53,6 +59,12 @@ public class HeadsClick implements Listener {
 		}
 		
 		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.heads.name")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}

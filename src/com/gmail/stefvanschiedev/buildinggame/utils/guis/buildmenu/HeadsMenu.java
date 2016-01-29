@@ -41,7 +41,7 @@ public class HeadsMenu {
 		
 		ItemStack color = SkullItem.getSkull("http://textures.minecraft.net/texture/d45b44fd19d72fb3d6e189c4978b1ca687dbd6580b18ddd8aa710edffa5");
 		ItemMeta colorMeta = color.getItemMeta();
-		colorMeta.setDisplayName(ChatColor.GOLD + "Color");
+		colorMeta.setDisplayName(ChatColor.GOLD + "Colors");
 		color.setItemMeta(colorMeta);
 		
 		ItemStack blocks = SkullItem.getSkull("http://textures.minecraft.net/texture/c60b2f9145215a3a5065dca2d89bb8b4ca44b9222dd22060b51c38d9bf587");

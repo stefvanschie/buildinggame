@@ -13,9 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class ArenaManager {
 
-	private ArenaManager() {
-		
-	}
+	private ArenaManager() {}
 	
 	private static ArenaManager instance = new ArenaManager();
 	

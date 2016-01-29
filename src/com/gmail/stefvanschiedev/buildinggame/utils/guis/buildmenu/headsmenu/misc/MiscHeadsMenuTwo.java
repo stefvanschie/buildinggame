@@ -2,11 +2,13 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.mi
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class MiscHeadsMenuTwo {
@@ -54,12 +56,12 @@ public class MiscHeadsMenuTwo {
 		winkMeta.setDisplayName(ChatColor.GOLD + "Wink");
 		wink.setItemMeta(winkMeta);
 		
-		ItemStack derp = SkullItem.getSkull("textures.minecraft.net/texture/3baabe724eae59c5d13f442c7dc5d2b1c6b70c2f83364a488ce5973ae80b4c3");
+		ItemStack derp = SkullItem.getSkull("http://textures.minecraft.net/texture/3baabe724eae59c5d13f442c7dc5d2b1c6b70c2f83364a488ce5973ae80b4c3");
 		ItemMeta derpMeta = derp.getItemMeta();
 		derpMeta.setDisplayName(ChatColor.GOLD + "Derp");
 		derp.setItemMeta(derpMeta);
 		
-		ItemStack mustache = SkullItem.getSkull("textures.minecraft.net/texture/3636f2724aa6aa4de7ac46c19f3c845fb14847a518c8f7e03d792c82effb1");
+		ItemStack mustache = SkullItem.getSkull("http://textures.minecraft.net/texture/3636f2724aa6aa4de7ac46c19f3c845fb14847a518c8f7e03d792c82effb1");
 		ItemMeta mustacheMeta = mustache.getItemMeta();
 		mustacheMeta.setDisplayName(ChatColor.GOLD + "Mustache");
 		mustache.setItemMeta(mustacheMeta);
@@ -169,6 +171,21 @@ public class MiscHeadsMenuTwo {
 		emeraldSteveHeadMeta.setDisplayName(ChatColor.GOLD + "Emerald Steve Head");
 		emeraldSteveHead.setItemMeta(emeraldSteveHeadMeta);
 		
+		//previous page
+		ItemStack previous = new ItemStack (Material.SUGAR_CANE);
+		ItemMeta previousMeta = previous.getItemMeta();
+		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
+		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 1);
+		previous = previousNbt.getItem();
+		
+		//close
+		ItemStack close = new ItemStack(Material.BOOK);
+		ItemMeta closeMeta = close.getItemMeta();
+		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
+		close.setItemMeta(closeMeta);
+		
 		inventory.setItem(0, kissy);
 		inventory.setItem(1, sad);
 		inventory.setItem(2, cool);
@@ -200,5 +217,10 @@ public class MiscHeadsMenuTwo {
 		inventory.setItem(28, france);
 		inventory.setItem(29, crown);
 		inventory.setItem(30, emeraldSteveHead);
+		
+		inventory.setItem(47, previous);
+		inventory.setItem(49, close);
+		
+		player.openInventory(inventory);
 	}
 }

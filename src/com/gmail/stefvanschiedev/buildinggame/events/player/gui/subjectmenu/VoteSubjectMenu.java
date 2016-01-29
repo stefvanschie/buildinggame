@@ -31,6 +31,12 @@ public class VoteSubjectMenu implements Listener {
 		}
 		
 		if (!inventory.getName().equals(messages.getString("subject-gui.title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}

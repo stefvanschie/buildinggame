@@ -2,11 +2,13 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.al
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class AlphabetHeadsMenuOne {
@@ -239,6 +241,21 @@ public class AlphabetHeadsMenuOne {
 		arrowUp2Meta.setDisplayName(ChatColor.GOLD + "Arrow Up");
 		arrowUp2.setItemMeta(arrowUp2Meta);
 		
+		//close
+		ItemStack close = new ItemStack(Material.BOOK);
+		ItemMeta closeMeta = close.getItemMeta();
+		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
+		close.setItemMeta(closeMeta);
+		
+		//next page
+		ItemStack next = new ItemStack(Material.SUGAR_CANE);
+		ItemMeta nextMeta = next.getItemMeta();
+		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
+		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 2);
+		next = nextNbt.getItem();
+		
 		inventory.setItem(0, arrowUp);
 		inventory.setItem(1, arrowDown);
 		inventory.setItem(2, arrowRight);
@@ -284,6 +301,9 @@ public class AlphabetHeadsMenuOne {
 		inventory.setItem(42, nine);
 		inventory.setItem(43, zero);
 		inventory.setItem(44, arrowUp);
+		
+		inventory.setItem(49, close);
+		inventory.setItem(51, next);
 		
 		player.openInventory(inventory);
 	}

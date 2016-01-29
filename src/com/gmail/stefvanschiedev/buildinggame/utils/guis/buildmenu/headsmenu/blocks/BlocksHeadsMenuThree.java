@@ -2,11 +2,13 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.bl
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class BlocksHeadsMenuThree {
@@ -99,7 +101,7 @@ public class BlocksHeadsMenuThree {
 		coalBlockMeta.setDisplayName(ChatColor.GOLD + "Coal Block");
 		coalBlock.setItemMeta(coalBlockMeta);
 		
-		ItemStack darkPrismarine = SkullItem.getSkull("textures.minecraft.net/texture/fd918598989549594446e83f33873891178da9db42f912e5272e1fb240312a");
+		ItemStack darkPrismarine = SkullItem.getSkull("http://textures.minecraft.net/texture/fd918598989549594446e83f33873891178da9db42f912e5272e1fb240312a");
 		ItemMeta darkPrismarineMeta = darkPrismarine.getItemMeta();
 		darkPrismarineMeta.setDisplayName(ChatColor.GOLD + "Dark Prismarine");
 		darkPrismarine.setItemMeta(darkPrismarineMeta);
@@ -169,7 +171,7 @@ public class BlocksHeadsMenuThree {
 		cyanStainedClayMeta.setDisplayName(ChatColor.GOLD + "Cyan Stained Clay");
 		cyanStainedClay.setItemMeta(cyanStainedClayMeta);
 		
-		ItemStack grayStainedClay = SkullItem.getSkull("textures.minecraft.net/texture/9efa7b5e5e63d46d14615c61bed15427d90b261c7ca5e8159c466f09561da");
+		ItemStack grayStainedClay = SkullItem.getSkull("http://textures.minecraft.net/texture/9efa7b5e5e63d46d14615c61bed15427d90b261c7ca5e8159c466f09561da");
 		ItemMeta grayStainedClayMeta = grayStainedClay.getItemMeta();
 		grayStainedClayMeta.setDisplayName(ChatColor.GOLD + "Gray Stained Clay");
 		grayStainedClay.setItemMeta(grayStainedClayMeta);
@@ -199,7 +201,7 @@ public class BlocksHeadsMenuThree {
 		pinkStainedClayMeta.setDisplayName(ChatColor.GOLD + "Pink Stained Clay");
 		pinkStainedClay.setItemMeta(pinkStainedClayMeta);
 		
-		ItemStack redStainedClay = SkullItem.getSkull("textures.minecraft.net/texture/9e42f682e430b55b61204a6f8b76d5227d278ed9ec4d98bda4a7a4830a4b6");
+		ItemStack redStainedClay = SkullItem.getSkull("http://textures.minecraft.net/texture/9e42f682e430b55b61204a6f8b76d5227d278ed9ec4d98bda4a7a4830a4b6");
 		ItemMeta redStainedClayMeta = redStainedClay.getItemMeta();
 		redStainedClayMeta.setDisplayName(ChatColor.GOLD + "Red Stained Clay");
 		redStainedClay.setItemMeta(redStainedClayMeta);
@@ -223,6 +225,21 @@ public class BlocksHeadsMenuThree {
 		ItemMeta chiseledSandstoneMeta = chiseledSandstone.getItemMeta();
 		chiseledSandstoneMeta.setDisplayName(ChatColor.GOLD + "Chiseled Sandstone");
 		chiseledSandstone.setItemMeta(chiseledSandstoneMeta);
+		
+		//previous page
+		ItemStack previous = new ItemStack (Material.SUGAR_CANE);
+		ItemMeta previousMeta = previous.getItemMeta();
+		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
+		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 2);
+		previous = previousNbt.getItem();
+		
+		//close
+		ItemStack close = new ItemStack(Material.BOOK);
+		ItemMeta closeMeta = close.getItemMeta();
+		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
+		close.setItemMeta(closeMeta);
 		
 		inventory.setItem(0, crackedStoneBrick);
 		inventory.setItem(1, mossyStoneBrick);
@@ -265,5 +282,10 @@ public class BlocksHeadsMenuThree {
 		inventory.setItem(38, whiteStainedClay);
 		inventory.setItem(39, lightGrayStainedClay);
 		inventory.setItem(40, chiseledSandstone);
+		
+		inventory.setItem(47, previous);
+		inventory.setItem(49, close);
+		
+		player.openInventory(inventory);
 	}
 }

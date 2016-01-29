@@ -69,18 +69,18 @@ public class BuildTimer extends Timer {
 					for (String message : messages.getStringList("buildingCountdown.message")) {
 						MessageManager.getInstance().send(player, message
 								.replace("%seconds%", getSeconds() + "")
-								.replace("%minutes", getMinutes() + "")
+								.replace("%minutes%", getMinutes() + "")
 								.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
 								.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
 					}
 
 					gamePlayer.sendTitleAndSubtitle(messages.getString("buildingCountdown.title")
 							.replace("%seconds%", getSeconds() + "")
-							.replace("%minutes", getMinutes() + "")
+							.replace("%minutes%", getMinutes() + "")
 							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
 							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""), messages.getString("buildingCountdown.subtitle")
 							.replace("%seconds%", getSeconds() + "")
-							.replace("%minutes", getMinutes() + "")
+							.replace("%minutes%", getMinutes() + "")
 							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
 							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
 				}

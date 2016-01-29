@@ -38,7 +38,7 @@ public class Voting extends ConsoleCommand {
 		if (args.length == 0) {
 			for (SubCommand sc : subCommands) {
 				if (sender.hasPermission(sc.getPermission())) {
-					MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting money " + sc.getName() + " - " + sc.getInfo());
+					MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting voting " + sc.getName() + " - " + sc.getInfo());
 				}
 			}
 			return CommandResult.ARGUMENTEXCEPTION;

@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class MobsHeadsMenuOne {
@@ -115,7 +116,7 @@ public class MobsHeadsMenuOne {
 		guardianMeta.setDisplayName(ChatColor.GOLD + "Guardian");
 		guardian.setItemMeta(guardianMeta);
 		
-		ItemStack monkey = SkullItem.getSkull("textures.minecraft.net/texture/e9f2dcbcde8a227cd3d285799a3b2d4bffe3b4db20203c90bea1afcf24176bd");
+		ItemStack monkey = SkullItem.getSkull("http://textures.minecraft.net/texture/e9f2dcbcde8a227cd3d285799a3b2d4bffe3b4db20203c90bea1afcf24176bd");
 		ItemMeta monkeyMeta = monkey.getItemMeta();
 		monkeyMeta.setDisplayName(ChatColor.GOLD + "Monkey");
 		monkey.setItemMeta(monkeyMeta);
@@ -225,7 +226,7 @@ public class MobsHeadsMenuOne {
 		regularFishMeta.setDisplayName(ChatColor.GOLD + "Regular Fish");
 		regularFish.setItemMeta(regularFishMeta);
 		
-		ItemStack salmonFish = SkullItem.getSkull("textures.minecraft.net/texture/adfc57d09059e4799fa92c15e28512bcfaa1315577fe3a27aed389e4f752289a");
+		ItemStack salmonFish = SkullItem.getSkull("http://textures.minecraft.net/texture/adfc57d09059e4799fa92c15e28512bcfaa1315577fe3a27aed389e4f752289a");
 		ItemMeta salmonFishMeta = salmonFish.getItemMeta();
 		salmonFishMeta.setDisplayName(ChatColor.GOLD + "Salmon Fish");
 		salmonFish.setItemMeta(salmonFishMeta);
@@ -251,6 +252,9 @@ public class MobsHeadsMenuOne {
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 2);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, blaze);
 		inventory.setItem(1, caveSpider);

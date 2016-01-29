@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class AlphabetHeadsMenuThree {
@@ -134,7 +135,7 @@ public class AlphabetHeadsMenuThree {
 		vMeta.setDisplayName(ChatColor.GOLD + "V");
 		v.setItemMeta(vMeta);
 		
-		ItemStack w = SkullItem.getSkull("textures.minecraft.net/texture/aedcf4ffcb53b56d42baac9d0dfb118e343462327442dd9b29d49f50a7d38b");
+		ItemStack w = SkullItem.getSkull("http://textures.minecraft.net/texture/aedcf4ffcb53b56d42baac9d0dfb118e343462327442dd9b29d49f50a7d38b");
 		ItemMeta wMeta = w.getItemMeta();
 		wMeta.setDisplayName(ChatColor.GOLD + "W");
 		w.setItemMeta(wMeta);
@@ -155,14 +156,15 @@ public class AlphabetHeadsMenuThree {
 		z.setItemMeta(zMeta);
 		
 		//previous page
-		
 		ItemStack previous = new ItemStack (Material.SUGAR_CANE);
 		ItemMeta previousMeta = previous.getItemMeta();
 		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
 		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 2);
+		previous = previousNbt.getItem();
 		
 		//close
-		
 		ItemStack close = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = close.getItemMeta();
 		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
@@ -199,5 +201,7 @@ public class AlphabetHeadsMenuThree {
 		
 		inventory.setItem(47, previous);
 		inventory.setItem(49, close);
+		
+		player.openInventory(inventory);
 	}
 }

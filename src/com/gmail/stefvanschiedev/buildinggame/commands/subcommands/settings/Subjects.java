@@ -70,7 +70,7 @@ public class Subjects extends ConsoleCommand {
 
 	@Override
 	public String getPermission() {
-		return null;
+		return "bg.setting.subjects";
 	}
 
 }

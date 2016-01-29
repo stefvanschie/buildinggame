@@ -2,22 +2,19 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.de
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class DevicesHeadsMenuTwo {
 
 	public void show(Player player) {
 		Inventory inventory = Bukkit.createInventory(null, 54, ChatColor.GREEN + "Devices");
-		
-		ItemStack blackClock = SkullItem.getSkull("http://textures.minecraft.net/texture/ba10da526e5111cfb6e3ebd47693e162dd52d41a2182028daa7c2b19aa3143");
-		ItemMeta blackClockMeta = blackClock.getItemMeta();
-		blackClockMeta.setDisplayName(ChatColor.GOLD + "Black Clock");
-		blackClock.setItemMeta(blackClockMeta);
 		
 		ItemStack hotToaster = SkullItem.getSkull("http://textures.minecraft.net/texture/9ed6ff4d0f2fd91847a836e476acf8d4afbadf4d841e0cd48746f7347cf42");
 		ItemMeta hotToasterMeta = hotToaster.getItemMeta();
@@ -39,11 +36,28 @@ public class DevicesHeadsMenuTwo {
 		blenderMeta.setDisplayName(ChatColor.GOLD + "Blender");
 		blender.setItemMeta(blenderMeta);
 		
-		inventory.setItem(0, blackClock);
-		inventory.setItem(1, hotToaster);
-		inventory.setItem(2, keypad);
-		inventory.setItem(3, speakers);
-		inventory.setItem(4, blender);
+		//previous page
+		ItemStack previous = new ItemStack (Material.SUGAR_CANE);
+		ItemMeta previousMeta = previous.getItemMeta();
+		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
+		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 1);
+		previous = previousNbt.getItem();
+		
+		//close
+		ItemStack close = new ItemStack(Material.BOOK);
+		ItemMeta closeMeta = close.getItemMeta();
+		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
+		close.setItemMeta(closeMeta);
+		
+		inventory.setItem(0, hotToaster);
+		inventory.setItem(1, keypad);
+		inventory.setItem(2, speakers);
+		inventory.setItem(3, blender);
+		
+		inventory.setItem(47, previous);
+		inventory.setItem(49, close);
 		
 		player.openInventory(inventory);
 	}

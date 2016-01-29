@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class FoodHeadsMenuTwo {
@@ -145,6 +146,11 @@ public class FoodHeadsMenuTwo {
 		bowlOfNoodlesMeta.setDisplayName(ChatColor.GOLD + "Bowl of Noodles");
 		bowlOfNoodles.setItemMeta(bowlOfNoodlesMeta);
 		
+		ItemStack bowlOfNoodles2 = SkullItem.getSkull("http://textures.minecraft.net/texture/e9485663e65264a3dc30472e6a6931446bed32c2e899905facf18b2919689c1");
+		ItemMeta bowlOfNoodles2Meta = bowlOfNoodles2.getItemMeta();
+		bowlOfNoodles2Meta.setDisplayName(ChatColor.GOLD + "Bowl of Noodles");
+		bowlOfNoodles2.setItemMeta(bowlOfNoodles2Meta);
+		
 		ItemStack chineseTakeOutBox = SkullItem.getSkull("http://textures.minecraft.net/texture/6e42286da33a238e4f27fe703fc8a087201b6940fc23744df9663fb985da024");
 		ItemMeta chineseTakeOutBoxMeta = chineseTakeOutBox.getItemMeta();
 		chineseTakeOutBoxMeta.setDisplayName(ChatColor.GOLD + "Chinese Take Out Box");
@@ -209,62 +215,55 @@ public class FoodHeadsMenuTwo {
 		ItemMeta honeyPotMeta = honeyPot.getItemMeta();
 		honeyPotMeta.setDisplayName(ChatColor.GOLD + "Honey Pot");
 		honeyPot.setItemMeta(honeyPotMeta);
-		
-		//"Pepsi" or "Pepsi-Cola" is a brand from "PepsiCo" and is not affiliated with this plugin
-		
+
 		ItemStack pepsi = SkullItem.getSkull("http://textures.minecraft.net/texture/2bbae6df99dc82beaf49d064df74a1bbc15e8e376533276912c8c8fe59cb4f4");
 		ItemMeta pepsiMeta = pepsi.getItemMeta();
 		pepsiMeta.setDisplayName(ChatColor.GOLD + "Pepsi");
 		pepsi.setItemMeta(pepsiMeta);
-		
-		//"Coca-Cola" is a brand from "The Coca-Cola Company" and is not affiliated with this plugin
-		
+
 		ItemStack cocaCola = SkullItem.getSkull("http://textures.minecraft.net/texture/93b01fb2f6ba47c9d7638491f37cd8582a937731186df4d1eccd59b65bf37");
 		ItemMeta cocaColaMeta = cocaCola.getItemMeta();
 		cocaColaMeta.setDisplayName(ChatColor.GOLD + "Coca-Cola");
 		cocaCola.setItemMeta(cocaColaMeta);
-		
-		//"Sprite" is a brand from "The Coca-Cola Company" and is not affiliated with this plugin
-		
+
 		ItemStack sprite = SkullItem.getSkull("http://textures.minecraft.net/texture/b8a34d86a7bb13d45afdc50d3dce5eed95e1844fbdee0cca753c6d3346e339e");
 		ItemMeta spriteMeta = sprite.getItemMeta();
 		spriteMeta.setDisplayName(ChatColor.GOLD + "Sprite");
 		sprite.setItemMeta(spriteMeta);
-		
-		//"Mello Yello" is a brand from "The Coca-Cola Company" and is not affiliated with this plugin
-		
+
 		ItemStack melloYello = SkullItem.getSkull("http://textures.minecraft.net/texture/f86b51fb30b5138a4344cc3e6397da28df396241341be92121d5baeef997fb4");
 		ItemMeta melloYelloMeta = melloYello.getItemMeta();
 		melloYelloMeta.setDisplayName(ChatColor.GOLD + "Mello Yello");
 		melloYello.setItemMeta(melloYelloMeta);
-		
-		//"Fanta" is a brand from "The Coca-Cola Company" and is not affiliated with this plugin
-		
+
 		ItemStack fanta = SkullItem.getSkull("http://textures.minecraft.net/texture/2be9505a38a14d1512c7892fc44d3d7ce6338b1bf0f9123721b121a14b095a3");
 		ItemMeta fantaMeta = fanta.getItemMeta();
 		fantaMeta.setDisplayName(ChatColor.GOLD + "Fanta");
 		fanta.setItemMeta(fantaMeta);
 		
 		//previous page
-		
 		ItemStack previous = new ItemStack (Material.SUGAR_CANE);
 		ItemMeta previousMeta = previous.getItemMeta();
 		previousMeta.setDisplayName(ChatColor.GREEN + "Previous Page");
 		previous.setItemMeta(previousMeta);
+		NBTItem previousNbt = new NBTItem(previous);
+		previousNbt.setInteger("page", 1);
+		previous = previousNbt.getItem();
 		
 		//close
-		
 		ItemStack close = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = close.getItemMeta();
 		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
 		close.setItemMeta(closeMeta);
 		
 		//next page
-		
 		ItemStack next = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 3);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, riceball);
 		inventory.setItem(1, cornBlock);
@@ -292,17 +291,18 @@ public class FoodHeadsMenuTwo {
 		inventory.setItem(23, sushiRoll);
 		inventory.setItem(24, bowlOfSpaghetti);
 		inventory.setItem(25, bowlOfNoodles);
-		inventory.setItem(26, chineseTakeOutBox);
-		inventory.setItem(27, tomato);
-		inventory.setItem(28, orange);
-		inventory.setItem(29, greenApple);
-		inventory.setItem(30, lettuce);
-		inventory.setItem(31, purpleGrapes);
-		inventory.setItem(32, greenGrapes);
-		inventory.setItem(33, redGrapes);
-		inventory.setItem(34, sandwich);
-		inventory.setItem(35, cherryPie);
-		inventory.setItem(36, pie);
+		inventory.setItem(26, bowlOfNoodles2);
+		inventory.setItem(27, chineseTakeOutBox);
+		inventory.setItem(28, tomato);
+		inventory.setItem(29, orange);
+		inventory.setItem(30, greenApple);
+		inventory.setItem(31, lettuce);
+		inventory.setItem(32, purpleGrapes);
+		inventory.setItem(33, greenGrapes);
+		inventory.setItem(34, redGrapes);
+		inventory.setItem(35, sandwich);
+		inventory.setItem(36, cherryPie);
+		inventory.setItem(37, pie);
 		inventory.setItem(38, chocolateCake);
 		inventory.setItem(39, honeyPot);
 		inventory.setItem(40, pepsi);
@@ -314,5 +314,7 @@ public class FoodHeadsMenuTwo {
 		inventory.setItem(47, previous);
 		inventory.setItem(49, close);
 		inventory.setItem(51, next);
+		
+		player.openInventory(inventory);
 	}
 }

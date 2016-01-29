@@ -27,6 +27,12 @@ public class TimeBackClick implements Listener {
 		}
 		
 		if (!inventory.getName().equals(messages.getString("gui.time.title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}

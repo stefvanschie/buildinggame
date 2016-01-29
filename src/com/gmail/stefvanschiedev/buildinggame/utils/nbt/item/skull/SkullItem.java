@@ -1,4 +1,4 @@
-/* Thanks to crolemol
+/** Thanks to crolemol
  * Bukkit's user account: https://bukkit.org/members/crolemol.90797144/
  */
 package com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull;

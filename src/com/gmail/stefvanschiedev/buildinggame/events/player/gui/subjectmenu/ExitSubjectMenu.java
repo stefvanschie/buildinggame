@@ -30,6 +30,12 @@ public class ExitSubjectMenu implements Listener {
 		}
 		
 		if (!inventory.getName().equals(messages.getString("subject-gui.title")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}
@@ -47,6 +53,12 @@ public class ExitSubjectMenu implements Listener {
 		}
 		
 		if (!item.getItemMeta().getDisplayName().equals(messages.getString("subject-gui.close-menu.name")
+				.replace("%:a%", "ä")
+				.replace("%:e%", "ë")
+				.replace("%:i%", "ï")
+				.replace("%:o%", "ö")
+				.replace("%:u%", "ü")
+				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
 			return;
 		}

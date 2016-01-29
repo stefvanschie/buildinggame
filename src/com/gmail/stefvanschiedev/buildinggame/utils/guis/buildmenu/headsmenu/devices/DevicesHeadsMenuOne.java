@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.NBTItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.skull.SkullItem;
 
 public class DevicesHeadsMenuOne {
@@ -150,8 +151,6 @@ public class DevicesHeadsMenuOne {
 		aquariumMeta.setDisplayName(ChatColor.GOLD + "Aquarium");
 		aquarium.setItemMeta(aquariumMeta);
 		
-		//"Instagram" is an application made by "Facebook Inc." and is not affiliated with this plugin
-		
 		ItemStack instagram = SkullItem.getSkull("http://textures.minecraft.net/texture/25b3f2cfa0739c4e828316f39f90b05bc1f4ed27b1e35888511f558d4675");
 		ItemMeta instagramMeta = instagram.getItemMeta();
 		instagramMeta.setDisplayName(ChatColor.GOLD + "Instagram");
@@ -242,19 +241,25 @@ public class DevicesHeadsMenuOne {
 		clock3Meta.setDisplayName(ChatColor.GOLD + "Clock");
 		clock3.setItemMeta(clock3Meta);
 		
-		//close
+		ItemStack blackClock = SkullItem.getSkull("http://textures.minecraft.net/texture/ba10da526e5111cfb6e3ebd47693e162dd52d41a2182028daa7c2b19aa3143");
+		ItemMeta blackClockMeta = blackClock.getItemMeta();
+		blackClockMeta.setDisplayName(ChatColor.GOLD + "Black Clock");
+		blackClock.setItemMeta(blackClockMeta);
 		
+		//close
 		ItemStack close = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = close.getItemMeta();
 		closeMeta.setDisplayName(ChatColor.GREEN + "Close Menu");
 		close.setItemMeta(closeMeta);
 				
-		//next page
-				
+		//next page		
 		ItemStack next = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextMeta = next.getItemMeta();
 		nextMeta.setDisplayName(ChatColor.GREEN + "Next Page");
 		next.setItemMeta(nextMeta);
+		NBTItem nextNbt = new NBTItem(next);
+		nextNbt.setInteger("page", 2);
+		next = nextNbt.getItem();
 		
 		inventory.setItem(0, clock);
 		inventory.setItem(1, goldenClock);
@@ -290,16 +295,17 @@ public class DevicesHeadsMenuOne {
 		inventory.setItem(31, brokenTV2);
 		inventory.setItem(32, brokenTV3);
 		inventory.setItem(33, brokenTV4);
-		inventory.setItem(35, brokenTV5);
-		inventory.setItem(36, clock2);
-		inventory.setItem(37, policeSiren2);
-		inventory.setItem(38, computer5);
-		inventory.setItem(39, computer6);
-		inventory.setItem(40, c4Explosive);
-		inventory.setItem(41, monitor4);
-		inventory.setItem(42, gamecube3);
-		inventory.setItem(43, computer7);
-		inventory.setItem(44, clock3);
+		inventory.setItem(34, brokenTV5);
+		inventory.setItem(35, clock2);
+		inventory.setItem(36, policeSiren2);
+		inventory.setItem(37, computer5);
+		inventory.setItem(38, computer6);
+		inventory.setItem(39, c4Explosive);
+		inventory.setItem(40, monitor4);
+		inventory.setItem(41, gamecube3);
+		inventory.setItem(42, computer7);
+		inventory.setItem(43, clock3);
+		inventory.setItem(44, blackClock);
 		
 		inventory.setItem(49, close);
 		inventory.setItem(51, next);

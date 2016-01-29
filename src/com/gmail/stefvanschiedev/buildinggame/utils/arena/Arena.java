@@ -340,7 +340,26 @@ public class Arena {
 			ItemStack item = new ItemStack(cb.getMaterial(), 1);
 			item.setDurability(cb.getData());
 			ItemMeta itemMeta = item.getItemMeta();
-			itemMeta.setDisplayName(ChatColor.GREEN + "Team selection");
+			itemMeta.setDisplayName(messages.getString("team-gui.item.name")
+					.replace("%:a%", "ä")
+					.replace("%:e%", "ë")
+					.replace("%:i%", "ï")
+					.replace("%:o%", "ö")
+					.replace("%:u%", "ü")
+					.replace("%ss%", "ß")
+					.replaceAll("&", "§"));
+			List<String> lores = new ArrayList<String>();
+			for (String lore : messages.getStringList("team-gui.item.lores")) {
+				lores.add(lore
+						.replace("%:a%", "ä")
+						.replace("%:e%", "ë")
+						.replace("%:i%", "ï")
+						.replace("%:o%", "ö")
+						.replace("%:u%", "ü")
+						.replace("%ss%", "ß")
+						.replaceAll("&", "§"));
+			}
+			itemMeta.setLore(lores);
 			item.setItemMeta(itemMeta);
 			
 			player.getInventory().setItem(0, item);
