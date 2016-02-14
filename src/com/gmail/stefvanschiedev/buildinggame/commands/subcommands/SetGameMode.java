@@ -44,7 +44,7 @@ public class SetGameMode extends ConsoleCommand {
 		
 		ArenaModeManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Succesfully changed gamemode of arena " + arena.getName() + " to " + mode.toString());;
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Succesfully changed gamemode of arena " + arena.getName() + " to " + mode.toString().toLowerCase());
 		
 		return CommandResult.SUCCES;
 	}

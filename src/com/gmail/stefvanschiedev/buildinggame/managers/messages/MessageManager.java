@@ -21,21 +21,8 @@ public class MessageManager {
 			return;
 		}
 		
-		sender.sendMessage(SettingsManager.getInstance().getMessages().getString("global.prefix")
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-				.replaceAll("&", "§") + message
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-				.replaceAll("&", "§"));
+		sender.sendMessage(translate(SettingsManager.getInstance().getMessages().getString("global.prefix"))
+				+ translate(message));
 	}
 	
 	public void send(CommandSender sender, List<String> messages) {
@@ -44,21 +31,8 @@ public class MessageManager {
 				return;
 			}
 		
-			sender.sendMessage(SettingsManager.getInstance().getMessages().getString("global.prefix")
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
-					.replaceAll("&", "§") + message
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
-					.replaceAll("&", "§"));
+			sender.sendMessage(translate(SettingsManager.getInstance().getMessages().getString("global.prefix")) 
+					+ translate(message));
 		}
 	}
 	
@@ -67,14 +41,7 @@ public class MessageManager {
 			return;
 		}
 		
-		sender.sendMessage(message
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-				.replaceAll("&", "§"));
+		sender.sendMessage(translate(message));
 	}
 	
 	public void sendWithoutPrefix(CommandSender sender, List<String> messages) {
@@ -83,14 +50,22 @@ public class MessageManager {
 				return;
 			}
 			
-			sender.sendMessage(message
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
-					.replaceAll("&", "§"));
+			sender.sendMessage(translate(message));
 		}
+	}
+	
+	public static String translate(String s) {
+		return s.replace("%:a%", "ä")
+		.replace("%:e%", "ë")
+		.replace("%:i%", "ï")
+		.replace("%:o%", "ö")
+		.replace("%:u%", "ü")
+		.replace("%:A%", "Ä")
+		.replace("%:E%", "Ë")
+		.replace("%:I%", "Ï")
+		.replace("%:O%", "Ö")
+		.replace("%:U%", "Ü")
+		.replace("%ss%", "ß")
+		.replaceAll("&", "§");
 	}
 }

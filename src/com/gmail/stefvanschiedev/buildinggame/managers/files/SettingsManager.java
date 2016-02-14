@@ -108,6 +108,10 @@ public class SettingsManager {
 	
 	@SuppressWarnings("deprecation")
 	public void generateSettings() {
+		int settings = 0;
+		int addedSettings = 0;
+		int removedSettings = 0;
+		
 		InputStream defConfigStream = Main.getInstance().getResource("config.yml");
         if (defConfigStream != null) {
 			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
@@ -115,21 +119,40 @@ public class SettingsManager {
 			for (String string : defConfig.getKeys(true)) {
 				if (!config.contains(string)) {
 					config.set(string, defConfig.get(string));
+					if (config.getBoolean("debug"))
+						addedSettings++;
+				}
+				
+				if (config.getBoolean("debug")) {
+					if (!config.isConfigurationSection(string))
+						settings++;
 				}
 			}
 			if (config.getBoolean("clean-files")) {
 				for (String string : config.getKeys(true)) {
 					if (!defConfig.contains(string)) {
+						if (config.getBoolean("debug") && !config.isConfigurationSection(string))
+							removedSettings++;
 						config.set(string, null);
 					}
 				}
 			}
         }
+        if (config.getBoolean("debug")) {
+        	Main.getInstance().getLogger().info("Found " + settings + " settings");
+        	Main.getInstance().getLogger().info("Added " + addedSettings + " new settings");
+        	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
+        }
+        
         save();
 	}
 	
 	@SuppressWarnings("deprecation")
 	public void generateMessages() {
+		int settings = 0;
+		int addedSettings = 0;
+		int removedSettings = 0;
+		
 		InputStream defMessagesStream = Main.getInstance().getResource("messages.yml");
         if (defMessagesStream != null) {
 			YamlConfiguration defMessages = YamlConfiguration.loadConfiguration(defMessagesStream);
@@ -142,17 +165,32 @@ public class SettingsManager {
 				}
 				if (!messages.contains(string)) {
 					messages.set(string, defMessages.get(string));
+					if (config.getBoolean("debug"))
+						addedSettings++;
+				}
+				
+				if (config.getBoolean("debug")) {
+					if (!config.isConfigurationSection(string))
+						settings++;
 				}
 			}
 			
 			if (config.getBoolean("clean-files")) {
 				for (String string : messages.getKeys(true)) {
 					if (!defMessages.contains(string)) {
+						if (config.getBoolean("debug") && !messages.isConfigurationSection(string))
+							removedSettings++;
 						messages.set(string, null);
 					}
 				}
 			}
         }
+        if (config.getBoolean("debug")) {
+        	Main.getInstance().getLogger().info("Found " + settings + " settings");
+        	Main.getInstance().getLogger().info("Added " + addedSettings + " new settings");
+        	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
+        }
+        
         save();
 	}
 }

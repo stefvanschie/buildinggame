@@ -23,6 +23,9 @@ public class LobbyManager {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 			
+			if (!arenas.contains(arena.getName() + ".lobby"))
+				continue;
+			
 			arena.setLobby(new Lobby(new Location(Bukkit.getWorld(arenas.getString(arena.getName() + ".lobby.world")),
 					arenas.getInt(arena.getName() + ".lobby.x"),
 					arenas.getInt(arena.getName() + ".lobby.y"),

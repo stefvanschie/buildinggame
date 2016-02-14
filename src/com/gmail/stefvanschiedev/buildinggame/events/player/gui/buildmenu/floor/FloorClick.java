@@ -73,10 +73,6 @@ public class FloorClick implements Listener {
 			return;
 		}
 		
-		if (!e.getCursor().getType().isBlock()) {
-			return;
-		}
-		
 		for (String material : config.getStringList("blocks.blocked")) {
 			CustomBlock cb = IDDecompiler.getInstance().decompile(material.toUpperCase());
 			if (currentItem.getType() == cb.getMaterial() && currentItem.getDurability() == cb.getData()) {
@@ -100,6 +96,9 @@ public class FloorClick implements Listener {
 			e.setCancelled(true);
 			return;
 		}
+		
+		if (!e.getCursor().getType().isBlock())
+			return;
 		
 		for (Block block : plot.getFloor().getAllBlocks()) {
 			if (block.getType() == e.getCursor().getType() && block.getData() == e.getCursor().getData().getData())

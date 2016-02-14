@@ -322,6 +322,9 @@ public class Arena {
 		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
+		//fill lives and hunger
+		player.setHealth(20);
+		player.setFoodLevel(20);
 		
 		if (getPlayers() >= getMinPlayers()) {
 			try {
@@ -526,6 +529,8 @@ public class Arena {
 		}
 		
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+		player.resetPlayerTime();
+		player.resetPlayerWeather();
 		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
@@ -575,8 +580,9 @@ public class Arena {
 			}
 		}
 		
-		if (SDBarApi.getInstance().isEnabled() && BarAPI.hasBar(player)) {
-			BarAPI.removeBar(player);
+		if (SDBarApi.getInstance().isEnabled()) {
+			if (BarAPI.hasBar(player))
+				BarAPI.removeBar(player);
 		}
 		
 		SignManager.getInstance().updateJoinSigns(this);
@@ -770,8 +776,8 @@ public class Arena {
 				
 				gamePlayer.restore();
 				player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-				player.setPlayerTime(player.getWorld().getTime(), true);
-				player.setPlayerWeather(player.getWorld().hasStorm() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
+				player.resetPlayerTime();
+				player.resetPlayerWeather();
 				
 				plot.getTimesVoted().clear();
 			
