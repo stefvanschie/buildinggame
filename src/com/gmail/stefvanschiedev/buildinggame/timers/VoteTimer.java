@@ -13,10 +13,10 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
-import com.gmail.stefvanschiedev.buildinggame.utils.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class VoteTimer extends Timer {
@@ -85,7 +85,7 @@ public class VoteTimer extends Timer {
 							}
 						}
 
-						gamePlayer.sendTitleAndSubtitle(messages.getString("winner.title")
+						gamePlayer.addTitleAndSubtitle(messages.getString("winner.title")
 								.replace("%first%", first == null ? "" : first.getPlayerFormat())
 								.replace("%second%", second == null ? "" : second.getPlayerFormat())
 								.replace("%third%", third == null ? "" : third.getPlayerFormat())
@@ -242,7 +242,7 @@ public class VoteTimer extends Timer {
 								MessageManager.getInstance().send(player.getPlayer(), message
 										.replace("%playerplot%", this.plot.getPlayerFormat()));
 							}
-							player.sendTitleAndSubtitle(messages.getString("voting.title")
+							player.addTitleAndSubtitle(messages.getString("voting.title")
 									.replace("%playerplot%", this.plot.getPlayerFormat()), messages.getString("voting.subtitle")
 									.replace("%playerplot%", this.plot.getPlayerFormat()));
 						}

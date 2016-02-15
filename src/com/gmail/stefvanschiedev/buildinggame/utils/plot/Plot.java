@@ -17,12 +17,12 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Time;
 import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 
 public class Plot {
@@ -90,7 +90,7 @@ public class Plot {
 					.replace("%points%", vote.getPoints() + ""));
 		}
 		for (GamePlayer player : ArenaManager.getInstance().getArena(vote.getSender()).getPlot(vote.getSender()).getGamePlayers()) {
-			player.sendTitleAndSubtitle(messages.getString("vote.title")
+			player.addTitleAndSubtitle(messages.getString("vote.title")
 					.replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")
 					.replace("%points%", vote.getPoints() + ""));
 		}

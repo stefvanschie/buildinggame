@@ -12,9 +12,9 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDBarApi;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
-import com.gmail.stefvanschiedev.buildinggame.utils.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class BuildTimer extends Timer {
@@ -47,13 +47,12 @@ public class BuildTimer extends Timer {
 					//messages
 					MessageManager.getInstance().send(player, messages.getStringList("buildingCountdown.time-up.message"));
 					
-					gamePlayer.sendTitleAndSubtitle(messages.getString("buildingCountdown.time-up.title"),
+					gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.time-up.title"),
 							messages.getString("buildingCountdown.time-up.subtitle"));
 				
 					if (SDBarApi.getInstance().isEnabled()) {
-						if (BarAPI.hasBar(player)) {
+						if (BarAPI.hasBar(player))
 							BarAPI.removeBar(player);
-						}
 					}
 				}
 			}
@@ -66,15 +65,13 @@ public class BuildTimer extends Timer {
 			for (Plot plot : arena.getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 					Player player = gamePlayer.getPlayer();
-					for (String message : messages.getStringList("buildingCountdown.message")) {
+					for (String message : messages.getStringList("buildingCountdown.message"))
 						MessageManager.getInstance().send(player, message
 								.replace("%seconds%", getSeconds() + "")
 								.replace("%minutes%", getMinutes() + "")
 								.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
 								.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
-					}
-
-					gamePlayer.sendTitleAndSubtitle(messages.getString("buildingCountdown.title")
+					gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.title")
 							.replace("%seconds%", getSeconds() + "")
 							.replace("%minutes%", getMinutes() + "")
 							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
@@ -92,9 +89,8 @@ public class BuildTimer extends Timer {
 				
 				player.setLevel(getSeconds());
 				if (SDBarApi.getInstance().isEnabled()) {
-					if (BarAPI.hasBar(player)) {
+					if (BarAPI.hasBar(player))
 						BarAPI.removeBar(player);
-					}
 					BarAPI.setMessage(player, messages.getString("global.barHeader")
 							.replace("%:a%", "ä")
 							.replace("%:e%", "ë")

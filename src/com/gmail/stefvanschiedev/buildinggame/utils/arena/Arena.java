@@ -33,10 +33,10 @@ import com.gmail.stefvanschiedev.buildinggame.timers.WaitTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.WinTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
-import com.gmail.stefvanschiedev.buildinggame.utils.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Lobby;
 import com.gmail.stefvanschiedev.buildinggame.utils.VoteBlocks;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.TeamSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -663,11 +663,10 @@ public class Arena {
 				Player player = gamePlayer.getPlayer();
 			
 				if (!config.getBoolean("names-after-voting")) {
-					for (String message : messages.getStringList("voting.message")) {
+					for (String message : messages.getStringList("voting.message"))
 						MessageManager.getInstance().send(player, message
 								.replace("%playerplot%", votingPlot.getPlayerFormat()));
-					}
-					gamePlayer.sendTitleAndSubtitle(messages.getString("voting.title")
+					gamePlayer.addTitleAndSubtitle(messages.getString("voting.title")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()), messages.getString("voting.subtitle")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
@@ -712,12 +711,11 @@ public class Arena {
 				gamePlayer.getPlayer().teleport(plot.getLocation());
 				
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages.getStringList("gameStarts.message"));
-				for (String message : messages.getStringList("gameStarts.subject")) {
+				for (String message : messages.getStringList("gameStarts.subject"))
 					MessageManager.getInstance().send(gamePlayer.getPlayer(), message
 							.replace("%subject%", getSubject()));
-				}
 				
-				gamePlayer.sendTitleAndSubtitle(messages.getString("gameStarts.title")
+				gamePlayer.addTitleAndSubtitle(messages.getString("gameStarts.title")
 						.replace("%subject%", getSubject()), messages.getString("gameStarts.subtitle")
 						.replace("%subject%", getSubject()));
 				
