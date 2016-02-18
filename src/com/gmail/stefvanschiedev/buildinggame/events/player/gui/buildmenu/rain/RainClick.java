@@ -47,7 +47,7 @@ public class RainClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.rain-id"));
+		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.rain.id"));
 		
 		if (currentItem.getType() != block.getMaterial()) {
 			return;

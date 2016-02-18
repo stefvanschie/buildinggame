@@ -45,7 +45,7 @@ public class HeadsClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.heads-id"));
+		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.heads.id"));
 		
 		if (currentItem.getType() != block.getMaterial()) {
 			return;

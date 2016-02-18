@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands.settings.subjects;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,7 +30,10 @@ public class Remove extends ConsoleCommand {
 		
 		subject.trim();
 		
-		config.set("subjects", config.getStringList("subjects").remove(subject));
+		List<String> subjects = config.getStringList("subjects");
+		subjects.remove(subject);
+		
+		config.set("subjects", subjects);
 		SettingsManager.getInstance().save();
 		
 		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Removed subject " + subject);

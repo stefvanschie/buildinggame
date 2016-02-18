@@ -50,7 +50,7 @@ public class FloorClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock cblock = IDDecompiler.getInstance().decompile(config.getString("gui.floor-id"));
+		CustomBlock cblock = IDDecompiler.getInstance().decompile(config.getString("gui.floor.id"));
 		
 		if (currentItem.getType() != cblock.getMaterial()) {
 			return;

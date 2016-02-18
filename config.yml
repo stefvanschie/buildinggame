@@ -91,12 +91,24 @@ team-selection:
       id: 'paper'
   
 gui:
-  particle-id: 'red_rose'
-  floor-id: 'hard_clay'
-  time-id: 'watch'
-  rain-id: 'water_bucket'
-  fly-speed-id: 'feather'
-  heads-id: 'skull_item:3'
+  particles:
+    id: 'red_rose'
+    enabled: true
+  floor: 
+    id: 'hard_clay'
+    enabled: true
+  time:
+    id: 'watch'
+    enabled: true
+  rain:
+    id: 'water_bucket'
+    enabled: true
+  fly-speed:
+    id: 'feather'
+    enabled: true
+  heads:
+    id: 'skull_item:3'
+    enabled: true
 
 debug: false
 clean-files: false

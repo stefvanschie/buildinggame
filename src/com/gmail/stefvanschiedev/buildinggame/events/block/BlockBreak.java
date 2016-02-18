@@ -22,9 +22,8 @@ public class BlockBreak implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+		if (ArenaManager.getInstance().getArena(player) == null)
 			return;
-		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);
 		Plot plot = arena.getPlot(player);

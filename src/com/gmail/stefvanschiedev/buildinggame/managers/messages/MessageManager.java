@@ -65,6 +65,11 @@ public class MessageManager {
 		.replace("%:I%", "Ï")
 		.replace("%:O%", "Ö")
 		.replace("%:U%", "Ü")
+		.replace("%/a%", "á")
+		.replace("%/e%", "é")
+		.replace("%/i%", "í")
+		.replace("%/o%", "ó")
+		.replace("%/u%", "ú")
 		.replace("%ss%", "ß")
 		.replaceAll("&", "§");
 	}

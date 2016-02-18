@@ -35,7 +35,7 @@ public class BuildMenu {
 				.replaceAll("&", "§"));
 		try {
 			// particles item
-			CustomBlock particleBlock = IDDecompiler.getInstance().decompile(config.getString("gui.particle-id"));
+			CustomBlock particleBlock = IDDecompiler.getInstance().decompile(config.getString("gui.particles.id"));
 			
 			ItemStack particle = new ItemStack(particleBlock.getMaterial(), 1);
 			particle.setDurability(particleBlock.getData());
@@ -67,7 +67,7 @@ public class BuildMenu {
 			}
 
 			// floor block item
-			CustomBlock floorBlock = IDDecompiler.getInstance().decompile(config.getString("gui.floor-id"));
+			CustomBlock floorBlock = IDDecompiler.getInstance().decompile(config.getString("gui.floor.id"));
 			
 			ItemStack floor = new ItemStack(floorBlock.getMaterial(), 1);
 			floor.setDurability(floorBlock.getData());
@@ -99,7 +99,7 @@ public class BuildMenu {
 			}
 
 			// plot time item
-			CustomBlock timeBlock = IDDecompiler.getInstance().decompile(config.getString("gui.time-id"));
+			CustomBlock timeBlock = IDDecompiler.getInstance().decompile(config.getString("gui.time.id"));
 			
 			ItemStack time = new ItemStack(timeBlock.getMaterial(), 1);
 			time.setDurability(timeBlock.getData());
@@ -131,7 +131,7 @@ public class BuildMenu {
 			}
 
 			// rain item
-			CustomBlock rainBlock = IDDecompiler.getInstance().decompile(config.getString("gui.rain-id"));
+			CustomBlock rainBlock = IDDecompiler.getInstance().decompile(config.getString("gui.rain.id"));
 			
 			ItemStack rain = new ItemStack(rainBlock.getMaterial(), 1);
 			rain.setDurability(rainBlock.getData());
@@ -163,7 +163,7 @@ public class BuildMenu {
 			}
 
 			//flight speed item
-			CustomBlock speedBlock = IDDecompiler.getInstance().decompile(config.getString("gui.fly-speed-id"));
+			CustomBlock speedBlock = IDDecompiler.getInstance().decompile(config.getString("gui.fly-speed.id"));
 			
 			ItemStack speed = new ItemStack(speedBlock.getMaterial(), 1);
 			speed.setDurability(speedBlock.getData());
@@ -195,7 +195,7 @@ public class BuildMenu {
 			}
 
 			//heads item
-			CustomBlock headsBlock = IDDecompiler.getInstance().decompile(config.getString("gui.heads-id"));
+			CustomBlock headsBlock = IDDecompiler.getInstance().decompile(config.getString("gui.heads.id"));
 			
 			ItemStack heads = new ItemStack(headsBlock.getMaterial(), 1);
 			heads.setDurability(headsBlock.getData());
@@ -254,12 +254,18 @@ public class BuildMenu {
 				close.setItemMeta(closeMeta);
 			}
 			
-			inventory.setItem(11, particle);
-			inventory.setItem(13, floor);
-			inventory.setItem(15, time);
-			inventory.setItem(20, rain);
-			inventory.setItem(22, speed);
-			inventory.setItem(24, heads);
+			if (config.getBoolean("gui.particles.enabled") && player.hasPermission("bg.buildmenu.particles"))
+				inventory.setItem(11, particle);
+			if (config.getBoolean("gui.floor.enabled") && player.hasPermission("bg.buildmenu.floor"))
+				inventory.setItem(13, floor);
+			if (config.getBoolean("gui.time.enabled") && player.hasPermission("bg.buildmenu.time"))
+				inventory.setItem(15, time);
+			if (config.getBoolean("gui.rain.enabled") && player.hasPermission("bg.buildmenu.rain"))
+				inventory.setItem(20, rain);
+			if (config.getBoolean("gui.fly-speed.enabled") && player.hasPermission("bg.buildmenu.flyspeed"))
+				inventory.setItem(22, speed);
+			if (config.getBoolean("gui.heads.enabled") && player.hasPermission("bg.buildmenu.heads"))
+				inventory.setItem(24, heads);
 			//banners: 24
 			inventory.setItem(31, close);
 			

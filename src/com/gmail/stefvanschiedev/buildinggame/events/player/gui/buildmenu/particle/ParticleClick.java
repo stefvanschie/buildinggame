@@ -44,7 +44,7 @@ public class ParticleClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.particle-id"));
+		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.particles.id"));
 		
 		if (currentItem.getType() != block.getMaterial()) {
 			return;

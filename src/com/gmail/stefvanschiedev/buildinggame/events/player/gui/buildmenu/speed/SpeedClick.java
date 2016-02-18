@@ -44,7 +44,7 @@ public class SpeedClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.fly-speed-id"));
+		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.fly-speed.id"));
 		
 		if (currentItem.getType() != block.getMaterial()) {
 			return;

@@ -44,7 +44,7 @@ public class TimeClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.time-id"));
+		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.time.id"));
 		
 		if (currentItem.getType() != block.getMaterial()) {
 			return;

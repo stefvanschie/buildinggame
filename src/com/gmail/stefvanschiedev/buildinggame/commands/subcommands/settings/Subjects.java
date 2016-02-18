@@ -55,7 +55,7 @@ public class Subjects extends ConsoleCommand {
 
 	@Override
 	public String getName() {
-		return "subject";
+		return "subjects";
 	}
 
 	@Override

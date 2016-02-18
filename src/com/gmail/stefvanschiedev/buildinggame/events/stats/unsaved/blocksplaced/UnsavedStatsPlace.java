@@ -17,13 +17,11 @@ public class UnsavedStatsPlace implements Listener {
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);
 		
-		if (arena == null) {
+		if (arena == null)
 			return;
-		}
 		
-		if (arena.getState() != GameState.BUILDING) {
+		if (arena.getState() != GameState.BUILDING)
 			return;
-		}
 		
 		arena.getPlot(player).getGamePlayer(player).setBlocksPlaced(arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + 1);
 	}
