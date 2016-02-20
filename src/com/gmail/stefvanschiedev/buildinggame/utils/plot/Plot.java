@@ -310,6 +310,8 @@ public class Plot {
 		
 		setRaining(false);
 		setTime(Time.AM6);
+		
+		getParticles().clear();
 	}
 	
 	public void save() {

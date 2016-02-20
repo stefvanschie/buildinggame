@@ -174,9 +174,6 @@ public class Main extends JavaPlugin {
 	public void loadPlugin() {
 		long start = System.currentTimeMillis();
 		
-		getLogger().info("Loading files");
-		SettingsManager.getInstance().setup(this);
-		
 		getLogger().info("Loading arenas");
 		ArenaManager.getInstance().setup();
 		ArenaModeManager.getInstance().setup();

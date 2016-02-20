@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -11,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
 public class CloseMenu implements Listener {
 
@@ -21,14 +21,7 @@ public class CloseMenu implements Listener {
 		Player player = (Player) e.getWhoClicked();
 		Inventory inventory = e.getInventory();
 		
-		if (!inventory.getName().equals(messages.getString("gui.options-title")
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-				.replaceAll("&", "§"))) {
+		if (!inventory.getName().equals(MessageManager.translate(messages.getString("gui.options-title")))) {
 			return;
 		}
 		
@@ -46,7 +39,7 @@ public class CloseMenu implements Listener {
 			return;
 		}
 		
-		if (!item.getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Close menu")) {
+		if (!item.getItemMeta().getDisplayName().equals(MessageManager.translate(messages.getString("gui.close-menu.name")))) {
 			return;
 		}
 		

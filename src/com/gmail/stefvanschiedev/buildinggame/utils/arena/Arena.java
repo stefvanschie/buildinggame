@@ -780,7 +780,6 @@ public class Arena {
 				plot.getTimesVoted().clear();
 			
 				plot.getVotes().clear();
-				plot.getParticles().clear();
 			}
 			plot.getGamePlayers().clear();
 		}

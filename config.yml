@@ -43,6 +43,7 @@ title:
   fade_in: 0
   stay: 20
   fade_out: 20
+  syncronize: false
 
 voting:
   default-vote-points: 5

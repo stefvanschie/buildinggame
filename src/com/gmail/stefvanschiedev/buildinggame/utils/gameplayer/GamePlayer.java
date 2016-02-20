@@ -47,14 +47,14 @@ public class GamePlayer {
 		subtitles = new ArrayList<String>();
 	}
 
-	public void addSubtitle(String subtitle) {
+	public void addSubtitle(String subtitle) {	
 		if (getSubtitleCountdown() != null)
 			subtitles.add(subtitle);
 		
 		if (getSubtitleCountdown() == null) {
-			//start new countdown
 			YamlConfiguration config = SettingsManager.getInstance().getConfig();
 			
+			//start new countdown	
 			sendSubtitle(subtitle);	
 			setSubtitleCountdown(new SubtitleCountdown(this));
 			getSubtitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") + config.getInt("title.stay") + config.getInt("title.fade_out"));
@@ -79,8 +79,13 @@ public class GamePlayer {
 		if (title.equals("") && subtitle.equals(""))
 			return;
 		
-		addTitle(title);
-		addSubtitle(subtitle);
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
+		if (!config.getBoolean("title.syncronize")) {
+			addTitle(title);
+			addSubtitle(subtitle);
+		} else
+			sendTitleAndSubtitle(title, subtitle);
 	}
 	
 	public ItemStack[] getArmor() {
@@ -219,6 +224,14 @@ public class GamePlayer {
 			e.printStackTrace();
 			return;
 		}
+	}
+	
+	public void sendTitleAndSubtitle(String title, String subtitle) {
+		if (title.equals("") && subtitle.equals(""))
+			return;
+		
+		sendTitle(title);
+		sendSubtitle(subtitle);
 	}
 	
 	public void setArmor(ItemStack[] armor) {

@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.files;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,7 +59,6 @@ public class SettingsManager {
 		if (!messagesFile.exists()) {
 			try {
 				messagesFile.createNewFile();
-				generateMessages();
 				save();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -144,7 +142,8 @@ public class SettingsManager {
         	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
         }
         
-        save();
+        if (Main.getInstance() != null)
+        	save();
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -191,6 +190,7 @@ public class SettingsManager {
         	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
         }
         
-        save();
+        if (Main.getInstance() != null)
+        	save();
 	}
 }
