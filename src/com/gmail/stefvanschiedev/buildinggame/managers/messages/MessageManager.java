@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.messages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
@@ -72,5 +73,15 @@ public class MessageManager {
 		.replace("%/u%", "ú")
 		.replace("%ss%", "ß")
 		.replaceAll("&", "§");
+	}
+	
+	public static List<String> translate(List<String> s) {
+		List<String> list = new ArrayList<String>();
+		
+		for (String text : s) {
+			list.add(translate(text));
+		}
+		
+		return list;
 	}
 }

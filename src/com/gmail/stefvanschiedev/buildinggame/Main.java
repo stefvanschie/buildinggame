@@ -149,7 +149,7 @@ public class Main extends JavaPlugin {
 		instance = this;
 		
 		getLogger().info("Loading files");
-		SettingsManager.getInstance().setup(this);
+		SettingsManager.getInstance().setup(this, true);
 		
 		if (SettingsManager.getInstance().getConfig().getBoolean("loading.load-after-plugins")) {
 			getLogger().info("Waiting until other plugins are loaded");
@@ -173,6 +173,9 @@ public class Main extends JavaPlugin {
 	
 	public void loadPlugin() {
 		long start = System.currentTimeMillis();
+		
+		getLogger().info("Loading files");
+		SettingsManager.getInstance().setup(this, false);
 		
 		getLogger().info("Loading arenas");
 		ArenaManager.getInstance().setup();

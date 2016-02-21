@@ -312,7 +312,6 @@ public class Arena {
 		if (getLobby() != null) {
 			player.teleport(getLobby().getLocation());
 		}
-		player.setGameMode(GameMode.ADVENTURE);
 		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
@@ -325,6 +324,10 @@ public class Arena {
 		//fill lives and hunger
 		player.setHealth(20);
 		player.setFoodLevel(20);
+		//gamemode
+		player.setGameMode(GameMode.ADVENTURE);
+		//time
+		player.setPlayerTime(6000, false);
 		
 		if (getPlayers() >= getMinPlayers()) {
 			try {
@@ -722,6 +725,7 @@ public class Arena {
 				Player player = gamePlayer.getPlayer();
 				player.getInventory().clear();
 				player.setGameMode(GameMode.CREATIVE);
+				player.setPlayerTime(plot.getTime().decode(plot.getTime()), false);
 				
 				ItemStack emerald = new ItemStack(Material.EMERALD, 1);
 				ItemMeta emeraldMeta = emerald.getItemMeta();

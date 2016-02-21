@@ -30,7 +30,7 @@ public class SettingsManager {
 	private YamlConfiguration signs;
 	private File signsFile;
 	
-	public void setup(Plugin p) {
+	public void setup(Plugin p, boolean save) {
 		if (!p.getDataFolder().exists())
 			p.getDataFolder().mkdir();
 		arenasFile = new File(p.getDataFolder(), "arenas.yml");
@@ -73,8 +73,8 @@ public class SettingsManager {
 			}
 			
 		}
-		generateSettings();
-		generateMessages();
+		generateSettings(save);
+		generateMessages(save);
 	}
 	
 	public YamlConfiguration getArenas() {
@@ -105,7 +105,7 @@ public class SettingsManager {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void generateSettings() {
+	public void generateSettings(boolean save) {
 		int settings = 0;
 		int addedSettings = 0;
 		int removedSettings = 0;
@@ -142,12 +142,12 @@ public class SettingsManager {
         	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
         }
         
-        if (Main.getInstance() != null)
+        if (save)
         	save();
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void generateMessages() {
+	public void generateMessages(boolean save) {
 		int settings = 0;
 		int addedSettings = 0;
 		int removedSettings = 0;
@@ -190,7 +190,7 @@ public class SettingsManager {
         	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
         }
         
-        if (Main.getInstance() != null)
+        if (save)
         	save();
 	}
 }

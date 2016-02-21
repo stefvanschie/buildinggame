@@ -61,6 +61,9 @@ join:
   - "&cArena is already in game"
   invalid:
   - "&cThat's not a valid arena"
+  plot:
+    full:
+    - "&cThis team is full!"
 lobbyCountdown:
   message:
   - "&6The game starts in %seconds% seconds!"
@@ -93,13 +96,13 @@ voting:
   - "&6%playerplot%'s plot!"
   title: "&a%playerplot%'s build"
   subtitle: "" 
-  two-points-block: "&4Very Bad"
-  three-points-block: "&cBad"
-  four-points-block: "&aMwoah"
-  five-points-block: "&2Good"
-  six-points-block: "&eVery Good"
-  seven-points-block: "&dAwesome"
-  eight-points-block: "&5Excellent"
+  second-slot-block: "&4Very Bad"
+  third-slot-block: "&cBad"
+  fourth-slot-block: "&aMwoah"
+  fifth-slot-block: "&2Good"
+  sixth-slot-block: "&eVery Good"
+  seventh-slot-block: "&dAwesome"
+  eighth-slot-block: "&5Excellent"
 game-ends:
   message:
   - "&6The game ended!"

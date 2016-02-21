@@ -17,12 +17,12 @@ public class VoteBlocks {
 	
 	public void give(Player player) {
 		try {
-			CustomBlock twoBlock = IDDecompiler.getInstance().decompile(config.getString("voting.two-points-id"));
+			CustomBlock twoBlock = IDDecompiler.getInstance().decompile(config.getString("voting.second-slot.id"));
 			
 			ItemStack two = new ItemStack(twoBlock.getMaterial());
 			two.setDurability(twoBlock.getData());
 			ItemMeta twoMeta = two.getItemMeta();
-			twoMeta.setDisplayName(messages.getString("voting.two-points-block")
+			twoMeta.setDisplayName(messages.getString("voting.second-slot-block")
 					.replace("%:a%", "ä")
 					.replace("%:e%", "ë")
 					.replace("%:i%", "ï")
@@ -33,12 +33,12 @@ public class VoteBlocks {
 			two.setItemMeta(twoMeta);
 			player.getInventory().setItem(1, two);
 		
-			CustomBlock threeBlock = IDDecompiler.getInstance().decompile(config.getString("voting.three-points-id"));
+			CustomBlock threeBlock = IDDecompiler.getInstance().decompile(config.getString("voting.third-slot.id"));
 			
 			ItemStack three = new ItemStack(threeBlock.getMaterial());
 			three.setDurability(threeBlock.getData());
 			ItemMeta threeMeta = three.getItemMeta();
-			threeMeta.setDisplayName(messages.getString("voting.three-points-block")
+			threeMeta.setDisplayName(messages.getString("voting.third-slot-block")
 					.replace("%:a%", "ä")
 					.replace("%:e%", "ë")
 					.replace("%:i%", "ï")
@@ -49,12 +49,12 @@ public class VoteBlocks {
 			three.setItemMeta(threeMeta);
 			player.getInventory().setItem(2, three);
 		
-			CustomBlock fourBlock = IDDecompiler.getInstance().decompile(config.getString("voting.four-points-id"));
+			CustomBlock fourBlock = IDDecompiler.getInstance().decompile(config.getString("voting.fourth-slot.id"));
 			
 			ItemStack four = new ItemStack(fourBlock.getMaterial());
 			four.setDurability(fourBlock.getData());
 			ItemMeta fourMeta = four.getItemMeta();
-			fourMeta.setDisplayName(messages.getString("voting.four-points-block")
+			fourMeta.setDisplayName(messages.getString("voting.fourth-slot-block")
 					.replace("%:a%", "ä")
 					.replace("%:e%", "ë")
 					.replace("%:i%", "ï")
@@ -65,12 +65,12 @@ public class VoteBlocks {
 			four.setItemMeta(fourMeta);
 			player.getInventory().setItem(3, four);
 		
-			CustomBlock fiveBlock = IDDecompiler.getInstance().decompile(config.getString("voting.five-points-id"));
+			CustomBlock fiveBlock = IDDecompiler.getInstance().decompile(config.getString("voting.fifth-slot.id"));
 			
 			ItemStack five = new ItemStack(fiveBlock.getMaterial());
 			five.setDurability(fiveBlock.getData());
 			ItemMeta fiveMeta = five.getItemMeta();
-			fiveMeta.setDisplayName(messages.getString("voting.five-points-block")
+			fiveMeta.setDisplayName(messages.getString("voting.fifth-slot-block")
 					.replace("%:a%", "ä")
 					.replace("%:e%", "ë")
 					.replace("%:i%", "ï")
@@ -81,12 +81,12 @@ public class VoteBlocks {
 			five.setItemMeta(fiveMeta);
 			player.getInventory().setItem(4, five);
 		
-			CustomBlock sixBlock = IDDecompiler.getInstance().decompile(config.getString("voting.six-points-id"));
+			CustomBlock sixBlock = IDDecompiler.getInstance().decompile(config.getString("voting.sixth-slot.id"));
 			
 			ItemStack six = new ItemStack(sixBlock.getMaterial());
 			six.setDurability(sixBlock.getData());
 			ItemMeta sixMeta = six.getItemMeta();
-			sixMeta.setDisplayName(messages.getString("voting.six-points-block")
+			sixMeta.setDisplayName(messages.getString("voting.sixth-slot-block")
 					.replace("%:a%", "ä")
 					.replace("%:e%", "ë")
 					.replace("%:i%", "ï")
@@ -97,12 +97,12 @@ public class VoteBlocks {
 			six.setItemMeta(sixMeta);
 			player.getInventory().setItem(5, six);
 		
-			CustomBlock sevenBlock = IDDecompiler.getInstance().decompile(config.getString("voting.seven-points-id"));
+			CustomBlock sevenBlock = IDDecompiler.getInstance().decompile(config.getString("voting.seventh-slot.id"));
 			
 			ItemStack seven = new ItemStack(sevenBlock.getMaterial());
 			seven.setDurability(sevenBlock.getData());
 			ItemMeta sevenMeta = seven.getItemMeta();
-			sevenMeta.setDisplayName(messages.getString("voting.seven-points-block")
+			sevenMeta.setDisplayName(messages.getString("voting.seventh-slot-block")
 					.replace("%:a%", "ä")
 					.replace("%:e%", "ë")
 					.replace("%:i%", "ï")
@@ -113,12 +113,12 @@ public class VoteBlocks {
 			seven.setItemMeta(sevenMeta);
 			player.getInventory().setItem(6, seven);
 			
-			CustomBlock eightBlock = IDDecompiler.getInstance().decompile(config.getString("voting.eight-points-id"));
+			CustomBlock eightBlock = IDDecompiler.getInstance().decompile(config.getString("voting.eighth-slot.id"));
 			
 			ItemStack eight = new ItemStack(eightBlock.getMaterial());
 			eight.setDurability(eightBlock.getData());
 			ItemMeta eightMeta = eight.getItemMeta();
-			eightMeta.setDisplayName(messages.getString("voting.eight-points-block")
+			eightMeta.setDisplayName(messages.getString("voting.eighth-slot-block")
 					.replace("%:a%", "ä")
 					.replace("%:e%", "ë")
 					.replace("%:i%", "ï")
@@ -129,7 +129,7 @@ public class VoteBlocks {
 			eight.setItemMeta(eightMeta);
 			player.getInventory().setItem(7, eight);
 		} catch (NullPointerException npe) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "There's a wrong id in your config. Please fix this in order to open the menu.");
+			MessageManager.getInstance().send(player, ChatColor.RED + "There's a wrong id in your config. Please fix this in order to receive the blocks.");
 		}
 	}
 }

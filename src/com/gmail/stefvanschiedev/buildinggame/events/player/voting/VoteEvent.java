@@ -37,13 +37,13 @@ public class VoteEvent implements Listener {
 		
 		ItemStack item = player.getItemInHand();
 		
-		CustomBlock two = IDDecompiler.getInstance().decompile(config.getString("voting.two-points-id"));
-		CustomBlock three = IDDecompiler.getInstance().decompile(config.getString("voting.three-points-id"));
-		CustomBlock four = IDDecompiler.getInstance().decompile(config.getString("voting.four-points-id"));
-		CustomBlock five = IDDecompiler.getInstance().decompile(config.getString("voting.five-points-id"));
-		CustomBlock six = IDDecompiler.getInstance().decompile(config.getString("voting.six-points-id"));
-		CustomBlock seven = IDDecompiler.getInstance().decompile(config.getString("voting.seven-points-id"));
-		CustomBlock eight = IDDecompiler.getInstance().decompile(config.getString("voting.eight-points-id"));
+		CustomBlock two = IDDecompiler.getInstance().decompile(config.getString("voting.second-slot.id"));
+		CustomBlock three = IDDecompiler.getInstance().decompile(config.getString("voting.third-slot.id"));
+		CustomBlock four = IDDecompiler.getInstance().decompile(config.getString("voting.fourth-slot.id"));
+		CustomBlock five = IDDecompiler.getInstance().decompile(config.getString("voting.fifth-slot.id"));
+		CustomBlock six = IDDecompiler.getInstance().decompile(config.getString("voting.sixth-slot.id"));
+		CustomBlock seven = IDDecompiler.getInstance().decompile(config.getString("voting.seventh-slot.id"));
+		CustomBlock eight = IDDecompiler.getInstance().decompile(config.getString("voting.eighth-slot.id"));
 		
 		if (item.getType() == two.getMaterial() && item.getDurability() == two.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.two-points-block")
 				.replace("%:a%", "ä")
@@ -53,7 +53,7 @@ public class VoteEvent implements Listener {
 				.replace("%:u%", "ü")
 				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
-			plot.addVote(new Vote(2, player));
+			plot.addVote(new Vote(config.getInt("voting.second-slot.points"), player));
 			e.setCancelled(true);
 			return;
 		} else if (item.getType() == three.getMaterial() && item.getDurability() == three.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.three-points-block")
@@ -64,7 +64,7 @@ public class VoteEvent implements Listener {
 				.replace("%:u%", "ü")
 				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
-			plot.addVote(new Vote(3, player));
+			plot.addVote(new Vote(config.getInt("voting.third-slot.points"), player));
 			e.setCancelled(true);
 			return;
 		} else if (item.getType() == four.getMaterial() && item.getDurability() == four.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.four-points-block")
@@ -75,7 +75,7 @@ public class VoteEvent implements Listener {
 				.replace("%:u%", "ü")
 				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
-			plot.addVote(new Vote(4, player));
+			plot.addVote(new Vote(config.getInt("voting.fourth-slot.points"), player));
 			e.setCancelled(true);
 			return;
 		} else if (item.getType() == five.getMaterial() && item.getDurability() == five.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.five-points-block")
@@ -86,7 +86,7 @@ public class VoteEvent implements Listener {
 				.replace("%:u%", "ü")
 				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
-			plot.addVote(new Vote(5, player));
+			plot.addVote(new Vote(config.getInt("voting.fifth-slot.points"), player));
 			e.setCancelled(true);
 			return;
 		} else if (item.getType() == six.getMaterial() && item.getDurability() == six.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.six-points-block")
@@ -97,7 +97,7 @@ public class VoteEvent implements Listener {
 				.replace("%:u%", "ü")
 				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
-			plot.addVote(new Vote(6, player));
+			plot.addVote(new Vote(config.getInt("voting.sixth-slot.points"), player));
 			e.setCancelled(true);
 			return;
 		} else if (item.getType() == seven.getMaterial() && item.getDurability() == seven.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.seven-points-block")
@@ -108,7 +108,7 @@ public class VoteEvent implements Listener {
 				.replace("%:u%", "ü")
 				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
-			plot.addVote(new Vote(7, player));
+			plot.addVote(new Vote(config.getInt("voting.seventh-slot.points"), player));
 			e.setCancelled(true);
 			return;
 		} else if (item.getType() == eight.getMaterial() && item.getDurability() == eight.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.eight-points-block")
@@ -119,7 +119,7 @@ public class VoteEvent implements Listener {
 				.replace("%:u%", "ü")
 				.replace("%ss%", "ß")
 				.replaceAll("&", "§"))) {
-			plot.addVote(new Vote(8, player));
+			plot.addVote(new Vote(config.getInt("voting.eighth-slot.points"), player));
 			e.setCancelled(true);
 			return;
 		} else {

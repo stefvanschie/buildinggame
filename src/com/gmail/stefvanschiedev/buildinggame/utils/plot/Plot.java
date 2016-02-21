@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.WeatherType;
 import org.bukkit.block.Block;
@@ -259,12 +258,14 @@ public class Plot {
 	}
 	
 	public boolean join(GamePlayer gamePlayer) {
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
 		if (arena.getMode() == ArenaMode.TEAM) {
 			if (!isFull()) {
 				gamePlayers.add(gamePlayer);
 				return true;
 			} else {
-				MessageManager.getInstance().send(gamePlayer.getPlayer(), ChatColor.RED + "This team is full");
+				MessageManager.getInstance().send(gamePlayer.getPlayer(), MessageManager.translate(messages.getStringList("join.plot.full")));
 				return false;
 			}
 		} else {
