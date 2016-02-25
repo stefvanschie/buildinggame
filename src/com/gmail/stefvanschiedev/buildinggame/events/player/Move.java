@@ -14,6 +14,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class Move implements Listener {
@@ -37,6 +39,17 @@ public class Move implements Listener {
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);
 		Plot plot = arena.getPlot(player);
+
+		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
+			GamePlayer gamePlayer = plot.getGamePlayer(player);
+			
+			if (!plot.getBoundary().isInside(to)) {
+				player.teleport(gamePlayer.getSpectates().getPlayer());
+				MessageManager.getInstance().send(player, MessageManager.translate(messages.getStringList("in-gmae.move-out-bounds")));
+			}
+			
+			return;
+		}
 		
 		if (arena.getState() == GameState.VOTING) {
 			if (arena.getVotingPlot() == null) {

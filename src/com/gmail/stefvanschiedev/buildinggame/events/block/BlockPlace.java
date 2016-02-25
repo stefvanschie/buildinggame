@@ -14,6 +14,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class BlockPlace implements Listener {
@@ -32,6 +33,12 @@ public class BlockPlace implements Listener {
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);
 		Plot plot = arena.getPlot(player);
+		
+		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
+			MessageManager.getInstance().send(player, ChatColor.RED + "Spectators can't build");
+			e.setCancelled(true);
+			return;
+		}
 		
 		if (arena.getState() != GameState.BUILDING) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You can not build right now");

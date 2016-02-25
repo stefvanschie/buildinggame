@@ -20,6 +20,8 @@ public class GamePlayer {
 	private float flySpeed;
 	private int foodLevel;
 	private GameMode gameMode;
+	private GamePlayer spectates;
+	private GamePlayerType gamePlayerType;
 	private int levels;
 	private int blocksPlaced = 0;
 	private Player player;
@@ -33,11 +35,12 @@ public class GamePlayer {
 	private TitleCountdown titleCountdown;
 	private SubtitleCountdown subtitleCountdown;
 	
-	public GamePlayer(Player player) {
+	public GamePlayer(Player player, GamePlayerType gamePlayerType) {
 		exp = player.getExp();
 		foodLevel = player.getFoodLevel();
 		flySpeed = player.getFlySpeed();
 		gameMode = player.getGameMode();
+		this.gamePlayerType = gamePlayerType;
 		levels = player.getLevel();
 		this.player = player;
 		inventory = player.getInventory().getContents();
@@ -112,6 +115,10 @@ public class GamePlayer {
 		return gameMode;
 	}
 	
+	public GamePlayerType getGamePlayerType() {
+		return gamePlayerType;
+	}
+	
 	public ItemStack[] getInventory() {
 		return inventory;
 	}
@@ -122,6 +129,10 @@ public class GamePlayer {
 	
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public GamePlayer getSpectates() {
+		return spectates;
 	}
 	
 	public SubtitleCountdown getSubtitleCountdown() {
@@ -268,6 +279,10 @@ public class GamePlayer {
 	
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	
+	public void setSpectates(GamePlayer spectates) {
+		this.spectates = spectates;
 	}
 	
 	public void setSubtitleCountdown(SubtitleCountdown subtitleCountdown) {

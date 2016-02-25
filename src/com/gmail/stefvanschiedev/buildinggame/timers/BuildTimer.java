@@ -3,18 +3,21 @@ package com.gmail.stefvanschiedev.buildinggame.timers;
 import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDBarApi;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class BuildTimer extends Timer {
@@ -57,6 +60,19 @@ public class BuildTimer extends Timer {
 				}
 			}
 			arena.setState(GameState.VOTING);
+			
+			//clear spectaters
+			for (Plot plot : arena.getPlots()) {
+				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+					if (gamePlayer.getGamePlayerType() == GamePlayerType.SPECTATOR) {
+						plot.removeSpectator(gamePlayer);
+						gamePlayer.getPlayer().teleport(MainSpawnManager.getInstance().getMainSpawn());
+						
+						MessageManager.getInstance().send(gamePlayer.getPlayer(), ChatColor.GREEN + "Stopped spectating");
+					}
+				}
+			}
+			
 			arena.getVoteTimer().runTaskTimer(Main.getInstance(), 20L, 20L);
 			running = false;
 			this.cancel();

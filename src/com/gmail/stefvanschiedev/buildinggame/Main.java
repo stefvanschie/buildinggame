@@ -113,10 +113,12 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.gui.teamselection.Op
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.teamselection.TeamClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickLeaveSign;
+import com.gmail.stefvanschiedev.buildinggame.events.player.spectator.LeaveClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.Interact;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.InventoryMove;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.VoteEvent;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved.blocksplaced.UnsavedStatsPlace;
+import com.gmail.stefvanschiedev.buildinggame.events.structure.TreeGrow;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaModeManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.LobbyManager;
@@ -346,7 +348,19 @@ public class Main extends JavaPlugin {
 			Bukkit.getPluginManager().registerEvents(new OpenTeamSelection(), this);
 			Bukkit.getPluginManager().registerEvents(new TeamClick(), this);
 		
+			//spectator
+			Bukkit.getPluginManager().registerEvents(new LeaveClick(), this);
+			
+			//strc
+			
+			/* stats
+			 * unsaved
+			 * blocksplace
+			 */
 			Bukkit.getPluginManager().registerEvents(new UnsavedStatsPlace(), this);
+			
+			//structure
+			Bukkit.getPluginManager().registerEvents(new TreeGrow(), this);
 		
 			loadedListeners = true;
 		}

@@ -37,6 +37,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Lobby;
 import com.gmail.stefvanschiedev.buildinggame.utils.VoteBlocks;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.TeamSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -142,7 +143,7 @@ public class Arena {
 	
 	public Plot getPlot(Player player) {
 		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				if (gamePlayer.getPlayer() == player) {
 					return plot;
 				}
@@ -282,7 +283,7 @@ public class Arena {
 		
 		for (Plot plot : getPlots()) {
 			if (!plot.isFull()) {
-				plot.join(new GamePlayer(player));
+				plot.join(new GamePlayer(player, GamePlayerType.PLAYER));
 				break;
 			}
 		}
@@ -441,7 +442,7 @@ public class Arena {
 			MessageManager.getInstance().send(player, ChatColor.RED + "This team is full");
 			return;
 		} else {
-			p.join(new GamePlayer(player));
+			p.join(new GamePlayer(player, GamePlayerType.PLAYER));
 		}
 		
 		buildScoreboard.show(player);

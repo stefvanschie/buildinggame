@@ -29,6 +29,7 @@ import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetMaxPlayers
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetMinPlayers;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetSpawn;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Setting;
+import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Spectate;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.VoteCommand;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -56,6 +57,7 @@ public class CommandManager implements CommandExecutor {
 		subCommands.add(new SetMinPlayers());
 		subCommands.add(new SetSpawn());
 		subCommands.add(new Setting());
+		subCommands.add(new Spectate());
 		subCommands.add(new VoteCommand());
 	}
 

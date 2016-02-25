@@ -45,7 +45,7 @@ public class VoteEvent implements Listener {
 		CustomBlock seven = IDDecompiler.getInstance().decompile(config.getString("voting.seventh-slot.id"));
 		CustomBlock eight = IDDecompiler.getInstance().decompile(config.getString("voting.eighth-slot.id"));
 		
-		if (item.getType() == two.getMaterial() && item.getDurability() == two.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.two-points-block")
+		if (item.getType() == two.getMaterial() && item.getDurability() == two.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.second-slot-block")
 				.replace("%:a%", "ä")
 				.replace("%:e%", "ë")
 				.replace("%:i%", "ï")
@@ -56,7 +56,7 @@ public class VoteEvent implements Listener {
 			plot.addVote(new Vote(config.getInt("voting.second-slot.points"), player));
 			e.setCancelled(true);
 			return;
-		} else if (item.getType() == three.getMaterial() && item.getDurability() == three.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.three-points-block")
+		} else if (item.getType() == three.getMaterial() && item.getDurability() == three.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.third-slot-block")
 				.replace("%:a%", "ä")
 				.replace("%:e%", "ë")
 				.replace("%:i%", "ï")
@@ -67,7 +67,7 @@ public class VoteEvent implements Listener {
 			plot.addVote(new Vote(config.getInt("voting.third-slot.points"), player));
 			e.setCancelled(true);
 			return;
-		} else if (item.getType() == four.getMaterial() && item.getDurability() == four.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.four-points-block")
+		} else if (item.getType() == four.getMaterial() && item.getDurability() == four.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.fourth-slot-block")
 				.replace("%:a%", "ä")
 				.replace("%:e%", "ë")
 				.replace("%:i%", "ï")
@@ -78,7 +78,7 @@ public class VoteEvent implements Listener {
 			plot.addVote(new Vote(config.getInt("voting.fourth-slot.points"), player));
 			e.setCancelled(true);
 			return;
-		} else if (item.getType() == five.getMaterial() && item.getDurability() == five.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.five-points-block")
+		} else if (item.getType() == five.getMaterial() && item.getDurability() == five.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.fifth-slot-block")
 				.replace("%:a%", "ä")
 				.replace("%:e%", "ë")
 				.replace("%:i%", "ï")
@@ -89,7 +89,7 @@ public class VoteEvent implements Listener {
 			plot.addVote(new Vote(config.getInt("voting.fifth-slot.points"), player));
 			e.setCancelled(true);
 			return;
-		} else if (item.getType() == six.getMaterial() && item.getDurability() == six.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.six-points-block")
+		} else if (item.getType() == six.getMaterial() && item.getDurability() == six.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.sixth-slot-block")
 				.replace("%:a%", "ä")
 				.replace("%:e%", "ë")
 				.replace("%:i%", "ï")
@@ -100,7 +100,7 @@ public class VoteEvent implements Listener {
 			plot.addVote(new Vote(config.getInt("voting.sixth-slot.points"), player));
 			e.setCancelled(true);
 			return;
-		} else if (item.getType() == seven.getMaterial() && item.getDurability() == seven.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.seven-points-block")
+		} else if (item.getType() == seven.getMaterial() && item.getDurability() == seven.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.seventh-slot-block")
 				.replace("%:a%", "ä")
 				.replace("%:e%", "ë")
 				.replace("%:i%", "ï")
@@ -111,7 +111,7 @@ public class VoteEvent implements Listener {
 			plot.addVote(new Vote(config.getInt("voting.seventh-slot.points"), player));
 			e.setCancelled(true);
 			return;
-		} else if (item.getType() == eight.getMaterial() && item.getDurability() == eight.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.eight-points-block")
+		} else if (item.getType() == eight.getMaterial() && item.getDurability() == eight.getData() && item.getItemMeta().getDisplayName().equalsIgnoreCase(messages.getString("voting.eighth-slot-block")
 				.replace("%:a%", "ä")
 				.replace("%:e%", "ë")
 				.replace("%:i%", "ï")

@@ -5,12 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.WeatherType;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
@@ -22,6 +27,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 
 public class Plot {
@@ -51,6 +57,24 @@ public class Plot {
 			particles.add(particle);
 		else
 			MessageManager.getInstance().send(player, messages.getStringList("particle.max-particles"));
+	}
+	
+	public void addSpectator(Player spectator, GamePlayer spectates) {
+		getAllGamePlayers().add(new GamePlayer(spectator, GamePlayerType.SPECTATOR));
+		
+		for (GamePlayer player : getAllGamePlayers())
+			player.getPlayer().hidePlayer(spectator);
+		
+		ItemStack item = new ItemStack(Material.WATCH);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(ChatColor.GOLD + "Leave");
+		item.setItemMeta(meta);
+		
+		spectator.getInventory().addItem(item);
+		
+		spectator.teleport(spectates.getPlayer().getLocation());
+		spectator.setGameMode(GameMode.CREATIVE);
+		spectator.setCanPickupItems(false);
 	}
 	
 	public void addVote(Vote vote) {
@@ -112,6 +136,10 @@ public class Plot {
 		}
 	}
 	
+	public List<GamePlayer> getAllGamePlayers() {
+		return gamePlayers;
+	}
+	
 	public Arena getArena() {
 		return arena;
 	}
@@ -129,12 +157,23 @@ public class Plot {
 	}
 	
 	public GamePlayer getGamePlayer(Player player) {
-		for (GamePlayer gamePlayer : getGamePlayers()) {
+		for (GamePlayer gamePlayer : getAllGamePlayers()) {
 			if (gamePlayer.getPlayer() == player) {
 				return gamePlayer;
 			}
 		}
 		return null;
+	}
+	
+	public List<GamePlayer> getGamePlayers() {
+		List<GamePlayer> gamePlayers = new ArrayList<GamePlayer>();
+		
+		for (GamePlayer gamePlayer : getAllGamePlayers()) {
+			if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER)
+				gamePlayers.add(gamePlayer);
+		}
+		
+		return gamePlayers;
 	}
 	
 	public int getID() {
@@ -177,10 +216,6 @@ public class Plot {
 		return players;
 	}
 	
-	public List<GamePlayer> getGamePlayers() {
-		return gamePlayers;
-	}
-	
 	public int getPoints() {
 		int points = 0;
 		
@@ -189,6 +224,17 @@ public class Plot {
 		}
 		
 		return points;
+	}
+	
+	public List<GamePlayer> getSpectators() {
+		List<GamePlayer> spectators = new ArrayList<GamePlayer>();
+		
+		for (GamePlayer gamePlayer : getAllGamePlayers()) {
+			if (gamePlayer.getGamePlayerType() == GamePlayerType.SPECTATOR)
+				spectators.add(gamePlayer);
+		}
+		
+		return spectators;
 	}
 	
 	public Time getTime() {
@@ -290,6 +336,16 @@ public class Plot {
 	
 	public void removeParticle(Particle particle) {
 		particles.remove(particle);
+	}
+	
+	public void removeSpectator(GamePlayer spectator) {
+		getAllGamePlayers().remove(spectator);
+		
+		for (GamePlayer player : getAllGamePlayers())
+			player.getPlayer().showPlayer(spectator.getPlayer());
+		
+		spectator.restore();
+		spectator.getPlayer().setCanPickupItems(true);
 	}
 	
 	public void removeVote(Vote vote) {

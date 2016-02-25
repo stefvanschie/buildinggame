@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerBucketEmptyEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class PlaceBucket implements Listener {
@@ -23,6 +24,12 @@ public class PlaceBucket implements Listener {
 		}
 		
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
+		
+		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
+			MessageManager.getInstance().send(player, ChatColor.RED + "Spectators can't build");
+			e.setCancelled(true);
+			return;
+		}
 		
 		if (!plot.getBoundary().isInside(clicked)) {
 			e.setCancelled(true);
