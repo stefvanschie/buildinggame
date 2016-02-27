@@ -16,6 +16,8 @@ public class WaitTimer extends Timer {
 	private Arena arena;
 	private boolean running = false;
 	
+	private YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+	
 	public WaitTimer(int seconds, Arena arena) {
 		this.seconds = seconds;
 		this.arena = arena;
@@ -23,8 +25,6 @@ public class WaitTimer extends Timer {
 	
 	@Override
 	public void run() {
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
 		running = true;
 		if (seconds <= 0) {
 			arena.start();

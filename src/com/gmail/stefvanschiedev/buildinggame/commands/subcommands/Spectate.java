@@ -52,6 +52,14 @@ public class Spectate extends PlayerCommand {
 			return CommandResult.ERROR;
 		}
 		
+		//check if the player is playing the game
+		if (ArenaManager.getInstance().getArena(player) != null) {
+			if (ArenaManager.getInstance().getArena(player).getPlot(player).getGamePlayer(player).getGamePlayerType() == GamePlayerType.PLAYER) {
+				MessageManager.getInstance().send(player, ChatColor.RED + "You can't spectate while you're in game");
+				return CommandResult.ERROR;
+			}
+		}
+		
 		//check if we are already spectating
 		if (isSpectating(player) != null)
 			isSpectating(player).removeSpectator(isSpectating(player).getGamePlayer(player));

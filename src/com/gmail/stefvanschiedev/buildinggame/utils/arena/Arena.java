@@ -758,7 +758,7 @@ public class Arena {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				Player player = gamePlayer.getPlayer();
 				player.teleport(MainSpawnManager.getInstance().getMainSpawn());
 			}
@@ -774,7 +774,7 @@ public class Arena {
 		getVotedPlots().clear();
 		
 		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				Player player = gamePlayer.getPlayer();
 				
 				gamePlayer.restore();
@@ -786,7 +786,6 @@ public class Arena {
 			
 				plot.getVotes().clear();
 			}
-			plot.getGamePlayers().clear();
 		}
 		
 		for (Plot plot : getPlots()) {
@@ -799,6 +798,8 @@ public class Arena {
 					}
 				}
 			}
+			
+			plot.getAllGamePlayers().clear();
 		}
 		
 		subjectMenu = new SubjectMenu();

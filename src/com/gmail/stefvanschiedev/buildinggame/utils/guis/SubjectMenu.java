@@ -105,9 +105,11 @@ public class SubjectMenu {
 		nextMeta.setLore(nextLores);
 		nextItem.setItemMeta(nextMeta);
 		
-		inventory.setItem(29, prevItem);
+		if (page.getPage() - 1 > 0)
+			inventory.setItem(29, prevItem);
 		inventory.setItem(31, closeItem);
-		inventory.setItem(33, nextItem);
+		if (config.getStringList("subjects").size() > 27 * (page.getPage() - 1) + 27)
+			inventory.setItem(33, nextItem);
 		
 		player.openInventory(inventory);
 		

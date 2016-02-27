@@ -27,6 +27,9 @@ public class VoteTimer extends Timer {
 	private Arena arena;
 	private Plot plot;
 	
+	private YamlConfiguration config = SettingsManager.getInstance().getConfig();
+	private YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+	
 	public VoteTimer(int seconds, Arena arena) {
 		this.seconds = seconds;
 		originalSeconds = seconds;
@@ -35,8 +38,6 @@ public class VoteTimer extends Timer {
 
 	@Override
 	public void run() {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		running = true;
 		
 		if (seconds == originalSeconds) {
@@ -246,8 +247,8 @@ public class VoteTimer extends Timer {
 									.replace("%playerplot%", this.plot.getPlayerFormat()), messages.getString("voting.subtitle")
 									.replace("%playerplot%", this.plot.getPlayerFormat()));
 						}
-						if (!plot.hasVoted(player.getPlayer())) {
-							plot.addVote(new Vote(config.getInt("voting.default-vote-points"), player.getPlayer()));
+						if (!this.plot.hasVoted(player.getPlayer())) {
+							this.plot.addVote(new Vote(config.getInt("voting.default-vote-points"), player.getPlayer()));
 						}
 					}
 				}
