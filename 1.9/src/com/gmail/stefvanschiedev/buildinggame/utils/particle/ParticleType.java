@@ -1,0 +1,21 @@
+package com.gmail.stefvanschiedev.buildinggame.utils.particle;
+
+public enum ParticleType {
+
+	DAMAGE_INDICATOR,
+	DRAGON_BREATH,
+	END_ROD,
+	FLAMES,
+	MAGIC_CRIT,
+	LAVA_DRIP,
+	WATER_DRIP,
+	ENCHANTMENT,
+	HEARTS,
+	ANGRY_VILLAGER,
+	HAPPY_VILLAGER,
+	REDSTONE_MAGIC,
+	SPELL,
+	SNOWBALL_POOF,
+	SMOKE,
+	SWEEP_ATTACK;
+}
