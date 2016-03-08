@@ -28,9 +28,8 @@ public class SubjectMenu {
 	public SubjectMenu() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		for (String s : config.getStringList("subjects")) {
+		for (String s : config.getStringList("subjects"))
 			votes.put(s, new SubjectVote(0));
-		}
 	}
 	
 	public void show(Player player, GuiPage page) {
@@ -40,29 +39,25 @@ public class SubjectMenu {
 		Inventory inventory = Bukkit.createInventory(null, 36, MessageManager.translate(messages.getString("subject-gui.title")));
 		
 		for (int i = 0; i < 27; i++) {
-			if (page.getPage() < 1) {
+			if (page.getPage() < 1)
 				return;
-			}
 			
-			if (config.getStringList("subjects").size() - 1 < i + (page.getPage() - 1) * 27) {
+			if (config.getStringList("subjects").size() - 1 < i + (page.getPage() - 1) * 27)
 				break;
-			}
 			
 			String subject = ChatColor.stripColor(config.getStringList("subjects").get(i + (page.getPage() - 1) * 27));
 			
-			if (!votes.containsKey(subject)) {
+			if (!votes.containsKey(subject))
 				votes.put(subject, new SubjectVote(0));
-			}
 			
 			ItemStack item = new ItemStack(Material.PAPER);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.subject.name")
 					.replace("%subject%", subject)));
 			List<String> lores = new ArrayList<String>();
-			for (String lore : messages.getStringList("subject-gui.subject.lores")) {
+			for (String lore : messages.getStringList("subject-gui.subject.lores"))
 				lores.add(MessageManager.translate(lore
 						.replace("%votes%", votes.get(subject).getVotes() + "")));
-			}
 			meta.setLore(lores);
 			item.setItemMeta(meta);
 			

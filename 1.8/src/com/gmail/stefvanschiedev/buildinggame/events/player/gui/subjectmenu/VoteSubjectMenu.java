@@ -53,7 +53,7 @@ public class VoteSubjectMenu implements Listener {
 			return;
 		}
 		
-		arena.getSubjectMenu().addVote(player, config.getStringList("subjects").get(e.getSlot()));
+		arena.getSubjectMenu().addVote(player, config.getStringList("subjects").get(e.getSlot() + ((arena.getSubjectMenu().getPage(player).getPage() - 1) * 27)));
 		e.setCancelled(true);
 	}
 }
