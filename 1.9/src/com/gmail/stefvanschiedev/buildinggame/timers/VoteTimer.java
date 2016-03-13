@@ -213,7 +213,7 @@ public class VoteTimer extends Timer {
 									.replace("%winner%", gamePlayer.getPlayer().getName()));
 							if (cmd != null)
 								gamePlayer.getPlayer().performCommand(command
-										.replace("%winner%", gamePlayer.getPlayer().getName()));
+										.replace("%winner%", gamePlayer.getPlayer().getName()).trim());
 						}
 					}
 				}

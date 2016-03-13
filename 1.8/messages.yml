@@ -44,6 +44,8 @@ leave:
 vote:
   message:
   - "&6You gave %playerplot%'s build a %points%"
+  receiver:
+  - "&6You got %points% points from %sender% for your creation"
   own-plot:
   - "&cYou can't vote on your own plot"
   maxium-votes:

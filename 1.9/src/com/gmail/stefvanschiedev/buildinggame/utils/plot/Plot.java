@@ -112,6 +112,14 @@ public class Plot {
 					.replace("%playerplot%", getArena().getVotingPlot().getPlayerFormat())
 					.replace("%points%", vote.getPoints() + ""));
 		}
+		
+		for (String message : messages.getStringList("vote.receiver")) {
+			for (GamePlayer player : getArena().getVotingPlot().getGamePlayers())
+				MessageManager.getInstance().send(player.getPlayer(), message
+						.replace("%points%", vote.getPoints() + "")
+						.replace("%sender%", vote.getSender().getName()));
+		}
+		
 		for (GamePlayer player : ArenaManager.getInstance().getArena(vote.getSender()).getPlot(vote.getSender()).getGamePlayers()) {
 			player.addTitleAndSubtitle(messages.getString("vote.title")
 					.replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")

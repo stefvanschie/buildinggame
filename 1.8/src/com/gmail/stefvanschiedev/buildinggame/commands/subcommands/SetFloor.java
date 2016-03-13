@@ -92,5 +92,4 @@ public class SetFloor extends PlayerCommand {
 	public String getPermission() {
 		return "bg.setfloor";
 	}
-
 }
