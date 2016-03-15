@@ -60,7 +60,10 @@ public class Plot {
 	}
 	
 	public void addSpectator(Player spectator, GamePlayer spectates) {
-		getAllGamePlayers().add(new GamePlayer(spectator, GamePlayerType.SPECTATOR));
+		GamePlayer gamePlayer = new GamePlayer(spectator, GamePlayerType.SPECTATOR);
+		gamePlayer.setSpectates(spectates);
+		
+		getAllGamePlayers().add(gamePlayer);
 		
 		for (GamePlayer player : getAllGamePlayers())
 			player.getPlayer().hidePlayer(spectator);

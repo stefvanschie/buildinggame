@@ -45,7 +45,7 @@ public class Move implements Listener {
 			
 			if (!plot.getBoundary().isInside(to)) {
 				player.teleport(gamePlayer.getSpectates().getPlayer());
-				MessageManager.getInstance().send(player, MessageManager.translate(messages.getStringList("in-gmae.move-out-bounds")));
+				MessageManager.getInstance().send(player, MessageManager.translate(messages.getStringList("in-game.move-out-bounds")));
 			}
 			
 			return;
