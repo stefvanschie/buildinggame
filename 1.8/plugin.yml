@@ -1,9 +1,0 @@
-main: com.gmail.stefvanschiedev.buildinggame.Main
-version: 1.13.1
-name: BuildingGame
-author: stefvanschie
-commands:
-  bg:
-    description: Main buildinggame command
-  buildinggame:
-    description: Main buildinggame command

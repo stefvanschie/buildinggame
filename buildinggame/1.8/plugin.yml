@@ -1,0 +1,11 @@
+main: com.gmail.stefvanschiedev.buildinggame.Main
+version: 2.1.0
+name: BuildingGame
+author: stefvanschie
+softdepend: [Vault, BarAPI, SocketAPI]
+
+commands:
+  bg:
+    description: Main buildinggame command
+  buildinggame:
+    description: Main buildinggame command
