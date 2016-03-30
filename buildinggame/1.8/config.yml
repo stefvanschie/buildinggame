@@ -38,6 +38,7 @@ blocks:
 
 mobs:
   enable-noai: true
+  allow: true
 
 title:
   fade_in: 0

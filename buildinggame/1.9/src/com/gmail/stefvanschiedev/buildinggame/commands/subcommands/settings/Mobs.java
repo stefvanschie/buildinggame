@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResult;
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.ConsoleCommand;
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.SubCommand;
+import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.settings.mobs.Allow;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.settings.mobs.EnableNoai;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
@@ -17,12 +18,13 @@ public class Mobs extends ConsoleCommand {
 
 	private List<SubCommand> subCommands = new ArrayList<SubCommand>();
 	
+	public Mobs() {
+		subCommands.add(new Allow());
+		subCommands.add(new EnableNoai());
+	}
+	
 	@Override
 	public CommandResult onCommand(CommandSender sender, String[] args) {
-		//add settings
-		subCommands.add(new EnableNoai());
-		//test for right setting
-		
 		if (args.length == 0) {
 			for (SubCommand sc : subCommands) {
 				if (sender.hasPermission(sc.getPermission())) {

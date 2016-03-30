@@ -19,20 +19,14 @@ public class ReceiveMessage implements Listener {
 		
 		String rawData = e.getData();
 		if (rawData.startsWith("teleport:")) {
-			System.out.println("Received teleport info");
-			
 			String[] newData = rawData.replace("teleport:", "").trim().split(", ");
 			
 			Player player = Bukkit.getPlayer(newData[0]);
-			if (player == null) {
-				System.out.println("Incorrect player");
+			if (player == null)
 				return;
-			}
 			World world = Bukkit.getWorld(newData[1]);
-			if (world == null) {
-				System.out.println("Incorrect world");
+			if (world == null)
 				return;
-			}
 			
 			player.teleport(new Location(world, Integer.parseInt(newData[2]), Integer.parseInt(newData[3]), Integer.parseInt(newData[4])));
 		}

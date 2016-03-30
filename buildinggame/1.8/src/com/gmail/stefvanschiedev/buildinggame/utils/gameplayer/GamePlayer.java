@@ -105,7 +105,7 @@ public class GamePlayer {
 	
 	public boolean connect(String server, final Location location) {
 		if (Bukkit.getPluginManager().isPluginEnabled("SocketAPI")) {
-			if (player.getServer().getServerName().equals(server))
+			if (!player.getServer().getServerName().equals(server))
 				SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + getPlayer().getName() + ", " + server);
 		
 			BukkitRunnable task = new BukkitRunnable() {
@@ -204,6 +204,7 @@ public class GamePlayer {
 		return titles;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void restore() {
 		player.getInventory().setArmorContents(armor);
 		setBlocksPlaced(0);
@@ -213,6 +214,8 @@ public class GamePlayer {
 		player.setGameMode(gameMode);
 		player.getInventory().setContents(inventory);
 		player.setLevel(levels);
+		
+		player.updateInventory();
 	}
 	
 	public void sendSubtitle(String subtitle) {

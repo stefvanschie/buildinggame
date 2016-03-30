@@ -24,6 +24,11 @@ public class EntitySpawn implements Listener {
 		
 		Entity entity = e.getEntity();
 		
+		if (!config.getBoolean("mobs.allow")) {
+			e.setCancelled(true);
+			return;
+		}
+		
 		if (isInside(entity.getLocation())) {
 			for (String ent : config.getStringList("blocked-entities")) {
 				if (entity.getType() == EntityType.valueOf(ent.toUpperCase())) {

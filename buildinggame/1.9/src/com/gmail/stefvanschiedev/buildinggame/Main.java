@@ -386,9 +386,6 @@ public class Main extends JavaPlugin {
 		new ParticleRender().runTaskTimer(this, 0L, 10L);
 		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
 		
-		//getLogger().info("Loading bungeecord support");
-		//getServer().getMessenger().registerOutgoingPluginChannel(Main.getInstance(), "BungeeCord");
-		
 		if (!loadedCommands) {
 			getCommand("bg").setExecutor(command);
 			getCommand("buildinggame").setExecutor(command);

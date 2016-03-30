@@ -28,18 +28,12 @@ public class ClickJoinSign implements Listener {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
 			return;
 		
-		System.out.println("Correct action");
-		
 		if (!(e.getClickedBlock().getState() instanceof Sign))
 			return;
-		
-		System.out.println("Correct sign");
-		
+
 		Sign sign = (Sign) e.getClickedBlock().getState();
 		
 		for (String key : signs.getKeys(false)) {
-			System.out.println("Sign " + key);
-			
 			if (!signs.getString(key + ".world").equals(sign.getWorld().getName()))
 				continue;
 			if (signs.getInt(key + ".x") != sign.getX())
@@ -48,11 +42,9 @@ public class ClickJoinSign implements Listener {
 				continue;
 			if (signs.getInt(key + ".z") != sign.getZ())
 				continue;
-			
-			System.out.println("Executing command");
-			
-			final String arenaName = signs.getString(key + ".arena");
-			final String playerName = e.getPlayer().getName();
+
+			String arenaName = signs.getString(key + ".arena");
+			String playerName = e.getPlayer().getName();
 			
 			SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + playerName + ", " + SettingsManager.getInstance().getConfig().getString("main-plugin.server-name"));
 			players.put(playerName, arenaName);
