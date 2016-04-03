@@ -1,6 +1,6 @@
 main: com.gmail.stefvanschiedev.buildinggame.Main
 name: BuildingGame_BungeeCord_AddOn_Bukkit_Spigot
-version: 2.1.1
+version: 2.2.0
 depend: [SocketAPI]
 
 commands:

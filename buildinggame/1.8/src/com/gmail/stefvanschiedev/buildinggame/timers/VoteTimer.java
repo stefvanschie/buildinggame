@@ -3,11 +3,14 @@ package com.gmail.stefvanschiedev.buildinggame.timers;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
+import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.api.Win;
+import com.gmail.stefvanschiedev.buildinggame.api.events.PlayerWinEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandExecuter;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -66,6 +69,11 @@ public class VoteTimer extends Timer {
 						continue;
 					}
 				}
+				
+				//call events
+				Bukkit.getPluginManager().callEvent(new PlayerWinEvent(arena, first.getGamePlayers(), Win.FIRST));
+				Bukkit.getPluginManager().callEvent(new PlayerWinEvent(arena, second.getGamePlayers(), Win.SECOND));
+				Bukkit.getPluginManager().callEvent(new PlayerWinEvent(arena, third.getGamePlayers(), Win.THIRD));
 				
 				arena.setWinner(first);
 				

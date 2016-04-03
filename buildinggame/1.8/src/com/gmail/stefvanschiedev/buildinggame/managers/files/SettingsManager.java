@@ -29,6 +29,8 @@ public class SettingsManager {
 	private File messagesFile;
 	private YamlConfiguration signs;
 	private File signsFile;
+	private YamlConfiguration stats;
+	private File statsFile;
 	
 	public void setup(Plugin p, boolean save) {
 		if (!p.getDataFolder().exists())
@@ -37,11 +39,13 @@ public class SettingsManager {
 		configFile = new File(p.getDataFolder(), "config.yml");
 		messagesFile = new File(p.getDataFolder(), "messages.yml");
 		signsFile = new File(p.getDataFolder(), "signs.yml");
+		statsFile = new File(p.getDataFolder(), "stats.yml");
 		
 		arenas = YamlConfiguration.loadConfiguration(arenasFile);
 		config = YamlConfiguration.loadConfiguration(configFile);
 		messages = YamlConfiguration.loadConfiguration(messagesFile);
 		signs = YamlConfiguration.loadConfiguration(signsFile);
+		stats = YamlConfiguration.loadConfiguration(statsFile);
 		if (!arenasFile.exists()) {
 			try {
 				arenasFile.createNewFile();
@@ -71,7 +75,14 @@ public class SettingsManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+		}
+		if (!statsFile.exists()) {
+			try {
+				statsFile.createNewFile();
+				save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		generateSettings(save);
 		generateMessages(save);
@@ -93,12 +104,17 @@ public class SettingsManager {
 		return signs;
 	}
 	
+	public YamlConfiguration getStats() {
+		return stats;
+	}
+	
 	public void save() {
 		try {
 			arenas.save(arenasFile);
 			config.save(configFile);
 			messages.save(messagesFile);
 			signs.save(signsFile);
+			stats.save(statsFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

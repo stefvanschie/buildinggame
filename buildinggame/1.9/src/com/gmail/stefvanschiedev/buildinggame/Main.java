@@ -121,7 +121,14 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.spectator.LeaveClick
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.Interact;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.InventoryMove;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.VoteEvent;
-import com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved.blocksplaced.UnsavedStatsPlace;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.BreakStat;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.FirstStat;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.MoveStat;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.PlaceStat;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.PlaysStat;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.SecondStat;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.ThirdStat;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved.UnsavedStatsPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.structure.TreeGrow;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaModeManager;
@@ -137,9 +144,11 @@ import com.gmail.stefvanschiedev.buildinggame.managers.plots.FloorManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.LocationManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
+import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.LoadCooldown;
 import com.gmail.stefvanschiedev.buildinggame.timers.ParticleRender;
 import com.gmail.stefvanschiedev.buildinggame.timers.ScoreboardUpdater;
+import com.gmail.stefvanschiedev.buildinggame.timers.StatSaveTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 public class Main extends JavaPlugin {
@@ -175,6 +184,8 @@ public class Main extends JavaPlugin {
 				arena.stop();
 			}
 		}
+		
+		StatManager.getInstance().saveToFile();
 		
 		getLogger().info("BuildingGame has been disabled");
 		
@@ -366,10 +377,16 @@ public class Main extends JavaPlugin {
 			
 			//strc
 			
-			/* stats
-			 * unsaved
-			 * blocksplace
-			 */
+			//stats
+			//saved
+			Bukkit.getPluginManager().registerEvents(new BreakStat(), this);
+			Bukkit.getPluginManager().registerEvents(new FirstStat(), this);
+			Bukkit.getPluginManager().registerEvents(new MoveStat(), this);
+			Bukkit.getPluginManager().registerEvents(new PlaceStat(), this);
+			Bukkit.getPluginManager().registerEvents(new PlaysStat(), this);
+			Bukkit.getPluginManager().registerEvents(new SecondStat(), this);
+			Bukkit.getPluginManager().registerEvents(new ThirdStat(), this);
+			//unsaved
 			Bukkit.getPluginManager().registerEvents(new UnsavedStatsPlace(), this);
 			
 			//structure
@@ -385,6 +402,10 @@ public class Main extends JavaPlugin {
 		getLogger().info("Loading timer");
 		new ParticleRender().runTaskTimer(this, 0L, 10L);
 		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
+		new StatSaveTimer().runTaskLater(this, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
+		
+		getLogger().info("Loading stats");
+		StatManager.getInstance().setup();
 		
 		if (!loadedCommands) {
 			getCommand("bg").setExecutor(command);

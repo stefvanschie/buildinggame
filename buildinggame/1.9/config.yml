@@ -14,6 +14,9 @@ max-vote-change: -1
 max-particles: -1
 names-after-voting: false
 
+stats:
+  save-delay: 900
+
 subjects:
 - dog
 - house

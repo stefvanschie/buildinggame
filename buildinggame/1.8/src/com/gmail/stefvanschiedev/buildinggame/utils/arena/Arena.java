@@ -20,6 +20,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaJoinEvent;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaLeaveEvent;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaStartEvent;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaStopEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -288,6 +292,12 @@ public class Arena {
 			}
 		}
 		
+		//call event
+		ArenaJoinEvent event = new ArenaJoinEvent(this, player);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
+		
 		buildScoreboard.show(player);
 		
 		for (String message : messages.getStringList("join.message")) {
@@ -396,121 +406,6 @@ public class Arena {
 		SignManager.getInstance().updateJoinSigns(this);
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void join(Player player, Plot p) {
-		
-		//check if everything is set up
-		if (!isSetup()) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "Your arena isn't setup right, you still need to do this:");
-			if (getLobby() == null) {
-				MessageManager.getInstance().send(player, ChatColor.RED + " - The lobby of arena " + getName() + "(/bg setlobby " + getName() + ")");
-			}
-			if (MainSpawnManager.getInstance().getMainSpawn() == null) {
-				MessageManager.getInstance().send(player, ChatColor.RED + " - The main spawn (/bg setmainspawn)");
-			}
-			for (Plot plot : getPlots()) {
-				if (plot.getBoundary() == null) {
-					MessageManager.getInstance().send(player, ChatColor.RED + " - The boundary of plot " + plot.getID() + " (/bg setbounds " + getName() + " " + plot.getID() + ")");
-				}
-			}
-			for (Plot plot : getPlots()) {
-				if (plot.getFloor() == null) {
-					MessageManager.getInstance().send(player, ChatColor.RED + " - The floor of plot " + plot.getID() + " (/bg setfloor " + getName() + " " + plot.getID() + ")");
-				}
-			}
-			return;
-		}
-		
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
-		if (ArenaManager.getInstance().getArena(player) != null) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "You're already in a game");
-			return;
-		}
-		
-		if (getState() != GameState.STARTING && getState() != GameState.WAITING) {
-			MessageManager.getInstance().send(player, messages.getStringList("join.in-game"));
-			return;
-		}
-		
-		if (isFull()) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "This arena is full");
-			return;
-		}
-		
-		if (p.isFull()) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "This team is full");
-			return;
-		} else {
-			p.join(new GamePlayer(player, GamePlayerType.PLAYER));
-		}
-		
-		buildScoreboard.show(player);
-		
-		for (String message : messages.getStringList("join.message")) {
-			MessageManager.getInstance().send(player, message
-					.replace("%players%", getPlayers() + "")
-					.replace("%max_players%", getMaxPlayers() + ""));
-		}
-		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				Player pl = gamePlayer.getPlayer();
-				
-				for (String message : messages.getStringList("join.otherPlayers")) {
-					MessageManager.getInstance().send(pl, message
-							.replace("%player%", player.getName())
-							.replace("%players%", getPlayers() + "")
-							.replace("%max_players%", getMaxPlayers() + ""));
-				}
-			}
-		}
-		
-		
-		if (getLobby() != null) {
-			player.teleport(getLobby().getLocation());
-		}
-		player.setGameMode(GameMode.ADVENTURE);
-		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				buildScoreboard.update(gamePlayer.getPlayer());
-			}
-		}
-		
-		player.getInventory().clear();
-		player.getInventory().setArmorContents(null);
-		
-		if (getPlayers() >= getMinPlayers()) {
-			try {
-				waitTimer.runTaskTimer(Main.getInstance(), 20L, 20L);
-			} catch (IllegalStateException ise) {}
-		}
-		
-		if (getPlayers() >= getMaxPlayers()) {
-			waitTimer.setSeconds(0);
-		}
-		
-		//give paper for subject
-		if (player.hasPermission("bg.subjectmenu")) {
-			ItemStack map = new ItemStack(Material.PAPER, 1);
-			ItemMeta mapMeta = map.getItemMeta();
-			mapMeta.setDisplayName(messages.getString("subject-gui.item.name")
-					.replaceAll("&", "§"));
-			List<String> mapLores = new ArrayList<String>();
-			for (String lore : messages.getStringList("subject-gui.item.lores")) {
-				mapLores.add(lore
-						.replaceAll("&", "§"));
-			}
-			mapMeta.setLore(mapLores);
-			map.setItemMeta(mapMeta);
-			player.getInventory().setItem(8, map);
-			player.updateInventory();
-		}
-		
-		SignManager.getInstance().updateJoinSigns(this);
-	}
-	
 	public void leave(Player player) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -519,6 +414,12 @@ public class Arena {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You're not in a game");
 			return;
 		}
+		
+		//call event
+		ArenaLeaveEvent event = new ArenaLeaveEvent(this, player);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
 		
 		GamePlayer p = getPlot(player).getGamePlayer(player);
 		p.restore();
@@ -708,6 +609,12 @@ public class Arena {
 	public void start() {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
+		//call event
+		ArenaStartEvent event = new ArenaStartEvent(this);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
+		
 		setSubject(getSubjectMenu().getHighestVote());
 		
 		for (Plot plot : getUsedPlots()) {
@@ -756,6 +663,12 @@ public class Arena {
 	
 	public void stop() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
+		//call event
+		ArenaStopEvent event = new ArenaStopEvent(this);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
 		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers())

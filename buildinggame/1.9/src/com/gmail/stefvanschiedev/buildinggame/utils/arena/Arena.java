@@ -21,6 +21,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaJoinEvent;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaLeaveEvent;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaStartEvent;
+import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaStopEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -295,6 +299,12 @@ public class Arena {
 			return;
 		}
 		
+		//call event
+		ArenaJoinEvent event = new ArenaJoinEvent(this, player);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
+		
 		GamePlayer p = new GamePlayer(player, GamePlayerType.PLAYER);
 		
 		for (Plot plot : getPlots()) {
@@ -422,6 +432,12 @@ public class Arena {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You're not in a game");
 			return;
 		}
+		
+		//call event
+		ArenaLeaveEvent event = new ArenaLeaveEvent(this, player);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
 		
 		GamePlayer p = getPlot(player).getGamePlayer(player);
 		p.restore();
@@ -609,6 +625,12 @@ public class Arena {
 	public void start() {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
+		//call event
+		ArenaStartEvent event = new ArenaStartEvent(this);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
+		
 		setSubject(getSubjectMenu().getHighestVote());
 		
 		for (Plot plot : getUsedPlots()) {
@@ -660,6 +682,12 @@ public class Arena {
 	
 	public void stop() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
+		//call event
+		ArenaStopEvent event = new ArenaStopEvent(this);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled())
+			return;
 		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers())
