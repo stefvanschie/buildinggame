@@ -37,7 +37,7 @@ public class ScoreboardUpdater extends BukkitRunnable {
 			
 			for (Plot plot : arena.getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-					arena.getBuildScoreboard().show(gamePlayer.getPlayer());
+					arena.getBuildScoreboard().update(gamePlayer.getPlayer());
 				}
 			}
 		}

@@ -13,6 +13,7 @@ scoreboard-update-delay: 20
 max-vote-change: -1
 max-particles: -1
 names-after-voting: false
+enable-item-drop: false
 
 stats:
   save-delay: 900
@@ -105,6 +106,9 @@ commands:
 subject-gui:
   item:
     id: 'paper'
+
+bungeecord:
+  enable: false
   
 team-selection:
   show-names-as-lore: false

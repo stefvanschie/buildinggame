@@ -19,6 +19,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaJoinEvent;
@@ -94,6 +95,16 @@ public class Arena {
 	
 	public void addSign(Sign sign) {
 		getSigns().add(sign);
+	}
+	
+	public boolean contains(Player player) {
+		for (Plot plot : getUsedPlots()) {
+			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+				if (gamePlayer.getPlayer() == player)
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	public Timer getActiveTimer() {
@@ -258,9 +269,9 @@ public class Arena {
 		return true;
 	}
 	
-	public void join(Player player) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+	public void join(final Player player) {
+		final YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		//check if everything is set up
 		if (!isSetup()) {
@@ -340,9 +351,8 @@ public class Arena {
 			player.teleport(getLobby().getLocation());
 		
 		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				buildScoreboard.show(gamePlayer.getPlayer());
-			}
+			for (GamePlayer gamePlayer : plot.getGamePlayers())
+				buildScoreboard.update(gamePlayer.getPlayer());
 		}
 		
 		player.getInventory().clear();
@@ -358,6 +368,17 @@ public class Arena {
 		//bossbar
 		getBossBar().addPlayer(player);
 		
+		//hide players from tab list
+		for (Player pl : Bukkit.getOnlinePlayers()) {
+			if (!contains(pl))
+				player.hidePlayer(pl);
+		}
+		//show current joined player to others
+		for (Plot plot : getUsedPlots()) {
+			for (GamePlayer gamePlayer : plot.getGamePlayers())
+				gamePlayer.getPlayer().showPlayer(player);
+		}
+		
 		if (getPlayers() >= getMinPlayers()) {
 			try {
 				waitTimer.runTaskTimer(Main.getInstance(), 20L, 20L);
@@ -368,58 +389,72 @@ public class Arena {
 			waitTimer.setSeconds(0);
 		}
 		
-		//give team selection
-		if (getMode() == ArenaMode.TEAM) {
-			CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("team-selection.item.id"));
-			
-			ItemStack item = new ItemStack(cb.getMaterial(), 1);
-			item.setDurability(cb.getData());
-			ItemMeta itemMeta = item.getItemMeta();
-			itemMeta.setDisplayName(messages.getString("team-gui.item.name")
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
-					.replaceAll("&", "§"));
-			List<String> lores = new ArrayList<String>();
-			for (String lore : messages.getStringList("team-gui.item.lores")) {
-				lores.add(lore
-						.replace("%:a%", "ä")
-						.replace("%:e%", "ë")
-						.replace("%:i%", "ï")
-						.replace("%:o%", "ö")
-						.replace("%:u%", "ü")
-						.replace("%ss%", "ß")
-						.replaceAll("&", "§"));
+		//bukkit runnable because of instant leaving and instant subject opening
+		BukkitRunnable runnable = new BukkitRunnable () {
+			@Override
+			public void run() {
+				//give team selection
+				if (getMode() == ArenaMode.TEAM) {
+					CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("team-selection.item.id"));
+					
+					ItemStack item = new ItemStack(cb.getMaterial(), 1);
+					item.setDurability(cb.getData());
+					ItemMeta itemMeta = item.getItemMeta();
+					itemMeta.setDisplayName(messages.getString("team-gui.item.name")
+							.replace("%:a%", "ä")
+							.replace("%:e%", "ë")
+							.replace("%:i%", "ï")
+							.replace("%:o%", "ö")
+							.replace("%:u%", "ü")
+							.replace("%ss%", "ß")
+							.replaceAll("&", "§"));
+					List<String> lores = new ArrayList<String>();
+					for (String lore : messages.getStringList("team-gui.item.lores")) {
+						lores.add(lore
+								.replace("%:a%", "ä")
+								.replace("%:e%", "ë")
+								.replace("%:i%", "ï")
+								.replace("%:o%", "ö")
+								.replace("%:u%", "ü")
+								.replace("%ss%", "ß")
+								.replaceAll("&", "§"));
+					}
+					itemMeta.setLore(lores);
+					item.setItemMeta(itemMeta);
+					
+					player.getInventory().setItem(0, item);
+				}
+				
+				//give paper for subject
+				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
+					CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id"));
+					
+					ItemStack item = new ItemStack(cb.getMaterial(), 1);
+					item.setDurability(cb.getData());
+					ItemMeta itemMeta = item.getItemMeta();
+					itemMeta.setDisplayName(messages.getString("subject-gui.item.name")
+							.replaceAll("&", "§"));
+					List<String> itemLores = new ArrayList<String>();
+					for (String lore : messages.getStringList("subject-gui.item.lores")) {
+						itemLores.add(lore
+								.replaceAll("&", "§"));
+					}
+					itemMeta.setLore(itemLores);
+					item.setItemMeta(itemMeta);
+					player.getInventory().setItem(8, item);
+				}
+				
+				ItemStack leave = new ItemStack(Material.WATCH, 1);
+				ItemMeta leaveMeta = leave.getItemMeta();
+				leaveMeta.setDisplayName(ChatColor.GOLD + "Leave");
+				leave.setItemMeta(leaveMeta);
+				
+				player.getInventory().setItem(0, leave);
+				player.updateInventory();
 			}
-			itemMeta.setLore(lores);
-			item.setItemMeta(itemMeta);
-			
-			player.getInventory().setItem(0, item);
-		}
+		};
 		
-		//give paper for subject
-		if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
-			CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id"));
-			
-			ItemStack item = new ItemStack(cb.getMaterial(), 1);
-			item.setDurability(cb.getData());
-			ItemMeta itemMeta = item.getItemMeta();
-			itemMeta.setDisplayName(messages.getString("subject-gui.item.name")
-					.replaceAll("&", "§"));
-			List<String> itemLores = new ArrayList<String>();
-			for (String lore : messages.getStringList("subject-gui.item.lores")) {
-				itemLores.add(lore
-						.replaceAll("&", "§"));
-			}
-			itemMeta.setLore(itemLores);
-			item.setItemMeta(itemMeta);
-			player.getInventory().setItem(8, item);
-		}
-		
-		player.updateInventory();
+		runnable.runTaskLater(Main.getInstance(), 1L);
 		
 		SignManager.getInstance().updateJoinSigns(this);
 	}
@@ -455,6 +490,10 @@ public class Arena {
 		player.resetPlayerTime();
 		player.resetPlayerWeather();
 		
+		//show all players again
+		for (Player pl : Bukkit.getOnlinePlayers())
+			player.showPlayer(pl);
+		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
@@ -476,7 +515,7 @@ public class Arena {
 							.replace("%player%", player.getName()));
 				}
 				
-				buildScoreboard.show(pl);
+				buildScoreboard.update(pl);
 			}
 		}
 		
@@ -714,6 +753,10 @@ public class Arena {
 				player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 				player.resetPlayerTime();
 				player.resetPlayerWeather();
+				
+				//show all players again
+				for (Player pl : Bukkit.getOnlinePlayers())
+					player.showPlayer(pl);
 				
 				plot.getTimesVoted().clear();
 			

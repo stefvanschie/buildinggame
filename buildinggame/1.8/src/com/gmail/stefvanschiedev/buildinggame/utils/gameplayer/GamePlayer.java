@@ -96,15 +96,13 @@ public class GamePlayer {
 	}
 	
 	public boolean connect(String server) {
-		if (player.getServer().getServerName().equals(server))
-			return true;
-		
-		SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + getPlayer().getName() + ", " + server);
-		return true;
+		return connect(server, null);
 	}
 	
 	public boolean connect(String server, final Location location) {
-		if (Bukkit.getPluginManager().isPluginEnabled("SocketAPI")) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
+		if (Bukkit.getPluginManager().isPluginEnabled("SocketAPI") && config.getBoolean("bungeecord.enable")) {
 			if (!player.getServer().getServerName().equals(server))
 				SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + getPlayer().getName() + ", " + server);
 		
@@ -120,8 +118,10 @@ public class GamePlayer {
 				}
 			};
 			task.runTaskLater(Main.getInstance(), 10L);
-		} else
+		} else if (location != null)
 			getPlayer().teleport(location);
+		else
+			return false;
 		return true;
 	}
 	

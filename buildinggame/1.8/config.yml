@@ -13,6 +13,7 @@ scoreboard-update-delay: 20
 max-vote-change: -1
 max-particles: -1
 names-after-voting: false
+enable-item-drop: false
 
 stats:
   save-delay: 900
@@ -108,7 +109,10 @@ team-selection:
   team:
     1:
       id: 'paper'
-  
+
+bungeecord:
+  enable: false
+
 gui:
   particles:
     id: 'red_rose'

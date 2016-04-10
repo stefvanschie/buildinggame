@@ -1,14 +1,14 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.stats;
 
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 
 public class Stat {
 
 	private StatType type;
-	private Player player;
+	private OfflinePlayer player;
 	private int value;
 	
-	public Stat(StatType type, Player player, int value) {
+	public Stat(StatType type, OfflinePlayer player, int value) {
 		this.type = type;
 		this.player = player;
 		this.value = value;
@@ -18,7 +18,7 @@ public class Stat {
 		return type;
 	}
 	
-	public Player getPlayer() {
+	public OfflinePlayer getPlayer() {
 		return player;
 	}
 	

@@ -8,13 +8,16 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.BlockPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.block.LeaveSignCreate;
+import com.gmail.stefvanschiedev.buildinggame.events.block.LiquidFlow;
 import com.gmail.stefvanschiedev.buildinggame.events.bungeecord.ReceiveMessage;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityExplode;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntitySpawn;
+import com.gmail.stefvanschiedev.buildinggame.events.player.Chat;
 import com.gmail.stefvanschiedev.buildinggame.events.player.CommandBlocker;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Drop;
 import com.gmail.stefvanschiedev.buildinggame.events.player.EntityDamage;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Leave;
+import com.gmail.stefvanschiedev.buildinggame.events.player.LeaveClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.LoseFood;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Move;
 import com.gmail.stefvanschiedev.buildinggame.events.player.PlaceBucket;
@@ -117,7 +120,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.gui.teamselection.Op
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.teamselection.TeamClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickLeaveSign;
-import com.gmail.stefvanschiedev.buildinggame.events.player.spectator.LeaveClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.Interact;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.InventoryMove;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.VoteEvent;
@@ -228,6 +230,7 @@ public class Main extends JavaPlugin {
 			Bukkit.getPluginManager().registerEvents(new JoinSignBreak(), this);
 			Bukkit.getPluginManager().registerEvents(new JoinSignCreate(), this);
 			Bukkit.getPluginManager().registerEvents(new LeaveSignCreate(), this);
+			Bukkit.getPluginManager().registerEvents(new LiquidFlow(), this);
 			
 			//bungeecord
 			if (Bukkit.getPluginManager().isPluginEnabled("SocketAPI"))
@@ -241,6 +244,7 @@ public class Main extends JavaPlugin {
 			Bukkit.getPluginManager().registerEvents(new Leave(), this);
 			Bukkit.getPluginManager().registerEvents(new Move(), this);
 			Bukkit.getPluginManager().registerEvents(new PlaceBucket(), this);
+			Bukkit.getPluginManager().registerEvents(new Chat(), this);
 			Bukkit.getPluginManager().registerEvents(new CommandBlocker(), this);
 			Bukkit.getPluginManager().registerEvents(new EntityDamage(), this);
 			Bukkit.getPluginManager().registerEvents(new TakeDamage(), this);
@@ -400,9 +404,9 @@ public class Main extends JavaPlugin {
 		command.setup();
 		
 		getLogger().info("Loading timer");
-		new ParticleRender().runTaskTimer(this, 0L, 10L);
-		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
-		new StatSaveTimer().runTaskLater(this, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
+		new ParticleRender().runTaskTimerAsynchronously(this, 0L, 10L);
+		new ScoreboardUpdater().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
+		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
 		
 		getLogger().info("Loading stats");
 		StatManager.getInstance().setup();
