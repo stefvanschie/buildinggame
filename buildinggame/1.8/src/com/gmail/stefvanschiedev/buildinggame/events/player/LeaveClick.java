@@ -25,10 +25,7 @@ public class LeaveClick implements Listener {
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);
 		Plot plot = arena.getPlot(player);
-		
-		if (plot.getGamePlayer(player).getGamePlayerType() != GamePlayerType.SPECTATOR)
-			return;
-		
+
 		if (player.getItemInHand().getType() != Material.WATCH)
 			return;
 		

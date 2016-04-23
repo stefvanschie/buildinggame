@@ -449,7 +449,7 @@ public class Arena {
 				leaveMeta.setDisplayName(ChatColor.GOLD + "Leave");
 				leave.setItemMeta(leaveMeta);
 				
-				player.getInventory().setItem(0, leave);
+				player.getInventory().setItem(config.getInt("leave-item.slot"), leave);
 				player.updateInventory();
 			}
 		};

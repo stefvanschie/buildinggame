@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -24,7 +25,7 @@ public class StatManager {
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
 		
 		for (String uuid : stats.getKeys(false)) {
-			Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+			OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
 			
 			for (String stat : stats.getConfigurationSection(uuid).getKeys(false)) {
 				if (stat.equalsIgnoreCase("plays"))
@@ -47,7 +48,7 @@ public class StatManager {
 	
 	public Stat getStat(Player player, StatType type) {
 		for (Stat stat : stats) {
-			if (stat.getPlayer() == player && stat.getType() == type)
+			if (stat.getPlayer().getPlayer() == player && stat.getType() == type)
 				return stat;
 		}
 		return null;
@@ -71,9 +72,8 @@ public class StatManager {
 	public void saveToFile() {
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
 		
-		for (Stat stat : this.stats) {
+		for (Stat stat : this.stats)
 			stats.set(stat.getPlayer().getUniqueId() + "." + stat.getType().toString().toLowerCase(), stat.getValue());
-		}
 		
 		SettingsManager.getInstance().save();
 	}

@@ -98,6 +98,9 @@ commands:
   others:
   -
 
+leave-item:
+  slot: 0
+
 subject-gui:
   item:
     id: 'paper'

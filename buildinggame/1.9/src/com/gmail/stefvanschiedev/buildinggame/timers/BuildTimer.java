@@ -58,12 +58,11 @@ public class BuildTimer extends Timer {
 			
 			//clear spectaters
 			for (Plot plot : arena.getPlots()) {
-				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+				for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 					if (gamePlayer.getGamePlayerType() == GamePlayerType.SPECTATOR) {
 						plot.removeSpectator(gamePlayer);
 						
-						gamePlayer.connect(MainSpawnManager.getInstance().getServer());
-						gamePlayer.getPlayer().teleport(MainSpawnManager.getInstance().getMainSpawn());
+						gamePlayer.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
 						
 						MessageManager.getInstance().send(gamePlayer.getPlayer(), ChatColor.GREEN + "Stopped spectating");
 					}

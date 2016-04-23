@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
+import java.util.Iterator;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +20,9 @@ public class Chat implements Listener {
 		if (arena == null)
 			return;
 		
-		for (Player p : e.getRecipients()) {
+		Iterator<Player> iterator = e.getRecipients().iterator();
+		while (iterator.hasNext()) {
+			Player p = iterator.next();
 			if (!arena.contains(p))
 				e.getRecipients().remove(p);
 		}
