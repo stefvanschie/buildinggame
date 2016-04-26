@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -60,6 +59,8 @@ public class Plot {
 	}
 	
 	public void addSpectator(Player spectator, GamePlayer spectates) {
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
 		GamePlayer gamePlayer = new GamePlayer(spectator, GamePlayerType.SPECTATOR);
 		gamePlayer.setSpectates(spectates);
 		
@@ -70,7 +71,7 @@ public class Plot {
 		
 		ItemStack item = new ItemStack(Material.WATCH);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(ChatColor.GOLD + "Leave");
+		meta.setDisplayName(MessageManager.translate(messages.getString("leave-item.name")));
 		item.setItemMeta(meta);
 		
 		spectator.getInventory().addItem(item);

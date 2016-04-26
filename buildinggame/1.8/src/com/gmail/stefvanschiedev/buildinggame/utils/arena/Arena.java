@@ -429,7 +429,7 @@ public class Arena {
 				
 				ItemStack leave = new ItemStack(Material.WATCH, 1);
 				ItemMeta leaveMeta = leave.getItemMeta();
-				leaveMeta.setDisplayName(ChatColor.GOLD + "Leave");
+				leaveMeta.setDisplayName(MessageManager.translate(messages.getString("leave-item.name")));
 				leave.setItemMeta(leaveMeta);
 				
 				player.getInventory().setItem(config.getInt("leave-item.slot"), leave);

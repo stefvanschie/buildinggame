@@ -3997,3 +3997,6 @@ gui:
     name: "&aClose menu"
     lores:
     - "&7Close the options menu"
+    
+leave-item:
+  name: "&6Leave"
