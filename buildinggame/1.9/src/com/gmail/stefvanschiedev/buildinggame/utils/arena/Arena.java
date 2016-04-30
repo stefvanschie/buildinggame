@@ -444,7 +444,9 @@ public class Arena {
 					player.getInventory().setItem(8, item);
 				}
 				
-				ItemStack leave = new ItemStack(Material.WATCH, 1);
+				CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("leave-item.id"));
+				
+				ItemStack leave = new ItemStack(cb.getMaterial(), 1, cb.getData());
 				ItemMeta leaveMeta = leave.getItemMeta();
 				leaveMeta.setDisplayName(MessageManager.translate(messages.getString("leave-item.name")));
 				leave.setItemMeta(leaveMeta);

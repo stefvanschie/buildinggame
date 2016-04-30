@@ -26,6 +26,14 @@ public class BuildingGameCommand implements CommandExecutor {
 			return true;
 		}
 		
+		Player player = (Player) sender;
+		
+		if (args.length == 0) {
+			for (SubCommand subCommand : subCommands)
+				player.sendMessage(ChatColor.AQUA + "/bg " + subCommand.getName());
+			return true;
+		}
+		
 		if (cmd.getName().equals("bg") || cmd.getName().equals("buildinggame")) {
 			for (SubCommand subCommand : subCommands) {
 				if (subCommand.getName().equals(args[0])) {
@@ -34,13 +42,13 @@ public class BuildingGameCommand implements CommandExecutor {
 					for (int i = 1; i < args.length; i++)
 						newArgs[i] = args[i];
 					
-					subCommand.onCommand((Player) sender, newArgs);
+					subCommand.onCommand(player, newArgs);
 					return true;
 				}
 			}
 		}
 		
-		sender.sendMessage(ChatColor.RED + "Couldn't find subcommand " + args[0]);
+		player.sendMessage(ChatColor.RED + "Couldn't find subcommand " + args[0]);
 		return true;
 	}
 }

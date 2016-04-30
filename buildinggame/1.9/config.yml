@@ -105,6 +105,7 @@ commands:
 
 leave-item:
   slot: 0
+  id: 'watch'
 
 subject-gui:
   item:
