@@ -79,6 +79,10 @@ voting:
     id: 'emerald_block'
     points: 8
 
+plots:
+  floor:
+    allow-air: true
+
 command-whitelist:
 - give
 - gamemode

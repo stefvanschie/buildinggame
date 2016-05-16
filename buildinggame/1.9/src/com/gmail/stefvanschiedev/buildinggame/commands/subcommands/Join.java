@@ -1,9 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -30,7 +28,7 @@ public class Join extends PlayerCommand {
 				return CommandResult.ERROR;
 			}
 			
-			arenas.get(new Random().nextInt(arenas.size())).join(player);
+			getFullestArena(arenas).join(player);
 			
 			return CommandResult.SUCCES;
 		} else {
@@ -74,5 +72,16 @@ public class Join extends PlayerCommand {
 				arenas.add(arena);
 		}
 		return arenas;
+	}
+	
+	private Arena getFullestArena(List<Arena> arenas) {
+		Arena highest = null;
+		
+		for (Arena arena : arenas) {
+			if (highest == null || arena.getPlayers() > highest.getPlayers())
+				highest = arena;
+		}
+		
+		return highest;
 	}
 }

@@ -21,13 +21,13 @@ public class IDDecompiler {
 			if (strings.length == 1) {
 				return new CustomBlock(Material.getMaterial(strings[0].toUpperCase()), (byte) 0);
 			} else if (strings.length == 2) {
-				return new CustomBlock(Material.getMaterial(strings[0].toUpperCase()), Byte.parseByte(strings[1].replace(":", "")));
+				return new CustomBlock(Material.getMaterial(strings[0].toUpperCase()), Byte.parseByte(strings[1]));
 			}
 		} catch (NullPointerException npe) {
 			Main.getInstance().getLogger().warning("Failed to load id '" + block + "'");
 			Main.getInstance().getLogger().warning("Stacktrace down below:");
 			npe.printStackTrace();
-			Main.getInstance().getLogger().warning("If you're sure all your ids are right, please contact the plugin developert and show him the stacktrace");
+			Main.getInstance().getLogger().warning("If you're sure all your ids are right, please contact the plugin developer and show him the stacktrace");
 		}
 		return null;
 	}

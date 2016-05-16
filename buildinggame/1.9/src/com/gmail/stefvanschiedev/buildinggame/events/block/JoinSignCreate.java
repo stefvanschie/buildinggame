@@ -53,6 +53,7 @@ public class JoinSignCreate implements Listener {
 		number++;
 		
 		signs.set(number + ".arena", arena.getName());
+		signs.set(number + ".type", "join");
 		signs.set(number + ".world", e.getBlock().getLocation().getWorld().getName());
 		signs.set(number + ".x", e.getBlock().getLocation().getBlockX());
 		signs.set(number + ".y", e.getBlock().getLocation().getBlockY());

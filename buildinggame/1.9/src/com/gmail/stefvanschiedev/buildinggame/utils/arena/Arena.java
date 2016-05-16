@@ -621,7 +621,7 @@ public class Arena {
 		this.votingPlot = votingPlot;
 		
 		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				Player player = gamePlayer.getPlayer();
 			
 				if (!config.getBoolean("names-after-voting")) {
@@ -638,8 +638,10 @@ public class Arena {
 				//give blocks
 				player.getInventory().clear();
 				
-				VoteBlocks blocks = new VoteBlocks();
-				blocks.give(player);
+				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
+					VoteBlocks blocks = new VoteBlocks();
+					blocks.give(player);
+				}
 				
 				//update scoreboard and update time and weather
 				getScoreboard().show(player);

@@ -20,6 +20,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class VoteTimer extends Timer {
@@ -81,7 +82,7 @@ public class VoteTimer extends Timer {
 				arena.setWinner(first);
 				
 				for (Plot plot : arena.getUsedPlots()) {
-					for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+					for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 						Player player = gamePlayer.getPlayer();
 						
 						player.getInventory().clear();
@@ -112,7 +113,7 @@ public class VoteTimer extends Timer {
 								.replace("%second_points%", second == null ? "0" : second.getPoints() + "")
 								.replace("%third_points%", third == null ? "0" : second.getPoints() + ""));
 					
-						if(SDVault.getInstance().isEnabled()) {
+						if(SDVault.getInstance().isEnabled() && gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
 							Economy vault = SDVault.getInstance().getEconomy();
 							if (first == plot) {
 								double money = config.getInt("money.first");
@@ -236,7 +237,7 @@ public class VoteTimer extends Timer {
 
 			arena.setVotingPlot(plot);
 			for (Plot plot : arena.getUsedPlots()) {
-				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+				for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 					Player player = gamePlayer.getPlayer();
 					
 					arena.getScoreboard().show(player);

@@ -1,5 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
@@ -7,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 public class SignManager {
@@ -18,6 +22,8 @@ public class SignManager {
 	public static SignManager getInstance() {
 		return instance;
 	}
+	
+	private List<Sign> leaveSigns = new ArrayList<>();
 	
 	public void setup() {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
@@ -39,18 +45,34 @@ public class SignManager {
 			
 			Sign sign = (Sign) location.getBlock().getState();
 			
-			Arena arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
+			if (!signs.contains(string + ".type"))
+				signs.set(string + ".type", "join");
 			
-			if (arena == null) {
-				signs.set(string, null);
-				continue;
-			}
+			if (signs.getString(string + ".type").equals("join")) {
+				Arena arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
 			
-			arena.addSign(sign);
-			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-				Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
+				if (arena == null) {
+					signs.set(string, null);
+					continue;
+				}
+			
+				arena.addSign(sign);
+				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+					Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
+			} else if (signs.getString(string + ".type").equals("leave")) {
+				leaveSigns.add(sign);
+				
+				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+					Main.getInstance().getLogger().info("Found leave sign");
 			}
 		}
+		updateSigns();
+		
+		SettingsManager.getInstance().save();
+	}
+	
+	public void updateSigns() {
+		updateLeaveSigns();
 		updateJoinSigns();
 	}
 	
@@ -171,4 +193,19 @@ public class SignManager {
 			sign.update();	
 		}
 	}
-}
+	
+	public void updateLeaveSigns() {
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
+		for (Sign sign : leaveSigns) {
+			sign.setLine(0, MessageManager.translate(messages.getString("leave-sign.line-1")));
+			sign.setLine(1, MessageManager.translate(messages.getString("leave-sign.line-2")));
+			sign.setLine(2, MessageManager.translate(messages.getString("leave-sign.line-3")));
+			sign.setLine(3, MessageManager.translate(messages.getString("leave-sign.line-4")));
+		}
+	}
+	
+	public List<Sign> getLeaveSigns() {
+		return leaveSigns;
+	}
+	}

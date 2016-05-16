@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
@@ -27,72 +28,57 @@ public class FloorClick implements Listener {
 		Player player = (Player) e.getWhoClicked();
 		Inventory inventory = e.getInventory();
 		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+		if (ArenaManager.getInstance().getArena(player) == null)
 			return;
-		}
 		
 		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 		
-		if (!inventory.getName().equals(messages.getString("gui.options-title")
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-				.replaceAll("&", "§"))) {
+		if (!inventory.getName().equals(MessageManager.translate(messages.getString("gui.options-title"))))
 			return;
-		}
 		
-		if (e.getCurrentItem() == null || !e.getCurrentItem().getType().isBlock()) {
+		if (e.getCurrentItem() == null || !e.getCurrentItem().getType().isBlock())
 			return;
-		}
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
 		CustomBlock cblock = IDDecompiler.getInstance().decompile(config.getString("gui.floor.id"));
 		
-		if (currentItem.getType() != cblock.getMaterial()) {
+		if (currentItem.getType() != cblock.getMaterial())
 			return;
-		}
-		if (currentItem.getDurability() != cblock.getData()) {
+			
+		if (currentItem.getDurability() != cblock.getData())
 			return;
-		}
+	
+		if (!currentItem.hasItemMeta())
+			return;
+
+		if (!currentItem.getItemMeta().getDisplayName().equals(MessageManager.translate(messages.getString("gui.floor.name"))))
+			return;
+
 		
-		if (!currentItem.hasItemMeta()) {
-			return;
-		}
-		if (!currentItem.getItemMeta().getDisplayName().equals(messages.getString("gui.floor.name")
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-				.replaceAll("&", "§"))) {
+		if (e.getCursor().getType() == Material.AIR && !config.getBoolean("plots.floor.allow-air")) {
+			e.setCancelled(true);
 			return;
 		}
 		
 		for (String material : config.getStringList("blocks.blocked")) {
 			CustomBlock cb = IDDecompiler.getInstance().decompile(material.toUpperCase());
-			if (currentItem.getType() == cb.getMaterial() && currentItem.getDurability() == cb.getData()) {
+			if (e.getCursor().getType() == cb.getMaterial() && e.getCursor().getDurability() == cb.getData()) {
 				e.setCancelled(true);
 				return;
 			}
 		}
 		
 		if (e.getCursor().getType() == Material.WATER_BUCKET) {
-			for (Block block : plot.getFloor().getAllBlocks()) {
+			for (Block block : plot.getFloor().getAllBlocks())
 				block.setType(Material.WATER);
-			}
 			e.setCancelled(true);
 			return;
 		}
 		
 		if (e.getCursor().getType() == Material.LAVA_BUCKET) {
-			for (Block block : plot.getFloor().getAllBlocks()) {
+			for (Block block : plot.getFloor().getAllBlocks())
 				block.setType(Material.LAVA);
-			}
 			e.setCancelled(true);
 			return;
 		}

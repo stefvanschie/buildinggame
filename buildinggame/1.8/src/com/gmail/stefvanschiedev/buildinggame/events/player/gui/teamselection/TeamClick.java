@@ -56,7 +56,7 @@ public class TeamClick implements Listener {
 		
 		NBTItem nbtItem = new NBTItem(item);
 		
-		int team = nbtItem.getInteger("team");
+		String team = nbtItem.getInteger("team") + "";
 		
 		if (item.getType() != IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + team + ".id")).getMaterial()) {
 			return;
@@ -64,7 +64,7 @@ public class TeamClick implements Listener {
 		
 		GamePlayer gamePlayer = arena.getPlot(player).getGamePlayer(player);
 		
-		boolean succes = arena.getPlot(team).join(gamePlayer);
+		boolean succes = arena.getPlot(Integer.parseInt(team)).join(gamePlayer);
 		if (succes) {
 			plot.leave(gamePlayer);
 		}

@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
@@ -14,6 +15,7 @@ public class LeaveSignCreate implements Listener {
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
 		Player player = e.getPlayer();
 		
@@ -41,5 +43,26 @@ public class LeaveSignCreate implements Listener {
 				.replaceAll("&", "§"));
 		e.setLine(3, line4
 				.replaceAll("&", "§"));
+		
+		int number = 0;
+		
+		for (String string : signs.getKeys(false)) {
+			try {
+				number = Integer.parseInt(string);
+			} catch (NumberFormatException nfe) {
+				continue;
+			}
+		}
+		
+		number++;
+		
+		signs.set(number + ".type", "leave");
+		signs.set(number + ".world", e.getBlock().getLocation().getWorld().getName());
+		signs.set(number + ".x", e.getBlock().getLocation().getBlockX());
+		signs.set(number + ".y", e.getBlock().getLocation().getBlockY());
+		signs.set(number + ".z", e.getBlock().getLocation().getBlockZ());
+		SettingsManager.getInstance().save();
+		
+		SignManager.getInstance().setup();
 	}
 }
