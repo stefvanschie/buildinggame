@@ -18,6 +18,28 @@ public class PlaceBucket implements Listener {
 	public void onBucketEmpty(PlayerBucketEmptyEvent e) {
 		Player player = e.getPlayer();
 		Location clicked = e.getBlockClicked().getLocation();
+		switch (e.getBlockFace()) {
+			case UP:
+				clicked.add(0, 1, 0);
+				break;
+			case DOWN:
+				clicked.add(0, -1, 0);
+				break;
+			case NORTH:
+				clicked.add(0, 0, -1);
+				break;
+			case EAST:
+				clicked.add(1, 0, 0);
+				break;
+			case SOUTH:
+				clicked.add(0, 0, 1);
+				break;
+			case WEST:
+				clicked.add(-1, 0, 0);
+				break;
+			default:
+				break;
+		}
 		
 		if (ArenaManager.getInstance().getArena(player) == null) {
 			return;

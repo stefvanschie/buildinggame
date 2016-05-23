@@ -56,6 +56,8 @@ public class FloorClick implements Listener {
 			return;
 		
 		if (e.getCursor().getType() == Material.AIR && !config.getBoolean("plots.floor.allow-air")) {
+			for (String message : MessageManager.translate(messages.getStringList("plots.floor.incorrect")))
+				player.sendMessage(message);
 			e.setCancelled(true);
 			return;
 		}
@@ -63,6 +65,8 @@ public class FloorClick implements Listener {
 		for (String material : config.getStringList("blocks.blocked")) {
 			CustomBlock cb = IDDecompiler.getInstance().decompile(material.toUpperCase());
 			if (e.getCursor().getType() == cb.getMaterial() && e.getCursor().getDurability() == cb.getData()) {
+				for (String message : MessageManager.translate(messages.getStringList("plots.floor.blocked")))
+					player.sendMessage(message);
 				e.setCancelled(true);
 				return;
 			}
@@ -82,8 +86,12 @@ public class FloorClick implements Listener {
 			return;
 		}
 		
-		if (!e.getCursor().getType().isBlock())
+		if (!e.getCursor().getType().isBlock()) {
+			for (String message : MessageManager.translate(messages.getStringList("plots.floor.incorrect")))
+				player.sendMessage(message);
+			e.setCancelled(true);
 			return;
+		}
 		
 		for (Block block : plot.getFloor().getAllBlocks()) {
 			if (block.getType() == e.getCursor().getType() && block.getData() == e.getCursor().getData().getData())

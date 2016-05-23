@@ -91,7 +91,7 @@ public class BuildTimer extends Timer {
 				.replace("%seconds%", getSeconds() + "")
 				.replace("%seconds_from_minutes%", getSecondsFromMinute() + "")
 				.replace("%minutes%", getMinutes() + "")
-				.replace("&", "§"));
+				.replace("%subject%", arena.getSubject()));
 		arena.getBossBar().setProgress((double) ((double) getSeconds() / (double) getOriginalSeconds()));
 		
 		seconds--;

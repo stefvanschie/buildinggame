@@ -107,17 +107,11 @@ public class BuildTimer extends Timer {
 				if (SDBarApi.getInstance().isEnabled()) {
 					if (BarAPI.hasBar(player))
 						BarAPI.removeBar(player);
-					BarAPI.setMessage(player, messages.getString("global.barHeader")
-							.replace("%:a%", "ä")
-							.replace("%:e%", "ë")
-							.replace("%:i%", "ï")
-							.replace("%:o%", "ö")
-							.replace("%:u%", "ü")
-							.replace("%ss%", "ß")
+					BarAPI.setMessage(player, MessageManager.translate(messages.getString("global.barHeader")
 							.replace("%seconds%", getSeconds() + "")
 							.replace("%seconds_from_minutes%", getSecondsFromMinute() + "")
 							.replace("%minutes%", getMinutes() + "")
-							.replace("&", "§"), (float) ((float) getSeconds() / originalSeconds) * 100);
+							.replace("%subject%", arena.getSubject())), (float) ((float) getSeconds() / originalSeconds) * 100);
 				}
 			}
 		}

@@ -1,4 +1,4 @@
 name: BuildingGame_BungeeCord_AddOn_BungeeCord
 main: com.gmail.stefvanschiedev.buildinggame.Main
-version: 2.2.6
+version: 2.2.7
 depend: [SocketAPI]

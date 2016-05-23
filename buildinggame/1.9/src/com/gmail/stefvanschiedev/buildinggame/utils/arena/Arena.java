@@ -82,7 +82,8 @@ public class Arena {
 		this.name = name;
 		
 		try {
-			this.bossbar = Bukkit.createBossBar(messages.getString("global.bossbar-header"), BarColor.valueOf(config.getString("bossbar.color").toUpperCase()), BarStyle.valueOf(config.getString("bossbar.style").toUpperCase()));
+			this.bossbar = Bukkit.createBossBar(MessageManager.translate(messages.getString("global.bossbar-header")
+					.replace("%subject%", "?")), BarColor.valueOf(config.getString("bossbar.color").toUpperCase()), BarStyle.valueOf(config.getString("bossbar.style").toUpperCase()));
 			getBossBar().hide();
 		} catch (IllegalArgumentException e) {
 			Main.getInstance().getLogger().warning("Bossbar couldn't be loaded, check the data and try again.");
@@ -676,6 +677,10 @@ public class Arena {
 		
 		setSubject(getSubjectMenu().getHighestVote());
 		
+		//update bossbar
+		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
+				.replace("%subject%", getSubject())));
+		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 				gamePlayer.getPlayer().teleport(plot.getLocation());
@@ -725,6 +730,7 @@ public class Arena {
 	
 	public void stop() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		//call event
 		ArenaStopEvent event = new ArenaStopEvent(this);
@@ -745,6 +751,9 @@ public class Arena {
 		setScoreboard(new VoteScoreboard());
 		setSubject(null);
 		getVotedPlots().clear();
+		//update bossbar
+		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
+				.replace("%subject%", "?")));
 		getBossBar().hide();
 		for (Player player : getBossBar().getPlayers())
 			getBossBar().removePlayer(player);

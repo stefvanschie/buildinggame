@@ -3998,5 +3998,12 @@ gui:
     lores:
     - "&7Close the options menu"
     
+plots:
+  floor:
+    forbidden:
+    - "&cThat block is forbidden"
+    incorrect:
+    - "&cThat is not a block"
+    
 leave-item:
   name: "&6Leave"
