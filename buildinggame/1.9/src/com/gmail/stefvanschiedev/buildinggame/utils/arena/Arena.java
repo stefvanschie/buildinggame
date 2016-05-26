@@ -47,7 +47,9 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.TeamSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.BuildScoreboard;
+import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.LobbyScoreboard;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.VoteScoreboard;
+import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.WinScoreboard;
 
 public class Arena {
 
@@ -63,8 +65,10 @@ public class Arena {
 	private int minPlayers;
 	private Plot votingPlot;
 	private Plot winner;
-	private VoteScoreboard voteScoreboard = new VoteScoreboard();
 	private BuildScoreboard buildScoreboard = new BuildScoreboard(this);
+	private LobbyScoreboard lobbyScoreboard = new LobbyScoreboard(this);
+	private VoteScoreboard voteScoreboard = new VoteScoreboard();
+	private WinScoreboard winScoreboard = new WinScoreboard(this);
 	private String subject;
 	
 	private SubjectMenu subjectMenu = new SubjectMenu();
@@ -137,6 +141,10 @@ public class Arena {
 		return lobby;
 	}
 	
+	public LobbyScoreboard getLobbyScoreboard() {
+		return lobbyScoreboard;
+	}
+	
 	public int getMaxPlayers() {
 		return maxPlayers;
 	}
@@ -187,7 +195,7 @@ public class Arena {
 		return plots;
 	}
 	
-	public VoteScoreboard getScoreboard() {
+	public VoteScoreboard getVoteScoreboard() {
 		return voteScoreboard;
 	}
 	
@@ -241,6 +249,10 @@ public class Arena {
 	
 	public Plot getWinner() {
 		return winner;
+	}
+	
+	public WinScoreboard getWinScoreboard() {
+		return winScoreboard;
 	}
 	
 	public WinTimer getWinTimer() {
@@ -326,7 +338,7 @@ public class Arena {
 			}
 		}
 		
-		buildScoreboard.show(player);
+		lobbyScoreboard.show(player);
 		
 		for (String message : messages.getStringList("join.message")) {
 			MessageManager.getInstance().send(player, message
@@ -353,7 +365,7 @@ public class Arena {
 		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers())
-				buildScoreboard.update(gamePlayer.getPlayer());
+				lobbyScoreboard.update(gamePlayer.getPlayer());
 		}
 		
 		player.getInventory().clear();
@@ -518,7 +530,7 @@ public class Arena {
 							.replace("%player%", player.getName()));
 				}
 				
-				buildScoreboard.update(pl);
+				lobbyScoreboard.update(pl);
 			}
 		}
 		
@@ -571,6 +583,10 @@ public class Arena {
 		this.lobby = lobby;
 	}
 	
+	public void setLobbyScoreboard(LobbyScoreboard lobbyScoreboard) {
+		this.lobbyScoreboard = lobbyScoreboard;
+	}
+	
 	public void setMaxPlayers(int maxPlayers) {
 		this.maxPlayers = maxPlayers;
 	}
@@ -591,7 +607,7 @@ public class Arena {
 		this.plots = plots;
 	}
 	
-	public void setScoreboard(VoteScoreboard voteScoreboard) {
+	public void setVoteScoreboard(VoteScoreboard voteScoreboard) {
 		this.voteScoreboard = voteScoreboard;
 	}
 	
@@ -645,7 +661,7 @@ public class Arena {
 				}
 				
 				//update scoreboard and update time and weather
-				getScoreboard().show(player);
+				getVoteScoreboard().show(player);
 				player.setPlayerTime(plot.getTime().decode(plot.getTime()), false);
 				player.setPlayerWeather(plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 			}
@@ -660,6 +676,10 @@ public class Arena {
 	
 	public void setWinner(Plot winner) {
 		this.winner = winner;
+	}
+	
+	public void setWinScoreboard(WinScoreboard winScoreboard) {
+		this.winScoreboard = winScoreboard;
 	}
 	
 	public void setWinTimer(WinTimer winTimer) {
@@ -748,7 +768,7 @@ public class Arena {
 		setBuildTimer(new BuildTimer(config.getInt("timer"), this));
 		setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
 		setWinTimer(new WinTimer(config.getInt("wintimer"), this));
-		setScoreboard(new VoteScoreboard());
+		setVoteScoreboard(new VoteScoreboard());
 		setSubject(null);
 		getVotedPlots().clear();
 		//update bossbar

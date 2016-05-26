@@ -134,10 +134,14 @@ import com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved.UnsavedStatsP
 import com.gmail.stefvanschiedev.buildinggame.events.structure.TreeGrow;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaModeManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.BuildTimerManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.LobbyManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.LobbyTimerManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.MaxPlayersManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.MinPlayersManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.VoteTimerManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.WinTimerManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
@@ -203,10 +207,14 @@ public class Main extends JavaPlugin {
 		getLogger().info("Loading arenas");
 		ArenaManager.getInstance().setup();
 		ArenaModeManager.getInstance().setup();
+		BuildTimerManager.getInstance().setup();
 		LobbyManager.getInstance().setup();
+		LobbyTimerManager.getInstance().setup();
 		MinPlayersManager.getInstance().setup();
 		MaxPlayersManager.getInstance().setup();
 		SignManager.getInstance().setup();
+		VoteTimerManager.getInstance().setup();
+		WinTimerManager.getInstance().setup();
 		
 		getLogger().info("Loading plots");
 		PlotManager.getInstance().setup();

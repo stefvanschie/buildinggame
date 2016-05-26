@@ -136,12 +136,12 @@ public class Plot {
 		
 		votes.add(vote);
 		
-		arena.getScoreboard().setScore(getPlayerFormat(), getPoints());
+		arena.getVoteScoreboard().setScore(getPlayerFormat(), getPoints());
 		if (!config.getBoolean("names-after-voting")) {
 			for (Plot p : arena.getPlots()) {
 				if (!p.getGamePlayers().isEmpty()) {
 					for (GamePlayer player : getGamePlayers()) {
-						arena.getScoreboard().show(player.getPlayer());
+						arena.getVoteScoreboard().show(player.getPlayer());
 					}
 				}
 			}

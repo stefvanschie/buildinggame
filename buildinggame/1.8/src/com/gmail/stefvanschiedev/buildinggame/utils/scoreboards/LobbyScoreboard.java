@@ -17,24 +17,24 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
-public class BuildScoreboard {
+public class LobbyScoreboard {
 
 	YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	ScoreboardManager manager = Bukkit.getScoreboardManager();
 	Scoreboard scoreboard = manager.getNewScoreboard();  
-    Objective objective = scoreboard.registerNewObjective("bg-build", "dummy");
+    Objective objective = scoreboard.registerNewObjective("bg-lobby", "dummy");
 	
     Arena arena;
     
     private List<String> strings = new ArrayList<String>();
     
-	public BuildScoreboard(Arena arena) {
+	public LobbyScoreboard(Arena arena) {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.build.header")));
+		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.lobby.header")));
 		
 		this.arena = arena;
 		
-		for (String line : messages.getStringList("scoreboards.build.text")) {
+		for (String line : messages.getStringList("scoreboards.lobby.text")) {
 			strings.add(MessageManager.translate(line));
 		}
 	}
@@ -83,6 +83,7 @@ public class BuildScoreboard {
 		player.setScoreboard(scoreboard);
 	}
 	
+
 	@SuppressWarnings("deprecation")
 	public void update(Player player) {
 		for (String entry : scoreboard.getEntries())
@@ -90,6 +91,7 @@ public class BuildScoreboard {
 		
 		for (int i = 0; i < strings.size(); i++) {
 			setScore(strings.get(i)
+					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")

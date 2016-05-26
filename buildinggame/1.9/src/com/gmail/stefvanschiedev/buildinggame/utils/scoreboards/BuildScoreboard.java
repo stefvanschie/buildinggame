@@ -13,6 +13,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
@@ -21,7 +22,7 @@ public class BuildScoreboard {
 	YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	ScoreboardManager manager = Bukkit.getScoreboardManager();
 	Scoreboard scoreboard = manager.getNewScoreboard();  
-    Objective objective = scoreboard.registerNewObjective("buildinggame", "dummy");
+    Objective objective = scoreboard.registerNewObjective("bg-build", "dummy");
 	
     Arena arena;
     
@@ -29,19 +30,12 @@ public class BuildScoreboard {
     
 	public BuildScoreboard(Arena arena) {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName(messages.getString("global.buildScoreboardHeader")
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-				.replaceAll("&", "§"));
+		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.build.header")));
 		
 		this.arena = arena;
 		
-		for (String line : messages.getStringList("global.buildScoreboardText")) {
-			strings.add(line);
+		for (String line : messages.getStringList("scoreboards.build.text")) {
+			strings.add(MessageManager.translate(line));
 		}
 	}
 	
@@ -70,12 +64,6 @@ public class BuildScoreboard {
 		int place = 0;
 		for (int i = strings.size(); i > 0; i--) {
 			setScore(strings.get(place)
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
@@ -88,8 +76,7 @@ public class BuildScoreboard {
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
 					.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
-					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
-					.replaceAll("&", "§"), i);
+					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat()), i);
 			place++;
 		}
 		
@@ -99,14 +86,11 @@ public class BuildScoreboard {
 
 	@SuppressWarnings("deprecation")
 	public void update(Player player) {
-		List<String> text = new ArrayList<String>();
+		for (String entry : scoreboard.getEntries())
+			scoreboard.resetScores(entry);
+		
 		for (int i = 0; i < strings.size(); i++) {
-			text.add(strings.get(i).replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
+			setScore(strings.get(i)
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
@@ -119,24 +103,7 @@ public class BuildScoreboard {
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
 					.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
-					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
-					.replaceAll("&", "§"));
-		}
-		for (String string : scoreboard.getEntries()) {
-			if (!strings.get(strings.size() - objective.getScore(string).getScore()).contains("%")) {
-				continue;
-			}
-			scoreboard.resetScores(string);
-		}
-		
-		int place = 0;
-		for (int i = strings.size(); i > 0; i--) {
-			if (!strings.get(place).contains("%")) {
-				place++;
-				continue;
-			}
-			setScore(text.get(place), i);
-			place++;
+					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat()), strings.size() - i);
 		}
 		player.setScoreboard(scoreboard);
 	}

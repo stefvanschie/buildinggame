@@ -17,29 +17,32 @@ public class ScoreboardUpdater extends BukkitRunnable {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			if (arena.getState() == GameState.VOTING && !config.getBoolean("names-after-voting")) {
+			if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) {
 				for (Plot plot : arena.getUsedPlots()) {
-					for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-						arena.getScoreboard().show(gamePlayer.getPlayer());
-					}
+					for (GamePlayer gamePlayer : plot.getGamePlayers())
+						arena.getLobbyScoreboard().update(gamePlayer.getPlayer());
 				}
-				return;
-			}
-			
-			if (arena.getState() == GameState.RESETING && config.getBoolean("names-after-voting")) {
+			} else if (arena.getState() == GameState.BUILDING) {
 				for (Plot plot : arena.getUsedPlots()) {
-					for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-						arena.getScoreboard().show(gamePlayer.getPlayer());
-					}
+					for (GamePlayer gamePlayer : plot.getGamePlayers())
+						arena.getBuildScoreboard().update(gamePlayer.getPlayer());
 				}
-				return;
-			}
-			
-			for (Plot plot : arena.getUsedPlots()) {
-				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-					arena.getBuildScoreboard().update(gamePlayer.getPlayer());
+			} else if (arena.getState() == GameState.VOTING && !config.getBoolean("names-after-voting")) {
+				for (Plot plot : arena.getUsedPlots()) {
+					for (GamePlayer gamePlayer : plot.getGamePlayers())
+						arena.getVoteScoreboard().show(gamePlayer.getPlayer());
 				}
-			}
+			} else if (arena.getState() == GameState.RESETING && !config.getBoolean("names-after-voting")) {
+				for (Plot plot : arena.getUsedPlots()) {
+					for (GamePlayer gamePlayer : plot.getGamePlayers())
+						arena.getWinScoreboard().update(gamePlayer.getPlayer());
+				}
+			} else if (arena.getState() == GameState.RESETING && config.getBoolean("names-after-voting")) {
+				for (Plot plot : arena.getUsedPlots()) {
+					for (GamePlayer gamePlayer : plot.getGamePlayers())
+						arena.getVoteScoreboard().show(gamePlayer.getPlayer());
+				}
+			} 
 		}
 	}
 }

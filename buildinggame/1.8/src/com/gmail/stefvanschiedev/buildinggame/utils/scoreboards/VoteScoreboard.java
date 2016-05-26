@@ -10,24 +10,18 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
 public class VoteScoreboard {
 	
 	YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	ScoreboardManager manager = Bukkit.getScoreboardManager();
 	Scoreboard scoreboard = manager.getNewScoreboard();  
-    Objective objective = scoreboard.registerNewObjective("votes", "dummy");
+    Objective objective = scoreboard.registerNewObjective("bg-vote", "dummy");
 	
 	public VoteScoreboard() {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.setDisplayName(messages.getString("global.scoreboardHeader")
-				.replace("%:a%", "ä")
-				.replace("%:e%", "ë")
-				.replace("%:i%", "ï")
-				.replace("%:o%", "ö")
-				.replace("%:u%", "ü")
-				.replace("%ss%", "ß")
-         		.replaceAll("&", "§"));
+        objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.vote.header")));
 	}
 	
 	public String getDisplayName() {

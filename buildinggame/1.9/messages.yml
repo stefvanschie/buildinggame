@@ -3,14 +3,6 @@ global:
   prefix: "&2[&9BuildingGame&2]&r "
   permissionNode:
   - "&cYou don't have the required permission for that!"
-  scoreboardHeader: "&ePoints"
-  buildScoreboardHeader: "&e&lBuilding Game"
-  buildScoreboardText:
-  - "&5Map:"
-  - "&a%arena%"
-  - ""
-  - "&5Players:"
-  - "&a%players%/%max_players%"
   combine-names: " and "
 setMainSpawn:
   succes:
@@ -4013,7 +4005,37 @@ gui:
     name: "&aClose menu"
     lores:
     - "&7Close the options menu"
-    
+scoreboards:
+  lobby:
+    header: "&e&lBuilding Game"
+    text:
+    - "&5Map:"
+    - "&a%arena%"
+    - ""
+    - "&5Players:"
+    - "&a%players%/%max_players%"
+  build:
+    header: "&e&lBuilding Game"
+    text:
+    - "&5Map:"
+    - "&a%arena%"
+    - ""
+    - "&5Players:"
+    - "&a%players%/%max_players%"
+    - " "
+    - "&5Theme:"
+    - "&a%subject%"
+  vote:
+    header: "&e&lPoints"
+  win:
+    header: "&e&lBuilding Game"
+    text:
+    - "&5Map:"
+    - "&a%arena%"
+    - ""
+    - "&5Players:"
+    - "&a%players%/%max_players%"
+ 
 plots:
   floor:
     forbidden:

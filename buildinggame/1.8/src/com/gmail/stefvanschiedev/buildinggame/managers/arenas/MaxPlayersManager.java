@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class MaxPlayersManager {
 
@@ -26,10 +27,9 @@ public class MaxPlayersManager {
 				
 				arena.setMaxPlayers(maxPlayers);
 				
-				for (int i = 1; i <= maxPlayers; i++) {
-					if (!config.contains("team-selection.team." + i)) {
-						config.set("team-selection.team." + i + ".id", "paper");
-					}
+				for (Plot plot : arena.getPlots()) {
+					if (!config.contains("team-selection.team." + plot.getID()))
+						config.set("team-selection.team." + plot.getID() + ".id", "paper");
 				}
 				
 				if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {

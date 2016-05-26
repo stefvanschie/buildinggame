@@ -76,7 +76,7 @@ public class TeamSelection {
 			item.setItemMeta(itemMeta);
 			
 			NBTItem nbtItem = new NBTItem(item);
-			nbtItem.setInteger("team", iteration + 1);
+			nbtItem.setInteger("team", plot.getID());
 			item = nbtItem.getItem();
 			
 			inventory.setItem(iteration, item);
