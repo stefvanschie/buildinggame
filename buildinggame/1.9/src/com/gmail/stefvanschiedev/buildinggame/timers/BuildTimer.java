@@ -21,6 +21,9 @@ public class BuildTimer extends Timer {
 	private int seconds = 0;
 	private Arena arena;
 	
+	private YamlConfiguration config = SettingsManager.getInstance().getConfig();
+	private YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+	
 	public BuildTimer(int seconds, Arena arena) {
 		this.seconds = seconds;
 		this.arena = arena;
@@ -29,8 +32,6 @@ public class BuildTimer extends Timer {
 	
 	@Override
 	public void run() {
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
 		running = true;
 		if (seconds <= 0) {
 			//voten
@@ -94,6 +95,25 @@ public class BuildTimer extends Timer {
 				.replace("%subject%", arena.getSubject()));
 		arena.getBossBar().setProgress((double) ((double) getSeconds() / (double) getOriginalSeconds()));
 		
+		//timings
+		try {
+			for (String key : config.getConfigurationSection("timings.build-timer.at").getKeys(false)) {
+				try {
+					if (seconds == Integer.parseInt(key)) {
+						for (String command : config.getStringList("timings.build-timer.at." + Integer.parseInt(key)))
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+					}
+				} catch (NumberFormatException e) {}
+			}
+			for (String key : config.getConfigurationSection("timings.build-timer.every").getKeys(false)) {
+				try {
+					if (seconds % Integer.parseInt(key) == 0) {
+						for (String command : config.getStringList("timings.build-timer.every." + Integer.parseInt(key)))
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+					}
+				} catch (NumberFormatException e) {}
+			}
+		} catch (NullPointerException e) {}
 		seconds--;
 	}
 	

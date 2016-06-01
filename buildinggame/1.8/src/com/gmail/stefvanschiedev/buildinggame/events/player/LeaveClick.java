@@ -40,8 +40,8 @@ public class LeaveClick implements Listener {
 			return;
 		
 		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
-			plot.removeSpectator(plot.getGamePlayer(player));
 			plot.getGamePlayer(player).connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
+			plot.removeSpectator(plot.getGamePlayer(player));
 			MessageManager.getInstance().send(player, ChatColor.GREEN + "Stopped spectating");
 		} else
 			arena.leave(player);

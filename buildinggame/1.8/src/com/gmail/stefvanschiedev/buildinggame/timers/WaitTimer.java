@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -16,6 +17,7 @@ public class WaitTimer extends Timer {
 	private Arena arena;
 	private boolean running = false;
 	
+	private YamlConfiguration config = SettingsManager.getInstance().getConfig();
 	private YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	
 	public WaitTimer(int seconds, Arena arena) {
@@ -52,6 +54,26 @@ public class WaitTimer extends Timer {
 				player.setLevel(seconds);
 			}
 		}
+		
+		//timings
+		try {
+			for (String key : config.getConfigurationSection("timings.lobby-timer.at").getKeys(false)) {
+				try {
+					if (seconds == Integer.parseInt(key)) {
+						for (String command : config.getStringList("timings.lobby-timer.at." + Integer.parseInt(key)))
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+					}
+				} catch (NumberFormatException e) {}
+			}
+			for (String key : config.getConfigurationSection("timings.lobby-timer.every").getKeys(false)) {
+				try {
+					if (seconds % Integer.parseInt(key) == 0) {
+						for (String command : config.getStringList("timings.lobby-timer.every." + Integer.parseInt(key)))
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+					}
+				} catch (NumberFormatException e) {}
+			}
+		} catch (NullPointerException e) {}
 		seconds--;
 	}
 	

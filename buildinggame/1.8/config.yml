@@ -82,6 +82,22 @@ command-whitelist:
 - give
 - gamemode
 
+timings:
+  lobby-timer:
+    at:
+      10:
+      - 'tellraw @a ["",{"text":"Hurry up, ","color":"aqua"},{"selector":"@p","color":"gold","italic":true},{"text":", %arena% is starting soon!","color":"aqua"}]'
+    every:
+  build-timer:
+    at:
+    every:
+  vote-timer:
+    at:
+    every:
+  win-timer:
+    at:
+    every:
+
 win-commands:
 - 'execute %winner% ~1 ~ ~-4 summon FireworksRocketEntity ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[14263784,581228,995542,3255052,13888116,4175055],FadeColors:[8848460]}]}}}}'
 - 'execute %winner% ~-2 ~ ~3 summon FireworksRocketEntity ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:2,Colors:[14495340,12909992,8969028,7924605],FadeColors:[10438567,12267580,2724499,9942861]}]}}}}'

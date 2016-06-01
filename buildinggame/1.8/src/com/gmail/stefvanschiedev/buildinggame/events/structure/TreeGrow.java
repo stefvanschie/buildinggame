@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.structure;
 
-import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.StructureGrowEvent;
@@ -13,14 +12,24 @@ public class TreeGrow implements Listener {
 
 	@EventHandler
 	public void onStructureGrow(StructureGrowEvent e) {
-		for (BlockState blockState : e.getBlocks()) {
-			for (Arena arena : ArenaManager.getInstance().getArenas()) {
-				for (Plot plot : arena.getPlots()) {
-					if (!plot.getBoundary().isInside(blockState.getLocation())) {
-						e.setCancelled(true);
-						return;
-					}
+		Plot plot = null;
+		
+		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+			for (Plot p : arena.getPlots()) {
+				if (p.getBoundary().isInside(e.getLocation())) {
+					plot = p;
+					break;
 				}
+			}
+		}
+		
+		if (plot == null)
+			return;
+		
+		for (int i = 0; i < e.getBlocks().size(); i++) {
+			if (!plot.getBoundary().isInside(e.getBlocks().get(i).getLocation())) {
+				e.getBlocks().remove(e.getBlocks().get(i));
+				i--;
 			}
 		}
 	}

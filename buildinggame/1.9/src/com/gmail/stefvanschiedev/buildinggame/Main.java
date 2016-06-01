@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -156,6 +158,7 @@ import com.gmail.stefvanschiedev.buildinggame.timers.ParticleRender;
 import com.gmail.stefvanschiedev.buildinggame.timers.ScoreboardUpdater;
 import com.gmail.stefvanschiedev.buildinggame.timers.StatSaveTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import com.gmail.stefvanschiedev.buildinggame.utils.metrics.Metrics;
 
 public class Main extends JavaPlugin {
 
@@ -174,6 +177,15 @@ public class Main extends JavaPlugin {
 		if (!Bukkit.getBukkitVersion().split("\\.")[1].substring(0, 1).equals("9")) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
+		}
+		
+		//loading metrics
+		getLogger().info("Loading metrics");
+		try {
+			Metrics metrics = new Metrics(this);
+			metrics.start();
+		} catch (IOException e) {
+			getLogger().info("Couldn't enable Metrics");
 		}
 		
 		if (SettingsManager.getInstance().getConfig().getBoolean("loading.load-after-plugins")) {

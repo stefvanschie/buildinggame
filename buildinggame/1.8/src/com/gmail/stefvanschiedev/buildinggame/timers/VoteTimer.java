@@ -245,6 +245,26 @@ public class VoteTimer extends Timer {
 				}
 			}
 		}
+		//timings
+		try {
+			for (String key : config.getConfigurationSection("timings.vote-timer.at").getKeys(false)) {
+				try {
+					if (seconds == Integer.parseInt(key)) {
+						for (String command : config.getStringList("timings.vote-timer.at." + Integer.parseInt(key)))
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+					}
+				} catch (NumberFormatException e) {}
+			}
+			for (String key : config.getConfigurationSection("timings.vote-timer.every").getKeys(false)) {
+				try {
+					if (seconds % Integer.parseInt(key) == 0) {
+						for (String command : config.getStringList("timings.vote-timer.every." + Integer.parseInt(key)))
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+					}
+				} catch (NumberFormatException e) {}
+			}
+		} catch (NullPointerException e) {}
+		
 		seconds--;
 		if (seconds <= 0) {
 				for (Plot plot : arena.getUsedPlots()) {
