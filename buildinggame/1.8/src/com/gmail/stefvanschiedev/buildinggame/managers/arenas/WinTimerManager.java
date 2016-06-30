@@ -14,10 +14,10 @@ public class WinTimerManager {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			if (!arenas.contains(arena.getName() + ".lobby-timer"))
-				arenas.set(arena.getName() + ".lobby-timer", config.getInt("waittimer"));
+			if (!arenas.contains(arena.getName() + ".win-timer"))
+				arenas.set(arena.getName() + ".win-timer", config.getInt("wintimer"));
 			
-			arena.setWinTimer(new WinTimer(arenas.getInt(arena.getName() + ".lobby-timer"), arena));
+			arena.setWinTimer(new WinTimer(arenas.getInt(arena.getName() + ".win-timer"), arena));
 		}
 	}
 	

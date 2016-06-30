@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 public class SignManager {
@@ -55,63 +56,8 @@ public class SignManager {
 	}
 	
 	public void updateJoinSigns() {
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Sign sign : arena.getSigns()) {
-				//get design
-				String line1 = messages.getString("join-sign.line-1");
-				String line2 = messages.getString("join-sign.line-2");
-				String line3 = messages.getString("join-sign.line-3");
-				String line4 = messages.getString("join-sign.line-4");
-				
-				sign.setLine(0, line1
-						.replace("%:a%", "ä")
-						.replace("%:e%", "ë")
-						.replace("%:i%", "ï")
-						.replace("%:o%", "ö")
-						.replace("%:u%", "ü")
-						.replace("%ss%", "ß")
-						.replace("%arena%", arena.getName())
-						.replace("%players%", arena.getPlayers() + "")
-						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "§"));
-				sign.setLine(1, line2
-						.replace("%:a%", "ä")
-						.replace("%:e%", "ë")
-						.replace("%:i%", "ï")
-						.replace("%:o%", "ö")
-						.replace("%:u%", "ü")
-						.replace("%ss%", "ß")
-						.replace("%arena%", arena.getName())
-						.replace("%players%", arena.getPlayers() + "")
-						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "§"));
-				sign.setLine(2, line3
-						.replace("%:a%", "ä")
-						.replace("%:e%", "ë")
-						.replace("%:i%", "ï")
-						.replace("%:o%", "ö")
-						.replace("%:u%", "ü")
-						.replace("%ss%", "ß")
-						.replace("%arena%", arena.getName())
-						.replace("%players%", arena.getPlayers() + "")
-						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "§"));
-				sign.setLine(3, line4
-						.replace("%:a%", "ä")
-						.replace("%:e%", "ë")
-						.replace("%:i%", "ï")
-						.replace("%:o%", "ö")
-						.replace("%:u%", "ü")
-						.replace("%ss%", "ß")
-						.replace("%arena%", arena.getName())
-						.replace("%players%", arena.getPlayers() + "")
-						.replace("%max_players%", arena.getMaxPlayers() + "")
-						.replaceAll("&", "§"));
-				sign.update();
-			}
-		}
+		for (Arena arena : ArenaManager.getInstance().getArenas())
+			updateJoinSigns(arena);
 	}
 	
 	public void updateJoinSigns(Arena arena) {
@@ -124,50 +70,26 @@ public class SignManager {
 			String line3 = messages.getString("join-sign.line-3");
 			String line4 = messages.getString("join-sign.line-4");
 				
-			sign.setLine(0, line1
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
+			sign.setLine(0, MessageManager.translate(line1
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "§"));
-			sign.setLine(1, line2
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
+					.replace("%status%", arena.getState().toString().toLowerCase())));
+			sign.setLine(1, MessageManager.translate(line2
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "§"));
-			sign.setLine(2, line3
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
+					.replace("%status%", arena.getState().toString().toLowerCase())));
+			sign.setLine(2, MessageManager.translate(line3
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "§"));
-			sign.setLine(3, line4
-					.replace("%:a%", "ä")
-					.replace("%:e%", "ë")
-					.replace("%:i%", "ï")
-					.replace("%:o%", "ö")
-					.replace("%:u%", "ü")
-					.replace("%ss%", "ß")
+					.replace("%status%", arena.getState().toString().toLowerCase())));
+			sign.setLine(3, MessageManager.translate(line4
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replaceAll("&", "§"));
+					.replace("%status%", arena.getState().toString().toLowerCase())));
 			sign.update();	
 		}
 	}

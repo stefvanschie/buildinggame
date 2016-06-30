@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
-import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class RainClick implements Listener {
@@ -47,14 +46,8 @@ public class RainClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.rain.id"));
-		
-		if (currentItem.getType() != block.getMaterial()) {
+		if (!IDDecompiler.getInstance().matches(config.getString("gui.rain.id"), currentItem))
 			return;
-		}
-		if (currentItem.getDurability() != block.getData()) {
-			return;
-		}
 		
 		if (!currentItem.hasItemMeta()) {
 			return;

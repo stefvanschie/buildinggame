@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,6 +20,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Time;
@@ -59,6 +61,7 @@ public class Plot {
 	}
 	
 	public void addSpectator(Player spectator, GamePlayer spectates) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		GamePlayer gamePlayer = new GamePlayer(spectator, GamePlayerType.SPECTATOR);
@@ -69,12 +72,18 @@ public class Plot {
 		for (GamePlayer player : getAllGamePlayers())
 			player.getPlayer().hidePlayer(spectator);
 		
-		ItemStack item = new ItemStack(Material.WATCH);
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(MessageManager.translate(messages.getString("leave-item.name")));
-		item.setItemMeta(meta);
+		ItemStack leaveItem = IDDecompiler.getInstance().decompile(config.getString("leave-item.id"));
+		ItemMeta leaveMeta = leaveItem.getItemMeta();
+		leaveMeta.setDisplayName(MessageManager.translate(messages.getString("leave-item.name")));
+		leaveItem.setItemMeta(leaveMeta);
 		
-		spectator.getInventory().addItem(item);
+		ItemStack menuItem = new ItemStack(Material.EMERALD);
+		ItemMeta menuMeta = menuItem.getItemMeta();
+		menuMeta.setDisplayName(ChatColor.GREEN + "Spectator menu");
+		menuItem.setItemMeta(menuMeta);
+		
+		spectator.getInventory().setItem(config.getInt("leave-item.slot"), leaveItem);
+		spectator.getInventory().setItem(8, menuItem);
 		
 		spectator.teleport(spectates.getPlayer().getLocation());
 		spectator.setGameMode(GameMode.CREATIVE);

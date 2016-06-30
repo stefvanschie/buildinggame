@@ -14,7 +14,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class FloorClick implements Listener {
@@ -41,12 +40,7 @@ public class FloorClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock cblock = IDDecompiler.getInstance().decompile(config.getString("gui.floor.id"));
-		
-		if (currentItem.getType() != cblock.getMaterial())
-			return;
-			
-		if (currentItem.getDurability() != cblock.getData())
+		if (!IDDecompiler.getInstance().matches(config.getString("gui.floor.id"), currentItem))
 			return;
 	
 		if (!currentItem.hasItemMeta())
@@ -63,8 +57,7 @@ public class FloorClick implements Listener {
 		}
 		
 		for (String material : config.getStringList("blocks.blocked")) {
-			CustomBlock cb = IDDecompiler.getInstance().decompile(material.toUpperCase());
-			if (e.getCursor().getType() == cb.getMaterial() && e.getCursor().getDurability() == cb.getData()) {
+			if (!IDDecompiler.getInstance().matches(material, e.getCursor())) {
 				for (String message : MessageManager.translate(messages.getStringList("plots.floor.forbidden")))
 					player.sendMessage(message);
 				e.setCancelled(true);

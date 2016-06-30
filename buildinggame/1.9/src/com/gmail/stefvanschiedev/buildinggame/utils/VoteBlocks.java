@@ -17,10 +17,7 @@ public class VoteBlocks {
 	
 	public void give(Player player) {
 		try {
-			CustomBlock twoBlock = IDDecompiler.getInstance().decompile(config.getString("voting.second-slot.id"));
-			
-			ItemStack two = new ItemStack(twoBlock.getMaterial());
-			two.setDurability(twoBlock.getData());
+			ItemStack two = IDDecompiler.getInstance().decompile(config.getString("voting.second-slot.id"));
 			ItemMeta twoMeta = two.getItemMeta();
 			twoMeta.setDisplayName(messages.getString("voting.second-slot-block")
 					.replace("%:a%", "ä")
@@ -33,10 +30,7 @@ public class VoteBlocks {
 			two.setItemMeta(twoMeta);
 			player.getInventory().setItem(1, two);
 		
-			CustomBlock threeBlock = IDDecompiler.getInstance().decompile(config.getString("voting.third-slot.id"));
-			
-			ItemStack three = new ItemStack(threeBlock.getMaterial());
-			three.setDurability(threeBlock.getData());
+			ItemStack three = IDDecompiler.getInstance().decompile(config.getString("voting.third-slot.id"));
 			ItemMeta threeMeta = three.getItemMeta();
 			threeMeta.setDisplayName(messages.getString("voting.third-slot-block")
 					.replace("%:a%", "ä")
@@ -49,10 +43,7 @@ public class VoteBlocks {
 			three.setItemMeta(threeMeta);
 			player.getInventory().setItem(2, three);
 		
-			CustomBlock fourBlock = IDDecompiler.getInstance().decompile(config.getString("voting.fourth-slot.id"));
-			
-			ItemStack four = new ItemStack(fourBlock.getMaterial());
-			four.setDurability(fourBlock.getData());
+			ItemStack four = IDDecompiler.getInstance().decompile(config.getString("voting.fourth-slot.id"));
 			ItemMeta fourMeta = four.getItemMeta();
 			fourMeta.setDisplayName(messages.getString("voting.fourth-slot-block")
 					.replace("%:a%", "ä")
@@ -65,10 +56,7 @@ public class VoteBlocks {
 			four.setItemMeta(fourMeta);
 			player.getInventory().setItem(3, four);
 		
-			CustomBlock fiveBlock = IDDecompiler.getInstance().decompile(config.getString("voting.fifth-slot.id"));
-			
-			ItemStack five = new ItemStack(fiveBlock.getMaterial());
-			five.setDurability(fiveBlock.getData());
+			ItemStack five = IDDecompiler.getInstance().decompile(config.getString("voting.fifth-slot.id"));
 			ItemMeta fiveMeta = five.getItemMeta();
 			fiveMeta.setDisplayName(messages.getString("voting.fifth-slot-block")
 					.replace("%:a%", "ä")
@@ -81,10 +69,7 @@ public class VoteBlocks {
 			five.setItemMeta(fiveMeta);
 			player.getInventory().setItem(4, five);
 		
-			CustomBlock sixBlock = IDDecompiler.getInstance().decompile(config.getString("voting.sixth-slot.id"));
-			
-			ItemStack six = new ItemStack(sixBlock.getMaterial());
-			six.setDurability(sixBlock.getData());
+			ItemStack six = IDDecompiler.getInstance().decompile(config.getString("voting.sixth-slot.id"));
 			ItemMeta sixMeta = six.getItemMeta();
 			sixMeta.setDisplayName(messages.getString("voting.sixth-slot-block")
 					.replace("%:a%", "ä")
@@ -97,10 +82,7 @@ public class VoteBlocks {
 			six.setItemMeta(sixMeta);
 			player.getInventory().setItem(5, six);
 		
-			CustomBlock sevenBlock = IDDecompiler.getInstance().decompile(config.getString("voting.seventh-slot.id"));
-			
-			ItemStack seven = new ItemStack(sevenBlock.getMaterial());
-			seven.setDurability(sevenBlock.getData());
+			ItemStack seven = IDDecompiler.getInstance().decompile(config.getString("voting.seventh-slot.id"));
 			ItemMeta sevenMeta = seven.getItemMeta();
 			sevenMeta.setDisplayName(messages.getString("voting.seventh-slot-block")
 					.replace("%:a%", "ä")
@@ -113,10 +95,7 @@ public class VoteBlocks {
 			seven.setItemMeta(sevenMeta);
 			player.getInventory().setItem(6, seven);
 			
-			CustomBlock eightBlock = IDDecompiler.getInstance().decompile(config.getString("voting.eighth-slot.id"));
-			
-			ItemStack eight = new ItemStack(eightBlock.getMaterial());
-			eight.setDurability(eightBlock.getData());
+			ItemStack eight = IDDecompiler.getInstance().decompile(config.getString("voting.eighth-slot.id"));
 			ItemMeta eightMeta = eight.getItemMeta();
 			eightMeta.setDisplayName(messages.getString("voting.eighth-slot-block")
 					.replace("%:a%", "ä")

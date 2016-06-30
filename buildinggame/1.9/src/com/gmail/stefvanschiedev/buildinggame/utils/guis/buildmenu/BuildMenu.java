@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 
 public class BuildMenu {
 
@@ -35,10 +34,7 @@ public class BuildMenu {
 				.replaceAll("&", "§"));
 		try {
 			// particles item
-			CustomBlock particleBlock = IDDecompiler.getInstance().decompile(config.getString("gui.particles.id"));
-			
-			ItemStack particle = new ItemStack(particleBlock.getMaterial(), 1);
-			particle.setDurability(particleBlock.getData());
+			ItemStack particle = IDDecompiler.getInstance().decompile(config.getString("gui.particles.id"));
 			{
 				ItemMeta particleMeta = particle.getItemMeta();
 				particleMeta.setDisplayName(messages.getString("gui.particles.name")
@@ -67,10 +63,7 @@ public class BuildMenu {
 			}
 
 			// floor block item
-			CustomBlock floorBlock = IDDecompiler.getInstance().decompile(config.getString("gui.floor.id"));
-			
-			ItemStack floor = new ItemStack(floorBlock.getMaterial(), 1);
-			floor.setDurability(floorBlock.getData());
+			ItemStack floor = IDDecompiler.getInstance().decompile(config.getString("gui.floor.id"));
 			{
 				ItemMeta floorMeta = floor.getItemMeta();
 				floorMeta.setDisplayName(messages.getString("gui.floor.name")
@@ -99,10 +92,7 @@ public class BuildMenu {
 			}
 
 			// plot time item
-			CustomBlock timeBlock = IDDecompiler.getInstance().decompile(config.getString("gui.time.id"));
-			
-			ItemStack time = new ItemStack(timeBlock.getMaterial(), 1);
-			time.setDurability(timeBlock.getData());
+			ItemStack time = IDDecompiler.getInstance().decompile(config.getString("gui.time.id"));
 			{
 				ItemMeta timeMeta = time.getItemMeta();
 				timeMeta.setDisplayName(messages.getString("gui.time.name")
@@ -131,10 +121,7 @@ public class BuildMenu {
 			}
 
 			// rain item
-			CustomBlock rainBlock = IDDecompiler.getInstance().decompile(config.getString("gui.rain.id"));
-			
-			ItemStack rain = new ItemStack(rainBlock.getMaterial(), 1);
-			rain.setDurability(rainBlock.getData());
+			ItemStack rain = IDDecompiler.getInstance().decompile(config.getString("gui.rain.id"));
 			{
 				ItemMeta rainMeta = rain.getItemMeta();
 				rainMeta.setDisplayName(messages.getString("gui.rain.name")
@@ -163,10 +150,7 @@ public class BuildMenu {
 			}
 
 			//flight speed item
-			CustomBlock speedBlock = IDDecompiler.getInstance().decompile(config.getString("gui.fly-speed.id"));
-			
-			ItemStack speed = new ItemStack(speedBlock.getMaterial(), 1);
-			speed.setDurability(speedBlock.getData());
+			ItemStack speed = IDDecompiler.getInstance().decompile(config.getString("gui.fly-speed.id"));
 			{
 				ItemMeta speedMeta = speed.getItemMeta();
 				speedMeta.setDisplayName(messages.getString("gui.fly-speed.name")
@@ -195,10 +179,7 @@ public class BuildMenu {
 			}
 
 			//heads item
-			CustomBlock headsBlock = IDDecompiler.getInstance().decompile(config.getString("gui.heads.id"));
-			
-			ItemStack heads = new ItemStack(headsBlock.getMaterial(), 1);
-			heads.setDurability(headsBlock.getData());
+			ItemStack heads = IDDecompiler.getInstance().decompile(config.getString("gui.heads.id"));
 			{
 				ItemMeta headsMeta = heads.getItemMeta();
 				headsMeta.setDisplayName(messages.getString("gui.heads.name")

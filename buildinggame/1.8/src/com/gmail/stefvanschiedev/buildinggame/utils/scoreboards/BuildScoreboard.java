@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -11,6 +12,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -26,7 +28,8 @@ public class BuildScoreboard {
 	
     Arena arena;
     
-    private List<String> strings = new ArrayList<String>();
+    private List<String> strings = new ArrayList<>();
+    private List<Team> teams = new ArrayList<>();
     
 	public BuildScoreboard(Arena arena) {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -34,8 +37,15 @@ public class BuildScoreboard {
 		
 		this.arena = arena;
 		
-		for (String line : messages.getStringList("scoreboards.build.text")) {
-			strings.add(MessageManager.translate(line));
+		List<String> strings = messages.getStringList("scoreboards.build.text");
+		
+		for (int i = 0; i < strings.size(); i++) {
+			Team team = scoreboard.registerNewTeam(i + "");
+			team.addEntry(ChatColor.values()[i].toString());
+			team.setDisplayName("");
+			
+			teams.add(team);
+			this.strings.add(MessageManager.translate(strings.get(i)));
 		}
 	}
 	
@@ -62,8 +72,9 @@ public class BuildScoreboard {
 	@SuppressWarnings("deprecation")
 	public void show(Player player) {
 		int place = 0;
-		for (int i = strings.size(); i > 0; i--) {
-			setScore(strings.get(place)
+		for (int i = teams.size(); i > 0; i--) {
+			Team team = teams.get(place);
+			String prefix = strings.get(place)
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
@@ -76,20 +87,24 @@ public class BuildScoreboard {
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
 					.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
-					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat()), i);
+					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat());
+
+			int length = prefix.length();
+			
+			team.setPrefix(prefix.substring(0, length > 16 ? 16 : length));
+			objective.getScore(ChatColor.values()[place].toString()).setScore(i);
 			place++;
 		}
 		
 		player.setScoreboard(scoreboard);
 	}
 	
+
 	@SuppressWarnings("deprecation")
 	public void update(Player player) {
-		for (String entry : scoreboard.getEntries())
-			scoreboard.resetScores(entry);
-		
 		for (int i = 0; i < strings.size(); i++) {
-			setScore(strings.get(i)
+			Team team = teams.get(i);
+			String prefix = strings.get(i)
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
@@ -102,13 +117,13 @@ public class BuildScoreboard {
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
 					.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
-					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat()), strings.size() - i);
+					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat());
+			
+			int length = prefix.length();
+			
+			team.setPrefix(prefix.substring(0, length > 16 ? 16 : length));
+			objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
 		}
 		player.setScoreboard(scoreboard);
-	}
-	
-	private void setScore(String name, int points) {
-		Score score = objective.getScore(name);
-		score.setScore(points);
 	}
 }

@@ -27,9 +27,8 @@ public class OpenTeamSelection implements Listener {
 			return;
 		}
 		
-		if (item.getType() != IDDecompiler.getInstance().decompile(config.getString("team-selection.item.id")).getMaterial()) {
+		if (!IDDecompiler.getInstance().matches(config.getString("team-selection.item.id"), item))
 			return;
-		}
 		
 		if (!item.hasItemMeta()) {
 			return;

@@ -11,7 +11,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
@@ -19,7 +18,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class BlockPlace implements Listener {
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
@@ -53,8 +51,7 @@ public class BlockPlace implements Listener {
 		}
 		
 		for (String material : config.getStringList("blocks.blocked")) {
-			CustomBlock cb = IDDecompiler.getInstance().decompile(material.toUpperCase());
-			if (e.getBlock().getType() == cb.getMaterial() && e.getBlock().getData() == cb.getData()) {
+			if (IDDecompiler.getInstance().matches(material, e.getBlock())) {
 				e.setCancelled(true);
 				return;
 			}

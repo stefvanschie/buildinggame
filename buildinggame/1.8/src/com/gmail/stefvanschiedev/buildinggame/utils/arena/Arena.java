@@ -37,7 +37,6 @@ import com.gmail.stefvanschiedev.buildinggame.timers.VoteTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.WaitTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.WinTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
-import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Lobby;
 import com.gmail.stefvanschiedev.buildinggame.utils.VoteBlocks;
@@ -63,12 +62,15 @@ public class Arena {
 	private int maxPlayers = plots.size();
 	private int minPlayers;
 	private Plot votingPlot;
-	private Plot winner;
 	private BuildScoreboard buildScoreboard = new BuildScoreboard(this);
 	private LobbyScoreboard lobbyScoreboard = new LobbyScoreboard(this);
 	private VoteScoreboard voteScoreboard = new VoteScoreboard();
 	private WinScoreboard winScoreboard = new WinScoreboard(this);
 	private String subject;
+	
+	private Plot first;
+	private Plot second;
+	private Plot third;
 	
 	private SubjectMenu subjectMenu = new SubjectMenu();
 	private TeamSelection teamSelection = new TeamSelection(this);
@@ -119,6 +121,10 @@ public class Arena {
 	
 	public BuildTimer getBuildTimer() {
 		return buildTimer;
+	}
+	
+	public Plot getFirstPlot() {
+		return first;
 	}
 	
 	public Lobby getLobby() {
@@ -179,8 +185,8 @@ public class Arena {
 		return plots;
 	}
 	
-	public VoteScoreboard getVoteScoreboard() {
-		return voteScoreboard;
+	public Plot getSecondPlot() {
+		return second;
 	}
 	
 	public List<Sign> getSigns() {
@@ -203,6 +209,10 @@ public class Arena {
 		return teamSelection;
 	}
 	
+	public Plot getThirdPlot() {
+		return third;
+	}
+	
 	public List<Plot> getUsedPlots() {
 		List<Plot> usedPlots = new ArrayList<Plot>();
 		
@@ -219,6 +229,10 @@ public class Arena {
 		return votedPlots;
 	}
 	
+	public VoteScoreboard getVoteScoreboard() {
+		return voteScoreboard;
+	}
+	
 	public VoteTimer getVoteTimer() {
 		return voteTimer;
 	}
@@ -229,10 +243,6 @@ public class Arena {
 	
 	public WaitTimer getWaitTimer() {
 		return waitTimer;
-	}
-	
-	public Plot getWinner() {
-		return winner;
 	}
 	
 	public WinScoreboard getWinScoreboard() {
@@ -390,10 +400,7 @@ public class Arena {
 			public void run() {
 				//give team selection
 				if (getMode() == ArenaMode.TEAM) {
-					CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("team-selection.item.id"));
-					
-					ItemStack item = new ItemStack(cb.getMaterial(), 1);
-					item.setDurability(cb.getData());
+					ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.item.id"));
 					ItemMeta itemMeta = item.getItemMeta();
 					itemMeta.setDisplayName(messages.getString("team-gui.item.name")
 							.replace("%:a%", "ä")
@@ -422,10 +429,7 @@ public class Arena {
 				
 				//give paper for subject
 				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
-					CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id"));
-					
-					ItemStack item = new ItemStack(cb.getMaterial(), 1);
-					item.setDurability(cb.getData());
+					ItemStack item = IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id"));
 					ItemMeta itemMeta = item.getItemMeta();
 					itemMeta.setDisplayName(messages.getString("subject-gui.item.name")
 							.replaceAll("&", "§"));
@@ -439,9 +443,7 @@ public class Arena {
 					player.getInventory().setItem(8, item);
 				}
 				
-				CustomBlock cb = IDDecompiler.getInstance().decompile(config.getString("leave-item.id"));
-				
-				ItemStack leave = new ItemStack(cb.getMaterial(), 1, cb.getData());
+				ItemStack leave = IDDecompiler.getInstance().decompile(config.getString("leave-item.id"));
 				ItemMeta leaveMeta = leave.getItemMeta();
 				leaveMeta.setDisplayName(MessageManager.translate(messages.getString("leave-item.name")));
 				leave.setItemMeta(leaveMeta);
@@ -563,6 +565,10 @@ public class Arena {
 		this.buildTimer = buildTimer;
 	}
 	
+	public void setFirstPlot(Plot first) {
+		this.first = first;
+	}
+	
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;
 	}
@@ -591,8 +597,8 @@ public class Arena {
 		this.plots = plots;
 	}
 	
-	public void setVoteScoreboard(VoteScoreboard voteScoreboard) {
-		this.voteScoreboard = voteScoreboard;
+	public void setSecondPlot(Plot second) {
+		this.second = second;
 	}
 	
 	public void setSigns(List<Sign> signs) {
@@ -607,8 +613,16 @@ public class Arena {
 		this.subject = subject;
 	}
 	
+	public void setThirdPlot(Plot third) {
+		this.third = third;
+	}
+	
 	public void setVotedPlots(List<Plot> votedPlots) {
 		this.votedPlots = votedPlots;
+	}
+	
+	public void setVoteScoreboard(VoteScoreboard voteScoreboard) {
+		this.voteScoreboard = voteScoreboard;
 	}
 	
 	public void setVoteTimer(VoteTimer voteTimer) {
@@ -654,10 +668,6 @@ public class Arena {
 	
 	public void setWaitTimer(WaitTimer waitTimer) {
 		this.waitTimer = waitTimer;
-	}
-	
-	public void setWinner(Plot winner) {
-		this.winner = winner;
 	}
 	
 	public void setWinScoreboard(WinScoreboard winScoreboard) {
@@ -742,6 +752,11 @@ public class Arena {
 		setBuildTimer(new BuildTimer(config.getInt("timer"), this));
 		setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
 		setWinTimer(new WinTimer(config.getInt("wintimer"), this));
+		
+		setFirstPlot(null);
+		setSecondPlot(null);
+		setThirdPlot(null);
+		
 		setVoteScoreboard(new VoteScoreboard());
 		setSubject(null);
 		getVotedPlots().clear();

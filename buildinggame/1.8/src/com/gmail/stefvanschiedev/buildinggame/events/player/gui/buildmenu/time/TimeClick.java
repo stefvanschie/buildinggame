@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
-import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.TimeMenu;
 
 public class TimeClick implements Listener {
@@ -44,14 +43,8 @@ public class TimeClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.time.id"));
-		
-		if (currentItem.getType() != block.getMaterial()) {
+		if (!IDDecompiler.getInstance().matches(config.getString("gui.time.id"), currentItem))
 			return;
-		}
-		if (currentItem.getDurability() != block.getData()) {
-			return;
-		}
 		
 		if (!currentItem.hasItemMeta()) {
 			return;

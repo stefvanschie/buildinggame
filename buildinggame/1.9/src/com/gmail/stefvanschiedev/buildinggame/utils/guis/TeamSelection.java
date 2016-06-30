@@ -40,7 +40,7 @@ public class TeamSelection {
 		
 		int iteration = 0;
 		for (Plot plot : arena.getPlots()) {
-			ItemStack item = new ItemStack(IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + (iteration + 1) + ".id")).getMaterial());
+			ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + (iteration + 1) + ".id"));
 			ItemMeta itemMeta = item.getItemMeta();
 			itemMeta.setDisplayName(messages.getString("team-gui.team.name")
 					.replace("%:a%", "ä")

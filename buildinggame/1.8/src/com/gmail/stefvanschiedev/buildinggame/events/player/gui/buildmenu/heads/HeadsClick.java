@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
-import com.gmail.stefvanschiedev.buildinggame.utils.CustomBlock;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.HeadsMenu;
 
 public class HeadsClick implements Listener {
@@ -45,14 +44,8 @@ public class HeadsClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		CustomBlock block = IDDecompiler.getInstance().decompile(config.getString("gui.heads.id"));
-		
-		if (currentItem.getType() != block.getMaterial()) {
+		if (!IDDecompiler.getInstance().matches(config.getString("gui.heads.id"), currentItem))
 			return;
-		}
-		if (currentItem.getDurability() != block.getData()) {
-			return;
-		}
 		
 		if (!currentItem.hasItemMeta()) {
 			return;

@@ -58,9 +58,8 @@ public class TeamClick implements Listener {
 		
 		String team = nbtItem.getInteger("team") + "";
 		
-		if (item.getType() != IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + team + ".id")).getMaterial()) {
+		if (!IDDecompiler.getInstance().matches(config.getString("team-selection.team." + team + ".id"), item))
 			return;
-		}
 		
 		GamePlayer gamePlayer = arena.getPlot(player).getGamePlayer(player);
 		

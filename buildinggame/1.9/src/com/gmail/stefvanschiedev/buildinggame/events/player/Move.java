@@ -68,15 +68,15 @@ public class Move implements Listener {
 		}
 		
 		if (arena.getState() == GameState.RESETING) {		
-			if (arena.getWinner() == null) {
+			if (arena.getFirstPlot() == null) {
 				return;
 			}
-			if (!arena.getWinner().getBoundary().isInside(from)) {
-				player.teleport(arena.getWinner().getBoundary().getAllBlocks().get(new Random().nextInt(arena.getWinner().getBoundary().getAllBlocks().size())).getLocation());
+			if (!arena.getFirstPlot().getBoundary().isInside(from)) {
+				player.teleport(arena.getFirstPlot().getBoundary().getAllBlocks().get(new Random().nextInt(arena.getFirstPlot().getBoundary().getAllBlocks().size())).getLocation());
 				return;
 			}
 			
-			if (!arena.getWinner().getBoundary().isInside(to)) {
+			if (!arena.getFirstPlot().getBoundary().isInside(to)) {
 				player.teleport(from);
 				MessageManager.getInstance().send(player, messages.getStringList("in-game.move-out-bounds"));
 				return;

@@ -28,9 +28,11 @@ public class OpenSubjectMenu implements Listener {
 			return;
 		}
 		
-		if (item.getType() != IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id")).getMaterial()) {
+		if (item == null)
 			return;
-		}
+		
+		if (IDDecompiler.getInstance().matches(config.getString("subject-gui.item.id"), item))
+			return;
 		
 		if (!item.hasItemMeta()) {
 			return;

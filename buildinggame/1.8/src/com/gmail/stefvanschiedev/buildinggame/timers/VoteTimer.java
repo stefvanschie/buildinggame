@@ -78,7 +78,9 @@ public class VoteTimer extends Timer {
 				if (third != null)
 					Bukkit.getPluginManager().callEvent(new PlayerWinEvent(arena, third.getGamePlayers(), Win.THIRD));
 				
-				arena.setWinner(first);
+				arena.setFirstPlot(first);
+				arena.setSecondPlot(second);
+				arena.setThirdPlot(third);
 				
 				for (Plot plot : arena.getUsedPlots()) {
 					for (GamePlayer gamePlayer : plot.getGamePlayers()) {
@@ -129,9 +131,11 @@ public class VoteTimer extends Timer {
 								}
 						
 								for (String command : config.getStringList("commands.first")) {
-									String cmd = CommandExecuter.execute(command);
+									String cmd = CommandExecuter.execute(command
+											.replace("%player%", player.getName()));
 									if (cmd != null)
-										player.performCommand(command);
+										player.performCommand(command
+												.replace("%player%", player.getName()));
 								}
 						
 								if (r.transactionSuccess()) {
@@ -155,9 +159,11 @@ public class VoteTimer extends Timer {
 								}
 						
 								for (String command : config.getStringList("commands.second")) {
-									String cmd = CommandExecuter.execute(command);
+									String cmd = CommandExecuter.execute(command
+											.replace("%player%", player.getName()));
 									if (cmd != null)
-										player.performCommand(command);
+										player.performCommand(command
+												.replace("%player%", player.getName()));
 								}
 						
 								if (r.transactionSuccess()) {
@@ -181,9 +187,11 @@ public class VoteTimer extends Timer {
 								}
 						
 								for (String command : config.getStringList("commands.third")) {
-									String cmd = CommandExecuter.execute(command);
+									String cmd = CommandExecuter.execute(command
+											.replace("%player%", player.getName()));
 									if (cmd != null)
-										player.performCommand(command);
+										player.performCommand(command
+												.replace("%player%", player.getName()));
 								}
 						
 								if (r.transactionSuccess()) {
@@ -202,9 +210,11 @@ public class VoteTimer extends Timer {
 								EconomyResponse r = vault.depositPlayer(player, money);
 							
 								for (String command : config.getStringList("commands.others")) {
-									String cmd = CommandExecuter.execute(command);
+									String cmd = CommandExecuter.execute(command
+											.replace("%player%", player.getName()));
 									if (cmd != null)
-										player.performCommand(command);
+										player.performCommand(command
+												.replace("%player%", player.getName()));
 								}
 						
 								if (r.transactionSuccess()) {
