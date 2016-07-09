@@ -57,7 +57,7 @@ public class FloorClick implements Listener {
 		}
 		
 		for (String material : config.getStringList("blocks.blocked")) {
-			if (!IDDecompiler.getInstance().matches(material, e.getCursor())) {
+			if (IDDecompiler.getInstance().matches(material, e.getCursor())) {
 				for (String message : MessageManager.translate(messages.getStringList("plots.floor.forbidden")))
 					player.sendMessage(message);
 				e.setCancelled(true);

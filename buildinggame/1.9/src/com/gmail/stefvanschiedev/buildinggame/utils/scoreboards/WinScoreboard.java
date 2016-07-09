@@ -74,7 +74,7 @@ public class WinScoreboard {
 		int place = 0;
 		for (int i = teams.size(); i > 0; i--) {
 			Team team = teams.get(place);
-			String prefix = strings.get(place)
+			String text = strings.get(place)
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
@@ -92,9 +92,13 @@ public class WinScoreboard {
 					.replace("%second_players%", arena.getSecondPlot() == null ? "?" : arena.getSecondPlot().getPlayerFormat())
 					.replace("%third_players%", arena.getThirdPlot() == null ? "?" : arena.getThirdPlot().getPlayerFormat());
 			
-			int length = prefix.length();
+			int length = text.length();
 			
-			team.setPrefix(prefix.substring(0, length > 16 ? 16 : length));
+			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
+			
+			if (length > 16)
+				team.setSuffix(text.substring(16, length > 32 ? 32 : length));
+			
 			objective.getScore(ChatColor.values()[place].toString()).setScore(i);
 			place++;
 		}
@@ -108,7 +112,7 @@ public class WinScoreboard {
 		for (int i = 0; i < strings.size(); i++) {
 			Team team = teams.get(i);
 			
-			team.setPrefix(strings.get(i)
+			String text = strings.get(i)
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
@@ -124,12 +128,15 @@ public class WinScoreboard {
 					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
 					.replace("%first_players%", arena.getFirstPlot() == null ? "?" : arena.getFirstPlot().getPlayerFormat())
 					.replace("%second_players%", arena.getSecondPlot() == null ? "?" : arena.getSecondPlot().getPlayerFormat())
-					.replace("%third_players%", arena.getThirdPlot() == null ? "?" : arena.getThirdPlot().getPlayerFormat()));
+					.replace("%third_players%", arena.getThirdPlot() == null ? "?" : arena.getThirdPlot().getPlayerFormat());
 			
-			String prefix = team.getPrefix();
-			int length = prefix.length();
+			int length = text.length();
 			
-			team.setPrefix(prefix.substring(0, length > 16 ? 16 : length));
+			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
+			
+			if (length > 16)
+				team.setSuffix(text.substring(16, length > 32 ? 32 : length));
+			
 			objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
 		}
 		player.setScoreboard(scoreboard);

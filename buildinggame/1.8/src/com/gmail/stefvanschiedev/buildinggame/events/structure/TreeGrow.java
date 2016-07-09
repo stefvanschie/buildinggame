@@ -27,6 +27,8 @@ public class TreeGrow implements Listener {
 			return;
 		
 		for (int i = 0; i < e.getBlocks().size(); i++) {
+			if (plot.getBoundary() == null)
+				continue;
 			if (!plot.getBoundary().isInside(e.getBlocks().get(i).getLocation())) {
 				e.getBlocks().remove(e.getBlocks().get(i));
 				i--;

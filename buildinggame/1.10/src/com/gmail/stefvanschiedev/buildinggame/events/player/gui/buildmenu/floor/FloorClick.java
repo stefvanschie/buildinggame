@@ -62,8 +62,7 @@ public class FloorClick implements Listener {
 		}
 		
 		for (String material : config.getStringList("blocks.blocked")) {
-			ItemStack is = IDDecompiler.getInstance().decompile(material.toUpperCase());
-			if (e.getCursor().getType() == is.getType() && e.getCursor().getDurability() == is.getDurability()) {
+			if (IDDecompiler.getInstance().matches(material, e.getCursor())) {
 				for (String message : MessageManager.translate(messages.getStringList("plots.floor.blocked")))
 					player.sendMessage(message);
 				e.setCancelled(true);

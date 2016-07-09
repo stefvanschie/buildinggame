@@ -18,7 +18,6 @@ public class Chat implements Listener {
 		if (arena == null)
 			return;
 		
-		
 		for (int i = 0; i < e.getRecipients().toArray().length; i++) {
 			if (!arena.contains((Player) e.getRecipients().toArray()[i]))
 				e.getRecipients().remove((Player) e.getRecipients().toArray()[i]);

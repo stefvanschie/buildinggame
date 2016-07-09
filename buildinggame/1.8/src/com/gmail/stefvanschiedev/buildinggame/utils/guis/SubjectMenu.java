@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,18 +23,29 @@ import com.gmail.stefvanschiedev.buildinggame.utils.SubjectVote;
 
 public class SubjectMenu {
 
+	private List<String> subjects = new ArrayList<>();
+	
 	private Map<String, GuiPage> players = new HashMap<String, GuiPage>();
 	private Map<String, SubjectVote> votes = new HashMap<String, SubjectVote>();
 	
 	public SubjectMenu() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
+		int amountOfSubjects = config.getInt("subject-gui.subject-amount");
+		
+		if (amountOfSubjects == -1) {
+			for (String s : config.getStringList("subjects"))
+				subjects.add(s);
+		} else {
+			for (int i = 0; i < amountOfSubjects; i++)
+				subjects.add(config.getStringList("subjects").get(ThreadLocalRandom.current().nextInt(amountOfSubjects)));
+		}
+		
 		for (String s : config.getStringList("subjects"))
 			votes.put(s, new SubjectVote(0));
 	}
 	
 	public void show(Player player, GuiPage page) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 				
 		Inventory inventory = Bukkit.createInventory(null, 36, MessageManager.translate(messages.getString("subject-gui.title")));
@@ -42,10 +54,10 @@ public class SubjectMenu {
 			if (page.getPage() < 1)
 				return;
 			
-			if (config.getStringList("subjects").size() - 1 < i + (page.getPage() - 1) * 27)
+			if (subjects.size() - 1 < i + (page.getPage() - 1) * 27)
 				break;
 			
-			String subject = ChatColor.stripColor(config.getStringList("subjects").get(i + (page.getPage() - 1) * 27));
+			String subject = ChatColor.stripColor(subjects.get(i + (page.getPage() - 1) * 27));
 			
 			if (!votes.containsKey(subject))
 				votes.put(subject, new SubjectVote(0));
@@ -103,7 +115,7 @@ public class SubjectMenu {
 		if (page.getPage() - 1 > 0)
 			inventory.setItem(29, prevItem);
 		inventory.setItem(31, closeItem);
-		if (config.getStringList("subjects").size() > 27 * (page.getPage() - 1) + 27)
+		if (subjects.size() > 27 * (page.getPage() - 1) + 27)
 			inventory.setItem(33, nextItem);
 		
 		player.openInventory(inventory);

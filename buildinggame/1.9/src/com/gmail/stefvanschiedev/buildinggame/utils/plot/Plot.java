@@ -330,12 +330,16 @@ public class Plot {
 		if (arena.getMode() == ArenaMode.TEAM) {
 			if (!isFull()) {
 				gamePlayers.add(gamePlayer);
+				
+				MessageManager.getInstance().send(gamePlayer.getPlayer(), ChatColor.GOLD + "You have joined plot " + getID());
 				return true;
 			} else {
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), MessageManager.translate(messages.getStringList("join.plot.full")));
 				return false;
 			}
 		} else {
+			MessageManager.getInstance().send(gamePlayer.getPlayer(), ChatColor.GOLD + "You have joined plot " + getID());
+			
 			if (gamePlayers.size() == 1) {
 				gamePlayers.remove(0);
 				gamePlayers.add(gamePlayer);

@@ -125,6 +125,7 @@ leave-item:
 subject-gui:
   item:
     id: 'paper'
+  subject-amount: -1
   
 team-selection:
   show-names-as-lore: false
@@ -138,6 +139,7 @@ bungeecord:
   enable: false
 
 gui:
+  slot: 8
   particles:
     id: 'red_rose'
     enabled: true

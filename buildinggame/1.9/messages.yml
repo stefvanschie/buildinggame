@@ -4005,6 +4005,18 @@ gui:
     name: "&aClose menu"
     lores:
     - "&7Close the options menu"
+    
+variables:
+  join-sign:
+    status:
+      building: "&7building&r"
+      full: "&5full&r"
+      ingame: "&cin game&r"
+      reseting: "&fresetting&r"
+      starting: "&estarting&r"
+      voting: "&4voting&r"
+      waiting: "&awaiting&r"
+    
 scoreboards:
   lobby:
     header: "&e&lBuilding Game"

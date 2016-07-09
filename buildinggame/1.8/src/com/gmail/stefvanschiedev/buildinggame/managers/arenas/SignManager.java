@@ -74,22 +74,22 @@ public class SignManager {
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", arena.getState().toString().toLowerCase())));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
 			sign.setLine(1, MessageManager.translate(line2
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", arena.getState().toString().toLowerCase())));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
 			sign.setLine(2, MessageManager.translate(line3
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", arena.getState().toString().toLowerCase())));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
 			sign.setLine(3, MessageManager.translate(line4
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", arena.getState().toString().toLowerCase())));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
 			sign.update();	
 		}
 	}

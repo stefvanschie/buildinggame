@@ -679,6 +679,7 @@ public class Arena {
 	}
 	
 	public void start() {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		//call event
@@ -719,7 +720,7 @@ public class Arena {
 				emeraldMeta.setLore(emeraldLores);
 				emerald.setItemMeta(emeraldMeta);
 				
-				player.getInventory().setItem(8, emerald);
+				player.getInventory().setItem(config.getInt("gui.slot"), emerald);
 			}
 		}
 		
