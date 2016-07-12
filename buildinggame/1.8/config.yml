@@ -126,6 +126,7 @@ subject-gui:
   item:
     id: 'paper'
   subject-amount: -1
+  slot: 8
   
 team-selection:
   show-names-as-lore: false

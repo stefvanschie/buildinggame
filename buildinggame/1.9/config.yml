@@ -131,6 +131,7 @@ subject-gui:
   item:
     id: 'paper'
   subject-amount: -1
+  slot: 8
 
 bungeecord:
   enable: false

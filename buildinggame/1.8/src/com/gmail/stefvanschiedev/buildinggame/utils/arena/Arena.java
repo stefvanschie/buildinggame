@@ -440,7 +440,7 @@ public class Arena {
 					}
 					itemMeta.setLore(itemLores);
 					item.setItemMeta(itemMeta);
-					player.getInventory().setItem(8, item);
+					player.getInventory().setItem(config.getInt("subject-gui.slot"), item);
 				}
 				
 				ItemStack leave = IDDecompiler.getInstance().decompile(config.getString("leave-item.id"));

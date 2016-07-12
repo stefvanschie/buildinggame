@@ -58,6 +58,8 @@ join:
   plot:
     full:
     - "&cThis team is full!"
+    message:
+    - "&6You have joined plot %plot%"
 lobbyCountdown:
   message:
   - "&6The game starts in %seconds% seconds!"
