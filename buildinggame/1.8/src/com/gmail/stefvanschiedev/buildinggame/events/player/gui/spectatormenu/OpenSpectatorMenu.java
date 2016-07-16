@@ -16,7 +16,19 @@ public class OpenSpectatorMenu implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
 		
-		if (ArenaManager.getInstance().getArena(player) == null || !player.getInventory().getItemInHand().hasItemMeta() || player.getInventory().getItemInHand().getType() != Material.EMERALD || !player.getInventory().getItemInHand().hasItemMeta() || !player.getInventory().getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Spectator menu"))
+		if (ArenaManager.getInstance().getArena(player) == null)
+			return;
+		
+		if (!player.getInventory().getItemInHand().hasItemMeta())
+			return;
+		
+		if (player.getInventory().getItemInHand().getType() != Material.EMERALD)
+			return;
+		
+		if (!player.getInventory().getItemInHand().hasItemMeta())
+			return;
+		
+		if (!player.getInventory().getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Spectator menu"))
 			return;
 		
 		new SpectatorMenu().show(player);

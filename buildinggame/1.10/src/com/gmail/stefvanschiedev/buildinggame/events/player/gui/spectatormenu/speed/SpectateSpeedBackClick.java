@@ -22,7 +22,7 @@ public class SpectateSpeedBackClick implements Listener {
 		Player player = (Player) e.getWhoClicked();
 		Inventory inventory = e.getInventory();
 		
-		if (!inventory.getName().equals(MessageManager.translate(messages.getString("gui.fly-speed.title"))))
+		if (!inventory.getName().equals(MessageManager.translate(messages.getString("spectator-gui.fly-speed.title"))))
 			return;
 		
 		if (e.getCurrentItem() == null)
@@ -36,7 +36,7 @@ public class SpectateSpeedBackClick implements Listener {
 		if (!currentItem.hasItemMeta())
 			return;
 			
-		if (!currentItem.getItemMeta().getDisplayName().equals(MessageManager.translate(messages.getString("gui.fly-speed.back.name"))))
+		if (!currentItem.getItemMeta().getDisplayName().equals(MessageManager.translate(messages.getString("spectator-gui.fly-speed.back.name"))))
 			return;
 		
 		new SpectatorMenu().show(player);

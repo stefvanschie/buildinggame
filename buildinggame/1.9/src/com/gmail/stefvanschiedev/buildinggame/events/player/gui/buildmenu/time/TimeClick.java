@@ -43,7 +43,7 @@ public class TimeClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		if (IDDecompiler.getInstance().matches(config.getString("gui.time.id"), currentItem))
+		if (!IDDecompiler.getInstance().matches(config.getString("gui.time.id"), currentItem))
 			return;
 		
 		if (!currentItem.hasItemMeta()) {

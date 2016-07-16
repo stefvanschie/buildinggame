@@ -19,16 +19,16 @@ public class SpeedMenu {
 	public void show(Player player) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		Inventory inventory = Bukkit.createInventory(null, 18, MessageManager.translate(messages.getString("gui.fly-speed.title")));
+		Inventory inventory = Bukkit.createInventory(null, 18, MessageManager.translate(messages.getString("spectator-gui.fly-speed.title")));
 		
 		//fly speed 1
 		ItemStack speed1 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed1Meta = speed1.getItemMeta();
-			speed1Meta.setDisplayName(MessageManager.translate(messages.getString("gui.fly-speed.speed-1.name")));
+			speed1Meta.setDisplayName(MessageManager.translate(messages.getString("spectator-gui.fly-speed.speed-1.name")));
 			{
 				List<String> speed1Lores = new ArrayList<String>();
-				for (String lore : messages.getStringList("gui.fly-speed.speed-1.lores"))
+				for (String lore : messages.getStringList("spectator-gui.fly-speed.speed-1.lores"))
 					speed1Lores.add(MessageManager.translate(lore));
 				speed1Meta.setLore(speed1Lores);
 			}
@@ -39,10 +39,10 @@ public class SpeedMenu {
 		ItemStack speed2 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed2Meta = speed2.getItemMeta();
-			speed2Meta.setDisplayName(MessageManager.translate(messages.getString("gui.fly-speed.speed-2.name")));
+			speed2Meta.setDisplayName(MessageManager.translate(messages.getString("spectator-gui.fly-speed.speed-2.name")));
 			{
 				List<String> speed2Lores = new ArrayList<String>();
-				for (String lore : messages.getStringList("gui.fly-speed.speed-2.lores"))
+				for (String lore : messages.getStringList("spectator-gui.fly-speed.speed-2.lores"))
 					speed2Lores.add(MessageManager.translate(lore));
 				speed2Meta.setLore(speed2Lores);
 			}
@@ -53,10 +53,10 @@ public class SpeedMenu {
 		ItemStack speed3 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed3Meta = speed3.getItemMeta();
-			speed3Meta.setDisplayName(MessageManager.translate(messages.getString("gui.fly-speed.speed-3.name")));
+			speed3Meta.setDisplayName(MessageManager.translate(messages.getString("spectator-gui.fly-speed.speed-3.name")));
 			{
 				List<String> speed3Lores = new ArrayList<String>();
-				for (String lore : messages.getStringList("gui.fly-speed.speed-3.lores"))
+				for (String lore : messages.getStringList("spectator-gui.fly-speed.speed-3.lores"))
 					speed3Lores.add(MessageManager.translate(lore));
 				speed3Meta.setLore(speed3Lores);
 			}
@@ -67,10 +67,10 @@ public class SpeedMenu {
 		ItemStack speed4 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed4Meta = speed4.getItemMeta();
-			speed4Meta.setDisplayName(MessageManager.translate(messages.getString("gui.fly-speed.speed-4.name")));
+			speed4Meta.setDisplayName(MessageManager.translate(messages.getString("spectator-gui.fly-speed.speed-4.name")));
 			{
 				List<String> speed4Lores = new ArrayList<String>();
-				for (String lore : messages.getStringList("gui.fly-speed.speed-4.lores"))
+				for (String lore : messages.getStringList("spectator-gui.fly-speed.speed-4.lores"))
 					speed4Lores.add(MessageManager.translate(lore));
 				speed4Meta.setLore(speed4Lores);
 			}
@@ -81,10 +81,10 @@ public class SpeedMenu {
 		ItemStack speed5 = new ItemStack(Material.FEATHER, 1);
 		{
 			ItemMeta speed5Meta = speed5.getItemMeta();
-			speed5Meta.setDisplayName(MessageManager.translate(messages.getString("gui.fly-speed.speed-5.name")));
+			speed5Meta.setDisplayName(MessageManager.translate(messages.getString("spectator-gui.fly-speed.speed-5.name")));
 			{
 				List<String> speed5Lores = new ArrayList<String>();
-				for (String lore : messages.getStringList("gui.fly-speed.speed-5.lores"))
+				for (String lore : messages.getStringList("spectator-gui.fly-speed.speed-5.lores"))
 					speed5Lores.add(MessageManager.translate(lore));
 				speed5Meta.setLore(speed5Lores);
 			}
@@ -95,10 +95,10 @@ public class SpeedMenu {
 		ItemStack back = new ItemStack(Material.BOOK, 1);
 		{
 			ItemMeta backMeta = back.getItemMeta();
-			backMeta.setDisplayName(MessageManager.translate(messages.getString("gui.fly-speed.back.name")));
+			backMeta.setDisplayName(MessageManager.translate(messages.getString("spectator-gui.fly-speed.back.name")));
 			{
 				List<String> backLores = new ArrayList<String>();
-				for (String lore : messages.getStringList("gui.fly-speed.back.lores"))
+				for (String lore : messages.getStringList("spectator-gui.fly-speed.back.lores"))
 					backLores.add(MessageManager.translate(lore));
 				backMeta.setLore(backLores);
 			}

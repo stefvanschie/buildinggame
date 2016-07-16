@@ -21,7 +21,7 @@ public class SpectateSpeed5Click implements Listener {
 		Player player = (Player) e.getWhoClicked();
 		Inventory inventory = e.getInventory();
 		
-		if (!inventory.getName().equals(MessageManager.translate(messages.getString("gui.fly-speed.title"))))
+		if (!inventory.getName().equals(MessageManager.translate(messages.getString("spectator-gui.fly-speed.title"))))
 			return;
 		
 		if (e.getCurrentItem() == null)
@@ -35,7 +35,7 @@ public class SpectateSpeed5Click implements Listener {
 		if (!currentItem.hasItemMeta())
 			return;
 			
-		if (!currentItem.getItemMeta().getDisplayName().equals(MessageManager.translate(messages.getString("gui.fly-speed.speed-5.name"))))
+		if (!currentItem.getItemMeta().getDisplayName().equals(MessageManager.translate(messages.getString("spectator-gui.fly-speed.speed-5.name"))))
 			return;
 		
 		player.setFlySpeed((float) 0.5);

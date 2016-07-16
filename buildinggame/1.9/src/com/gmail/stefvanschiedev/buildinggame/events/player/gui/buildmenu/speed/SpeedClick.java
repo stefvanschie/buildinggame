@@ -43,7 +43,7 @@ public class SpeedClick implements Listener {
 		
 		ItemStack currentItem = e.getCurrentItem();
 		
-		if (IDDecompiler.getInstance().matches(config.getString("gui.fly-speed.id"), currentItem))
+		if (!IDDecompiler.getInstance().matches(config.getString("gui.fly-speed.id"), currentItem))
 			return;
 		
 		if (!currentItem.hasItemMeta()) {

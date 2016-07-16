@@ -768,7 +768,7 @@ public class Arena {
 				
 				gamePlayer.restore();
 				player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-				player.resetPlayerTime();
+				player.setPlayerTime(player.getWorld().getFullTime(), true);
 				player.resetPlayerWeather();
 				
 				//show all players again

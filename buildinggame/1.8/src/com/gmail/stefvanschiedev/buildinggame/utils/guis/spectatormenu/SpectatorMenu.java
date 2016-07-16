@@ -4,31 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+
 public class SpectatorMenu {
 
 	public void show(Player player) {
-		Inventory inventory = Bukkit.createInventory(null, 36, ChatColor.GREEN + "Spectator menu");
+		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
+		Inventory inventory = Bukkit.createInventory(null, 36, MessageManager.translate(messages.getString("subject-gui.title")));
 		
 		ItemStack speed = new ItemStack(Material.FEATHER);
 		ItemMeta speedMeta = speed.getItemMeta();
-		speedMeta.setDisplayName(ChatColor.GREEN + "Flight speed");
+		speedMeta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.fly-speed.name")));
 		List<String> speedLores = new ArrayList<String>();
-		speedLores.add(ChatColor.GRAY + "Change the speed which you fly at");
+		for (String lore : MessageManager.translate(messages.getStringList("subject-gui.fly-speed.lores")))
+			speedLores.add(lore);
 		speedMeta.setLore(speedLores);
 		speed.setItemMeta(speedMeta);
 		
 		ItemStack close = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = close.getItemMeta();
-		closeMeta.setDisplayName(ChatColor.GREEN + "Close menu");
+		closeMeta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.close-menu.name")));
 		List<String> closeLores = new ArrayList<String>();
-		closeLores.add(ChatColor.GRAY + "Close the spectator menu");
+		for (String lore : MessageManager.translate(messages.getStringList("subject-gui.close-menu.lores")))
+			closeLores.add(lore);
 		closeMeta.setLore(closeLores);
 		close.setItemMeta(closeMeta);
 		

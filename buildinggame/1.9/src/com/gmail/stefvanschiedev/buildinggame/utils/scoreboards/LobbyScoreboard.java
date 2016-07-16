@@ -94,7 +94,7 @@ public class LobbyScoreboard {
 			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
 			
 			if (length > 16)
-				team.setSuffix(ChatColor.RESET + text.substring(16, length > 32 ? 32 : length));
+				team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 : length));
 			
 			objective.getScore(ChatColor.values()[place].toString()).setScore(i);
 			place++;
@@ -128,7 +128,7 @@ public class LobbyScoreboard {
 			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
 			
 			if (length > 16)
-				team.setSuffix(ChatColor.RESET + text.substring(16, length > 32 ? 32 : length));
+				team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 : length));
 			
 			objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
 		}

@@ -3992,6 +3992,42 @@ gui:
     lores:
     - "&7Close the options menu"
   
+spectator-gui:
+  title: "&aSpectator menu"
+  fly-speed:
+    name: "&aFlight speed"
+    lores:
+    - "&7Change the speed which you fly at"
+    title: "&aSpectator fly speed"
+    speed-1:
+      name: "&aFly speed 1"
+      lores:
+      - "&7Change your fly speed to 1"
+    speed-2:
+      name: "&aFly speed 2"
+      lores:
+      - "&7Change your fly speed to 2"
+    speed-3:
+      name: "&aFly speed 3"
+      lores:
+      - "&7Change your fly speed to 3"
+    speed-4:
+      name: "&aFly speed 4"
+      lores:
+      - "&7Change your fly speed to 4"
+    speed-5:
+      name: "&aFly speed 5"
+      lores:
+      - "&7Change your fly speed to 5"
+    back:
+      name: "&aGo back"
+      lores:
+      - "&7Go back to the previous menu"
+  close-menu:
+    name: "&aClose menu"
+    lores:
+    - "&7Close this menu"
+  
 variables:
   join-sign:
     status:
