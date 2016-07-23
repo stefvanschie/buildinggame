@@ -16,6 +16,7 @@ names-after-voting: false
 enable-item-drop: false
 
 stats:
+  enable: true
   save-delay: 900
 
 subjects:

@@ -123,16 +123,53 @@ particle:
   max-particles:
   - "&cYou've reached the maximum amount of particles"
 
-join-sign:
-  line-1: "&lBuildingGame"
-  line-2: "&8&ojoin"
-  line-3: "&nMap: %arena%"
-  line-4: "%players%/%max_players%"
-leave-sign:
-  line-1: "&lBuildingGame"
-  line-2: "&8&oleave"
-  line-3: ""
-  line-4: ""
+signs:
+  join:
+    line-1: "&lBuilding Game"
+    line-2: "&8&0join"
+    line-3: "&nMap: %arena%"
+    line-4: "%players%/%max_players%"
+  leave:
+    line-1: "&lBuilding Game"
+    line-2: "&8&0leave"
+    line-3: ""
+    line-4: ""
+  stat:
+    plays:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Times played"
+      line-4: "&6%amount%"
+    first:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Wins"
+      line-4: "&6%amount%"
+    second:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Times second"
+      line-4: "&6%amount%"
+    third:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Times third"
+      line-4: "&6%amount%"
+    broken:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Blocks broken"
+      line-4: "&6%amount%"
+    placed:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Blocks placed"
+      line-4: "&6%amount%"
+    walked:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Blocks walked"
+      line-4: "&6%amount%"
 
 subject-gui:
   title: "&aVote for a subject"

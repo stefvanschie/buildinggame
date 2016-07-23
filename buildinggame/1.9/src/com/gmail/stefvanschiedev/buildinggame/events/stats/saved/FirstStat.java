@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 
 import com.gmail.stefvanschiedev.buildinggame.api.Win;
 import com.gmail.stefvanschiedev.buildinggame.api.events.PlayerWinEvent;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
@@ -18,5 +19,7 @@ public class FirstStat implements Listener {
 		
 		for (GamePlayer gamePlayer : e.getPlayers())
 			StatManager.getInstance().registerStat(gamePlayer.getPlayer(), StatType.FIRST, StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.FIRST) == null ? 1 : StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.FIRST).getValue() + 1);
+	
+		SignManager.getInstance().updateStatSigns();
 	}
 }

@@ -8,10 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockPlace;
-import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignBreak;
-import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignCreate;
-import com.gmail.stefvanschiedev.buildinggame.events.block.LeaveSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.block.LiquidFlow;
+import com.gmail.stefvanschiedev.buildinggame.events.block.signs.JoinSignBreak;
+import com.gmail.stefvanschiedev.buildinggame.events.block.signs.JoinSignCreate;
+import com.gmail.stefvanschiedev.buildinggame.events.block.signs.LeaveSignCreate;
+import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignBreak;
+import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.bungeecord.ReceiveMessage;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityExplode;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntitySpawn;
@@ -236,7 +238,6 @@ public class Main extends JavaPlugin {
 		LobbyTimerManager.getInstance().setup();
 		MinPlayersManager.getInstance().setup();
 		MaxPlayersManager.getInstance().setup();
-		SignManager.getInstance().setup();
 		VoteTimerManager.getInstance().setup();
 		WinTimerManager.getInstance().setup();
 		
@@ -264,6 +265,8 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new JoinSignBreak(), this);
 			pm.registerEvents(new JoinSignCreate(), this);
 			pm.registerEvents(new LeaveSignCreate(), this);
+			pm.registerEvents(new StatSignCreate(), this);
+			pm.registerEvents(new StatSignBreak(), this);
 			pm.registerEvents(new LiquidFlow(), this);
 			
 			//bungeecord
@@ -448,13 +451,16 @@ public class Main extends JavaPlugin {
 		CommandManager command = new CommandManager();
 		command.setup();
 		
+		getLogger().info("Loading stats");
+		StatManager.getInstance().setup();
+		
+		getLogger().info("Loading signs");
+		SignManager.getInstance().setup();
+		
 		getLogger().info("Loading timer");
 		new ParticleRender().runTaskTimerAsynchronously(this, 0L, 10L);
 		new ScoreboardUpdater().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
-		
-		getLogger().info("Loading stats");
-		StatManager.getInstance().setup();
 		
 		if (!loadedCommands) {
 			getCommand("bg").setExecutor(command);

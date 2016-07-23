@@ -22,7 +22,11 @@ public class StatManager {
 	private StatManager() {}
 	
 	public void setup() {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
+		
+		if (!config.getBoolean("stats.enable"))
+			return;
 		
 		for (String uuid : stats.getKeys(false)) {
 			OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
@@ -58,7 +62,23 @@ public class StatManager {
 		return stats;
 	}
 	
+	public List<Stat> getStats(StatType type) {
+		List<Stat> stats = new ArrayList<>();
+		
+		for (Stat stat : this.stats) {
+			if (stat.getType() == type)
+				stats.add(stat);
+		}
+		
+		return stats;
+	}
+	
 	public void registerStat(Player player, StatType type, int value) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
+		if (!config.getBoolean("stats.enable"))
+			return;
+		
 		if (getStat(player, type) != null)
 			stats.remove(getStat(player, type));
 		
@@ -70,7 +90,11 @@ public class StatManager {
 	 * we need to do this every once in a while.
 	 */
 	public void saveToFile() {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
+		
+		if (!config.getBoolean("stats.enable"))
+			return;
 		
 		for (Stat stat : this.stats)
 			stats.set(stat.getPlayer().getUniqueId() + "." + stat.getType().toString().toLowerCase(), stat.getValue());

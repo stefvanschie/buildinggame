@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
@@ -19,5 +20,6 @@ public class PlaceStat implements Listener {
 			return;
 		
 		StatManager.getInstance().registerStat(player, StatType.PLACED, StatManager.getInstance().getStat(player, StatType.PLACED) == null ? 1 : StatManager.getInstance().getStat(player, StatType.PLACED).getValue() + 1);
+		SignManager.getInstance().updateStatSigns();
 	}
 }

@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
@@ -26,5 +27,6 @@ public class MoveStat implements Listener {
 			return;
 		
 		StatManager.getInstance().registerStat(player, StatType.WALKED, StatManager.getInstance().getStat(player, StatType.WALKED) == null ? 1 : StatManager.getInstance().getStat(player, StatType.WALKED).getValue() + 1);
+		SignManager.getInstance().updateStatSigns();
 	}
 }
