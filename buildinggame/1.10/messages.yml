@@ -4098,6 +4098,14 @@ variables:
       waiting: "&awaiting&r"
 
 scoreboards:
+  main:
+    header: "&e&lBuilding Game - Stats"
+    text:
+    - "&5Wins: &a%stat_first%"
+    - "&5Blocks placed: &a%stat_placed%"
+    - "&5Blocks broken: &a%stat_broken%"
+    - ""
+    - "&5Date: &a%date_month% %date_day_of_month%, %date_year%"
   lobby:
     header: "&e&lBuilding Game"
     text:

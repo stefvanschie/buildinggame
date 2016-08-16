@@ -32,6 +32,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.BuildTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.VoteTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.WaitTimer;
@@ -348,6 +349,7 @@ public class Arena {
 			}
 		}
 		
+		MainScoreboardManager.getInstance().remove(player);
 		lobbyScoreboard.show(player);
 		
 		for (String message : messages.getStringList("join.message")) {
@@ -386,7 +388,8 @@ public class Arena {
 		//gamemode
 		player.setGameMode(GameMode.ADVENTURE);
 		//time
-		player.setPlayerTime(6000, false);
+		if (config.getBoolean("join.time-change.change"))
+			player.setPlayerTime(config.getInt("join.time-change.time"), false);
 		
 		//bossbar
 		getBossBar().addPlayer(player);
@@ -503,7 +506,8 @@ public class Arena {
 		if (MainSpawnManager.getInstance().getMainSpawn() != null)
 			p.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
 		
-		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+		MainScoreboardManager.getInstance().register(player);
+		MainScoreboardManager.getInstance().getScoreboard().show(player);
 		player.resetPlayerTime();
 		player.resetPlayerWeather();
 		

@@ -96,7 +96,14 @@ public class StatManager {
 		if (!config.getBoolean("stats.enable"))
 			return;
 		
-		for (Stat stat : this.stats)
+		/* 
+		 * Create a new instance of the stat list
+		 * because of ConcurrentModificationException
+		 */
+		
+		List<Stat> statistics = this.stats;
+		
+		for (Stat stat : statistics)
 			stats.set(stat.getPlayer().getUniqueId() + "." + stat.getType().toString().toLowerCase(), stat.getValue());
 		
 		SettingsManager.getInstance().save();

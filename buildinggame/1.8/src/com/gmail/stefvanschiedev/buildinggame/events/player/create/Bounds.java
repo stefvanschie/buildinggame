@@ -40,6 +40,9 @@ public class Bounds implements Listener {
 		
 		Player player = e.getPlayer();
 		
+		if (player.getInventory().getItemInHand() == null)
+			return;
+		
 		if (!e.getPlayer().getItemInHand().hasItemMeta()) {
 			return;
 		}

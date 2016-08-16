@@ -18,7 +18,7 @@ public class ForceStart extends ConsoleCommand {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			
-			if (ArenaManager.getInstance().getArena(player) != null) {
+			if (ArenaManager.getInstance().getArena(player) != null && args.length < 1) {
 				Arena arena = ArenaManager.getInstance().getArena(player);
 				arena.getWaitTimer().setSeconds(0);
 				return CommandResult.SUCCES;

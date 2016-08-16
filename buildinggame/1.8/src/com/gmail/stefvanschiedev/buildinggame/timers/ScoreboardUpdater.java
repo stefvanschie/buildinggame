@@ -5,6 +5,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
@@ -44,5 +45,7 @@ public class ScoreboardUpdater extends BukkitRunnable {
 				}
 			}
 		}
+		
+		MainScoreboardManager.getInstance().update();
 	}
 }

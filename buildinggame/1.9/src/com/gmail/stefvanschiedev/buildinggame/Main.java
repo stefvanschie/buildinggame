@@ -138,6 +138,8 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickLeaveSign
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.Interact;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.InventoryMove;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.VoteEvent;
+import com.gmail.stefvanschiedev.buildinggame.events.scoreboards.MainScoreboardJoinShow;
+import com.gmail.stefvanschiedev.buildinggame.events.scoreboards.MainScoreboardWorldChange;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.BreakStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.FirstStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.MoveStat;
@@ -427,6 +429,10 @@ public class Main extends JavaPlugin {
 			//spectator
 			pm.registerEvents(new LeaveClick(), this);
 
+			//scoreboards
+			pm.registerEvents(new MainScoreboardJoinShow(), this);
+			pm.registerEvents(new MainScoreboardWorldChange(), this);
+			
 			//stats
 			//saved
 			pm.registerEvents(new BreakStat(), this);
@@ -457,7 +463,7 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("Loading timer");
 		new ParticleRender().runTaskTimerAsynchronously(this, 0L, 10L);
-		new ScoreboardUpdater().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
+		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
 		
 		if (!loadedCommands) {
