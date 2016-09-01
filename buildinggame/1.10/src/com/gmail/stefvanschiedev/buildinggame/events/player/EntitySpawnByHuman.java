@@ -16,7 +16,16 @@ public class EntitySpawnByHuman implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
 		
-		if (ArenaManager.getInstance().getArena(player) == null || e.getItem() == null || e.getItem().getType() != Material.MONSTER_EGG || e.getAction() != Action.RIGHT_CLICK_BLOCK)
+		if (ArenaManager.getInstance().getArena(player) == null)
+			return;
+		
+		if (e.getItem() == null)
+			return;
+		
+		if (e.getItem().getType() != Material.MONSTER_EGG && e.getItem().getType() != Material.ARMOR_STAND)
+			return;
+		
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
 			return;
 		
 		Location improvedLocation = e.getClickedBlock().getLocation();

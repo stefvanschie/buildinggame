@@ -1,5 +1,5 @@
 main: com.gmail.stefvanschiedev.buildinggame.Main
-version: 3.1.1
+version: 3.1.2
 name: BuildingGame
 author: stefvanschie
 softdepend: [Vault, BarAPI, SocketAPI]

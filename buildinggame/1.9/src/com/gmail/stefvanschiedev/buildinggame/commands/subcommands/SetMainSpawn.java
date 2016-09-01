@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
+import java.util.List;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -14,7 +16,16 @@ public class SetMainSpawn extends PlayerCommand {
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+		
+		List<String> worlds = config.getStringList("scoreboards.main.worlds.enable");
+		
+		if (arenas.contains("main-spawn.world"))
+			worlds.remove(arenas.getString("main-spawn.world"));
+		
+		worlds.add(player.getLocation().getWorld().getName());
+		config.set("scoreboards.main.worlds.enable", worlds);
 		
 		arenas.set("main-spawn.server", player.getServer().getServerName());
 		arenas.set("main-spawn.world", player.getLocation().getWorld().getName());

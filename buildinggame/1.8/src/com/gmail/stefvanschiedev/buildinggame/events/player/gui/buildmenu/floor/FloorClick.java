@@ -88,7 +88,7 @@ public class FloorClick implements Listener {
 		
 		for (Block block : plot.getFloor().getAllBlocks()) {
 			if (block.getType() == e.getCursor().getType() && block.getData() == e.getCursor().getData().getData())
-				return;
+				continue;
 			block.setType(e.getCursor().getType());
 			block.setData(e.getCursor().getData().getData());
 		}

@@ -349,7 +349,9 @@ public class Arena {
 			}
 		}
 		
-		MainScoreboardManager.getInstance().remove(player);
+		if (config.getBoolean("scoreboards.main.enable"))
+			MainScoreboardManager.getInstance().remove(player);
+		
 		lobbyScoreboard.show(player);
 		
 		for (String message : messages.getStringList("join.message")) {
@@ -506,8 +508,11 @@ public class Arena {
 		if (MainSpawnManager.getInstance().getMainSpawn() != null)
 			p.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
 		
-		MainScoreboardManager.getInstance().register(player);
-		MainScoreboardManager.getInstance().getScoreboard().show(player);
+		if (config.getBoolean("scoreboards.main.enable")) {
+			MainScoreboardManager.getInstance().register(player);
+			MainScoreboardManager.getInstance().getScoreboard().show(player);
+		}
+		
 		player.resetPlayerTime();
 		player.resetPlayerWeather();
 		

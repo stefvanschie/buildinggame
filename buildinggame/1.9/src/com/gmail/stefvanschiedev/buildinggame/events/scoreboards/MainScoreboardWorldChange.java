@@ -1,35 +1,35 @@
 package com.gmail.stefvanschiedev.buildinggame.events.scoreboards;
 
 import org.bukkit.Bukkit;
-import org.bukkit.World;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
-import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
 
 public class MainScoreboardWorldChange implements Listener {
 
 	@EventHandler
 	public void onWorldChange(PlayerChangedWorldEvent e) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
 		Player player = e.getPlayer();
-		World world = MainSpawnManager.getInstance().getMainSpawn().getWorld();
 		MainScoreboardManager manager = MainScoreboardManager.getInstance();
 		
-		if (player.getWorld() == world) {
+		if (!config.getBoolean("scoreboards.main.enable"))
+			return;
+		
+		if (config.getStringList("scoreboards.main.worlds.enable").contains(player.getWorld().getName())) {
 			//show scoreboard and other stuff
 			manager.register(player);
 			manager.getScoreboard().show(player);
-			return;
-		}
-		
-		if (e.getFrom() == world) {
-			//remove scoreboard and other stuff
+		} else if (config.getStringList("scoreboards.main.worlds.enable").contains(e.getFrom().getName())) {
+			//show scoreboard and other stuff
 			manager.remove(player);
-			player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-			return;
+			player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 		}
 	}
 }

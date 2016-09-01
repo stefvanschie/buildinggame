@@ -31,6 +31,12 @@ subjects:
 - flower
 - headset
 
+scoreboards:
+  main:
+    enable: true
+    worlds:
+      enable:
+      -
 
 blocked-entities:
 - 'ender_crystal'

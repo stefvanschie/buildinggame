@@ -15,6 +15,7 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.signs.LeaveSignCreate
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.bungeecord.ReceiveMessage;
+import com.gmail.stefvanschiedev.buildinggame.events.entity.ChickenSpawnByEgg;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityExplode;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntitySpawn;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Chat;
@@ -291,6 +292,7 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new LoseFood(), this);
 			
 			//entity events
+			pm.registerEvents(new ChickenSpawnByEgg(), this);
 			pm.registerEvents(new EntityExplode(), this);
 			pm.registerEvents(new EntitySpawn(), this);
 			

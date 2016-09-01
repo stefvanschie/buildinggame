@@ -17,7 +17,8 @@ public class MainScoreboardManager {
 	}
 	
 	public void register(Player player) {
-		players.add(player);
+		if (!players.contains(player))
+			players.add(player);
 	}
 	
 	public void remove(Player player) {
