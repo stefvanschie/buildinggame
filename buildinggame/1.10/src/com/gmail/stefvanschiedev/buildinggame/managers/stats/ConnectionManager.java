@@ -135,7 +135,7 @@ public class ConnectionManager {
     }
 
     public void setConnectionPool(BoneCP connectionPool) {
-        connectionPool = connectionPool;
+        this.connectionPool = connectionPool;
     }
 
 }
