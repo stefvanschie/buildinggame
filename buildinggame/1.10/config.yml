@@ -18,6 +18,13 @@ enable-item-drop: false
 stats:
   enable: true
   save-delay: 900
+  database:
+    enable: false
+    adress: address", "jdbc:mysql://localhost:3306/<databasename>
+    user: <user>
+    password: <password>
+    min-connections: 5
+    max-connections: 10
 
 subjects:
 - dog
