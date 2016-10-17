@@ -2,6 +2,8 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.io.IOException;
 
+import com.gmail.stefvanschiedev.buildinggame.events.stats.database.JoinPlayerStats;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.database.QuitPlayerStats;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -257,6 +259,13 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
 			SDVault.getInstance().setup();
 		}
+
+		getLogger().info("Loading commands");
+		CommandManager command = new CommandManager();
+		command.setup();
+
+		getLogger().info("Loading stats");
+		StatManager.getInstance().setup();
 		
 		getLogger().info("Loading listeners");
 		if (!loadedListeners) {
@@ -451,16 +460,16 @@ public class Main extends JavaPlugin {
 			
 			//structure
 			pm.registerEvents(new TreeGrow(), this);
-		
+
+			if(StatManager.getInstance().getMySQLDatabase() != null){
+				pm.registerEvents(new JoinPlayerStats(),this);
+				pm.registerEvents(new QuitPlayerStats(),this);
+
+			}
 			loadedListeners = true;
 		}
 		
-		getLogger().info("Loading commands");
-		CommandManager command = new CommandManager();
-		command.setup();
-		
-		getLogger().info("Loading stats");
-		StatManager.getInstance().setup();
+
 		
 		getLogger().info("Loading signs");
 		SignManager.getInstance().setup();

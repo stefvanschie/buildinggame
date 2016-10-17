@@ -22,7 +22,7 @@ public class ConnectionManager {
         this.plugin = plugin;
     }
 
-    public void configureConnPool() {
+    public boolean configureConnPool() {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
         try {
@@ -45,11 +45,11 @@ public class ConnectionManager {
             }
             */
 
-            boneCPConfig.setJdbcUrl(config.getString("address"));
-            boneCPConfig.setUsername(config.getString("user"));
-            boneCPConfig.setPassword(config.getString("password"));
-            boneCPConfig.setMinConnectionsPerPartition(config.getInt("min-connections")); //if you say 5 here, there will be 10 connection available
-            boneCPConfig.setMaxConnectionsPerPartition(config.getInt("max-connections"));
+            boneCPConfig.setJdbcUrl(config.getString("stats.database.address"));
+            boneCPConfig.setUsername(config.getString("stats.database.user"));
+            boneCPConfig.setPassword(config.getString("stats.database.password"));
+            boneCPConfig.setMinConnectionsPerPartition(config.getInt("stats.databse.min-connections")); //if you say 5 here, there will be 10 connection available
+            boneCPConfig.setMaxConnectionsPerPartition(config.getInt("stats.database.max-connections"));
             boneCPConfig.setPartitionCount(2); //2*5 = 10 connection will be available
             //config.setLazyInit(true); //depends on the application usage you should chose lazy or not
             //setting Lazy true means BoneCP won't open any connections before you request a one from it.
@@ -60,10 +60,11 @@ public class ConnectionManager {
 
 
         }   catch (Exception e) {
-
+            plugin.getLogger().info("Connection failed! Returning to file stats.");
             e.printStackTrace(); //you should use exception wrapping on real-production code
+            return false;
         }
-
+        return true;
     }
 
     public void shutdownConnPool() {
