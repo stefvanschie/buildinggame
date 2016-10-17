@@ -16,9 +16,14 @@ public class MySQLDatabase {
      */
     public MySQLDatabase(JavaPlugin javaPlugin){
         this.plugin = javaPlugin;
+
+    }
+
+    public boolean setup(){
         this.manager = new ConnectionManager(plugin);
         plugin.getLogger().info("Configuring connection pool...");
-        manager.configureConnPool();
+        if(!manager.configureConnPool())
+            return false;
 
 
         try {
@@ -29,15 +34,20 @@ public class MySQLDatabase {
                     "  `first` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `second` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `third` int(11) NOT NULL DEFAULT '0',\n" +
-                    "  `broken` int(11) NOT NULL DEFAULT '0'\n" +
-                    "  `walked` int(11) NOT NULL DEFAULT '0',\n" +
+                    "  `broken` int(11) NOT NULL DEFAULT '0',\n" +
+                    "  `placed` int(11) NOT NULL DEFAULT '0',\n" +
+                    "  `walked` int(11) NOT NULL DEFAULT '0'\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
             manager.closeConnection(connection);
         } catch (SQLException e) {
+            plugin.getLogger().info("Failed to create table in database! Returning to file stats.");
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return false;
         }
-
+        return true;
         // Table exists
+
+
     }
 
     /**
@@ -82,7 +92,13 @@ public class MySQLDatabase {
      * @param UUID UUID from player
      */
     public void insertPlayer(String UUID){
-        executeUpdate("INSERT INTO buildinggamestats (UUID,xp) VALUES ('"+UUID+"',0)");
+        ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats WHERE username='"+ UUID+ "'");
+        try {
+            if(set.next())
+                executeUpdate("INSERT INTO buildinggamestats (UUID,walked) VALUES ('"+UUID+"',0)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
