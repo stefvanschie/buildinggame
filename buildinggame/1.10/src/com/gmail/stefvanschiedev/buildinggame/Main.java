@@ -221,8 +221,10 @@ public class Main extends JavaPlugin {
 				arena.stop();
 			}
 		}
-		
-		StatManager.getInstance().saveToFile();
+		if(StatManager.getInstance().getMySQLDatabase() == null)
+			StatManager.getInstance().saveToFile();
+		else
+			StatManager.getInstance().saveToDatabase();
 		
 		getLogger().info("BuildingGame has been disabled");
 		
