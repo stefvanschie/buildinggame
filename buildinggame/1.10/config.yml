@@ -20,7 +20,7 @@ stats:
   save-delay: 900
   database:
     enable: false
-    adress: address", "jdbc:mysql://localhost:3306/<databasename>
+    address: jdbc:mysql://localhost:3306/<databasename>
     user: <user>
     password: <password>
     min-connections: 5
