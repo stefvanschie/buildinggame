@@ -55,19 +55,15 @@ public class ConnectionManager {
             connectionPool = new BoneCP(boneCPConfig); // setup the connection pool
             plugin.getLogger().info("Connection pool successfully configured. ");
             plugin.getLogger().info("Total connections ==> " + connectionPool.getTotalCreatedConnections());
-
-
         } catch (ClassNotFoundException | SQLException e) {
         	plugin.getLogger().info("Connection failed! Returning to file stats.");
             e.printStackTrace(); //you should use exception wrapping on real-production code
             return false;
         }
-        
         return true;
     }
 
     public void shutdownConnPool() {
-
         try {
 
             plugin.getLogger().info("Shutting down connection pool. Trying to close all connections.");
@@ -83,9 +79,6 @@ public class ConnectionManager {
     }
 
     public Connection getConnection() {
-
-
-
         Connection conn = null;
         try {
             conn = getConnectionPool().getConnection();
@@ -96,7 +89,6 @@ public class ConnectionManager {
             e.printStackTrace();
         }
         return conn;
-
     }
 
     public void closeStatement(Statement stmt) {
@@ -106,7 +98,6 @@ public class ConnectionManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void closeResultSet(ResultSet rSet) {
@@ -137,5 +128,4 @@ public class ConnectionManager {
     public void setConnectionPool(BoneCP connectionPool) {
         this.connectionPool = connectionPool;
     }
-
 }

@@ -17,13 +17,12 @@ public class MySQLDatabase {
     public MySQLDatabase(JavaPlugin javaPlugin){
         this.plugin = javaPlugin;
     }
-    
-    public boolean setup() {
+
+    public boolean setup(){
         this.manager = new ConnectionManager(plugin);
         plugin.getLogger().info("Configuring connection pool...");
-        
-        if (!manager.configureConnPool())
-        	return false;
+        if(!manager.configureConnPool())
+            return false;
 
         try {
             Connection connection = manager.getConnection();
@@ -43,9 +42,6 @@ public class MySQLDatabase {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return false;
         }
-
-        // Table exists
-        return true;
     }
 
     /**
@@ -98,7 +94,7 @@ public class MySQLDatabase {
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
-    }
+	}
 
     /**
      * Close the connection pool
@@ -159,8 +155,4 @@ public class MySQLDatabase {
         }
 
     }
-
-
-
-
 }

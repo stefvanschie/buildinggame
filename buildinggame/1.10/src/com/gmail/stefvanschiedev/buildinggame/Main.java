@@ -2,6 +2,8 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.io.IOException;
 
+import com.gmail.stefvanschiedev.buildinggame.events.stats.database.JoinPlayerStats;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.database.QuitPlayerStats;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -121,8 +123,7 @@ public class Main extends JavaPlugin {
 				arena.stop();
 			}
 		}
-		
-		if (StatManager.getInstance().getMySQLDatabase() == null)
+		if(StatManager.getInstance().getMySQLDatabase() == null)
 			StatManager.getInstance().saveToFile();
 		else
 			StatManager.getInstance().saveToDatabase();
@@ -162,6 +163,13 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
 			SDVault.getInstance().setup();
 		}
+
+		getLogger().info("Loading commands");
+		CommandManager command = new CommandManager();
+		command.setup();
+
+		getLogger().info("Loading stats");
+		StatManager.getInstance().setup();
 		
 		getLogger().info("Loading commands");
 		CommandManager command = new CommandManager();
@@ -244,15 +252,14 @@ public class Main extends JavaPlugin {
 			
 			//structure
 			pm.registerEvents(new TreeGrow(), this);
-		
-			if (StatManager.getInstance().getMySQLDatabase() != null) {
-				pm.registerEvents(new JoinPlayerStats(), this);
-				pm.registerEvents(new QuitPlayerStats(), this);
+
+			if(StatManager.getInstance().getMySQLDatabase() != null){
+				pm.registerEvents(new JoinPlayerStats(),this);
+				pm.registerEvents(new QuitPlayerStats(),this);
+
 			}
-			
 			loadedListeners = true;
 		}
-		
 		getLogger().info("Loading signs");
 		SignManager.getInstance().setup();
 		
