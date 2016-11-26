@@ -396,3654 +396,3533 @@ gui:
       name: "&6Alphabet"
       lores:
       -
-      page-1:
-        title: "&aAlphabet"
-        arrow-up:
-          name: "&6Arrow Up"
-          lores:
-          -
-        arrow-down:
-          name: "&6Arrow Down"
-          lores:
-          -
-        arrow-right:
-          name: "&6Arrow Right"
-          lores:
-          -
-        arrow-left:
-          name: "&6Arrow Left"
-          lores:
-          -
-        question:
-          name: "&6Question"
-          lores:
-          -
-        exclamation:
-          name: "&6Exclamation"
-          lores:
-          -
-        dot:
-          name: "&6Dot"
-          lores:
-          -
-        slash:
-          name: "&6Slash"
-          lores:
-          -
-        a:
-          name: "&6A"
-          lores:
-          -
-        b:
-          name: "&6B"
-          lores:
-          -
-        c:
-          name: "&6C"
-          lores:
-          -
-        d:
-          name: "&6D"
-          lores:
-          -
-        e:
-          name: "&6E"
-          lores:
-          -
-        f:
-          name: "&6F"
-          lores:
-          -
-        g:
-          name: "&6G"
-          lores:
-          -
-        h:
-          name: "&6H"
-          lores:
-          -
-        i:
-          name: "&6I"
-          lores:
-          -
-        j:
-          name: "&6J"
-          lores:
-          -
-        k:
-          name: "&6K"
-          lores:
-          -
-        l:
-          name: "&6L"
-          lores:
-          -
-        m:
-          name: "&6M"
-          lores:
-          -
-        n:
-          name: "&6N"
-          lores:
-          -
-        o:
-          name: "&6O"
-          lores:
-          -
-        p:
-          name: "&6P"
-          lores:
-          -
-        q:
-          name: "&6Q"
-          lores:
-          -
-        r:
-          name: "&6R"
-          lores:
-          -
-        s:
-          name: "&6S"
-          lores:
-          -
-        t:
-          name: "&6T"
-          lores:
-          -
-        u:
-          name: "&6U"
-          lores:
-          -
-        v:
-          name: "&6V"
-          lores:
-          -
-        w:
-          name: "&6W"
-          lores:
-          -
-        x:
-          name: "&6X"
-          lores:
-          -
-        y:
-          name: "&6Y"
-          lores:
-          -
-        z:
-          name: "&6Z"
-          lores:
-          -
-        1:
-          name: "&61"
-          lores:
-          -
-        2:
-          name: "&62"
-          lores:
-          -
-        3:
-          name: "&63"
-          lores:
-          -
-        4:
-          name: "&64"
-          lores:
-          -
-        5:
-          name: "&65"
-          lores:
-          -
-        6:
-          name: "&66"
-          lores:
-          -
-        7:
-          name: "&67"
-          lores:
-          -
-        8:
-          name: "&68"
-          lores:
-          -
-        9:
-          name: "&69"
-          lores:
-          -
-        0:
-          name: "&60"
-          lores:
-          -
-        arrow-up-2:
-          name: "&6Arrow Up"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aAlphabet"
-        arrow-down:
-          name: "&6Arrow Down"
-          lores:
-          -
-        arrow-right:
-          name: "&6Arrow Right"
-          lores:
-          -
-        arrow-left:
-          name: "&6Arrow Left"
-          lores:
-          -
-        question:
-          name: "&6Question"
-          lores:
-          -
-        exclamation:
-          name: "&6Exclamation"
-          lores:
-          -
-        dot:
-          name: "&6Dot"
-          lores:
-          -
-        slash:
-          name: "&6Slash"
-          lores:
-          -
-        a:
-          name: "&6A"
-          lores:
-          -
-        b:
-          name: "&6B"
-          lores:
-          -
-        c:
-          name: "&6C"
-          lores:
-          -
-        d:
-          name: "&6D"
-          lores:
-          -
-        e:
-          name: "&6E"
-          lores:
-          -
-        f:
-          name: "&6F"
-          lores:
-          -
-        g:
-          name: "&6G"
-          lores:
-          -
-        h:
-          name: "&6H"
-          lores:
-          -
-        i:
-          name: "&6I"
-          lores:
-          -
-        j:
-          name: "&6J"
-          lores:
-          -
-        k:
-          name: "&6K"
-          lores:
-          -
-        l:
-          name: "&6L"
-          lores:
-          -
-        m:
-          name: "&6M"
-          lores:
-          -
-        n:
-          name: "&6N"
-          lores:
-          -
-        o:
-          name: "&6O"
-          lores:
-          -
-        p:
-          name: "&6P"
-          lores:
-          -
-        q:
-          name: "&6Q"
-          lores:
-          -
-        r:
-          name: "&6R"
-          lores:
-          -
-        s:
-          name: "&6S"
-          lores:
-          -
-        t:
-          name: "&6T"
-          lores:
-          -
-        u:
-          name: "&6U"
-          lores:
-          -
-        v:
-          name: "&6V"
-          lores:
-          -
-        w:
-          name: "&6W"
-          lores:
-          -
-        x:
-          name: "&6X"
-          lores:
-          -
-        y:
-          name: "&6Y"
-          lores:
-          -
-        z:
-          name: "&6Z"
-          lores:
-          -
-        1:
-          name: "&61"
-          lores:
-          -
-        2:
-          name: "&62"
-          lores:
-          -
-        3:
-          name: "&63"
-          lores:
-          -
-        4:
-          name: "&64"
-          lores:
-          -
-        5:
-          name: "&65"
-          lores:
-          -
-        6:
-          name: "&66"
-          lores:
-          -
-        7:
-          name: "&67"
-          lores:
-          -
-        8:
-          name: "&68"
-          lores:
-          -
-        9:
-          name: "&69"
-          lores:
-          -
-        0:
-          name: "&60"
-          lores:
-          -
-        colon:
-          name: "&6Colon"
-          lores:
-          -
-        diaeresis-a:
-          name: "&6%:A%"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-3:
-        title: "&aAlphabet"
-        diaeresis-u:
-          name: "&6%:U%"
-          lores:
-          -
-        diaeresis-o:
-          name: "&6%:O%"
-          lores:
-          -
-        a:
-          name: "&6A"
-          lores:
-          -
-        b:
-          name: "&6B"
-          lores:
-          -
-        c:
-          name: "&6C"
-          lores:
-          -
-        d:
-          name: "&6D"
-          lores:
-          -
-        e:
-          name: "&6E"
-          lores:
-          -
-        f:
-          name: "&6F"
-          lores:
-          -
-        g:
-          name: "&6G"
-          lores:
-          -
-        h:
-          name: "&6H"
-          lores:
-          -
-        i:
-          name: "&6I"
-          lores:
-          -
-        j:
-          name: "&6J"
-          lores:
-          -
-        k:
-          name: "&6K"
-          lores:
-          -
-        l:
-          name: "&6L"
-          lores:
-          -
-        m:
-          name: "&6M"
-          lores:
-          -
-        n:
-          name: "&6N"
-          lores:
-          -
-        o:
-          name: "&6O"
-          lores:
-          -
-        p:
-          name: "&6P"
-          lores:
-          -
-        q:
-          name: "&6Q"
-          lores:
-          -
-        r:
-          name: "&6R"
-          lores:
-          -
-        s:
-          name: "&6S"
-          lores:
-          -
-        t:
-          name: "&6T"
-          lores:
-          -
-        u:
-          name: "&6U"
-          lores:
-          -
-        v:
-          name: "&6V"
-          lores:
-          -
-        w:
-          name: "&6W"
-          lores:
-          -
-        x:
-          name: "&6X"
-          lores:
-          -
-        y:
-          name: "&6Y"
-          lores:
-          -
-        z:
-          name: "&6Z"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aAlphabet"
+      arrow-up:
+        name: "&6Arrow Up"
+        lores:
+        -
+      arrow-down:
+        name: "&6Arrow Down"
+        lores:
+        -
+      arrow-right:
+        name: "&6Arrow Right"
+        lores:
+        -
+      arrow-left:
+        name: "&6Arrow Left"
+        lores:
+        -
+      question:
+        name: "&6Question"
+        lores:
+        -
+      exclamation:
+        name: "&6Exclamation"
+        lores:
+        -
+      dot:
+        name: "&6Dot"
+        lores:
+        -
+      slash:
+        name: "&6Slash"
+        lores:
+        -
+      a:
+        name: "&6A"
+        lores:
+        -
+      b:
+        name: "&6B"
+        lores:
+        -
+      c:
+        name: "&6C"
+        lores:
+        -
+      d:
+        name: "&6D"
+        lores:
+        -
+      e:
+        name: "&6E"
+        lores:
+        -
+      f:
+        name: "&6F"
+        lores:
+        -
+      g:
+        name: "&6G"
+        lores:
+        -
+      h:
+        name: "&6H"
+        lores:
+        -
+      i:
+        name: "&6I"
+        lores:
+        -
+      j:
+        name: "&6J"
+        lores:
+        -
+      k:
+        name: "&6K"
+        lores:
+        -
+      l:
+        name: "&6L"
+        lores:
+        -
+      m:
+        name: "&6M"
+        lores:
+        -
+      n:
+        name: "&6N"
+        lores:
+        -
+      o:
+        name: "&6O"
+        lores:
+        -
+      p:
+        name: "&6P"
+        lores:
+        -
+      q:
+        name: "&6Q"
+        lores:
+        -
+      r:
+        name: "&6R"
+        lores:
+        -
+      s:
+        name: "&6S"
+        lores:
+        -
+      t:
+        name: "&6T"
+        lores:
+        -
+      u:
+        name: "&6U"
+        lores:
+        -
+      v:
+        name: "&6V"
+        lores:
+        -
+      w:
+        name: "&6W"
+        lores:
+        -
+      x:
+        name: "&6X"
+        lores:
+        -
+      y:
+        name: "&6Y"
+        lores:
+        -
+      z:
+        name: "&6Z"
+        lores:
+        -
+      1:
+        name: "&61"
+        lores:
+        -
+      2:
+        name: "&62"
+        lores:
+        -
+      3:
+        name: "&63"
+        lores:
+        -
+      4:
+        name: "&64"
+        lores:
+        -
+      5:
+        name: "&65"
+        lores:
+        -
+      6:
+        name: "&66"
+        lores:
+        -
+      7:
+        name: "&67"
+        lores:
+        -
+      8:
+        name: "&68"
+        lores:
+        -
+      9:
+        name: "&69"
+        lores:
+        -
+      0:
+        name: "&60"
+        lores:
+        -
+      arrow-up-2:
+        name: "&6Arrow Up"
+        lores:
+        -
+      arrow-down-2:
+        name: "&6Arrow Down"
+        lores:
+        -
+      arrow-right-2:
+        name: "&6Arrow Right"
+        lores:
+        -
+      arrow-left-2:
+        name: "&6Arrow Left"
+        lores:
+        -
+      question-2:
+        name: "&6Question"
+        lores:
+        -
+      exclamation-2:
+        name: "&6Exclamation"
+        lores:
+        -
+      dot-2:
+        name: "&6Dot"
+        lores:
+        -
+      slash-2:
+        name: "&6Slash"
+        lores:
+        -
+      a-2:
+        name: "&6A"
+        lores:
+        -
+      b-2:
+        name: "&6B"
+        lores:
+        -
+      c-2:
+        name: "&6C"
+        lores:
+        -
+      d-2:
+        name: "&6D"
+        lores:
+        -
+      e-2:
+        name: "&6E"
+        lores:
+        -
+      f-2:
+        name: "&6F"
+        lores:
+        -
+      g-2:
+        name: "&6G"
+        lores:
+        -
+      h-2:
+        name: "&6H"
+        lores:
+        -
+      i-2:
+        name: "&6I"
+        lores:
+        -
+      j-2:
+        name: "&6J"
+        lores:
+        -
+      k-2:
+        name: "&6K"
+        lores:
+        -
+      l-2:
+        name: "&6L"
+        lores:
+        -
+      m-2:
+        name: "&6M"
+        lores:
+        -
+      n-2:
+        name: "&6N"
+        lores:
+        -
+      o-2:
+        name: "&6O"
+        lores:
+        -
+      p-2:
+        name: "&6P"
+        lores:
+        -
+      q-2:
+        name: "&6Q"
+        lores:
+        -
+      r-2:
+        name: "&6R"
+        lores:
+        -
+      s-2:
+        name: "&6S"
+        lores:
+        -
+      t-2:
+        name: "&6T"
+        lores:
+        -
+      u-2:
+        name: "&6U"
+        lores:
+        -
+      v-2:
+        name: "&6V"
+        lores:
+        -
+      w-2:
+        name: "&6W"
+        lores:
+        -
+      x-2:
+        name: "&6X"
+        lores:
+        -
+      y-2:
+        name: "&6Y"
+        lores:
+        -
+      z-2:
+        name: "&6Z"
+        lores:
+        -
+      1-2:
+        name: "&61"
+        lores:
+        -
+      2-2:
+        name: "&62"
+        lores:
+        -
+      3-2:
+        name: "&63"
+        lores:
+        -
+      4-2:
+        name: "&64"
+        lores:
+        -
+      5-2:
+        name: "&65"
+        lores:
+        -
+      6-2:
+        name: "&66"
+        lores:
+        -
+      7-2:
+        name: "&67"
+        lores:
+        -
+      8-2:
+        name: "&68"
+        lores:
+        -
+      9-2:
+        name: "&69"
+        lores:
+        -
+      0-2:
+        name: "&60"
+        lores:
+        -
+      colon:
+        name: "&6Colon"
+        lores:
+        -
+      diaeresis-a:
+        name: "&6%:A%"
+        lores:
+        -
+      diaeresis-u:
+        name: "&6%:U%"
+        lores:
+        -
+      diaeresis-o:
+        name: "&6%:O%"
+        lores:
+        -
+      a-3:
+        name: "&6A"
+        lores:
+        -
+      b-3:
+        name: "&6B"
+        lores:
+        -
+      c-3:
+        name: "&6C"
+        lores:
+        -
+      d-3:
+        name: "&6D"
+        lores:
+        -
+      e-3:
+        name: "&6E"
+        lores:
+        -
+      f-3:
+        name: "&6F"
+        lores:
+        -
+      g-3:
+        name: "&6G"
+        lores:
+        -
+      h-3:
+        name: "&6H"
+        lores:
+        -
+      i-3:
+        name: "&6I"
+        lores:
+        -
+      j-3:
+        name: "&6J"
+        lores:
+        -
+      k-3:
+        name: "&6K"
+        lores:
+        -
+      l-3:
+        name: "&6L"
+        lores:
+        -
+      m-3:
+        name: "&6M"
+        lores:
+        -
+      n-3:
+        name: "&6N"
+        lores:
+        -
+      o-3:
+        name: "&6O"
+        lores:
+        -
+      p-3:
+        name: "&6P"
+        lores:
+        -
+      q-3:
+        name: "&6Q"
+        lores:
+        -
+      r-3:
+        name: "&6R"
+        lores:
+        -
+      s-3:
+        name: "&6S"
+        lores:
+        -
+      t-3:
+        name: "&6T"
+        lores:
+        -
+      u-3:
+        name: "&6U"
+        lores:
+        -
+      v-3:
+        name: "&6V"
+        lores:
+        -
+      w-3:
+        name: "&6W"
+        lores:
+        -
+      x-3:
+        name: "&6X"
+        lores:
+        -
+      y-3:
+        name: "&6Y"
+        lores:
+        -
+      z-3:
+        name: "&6Z"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     blocks:
       name: "&6Blocks"
       lores:
       -
-      page-1:
-        title: "&aBlocks"
-        light-blue-stained-clay:
-          name: "&6Light Blue Stained Clay"
-          lores:
-          -
-        blue-wool:
-          name: "&6Blue Wool"
-          lores:
-          -
-        black-wool:
-          name: "&6Black Wool"
-          lores:
-          -
-        wood-plank:
-          name: "&6Wood Plank"
-          lores:
-          -
-        podzol:
-          name: "&6Podzol"
-          lores:
-          -
-        grass:
-          name: "&6Grass"
-          lores:
-          -
-        snow-grass:
-          name: "&6Snow Grass"
-          lores:
-          -
-        dirt:
-          name: "&6Dirt"
-          lores:
-          -
-        mycellium:
-          name: "&6Mycellium"
-          lores:
-          -
-        red-sand:
-          name: "&6Red Sand"
-          lores:
-          -
-        sand:
-          name: "&6Sand"
-          lores:
-          -
-        soulsand:
-          name: "&6Soulsand"
-          lores:
-          -
-        netherrack:
-          name: "&6Netherrack"
-          lores:
-          -
-        mob-spawner:
-          name: "&6Mob Spawner"
-          lores:
-          -
-        netherbrick:
-          name: "&6Netherbrick"
-          lores:
-          -
-        quartz-ore:
-          name: "&6Quartz Ore"
-          lores:
-          -
-        enderpearl:
-          name: "&6Enderpearl"
-          lores:
-          -
-        endereye:
-          name: "&6Endereye"
-          lores:
-          -
-        ender-portal:
-          name: "&6Ender Portal"
-          lores:
-          -
-        ice-block:
-          name: "&6Ice Block"
-          lores:
-          -
-        water:
-          name: "&6Water"
-          lores:
-          -
-        lava:
-          name: "&6Lava"
-          lores:
-          -
-        emerald-block:
-          name: "&6Emerald Block"
-          lores:
-          -
-        diamond-block:
-          name: "&6Diamond Block"
-          lores:
-          -
-        gold-block:
-          name: "&6Gold Block"
-          lores:
-          -
-        iron-block:
-          name: "&6Iron Block"
-          lores:
-          -
-        emerald-ore:
-          name: "&6Emerald Ore"
-          lores:
-          -
-        redstone-ore:
-          name: "&6Redstone Ore"
-          lores:
-          -
-        diamond-ore:
-          name: "&6Diamond Ore"
-          lores:
-          -
-        iron-ore:
-          name: "&6Iron Ore"
-          lores:
-          -
-        gold-ore:
-          name: "&6Gold Ore"
-          lores:
-          -
-        cobblestone:
-          name: "&6Cobblestone"
-          lores:
-          -
-        stone:
-          name: "&6Stone"
-          lores:
-          -
-        stone-brick:
-          name: "&6Stone Brick"
-          lores:
-          -
-        stone-brick-2:
-          name: "&6Stone Brick"
-          lores:
-          -
-        chimney:
-          name: "&6Chimney"
-          lores:
-          -
-        bedrock:
-          name: "&6Bedrock"
-          lores:
-          -
-        brick:
-          name: "&6Brick"
-          lores:
-          -
-        quartz-block:
-          name: "&6Quartz Block"
-          lores:
-          -
-        slime-ball:
-          name: "&6Slime Ball"
-          lores:
-          -
-        redstone-lamp-on:
-          name: "&6Redstone Lamp (On)"
-          lores:
-          -
-        piston:
-          name: "&6Piston"
-          lores:
-          -
-        sticky-piston:
-          name: "&6Sticky Piston"
-          lores:
-          -
-        slime-piston:
-          name: "&6Slime Piston"
-          lores:
-          -
-        half-piston:
-          name: "&6Half Piston"
-          lores:
-          -
-        dropper:
-          name: "&6Dropper"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aBlocks"
-        dropper:
-          name: "&6Dropper"
-          lores:
-          -
-        redstone-torch:
-          name: "&6Redstone Torch"
-          lores:
-          -
-        redstone-torch-2:
-          name: "&6Redstone Torch"
-          lores:
-          -
-        redstone-block:
-          name: "&6Redstone Block"
-          lores:
-          -
-        tnt:
-          name: "&6TNT"
-          lores:
-          -
-        tnt-2:
-          name: "&6TNT"
-          lores:
-          -
-        jukebox:
-          name: "&6Jukebox"
-          lores:
-          -
-        jukebox-2:
-          name: "&6Jukebox"
-          lores:
-          -
-        sponge:
-          name: "&6Sponge"
-          lores:
-          -
-        mossy-stone-brick:
-          name: "&6Mossy stone Brick"
-          lores:
-          -
-        hydrated-farmland:
-          name: "&6Hydrated Famrland"
-          lores:
-          -
-        prismarine:
-          name: "&6Prismarine"
-          lores:
-          -
-        enchantment-table:
-          name: "&6Enchantment Table"
-          lores:
-          -
-        cocoa-pod:
-          name: "&6Cocoa Pod"
-          lores:
-          -
-        command-block:
-          name: "&6Command Block"
-          lores:
-          -
-        prismarine-brick:
-          name: "&6Prismarine Brick"
-          lores:
-          -
-        hay-bale:
-          name: "&6Hay Bale"
-          lores:
-          -
-        hay-bale-2:
-          name: "&6Hay Bale"
-          lores:
-          -
-        glowstone:
-          name: "&6Glowstone"
-          lores:
-          -
-        gravel:
-          name: "&6Gravel"
-          lores:
-          -
-        green-wool:
-          name: "&6Green Wool"
-          lores:
-          -
-        gray-wool:
-          name: "&6Gray Wool"
-          lores:
-          -
-        granite:
-          name: "&6Granite"
-          lores:
-          -
-        polished-granite:
-          name: "&6Polished Granite"
-          lores:
-          -
-        diorite:
-          name: "&6Diorite"
-          lores:
-          -
-        polished-diorite:
-          name: "&6Polished Diorite"
-          lores:
-          -
-        andesite:
-          name: "&6Andesite"
-          lores:
-          -
-        polished-andesite:
-          name: "&6Polished Andesite"
-          lores:
-          -
-        wet-sponge:
-          name: "&6Wet Sponge"
-          lores:
-          -
-        lapis-lazuli-block:
-          name: "&6Lapis Lazuli Block"
-          lores:
-          -
-        lapis-lazuli-ore:
-          name: "&6Lapis Lazuli Ore"
-          lores:
-          -
-        sandstone:
-          name: "&6Sandstone"
-          lores:
-          -
-        smooth-sandstone:
-          name: "&6Smooth Sandstone"
-          lores:
-          -
-        cyan-wool:
-          name: "&6Cyan Wool"
-          lores:
-          -
-        brown-wool:
-          name: "&6Brown Wool"
-          lores:
-          -
-        light-blue-wool:
-          name: "&6Light Blue Wool"
-          lores:
-          -
-        lime-wool:
-          name: "&6Lime Wool"
-          lores:
-          -
-        magenta-wool:
-          name: "&6Magenta Wool"
-          lores:
-          -
-        orange-wool:
-          name: "&6Orange Wool"
-          lores:
-          -
-        pink-wool:
-          name: "&6Pink Wool"
-          lores:
-          -
-        purple-wool:
-          name: "&6Purple Wool"
-          lores:
-          -
-        red-wool:
-          name: "&6Red Wool"
-          lores:
-          -
-        light-gray-wool:
-          name: "&6Light Gray Wool"
-          lores:
-          -
-        white-wool:
-          name: "&6White Wool"
-          lores:
-          -
-        yellow-wool:
-          name: "&6Yellow Wool"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-3:
-        title: "&aBlocks"
-        cracked-stone-brick:
-          name: "&6Cracked Stone Brick"
-          lores:
-          -
-        mossy-stone-brick:
-          name: "&6Mossy Stone Brick"
-          lores:
-          -
-        stone-slab:
-          name: "&6Stone Slab"
-          lores:
-          -
-        snow-block:
-          name: "&6Snow Block"
-          lores:
-          -
-        slime-block:
-          name: "&6Slime Block"
-          lores:
-          -
-        obsidian:
-          name: "&6Obsidian"
-          lores:
-          -
-        smooth-red-sandstone:
-          name: "&6Smooth Red Sandstone"
-          lores:
-          -
-        red-sandstone:
-          name: "&6Red Sandstone"
-          lores:
-          -
-        note-block:
-          name: "&6Note Block"
-          lores:
-          -
-        packed-ice-block:
-          name: "&6Packed Ice Block"
-          lores:
-          -
-        nether-portal:
-          name: "&6Nether Portal"
-          lores:
-          -
-        end-stone:
-          name: "&6End Stone"
-          lores:
-          -
-        mossy-cobblestone:
-          name: "&6Mossy Cobblestone"
-          lores:
-          -
-        brick:
-          name: "&6Brick"
-          lores:
-          -
-        clay:
-          name: "&6Clay"
-          lores:
-          -
-        coal-ore:
-          name: "&6Coal Ore"
-          lores:
-          -
-        coal-block:
-          name: "&6Coal Block"
-          lores:
-          -
-        dark-prismarine:
-          name: "&6Dark Prismarine"
-          lores:
-          -
-        dispenser:
-          name: "&6Dispenser"
-          lores:
-          -
-        beacon:
-          name: "&6Beacon"
-          lores:
-          -
-        pillar-quartz-block:
-          name: "&6Pillar Quartz Block"
-          lores:
-          -
-        chiseled-quartz-block:
-          name: "&6Chiseled Quartz Block"
-          lores:
-          -
-        sea-lantern:
-          name: "&6Sea Lantern"
-          lores:
-          -
-        dry-farmland:
-          name: "&6Dry Farmland"
-          lores:
-          -
-        coarse-dirt:
-          name: "&6Coarse Dirt"
-          lores:
-          -
-        redstone-lamp-off:
-          name: "&6Redstone Lamp (Off)"
-          lores:
-          -
-        hardened-clay:
-          name: "&6Hardened Clay"
-          lores:
-          -
-        black-stained-clay:
-          name: "&6Black Stained Clay"
-          lores:
-          -
-        blue-stained-clay:
-          name: "&6Blue Stained Clay"
-          lores:
-          -
-        brown-stained-clay:
-          name: "&6Brown Stained Clay"
-          lores:
-          -
-        cyan-stained-clay:
-          name: "&6Cyan Stained Clay"
-          lores:
-          -
-        gray-stained-clay:
-          name: "&6Gray Stained Clay"
-          lores:
-          -
-        green-stained-clay:
-          name: "&6Green Stained Clay"
-          lores:
-          -
-        lime-stained-clay:
-          name: "&6Lime Stained Clay"
-          lores:
-          -
-        magenta-stained-clay:
-          name: "&6Magenta Stained Clay"
-          lores:
-          -
-        orange-stained-clay:
-          name: "&6Orange Stained Clay"
-          lores:
-          -
-        pink-stained-clay:
-          name: "&6Pink stained Clay"
-          lores:
-          -
-        red-stained-clay:
-          name: "&6Red Stained Clay"
-          lores:
-          -
-        purple-stained-clay:
-          name: "&6Purple Stained Clay"
-          lores:
-          -
-        white-stained-clay:
-          name: "&6White Stained Clay"
-          lores:
-          -
-        light-gray-stained-clay:
-          name: "&6Light Gray Stained Clay"
-          lores:
-          -
-        chiseled-sandstone:
-          name: "&6Chiseled Sandstone"
-          lroes:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aBlocks"
+      light-blue-stained-clay:
+        name: "&6Light Blue Stained Clay"
+        lores:
+        -
+      blue-wool:
+        name: "&6Blue Wool"
+        lores:
+        -
+      black-wool:
+        name: "&6Black Wool"
+        lores:
+        -
+      wood-plank:
+        name: "&6Wood Plank"
+        lores:
+        -
+      podzol:
+        name: "&6Podzol"
+        lores:
+        -
+      grass:
+        name: "&6Grass"
+        lores:
+        -
+      snow-grass:
+        name: "&6Snow Grass"
+        lores:
+        -
+      dirt:
+        name: "&6Dirt"
+        lores:
+        -
+      mycellium:
+        name: "&6Mycellium"
+        lores:
+        -
+      red-sand:
+        name: "&6Red Sand"
+        lores:
+        -
+      sand:
+        name: "&6Sand"
+        lores:
+        -
+      soulsand:
+        name: "&6Soulsand"
+        lores:
+        -
+      netherrack:
+        name: "&6Netherrack"
+        lores:
+        -
+      mob-spawner:
+        name: "&6Mob Spawner"
+        lores:
+        -
+      netherbrick:
+        name: "&6Netherbrick"
+        lores:
+        -
+      quartz-ore:
+        name: "&6Quartz Ore"
+        lores:
+        -
+      enderpearl:
+        name: "&6Enderpearl"
+        lores:
+        -
+      endereye:
+        name: "&6Endereye"
+        lores:
+        -
+      ender-portal:
+        name: "&6Ender Portal"
+        lores:
+        -
+      ice-block:
+        name: "&6Ice Block"
+        lores:
+        -
+      water:
+        name: "&6Water"
+        lores:
+        -
+      lava:
+        name: "&6Lava"
+        lores:
+        -
+      emerald-block:
+        name: "&6Emerald Block"
+        lores:
+        -
+      diamond-block:
+        name: "&6Diamond Block"
+        lores:
+        -
+      gold-block:
+        name: "&6Gold Block"
+        lores:
+        -
+      iron-block:
+        name: "&6Iron Block"
+        lores:
+        -
+      emerald-ore:
+        name: "&6Emerald Ore"
+        lores:
+        -
+      redstone-ore:
+        name: "&6Redstone Ore"
+        lores:
+        -
+      diamond-ore:
+        name: "&6Diamond Ore"
+        lores:
+        -
+      iron-ore:
+        name: "&6Iron Ore"
+        lores:
+        -
+      gold-ore:
+        name: "&6Gold Ore"
+        lores:
+        -
+      cobblestone:
+        name: "&6Cobblestone"
+        lores:
+        -
+      stone:
+        name: "&6Stone"
+        lores:
+        -
+      stone-brick:
+        name: "&6Stone Brick"
+        lores:
+        -
+      stone-brick-2:
+        name: "&6Stone Brick"
+        lores:
+        -
+      chimney:
+        name: "&6Chimney"
+        lores:
+        -
+      bedrock:
+        name: "&6Bedrock"
+        lores:
+        -
+      brick:
+        name: "&6Brick"
+        lores:
+        -
+      quartz-block:
+        name: "&6Quartz Block"
+        lores:
+        -
+      slime-ball:
+        name: "&6Slime Ball"
+        lores:
+        -
+      redstone-lamp-on:
+        name: "&6Redstone Lamp (On)"
+        lores:
+        -
+      piston:
+        name: "&6Piston"
+        lores:
+        -
+      sticky-piston:
+        name: "&6Sticky Piston"
+        lores:
+        -
+      slime-piston:
+        name: "&6Slime Piston"
+        lores:
+        -
+      half-piston:
+        name: "&6Half Piston"
+        lores:
+        -
+      dropper:
+        name: "&6Dropper"
+        lores:
+        -
+      dropper-2:
+        name: "&6Dropper"
+        lores:
+        -
+      redstone-torch:
+        name: "&6Redstone Torch"
+        lores:
+        -
+      redstone-torch-2:
+        name: "&6Redstone Torch"
+        lores:
+        -
+      redstone-block:
+        name: "&6Redstone Block"
+        lores:
+        -
+      tnt:
+        name: "&6TNT"
+        lores:
+        -
+      tnt-2:
+        name: "&6TNT"
+        lores:
+        -
+      jukebox:
+        name: "&6Jukebox"
+        lores:
+        -
+      jukebox-2:
+        name: "&6Jukebox"
+        lores:
+        -
+      sponge:
+        name: "&6Sponge"
+        lores:
+        -
+      mossy-stone-brick:
+        name: "&6Mossy stone Brick"
+        lores:
+        -
+      hydrated-farmland:
+        name: "&6Hydrated Famrland"
+        lores:
+        -
+      prismarine:
+        name: "&6Prismarine"
+        lores:
+        -
+      enchantment-table:
+        name: "&6Enchantment Table"
+        lores:
+        -
+      cocoa-pod:
+        name: "&6Cocoa Pod"
+        lores:
+        -
+      command-block:
+        name: "&6Command Block"
+        lores:
+        -
+      prismarine-brick:
+        name: "&6Prismarine Brick"
+        lores:
+        -
+      hay-bale:
+        name: "&6Hay Bale"
+        lores:
+        -
+      hay-bale-2:
+        name: "&6Hay Bale"
+        lores:
+        -
+      glowstone:
+        name: "&6Glowstone"
+        lores:
+        -
+      gravel:
+        name: "&6Gravel"
+        lores:
+        -
+      green-wool:
+        name: "&6Green Wool"
+        lores:
+        -
+      gray-wool:
+        name: "&6Gray Wool"
+        lores:
+        -
+      granite:
+        name: "&6Granite"
+        lores:
+        -
+      polished-granite:
+        name: "&6Polished Granite"
+        lores:
+        -
+      diorite:
+        name: "&6Diorite"
+        lores:
+        -
+      polished-diorite:
+        name: "&6Polished Diorite"
+        lores:
+        -
+      andesite:
+        name: "&6Andesite"
+        lores:
+        -
+      polished-andesite:
+        name: "&6Polished Andesite"
+        lores:
+        -
+      wet-sponge:
+        name: "&6Wet Sponge"
+        lores:
+        -
+      lapis-lazuli-block:
+        name: "&6Lapis Lazuli Block"
+        lores:
+        -
+      lapis-lazuli-ore:
+        name: "&6Lapis Lazuli Ore"
+        lores:
+        -
+      sandstone:
+        name: "&6Sandstone"
+        lores:
+        -
+      smooth-sandstone:
+        name: "&6Smooth Sandstone"
+        lores:
+        -
+      cyan-wool:
+        name: "&6Cyan Wool"
+        lores:
+        -
+      brown-wool:
+        name: "&6Brown Wool"
+        lores:
+        -
+      light-blue-wool:
+        name: "&6Light Blue Wool"
+        lores:
+        -
+      lime-wool:
+        name: "&6Lime Wool"
+        lores:
+        -
+      magenta-wool:
+        name: "&6Magenta Wool"
+        lores:
+        -
+      orange-wool:
+        name: "&6Orange Wool"
+        lores:
+        -
+      pink-wool:
+        name: "&6Pink Wool"
+        lores:
+        -
+      purple-wool:
+        name: "&6Purple Wool"
+        lores:
+        -
+      red-wool:
+        name: "&6Red Wool"
+        lores:
+        -
+      light-gray-wool:
+        name: "&6Light Gray Wool"
+        lores:
+        -
+      white-wool:
+        name: "&6White Wool"
+        lores:
+        -
+      yellow-wool:
+        name: "&6Yellow Wool"
+        lores:
+        -
+      cracked-stone-brick:
+        name: "&6Cracked Stone Brick"
+        lores:
+        -
+      mossy-stone-brick-2:
+        name: "&6Mossy Stone Brick"
+        lores:
+        -
+      stone-slab:
+        name: "&6Stone Slab"
+        lores:
+        -
+      snow-block:
+        name: "&6Snow Block"
+        lores:
+        -
+      slime-block:
+        name: "&6Slime Block"
+        lores:
+        -
+      obsidian:
+        name: "&6Obsidian"
+        lores:
+        -
+      smooth-red-sandstone:
+        name: "&6Smooth Red Sandstone"
+        lores:
+        -
+      red-sandstone:
+        name: "&6Red Sandstone"
+        lores:
+        -
+      note-block:
+        name: "&6Note Block"
+        lores:
+        -
+      packed-ice-block:
+        name: "&6Packed Ice Block"
+        lores:
+        -
+      nether-portal:
+        name: "&6Nether Portal"
+        lores:
+        -
+      end-stone:
+        name: "&6End Stone"
+        lores:
+        -
+      mossy-cobblestone:
+        name: "&6Mossy Cobblestone"
+        lores:
+        -
+      brick-2:
+        name: "&6Brick"
+        lores:
+        -
+      clay:
+        name: "&6Clay"
+        lores:
+        -
+      coal-ore:
+        name: "&6Coal Ore"
+        lores:
+        -
+      coal-block:
+        name: "&6Coal Block"
+        lores:
+        -
+      dark-prismarine:
+        name: "&6Dark Prismarine"
+        lores:
+        -
+      dispenser:
+        name: "&6Dispenser"
+        lores:
+        -
+      beacon:
+        name: "&6Beacon"
+        lores:
+        -
+      pillar-quartz-block:
+        name: "&6Pillar Quartz Block"
+        lores:
+        -
+      chiseled-quartz-block:
+        name: "&6Chiseled Quartz Block"
+        lores:
+        -
+      sea-lantern:
+        name: "&6Sea Lantern"
+        lores:
+        -
+      dry-farmland:
+        name: "&6Dry Farmland"
+        lores:
+        -
+      coarse-dirt:
+        name: "&6Coarse Dirt"
+        lores:
+        -
+      redstone-lamp-off:
+        name: "&6Redstone Lamp (Off)"
+        lores:
+        -
+      hardened-clay:
+        name: "&6Hardened Clay"
+        lores:
+        -
+      black-stained-clay:
+        name: "&6Black Stained Clay"
+        lores:
+        -
+      blue-stained-clay:
+        name: "&6Blue Stained Clay"
+        lores:
+        -
+      brown-stained-clay:
+        name: "&6Brown Stained Clay"
+        lores:
+        -
+      cyan-stained-clay:
+        name: "&6Cyan Stained Clay"
+        lores:
+        -
+      gray-stained-clay:
+        name: "&6Gray Stained Clay"
+        lores:
+        -
+      green-stained-clay:
+        name: "&6Green Stained Clay"
+        lores:
+        -
+      lime-stained-clay:
+        name: "&6Lime Stained Clay"
+        lores:
+        -
+      magenta-stained-clay:
+        name: "&6Magenta Stained Clay"
+        lores:
+        -
+      orange-stained-clay:
+        name: "&6Orange Stained Clay"
+        lores:
+        -
+      pink-stained-clay:
+        name: "&6Pink stained Clay"
+        lores:
+        -
+      red-stained-clay:
+        name: "&6Red Stained Clay"
+        lores:
+        -
+      purple-stained-clay:
+        name: "&6Purple Stained Clay"
+        lores:
+        -
+      white-stained-clay:
+        name: "&6White Stained Clay"
+        lores:
+        -
+      light-gray-stained-clay:
+        name: "&6Light Gray Stained Clay"
+        lores:
+        -
+      chiseled-sandstone:
+        name: "&6Chiseled Sandstone"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     characters:
       name: "&6Characters"
       lores:
       -
-      page-1:
-        title: "&aCharacters"
-        toy-chica:
-          name: "&6Toy Chica"
-          lores:
-          -
-        zoidberg:
-          name: "&6Zoidberg"
-          lores:
-          -
-        ewok:
-          name: "&6Ewok"
-          lores:
-          -
-        mangle:
-          name: "&6Mangle"
-          lores:
-          -
-        zelda:
-          name: "&6Zelda"
-          lores:
-          -
-        freddy-fazbear:
-          name: "&6Freddy fazbear"
-          lores:
-          -
-        bonnie:
-          name: "&6Bonnie"
-          lores:
-          -
-        chica:
-          name: "&6Chica"
-          lores:
-          -
-        foxie:
-          name: "&6Foxie"
-          lores:
-          -
-        marionette:
-          name: "&6Marionette"
-          lores:
-          -
-        mangle-2:
-          name: "&6Mangle"
-          lores:
-          -
-        link:
-          name: "&6Link"
-          lores:
-          -
-        stitch:
-          name: "&6Stitch"
-          lores:
-          -
-        groot:
-          name: "&6Groot"
-          lores:
-          -
-        star-lord:
-          name: "&6Star Lord"
-          lores:
-          -
-        boba-fett:
-          name: "&6Boba Fett"
-          lores:
-          -
-        storm-trooper:
-          name: "&6Storm Trooper"
-          lores:
-          -
-        clone-trooper:
-          name: "&6Clonhe Trooper"
-          lores:
-          -
-        r2d2:
-          name: "&6R2D2"
-          lores:
-          -
-        darth-vader:
-          name: "&6Darth Vader"
-          lores:
-          -
-        patrick:
-          name: "&6Patrick"
-          lores:
-          -
-        spongebob:
-          name: "&6Spongebob"
-          lores:
-          -
-        ice-king:
-          name: "&6Ice King"
-          lores:
-          -
-        jake:
-          name: "&6Jake"
-          lores:
-          -
-        finn:
-          name: "&6Finn"
-          lores:
-          -
-        sonic:
-          name: "&6Sonic"
-          lores:
-          -
-        metaknight:
-          name: "&6Metaknight"
-          lores:
-          -
-        ness:
-          name: "&6Ness"
-          lores:
-          -
-        wario:
-          name: "&6Wario"
-          lores:
-          -
-        princess-peach:
-          name: "&6Princess Peach"
-          lores:
-          -
-        fox-mccloud:
-          name: "&6Fox McCloud"
-          lores:
-          -
-        bowser:
-          name: "&6Bowser"
-          lores:
-          -
-        mario:
-          name: "&6Mario"
-          lores:
-          -
-        luigi:
-          name: "&6Luigi"
-          lores:
-          -
-        yoshi:
-          name: "&6Yoshi"
-          lores:
-          -
-        ash-ketchum:
-          name: "&6Ash Ketchum"
-          lores:
-          -
-        samus:
-          name: "&6Samus"
-          lores:
-          -
-        ganondorf:
-          name: "&6Ganondorf"
-          lores:
-          -
-        toy-bonnie:
-          name: "&6Toy Bonnie"
-          lores:
-          -
-        toy-freddie:
-          name: "&6Toy Freddie"
-          lores:
-          -
-        toy-chica-2:
-          name: "&6Toy Chica"
-          lores:
-          -
-        toy-mangle:
-          name: "&6Toy Mangle"
-          lores:
-          -
-        balloon-boy:
-          name: "&6Balloon Boy"
-          lores:
-          -
-        vegetta:
-          name: "&6Vegetta"
-          lores:
-          -
-        masterchief:
-          name: "&6Masterchief"
-          lores:
-          -
-        bender:
-          name: "&6Bender"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext page"
-          lores:
-          -
-      page-2:
-        title: "&aCharacters"
-        wheatley:
-          name: "&6Wheatley"
-          lores:
-          -
-        wilson:
-          name: "&6Wilson"
-          lores:
-          -
-        masterchief:
-          name: "&6Masterchief"
-          lores:
-          -
-        batman:
-          name: "&6Batman"
-          lores:
-          -
-        joker:
-          name: "&6Joker"
-          lores:
-          -
-        bender:
-          name: "&6Bender"
-          lores:
-          -
-        captain-america:
-          name: "&6Captain America"
-          lores:
-          -
-        deadpool:
-          name: "&6Deadpool"
-          lores:
-          -
-        doge:
-          name: "&6Doge"
-          lores:
-          -
-        toy-freddy:
-          name: "&6Toy Freddy"
-          lores:
-          -
-        toy-bonnie:
-          name: "&6Toy Bonnie"
-          lores:
-          -
-        goomba:
-          name: "&6Goomba"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aCharacters"
+      toy-chica:
+        name: "&6Toy Chica"
+        lores:
+        -
+      zoidberg:
+        name: "&6Zoidberg"
+        lores:
+        -
+      ewok:
+        name: "&6Ewok"
+        lores:
+        -
+      mangle:
+        name: "&6Mangle"
+        lores:
+        -
+      zelda:
+        name: "&6Zelda"
+        lores:
+        -
+      freddy-fazbear:
+        name: "&6Freddy fazbear"
+        lores:
+        -
+      bonnie:
+        name: "&6Bonnie"
+        lores:
+        -
+      chica:
+        name: "&6Chica"
+        lores:
+        -
+      foxie:
+        name: "&6Foxie"
+        lores:
+        -
+      marionette:
+        name: "&6Marionette"
+        lores:
+        -
+      mangle-2:
+        name: "&6Mangle"
+        lores:
+        -
+      link:
+        name: "&6Link"
+        lores:
+        -
+      stitch:
+        name: "&6Stitch"
+        lores:
+        -
+      groot:
+        name: "&6Groot"
+        lores:
+        -
+      star-lord:
+        name: "&6Star Lord"
+        lores:
+        -
+      boba-fett:
+        name: "&6Boba Fett"
+        lores:
+        -
+      storm-trooper:
+        name: "&6Storm Trooper"
+        lores:
+        -
+      clone-trooper:
+        name: "&6Clonhe Trooper"
+        lores:
+        -
+      r2d2:
+        name: "&6R2D2"
+        lores:
+        -
+      darth-vader:
+        name: "&6Darth Vader"
+        lores:
+        -
+      patrick:
+        name: "&6Patrick"
+        lores:
+        -
+      spongebob:
+        name: "&6Spongebob"
+        lores:
+        -
+      ice-king:
+        name: "&6Ice King"
+        lores:
+        -
+      jake:
+        name: "&6Jake"
+        lores:
+        -
+      finn:
+        name: "&6Finn"
+        lores:
+        -
+      sonic:
+        name: "&6Sonic"
+        lores:
+        -
+      metaknight:
+        name: "&6Metaknight"
+        lores:
+        -
+      ness:
+        name: "&6Ness"
+        lores:
+        -
+      wario:
+        name: "&6Wario"
+        lores:
+        -
+      princess-peach:
+        name: "&6Princess Peach"
+        lores:
+        -
+      fox-mccloud:
+        name: "&6Fox McCloud"
+        lores:
+        -
+      bowser:
+        name: "&6Bowser"
+        lores:
+        -
+      mario:
+        name: "&6Mario"
+        lores:
+        -
+      luigi:
+        name: "&6Luigi"
+        lores:
+        -
+      yoshi:
+        name: "&6Yoshi"
+        lores:
+        -
+      ash-ketchum:
+        name: "&6Ash Ketchum"
+        lores:
+        -
+      samus:
+        name: "&6Samus"
+        lores:
+        -
+      ganondorf:
+        name: "&6Ganondorf"
+        lores:
+        -
+      toy-bonnie:
+        name: "&6Toy Bonnie"
+        lores:
+        -
+      toy-freddie:
+        name: "&6Toy Freddie"
+        lores:
+        -
+      toy-chica-2:
+        name: "&6Toy Chica"
+        lores:
+        -
+      toy-mangle:
+        name: "&6Toy Mangle"
+        lores:
+        -
+      balloon-boy:
+        name: "&6Balloon Boy"
+        lores:
+        -
+      vegetta:
+        name: "&6Vegetta"
+        lores:
+        -
+      masterchief:
+        name: "&6Masterchief"
+        lores:
+        -
+      bender:
+        name: "&6Bender"
+        lores:
+        -
+      wheatley:
+        name: "&6Wheatley"
+        lores:
+        -
+      wilson:
+        name: "&6Wilson"
+        lores:
+        -
+      masterchief-2:
+        name: "&6Masterchief"
+        lores:
+        -
+      batman:
+        name: "&6Batman"
+        lores:
+        -
+      joker:
+        name: "&6Joker"
+        lores:
+        -
+      bender-2:
+        name: "&6Bender"
+        lores:
+        -
+      captain-america:
+        name: "&6Captain America"
+        lores:
+        -
+      deadpool:
+        name: "&6Deadpool"
+        lores:
+        -
+      doge:
+        name: "&6Doge"
+        lores:
+        -
+      toy-freddy:
+        name: "&6Toy Freddy"
+        lores:
+        -
+      toy-bonnie-2:
+        name: "&6Toy Bonnie"
+        lores:
+        -
+      goomba:
+        name: "&6Goomba"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     colors:
       name: "&6Colors"
       lores:
       -
-      page-1:
-        title: "&aColors"
-        sky-blue:
-          name: "&6Sky Blue"
-          lores:
-          -
-        sky-blue-2:
-          name: "&6Sky Blue"
-          lores:
-          -
-        baby-blue:
-          name: "&6Baby Blue"
-          lores:
-          -
-        bright-green:
-          name: "&6Bright Green"
-          lores:
-          -
-        green:
-          name: "&6Green"
-          lores:
-          -
-        grass-green:
-          name: "&6Grass Green"
-          lores:
-          -
-        medium-green:
-          name: "&6Medium Green"
-          lores:
-          -
-        dark-green:
-          name: "&6Dark Green"
-          lores:
-          -
-        dark-yellow:
-          name: "&6Dark Yellow"
-          lores:
-          -
-        yellow:
-          name: "&6Yellow"
-          lores:
-          -
-        light-orange:
-          name: "&6Light Orange"
-          lores:
-          -
-        orange:
-          name: "&6Orange"
-          lores:
-          -
-        light-red:
-          name: "&6Light Red"
-          lores:
-          -
-        red:
-          name: "&6Red"
-          lores:
-          -
-        red-2:
-          name: "&6Red"
-          lores:
-          -
-        dark-red:
-          name: "&6Dark Red"
-          lores:
-          -
-        azure-blue:
-          name: "&6Azure Blue"
-          lores:
-          -
-        cyan:
-          name: "&6Cyan"
-          lores:
-          -
-        darkish-blue:
-          name: "&6Darkish Blue"
-          lores:
-          -
-        blue:
-          name: "&6Blue"
-          lores:
-          -
-        dark-cyan:
-          name: "&6Dark Cyan"
-          lores:
-          -
-        dark-blue:
-          name: "&6Dark Blue"
-          lores:
-          -
-        purple:
-          name: "&6Purple"
-          lores:
-          -
-        pink:
-          name: "&6Pink"
-          lores:
-          -
-        magenta:
-          name: "&6Magenta"
-          lores:
-          -
-        pink-2:
-          name: "&6Pink"
-          lores:
-          -
-        pink-3:
-          name: "&6Pink"
-          lores:
-          -
-        cream:
-          name: "&6Cream"
-          lores:
-          -
-        mokka:
-          name: "&6Mokka"
-          lores:
-          -
-        brown:
-          name: "&6Brown"
-          lores:
-          -
-        white-block:
-          name: "&6White Block"
-          lores:
-          -
-        light-grey:
-          name: "&6Light Grey"
-          lores:
-          -
-        grey:
-          name: "&6Grey"
-          lores:
-          -
-        black:
-          name: "&6Black"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aColors"
+      sky-blue:
+        name: "&6Sky Blue"
+        lores:
+        -
+      sky-blue-2:
+        name: "&6Sky Blue"
+        lores:
+        -
+      baby-blue:
+        name: "&6Baby Blue"
+        lores:
+        -
+      bright-green:
+        name: "&6Bright Green"
+        lores:
+        -
+      green:
+        name: "&6Green"
+        lores:
+        -
+      grass-green:
+        name: "&6Grass Green"
+        lores:
+        -
+      medium-green:
+        name: "&6Medium Green"
+        lores:
+        -
+      dark-green:
+        name: "&6Dark Green"
+        lores:
+        -
+      dark-yellow:
+        name: "&6Dark Yellow"
+        lores:
+        -
+      yellow:
+        name: "&6Yellow"
+        lores:
+        -
+      light-orange:
+        name: "&6Light Orange"
+        lores:
+        -
+      orange:
+        name: "&6Orange"
+        lores:
+        -
+      light-red:
+        name: "&6Light Red"
+        lores:
+        -
+      red:
+        name: "&6Red"
+        lores:
+        -
+      red-2:
+        name: "&6Red"
+        lores:
+        -
+      dark-red:
+        name: "&6Dark Red"
+        lores:
+        -
+      azure-blue:
+        name: "&6Azure Blue"
+        lores:
+        -
+      cyan:
+        name: "&6Cyan"
+        lores:
+        -
+      darkish-blue:
+        name: "&6Darkish Blue"
+        lores:
+        -
+      blue:
+        name: "&6Blue"
+        lores:
+        -
+      dark-cyan:
+        name: "&6Dark Cyan"
+        lores:
+        -
+      dark-blue:
+        name: "&6Dark Blue"
+        lores:
+        -
+      purple:
+        name: "&6Purple"
+        lores:
+        -
+      pink:
+        name: "&6Pink"
+        lores:
+        -
+      magenta:
+        name: "&6Magenta"
+        lores:
+        -
+      pink-2:
+        name: "&6Pink"
+        lores:
+        -
+      pink-3:
+        name: "&6Pink"
+        lores:
+        -
+      cream:
+        name: "&6Cream"
+        lores:
+        -
+      mokka:
+        name: "&6Mokka"
+        lores:
+        -
+      brown:
+        name: "&6Brown"
+        lores:
+        -
+      white-block:
+        name: "&6White Block"
+        lores:
+        -
+      light-grey:
+        name: "&6Light Grey"
+        lores:
+        -
+      grey:
+        name: "&6Grey"
+        lores:
+        -
+      black:
+        name: "&6Black"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
     devices:
       name: "&6Devices"
       lores:
       -
-      page-1:
-        title: "&aDevices"
-        clock:
-          name: "&6Clock"
-          lores:
-          -
-        golden-clock:
-          name: "&6Golden Clock"
-          lores:
-          -
-        antique-clock:
-          name: "&6Antique Clock"
-          lores:
-          -
-        gamecube:
-          name: "&6Gamecube"
-          lores:
-          -
-        gamecube-2:
-          name: "&6Gamecube"
-          lores:
-          -
-        security-camera:
-          name: "&6Security Camera"
-          lores:
-          -
-        camera:
-          name: "&6Camera"
-          lores:
-          -
-        speaker:
-          name: "&6Speaker"
-          lores:
-          -
-        headlight:
-          name: "&6Headlight"
-          lores:
-          -
-        ceiling-lamp:
-          name: "&6Ceiling Lamp"
-          lores:
-          -
-        microwave:
-          name: "&6Microwave"
-          lores:
-          -
-        computer:
-          name: "&6Computer"
-          lores:
-          -
-        computer-2:
-          name: "&6Computer"
-          lores:
-          -
-        monitor:
-          name: "&6Monitor"
-          lores:
-          -
-        monitor-2:
-          name: "&6Monitor"
-          lores:
-          -
-        old-radio:
-          name: "&6Old Radio"
-          lores:
-          -
-        computer-3:
-          name: "&6Computer"
-          lores:
-          -
-        monitor-3:
-          name: "&6Monitor"
-          lores:
-          -
-        toaster:
-          name: "&6Toaster"
-          lores:
-          -
-        toaster-2:
-          name: "&6Toaster"
-          lores:
-          -
-        camera-2:
-          name: "&6Camera"
-          lores:
-          -
-        telephone:
-          name: "&6Telephone"
-          lores:
-          -
-        old-camera:
-          name: "&6Old Camera"
-          lores:
-          -
-        lantern:
-          name: "&6Lantern"
-          lores:
-          -
-        lantern-off:
-          name: "&6Lantern-Off"
-          lores:
-          -
-        shower-head:
-          name: "&6Shower Head"
-          lores:
-          -
-        aquarium:
-          name: "&6Aquarium"
-          lores:
-          -
-        instagram:
-          name: "&6Instagram"
-          lores:
-          -
-        siren:
-          name: "&6Siren"
-          lores:
-          -
-        police-siren:
-          name: "&6Police Siren"
-          lore:
-          -
-        computer-4:
-          name: "&6Computer"
-          lores:
-          -
-        broken-tv:
-          name: "&6Broken TV"
-          lores:
-          -
-        broken-tv-2:
-          name: "&6Broken TV"
-          lores:
-          -
-        broken-tv-3:
-          name: "&6Broken TV"
-          lores:
-          -
-        broken-tv-4:
-          name: "&6Broken TV"
-          lores:
-          -
-        broken-tv-5:
-          name: "&6Broken TV"
-          lores:
-          -
-        clock-2:
-          name: "&6Clock"
-          lores:
-          -
-        police-siren-2:
-          name: "&6Police Siren"
-          lores:
-          -
-        computer-5:
-          name: "&6Computer"
-          lores:
-          -
-        computer-6:
-          name: "&6Computer"
-          lores:
-          -
-        c4-explosive:
-          name: "&6C4 Explosive"
-          lores:
-          -
-        monitor-4:
-          name: "&6Monitor"
-          lores:
-          -
-        gamecube-3:
-          name: "&6Gamecube"
-          lores:
-          -
-        computer-7:
-          name: "&6Computer"
-          lores:
-          -
-        clock-3:
-          name: "&6Clock"
-          lores:
-          -
-        black-clock:
-          name: "&6Black Clock"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aDevices"
-        hot-toaster:
-          name: "&6Hot Toaster"
-          lores:
-          -
-        keypad:
-          name: "&6Keypad"
-          lores:
-          -
-        speakers:
-          name: "&6Speakers"
-          lores:
-          -
-        blender:
-          name: "&6Blender"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose"
-          lores:
-          -
+      title: "&aDevices"
+      clock:
+        name: "&6Clock"
+        lores:
+        -
+      golden-clock:
+        name: "&6Golden Clock"
+        lores:
+        -
+      antique-clock:
+        name: "&6Antique Clock"
+        lores:
+        -
+      gamecube:
+        name: "&6Gamecube"
+        lores:
+        -
+      gamecube-2:
+        name: "&6Gamecube"
+        lores:
+        -
+      security-camera:
+        name: "&6Security Camera"
+        lores:
+        -
+      camera:
+        name: "&6Camera"
+        lores:
+        -
+      speaker:
+        name: "&6Speaker"
+        lores:
+        -
+      headlight:
+        name: "&6Headlight"
+        lores:
+        -
+      ceiling-lamp:
+        name: "&6Ceiling Lamp"
+        lores:
+        -
+      microwave:
+        name: "&6Microwave"
+        lores:
+        -
+      computer:
+        name: "&6Computer"
+        lores:
+        -
+      computer-2:
+        name: "&6Computer"
+        lores:
+        -
+      monitor:
+        name: "&6Monitor"
+        lores:
+        -
+      monitor-2:
+        name: "&6Monitor"
+        lores:
+        -
+      old-radio:
+        name: "&6Old Radio"
+        lores:
+        -
+      computer-3:
+        name: "&6Computer"
+        lores:
+        -
+      monitor-3:
+        name: "&6Monitor"
+        lores:
+        -
+      toaster:
+        name: "&6Toaster"
+        lores:
+        -
+      toaster-2:
+        name: "&6Toaster"
+        lores:
+        -
+      camera-2:
+        name: "&6Camera"
+        lores:
+        -
+      telephone:
+        name: "&6Telephone"
+        lores:
+        -
+      old-camera:
+        name: "&6Old Camera"
+        lores:
+        -
+      lantern:
+        name: "&6Lantern"
+        lores:
+        -
+      lantern-off:
+        name: "&6Lantern-Off"
+        lores:
+        -
+      shower-head:
+        name: "&6Shower Head"
+        lores:
+        -
+      aquarium:
+        name: "&6Aquarium"
+        lores:
+        -
+      instagram:
+        name: "&6Instagram"
+        lores:
+        -
+      siren:
+        name: "&6Siren"
+        lores:
+        -
+      police-siren:
+        name: "&6Police Siren"
+        lore:
+        -
+      computer-4:
+        name: "&6Computer"
+        lores:
+        -
+      broken-tv:
+        name: "&6Broken TV"
+        lores:
+        -
+      broken-tv-2:
+        name: "&6Broken TV"
+        lores:
+        -
+      broken-tv-3:
+        name: "&6Broken TV"
+        lores:
+        -
+      broken-tv-4:
+        name: "&6Broken TV"
+        lores:
+        -
+      broken-tv-5:
+        name: "&6Broken TV"
+        lores:
+        -
+      clock-2:
+        name: "&6Clock"
+        lores:
+        -
+      police-siren-2:
+        name: "&6Police Siren"
+        lores:
+        -
+      computer-5:
+        name: "&6Computer"
+        lores:
+        -
+      computer-6:
+        name: "&6Computer"
+        lores:
+        -
+      c4-explosive:
+        name: "&6C4 Explosive"
+        lores:
+        -
+      monitor-4:
+        name: "&6Monitor"
+        lores:
+        -
+      gamecube-3:
+        name: "&6Gamecube"
+        lores:
+        -
+      computer-7:
+        name: "&6Computer"
+        lores:
+        -
+      clock-3:
+        name: "&6Clock"
+        lores:
+        -
+      black-clock:
+        name: "&6Black Clock"
+        lores:
+        -
+      hot-toaster:
+        name: "&6Hot Toaster"
+        lores:
+        -
+      keypad:
+        name: "&6Keypad"
+        lores:
+        -
+      speakers:
+        name: "&6Speakers"
+        lores:
+        -
+      blender:
+        name: "&6Blender"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     food:
       name: "&6Food"
       lores:
       -
-      page-1:
-        title: "&aFood"
-        nutella:
-          name: "&6Nutella"
-          lores:
-          -
-        vegemite:
-          name: "&6Vegemite"
-          lores:
-          -
-        bread:
-          name: "&6Bread"
-          lores:
-          -
-        cheese:
-          name: "&6Cheese"
-          lores:
-          -
-        strawberry-jam:
-          name: "&6Strawberry Jam"
-          lores:
-          -
-        pancakes:
-          name: "&6Pancakes"
-          lores:
-          -
-        cake:
-          name: "&6Cake"
-          lores:
-          -
-        cake-2:
-          name: "&6Cake"
-          lores:
-          -
-        can-of-soup:
-          name: "&6Can of Soup"
-          lores:
-          -
-        cup-of-milk:
-          name: "&6Cup of Milk"
-          lores:
-          -
-        chocolate-muffin:
-          name: "&6Chocolate Muffin"
-          lores:
-          -
-        muffin:
-          name: "&6Muffin"
-          lores:
-          -
-        oreo-sandwich:
-          name: "&6Oreo Sandwich"
-          lores:
-          -
-        cookie:
-          name: "&6Cookie"
-          lores:
-          -
-        candy-cane:
-          name: "&6Candy Cane"
-          lores:
-          -
-        chocolatebar:
-          name: "&6Chocolate Bar"
-          lores:
-          -
-        chocolatebar-2:
-          name: "&6Chocolate Bar"
-          lores:
-          -
-        sliced-lemon-citrus-fruit:
-          name: "&6Sliced Lemon (Citrus Fruit)"
-          lores:
-          -
-        cherry:
-          name: "&6Cherry"
-          lores:
-          -
-        apple:
-          name: "&6Apple"
-          lores:
-          -
-        melon:
-          name: "&6Melon"
-          lores:
-          -
-        melon-2:
-          name: "&6Melon"
-          lores:
-          -
-        melon-3:
-          name: "&6Melon"
-          lores:
-          -
-        melon-4:
-          name: "&6Melon"
-          lores:
-          -
-        carved-pumpkin:
-          name: "&6Carved Pumpkin"
-          lores:
-          -
-        pumpkin:
-          name: "&6Pumpkin"
-          lores:
-          -
-        strawberry:
-          name: "&6Strawberry"
-          lores:
-          -
-        coconut:
-          name: "&6Coconut"
-          lores:
-          -
-        carrot:
-          name: "&6Carrot"
-          lores:
-          -
-        sugarcane:
-          name: "&6Sugarcane"
-          lores:
-          -
-        hot-chocolate:
-          name: "&6Hot Chocolate"
-          lores:
-          -
-        cup-of-tea:
-          name: "&6Cup of Tea"
-          lores:
-          -
-        taco:
-          name: "&6Taco"
-          lores:
-          -
-        taco-2:
-          name: "&6Taco"
-          lores:
-          -
-        baked-potatoe:
-          name: "&6Baked Potatatoe"
-          lores:
-          -
-        bacon:
-          name: "&6Bacon"
-          lores:
-          -
-        fries:
-          name: "&6Fries"
-          lores:
-          -
-        hamburger:
-          name: "&6Hamburger"
-          lores:
-          -
-        hamburger-2:
-          name: "&6Hamburger"
-          lores:
-          -
-        hamburger-3:
-          name: "&6Hamburger"
-          lores:
-          -
-        popcorn:
-          name: "&6Popcorn"
-          lores:
-          -
-        glass-of-coca-cola:
-          name: "&6Glass of Coca-Cola"
-          lores:
-          -
-        sushi-mackerel:
-          name: "&6Sushi Mackerel"
-          lores:
-          -
-        sushi-salmon:
-          name: "&6Sushi Salmon"
-          lores:
-          -
-        sushi-roll:
-          name: "&6Sushi Roll"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aFood"
-        riceball:
-          name: "&6Riceball"
-          lores:
-          -
-        corn-block:
-          name: "&6Corn Block"
-          lores:
-          -
-        ham-cheese-sandwich:
-          name: "&6Ham Cheese Sandwich"
-          lores:
-          -
-        glass-of-beer:
-          name: "&6Glass of Beer"
-          lores:
-          -
-        medieval-beer:
-          name: "&6Medieval Beer"
-          lores:
-          -
-        ham:
-          name: "&6Ham"
-          lores:
-          -
-        mushroom-stew:
-          name: "&6Mushroom Stew"
-          lores:
-          -
-        sweet-roll:
-          name: "&6Sweet Roll"
-          lores:
-          -
-        ice-cream:
-          name: "&6Ice Cream"
-          lores:
-          -
-        lemon:
-          name: "&6Lemon"
-          lores:
-          -
-        plum:
-          name: "&6Plum"
-          lores:
-          -
-        salad:
-          name: "&6Salad"
-          lores:
-          -
-        white-frosted-donut:
-          name: "&6White Frosted Donut"
-          lores:
-          -
-        pink-frosted-donut:
-          name: "&6Pink Frosted Donut"
-          lores:
-          -
-        chocolate-frosted-donut:
-          name: "&6Chocolate Frosted Donut"
-          lores:
-          -
-        turkey:
-          name: "&6Turkey"
-          lores:
-          -
-        bento-box:
-          name: "&6Bento Box"
-          lores:
-          -
-        coconut:
-          name: "&6Coconut"
-          lores:
-          -
-        coconut-2:
-          name: "&6Coconut"
-          lores:
-          -
-        plate-of-cookies:
-          name: "&6Plate of Cookies"
-          lores:
-          -
-        marshmallow:
-          name: "&6Marshmallow"
-          lores:
-          -
-        hamburger:
-          name: "&6Hamburger"
-          lores:
-          -
-        bowl-of-rice:
-          name: "&6Bowl of Rice"
-          lores:
-          -
-        sushi-roll:
-          name: "&6Sushi Roll"
-          lores:
-          -
-        bowl-of-spaghetti:
-          name: "&6Bowl of Spaghetti"
-          lores:
-          -
-        bowl-of-noodles:
-          name: "&6Bowl of Noodles"
-          lores:
-          -
-        bowl-of-noodles-2:
-          name: "&6Bowl of Noodles"
-          lores:
-          -
-        chinese-take-out-box:
-          name: "&6Chinese Take Out Box"
-          lores:
-          -
-        tomato:
-          name: "&6Tomato"
-          lores:
-          -
-        orange:
-          name: "&6Orange"
-          lores:
-          -
-        green-apple:
-          name: "&6Green Apple"
-          lores:
-          -
-        lettuce:
-          name: "&6Lettuce"
-          lores:
-          -
-        purple-grapes:
-          name: "&6Purple Grapes"
-          lores:
-          -
-        green-grapes:
-          name: "&6Green Grapes"
-          lores:
-          -
-        red-grapes:
-          name: "&6Red Grapes"
-          lores:
-          -
-        sandwich:
-          name: "&6Sandwich"
-          lores:
-          -
-        cherry-pie:
-          name: "&6Cherry Pie"
-          lores:
-          -
-        pie:
-          name: "&6Pie"
-          lores:
-          -
-        chocolate-cake:
-          name: "&6Chocolate Cake"
-          lores:
-          -
-        honey-pot:
-          name: "&6Honey Pot"
-          lores:
-          -
-        pepsi:
-          name: "&6Pepsi"
-          lores:
-          -
-        coca-cola:
-          name: "&6Coca-Cola"
-          lores:
-          -
-        sprite:
-          name: "&6Sprite"
-          lores:
-          -
-        mello-yello:
-          name: "&6Mello Yello"
-          lores:
-          -
-        fanta:
-          name: "&6Fanta"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-3:
-        title: "&aFood"
-        mountain-dew:
-          name: "&6Mountain Dew"
-          lores:
-          -
-        tomato:
-          name: "&6Tomato"
-          lores:
-          -
-        ripe-tomato:
-          name: "&6Ripe Tomato"
-          lores:
-          -
-        raspberry:
-          name: "&6Raspberry"
-          lores:
-          -
-        raspberry-2:
-          name: "&6Raspberry"
-          lores:
-          -
-        apple:
-          name: "&6Apple"
-          lores:
-          -
-        apple-2:
-          name: "&6Apple"
-          lores:
-          -
-        apple-3:
-          name: "&6Apple"
-          lores:
-          -
-        apple-4:
-          name: "&6Apple"
-          lores:
-          -
-        apple-5:
-          name: "&6Apple"
-          lores:
-          -
-        cooked-shrimp:
-          name: "&6Cooked Shrimp"
-          lores:
-          -
-        sushi-salmon:
-          name: "&6Sushi Salmon"
-          lores:
-          -
-        sushi:
-          name: "&6Sushi"
-          lores:
-          -
-        sushi-2:
-          name: "&6Sushi"
-          lores:
-          -
-        plastic-cup:
-          name: "&6Plastic Cup"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aFood"
+      nutella:
+        name: "&6Nutella"
+        lores:
+        -
+      vegemite:
+        name: "&6Vegemite"
+        lores:
+        -
+      bread:
+        name: "&6Bread"
+        lores:
+        -
+      cheese:
+        name: "&6Cheese"
+        lores:
+        -
+      strawberry-jam:
+        name: "&6Strawberry Jam"
+        lores:
+        -
+      pancakes:
+        name: "&6Pancakes"
+        lores:
+        -
+      cake:
+        name: "&6Cake"
+        lores:
+        -
+      cake-2:
+        name: "&6Cake"
+        lores:
+        -
+      can-of-soup:
+        name: "&6Can of Soup"
+        lores:
+        -
+      cup-of-milk:
+        name: "&6Cup of Milk"
+        lores:
+        -
+      chocolate-muffin:
+        name: "&6Chocolate Muffin"
+        lores:
+        -
+      muffin:
+        name: "&6Muffin"
+        lores:
+        -
+      oreo-sandwich:
+        name: "&6Oreo Sandwich"
+        lores:
+        -
+      cookie:
+        name: "&6Cookie"
+        lores:
+        -
+      candy-cane:
+        name: "&6Candy Cane"
+        lores:
+        -
+      chocolatebar:
+        name: "&6Chocolate Bar"
+        lores:
+        -
+      chocolatebar-2:
+        name: "&6Chocolate Bar"
+        lores:
+        -
+      sliced-lemon-citrus-fruit:
+        name: "&6Sliced Lemon (Citrus Fruit)"
+        lores:
+        -
+      cherry:
+        name: "&6Cherry"
+        lores:
+        -
+      apple:
+        name: "&6Apple"
+        lores:
+        -
+      melon:
+        name: "&6Melon"
+        lores:
+        -
+      melon-2:
+        name: "&6Melon"
+        lores:
+        -
+      melon-3:
+        name: "&6Melon"
+        lores:
+        -
+      melon-4:
+        name: "&6Melon"
+        lores:
+        -
+      carved-pumpkin:
+        name: "&6Carved Pumpkin"
+        lores:
+        -
+      pumpkin:
+        name: "&6Pumpkin"
+        lores:
+        -
+      strawberry:
+        name: "&6Strawberry"
+        lores:
+        -
+      coconut:
+        name: "&6Coconut"
+        lores:
+        -
+      carrot:
+        name: "&6Carrot"
+        lores:
+        -
+      sugarcane:
+        name: "&6Sugarcane"
+        lores:
+        -
+      hot-chocolate:
+        name: "&6Hot Chocolate"
+        lores:
+        -
+      cup-of-tea:
+        name: "&6Cup of Tea"
+        lores:
+        -
+      taco:
+        name: "&6Taco"
+        lores:
+        -
+      taco-2:
+        name: "&6Taco"
+        lores:
+        -
+      baked-potatoe:
+        name: "&6Baked Potatatoe"
+        lores:
+        -
+      bacon:
+        name: "&6Bacon"
+        lores:
+        -
+      fries:
+        name: "&6Fries"
+        lores:
+        -
+      hamburger:
+        name: "&6Hamburger"
+        lores:
+        -
+      hamburger-2:
+        name: "&6Hamburger"
+        lores:
+        -
+      hamburger-3:
+        name: "&6Hamburger"
+        lores:
+        -
+      popcorn:
+        name: "&6Popcorn"
+        lores:
+        -
+      glass-of-coca-cola:
+        name: "&6Glass of Coca-Cola"
+        lores:
+        -
+      sushi-mackerel:
+        name: "&6Sushi Mackerel"
+        lores:
+        -
+      sushi-salmon:
+        name: "&6Sushi Salmon"
+        lores:
+        -
+      sushi-roll:
+        name: "&6Sushi Roll"
+        lores:
+        -
+      riceball:
+        name: "&6Riceball"
+        lores:
+        -
+      corn-block:
+        name: "&6Corn Block"
+        lores:
+        -
+      ham-cheese-sandwich:
+        name: "&6Ham Cheese Sandwich"
+        lores:
+        -
+      glass-of-beer:
+        name: "&6Glass of Beer"
+        lores:
+        -
+      medieval-beer:
+        name: "&6Medieval Beer"
+        lores:
+        -
+      ham:
+        name: "&6Ham"
+        lores:
+        -
+      mushroom-stew:
+        name: "&6Mushroom Stew"
+        lores:
+        -
+      sweet-roll:
+        name: "&6Sweet Roll"
+        lores:
+        -
+      ice-cream:
+        name: "&6Ice Cream"
+        lores:
+        -
+      lemon:
+        name: "&6Lemon"
+        lores:
+        -
+      plum:
+        name: "&6Plum"
+        lores:
+        -
+      salad:
+        name: "&6Salad"
+        lores:
+        -
+      white-frosted-donut:
+        name: "&6White Frosted Donut"
+        lores:
+        -
+      pink-frosted-donut:
+        name: "&6Pink Frosted Donut"
+        lores:
+        -
+      chocolate-frosted-donut:
+        name: "&6Chocolate Frosted Donut"
+        lores:
+        -
+      turkey:
+        name: "&6Turkey"
+        lores:
+        -
+      bento-box:
+        name: "&6Bento Box"
+        lores:
+        -
+      coconut-2:
+        name: "&6Coconut"
+        lores:
+        -
+      coconut-3:
+        name: "&6Coconut"
+        lores:
+        -
+      plate-of-cookies:
+        name: "&6Plate of Cookies"
+        lores:
+        -
+      marshmallow:
+        name: "&6Marshmallow"
+        lores:
+        -
+      hamburger-4:
+        name: "&6Hamburger"
+        lores:
+        -
+      bowl-of-rice:
+        name: "&6Bowl of Rice"
+        lores:
+        -
+      sushi-roll-2:
+        name: "&6Sushi Roll"
+        lores:
+        -
+      bowl-of-spaghetti:
+        name: "&6Bowl of Spaghetti"
+        lores:
+        -
+      bowl-of-noodles:
+        name: "&6Bowl of Noodles"
+        lores:
+        -
+      bowl-of-noodles-2:
+        name: "&6Bowl of Noodles"
+        lores:
+        -
+      chinese-take-out-box:
+        name: "&6Chinese Take Out Box"
+        lores:
+        -
+      tomato:
+        name: "&6Tomato"
+        lores:
+        -
+      orange:
+        name: "&6Orange"
+        lores:
+        -
+      green-apple:
+        name: "&6Green Apple"
+        lores:
+        -
+      lettuce:
+        name: "&6Lettuce"
+        lores:
+        -
+      purple-grapes:
+        name: "&6Purple Grapes"
+        lores:
+        -
+      green-grapes:
+        name: "&6Green Grapes"
+        lores:
+        -
+      red-grapes:
+        name: "&6Red Grapes"
+        lores:
+        -
+      sandwich:
+        name: "&6Sandwich"
+        lores:
+         -
+      cherry-pie:
+        name: "&6Cherry Pie"
+        lores:
+        -
+      pie:
+        name: "&6Pie"
+        lores:
+        -
+      chocolate-cake:
+        name: "&6Chocolate Cake"
+        lores:
+        -
+      honey-pot:
+        name: "&6Honey Pot"
+        lores:
+        -
+      pepsi:
+        name: "&6Pepsi"
+        lores:
+        -
+      coca-cola:
+        name: "&6Coca-Cola"
+        lores:
+        -
+      sprite:
+        name: "&6Sprite"
+        lores:
+        -
+      mello-yello:
+        name: "&6Mello Yello"
+        lores:
+        -
+      fanta:
+        name: "&6Fanta"
+        lores:
+        -
+      mountain-dew:
+        name: "&6Mountain Dew"
+        lores:
+        -
+      tomato-2:
+        name: "&6Tomato"
+        lores:
+        -
+      ripe-tomato:
+        name: "&6Ripe Tomato"
+        lores:
+        -
+      raspberry:
+        name: "&6Raspberry"
+        lores:
+        -
+      raspberry-2:
+        name: "&6Raspberry"
+        lores:
+        -
+      apple-2:
+        name: "&6Apple"
+        lores:
+        -
+      apple-3:
+        name: "&6Apple"
+        lores:
+        -
+      apple-4:
+        name: "&6Apple"
+        lores:
+        -
+      apple-5:
+        name: "&6Apple"
+        lores:
+        -
+      apple-6:
+        name: "&6Apple"
+        lores:
+        -
+      cooked-shrimp:
+        name: "&6Cooked Shrimp"
+        lores:
+        -
+      sushi-salmon-2:
+        name: "&6Sushi Salmon"
+        lores:
+        -
+      sushi:
+        name: "&6Sushi"
+        lores:
+        -
+      sushi-2:
+        name: "&6Sushi"
+        lores:
+        -
+      plastic-cup:
+        name: "&6Plastic Cup"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     games:
       name: "&6Games"
       lores:
       -
-      page-1:
-        title: "&aGames"
-        beachball:
-          name: "&6Beachball"
-          lores:
-          -
-        soccerball:
-          name: "&6Soccerball"
-          lores:
-          -
-        bowlingball:
-          name: "&6Bowlingball"
-          lores:
-          -
-        bowlingball-2:
-          name: "&6Bowlingball"
-          lores:
-          -
-        bowlingball-3:
-          name: "&6Bowlingball"
-          lores:
-          -
-        checkerboard:
-          name: "&6Checkerboard"
-          lores:
-          -
-        poke-ball:
-          name: "&6Poke Ball"
-          lores:
-          -
-        glados:
-          name: "&6Glados"
-          lores:
-          -
-        turret:
-          name: "&6Turret"
-          lores:
-          -
-        companion-cube:
-          name: "&6Companion Cube"
-          lores:
-          -
-        weighted-cube:
-          name: "&6Weighted Cube"
-          lores:
-          -
-        white-dice:
-          name: "&6White Dice"
-          lores:
-          -
-        red-dice:
-          name: "&6Red Dice"
-          lores:
-          -
-        black-dice:
-          name: "&6Black Dice"
-          lores:
-          -
-        portal-core-wheatley:
-          name: "&6Portal Core - Wheatley"
-          lores:
-          -
-        great-ball:
-          name: "&6Great Ball"
-          lores:
-          -
-        ultra-ball:
-          name: "&6Ultra Ball"
-          lores:
-          -
-        master-ball:
-          name: "&6Master Ball"
-          lores:
-          -
-        basketball:
-          name: "&6Basketball"
-          lores:
-          -
-        masterchief-halo:
-          name: "&6Masterchief - Halo"
-          lores:
-          -
-        yoshi:
-          name: "&6Yoshi"
-          lores:
-          -
-        batman:
-          name: "&6Batman"
-          lores:
-          -
-        luigi:
-          name: "&6Luigi"
-          lores:
-          -
-        mario:
-          name: "&6Mario"
-          lores:
-          -
-        solved-rubiks-cube:
-          name: "&6Solved Rubik's Cube"
-          lores:
-          -
-        scrambled-rubiks-cube:
-          name: "&6Scrambled Rubik's Cube"
-          lores:
-          -
-        chess-board:
-          name: "&6Chess Board"
-          lores:
-          -
-        safari-ball:
-          name: "&6Safari Ball"
-          lores:
-          -
-        premier-ball:
-          name: "&6Premier Ball"
-          lores:
-          -
-        warp-pipe:
-          name: "&6Warp Pipe"
-          lores:
-          -
-        goomba:
-          name: "&6Goomba"
-          lores:
-          -
-        orange-core:
-          name: "&6Orange Core"
-          lores:
-          -
-        green-core:
-          name: "&6Green Core"
-          lores:
-          -
-        illusion-block:
-          name: "&6Illusion Block"
-          lores:
-          -
-        illusion-block-2:
-          name: "&6Illusion Block"
-          lores:
-          -
-        dragon-ball-1:
-          name: "&6Dragon Ball #1"
-          lores:
-          -
-        dragon-ball-2:
-          name: "&6Dragon Ball #2"
-          lores:
-          -
-        dragon-ball-3:
-          name: "&6Dragon Ball #3"
-          lores:
-          -
-        dragon-ball-4:
-          name: "&6Dragon Ball #4"
-          lores:
-          -
-        dragon-ball-5:
-          name: "&6Dragon Ball #5"
-          lores:
-          -
-        dragon-ball-6:
-          name: "&6Dragon Ball #6"
-          lores:
-          -
-        dragon-ball-7:
-          name: "&6Dragon Ball #7"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aGames"
+      beachball:
+        name: "&6Beachball"
+        lores:
+        -
+      soccerball:
+        name: "&6Soccerball"
+        lores:
+        -
+      bowlingball:
+        name: "&6Bowlingball"
+        lores:
+        -
+      bowlingball-2:
+        name: "&6Bowlingball"
+        lores:
+        -
+      bowlingball-3:
+        name: "&6Bowlingball"
+        lores:
+        -
+      checkerboard:
+        name: "&6Checkerboard"
+        lores:
+        -
+      poke-ball:
+        name: "&6Poke Ball"
+        lores:
+        -
+      glados:
+        name: "&6Glados"
+        lores:
+        -
+      turret:
+        name: "&6Turret"
+        lores:
+        -
+      companion-cube:
+        name: "&6Companion Cube"
+        lores:
+        -
+      weighted-cube:
+        name: "&6Weighted Cube"
+        lores:
+        -
+      white-dice:
+        name: "&6White Dice"
+        lores:
+        -
+      red-dice:
+        name: "&6Red Dice"
+        lores:
+        -
+      black-dice:
+        name: "&6Black Dice"
+        lores:
+        -
+      portal-core-wheatley:
+        name: "&6Portal Core - Wheatley"
+        lores:
+        -
+      great-ball:
+        name: "&6Great Ball"
+        lores:
+        -
+      ultra-ball:
+        name: "&6Ultra Ball"
+        lores:
+        -
+      master-ball:
+        name: "&6Master Ball"
+        lores:
+        -
+      basketball:
+        name: "&6Basketball"
+        lores:
+        -
+      masterchief-halo:
+        name: "&6Masterchief - Halo"
+        lores:
+        -
+      yoshi:
+        name: "&6Yoshi"
+        lores:
+        -
+      batman:
+        name: "&6Batman"
+        lores:
+        -
+      luigi:
+        name: "&6Luigi"
+        lores:
+        -
+      mario:
+        name: "&6Mario"
+        lores:
+        -
+      solved-rubiks-cube:
+        name: "&6Solved Rubik's Cube"
+        lores:
+        -
+      scrambled-rubiks-cube:
+        name: "&6Scrambled Rubik's Cube"
+        lores:
+        -
+      chess-board:
+        name: "&6Chess Board"
+        lores:
+        -
+      safari-ball:
+        name: "&6Safari Ball"
+        lores:
+        -
+      premier-ball:
+        name: "&6Premier Ball"
+        lores:
+        -
+      warp-pipe:
+        name: "&6Warp Pipe"
+        lores:
+        -
+      goomba:
+        name: "&6Goomba"
+        lores:
+        -
+      orange-core:
+        name: "&6Orange Core"
+        lores:
+        -
+      green-core:
+        name: "&6Green Core"
+        lores:
+        -
+      illusion-block:
+        name: "&6Illusion Block"
+        lores:
+        -
+      illusion-block-2:
+        name: "&6Illusion Block"
+        lores:
+        -
+      dragon-ball-1:
+        name: "&6Dragon Ball #1"
+        lores:
+        -
+      dragon-ball-2:
+        name: "&6Dragon Ball #2"
+        lores:
+        -
+      dragon-ball-3:
+        name: "&6Dragon Ball #3"
+        lores:
+        -
+      dragon-ball-4:
+        name: "&6Dragon Ball #4"
+        lores:
+        -
+      dragon-ball-5:
+        name: "&6Dragon Ball #5"
+        lores:
+        -
+      dragon-ball-6:
+        name: "&6Dragon Ball #6"
+        lores:
+        -
+      dragon-ball-7:
+        name: "&6Dragon Ball #7"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
     interior:
       name: "&6Interior"
       lores:
       -
-      page-1:
-        title: "&aInterior"
-        potted-rose-plant:
-          name: "&6Potted Rose Plant"
-          lores:
-          -
-        potted-salvia-plant:
-          name: "&6Potted Salvia Plant"
-          lores:
-          -
-        toiletpaper:
-          name: "&6Toiletpaper"
-          lores:
-          -
-        toiletroll:
-          name: "&6Toiletroll"
-          lores:
-          -
-        winrar-books:
-          name: "&6WinRAR Books"
-          lores:
-          -
-        bookcase:
-          name: "&6Bookcase"
-          lores:
-          -
-        bookshelf:
-          name: "&6Bookshelf"
-          lores:
-          -
-        pile-of-books:
-          name: "&6Pile of Books"
-          lores:
-          -
-        chest:
-          name: "&6Chest"
-          lores:
-          -
-        enderchest:
-          name: "&6Enderchest"
-          lores:
-          -
-        iron-chest:
-          name: "&6Iron Chest"
-          lores:
-          -
-        medicine-chest:
-          name: "&6Medicine Chest"
-          lores:
-          -
-        cabinet:
-          name: "&6Cabinet"
-          lores:
-          -
-        present:
-          name: "&6Present"
-          lores:
-          -
-        present-2:
-          name: "&6Present"
-          lores:
-          -
-        present-3:
-          name: "&6Present"
-          lores:
-          -
-        globe:
-          name: "&6Globe"
-          lores:
-          -
-        plant:
-          name: "&6Plant"
-          lores:
-          -
-        crafting-table:
-          name: "&6Crafting Table"
-          lores:
-          -
-        potted-daffodil-plant:
-          name: "&6Potted Daffodil Plant"
-          lores:
-          -
-        potted-camellia-plant:
-          name: "&6Potted Cammelia Plant"
-          lores:
-          -
-        candle:
-          name: "&6Candle"
-          lores:
-          -
-        unlit-candle:
-          name: "&6Unlit Candle"
-          lores:
-          -
-        old-books:
-          name: "&6Old Books"
-          lores:
-          -
-        potted-azelea-plant:
-          name: "&6Potted Azelea Plant"
-          lores:
-          -
-        white-vase:
-          name: "&6White Vase"
-          lores:
-          -
-        brown-vase:
-          name: "&6Brown Vase"
-          lores:
-          -
-        pink-vase:
-          name: "&6Pink Vase"
-          lores:
-          -
-        blue-vase:
-          name: "&6Blue Vase"
-          lores:
-          -
-        furnace:
-          name: "&6Furnace"
-          lores:
-          -
-        cauldron:
-          name: "&6Cauldron"
-          lores:
-          -
-        aquarium:
-          name: "&6Aquarium"
-          lores:
-          -
-        wooden-crate:
-          name: "&6Wooden Crate"
-          lores:
-          -
-        christmas-present:
-          name: "&6Christmas Present"
-          lores:
-          -
-        books:
-          name: "&6Books"
-          lores:
-          -
-        chinese-ming-vase:
-          name: "&6Chinese Ming Vase"
-          lores:
-          -
-        japanese-lantern:
-          name: "&6Japanese Lantern"
-          lores:
-          -
-        chinese-lantern:
-          name: "&6Chinese Lantern"
-          lores:
-          -
-        globe-2:
-          name: "&6Globe"
-          lores:
-          -
-        paper-lantern:
-          name: "&6Paper Lantern"
-          lores:
-          -
-        red-candle:
-          name: "&6Red Candle"
-          lores:
-          -
-        unlit-red-candle:
-          name: "&6Unlit Red Candle"
-          lores:
-          -
-        stack-of-books:
-          name: "&6Stack of Books"
-          lores:
-          -
-        stack-of-books-2:
-          name: "&6Stack of Books"
-          lores:
-          -
-        fish-tank:
-          name: "&6Fish Tank"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aInterior"
-        present:
-          name: "&6Present"
-          lores:
-          -
-        present-2:
-          name: "&6Present"
-          lores:
-          -
-        cd-case:
-          name: "&6CD Case"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aInterior"
+      potted-rose-plant:
+        name: "&6Potted Rose Plant"
+        lores:
+        -
+      potted-salvia-plant:
+        name: "&6Potted Salvia Plant"
+        lores:
+        -
+      toiletpaper:
+        name: "&6Toiletpaper"
+        lores:
+        -
+      toiletroll:
+        name: "&6Toiletroll"
+        lores:
+        -
+      winrar-books:
+        name: "&6WinRAR Books"
+        lores:
+        -
+      bookcase:
+        name: "&6Bookcase"
+        lores:
+        -
+      bookshelf:
+        name: "&6Bookshelf"
+        lores:
+        -
+      pile-of-books:
+        name: "&6Pile of Books"
+        lores:
+        -
+      chest:
+        name: "&6Chest"
+        lores:
+        -
+      enderchest:
+        name: "&6Enderchest"
+        lores:
+        -
+      iron-chest:
+        name: "&6Iron Chest"
+        lores:
+        -
+      medicine-chest:
+        name: "&6Medicine Chest"
+        lores:
+        -
+      cabinet:
+        name: "&6Cabinet"
+        lores:
+        -
+      present:
+        name: "&6Present"
+        lores:
+        -
+      present-2:
+        name: "&6Present"
+        lores:
+        -
+      present-3:
+        name: "&6Present"
+        lores:
+        -
+      globe:
+        name: "&6Globe"
+        lores:
+        -
+      plant:
+        name: "&6Plant"
+        lores:
+        -
+      crafting-table:
+        name: "&6Crafting Table"
+        lores:
+        -
+      potted-daffodil-plant:
+        name: "&6Potted Daffodil Plant"
+        lores:
+        -
+      potted-camellia-plant:
+        name: "&6Potted Cammelia Plant"
+        lores:
+        -
+      candle:
+        name: "&6Candle"
+        lores:
+        -
+      unlit-candle:
+        name: "&6Unlit Candle"
+        lores:
+        -
+      old-books:
+        name: "&6Old Books"
+        lores:
+        -
+      potted-azelea-plant:
+        name: "&6Potted Azelea Plant"
+        lores:
+        -
+      white-vase:
+        name: "&6White Vase"
+        lores:
+        -
+      brown-vase:
+        name: "&6Brown Vase"
+        lores:
+        -
+      pink-vase:
+        name: "&6Pink Vase"
+        lores:
+        -
+      blue-vase:
+        name: "&6Blue Vase"
+        lores:
+        -
+      furnace:
+        name: "&6Furnace"
+        lores:
+        -
+      cauldron:
+        name: "&6Cauldron"
+        lores:
+        -
+      aquarium:
+        name: "&6Aquarium"
+        lores:
+        -
+      wooden-crate:
+        name: "&6Wooden Crate"
+        lores:
+        -
+      christmas-present:
+        name: "&6Christmas Present"
+        lores:
+        -
+      books:
+        name: "&6Books"
+        lores:
+        -
+      chinese-ming-vase:
+        name: "&6Chinese Ming Vase"
+        lores:
+        -
+      japanese-lantern:
+        name: "&6Japanese Lantern"
+        lores:
+        -
+      chinese-lantern:
+        name: "&6Chinese Lantern"
+        lores:
+        -
+      globe-2:
+        name: "&6Globe"
+        lores:
+        -
+      paper-lantern:
+        name: "&6Paper Lantern"
+        lores:
+        -
+      red-candle:
+        name: "&6Red Candle"
+        lores:
+        -
+      unlit-red-candle:
+        name: "&6Unlit Red Candle"
+        lores:
+        -
+      stack-of-books:
+        name: "&6Stack of Books"
+        lores:
+        -
+      stack-of-books-2:
+        name: "&6Stack of Books"
+        lores:
+        -
+      fish-tank:
+        name: "&6Fish Tank"
+        lores:
+        -
+      present-4:
+        name: "&6Present"
+        lores:
+        -
+      present-5:
+        name: "&6Present"
+        lores:
+        -
+      cd-case:
+        name: "&6CD Case"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     misc:
       name: "&6Misc"
       lores:
       -
-      page-1:
-        title: "&aMisc"
-        gold-pot:
-          name: "&6Gold Pot"
-          lores:
-          -
-        lava-bucket:
-          name: "&6Lava Bucket"
-          lores:
-          -
-        milk-bucket:
-          name: "&6Milk Bucket"
-          lores:
-          -
-        empty-bucket:
-          name: "&6Empty Bucket"
-          lores:
-          -
-        water-bucket:
-          name: "&6Water Bucket"
-          lores:
-          -
-        mailbox:
-          name: "&6Mailbox"
-          lores:
-          -
-        space-helmet:
-          name: "&6Space Helmet"
-          lores:
-          -
-        space-helmet-2:
-          name: "&6Space Helmet"
-          lores:
-          -
-        football-helmet:
-          name: "&6Football Helmet"
-          lores:
-          -
-        eye:
-          name: "&6Eye"
-          lores:
-          -
-        red-mushroom:
-          name: "&6Red Mushroom"
-          lores:
-          -
-        pine-cone:
-          name: "&6Pine Cone"
-          lores:
-          -
-        cannonball:
-          name: "&6Cannonball"
-          lores:
-          -
-        cannonball-2:
-          name: "&6Cannonball"
-          lores:
-          -
-        target:
-          name: "&6Target"
-          lores:
-          -
-        cactus:
-          name: "&6Cactus"
-          lores:
-          -
-        facebook:
-          name: "&6Facebook"
-          lores:
-          -
-        twitter:
-          name: "&6Twitter"
-          lores:
-          -
-        youtube:
-          name: "&6Youtube"
-          lores:
-          -
-        firecharge:
-          name: "&6Firecharge"
-          lores:
-          -
-        portable-grill:
-          name: "&6Portable Grill"
-          lores:
-          -
-        wilson-castaway:
-          name: "&6Wilson - Castaway"
-          lores:
-          -
-        mailbox-2:
-          name: "&6Mailbox"
-          lores:
-          -
-        skull:
-          name: "&6Skull"
-          lores:
-          -
-        missing-texture:
-          name: "&6Missing Texture"
-          lores:
-          -
-        green-ore:
-          name: "&6Green Ore"
-          lores:
-          -
-        cactusflower:
-          name: "&6Cactusflower"
-          lores:
-          -
-        molten-core:
-          name: "&6Molten Core"
-          lores:
-          -
-        reddit:
-          name: "&6Reddit"
-          lores:
-          -
-        diamond-steve-head:
-          name: "&6Diamond Steve Head"
-          lores:
-          -
-        gold-steve-head:
-          name: "&6Gold Steve Head"
-          lores:
-          -
-        mushroom-stem:
-          name: "&6Mushroom Stem"
-          lores:
-          -
-        brown-mushroom:
-          name: "&6Brown Mushroom"
-          lores:
-          -
-        cocoa-bean:
-          name: "&6Cocoa Bean"
-          lores:
-          -
-        light-brown-mushroom:
-          name: "&6Light Brown Mushroom"
-          lores:
-          -
-        green-ore-2:
-          name: "&6Green Ore"
-          lores:
-          -
-        bundle-of-burnt-torches:
-          name: "&6Bundle of Burnt Torches"
-          lores:
-          -
-        skype:
-          name: "&6Skype"
-          lores:
-          -
-        tnt-minecart:
-          name: "&6TNT Minecart"
-          lores:
-          -
-        furnace-minecart:
-          name: "&6Furnace Minecart"
-          lores:
-          -
-        chest-minecart:
-          name: "&6Chest Minecart"
-          lores:
-          -
-        command-block-minecart:
-          name: "&6Command Block Minecart"
-          lores:
-          -
-        scared:
-          name: "&6Scared"
-          lores:
-          -
-        angel:
-          name: "&6Angel"
-          lores:
-          -
-        embarrased:
-          name: "&6Embarrased"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aMisc"
-        kissy:
-          name: "&6Kissy"
-          lores:
-          -
-        sad:
-          name: "&6Sad"
-          lores:
-          -
-        cool:
-          name: "&6Cool"
-          lores:
-          -
-        surprised:
-          name: "&6Surprised"
-          lores:
-          -
-        dead:
-          name: "&6Dead"
-          lores:
-          -
-        forever-crying:
-          name: "&6Forever Crying"
-          lores:
-          -
-        big-grin:
-          name: "&6Big Grin"
-          lores:
-          -
-        wink:
-          name: "&6Wink"
-          lores:
-          -
-        derp:
-          name: "&6Derp"
-          lores:
-          -
-        mustache:
-          name: "&6Mustache"
-          lores:
-          -
-        big-smile:
-          name: "&6Big Smile"
-          lores:
-          -
-        smile:
-          name: "&6Smile"
-          lores:
-          -
-        beehive:
-          name: "&6Beehive"
-          lores:
-          -
-        netherlands:
-          name: "&6Netherlands"
-          lores:
-          -
-        norway:
-          name: "&6Norway"
-          lores:
-          -
-        sweden:
-          name: "&6Sweden"
-          lores:
-          -
-        egypt:
-          name: "&6Egypt"
-          lores:
-          -
-        chile:
-          name: "&6Chile"
-          lores:
-          -
-        monaco:
-          name: "&6Monaco"
-          lores:
-          -
-        canada:
-          name: "&6Canada"
-          lores:
-          -
-        united-states-of-america:
-          name: "&6United Stated of America"
-          lores:
-          -
-        belgium:
-          name: "&6Belgium"
-          lores:
-          -
-        italy:
-          name: "&6Italy"
-          lores:
-          -
-        england:
-          name: "&6England"
-          lores:
-          -
-        romania:
-          name: "&6Romania"
-          lores:
-          -
-        germany:
-          name: "&6Germany"
-          lores:
-          -
-        singapore:
-          name: "&6Singapore"
-          lores:
-          -
-        north-korea:
-          name: "&6North Korea"
-          lores:
-          -
-        france:
-          name: "&6France"
-          lores:
-          -
-        crown:
-          name: "&6Crown"
-          lores:
-          -
-        emerald-steve-head:
-          name: "&6Emerald Steve Head"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
+      title: "&aMisc"
+      gold-pot:
+        name: "&6Gold Pot"
+        lores:
+        -
+      lava-bucket:
+        name: "&6Lava Bucket"
+        lores:
+        -
+      milk-bucket:
+        name: "&6Milk Bucket"
+        lores:
+        -
+      empty-bucket:
+        name: "&6Empty Bucket"
+        lores:
+        -
+      water-bucket:
+        name: "&6Water Bucket"
+        lores:
+        -
+      mailbox:
+        name: "&6Mailbox"
+        lores:
+        -
+      space-helmet:
+        name: "&6Space Helmet"
+        lores:
+        -
+      space-helmet-2:
+        name: "&6Space Helmet"
+        lores:
+        -
+      football-helmet:
+        name: "&6Football Helmet"
+        lores:
+        -
+      eye:
+        name: "&6Eye"
+        lores:
+        -
+      red-mushroom:
+        name: "&6Red Mushroom"
+        lores:
+        -
+      pine-cone:
+        name: "&6Pine Cone"
+        lores:
+        -
+      cannonball:
+        name: "&6Cannonball"
+        lores:
+        -
+      cannonball-2:
+        name: "&6Cannonball"
+        lores:
+        -
+      target:
+        name: "&6Target"
+        lores:
+        -
+      cactus:
+        name: "&6Cactus"
+        lores:
+        -
+      facebook:
+        name: "&6Facebook"
+        lores:
+        -
+      twitter:
+        name: "&6Twitter"
+        lores:
+        -
+      youtube:
+        name: "&6Youtube"
+        lores:
+        -
+      firecharge:
+        name: "&6Firecharge"
+        lores:
+        -
+      portable-grill:
+        name: "&6Portable Grill"
+        lores:
+        -
+      wilson-castaway:
+        name: "&6Wilson - Castaway"
+        lores:
+        -
+      mailbox-2:
+        name: "&6Mailbox"
+        lores:
+        -
+      skull:
+        name: "&6Skull"
+        lores:
+        -
+      missing-texture:
+        name: "&6Missing Texture"
+        lores:
+        -
+      green-ore:
+        name: "&6Green Ore"
+        lores:
+        -
+      cactusflower:
+        name: "&6Cactusflower"
+        lores:
+        -
+      molten-core:
+        name: "&6Molten Core"
+        lores:
+        -
+      reddit:
+        name: "&6Reddit"
+        lores:
+        -
+      diamond-steve-head:
+        name: "&6Diamond Steve Head"
+        lores:
+        -
+      gold-steve-head:
+        name: "&6Gold Steve Head"
+        lores:
+        -
+      mushroom-stem:
+        name: "&6Mushroom Stem"
+        lores:
+        -
+      brown-mushroom:
+        name: "&6Brown Mushroom"
+        lores:
+        -
+      cocoa-bean:
+        name: "&6Cocoa Bean"
+        lores:
+        -
+      light-brown-mushroom:
+        name: "&6Light Brown Mushroom"
+        lores:
+        -
+      green-ore-2:
+        name: "&6Green Ore"
+        lores:
+        -
+      bundle-of-burnt-torches:
+        name: "&6Bundle of Burnt Torches"
+        lores:
+        -
+      skype:
+        name: "&6Skype"
+        lores:
+        -
+      tnt-minecart:
+        name: "&6TNT Minecart"
+        lores:
+        -
+      furnace-minecart:
+        name: "&6Furnace Minecart"
+        lores:
+        -
+      chest-minecart:
+        name: "&6Chest Minecart"
+        lores:
+        -
+      command-block-minecart:
+        name: "&6Command Block Minecart"
+        lores:
+        -
+      scared:
+        name: "&6Scared"
+        lores:
+        -
+      angel:
+        name: "&6Angel"
+        lores:
+        -
+      embarrased:
+        name: "&6Embarrased"
+        lores:
+        -
+      kissy:
+        name: "&6Kissy"
+        lores:
+        -
+      sad:
+        name: "&6Sad"
+        lores:
+        -
+      cool:
+        name: "&6Cool"
+        lores:
+        -
+      surprised:
+        name: "&6Surprised"
+        lores:
+        -
+      dead:
+        name: "&6Dead"
+        lores:
+        -
+      forever-crying:
+        name: "&6Forever Crying"
+        lores:
+        -
+      big-grin:
+        name: "&6Big Grin"
+        lores:
+        -
+      wink:
+        name: "&6Wink"
+        lores:
+        -
+      derp:
+        name: "&6Derp"
+        lores:
+        -
+      mustache:
+        name: "&6Mustache"
+        lores:
+        -
+      big-smile:
+        name: "&6Big Smile"
+        lores:
+        -
+      smile:
+        name: "&6Smile"
+        lores:
+        -
+      beehive:
+        name: "&6Beehive"
+        lores:
+        -
+      netherlands:
+        name: "&6Netherlands"
+        lores:
+        -
+      norway:
+        name: "&6Norway"
+        lores:
+        -
+      sweden:
+        name: "&6Sweden"
+        lores:
+        -
+      egypt:
+        name: "&6Egypt"
+        lores:
+        -
+      chile:
+        name: "&6Chile"
+        lores:
+        -
+      monaco:
+        name: "&6Monaco"
+        lores:
+        -
+      canada:
+        name: "&6Canada"
+        lores:
+        -
+      united-states-of-america:
+        name: "&6United Stated of America"
+        lores:
+        -
+      belgium:
+        name: "&6Belgium"
+        lores:
+        -
+      italy:
+        name: "&6Italy"
+        lores:
+        -
+      england:
+        name: "&6England"
+        lores:
+        -
+      romania:
+        name: "&6Romania"
+        lores:
+        -
+      germany:
+        name: "&6Germany"
+        lores:
+        -
+      singapore:
+        name: "&6Singapore"
+        lores:
+        -
+      north-korea:
+        name: "&6North Korea"
+        lores:
+        -
+      france:
+        name: "&6France"
+        lores:
+        -
+      crown:
+        name: "&6Crown"
+        lores:
+        -
+      emerald-steve-head:
+        name: "&6Emerald Steve Head"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     mobs:
       name: "&6Mobs"
       lores:
       -
-      page-1:
-        title: "&aMobs"
-        blaze:
-          name: "&6Blaze"
-          lores:
-          -
-        cave-spider:
-          name: "&6Cave Spider"
-          lores:
-          -
-        ghast:
-          name: "&6Ghast"
-          lores:
-          -
-        pigzombie:
-          name: "&6Pigzombie"
-          lores:
-          -
-        enderman:
-          name: "&6Enderman"
-          lores:
-          -
-        lava-slime:
-          name: "&6Lava Slime"
-          lores:
-          -
-        slime:
-          name: "&6Slime"
-          lores:
-          -
-        spider:
-          name: "&6Spider"
-          lores:
-          -
-        chicken:
-          name: "&6Chicken"
-          lores:
-          -
-        pig:
-          name: "&6Pig"
-          lores:
-          -
-        sheep:
-          name: "&6Sheep"
-          lores:
-          -
-        cow:
-          name: "&6Cow"
-          lores:
-          -
-        squid:
-          name: "&6Squid"
-          lores:
-          -
-        villager:
-          name: "&6Villager"
-          lores:
-          -
-        golem:
-          name: "&6Golem"
-          lores:
-          -
-        herobrine:
-          name: "&6Herobrine"
-          lores:
-          -
-        mushroom-cow:
-          name: "&6Mushroom Cow"
-          lores:
-          -
-        ocelot:
-          name: "&6Ocelot"
-          lores:
-          -
-        horse-head:
-          name: "&6Horse Head"
-          lores:
-          -
-        guardian:
-          name: "&6Guardian"
-          lores:
-          -
-        monkey:
-          name: "&6Monkey"
-          lores:
-          -
-        polar-bear:
-          name: "&6Polar Bear"
-          lores:
-          -
-        penguin:
-          name: "&6Penguin"
-          lores:
-          -
-        walrus:
-          name: "&6Walrus"
-          lores:
-          -
-        tiger:
-          name: "&6Tiger"
-          lores:
-          -
-        panda:
-          name: "&6Panda"
-          lores:
-          -
-        cat:
-          name: "&6Cat"
-          lores:
-          -
-        angry-wolf:
-          name: "&6Angry Wolf"
-          lores:
-          -
-        rabbit:
-          name: "&6Rabbit"
-          lores:
-          -
-        koala:
-          name: "&6Koala"
-          lores:
-          -
-        chinese-dragon:
-          name: "&6Chinese Dragon"
-          lores:
-          -
-        villager-head:
-          name: "&6Villager Head"
-          lores:
-          -
-        pufferfish:
-          name: "&6Pufferfish"
-          lores:
-          -
-        wither-boss:
-          name: "&6Wither Boss"
-          lores:
-          -
-        snowhead:
-          name: "&6Snowhead"
-          lores:
-          -
-        snowhead-2:
-          name: "&6Snowhead"
-          lores:
-          -
-        clownfish:
-          name: "&6Clownfish"
-          lores:
-          -
-        bird:
-          name: "&6Bird"
-          lores:
-          -
-        bee:
-          name: "&6Bee"
-          lores:
-          -
-        enderdragon:
-          name: "&6Enderdragon"
-          lores:
-          -
-        hermit-crab:
-          name: "&6Hermit Crab"
-          lores:
-          -
-        regular-fish:
-          name: "&6Regular Fish"
-          lores:
-          -
-        salmon-fish:
-          name: "&6Salmon Fish"
-          lores:
-          -
-        tortoise:
-          name: "&6Tortoise"
-          lores:
-          -
-        seagull:
-          name: "&6Seagull"
-          lores:
-          -
-        close:
-          name: "&aClose"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aMobs"
-        ferret:
-          name: "&6Ferret"
-          lores:
-          -
-        elephant:
-          name: "&6Elephant"
-          lores:
-          -
-        furby:
-          name: "&6Furby"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose"
-          lores:
-          -
+      title: "&aMobs"
+      blaze:
+        name: "&6Blaze"
+        lores:
+        -
+      cave-spider:
+        name: "&6Cave Spider"
+        lores:
+        -
+      ghast:
+        name: "&6Ghast"
+        lores:
+        -
+      pigzombie:
+        name: "&6Pigzombie"
+        lores:
+        -
+      enderman:
+        name: "&6Enderman"
+        lores:
+        -
+      lava-slime:
+        name: "&6Lava Slime"
+        lores:
+        -
+      slime:
+        name: "&6Slime"
+        lores:
+        -
+      spider:
+        name: "&6Spider"
+        lores:
+        -
+      chicken:
+        name: "&6Chicken"
+        lores:
+        -
+      pig:
+        name: "&6Pig"
+        lores:
+        -
+      sheep:
+        name: "&6Sheep"
+        lores:
+        -
+      cow:
+        name: "&6Cow"
+        lores:
+        -
+      squid:
+        name: "&6Squid"
+        lores:
+        -
+      villager:
+        name: "&6Villager"
+        lores:
+        -
+      golem:
+        name: "&6Golem"
+        lores:
+        -
+      herobrine:
+        name: "&6Herobrine"
+        lores:
+        -
+      mushroom-cow:
+        name: "&6Mushroom Cow"
+        lores:
+        -
+      ocelot:
+        name: "&6Ocelot"
+        lores:
+        -
+      horse-head:
+        name: "&6Horse Head"
+        lores:
+        -
+      guardian:
+        name: "&6Guardian"
+        lores:
+        -
+      monkey:
+        name: "&6Monkey"
+        lores:
+        -
+      polar-bear:
+        name: "&6Polar Bear"
+        lores:
+        -
+      penguin:
+        name: "&6Penguin"
+        lores:
+        -
+      walrus:
+        name: "&6Walrus"
+        lores:
+        -
+      tiger:
+        name: "&6Tiger"
+        lores:
+        -
+      panda:
+        name: "&6Panda"
+        lores:
+        -
+      cat:
+        name: "&6Cat"
+        lores:
+        -
+      angry-wolf:
+        name: "&6Angry Wolf"
+        lores:
+        -
+      rabbit:
+        name: "&6Rabbit"
+        lores:
+        -
+      koala:
+        name: "&6Koala"
+        lores:
+        -
+      chinese-dragon:
+        name: "&6Chinese Dragon"
+        lores:
+        -
+      villager-head:
+        name: "&6Villager Head"
+        lores:
+        -
+      pufferfish:
+        name: "&6Pufferfish"
+        lores:
+        -
+      wither-boss:
+        name: "&6Wither Boss"
+        lores:
+        -
+      snowhead:
+        name: "&6Snowhead"
+        lores:
+        -
+      snowhead-2:
+        name: "&6Snowhead"
+        lores:
+        -
+      clownfish:
+        name: "&6Clownfish"
+        lores:
+        -
+      bird:
+        name: "&6Bird"
+        lores:
+        -
+      bee:
+        name: "&6Bee"
+        lores:
+        -
+      enderdragon:
+        name: "&6Enderdragon"
+        lores:
+        -
+      hermit-crab:
+        name: "&6Hermit Crab"
+        lores:
+        -
+      regular-fish:
+        name: "&6Regular Fish"
+        lores:
+        -
+      salmon-fish:
+        name: "&6Salmon Fish"
+        lores:
+        -
+      tortoise:
+        name: "&6Tortoise"
+        lores:
+        -
+      seagull:
+        name: "&6Seagull"
+        lores:
+        -
+      ferret:
+        name: "&6Ferret"
+        lores:
+        -
+      elephant:
+        name: "&6Elephant"
+        lores:
+        -
+      furby:
+        name: "&6Furby"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
     pokemon:
       name: "&6Pokemon"
       lores:
       -
-      page-1:
-        title: "&aPokemon"
-        magikarp:
-          name: "&6Magikarp"
-          lores:
-          -
-        squirtle:
-          name: "&6Squirtle"
-          lores:
-          -
-        unfezant:
-          name: "&6Unfezant"
-          lores:
-          -
-        hydreigon:
-          name: "&6Hydreigon"
-          lores:
-          -
-        elektross:
-          name: "&6Elektross"
-          lores:
-          -
-        swanna:
-          name: "&6Swanna"
-          lores:
-          -
-        magmar:
-          name: "&6Magmar"
-          lores:
-          -
-        liepard:
-          name: "&6Liepard"
-          lores:
-          -
-        lilligant:
-          name: "&6Lilligant"
-          lores:
-          -
-        bisharp:
-          name: "&6Bisharp"
-          lores:
-          -
-        gyarados:
-          name: "&6Gyarados"
-          lores:
-          -
-        beartic:
-          name: "&6Beartic"
-          lores:
-          -
-        scrafty:
-          name: "&6Scrafty"
-          lores:
-          -
-        darmanitan:
-          name: "&6Darmanitan"
-          lores:
-          -
-        axew:
-          name: "&6Axew"
-          lores:
-          -
-        nurse-joy:
-          name: "&6Nurse Joy"
-          lores:
-          -
-        patrat:
-          name: "&6Patrat"
-          lores:
-          -
-        throh:
-          name: "&6Throh"
-          lores:
-          -
-        sawk:
-          name: "&6Sawk"
-          lores:
-          -
-        zebstrika:
-          name: "&6Zebstrika"
-          lores:
-          -
-        charmeleon:
-          name: "&6Charmeleon"
-          lores:
-          -
-        sylveon:
-          name: "&6Sylveon"
-          lores:
-          -
-        leafeon:
-          name: "&6Leafeon"
-          lores:
-          -
-        glaceon:
-          name: "&6Glaceon"
-          lores:
-          -
-        umbreon:
-          name: "&6Umbreon"
-          lores:
-          -
-        espeon:
-          name: "&6Espeon"
-          lores:
-          -
-        flareon:
-          name: "&6Flareon"
-          lores:
-          -
-        vlaporeon:
-          name: "&6Vlaporeon"
-          lores:
-          -
-        jolteon:
-          name: "&6Jolteon"
-          lores:
-          -
-        pikachu:
-          name: "&6Pikachu"
-          lores:
-          -
-        cobalion:
-          name: "&6Cobalion"
-          lores:
-          -
-        caterpie:
-          name: "&6Caterpie"
-          lores:
-          -
-        ash:
-          name: "&6Ash"
-          lores:
-          -
-        xerneas:
-          name: "&6Xerneas"
-          lores:
-          -
-        delphox:
-          name: "&6Delphox"
-          lores:
-          -
-        chesnaught:
-          name: "&6Chesnaught"
-          lores:
-          -
-        keldeo:
-          name: "&6Keldeo"
-          lores:
-          -
-        kyurem:
-          name: "&6Kyurem"
-          lores:
-          -
-        zekrom:
-          name: "&6Zekrom"
-          lores:
-          -
-        reshiram:
-          name: "&6Reshiram"
-          lores:
-          -
-        scraggy:
-          name: "&6Scraggy"
-          lores:
-          -
-        samurott:
-          name: "&6Samurott"
-          lores:
-          -
-        emboar:
-          name: "&6Emboar"
-          lores:
-          -
-        serperior:
-          name: "&6Serperior"
-          lores:
-          -
-        victini:
-          name: "&6Victini"
-          lores:
-          -
-        shaymin:
-          name: "&6Shaymin"
-          lores:
-          -
-        close:
-          name: "&aClose"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-2:
-        title: "&aPokemon"
-        darkrai:
-          name: "&6Darkrai"
-          lores:
-          -
-        giratina:
-          name: "&6Giratina"
-          lores:
-          -
-        palkia:
-          name: "&6Palkia"
-          lores:
-          -
-        dialga:
-          name: "&6Dialga"
-          lores:
-          -
-        empoleon:
-          name: "&6Empoleon"
-          lores:
-          -
-        piplup:
-          name: "&6Piplup"
-          lores:
-          -
-        infernape:
-          name: "&6Infernape"
-          lores:
-          -
-        torterra:
-          name: "&6Torterra"
-          lores:
-          -
-        deoxys:
-          name: "&6Deoxys"
-          lores:
-          -
-        rayquaza:
-          name: "&6Rayquaza"
-          lores:
-          -
-        groudon:
-          name: "&6Groudon"
-          lores:
-          -
-        kyogre:
-          name: "&6Kyogre"
-          lores:
-          -
-        latios:
-          name: "&6Latios"
-          lores:
-          -
-        latias:
-          name: "&6Latias"
-          lores:
-          -
-        salamence:
-          name: "&6Salamence"
-          lores:
-          -
-        blaziken:
-          name: "&6Blaziken"
-          lores:
-          -
-        sceptile:
-          name: "&6Sceptile"
-          lores:
-          -
-        ho-oh:
-          name: "&6Ho-Oh"
-          lores:
-          -
-        lugia:
-          name: "&6Lugia"
-          lores:
-          -
-        suicune:
-          name: "&6Suicune"
-          lores:
-          -
-        entei:
-          name: "&6Entei"
-          lores:
-          -
-        raikou:
-          name: "&6Raikou"
-          lores:
-          -
-        typhlosion:
-          name: "&6Typhlosion"
-          lores:
-          -
-        meganium:
-          name: "&6Meganium"
-          lores:
-          -
-        mewtwo:
-          name: "&6Mewtwo"
-          lores:
-          -
-        dragonite:
-          name: "&6Dragonite"
-          lores:
-          -
-        blastoise:
-          name: "&6Blastoise"
-          lores:
-          -
-        venusaur:
-          name: "&6Venusaur"
-          lores:
-          -
-        charizard:
-          name: "&6Charizard"
-          lores:
-          -
-        lucario:
-          name: "&6Lucario"
-          lores:
-          -
-        feraligatr:
-          name: "&6Feraligatr"
-          lores:
-          -
-        pidgeot:
-          name: "&6Pidgeot"
-          lores:
-          -
-        pidgey:
-          name: "&6Pidgey"
-          lores:
-          -
-        metapod:
-          name: "&6Metapod"
-          lores:
-          -
-        butterfree:
-          name: "&6Butterfree"
-          lores:
-          -
-        wartortle:
-          name: "&6Wartortle"
-          lores:
-          -
-        bulbasaur:
-          name: "&6Bulbasaur"
-          lores:
-          -
-        ivysaur:
-          name: "&6Ivysaur"
-          lores:
-          -
-        swampert:
-          name: "&6Swampert"
-          lores:
-          -
-        growlithe:
-          name: "&6Growlithe"
-          lores:
-          -
-        greninja:
-          name: "&6Greninja"
-          lores:
-          -
-        charmander:
-          name: "&6Charmander"
-          lores:
-          -
-        chespin:
-          name: "&6Chespin"
-          lores:
-          -
-        terrakion:
-          name: "&6Terrakion"
-          lores:
-          -
-        virizion:
-          name: "&6Virizion"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose Menu"
-          lores:
-          -
-        next-page:
-          name: "&aNext Page"
-          lores:
-          -
-      page-3:
-        title: "&aPokemon"
-        noivern:
-          name: "&6Noivern"
-          lores:
-          -
-        jigglypuff:
-          name: "&6Jigglypuff"
-          lores:
-          -
-        grovyle:
-          name: "&6Grovyle"
-          lores:
-          -
-        gabite:
-          name: "&6Gabite"
-          lores:
-          -
-        pokemon-egg:
-          name: "&6Pokemon Egg"
-          lores:
-          -
-        articuno:
-          name: "&6Articuno"
-          lores:
-          -
-        luxray:
-          name: "&6Luxray"
-          lores:
-          -
-        arcanine:
-          name: "&6Arcanine"
-          lores:
-          -
-        mightyena:
-          name: "&6Mightyena"
-          lores:
-          -
-        eevee:
-          name: "&6Eevee"
-          lores:
-          -
-        vulpix:
-          name: "&6Vulpix"
-          lores:
-          -
-        gengar:
-          name: "&6Gengar"
-          lores:
-          -
-        raichu:
-          name: "&6Raichu"
-          lores:
-          -
-        beedrill:
-          name: "&6Beedrill"
-          lores:
-          -
-        cubchoo:
-          name: "&6Cubchoo"
-          lores:
-          -
-        bidoof:
-          name: "&6Bidoof"
-          lores:
-          -
-        buizel:
-          name: "&6Buizel"
-          lores:
-          -
-        arceus:
-          name: "&6Arceus"
-          lores:
-          -
-        flaaffy:
-          name: "&6Flaaffy"
-          lores:
-          -
-        deino:
-          name: "&6Deino"
-          lores:
-          -
-        muk:
-          name: "&6Muk"
-          lores:
-          -
-        oshawott:
-          name: "&6Oshawott"
-          lores:
-          -
-        cresselia:
-          name: "&6Cresselia"
-          lores:
-          -
-        yveltal:
-          name: "&6Yveltal"
-          lores:
-          -
-        wailord:
-          name: "&6Wailord"
-          lores:
-          -
-        moltres:
-          name: "&6Moltress"
-          lores:
-          -
-        mew:
-          name: "&6Mew"
-          lores:
-          -
-        zygarde:
-          name: "&6Zygarde"
-          lores:
-          -
-        zapdos:
-          name: "&6Zapdos"
-          lores:
-          -
-        manaphy:
-          name: "&6Manaphy"
-          lores:
-          -
-        koffing:
-          name: "&6Koffing"
-          lores:
-          -
-        omanyte:
-          name: "&6Omanyte"
-          lores:
-          -
-        cubone:
-          name: "&6Cubone"
-          lores:
-          -
-        voltorb:
-          name: "&6Voltorb"
-          lores:
-          -
-        electrode:
-          name: "&6Electrode"
-          lores:
-          -
-        weedle:
-          name: "&6Weedle"
-          lores:
-          -
-        kakuna:
-          name: "&6Kakuna"
-          lores:
-          -
-        previous-page:
-          name: "&aPrevious Page"
-          lores:
-          -
-        close:
-          name: "&aClose"
-          lores:
-          -
+      title: "&aPokemon"
+      magikarp:
+        name: "&6Magikarp"
+        lores:
+        -
+      squirtle:
+        name: "&6Squirtle"
+        lores:
+        -
+      unfezant:
+        name: "&6Unfezant"
+        lores:
+        -
+      hydreigon:
+        name: "&6Hydreigon"
+        lores:
+        -
+      elektross:
+        name: "&6Elektross"
+        lores:
+        -
+      swanna:
+        name: "&6Swanna"
+        lores:
+        -
+      magmar:
+        name: "&6Magmar"
+        lores:
+        -
+      liepard:
+        name: "&6Liepard"
+        lores:
+        -
+      lilligant:
+        name: "&6Lilligant"
+        lores:
+        -
+      bisharp:
+        name: "&6Bisharp"
+        lores:
+        -
+      gyarados:
+        name: "&6Gyarados"
+        lores:
+        -
+      beartic:
+        name: "&6Beartic"
+        lores:
+        -
+      scrafty:
+        name: "&6Scrafty"
+        lores:
+        -
+      darmanitan:
+        name: "&6Darmanitan"
+        lores:
+        -
+      axew:
+        name: "&6Axew"
+        lores:
+        -
+      nurse-joy:
+        name: "&6Nurse Joy"
+        lores:
+        -
+      patrat:
+        name: "&6Patrat"
+        lores:
+        -
+      throh:
+        name: "&6Throh"
+        lores:
+        -
+      sawk:
+        name: "&6Sawk"
+        lores:
+        -
+      zebstrika:
+        name: "&6Zebstrika"
+        lores:
+        -
+      charmeleon:
+        name: "&6Charmeleon"
+        lores:
+        -
+      sylveon:
+        name: "&6Sylveon"
+        lores:
+        -
+      leafeon:
+        name: "&6Leafeon"
+        lores:
+        -
+      glaceon:
+        name: "&6Glaceon"
+        lores:
+        -
+      umbreon:
+        name: "&6Umbreon"
+        lores:
+        -
+      espeon:
+        name: "&6Espeon"
+        lores:
+        -
+      flareon:
+        name: "&6Flareon"
+        lores:
+        -
+      vlaporeon:
+        name: "&6Vlaporeon"
+        lores:
+        -
+      jolteon:
+        name: "&6Jolteon"
+        lores:
+        -
+      pikachu:
+        name: "&6Pikachu"
+        lores:
+        -
+      cobalion:
+        name: "&6Cobalion"
+        lores:
+        -
+      caterpie:
+        name: "&6Caterpie"
+        lores:
+        -
+      ash:
+        name: "&6Ash"
+        lores:
+        -
+      xerneas:
+        name: "&6Xerneas"
+        lores:
+        -
+      delphox:
+        name: "&6Delphox"
+        lores:
+        -
+      chesnaught:
+        name: "&6Chesnaught"
+        lores:
+        -
+      keldeo:
+        name: "&6Keldeo"
+        lores:
+        -
+      kyurem:
+        name: "&6Kyurem"
+        lores:
+        -
+      zekrom:
+        name: "&6Zekrom"
+        lores:
+        -
+      reshiram:
+        name: "&6Reshiram"
+        lores:
+        -
+      scraggy:
+        name: "&6Scraggy"
+        lores:
+        -
+      samurott:
+        name: "&6Samurott"
+        lores:
+        -
+      emboar:
+        name: "&6Emboar"
+        lores:
+        -
+      serperior:
+        name: "&6Serperior"
+        lores:
+        -
+      victini:
+        name: "&6Victini"
+        lores:
+        -
+      shaymin:
+        name: "&6Shaymin"
+        lores:
+        -
+      darkrai:
+        name: "&6Darkrai"
+        lores:
+        -
+      giratina:
+        name: "&6Giratina"
+        lores:
+        -
+      palkia:
+        name: "&6Palkia"
+        lores:
+        -
+      dialga:
+        name: "&6Dialga"
+        lores:
+        -
+      empoleon:
+        name: "&6Empoleon"
+        lores:
+        -
+      piplup:
+        name: "&6Piplup"
+        lores:
+        -
+      infernape:
+        name: "&6Infernape"
+        lores:
+        -
+      torterra:
+        name: "&6Torterra"
+        lores:
+        -
+      deoxys:
+        name: "&6Deoxys"
+        lores:
+        -
+      rayquaza:
+        name: "&6Rayquaza"
+        lores:
+        -
+      groudon:
+        name: "&6Groudon"
+        lores:
+        -
+      kyogre:
+        name: "&6Kyogre"
+        lores:
+        -
+      latios:
+        name: "&6Latios"
+        lores:
+        -
+      latias:
+        name: "&6Latias"
+        lores:
+        -
+      salamence:
+        name: "&6Salamence"
+        lores:
+        -
+      blaziken:
+        name: "&6Blaziken"
+        lores:
+        -
+      sceptile:
+        name: "&6Sceptile"
+        lores:
+        -
+      ho-oh:
+        name: "&6Ho-Oh"
+        lores:
+        -
+      lugia:
+        name: "&6Lugia"
+        lores:
+        -
+      suicune:
+        name: "&6Suicune"
+        lores:
+        -
+      entei:
+        name: "&6Entei"
+        lores:
+        -
+      raikou:
+        name: "&6Raikou"
+        lores:
+        -
+      typhlosion:
+        name: "&6Typhlosion"
+        lores:
+        -
+      meganium:
+        name: "&6Meganium"
+        lores:
+        -
+      mewtwo:
+        name: "&6Mewtwo"
+        lores:
+        -
+      dragonite:
+        name: "&6Dragonite"
+        lores:
+        -
+      blastoise:
+        name: "&6Blastoise"
+        lores:
+        -
+      venusaur:
+        name: "&6Venusaur"
+        lores:
+        -
+      charizard:
+        name: "&6Charizard"
+        lores:
+        -
+      lucario:
+        name: "&6Lucario"
+        lores:
+        -
+      feraligatr:
+        name: "&6Feraligatr"
+        lores:
+        -
+      pidgeot:
+        name: "&6Pidgeot"
+        lores:
+        -
+      pidgey:
+        name: "&6Pidgey"
+        lores:
+        -
+      metapod:
+        name: "&6Metapod"
+        lores:
+        -
+      butterfree:
+        name: "&6Butterfree"
+        lores:
+        -
+      wartortle:
+        name: "&6Wartortle"
+        lores:
+        -
+      bulbasaur:
+        name: "&6Bulbasaur"
+        lores:
+        -
+      ivysaur:
+        name: "&6Ivysaur"
+        lores:
+        -
+      swampert:
+        name: "&6Swampert"
+        lores:
+        -
+      growlithe:
+        name: "&6Growlithe"
+        lores:
+        -
+      greninja:
+        name: "&6Greninja"
+        lores:
+        -
+      charmander:
+        name: "&6Charmander"
+        lores:
+        -
+      chespin:
+        name: "&6Chespin"
+        lores:
+        -
+      terrakion:
+        name: "&6Terrakion"
+        lores:
+        -
+      virizion:
+        name: "&6Virizion"
+        lores:
+        -
+      noivern:
+        name: "&6Noivern"
+        lores:
+        -
+      jigglypuff:
+        name: "&6Jigglypuff"
+        lores:
+        -
+      grovyle:
+        name: "&6Grovyle"
+        lores:
+        -
+      gabite:
+        name: "&6Gabite"
+        lores:
+        -
+      pokemon-egg:
+        name: "&6Pokemon Egg"
+        lores:
+        -
+      articuno:
+        name: "&6Articuno"
+        lores:
+        -
+      luxray:
+        name: "&6Luxray"
+        lores:
+        -
+      arcanine:
+        name: "&6Arcanine"
+        lores:
+        -
+      mightyena:
+        name: "&6Mightyena"
+        lores:
+        -
+      eevee:
+        name: "&6Eevee"
+        lores:
+        -
+      vulpix:
+        name: "&6Vulpix"
+        lores:
+        -
+      gengar:
+        name: "&6Gengar"
+        lores:
+        -
+      raichu:
+        name: "&6Raichu"
+        lores:
+        -
+      beedrill:
+        name: "&6Beedrill"
+        lores:
+        -
+      cubchoo:
+        name: "&6Cubchoo"
+        lores:
+        -
+      bidoof:
+        name: "&6Bidoof"
+        lores:
+        -
+      buizel:
+        name: "&6Buizel"
+        lores:
+        -
+      arceus:
+        name: "&6Arceus"
+        lores:
+        -
+      flaaffy:
+        name: "&6Flaaffy"
+        lores:
+        -
+      deino:
+        name: "&6Deino"
+        lores:
+        -
+      muk:
+        name: "&6Muk"
+        lores:
+        -
+      oshawott:
+        name: "&6Oshawott"
+        lores:
+        -
+      cresselia:
+        name: "&6Cresselia"
+        lores:
+        -
+      yveltal:
+        name: "&6Yveltal"
+        lores:
+        -
+      wailord:
+        name: "&6Wailord"
+        lores:
+        -
+      moltres:
+        name: "&6Moltress"
+        lores:
+        -
+      mew:
+        name: "&6Mew"
+        lores:
+        -
+      zygarde:
+        name: "&6Zygarde"
+        lores:
+        -
+      zapdos:
+        name: "&6Zapdos"
+        lores:
+        -
+      manaphy:
+        name: "&6Manaphy"
+        lores:
+        -
+      koffing:
+        name: "&6Koffing"
+        lores:
+        -
+      omanyte:
+        name: "&6Omanyte"
+        lores:
+        -
+      cubone:
+        name: "&6Cubone"
+        lores:
+        -
+      voltorb:
+        name: "&6Voltorb"
+        lores:
+        -
+      electrode:
+        name: "&6Electrode"
+        lores:
+        -
+      weedle:
+        name: "&6Weedle"
+        lores:
+        -
+      kakuna:
+        name: "&6Kakuna"
+        lores:
+        -
+      previous-page:
+        name: "&aPrevious Page"
+        lores:
+        -
+      close:
+        name: "&aClose Menu"
+        lores:
+        -
+      next-page:
+        name: "&aNext Page"
+        lores:
+        -
   close-menu:
     name: "&aClose menu"
     lores:

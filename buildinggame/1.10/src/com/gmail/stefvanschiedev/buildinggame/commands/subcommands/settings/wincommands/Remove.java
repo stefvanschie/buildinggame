@@ -22,9 +22,9 @@ public class Remove extends ConsoleCommand {
 	
 		String command = "";
 		
-		for (String arg : args) {
+		for (String arg : args)
 			command += arg + " ";
-		}
+		
 		command = command.trim();
 		
 		config.set("win-commands", config.getStringList("win-commands").remove(command));

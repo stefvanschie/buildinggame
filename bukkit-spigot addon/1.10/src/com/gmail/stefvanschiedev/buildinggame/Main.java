@@ -32,14 +32,14 @@ public class Main extends JavaPlugin {
 	
 		SettingsManager.getInstance().setup(this);
 		
-		getLogger().info("BuildingGame - BungeeCord AddOn has been enabled");
+		getLogger().info("BuildingGame - BungeeCord Addon has been enabled");
 	}
 	
 	@Override
 	public void onDisable() {
 		instance = null;
 		
-		getLogger().info("BuildingGame - BungeeCord AddOn has been disabled");
+		getLogger().info("BuildingGame - BungeeCord Addon has been disabled");
 	}
 	
 	public static Main getInstance() {

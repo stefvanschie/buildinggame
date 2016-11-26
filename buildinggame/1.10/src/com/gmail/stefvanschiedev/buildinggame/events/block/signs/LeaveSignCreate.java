@@ -19,21 +19,21 @@ public class LeaveSignCreate implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]")) {
+		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
 			return;
-		}
-		if (!e.getLine(1).equalsIgnoreCase("leave")) {
+			
+		if (!e.getLine(1).equalsIgnoreCase("leave"))
 			return;
-		}
+			
 		if (!player.hasPermission("bg.sign.create")) {
 			MessageManager.getInstance().send(player, messages.getString("global.permissionNode"));
 			return;
 		}
 		
-		String line1 = messages.getString("leave-sign.line-1");
-		String line2 = messages.getString("leave-sign.line-2");
-		String line3 = messages.getString("leave-sign.line-3");
-		String line4 = messages.getString("leave-sign.line-4");
+		String line1 = messages.getString("signs.leave.line-1");
+		String line2 = messages.getString("signs.leave.line-2");
+		String line3 = messages.getString("signs.leave.line-3");
+		String line4 = messages.getString("signs.leave.line-4");
 		
 		e.setLine(0, line1
 				.replaceAll("&", "§"));

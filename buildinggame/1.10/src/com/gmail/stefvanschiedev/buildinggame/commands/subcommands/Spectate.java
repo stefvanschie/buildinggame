@@ -50,11 +50,9 @@ public class Spectate extends PlayerCommand {
 		}
 		
 		//check if the player is playing the game
-		if (ArenaManager.getInstance().getArena(player) != null) {
-			if (ArenaManager.getInstance().getArena(player).getPlot(player).getGamePlayer(player).getGamePlayerType() == GamePlayerType.PLAYER) {
-				MessageManager.getInstance().send(player, ChatColor.RED + "You can't spectate while you're in game");
-				return CommandResult.ERROR;
-			}
+		if (ArenaManager.getInstance().getArena(player) != null && ArenaManager.getInstance().getArena(player).getPlot(player).getGamePlayer(player).getGamePlayerType() == GamePlayerType.PLAYER) {
+			MessageManager.getInstance().send(player, ChatColor.RED + "You can't spectate while you're in game");
+			return CommandResult.ERROR;
 		}
 		
 		//check if we are already spectating
@@ -91,11 +89,11 @@ public class Spectate extends PlayerCommand {
 	public GamePlayer getPlayer(Arena arena, String playerName) {
 		for (Plot plot : arena.getPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-				if (gamePlayer.getPlayer().getName().equals(playerName)) {
+				if (gamePlayer.getPlayer().getName().equals(playerName))
 					return gamePlayer;
-				}
 			}
 		}
+		
 		return null;
 	}
 	
@@ -108,6 +106,7 @@ public class Spectate extends PlayerCommand {
 				}
 			}
 		}
+		
 		return null;
 	}
 }

@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.BuildMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 public class OptionsMenu implements Listener {
 
@@ -18,8 +18,9 @@ public class OptionsMenu implements Listener {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Player player = e.getPlayer();
+		Arena arena = ArenaManager.getInstance().getArena(player);
 		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+		if (arena == null) {
 			return;
 		}
 		
@@ -37,8 +38,7 @@ public class OptionsMenu implements Listener {
 			return;
 		}
 		
-		BuildMenu menu = new BuildMenu();
-		menu.show(player);
+		arena.getPlot(player).getBuildMenu().open(player);
 		e.setCancelled(true);
 	}
 }

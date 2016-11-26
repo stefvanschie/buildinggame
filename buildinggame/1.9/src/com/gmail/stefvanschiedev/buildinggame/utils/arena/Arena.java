@@ -75,7 +75,7 @@ public class Arena {
 	private Plot third;
 	
 	private SubjectMenu subjectMenu = new SubjectMenu();
-	private TeamSelection teamSelection = new TeamSelection(this);
+	private TeamSelection teamSelection;
 	
 	private WaitTimer waitTimer = new WaitTimer(SettingsManager.getInstance().getConfig().getInt("waittimer"), this);
 	private WinTimer winTimer = new WinTimer(SettingsManager.getInstance().getConfig().getInt("wintimer"), this);
@@ -223,6 +223,9 @@ public class Arena {
 	}
 	
 	public TeamSelection getTeamSelection() {
+		if (teamSelection == null)
+			this.teamSelection = new TeamSelection(this);
+		
 		return teamSelection;
 	}
 	

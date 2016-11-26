@@ -24,12 +24,14 @@ public class SetWinTimer extends ConsoleCommand {
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
+		
 		if (arena == null) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "'" + args[0] + "' isn't a valid arena");
 			return CommandResult.ERROR;
 		}
 		
 		int seconds;
+		
 		try {
 			seconds = Integer.parseInt(args[1]);
 		} catch (NumberFormatException e) {

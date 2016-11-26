@@ -31,9 +31,8 @@ public class Floors implements Listener {
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (e.getPlayer() != player) {
+		if (e.getPlayer() != player)
 			return;
-		}
 		
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		
@@ -42,18 +41,18 @@ public class Floors implements Listener {
 		if (player.getInventory().getItemInMainHand() == null)
 			return;
 		
-		if (!e.getPlayer().getInventory().getItemInMainHand().hasItemMeta()) {
+		if (!e.getPlayer().getInventory().getItemInMainHand().hasItemMeta())
 			return;
-		}
-		if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK) {
+		
+		if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK)
 			return;
-		}
-		if (!e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(ChatColor.LIGHT_PURPLE + "Wand")) {
+		
+		if (!e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(ChatColor.LIGHT_PURPLE + "Wand"))
 			return;
-		}
-		if (e.getAction() != Action.LEFT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+		
+		if (e.getAction() != Action.LEFT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_BLOCK)
 			return;
-		}
+		
 		
 		if (previousLocation == null) {
 			previousLocation = e.getClickedBlock().getLocation();
@@ -69,9 +68,8 @@ public class Floors implements Listener {
 			if (previousLocation.getWorld() == location.getWorld()) {
 				arenas.set(arena.getName() + "." + plot.getID() + ".floor.high.world", location.getWorld().getName());
 				arenas.set(arena.getName() + "." + plot.getID() + ".floor.low.world", previousLocation.getWorld().getName());
-			} else {
+			} else
 				player.sendMessage(ChatColor.RED + "The world has to be the same");
-			}
 			//x
 			if (previousLocation.getBlockX() < location.getBlockX()) {
 				arenas.set(arena.getName() + "." + plot.getID() + ".floor.high.x", location.getBlockX());

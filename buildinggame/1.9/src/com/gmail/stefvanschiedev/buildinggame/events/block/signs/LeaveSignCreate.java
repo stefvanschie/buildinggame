@@ -30,10 +30,10 @@ public class LeaveSignCreate implements Listener {
 			return;
 		}
 		
-		String line1 = messages.getString("leave-sign.line-1");
-		String line2 = messages.getString("leave-sign.line-2");
-		String line3 = messages.getString("leave-sign.line-3");
-		String line4 = messages.getString("leave-sign.line-4");
+		String line1 = messages.getString("signs.leave.line-1");
+		String line2 = messages.getString("signs.leave.line-2");
+		String line3 = messages.getString("signs.leave.line-3");
+		String line4 = messages.getString("signs.leave.line-4");
 		
 		e.setLine(0, line1
 				.replaceAll("&", "§"));

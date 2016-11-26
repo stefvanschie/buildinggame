@@ -28,7 +28,6 @@ public class SetBounds extends PlayerCommand {
 	
 	@Override
 	public CommandResult onCommand(Player player, String[] args) {
-		
 		if (args.length < 2) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arena and plot");
 			return CommandResult.ARGUMENTEXCEPTION;

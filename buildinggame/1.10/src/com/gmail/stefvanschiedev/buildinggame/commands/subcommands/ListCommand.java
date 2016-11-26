@@ -12,9 +12,9 @@ public class ListCommand extends ConsoleCommand {
 
 	@Override
 	public CommandResult onCommand(CommandSender sender, String[] args) {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+		for (Arena arena : ArenaManager.getInstance().getArenas())
 			sender.sendMessage(ChatColor.DARK_AQUA + " - " + arena.getName() + ChatColor.DARK_GREEN + " - " + arena.getState().toString().toLowerCase());
-		}
+		
 		return CommandResult.SUCCES;
 	}
 

@@ -7,30 +7,32 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GuiPage;
 import com.gmail.stefvanschiedev.buildinggame.utils.SubjectVote;
 
-public class SubjectMenu {
+public class SubjectMenu extends Gui {
 
 	private List<String> subjects = new ArrayList<>();
 	
-	private Map<String, GuiPage> players = new HashMap<String, GuiPage>();
 	private Map<String, SubjectVote> votes = new HashMap<String, SubjectVote>();
 	
+	private static YamlConfiguration config = SettingsManager.getInstance().getConfig();
+	private static YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+	
 	public SubjectMenu() {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
+		super(null, 36, MessageManager.translate(messages.getString("subject-gui.title")), config.getInt("subject-gui.subject-amount") == -1 ? config.getStringList("subjects").size() / 27 : config.getInt("subject-gui.subject-amount"));
+	
 		int amountOfSubjects = config.getInt("subject-gui.subject-amount");
 		
 		if (amountOfSubjects == -1) {
@@ -44,95 +46,137 @@ public class SubjectMenu {
 		for (String s : subjects)
 			votes.put(s, new SubjectVote(0));
 	}
-	
-	public void show(Player player, GuiPage page) {
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-				
-		Inventory inventory = Bukkit.createInventory(null, 36, MessageManager.translate(messages.getString("subject-gui.title")));
 		
-		for (int i = 0; i < 27; i++) {
-			if (page.getPage() < 1) {
-				return;
-			}
-			
-			if (subjects.size() - 1 < i + (page.getPage() - 1) * 27) {
+	@Override
+	public void open(Player player, int page) {	
+		for (int index = 0; index < 27; index++) {
+			if (subjects.size() - 1 < index + ((page - 1) * 27))
 				break;
-			}
 			
-			String subject = ChatColor.stripColor(subjects.get(i + (page.getPage() - 1) * 27));
+			final String subject = ChatColor.stripColor(subjects.get(index + ((page - 1) * 27)));
 			
-			if (!votes.containsKey(subject)) {
+			if (!votes.containsKey(subject))
 				votes.put(subject, new SubjectVote(0));
-			}
 			
 			ItemStack item = new ItemStack(Material.PAPER);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.subject.name")
 					.replace("%subject%", subject)));
 			List<String> lores = new ArrayList<String>();
-			for (String lore : messages.getStringList("subject-gui.subject.lores")) {
+				
+			for (String lore : messages.getStringList("subject-gui.subject.lores"))
 				lores.add(MessageManager.translate(lore
-						.replace("%votes%", votes.get(subject).getVotes() + "")));
-			}
+					.replace("%votes%", votes.get(subject).getVotes() + "")));
+				
 			meta.setLore(lores);
 			item.setItemMeta(meta);
 			
-			inventory.setItem(i, item);
+			setItem(item, new GuiAction() {
+					
+				@Override
+				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
+						if (type != GuiActionType.CLICK)
+							return false;
+						
+						InventoryClickEvent event = (InventoryClickEvent) e;
+						
+						addVote((Player) event.getWhoClicked(), subject);
+						update();
+						
+						return true;
+					}
+				}, index);
+			}
+			
+		if (page - 1 > 0) {
+			//previous page
+			ItemStack prevItem = new ItemStack(Material.SUGAR_CANE);
+			ItemMeta prevMeta = prevItem.getItemMeta();
+			prevMeta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.previous-page.name")));
+			List<String> prevLores = new ArrayList<String>();
+			
+			for (String lore : messages.getStringList("subject-gui.previous-page.lores"))
+				prevLores.add(MessageManager.translate(lore));
+			
+			prevMeta.setLore(prevLores);
+			prevItem.setItemMeta(prevMeta);
+				
+			setItem(prevItem, new GuiAction() {
+					
+				@Override
+				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
+					if (type != GuiActionType.CLICK)
+						return false;
+						
+					InventoryClickEvent event = (InventoryClickEvent) e;
+					Player player = (Player) event.getWhoClicked();
+						
+					open(player, getPage(player) - 1 == 0 ? 1 : getPage(player) - 1);
+						
+					return true;
+				}
+					
+			}, 29);
 		}
-		
-		//previous page
-		ItemStack prevItem = new ItemStack(Material.SUGAR_CANE);
-		ItemMeta prevMeta = prevItem.getItemMeta();
-		prevMeta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.previous-page.name")));
-		List<String> prevLores = new ArrayList<String>();
-		
-		for (String lore : messages.getStringList("subject-gui.previous-page.lores"))
-			prevLores.add(MessageManager.translate(lore));
-		
-		prevMeta.setLore(prevLores);
-		prevItem.setItemMeta(prevMeta);
-		
-		//close
+			
 		ItemStack closeItem = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = closeItem.getItemMeta();
 		closeMeta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.close-menu.name")));
 		List<String> closeLores = new ArrayList<String>();
-		
+			
 		for (String lore : messages.getStringList("subject-gui.close-menu.lores"))
 			closeLores.add(MessageManager.translate(lore));
-		
+			
 		closeMeta.setLore(closeLores);
 		closeItem.setItemMeta(closeMeta);
+			
+		setItem(closeItem, new GuiAction() {
+				
+			@Override
+			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
+				if (type != GuiActionType.CLICK)
+					return false;
+					
+				InventoryClickEvent event = (InventoryClickEvent) e;
+				HumanEntity humanEntity = event.getWhoClicked();
+					
+				humanEntity.closeInventory();
+				removePlayer((Player) humanEntity);
+				return true;
+			}
+		}, 31);
+			
+		if (subjects.size() > 27 * page) {
+			//next page
+			ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
+			ItemMeta nextMeta = nextItem.getItemMeta();
+			nextMeta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.next-page.name")));
+			List<String> nextLores = new ArrayList<String>();
+			
+			for (String lore : messages.getStringList("subject-gui.next-page.lores"))
+				nextLores.add(MessageManager.translate(lore));
+			
+			nextMeta.setLore(nextLores);
+			nextItem.setItemMeta(nextMeta);
+				
+			setItem(nextItem, new GuiAction() {
+					
+				@Override
+				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
+					if (type != GuiActionType.CLICK)
+						return false;
+						
+					InventoryClickEvent event = (InventoryClickEvent) e;
+					Player player = (Player) event.getWhoClicked();
+						
+					open(player, getPage(player) + 1);
+						
+					return true;
+				}
+			}, 33);
+		}
 		
-		//next page
-		ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
-		ItemMeta nextMeta = nextItem.getItemMeta();
-		nextMeta.setDisplayName(MessageManager.translate(messages.getString("subject-gui.next-page.name")));
-		List<String> nextLores = new ArrayList<String>();
-		
-		for (String lore : messages.getStringList("subject-gui.next-page.lores"))
-			nextLores.add(MessageManager.translate(lore));
-		
-		nextMeta.setLore(nextLores);
-		nextItem.setItemMeta(nextMeta);
-		
-		if (page.getPage() - 1 > 0)
-			inventory.setItem(29, prevItem);
-		inventory.setItem(31, closeItem);
-		if (subjects.size() > 27 * (page.getPage() - 1) + 27)
-			inventory.setItem(33, nextItem);
-		
-		player.openInventory(inventory);
-		
-		players.put(player.getName(), page);
-	}
-	
-	public void addPlayer(Player player) {
-		players.put(player.getName(), new GuiPage(1));
-	}
-	
-	public void addPlayer(Player player, GuiPage page) {
-		players.put(player.getName(), page);
+		super.open(player, page);
 	}
 	
 	public void addVote(Player player, String subject) {
@@ -147,19 +191,6 @@ public class SubjectMenu {
 		
 		votes.get(subject).addPlayer(player);
 		votes.get(subject).setVotes(votes.get(subject).getVotes() + 1);
-		
-		for (String name : getPlayers().keySet()) {
-			Player p = Bukkit.getPlayer(name);
-			show(p, getPlayers().get(name));
-		}
-	}
-	
-	public GuiPage getPage(Player player) {
-		return players.get(player.getName());
-	}
-	
-	public Map<String, GuiPage> getPlayers() {
-		return players;
 	}
 	
 	public String getHighestVote() {
@@ -179,9 +210,5 @@ public class SubjectMenu {
 		}
 		
 		return subjects.get(new Random().nextInt(subjects.size()));
-	}
-	
-	public void removePlayer(Player player) {
-		players.remove(player);
 	}
 }

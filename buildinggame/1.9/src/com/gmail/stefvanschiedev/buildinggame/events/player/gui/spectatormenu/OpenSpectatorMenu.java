@@ -31,7 +31,7 @@ public class OpenSpectatorMenu implements Listener {
 		if (!player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Spectator menu"))
 			return;
 			
-		new SpectatorMenu().show(player);
+		new SpectatorMenu().open(player);
 		e.setCancelled(true);
 	}
 }

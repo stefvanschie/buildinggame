@@ -55,7 +55,6 @@ public class ForceStart extends ConsoleCommand {
 				return CommandResult.ARGUMENTEXCEPTION;
 			}
 			
-			
 			Arena arena = ArenaManager.getInstance().getArena(args[0]);
 			
 			if (arena == null) {

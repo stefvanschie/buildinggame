@@ -29,6 +29,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.BuildMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 
 public class Plot {
@@ -46,8 +47,12 @@ public class Plot {
 	private Time time = Time.AM6;
 	private Floor floor;
 	
+	private BuildMenu buildMenu;
+	
 	public Plot(int ID) {
 		this.ID = ID;
+		
+		buildMenu = new BuildMenu();
 	}
 	
 	public void addParticle(Particle particle, Player player) {
@@ -171,6 +176,10 @@ public class Plot {
 	
 	public Boundary getBoundary() {
 		return boundary;
+	}
+	
+	public BuildMenu getBuildMenu() {
+		return buildMenu;
 	}
 	
 	public Floor getFloor() {

@@ -34,27 +34,25 @@ public class Bounds implements Listener {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		if (e.getPlayer() != player) {
+		if (e.getPlayer() != player)
 			return;
-		}
 		
 		Player player = e.getPlayer();
 		
 		if (player.getInventory().getItemInMainHand() == null)
 			return;
 		
-		if (!e.getPlayer().getInventory().getItemInMainHand().hasItemMeta()) {
+		if (!e.getPlayer().getInventory().getItemInMainHand().hasItemMeta())
 			return;
-		}
-		if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK) {
+		
+		if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK)
 			return;
-		}
-		if (!e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(ChatColor.LIGHT_PURPLE + "Wand")) {
+		
+		if (!e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(ChatColor.LIGHT_PURPLE + "Wand"))
 			return;
-		}
-		if (e.getAction() != Action.LEFT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+		
+		if (e.getAction() != Action.LEFT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_BLOCK)
 			return;
-		}
 		
 		if (previousLocation == null) {
 			previousLocation = e.getClickedBlock().getLocation();
@@ -70,9 +68,9 @@ public class Bounds implements Listener {
 			if (previousLocation.getWorld() == location.getWorld()) {
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.world", location.getWorld().getName());
 				arenas.set(arena.getName() + "." + plot.getID() + ".low.world", previousLocation.getWorld().getName());
-			} else {
+			} else
 				player.sendMessage(ChatColor.RED + "The world has to be the same");
-			}
+			
 			//x
 			if (previousLocation.getBlockX() < location.getBlockX()) {
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.x", location.getBlockX());
@@ -81,6 +79,7 @@ public class Bounds implements Listener {
 				arenas.set(arena.getName() + "." + plot.getID() + ".low.x", location.getBlockX());
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.x", previousLocation.getBlockX());
 			}
+			
 			//y
 			if (previousLocation.getBlockY() < location.getBlockY()) {
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.y", location.getBlockY());
@@ -89,6 +88,7 @@ public class Bounds implements Listener {
 				arenas.set(arena.getName() + "." + plot.getID() + ".low.y", location.getBlockY());
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.y", previousLocation.getBlockY());
 			}
+			
 			//z
 			if (previousLocation.getBlockZ() < location.getBlockZ()) {
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.z", location.getBlockZ());
@@ -97,14 +97,14 @@ public class Bounds implements Listener {
 				arenas.set(arena.getName() + "." + plot.getID() + ".low.z", location.getBlockZ());
 				arenas.set(arena.getName() + "." + plot.getID() + ".high.z", previousLocation.getBlockZ());
 			}
+			
 			SettingsManager.getInstance().save();
 			
 			BoundaryManager.getInstance().setup();
-			for (String message : messages.getStringList("setBounds.succes")) {
+			for (String message : messages.getStringList("setBounds.succes"))
 				MessageManager.getInstance().send(player, message
 						.replace("%place%", plot.getID() + "")
 						.replace("%arena%", arena.getName()));
-			}
 			
 			e.setCancelled(true);
 			

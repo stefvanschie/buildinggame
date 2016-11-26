@@ -24,9 +24,8 @@ public class Remove extends ConsoleCommand {
 		
 		String subject = "";
 		
-		for (String arg : args) {
+		for (String arg : args)
 			subject += arg + " ";
-		}
 		
 		subject.trim();
 		

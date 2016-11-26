@@ -45,7 +45,7 @@ public class OpenTeamSelection implements Listener {
 			return;
 		}
 		
-		arena.getTeamSelection().show(player);
+		arena.getTeamSelection().open(player);
 		e.setCancelled(true);
 	}
 }

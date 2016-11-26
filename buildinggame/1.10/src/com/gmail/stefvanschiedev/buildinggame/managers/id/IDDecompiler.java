@@ -33,20 +33,7 @@ public class IDDecompiler {
 	}
 	
 	public boolean matches(String block, ItemStack item) {
-		Matcher matcher = Pattern.compile("([_a-zA-Z]+)([:][0-9]+)?").matcher(block);
-		if (matcher.matches()) {
-			if (Material.matchMaterial(matcher.group(1)) == item.getType()) {
-				if (matcher.groupCount() > 2) {
-					if (Short.parseShort(matcher.group(2).substring(1)) == item.getDurability())
-						return true;
-					else
-						return false;
-				} else
-					return true;
-			} else
-				return false;
-		} else
-			return false;
+		return decompile(block).isSimilar(item);
 	}
 	
 	@SuppressWarnings("deprecation")

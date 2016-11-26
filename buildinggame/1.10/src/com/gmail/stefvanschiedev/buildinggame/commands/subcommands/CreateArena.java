@@ -22,6 +22,7 @@ public class CreateArena extends ConsoleCommand {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arenaname");
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
+		
 		if (arenas.contains(args[0])) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "That arena does already exists");
 			return CommandResult.ERROR;
@@ -37,10 +38,9 @@ public class CreateArena extends ConsoleCommand {
 		
 		ArenaManager.getInstance().setup();
 		
-		for (String message : messages.getStringList("createArena.succes")) {
+		for (String message : messages.getStringList("createArena.succes"))
 			MessageManager.getInstance().send(sender, message
 					.replace("%arena%", args[0]));
-		}
 		
 		return CommandResult.SUCCES;
 	}

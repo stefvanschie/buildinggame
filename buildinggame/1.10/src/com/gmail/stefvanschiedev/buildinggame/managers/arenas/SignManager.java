@@ -129,7 +129,7 @@ public class SignManager {
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
 					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
-			sign.update();	
+			sign.update();
 		}
 	}
 	

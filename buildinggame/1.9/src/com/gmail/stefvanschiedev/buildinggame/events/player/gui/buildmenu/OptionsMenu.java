@@ -6,11 +6,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.BuildMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 public class OptionsMenu implements Listener {
 
@@ -19,10 +20,14 @@ public class OptionsMenu implements Listener {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		Player player = e.getPlayer();
+		Arena arena = ArenaManager.getInstance().getArena(player);
 		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+		if (arena == null) {
 			return;
 		}
+		
+		if (e.getHand() != EquipmentSlot.HAND)
+			return;
 		
 		if (!player.getInventory().getItemInMainHand().hasItemMeta()) {
 			return;
@@ -37,8 +42,7 @@ public class OptionsMenu implements Listener {
 			return;
 		}
 		
-		BuildMenu menu = new BuildMenu();
-		menu.show(player);
+		arena.getPlot(player).getBuildMenu().open(player);
 		e.setCancelled(true);
 	}
 }

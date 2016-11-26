@@ -55,12 +55,12 @@ public class SetMaxPlayers extends ConsoleCommand {
 		
 		//add parts to config
 		for (int i = 0; i < maxPlayers; i++) {
-			if (config.contains("team-selection.team." + i)) {
+			if (config.contains("team-selection.team." + i))
 				continue;
-			}
 			
 			config.set("team-selection.team." + i + ".id", "paper");
 		}
+		
 		SettingsManager.getInstance().save();
 		
 		MaxPlayersManager.getInstance().setup();

@@ -27,9 +27,9 @@ private List<SubCommand> subCommands = new ArrayList<SubCommand>();
 		subCommands.add(new FadeOut());
 		
 		if (args.length == 0) {
-			for (SubCommand sc : subCommands) {
+			for (SubCommand sc : subCommands)
 				MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting title " + sc.getName() + " - " + sc.getInfo());
-			}
+			
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		

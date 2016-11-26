@@ -22,12 +22,12 @@ public class JoinSignCreate implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]")) {
+		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
 			return;
-		}
-		if (!e.getLine(1).equalsIgnoreCase("join")) {
+		
+		if (!e.getLine(1).equalsIgnoreCase("join"))
 			return;
-		}
+		
 		if (ArenaManager.getInstance().getArena(e.getLine(2)) == null) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid arena");
 			return;

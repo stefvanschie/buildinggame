@@ -30,111 +30,11 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.Move;
 import com.gmail.stefvanschiedev.buildinggame.events.player.PlaceBucket;
 import com.gmail.stefvanschiedev.buildinggame.events.player.TakeDamage;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.GuiRemove;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.CloseMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.OptionsMenu;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.floor.FloorClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.AlphabetHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.BlocksHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.CharactersHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.ColorsHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.DevicesHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.FoodHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.GamesHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.HeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.InteriorHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.MiscHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.MobsHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.PokemonHeadsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.alphabet.AlphabetHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.alphabet.AlphabetHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.alphabet.AlphabetHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.blocks.BlocksHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.blocks.BlocksHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.blocks.BlocksHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.characters.CharactersHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.characters.CharactersHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.characters.CharactersHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.colors.ColorsHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.colors.ColorsHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.devices.DevicesHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.devices.DevicesHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.devices.DevicesHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.food.FoodHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.food.FoodHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.food.FoodHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.games.GamesHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.games.GamesHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.interior.InteriorHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.interior.InteriorHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.interior.InteriorHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.misc.MiscHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.misc.MiscHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.misc.MiscHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.mobs.MobsHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.mobs.MobsHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.mobs.MobsHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.pokemon.PokemonHeadsCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.pokemon.PokemonHeadsPageClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.heads.pokemon.PokemonHeadsSkullClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.AngryVillagerClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.ClearParticlesClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.DamageIndicatorClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.DragonBreathClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.EnchantmentClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.EndRodClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.FallingDustClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.FlamesClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.HappyVillagerClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.HeartsClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.LavaDripClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.MagicCritClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.ParticleBackClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.ParticleClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.RedstoneMagicClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.SmokeClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.SnowballPoofClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.SpellClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.SweepAttackClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.particle.WaterDripClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.rain.RainClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.speed.Speed1Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.speed.Speed2Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.speed.Speed3Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.speed.Speed4Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.speed.Speed5Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.speed.SpeedBackClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.speed.SpeedClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.AM10Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.AM2Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.AM4Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.AM6Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.AM8Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.MiddayClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.MidnightClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.PM10Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.PM2Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.PM4Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.PM6Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.PM8Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.TimeBackClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.buildmenu.time.TimeClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.OpenSpectatorMenu;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.SpectateCloseClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.speed.SpectateSpeed1Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.speed.SpectateSpeed2Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.speed.SpectateSpeed3Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.speed.SpectateSpeed4Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.speed.SpectateSpeed5Click;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.speed.SpectateSpeedBackClick;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.spectatormenu.speed.SpectateSpeedClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.CloseSubjectMenu;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.ExitSubjectMenu;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.NextPage;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.OpenSubjectMenu;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.PreviousPage;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.VoteSubjectMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.teamselection.OpenTeamSelection;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.teamselection.TeamClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickLeaveSign;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.Interact;
@@ -142,6 +42,8 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.voting.InventoryMove
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.VoteEvent;
 import com.gmail.stefvanschiedev.buildinggame.events.scoreboards.MainScoreboardJoinShow;
 import com.gmail.stefvanschiedev.buildinggame.events.scoreboards.MainScoreboardWorldChange;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.database.JoinPlayerStats;
+import com.gmail.stefvanschiedev.buildinggame.events.stats.database.QuitPlayerStats;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.BreakStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.FirstStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.MoveStat;
@@ -220,7 +122,10 @@ public class Main extends JavaPlugin {
 			}
 		}
 		
-		StatManager.getInstance().saveToFile();
+		if (StatManager.getInstance().getMySQLDatabase() == null)
+			StatManager.getInstance().saveToFile();
+		else
+			StatManager.getInstance().saveToDatabase();
 		
 		getLogger().info("BuildingGame has been disabled");
 		
@@ -257,6 +162,13 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
 			SDVault.getInstance().setup();
 		}
+		
+		getLogger().info("Loading commands");
+		CommandManager command = new CommandManager();
+		command.setup();
+		
+		getLogger().info("Loading stats");
+		StatManager.getInstance().setup();
 		
 		getLogger().info("Loading listeners");
 		if (!loadedListeners) {
@@ -296,139 +208,20 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new EntityExplode(), this);
 			pm.registerEvents(new EntitySpawn(), this);
 			
-			//gui, long long list... :(
-			//going from top to bottom
+			//gui
 			pm.registerEvents(new GuiRemove(), this);
 			
 			//options menu
-			pm.registerEvents(new CloseMenu(), this);
 			pm.registerEvents(new OptionsMenu(), this);
-			//floor
-			pm.registerEvents(new FloorClick(), this);
-			//heads
-			pm.registerEvents(new HeadsClick(), this);
-			
-			pm.registerEvents(new AlphabetHeadsClick(), this);
-			pm.registerEvents(new BlocksHeadsClick(), this);
-			pm.registerEvents(new CharactersHeadsClick(), this);
-			pm.registerEvents(new ColorsHeadsClick(), this);
-			pm.registerEvents(new DevicesHeadsClick(), this);
-			pm.registerEvents(new FoodHeadsClick(), this);
-			pm.registerEvents(new GamesHeadsClick(), this);
-			pm.registerEvents(new InteriorHeadsClick(), this);
-			pm.registerEvents(new MiscHeadsClick(), this);
-			pm.registerEvents(new MobsHeadsClick(), this);
-			pm.registerEvents(new PokemonHeadsClick(), this);
-		
-			pm.registerEvents(new AlphabetHeadsCloseClick(), this);
-			pm.registerEvents(new AlphabetHeadsPageClick(), this);
-			pm.registerEvents(new AlphabetHeadsSkullClick(), this);
-		
-			pm.registerEvents(new BlocksHeadsCloseClick(), this);
-			pm.registerEvents(new BlocksHeadsPageClick(), this);
-			pm.registerEvents(new BlocksHeadsSkullClick(), this);
-		
-			pm.registerEvents(new CharactersHeadsCloseClick(), this);
-			pm.registerEvents(new CharactersHeadsPageClick(), this);
-			pm.registerEvents(new CharactersHeadsSkullClick(), this);
-		
-			pm.registerEvents(new ColorsHeadsCloseClick(), this);
-			pm.registerEvents(new ColorsHeadsSkullClick(), this);
-		
-			pm.registerEvents(new DevicesHeadsCloseClick(), this);
-			pm.registerEvents(new DevicesHeadsPageClick(), this);
-			pm.registerEvents(new DevicesHeadsSkullClick(), this);
-		
-			pm.registerEvents(new FoodHeadsCloseClick(), this);
-			pm.registerEvents(new FoodHeadsPageClick(), this);
-			pm.registerEvents(new FoodHeadsSkullClick(), this);
-		
-			pm.registerEvents(new GamesHeadsCloseClick(), this);
-			pm.registerEvents(new GamesHeadsSkullClick(), this);
-		
-			pm.registerEvents(new InteriorHeadsCloseClick(), this);
-			pm.registerEvents(new InteriorHeadsPageClick(), this);
-			pm.registerEvents(new InteriorHeadsSkullClick(), this);
-		
-			pm.registerEvents(new MiscHeadsCloseClick(), this);
-			pm.registerEvents(new MiscHeadsPageClick(), this);
-			pm.registerEvents(new MiscHeadsSkullClick(), this);
-		
-			pm.registerEvents(new MobsHeadsCloseClick(), this);
-			pm.registerEvents(new MobsHeadsPageClick(), this);
-			pm.registerEvents(new MobsHeadsSkullClick(), this);
-			
-			pm.registerEvents(new PokemonHeadsCloseClick(), this);
-			pm.registerEvents(new PokemonHeadsPageClick(), this);
-			pm.registerEvents(new PokemonHeadsSkullClick(), this);
-			//particles
-			pm.registerEvents(new AngryVillagerClick(), this);
-			pm.registerEvents(new ClearParticlesClick(), this);
-			pm.registerEvents(new DamageIndicatorClick(), this);
-			pm.registerEvents(new DragonBreathClick(), this);
-			pm.registerEvents(new EnchantmentClick(), this);
-			pm.registerEvents(new EndRodClick(), this);
-			pm.registerEvents(new FallingDustClick(), this);
-			pm.registerEvents(new FlamesClick(), this);
-			pm.registerEvents(new HappyVillagerClick(), this);
-			pm.registerEvents(new HeartsClick(), this);
-			pm.registerEvents(new LavaDripClick(), this);
-			pm.registerEvents(new MagicCritClick(), this);
-			pm.registerEvents(new ParticleBackClick(), this);
-			pm.registerEvents(new ParticleClick(), this);
-			pm.registerEvents(new RedstoneMagicClick(), this);
-			pm.registerEvents(new SmokeClick(), this);
-			pm.registerEvents(new SnowballPoofClick(), this);
-			pm.registerEvents(new SpellClick(), this);
-			pm.registerEvents(new SweepAttackClick(), this);
-			pm.registerEvents(new WaterDripClick(), this);
-			//rain
-			pm.registerEvents(new RainClick(), this);
-			//speed
-			pm.registerEvents(new Speed1Click(), this);
-			pm.registerEvents(new Speed2Click(), this);
-			pm.registerEvents(new Speed3Click(), this);
-			pm.registerEvents(new Speed4Click(), this);
-			pm.registerEvents(new Speed5Click(), this);
-			pm.registerEvents(new SpeedBackClick(), this);
-			pm.registerEvents(new SpeedClick(), this);
-			//time
-			pm.registerEvents(new AM10Click(), this);
-			pm.registerEvents(new AM2Click(), this);
-			pm.registerEvents(new AM4Click(), this);
-			pm.registerEvents(new AM6Click(), this);
-			pm.registerEvents(new AM8Click(), this);
-			pm.registerEvents(new MiddayClick(), this);
-			pm.registerEvents(new MidnightClick(), this);
-			pm.registerEvents(new PM10Click(), this);
-			pm.registerEvents(new PM2Click(), this);
-			pm.registerEvents(new PM4Click(), this);
-			pm.registerEvents(new PM6Click(), this);
-			pm.registerEvents(new PM8Click(), this);
-			pm.registerEvents(new TimeBackClick(), this);
-			pm.registerEvents(new TimeClick(), this);
 		
 			//spectator menu
 			pm.registerEvents(new OpenSpectatorMenu(), this);
-			pm.registerEvents(new SpectateCloseClick(), this);
-			pm.registerEvents(new SpectateSpeed1Click(), this);
-			pm.registerEvents(new SpectateSpeed2Click(), this);
-			pm.registerEvents(new SpectateSpeed3Click(), this);
-			pm.registerEvents(new SpectateSpeed4Click(), this);
-			pm.registerEvents(new SpectateSpeed5Click(), this);
-			pm.registerEvents(new SpectateSpeedBackClick(), this);
-			pm.registerEvents(new SpectateSpeedClick(), this);
 			
 			//subjectmenu
 			pm.registerEvents(new CloseSubjectMenu(), this);
-			pm.registerEvents(new ExitSubjectMenu(), this);
-			pm.registerEvents(new NextPage(), this);
 			pm.registerEvents(new OpenSubjectMenu(), this);
-			pm.registerEvents(new PreviousPage(), this);
-			pm.registerEvents(new VoteSubjectMenu(), this);
 		
 			pm.registerEvents(new OpenTeamSelection(), this);
-			pm.registerEvents(new TeamClick(), this);
 		
 			//spectator
 			pm.registerEvents(new LeaveClick(), this);
@@ -452,15 +245,13 @@ public class Main extends JavaPlugin {
 			//structure
 			pm.registerEvents(new TreeGrow(), this);
 		
+			if (StatManager.getInstance().getMySQLDatabase() != null) {
+				pm.registerEvents(new JoinPlayerStats(), this);
+				pm.registerEvents(new QuitPlayerStats(), this);
+			}
+			
 			loadedListeners = true;
 		}
-		
-		getLogger().info("Loading commands");
-		CommandManager command = new CommandManager();
-		command.setup();
-		
-		getLogger().info("Loading stats");
-		StatManager.getInstance().setup();
 		
 		getLogger().info("Loading signs");
 		SignManager.getInstance().setup();

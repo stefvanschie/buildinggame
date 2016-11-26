@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
-import com.gmail.stefvanschiedev.buildinggame.utils.GuiPage;
+
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 public class OpenSubjectMenu implements Listener {
@@ -43,7 +43,7 @@ public class OpenSubjectMenu implements Listener {
 			return;
 		}
 		
-		arena.getSubjectMenu().show(player, new GuiPage(1));
+		arena.getSubjectMenu().open(player);
 		e.setCancelled(true);
 	}
 }
