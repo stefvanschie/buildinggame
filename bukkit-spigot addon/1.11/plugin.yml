@@ -1,0 +1,10 @@
+main: com.gmail.stefvanschiedev.buildinggame.Main
+name: BuildingGame_Addon
+version: 3.1.2
+depend: [SocketAPI]
+
+commands:
+  bg:
+    description: "Main BuildingGame command"
+  buildinggame:
+    description: "Main BuildingGame command"
