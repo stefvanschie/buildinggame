@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,6 +26,9 @@ public class StatManager {
 	public void setup() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
+		
+		if (!config.getBoolean("stats.enable"))
+			return;
 		
 		if (config.getBoolean("stats.database.enable")) {
 			database = new MySQLDatabase(Main.getInstance());
@@ -115,18 +117,6 @@ public class StatManager {
 		
 		SettingsManager.getInstance().save();
 	}
-
-	public void saveToDatabase(){
-		for(Player player:Bukkit.getServer().getOnlinePlayers()){
-			for(StatType stattype: StatType.values()){
-				getMySQLDatabase().setStat(player.getUniqueId().toString(),stattype.toString().toLowerCase(),getStat(player,stattype).getValue());
-			}
-
-
-		}
-
-
-	}
 	
 	public void saveToDatabase(){
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
@@ -138,8 +128,8 @@ public class StatManager {
 	public static StatManager getInstance() {
 		return instance;
 	}
-
-	public MySQLDatabase getMySQLDatabase(){
+	
+	public MySQLDatabase getMySQLDatabase() {
 		return database;
 	}
 }

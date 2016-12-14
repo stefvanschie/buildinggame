@@ -13,6 +13,7 @@ import org.bukkit.WeatherType;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -30,6 +31,9 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.BuildMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory;
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NmsClasses;
+import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory.NbtCompound;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 
 public class Plot {
@@ -39,6 +43,7 @@ public class Plot {
 	private Map<Player, Integer> timesVoted = new HashMap<Player, Integer>();
 	private List<GamePlayer> gamePlayers = new ArrayList<GamePlayer>();
 	private List<BlockState> blocks = new ArrayList<BlockState>();
+	private Map<Entity, Location> entities;
 	private List<Vote> votes = new ArrayList<Vote>();
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Location location;
@@ -52,7 +57,27 @@ public class Plot {
 	public Plot(int ID) {
 		this.ID = ID;
 		
-		buildMenu = new BuildMenu();
+		this.buildMenu = new BuildMenu();
+		this.entities = new HashMap<>();
+	}
+	
+	public boolean addEntity(Entity entity) {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		
+		if (!config.getBoolean("mobs.allow"))
+			return false;
+		
+		if (config.getStringList("blocked-entities").contains(entity.getType().toString().toLowerCase()))
+			return false;
+		
+		if (config.getBoolean("mobs.enable-noai")) {
+			NbtCompound nbt = NbtFactory.createCompound();
+			nbt.put("NoAI", 1);
+			NmsClasses.setTag(entity, nbt.getHandle());
+		}
+		
+		entities.put(entity, entity.getLocation());
+		return true;
 	}
 	
 	public void addParticle(Particle particle, Player player) {
@@ -180,6 +205,10 @@ public class Plot {
 	
 	public BuildMenu getBuildMenu() {
 		return buildMenu;
+	}
+	
+	public Map<Entity, Location> getEntities() {
+		return entities;
 	}
 	
 	public Floor getFloor() {

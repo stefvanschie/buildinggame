@@ -22,7 +22,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.Chat;
 import com.gmail.stefvanschiedev.buildinggame.events.player.CommandBlocker;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Drop;
 import com.gmail.stefvanschiedev.buildinggame.events.player.EntityDamage;
-import com.gmail.stefvanschiedev.buildinggame.events.player.EntitySpawnByHuman;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Leave;
 import com.gmail.stefvanschiedev.buildinggame.events.player.LeaveClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.LoseFood;
@@ -73,6 +72,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDBarApi;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
+import com.gmail.stefvanschiedev.buildinggame.timers.EntityTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.LoadCooldown;
 import com.gmail.stefvanschiedev.buildinggame.timers.ParticleRender;
 import com.gmail.stefvanschiedev.buildinggame.timers.ScoreboardUpdater;
@@ -198,7 +198,6 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new Chat(), this);
 			pm.registerEvents(new CommandBlocker(), this);
 			pm.registerEvents(new EntityDamage(), this);
-			pm.registerEvents(new EntitySpawnByHuman(), this);
 			pm.registerEvents(new TakeDamage(), this);
 			pm.registerEvents(new LoseFood(), this);
 			
@@ -263,6 +262,7 @@ public class Main extends JavaPlugin {
 		new ParticleRender().runTaskTimerAsynchronously(this, 0L, 10L);
 		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
 		new StatSaveTimer().runTaskLaterAsynchronously(this, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
+		new EntityTimer().runTaskTimerAsynchronously(this, 0L, 1L);
 		
 		if (!loadedCommands) {
 			getCommand("bg").setExecutor(command);

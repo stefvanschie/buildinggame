@@ -1,61 +1,52 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
 import org.bukkit.Location;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.vehicle.VehicleCreateEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory;
-import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NmsClasses;
-import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory.NbtCompound;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class EntitySpawn implements Listener {
 
-	@EventHandler
-	public void onCreatureSpawn(CreatureSpawnEvent e) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
+	@EventHandler(ignoreCancelled = true)
+	public void onEntitySpawn(EntitySpawnEvent e) {
 		Entity entity = e.getEntity();
 		
-		if (isInside(entity.getLocation())) {
-			if (!config.getBoolean("mobs.allow")) {
+		Plot plot;
+		if ((plot = isInside(entity.getLocation())) != null) {
+			if (!plot.addEntity(entity))
 				e.setCancelled(true);
-				return;
-			}
-			
-			for (String ent : config.getStringList("blocked-entities")) {
-				if (entity.getType() == EntityType.valueOf(ent.toUpperCase())) {
-					entity.remove();
-					return;
-				}
-			}
-			
-			if (config.getBoolean("mobs.enable-noai")) {
-				NbtCompound nbt = NbtFactory.createCompound();
-				nbt.put("NoAI", 1);
-				NmsClasses.setTag(entity, nbt.getHandle());
-			}
 		}
 	}
 	
-	public boolean isInside(Location location) {
+	@EventHandler(ignoreCancelled = true)
+	public void onVehicleCreate(VehicleCreateEvent e) {
+		Vehicle vehicle = e.getVehicle();
+		
+		Plot plot;
+		if ((plot = isInside(vehicle.getLocation())) != null) {
+			if (!plot.addEntity(vehicle))
+				vehicle.remove();
+		}
+	}
+	
+	private Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getBoundary() == null) 
-					return false;
-				if (plot.getBoundary().isInside(location)) {
-					return true;
-				}
+					continue;
+				
+				if (plot.getBoundary().isInside(location))
+					return plot;
 			}
 		}
 		
-		return false;
+		return null;
 	}
 }

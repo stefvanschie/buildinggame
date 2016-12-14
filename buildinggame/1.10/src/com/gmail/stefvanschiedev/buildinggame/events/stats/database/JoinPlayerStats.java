@@ -2,10 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.events.stats.database;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
-<<<<<<< HEAD
-=======
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
->>>>>>> origin/master
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

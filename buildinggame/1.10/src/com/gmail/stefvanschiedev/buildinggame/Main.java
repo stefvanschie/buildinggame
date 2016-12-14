@@ -2,8 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.io.IOException;
 
-import com.gmail.stefvanschiedev.buildinggame.events.stats.database.JoinPlayerStats;
-import com.gmail.stefvanschiedev.buildinggame.events.stats.database.QuitPlayerStats;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +22,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.Chat;
 import com.gmail.stefvanschiedev.buildinggame.events.player.CommandBlocker;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Drop;
 import com.gmail.stefvanschiedev.buildinggame.events.player.EntityDamage;
-import com.gmail.stefvanschiedev.buildinggame.events.player.EntitySpawnByHuman;
 import com.gmail.stefvanschiedev.buildinggame.events.player.Leave;
 import com.gmail.stefvanschiedev.buildinggame.events.player.LeaveClick;
 import com.gmail.stefvanschiedev.buildinggame.events.player.LoseFood;
@@ -74,6 +71,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.plots.LocationManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
+import com.gmail.stefvanschiedev.buildinggame.timers.EntityTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.LoadCooldown;
 import com.gmail.stefvanschiedev.buildinggame.timers.ParticleRender;
 import com.gmail.stefvanschiedev.buildinggame.timers.ScoreboardUpdater;
@@ -123,7 +121,8 @@ public class Main extends JavaPlugin {
 				arena.stop();
 			}
 		}
-		if(StatManager.getInstance().getMySQLDatabase() == null)
+		
+		if (StatManager.getInstance().getMySQLDatabase() == null)
 			StatManager.getInstance().saveToFile();
 		else
 			StatManager.getInstance().saveToDatabase();
@@ -163,13 +162,6 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
 			SDVault.getInstance().setup();
 		}
-
-		getLogger().info("Loading commands");
-		CommandManager command = new CommandManager();
-		command.setup();
-
-		getLogger().info("Loading stats");
-		StatManager.getInstance().setup();
 		
 		getLogger().info("Loading commands");
 		CommandManager command = new CommandManager();
@@ -207,7 +199,6 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new Chat(), this);
 			pm.registerEvents(new CommandBlocker(), this);
 			pm.registerEvents(new EntityDamage(), this);
-			pm.registerEvents(new EntitySpawnByHuman(), this);
 			pm.registerEvents(new TakeDamage(), this);
 			pm.registerEvents(new LoseFood(), this);
 			
@@ -252,14 +243,15 @@ public class Main extends JavaPlugin {
 			
 			//structure
 			pm.registerEvents(new TreeGrow(), this);
-
-			if(StatManager.getInstance().getMySQLDatabase() != null){
-				pm.registerEvents(new JoinPlayerStats(),this);
-				pm.registerEvents(new QuitPlayerStats(),this);
-
+		
+			if (StatManager.getInstance().getMySQLDatabase() != null) {
+				pm.registerEvents(new JoinPlayerStats(), this);
+				pm.registerEvents(new QuitPlayerStats(), this);
 			}
+			
 			loadedListeners = true;
 		}
+		
 		getLogger().info("Loading signs");
 		SignManager.getInstance().setup();
 		
@@ -267,6 +259,7 @@ public class Main extends JavaPlugin {
 		new ParticleRender().runTaskTimerAsynchronously(this, 0L, 10L);
 		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
+		new EntityTimer().runTaskTimerAsynchronously(this, 0L, 1L);
 		
 		if (!loadedCommands) {
 			getCommand("bg").setExecutor(command);
