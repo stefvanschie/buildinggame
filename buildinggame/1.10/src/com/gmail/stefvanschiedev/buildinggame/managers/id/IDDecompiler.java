@@ -23,7 +23,7 @@ public class IDDecompiler {
 		Matcher matcher = Pattern.compile("([_a-zA-Z]+)([:][0-9]+)?").matcher(block);
 		if (matcher.matches()) {
 			return new ItemStack(Material.matchMaterial(matcher.group(1)), 1, 
-					matcher.groupCount() > 2 ? Short.parseShort(matcher.group(2).substring(1)) : 0);
+					matcher.group(2) != null ? Short.parseShort(matcher.group(2).substring(1)) : 0);
 		} else {
 			Main.getInstance().getLogger().warning("Failed to load id '" + block + "'");
 			Main.getInstance().getLogger().warning("If you're sure all your ids are right, please contact the plugin developer");
@@ -33,7 +33,9 @@ public class IDDecompiler {
 	}
 	
 	public boolean matches(String block, ItemStack item) {
-		return decompile(block).isSimilar(item);
+		ItemStack itemStack = decompile(block);
+		
+		return itemStack.getType() == item.getType() && itemStack.getDurability() == item.getDurability();
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -41,7 +43,7 @@ public class IDDecompiler {
 		Matcher matcher = Pattern.compile("([_a-zA-Z]+)([:][0-9]+)?").matcher(item);
 		if (matcher.matches()) {
 			if (Material.matchMaterial(matcher.group(1)) == block.getType()) {
-				if (matcher.groupCount() > 2) {
+				if (matcher.group(2) != null) {
 					if (Short.parseShort(matcher.group(2).substring(1)) == block.getData())
 						return true;
 					else
