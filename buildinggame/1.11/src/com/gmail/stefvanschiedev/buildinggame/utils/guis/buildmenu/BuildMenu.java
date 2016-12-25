@@ -86,10 +86,8 @@ public class BuildMenu extends Gui {
 					
 					Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
 					
-					if (event.getCursor().getType() == Material.AIR && !config.getBoolean("plots.floor.allow-air")) {
-						for (String message : MessageManager.translate(messages.getStringList("plots.floor.incorrect")))
-							player.sendMessage(message);
-						
+					if (event.getCursor().getType() == Material.AIR) {
+						new FloorMenu(plot).open(player);
 						return true;
 					}
 					
