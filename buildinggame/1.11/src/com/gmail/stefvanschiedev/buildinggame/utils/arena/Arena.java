@@ -742,6 +742,10 @@ public class Arena {
 				player.setGameMode(GameMode.CREATIVE);
 				player.setPlayerTime(plot.getTime().decode(plot.getTime()), false);
 				
+				//hotbar
+				for (int i = 0; i < 9; i++)
+					player.getInventory().setItem(i, IDDecompiler.getInstance().decompile(config.getString("hotbar.default.slot-" + (i + 1))));
+				
 				//bossbar
 				getBossBar().setVisible(true);
 				
