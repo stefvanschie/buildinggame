@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.events.player;
 
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -30,6 +31,20 @@ public class Move implements Listener {
 		Location from = e.getFrom();
 		
 		if (ArenaManager.getInstance().getArena(player) == null) {
+			//check if player wants to go inside (except spectators of course)
+			for (Arena arena : ArenaManager.getInstance().getArenas()) {
+				if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING)
+					continue;
+				
+				for (Plot plot : arena.getPlots()) {
+					if (plot.getBoundary().isInside(to)) {
+						//teleport this intruder back
+						player.teleport(from);
+						MessageManager.getInstance().send(player, ChatColor.RED + "You can't access this plot when this arena is in-game");
+					}
+				}
+			}
+			
 			return;
 		}
 		
