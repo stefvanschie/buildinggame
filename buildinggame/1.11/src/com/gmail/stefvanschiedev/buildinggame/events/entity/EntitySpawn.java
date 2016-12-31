@@ -17,11 +17,11 @@ public class EntitySpawn implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onEntitySpawn(EntitySpawnEvent e) {
 		Entity entity = e.getEntity();
-		
+
 		Plot plot;
 		if ((plot = isInside(entity.getLocation())) != null) {
 			if (!plot.addEntity(entity))
-				e.setCancelled(true);
+				entity.remove();
 		}
 	}
 	

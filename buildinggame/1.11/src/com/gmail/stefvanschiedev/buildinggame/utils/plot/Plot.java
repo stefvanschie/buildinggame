@@ -63,6 +63,9 @@ public class Plot {
 	public boolean addEntity(Entity entity) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
+		if (getArena().getState() == GameState.WAITING || getArena().getState() == GameState.STARTING)
+			return false;
+		
 		if (!config.getBoolean("mobs.allow"))
 			return false;
 		

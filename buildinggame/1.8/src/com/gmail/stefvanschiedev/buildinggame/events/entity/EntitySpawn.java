@@ -21,7 +21,7 @@ public class EntitySpawn implements Listener {
 		Plot plot;
 		if ((plot = isInside(entity.getLocation())) != null) {
 			if (!plot.addEntity(entity))
-				e.setCancelled(true);
+				entity.remove();
 		}
 	}
 	
