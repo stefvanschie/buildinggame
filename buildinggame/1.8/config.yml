@@ -26,6 +26,13 @@ stats:
     min-connections: 5
     max-connections: 10
 
+particles:
+  amount: 100
+  offset:
+    x: 0.5
+    y: 0.5
+    z: 0.5
+
 subjects:
 - dog
 - house

@@ -4,9 +4,11 @@ import java.lang.reflect.Constructor;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -30,6 +32,13 @@ public class Particle {
 	}
 	
 	public void render() {
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+	
+		int amount = config.getInt("particles.amount");
+		double offsetX = config.getDouble("particles.offset.x");
+		double offsetY = config.getDouble("particles.offset.y");
+		double offsetZ = config.getDouble("particles.offset.z");
+		
 		Constructor<?> particles = null;
 		try {
 			particles = getNMSClass("PacketPlayOutWorldParticles").getConstructor(getNMSClass("EnumParticle"),
@@ -48,11 +57,11 @@ public class Particle {
 						(float) getLocation().getX(),	
 						(float) getLocation().getY() + 1,	
 						(float) getLocation().getZ(),	
-						(float) 0.5,								
-						(float) 0.5,								
-						(float) 0.5,								
+						(float) offsetX,								
+						(float) offsetY,								
+						(float) offsetZ,								
 						0,								
-						100,							
+						amount,							
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -74,11 +83,11 @@ public class Particle {
 						(float) getLocation().getX(),	
 						(float) getLocation().getY() + 1,	
 						(float) getLocation().getZ(),	
-						(float) 0.5,								
-						(float) 0.5,								
-						(float) 0.5,								
+						(float) offsetX,								
+						(float) offsetY,								
+						(float) offsetZ,								
 						0,								
-						100,							
+						amount,							
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -95,16 +104,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("FLAME").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -121,16 +130,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("VILLAGER_HAPPY").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -147,16 +156,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("HEART").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -173,16 +182,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("DRIP_LAVA").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -199,16 +208,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("CRIT_MAGIC").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -225,16 +234,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("REDSTONE").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -251,16 +260,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("SMOKE_NORMAL").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -277,16 +286,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("SNOWBALL").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -303,16 +312,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("SPELL").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
@@ -329,16 +338,16 @@ public class Particle {
 				Object enumParticleType = getNMSClass("EnumParticle").getField("DRIP_WATER").get(null);
 				
 				Object packet = particles.newInstance(
-						enumParticleType, 				//type
-						true,							//true
-						(float) getLocation().getX(),	//x
-						(float) getLocation().getY() + 1,	//y
-						(float) getLocation().getZ(),	//z
-						(float) 0.5,								//x-offset
-						(float) 0.5,								//y-offset
-						(float) 0.5,								//z-offset
-						0,								//data
-						100,							//particles
+						enumParticleType,
+						true,
+						(float) getLocation().getX(),
+						(float) getLocation().getY() + 1,
+						(float) getLocation().getZ(),
+						(float) offsetX,
+						(float) offsetY,
+						(float) offsetZ,
+						0,
+						amount,
 						null);
 				for (Arena arena : ArenaManager.getInstance().getArenas()) {
 					for (Plot plot : arena.getUsedPlots()) {
