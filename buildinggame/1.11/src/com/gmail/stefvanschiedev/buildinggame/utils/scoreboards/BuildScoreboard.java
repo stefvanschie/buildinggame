@@ -1,7 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -72,7 +74,10 @@ public class BuildScoreboard {
 	@SuppressWarnings("deprecation")
 	public void show(Player player) {
 		int place = 0;
+		
 		for (int i = teams.size(); i > 0; i--) {
+			Calendar calendar = Calendar.getInstance();
+			
 			Team team = teams.get(place);
 			String text = strings.get(place)
 					.replace("%arena%", arena.getName())
@@ -87,7 +92,19 @@ public class BuildScoreboard {
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
 					.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
-					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat());
+					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
+					.replace("%date_day_of_month%", calendar.get(Calendar.DAY_OF_MONTH) + "")
+					.replace("%date_day_of_week%", calendar.get(Calendar.DAY_OF_WEEK) + "")
+					.replace("%date_day_of_year%", calendar.get(Calendar.DAY_OF_YEAR) + "")
+					.replace("%date_hour%", calendar.get(Calendar.HOUR) + "")
+					.replace("%date_hour_of_day%", calendar.get(Calendar.HOUR_OF_DAY) + "")
+					.replace("%date_millisecond%", calendar.get(Calendar.MILLISECOND) + "")
+					.replace("%date_minute%", calendar.get(Calendar.MINUTE) + "")
+					.replace("%date_month%", calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))
+					.replace("%date_second%", calendar.get(Calendar.SECOND) + "")
+					.replace("%date_week_of_month%", calendar.get(Calendar.WEEK_OF_MONTH) + "")
+					.replace("%date_week_of_year%", calendar.get(Calendar.WEEK_OF_YEAR) + "")
+					.replace("%date_year%", calendar.get(Calendar.YEAR) + "");
 			
 			int length = text.length();
 			
@@ -107,6 +124,8 @@ public class BuildScoreboard {
 	@SuppressWarnings("deprecation")
 	public void update(Player player) {
 		for (int i = 0; i < strings.size(); i++) {
+			Calendar calendar = Calendar.getInstance();
+			
 			Team team = teams.get(i);
 			String text = strings.get(i)
 					.replace("%arena%", arena.getName())
@@ -121,7 +140,19 @@ public class BuildScoreboard {
 					.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 					.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
 					.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
-					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat());
+					.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
+					.replace("%date_day_of_month%", calendar.get(Calendar.DAY_OF_MONTH) + "")
+					.replace("%date_day_of_week%", calendar.get(Calendar.DAY_OF_WEEK) + "")
+					.replace("%date_day_of_year%", calendar.get(Calendar.DAY_OF_YEAR) + "")
+					.replace("%date_hour%", calendar.get(Calendar.HOUR) + "")
+					.replace("%date_hour_of_day%", calendar.get(Calendar.HOUR_OF_DAY) + "")
+					.replace("%date_millisecond%", calendar.get(Calendar.MILLISECOND) + "")
+					.replace("%date_minute%", calendar.get(Calendar.MINUTE) + "")
+					.replace("%date_month%", calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))
+					.replace("%date_second%", calendar.get(Calendar.SECOND) + "")
+					.replace("%date_week_of_month%", calendar.get(Calendar.WEEK_OF_MONTH) + "")
+					.replace("%date_week_of_year%", calendar.get(Calendar.WEEK_OF_YEAR) + "")
+					.replace("%date_year%", calendar.get(Calendar.YEAR) + "");
 			
 			int length = text.length();
 			
