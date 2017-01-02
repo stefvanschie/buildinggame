@@ -22,7 +22,7 @@ public class IDDecompiler {
 	public ItemStack decompile(String block) {
 		Matcher matcher = Pattern.compile("([_a-zA-Z]+)([:][0-9]+)?").matcher(block);
 		if (matcher.matches()) {
-			return new ItemStack(Material.matchMaterial(matcher.group(1)), 1,  
+			return new ItemStack(Material.matchMaterial(matcher.group(1)), 1, 
 					matcher.group(2) != null ? Short.parseShort(matcher.group(2).substring(1)) : 0);
 		} else {
 			Main.getInstance().getLogger().warning("Failed to load id '" + block + "'");

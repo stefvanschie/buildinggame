@@ -5,6 +5,7 @@ public enum ParticleType {
 	DAMAGE_INDICATOR,
 	DRAGON_BREATH,
 	END_ROD,
+	FALLING_DUST,
 	FLAMES,
 	MAGIC_CRIT,
 	LAVA_DRIP,
@@ -18,4 +19,18 @@ public enum ParticleType {
 	SNOWBALL_POOF,
 	SMOKE,
 	SWEEP_ATTACK;
+	
+	private Class<?> data;
+	
+	private ParticleType() {
+		data = Void.class;
+	}
+	
+	private ParticleType(Class<?> data) {
+		this.data = data;
+	}
+	
+	public Class<?> getData() {
+		return data;
+	}
 }

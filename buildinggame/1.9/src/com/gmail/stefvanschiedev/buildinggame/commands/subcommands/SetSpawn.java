@@ -47,10 +47,9 @@ public class SetSpawn extends PlayerCommand {
 		LocationManager.getInstance().setup();
 		MaxPlayersManager.getInstance().setup();
 		
-		for (String message : messages.getStringList("setSpawn.succes")) {
+		for (String message : messages.getStringList("setSpawn.succes"))
 			MessageManager.getInstance().send(player, message
 					.replace("%place%", place + ""));
-		}
 		
 		return CommandResult.ERROR;
 	}

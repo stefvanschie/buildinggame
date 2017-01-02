@@ -27,9 +27,8 @@ public class Mobs extends ConsoleCommand {
 	public CommandResult onCommand(CommandSender sender, String[] args) {
 		if (args.length == 0) {
 			for (SubCommand sc : subCommands) {
-				if (sender.hasPermission(sc.getPermission())) {
+				if (sender.hasPermission(sc.getPermission()))
 					MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting mobs " + sc.getName() + " - " + sc.getInfo());
-				}
 			}
 			return CommandResult.ARGUMENTEXCEPTION;
 		}

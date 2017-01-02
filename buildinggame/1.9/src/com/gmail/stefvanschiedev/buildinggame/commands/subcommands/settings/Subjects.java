@@ -27,9 +27,9 @@ public class Subjects extends ConsoleCommand {
 		//test for the right setting
 		
 		if (args.length == 0) {
-			for (SubCommand sc : subCommands) {
+			for (SubCommand sc : subCommands)
 				MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting subjects " + sc.getName() + " - " + sc.getInfo());
-			}
+			
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		

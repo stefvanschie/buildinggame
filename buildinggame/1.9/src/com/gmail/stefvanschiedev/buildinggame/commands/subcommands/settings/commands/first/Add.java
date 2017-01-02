@@ -21,9 +21,10 @@ public class Add extends ConsoleCommand {
 		}
 		
 		String command = "";
-		for (String arg : args) {
+		
+		for (String arg : args)
 			command += arg + " ";
-		}
+		
 		command = command.trim();
 		
 		config.set("commands.first", config.getStringList("commands.first").add(command));

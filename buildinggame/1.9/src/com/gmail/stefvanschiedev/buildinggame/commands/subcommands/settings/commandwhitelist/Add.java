@@ -22,9 +22,9 @@ public class Add extends ConsoleCommand {
 		
 		String command = "";
 		
-		for (String argument : args) {
+		for (String argument : args)
 			command += argument + " ";
-		}
+		
 		command = command.trim();
 		
 		config.set("command-whitelist", config.getStringList("command-whitelist").add(command));

@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -33,8 +34,18 @@ public class StatManager {
 		if (config.getBoolean("stats.database.enable")) {
 			database = new MySQLDatabase(Main.getInstance());
 			
-			if (database.setup())
+			if (database.setup()) {
+				Set<UUID> uuids = database.getAllPlayers();
+				
+				for (UUID uuid : uuids) {
+					for (StatType statType : StatType.values())
+						this.stats.add(new Stat(statType, Bukkit.getOfflinePlayer(uuid), database.getStat(uuid.toString(), statType.toString().toLowerCase())));
+				}
+				
 				return;
+			}
+			
+			Main.getInstance().getLogger().warning("Database usage failed; returning to flat-file storage");
 		}
 		
 		for (String uuid : stats.getKeys(false)) {
@@ -57,6 +68,15 @@ public class StatManager {
 					this.stats.add(new Stat(StatType.WALKED, player, stats.getInt(uuid + "." + stat)));
 			}
 		}
+	}
+	
+	public boolean containsUUID(UUID uuid) {
+		for (Stat stat : stats) {
+			if (stat.getPlayer().getUniqueId().equals(uuid))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	public Stat getStat(Player player, StatType type) {
@@ -119,10 +139,10 @@ public class StatManager {
 	}
 	
 	public void saveToDatabase(){
-		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-			for (StatType stattype : StatType.values())
-				getMySQLDatabase().setStat(player.getUniqueId().toString(), stattype.toString().toLowerCase(), getStat(player, stattype).getValue());
-		}
+		List<Stat> stats = this.stats;		
+		
+		for (Stat stat : stats)
+			getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), stat.getType().toString().toLowerCase(), stat.getValue());
 	}
 	
 	public static StatManager getInstance() {

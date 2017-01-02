@@ -21,9 +21,10 @@ public class Remove extends ConsoleCommand {
 		}
 		
 		String command = "";
-		for (String arg : args) {
+		
+		for (String arg : args)
 			command += arg + " ";
-		}
+		
 		command.trim();
 		
 		config.set("commands.third", config.getStringList("commands.third").remove(command));

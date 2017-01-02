@@ -195,7 +195,8 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new Leave(), this);
 			pm.registerEvents(new Move(), this);
 			pm.registerEvents(new PlaceBucket(), this);
-			pm.registerEvents(new Chat(), this);
+			if (SettingsManager.getInstance().getConfig().getBoolean("chat.adjust"))
+				pm.registerEvents(new Chat(), this);
 			pm.registerEvents(new CommandBlocker(), this);
 			pm.registerEvents(new EntityDamage(), this);
 			pm.registerEvents(new TakeDamage(), this);

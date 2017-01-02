@@ -97,7 +97,7 @@ public class Main extends JavaPlugin {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
-		
+
 		//loading metrics
 		getLogger().info("Loading metrics");
 		try {
@@ -122,7 +122,7 @@ public class Main extends JavaPlugin {
 			}
 		}
 		
-		if(StatManager.getInstance().getMySQLDatabase() == null)
+		if (StatManager.getInstance().getMySQLDatabase() == null)
 			StatManager.getInstance().saveToFile();
 		else
 			StatManager.getInstance().saveToDatabase();
@@ -196,7 +196,8 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new Leave(), this);
 			pm.registerEvents(new Move(), this);
 			pm.registerEvents(new PlaceBucket(), this);
-			pm.registerEvents(new Chat(), this);
+			if (SettingsManager.getInstance().getConfig().getBoolean("chat.adjust"))
+				pm.registerEvents(new Chat(), this);
 			pm.registerEvents(new CommandBlocker(), this);
 			pm.registerEvents(new EntityDamage(), this);
 			pm.registerEvents(new TakeDamage(), this);

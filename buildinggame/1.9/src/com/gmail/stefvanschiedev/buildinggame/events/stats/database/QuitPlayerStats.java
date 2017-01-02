@@ -20,7 +20,7 @@ public class QuitPlayerStats implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), new BukkitRunnable() {
             @Override
             public void run() {
-                for(StatType type : StatType.values())
+                for (StatType type : StatType.values())
                     StatManager.getInstance().getMySQLDatabase().setStat(player.getUniqueId().toString(), type.toString().toLowerCase(), StatManager.getInstance().getStat(player, type).getValue());
             }
         });

@@ -46,9 +46,9 @@ public class SubjectMenu extends Gui {
 		for (String s : subjects)
 			votes.put(s, new SubjectVote(0));
 	}
-	
+		
 	@Override
-	public void open(Player player, int page) {		
+	public void open(Player player, int page) {	
 		for (int index = 0; index < 27; index++) {
 			if (subjects.size() - 1 < index + ((page - 1) * 27))
 				break;

@@ -27,7 +27,7 @@ public class BuildScoreboard {
 	ScoreboardManager manager = Bukkit.getScoreboardManager();
 	Scoreboard scoreboard = manager.getNewScoreboard();  
     Objective objective = scoreboard.registerNewObjective("bg-build", "dummy");
-	
+    
     Arena arena;
     
     private List<String> strings = new ArrayList<>();

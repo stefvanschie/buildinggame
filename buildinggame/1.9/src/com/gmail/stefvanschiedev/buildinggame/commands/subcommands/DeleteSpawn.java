@@ -54,9 +54,8 @@ public class DeleteSpawn extends ConsoleCommand {
 		
 		int maxplayers = arenas.getInt(arena.getName() + ".maxplayers");
 		
-		for (int i = plot.getID(); i < maxplayers; i++) {
+		for (int i = plot.getID(); i < maxplayers; i++)
 			arenas.set(arena.getName() + "." + i, arenas.getConfigurationSection(arena.getName() + "." + i++));
-		}
 		
 		arenas.set(arena.getName() + "." + maxplayers, null);
 		arenas.set(arena.getName() + ".maxplayers", maxplayers - 1);
@@ -70,10 +69,9 @@ public class DeleteSpawn extends ConsoleCommand {
 		BoundaryManager.getInstance().setup();
 		FloorManager.getInstance().setup();
 		
-		for (String message : messages.getStringList("deleteSpawn.succes")) {
+		for (String message : messages.getStringList("deleteSpawn.succes"))
 			MessageManager.getInstance().send(sender, message
 					.replace("%place%", plot.getID() + ""));
-		}
 		
 		return CommandResult.SUCCES;
 	}

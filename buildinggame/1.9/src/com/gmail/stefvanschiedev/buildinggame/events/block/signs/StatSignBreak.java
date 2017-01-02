@@ -21,7 +21,7 @@ public class StatSignBreak implements Listener {
 		
 		if (!(block.getState() instanceof Sign))
 			return;
-
+		
 		for (StatSign s : SignManager.getInstance().getStatSigns()) {
 			Sign sign = s.getSign();
 			

@@ -104,7 +104,7 @@ public class LobbyScoreboard {
 					.replace("%date_week_of_month%", calendar.get(Calendar.WEEK_OF_MONTH) + "")
 					.replace("%date_week_of_year%", calendar.get(Calendar.WEEK_OF_YEAR) + "")
 					.replace("%date_year%", calendar.get(Calendar.YEAR) + "");
-		
+			
 			int length = text.length();
 			
 			team.setPrefix(text.substring(0, length > 16 ? 16 : length));

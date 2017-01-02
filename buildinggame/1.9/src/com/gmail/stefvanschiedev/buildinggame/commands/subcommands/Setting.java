@@ -79,9 +79,9 @@ public class Setting extends ConsoleCommand {
 		//test for right setting
 		
 		if (args.length == 0) {
-			for (SubCommand sc : subCommands) {
+			for (SubCommand sc : subCommands)
 				MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting " + sc.getName() + " - " + sc.getInfo());
-			}
+			
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
 		

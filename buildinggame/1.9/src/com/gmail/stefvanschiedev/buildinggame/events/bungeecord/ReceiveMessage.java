@@ -58,6 +58,7 @@ public class ReceiveMessage implements Listener {
 			
 			final Player player = Bukkit.getPlayer(data[0].trim());
 			final Arena arena = ArenaManager.getInstance().getArena(data[1].trim());
+			
 			if (player == null) {
 				System.out.println("Couldn't find player");
 				return;
@@ -72,6 +73,7 @@ public class ReceiveMessage implements Listener {
 					arena.join(player);
 				}
 			};
+			
 			task.runTask(Main.getInstance());
 		}
 		

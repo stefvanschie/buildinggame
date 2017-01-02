@@ -51,7 +51,6 @@ public class Plot {
 	private Location location;
 	private Map<Player, Integer> timesVoted = new HashMap<Player, Integer>();
 	private Time time = Time.AM6;
-	
 	private BuildMenu buildMenu;
 	
 	public Plot(int ID) {

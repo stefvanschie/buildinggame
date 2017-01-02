@@ -78,5 +78,5 @@ public class StatSignCreate implements Listener {
 		e.setCancelled(true);
 		
 		SignManager.getInstance().setup();
-	}
+	} 
 }

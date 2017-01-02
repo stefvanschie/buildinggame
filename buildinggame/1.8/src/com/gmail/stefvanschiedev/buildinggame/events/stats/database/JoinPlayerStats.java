@@ -21,6 +21,9 @@ public class JoinPlayerStats implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), new Runnable() {
             @Override
             public void run() {
+            	if (!StatManager.getInstance().containsUUID(player.getUniqueId()) && StatManager.getInstance().getMySQLDatabase() != null)
+            		StatManager.getInstance().getMySQLDatabase().insertPlayer(player.getUniqueId().toString());
+            	
                 for (StatType statType : StatType.values())
                     StatManager.getInstance().registerStat(player, statType, StatManager.getInstance().getMySQLDatabase().getStat(player.getUniqueId().toString(),statType.toString().toLowerCase()));
             }

@@ -29,9 +29,8 @@ public class TeamSelection extends ConsoleCommand {
 		
 		if (args.length == 0) {
 			for (SubCommand sc : subCommands) {
-				if (sender.hasPermission(sc.getPermission())) {
+				if (sender.hasPermission(sc.getPermission()))
 					MessageManager.getInstance().sendWithoutPrefix(sender, ChatColor.GREEN + "/bg setting team-selection " + sc.getName() + " - " + sc.getInfo());
-				}
 			}
 			return CommandResult.ARGUMENTEXCEPTION;
 		}

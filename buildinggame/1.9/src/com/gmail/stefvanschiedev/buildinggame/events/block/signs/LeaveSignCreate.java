@@ -19,12 +19,12 @@ public class LeaveSignCreate implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]")) {
+		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
 			return;
-		}
-		if (!e.getLine(1).equalsIgnoreCase("leave")) {
+			
+		if (!e.getLine(1).equalsIgnoreCase("leave"))
 			return;
-		}
+			
 		if (!player.hasPermission("bg.sign.create")) {
 			MessageManager.getInstance().send(player, messages.getString("global.permissionNode"));
 			return;

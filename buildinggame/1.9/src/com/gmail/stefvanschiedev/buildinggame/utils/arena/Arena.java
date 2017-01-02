@@ -400,9 +400,11 @@ public class Arena {
 		getBossBar().addPlayer(player);
 		
 		//hide players from tab list
-		for (Player pl : Bukkit.getOnlinePlayers()) {
-			if (!contains(pl))
-				player.hidePlayer(pl);
+		if (config.getBoolean("tab-list.adjust")) {
+			for (Player pl : Bukkit.getOnlinePlayers()) {
+				if (!contains(pl))
+					player.hidePlayer(pl);
+			}
 		}
 		//show current joined player to others
 		for (Plot plot : getUsedPlots()) {
@@ -596,7 +598,7 @@ public class Arena {
 	public void setFirstPlot(Plot first) {
 		this.first = first;
 	}
-	 
+	
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;
 	}
@@ -795,13 +797,13 @@ public class Arena {
 		setBuildTimer(new BuildTimer(config.getInt("timer"), this));
 		setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
 		setWinTimer(new WinTimer(config.getInt("wintimer"), this));
+		setVoteScoreboard(new VoteScoreboard());
+		setSubject(null);
 		
 		setFirstPlot(null);
 		setSecondPlot(null);
 		setThirdPlot(null);
 		
-		setVoteScoreboard(new VoteScoreboard());
-		setSubject(null);
 		getVotedPlots().clear();
 		//update bossbar
 		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
@@ -820,8 +822,10 @@ public class Arena {
 				player.resetPlayerWeather();
 				
 				//show all players again
-				for (Player pl : Bukkit.getOnlinePlayers())
-					player.showPlayer(pl);
+				if (config.getBoolean("tab-list.adjust")) {
+					for (Player pl : Bukkit.getOnlinePlayers())
+						player.showPlayer(pl);
+				}
 				
 				plot.getTimesVoted().clear();
 			

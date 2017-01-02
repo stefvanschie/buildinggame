@@ -4,6 +4,9 @@ package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class MySQLDatabase {
 
@@ -34,13 +37,15 @@ public class MySQLDatabase {
                     "  `first` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `second` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `third` int(11) NOT NULL DEFAULT '0',\n" +
-                    "  `broken` int(11) NOT NULL DEFAULT '0'\n" +
+                    "  `broken` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `placed` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `walked` int(11) NOT NULL DEFAULT '0'\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
             manager.closeConnection(connection);
         } catch (SQLException e) {
+        	plugin.getLogger().info("Failed to create table in database! Returning to file stats.");
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return false;
         }
 
         // Table exists
@@ -88,11 +93,11 @@ public class MySQLDatabase {
      *  WARNING: Use this in a Async task!
      * @param UUID UUID from player
      */
-    public void insertPlayer(String UUID){
-    	ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats WHERE username='" + UUID + "'");
+    public void insertPlayer(String UUID) {
+    	ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats WHERE UUID='" + UUID + "'");
     	
     	try {
-    		if (set.next())
+    		if (!set.next())
     			executeUpdate("INSERT INTO buildinggamestats (UUID,walked) VALUES ('" + UUID + "',0)");
     	} catch (SQLException e) {
     		e.printStackTrace();
@@ -158,8 +163,18 @@ public class MySQLDatabase {
         }
 
     }
-
-
-
-
+    
+    public Set<UUID> getAllPlayers() {
+    	Set<UUID> uuids = new HashSet<>();
+    	ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats");
+    
+    	try {
+    		while (set.next())
+    			uuids.add(UUID.fromString(set.getString(set.getRow())));
+    	} catch (SQLException e) {
+    		plugin.getLogger().warning("Error while retrieving data from database");
+    	}
+       	
+    	return uuids;
+    }
 }

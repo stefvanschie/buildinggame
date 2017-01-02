@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
-
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 public class OpenSubjectMenu implements Listener {
@@ -31,8 +30,9 @@ public class OpenSubjectMenu implements Listener {
 		if (item == null)
 			return;
 		
-		if (IDDecompiler.getInstance().matches(config.getString("subject-gui.item.id"), item))
+		if (item.getType() != IDDecompiler.getInstance().decompile(config.getString("subject-gui.item.id")).getType()) {
 			return;
+		}
 		
 		if (!item.hasItemMeta()) {
 			return;

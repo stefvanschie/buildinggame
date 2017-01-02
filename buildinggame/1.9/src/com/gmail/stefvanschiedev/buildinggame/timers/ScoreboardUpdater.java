@@ -46,6 +46,7 @@ public class ScoreboardUpdater extends BukkitRunnable {
 			} 
 		}
 		
-		MainScoreboardManager.getInstance().update();
+		if (config.getBoolean("scoreboards.main.enable"))
+			MainScoreboardManager.getInstance().update();
 	}
 }
