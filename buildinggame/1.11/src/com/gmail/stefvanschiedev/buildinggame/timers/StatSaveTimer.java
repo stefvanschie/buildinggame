@@ -8,6 +8,9 @@ public class StatSaveTimer extends BukkitRunnable {
 
 	@Override
 	public void run() {
-		StatManager.getInstance().saveToFile();
+		if (StatManager.getInstance().getMySQLDatabase() == null)
+			StatManager.getInstance().saveToFile();
+		else
+			StatManager.getInstance().saveToDatabase();
 	}
 }

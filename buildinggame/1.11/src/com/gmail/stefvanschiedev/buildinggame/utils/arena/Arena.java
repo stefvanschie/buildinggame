@@ -400,9 +400,11 @@ public class Arena {
 		getBossBar().addPlayer(player);
 		
 		//hide players from tab list
-		for (Player pl : Bukkit.getOnlinePlayers()) {
-			if (!contains(pl))
-				player.hidePlayer(pl);
+		if (config.getBoolean("tab-list.adjust")) {
+			for (Player pl : Bukkit.getOnlinePlayers()) {
+				if (!contains(pl))
+					player.hidePlayer(pl);
+			}
 		}
 		//show current joined player to others
 		for (Plot plot : getUsedPlots()) {
@@ -820,8 +822,10 @@ public class Arena {
 				player.resetPlayerWeather();
 				
 				//show all players again
-				for (Player pl : Bukkit.getOnlinePlayers())
-					player.showPlayer(pl);
+				if (config.getBoolean("tab-list.adjust")) {
+					for (Player pl : Bukkit.getOnlinePlayers())
+						player.showPlayer(pl);
+				}
 				
 				plot.getTimesVoted().clear();
 			
