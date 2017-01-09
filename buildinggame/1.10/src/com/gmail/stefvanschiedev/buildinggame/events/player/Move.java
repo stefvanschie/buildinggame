@@ -37,11 +37,14 @@ public class Move implements Listener {
 					continue;
 				
 				for (Plot plot : arena.getPlots()) {
-					if (plot.getBoundary().isInside(to)) {
+					if (plot.getBoundary().isInside(to) && !plot.getBoundary().isInside(from))
 						//teleport this intruder back
 						player.teleport(from);
-						MessageManager.getInstance().send(player, ChatColor.RED + "You can't access this plot when this arena is in-game");
-					}
+					else if (plot.getBoundary().isInside(to))
+						//use algorithm to find nearest block to push them out of the arena
+						player.teleport(getClosestPositionOutsideActivePlot(player.getLocation()));
+					
+					MessageManager.getInstance().send(player, ChatColor.RED + "You can't access this plot when this arena is in-game");
 				}
 			}
 			
@@ -112,5 +115,48 @@ public class Move implements Listener {
 			MessageManager.getInstance().send(player, messages.getStringList("in-game.move-out-bounds"));
 			return;
 		}
+	}
+	
+	private Location getClosestPositionOutsideActivePlot(Location start) {
+		Location closest = null;
+		
+		//radius is for a cube not a sphere as the name suggests
+		for (int radius = 1; closest == null; radius++) {
+			//loop through cube starting at a positive corner going to a negative one
+			for (int x = radius; x >= -radius; x--) {
+				for (int y = radius; y >= -radius; y--) {
+					for (int z = radius; z >= -radius; z--) {
+						Location loc = start.clone().add(x, y, z);
+						
+						//loop through all plots
+						for (Arena arena : ArenaManager.getInstance().getArenas()) {
+							if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING)
+								continue;
+							
+							for (Plot plot : arena.getPlots()) {
+								if (!plot.getBoundary().isInside(loc)) {
+									closest = loc;
+									break;
+								}
+							}
+							
+							if (closest != null)
+								break;
+						}
+						
+						if (closest != null)
+							break;
+					}
+					
+					if (closest != null)
+						break;
+				}
+				
+				if (closest != null)
+					break;
+			}
+		}
+		
+		return closest;
 	}
 }
