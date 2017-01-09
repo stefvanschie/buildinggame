@@ -132,8 +132,10 @@ public class StatManager {
 		
 		List<Stat> statistics = this.stats;
 		
-		for (Stat stat : statistics)
+		for (int i = 0; i < statistics.size(); i++) {
+			Stat stat = statistics.get(i);
 			stats.set(stat.getPlayer().getUniqueId() + "." + stat.getType().toString().toLowerCase(), stat.getValue());
+		}
 		
 		SettingsManager.getInstance().save();
 	}
@@ -141,8 +143,10 @@ public class StatManager {
 	public void saveToDatabase(){
 		List<Stat> stats = this.stats;		
 		
-		for (Stat stat : stats)
+		for (int i = 0; i < stats.size(); i++) {
+			Stat stat = stats.get(i);
 			getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), stat.getType().toString().toLowerCase(), stat.getValue());
+		}
 	}
 	
 	public static StatManager getInstance() {
