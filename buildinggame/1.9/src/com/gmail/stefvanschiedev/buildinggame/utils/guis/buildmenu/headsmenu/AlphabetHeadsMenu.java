@@ -18,7 +18,7 @@ public class AlphabetHeadsMenu extends Gui {
 	private static YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	
 	public AlphabetHeadsMenu() {
-		super(null, 54, MessageManager.translate(messages.getString("gui.heads.alphabet.page-1.title")), 3);
+		super(null, 54, MessageManager.translate(messages.getString("gui.heads.alphabet.title")), 3);
 		
 		//page one
 		ItemStack arrowUp = SkullItem.getSkull("http://textures.minecraft.net/texture/d48b768c623432dfb259fb3c3978e98dec111f79dbd6cd88f21155374b70b3c");

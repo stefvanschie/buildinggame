@@ -223,7 +223,7 @@ public class ColorsHeadsMenu extends Gui {
 		ItemStack pink2 = SkullItem.getSkull("http://textures.minecraft.net/texture/7557db5f15ca6f3701903cca402ce77ec6f885036b6812e8288abd7e94");
 		ItemMeta pink2Meta = pink2.getItemMeta();
 		pink2Meta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.colors.pink-2.name")));
-		pink2Meta.setLore(MessageManager.translate(messages.getStringList("gui.heads.colors..pink-2.lores")));
+		pink2Meta.setLore(MessageManager.translate(messages.getStringList("gui.heads.colors.pink-2.lores")));
 		pink2.setItemMeta(pink2Meta);
 		
 		addItem(pink2, new Action());

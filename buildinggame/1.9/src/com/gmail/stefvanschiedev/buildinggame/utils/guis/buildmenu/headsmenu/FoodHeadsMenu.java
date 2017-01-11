@@ -18,7 +18,7 @@ public class FoodHeadsMenu extends Gui {
 	private static YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	
 	public FoodHeadsMenu() {
-		super(null, 54, MessageManager.translate(messages.getString("gui.heads.food.page-1.title")), 3);
+		super(null, 54, MessageManager.translate(messages.getString("gui.heads.food.title")), 3);
 		
 		//page one
 		ItemStack nutella = SkullItem.getSkull("http://textures.minecraft.net/texture/515dcb2da02cf734829e1e273e3025617d8071516f953251b52545da8d3e8db8");
@@ -327,8 +327,8 @@ public class FoodHeadsMenu extends Gui {
 		
 		ItemStack hamburger2 = SkullItem.getSkull("http://textures.minecraft.net/texture/b0e38c176dbf7df9b0632c256eeb6c5aaca99e1c8c1a530656eaff0417aed22");
 		ItemMeta hamburger2Meta = hamburger2.getItemMeta();
-		hamburger2Meta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.food.page-1.hamburger-2.name")));
-		hamburger2Meta.setLore(MessageManager.translate(messages.getStringList("gui.heads.food.page-1.hamburger-2.lores")));
+		hamburger2Meta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.food.hamburger-2.name")));
+		hamburger2Meta.setLore(MessageManager.translate(messages.getStringList("gui.heads.food.hamburger-2.lores")));
 		hamburger2.setItemMeta(hamburger2Meta);
 		
 		addItem(hamburger2, new Action());

@@ -605,7 +605,7 @@ public class BlocksHeadsMenu extends Gui {
 		ItemStack grayWool = SkullItem.getSkull("http://textures.minecraft.net/texture/e9e6917f2fb4ea08e7132df30961d2b5c523abba19ce43f835fc14c568f4");
 		ItemMeta grayWoolMeta = grayWool.getItemMeta();
 		grayWoolMeta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.blocks.gray-wool.name")));
-		grayWoolMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.blocks..gray-wool.lores")));
+		grayWoolMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.blocks.gray-wool.lores")));
 		grayWool.setItemMeta(grayWoolMeta);
 		
 		addItem(grayWool, new Action());

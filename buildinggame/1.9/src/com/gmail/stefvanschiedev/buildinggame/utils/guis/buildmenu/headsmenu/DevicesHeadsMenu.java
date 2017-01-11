@@ -18,7 +18,7 @@ public class DevicesHeadsMenu extends Gui {
 	private static YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	
 	public DevicesHeadsMenu() {
-		super(null, 54, MessageManager.translate(messages.getString("gui.heads.devices.page-1.title")), 2);
+		super(null, 54, MessageManager.translate(messages.getString("gui.heads.devices.title")), 2);
 		
 		//page 1
 		ItemStack clock = SkullItem.getSkull("http://textures.minecraft.net/texture/2de4e2783f85a391221dd91656ba688e7e42d16f6abbfbcfad9ca53617fca6");

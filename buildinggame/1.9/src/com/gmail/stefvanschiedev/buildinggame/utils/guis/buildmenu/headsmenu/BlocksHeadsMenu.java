@@ -375,8 +375,8 @@ public class BlocksHeadsMenu extends Gui {
 		
 		ItemStack halfPiston = SkullItem.getSkull("http://textures.minecraft.net/texture/aa868ce917c09af8e4c350a5807041f6509bf2b89aca45e591fbbd7d4b117d");
 		ItemMeta halfPistonMeta = halfPiston.getItemMeta();
-		halfPistonMeta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.blocks.page-1.half-piston.name")));
-		halfPistonMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.blocks.page-1.half-piston.lores")));
+		halfPistonMeta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.blocks.half-piston.name")));
+		halfPistonMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.blocks.half-piston.lores")));
 		halfPiston.setItemMeta(halfPistonMeta);
 		
 		addItem(halfPiston, new Action());
@@ -925,8 +925,8 @@ public class BlocksHeadsMenu extends Gui {
 		
 		ItemStack noteBlock = SkullItem.getSkull("http://textures.minecraft.net/texture/4ceeb77d4d25724a9caf2c7cdf2d88399b1417c6b9ff5213659b653be4376e3");
 		ItemMeta noteBlockMeta = noteBlock.getItemMeta();
-		noteBlockMeta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.blocks.page-3.note-block.name")));
-		noteBlockMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.blocks.page-3.note-block.lores")));
+		noteBlockMeta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.blocks.note-block.name")));
+		noteBlockMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.blocks.note-block.lores")));
 		noteBlock.setItemMeta(noteBlockMeta);
 		
 		addItem(noteBlock, new Action());

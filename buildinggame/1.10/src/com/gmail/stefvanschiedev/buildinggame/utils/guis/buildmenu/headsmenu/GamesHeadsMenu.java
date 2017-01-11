@@ -215,7 +215,7 @@ public class GamesHeadsMenu extends Gui {
 		ItemStack solvedRubiksCube = SkullItem.getSkull("http://textures.minecraft.net/texture/8f1a277beb9e4faa6e7e356c74786e966155736a6858bf5bb5ad29df5bab61a1");
 		ItemMeta solvedRubiksCubeMeta = solvedRubiksCube.getItemMeta();
 		solvedRubiksCubeMeta.setDisplayName(MessageManager.translate(messages.getString("gui.heads.games.solved-rubiks-cube.name")));
-		solvedRubiksCubeMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.games.solved-rbuiks-cube.lores")));
+		solvedRubiksCubeMeta.setLore(MessageManager.translate(messages.getStringList("gui.heads.games.solved-rubiks-cube.lores")));
 		solvedRubiksCube.setItemMeta(solvedRubiksCubeMeta);
 		
 		addItem(solvedRubiksCube, new Action());
