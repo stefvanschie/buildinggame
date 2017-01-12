@@ -188,6 +188,8 @@ gui:
   floor: 
     id: 'hard_clay'
     enabled: true
+    excluded-blocks:
+    - red_rose
   time:
     id: 'watch'
     enabled: true

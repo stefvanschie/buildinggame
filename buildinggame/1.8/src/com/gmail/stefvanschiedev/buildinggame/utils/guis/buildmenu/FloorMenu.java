@@ -154,7 +154,7 @@ public class FloorMenu extends Gui {
 		List<Material> blocks = new ArrayList<>();
 		
 		for (Material material : Material.values()) {
-			if (material.isBlock() && !Arrays.asList(skipMaterials).contains(material) && !config.getStringList("blocks.blocked").contains(material.toString().toLowerCase()))
+			if (material.isBlock() && !Arrays.asList(skipMaterials).contains(material) && !config.getStringList("blocks.blocked").contains(material.toString().toLowerCase()) && !config.getStringList("gui.floor.excluded-blocks").contains(material.toString().toLowerCase()))
 				blocks.add(material);
 		}
 		
