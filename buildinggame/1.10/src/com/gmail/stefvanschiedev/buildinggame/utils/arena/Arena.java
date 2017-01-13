@@ -355,7 +355,8 @@ public class Arena {
 		if (config.getBoolean("scoreboards.main.enable"))
 			MainScoreboardManager.getInstance().remove(player);
 		
-		lobbyScoreboard.show(player);
+		if (config.getBoolean("scoreboards.lobby.enable"))
+			lobbyScoreboard.show(player);
 		
 		for (String message : messages.getStringList("join.message")) {
 			MessageManager.getInstance().send(player, message
@@ -380,9 +381,11 @@ public class Arena {
 		if (getLobby() != null)
 			player.teleport(getLobby().getLocation());
 		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers())
-				lobbyScoreboard.update(gamePlayer.getPlayer());
+		if (config.getBoolean("scoreboards.lobby.enable")) {
+			for (Plot plot : getUsedPlots()) {
+				for (GamePlayer gamePlayer : plot.getGamePlayers())
+					lobbyScoreboard.update(gamePlayer.getPlayer());
+			}
 		}
 		
 		player.getInventory().clear();
@@ -546,7 +549,8 @@ public class Arena {
 							.replace("%player%", player.getName()));
 				}
 				
-				lobbyScoreboard.update(pl);
+				if (config.getBoolean("scoreboards.lobby.enable"))
+					lobbyScoreboard.update(pl);
 			}
 		}
 		
@@ -689,7 +693,9 @@ public class Arena {
 				}
 				
 				//update scoreboard and update time and weather
-				getVoteScoreboard().show(player);
+				if (config.getBoolean("scoreboards.vote.enable"))
+					getVoteScoreboard().show(player);
+				
 				player.setPlayerTime(plot.getTime().decode(plot.getTime()), false);
 				player.setPlayerWeather(plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 			}

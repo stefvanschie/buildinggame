@@ -122,7 +122,6 @@ public class WinScoreboard {
 		player.setScoreboard(scoreboard);
 	}
 	
-
 	@SuppressWarnings("deprecation")
 	public void update(Player player) {
 		for (int i = 0; i < strings.size(); i++) {

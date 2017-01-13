@@ -671,7 +671,9 @@ public class Arena {
 				blocks.give(player);
 				
 				//update scoreboard and update time and weather
-				getVoteScoreboard().show(player);
+				if (config.getBoolean("scoreboards.vote.enable"))
+					getVoteScoreboard().show(player);
+				
 				player.setPlayerTime(plot.getTime().decode(plot.getTime()), false);
 				player.setPlayerWeather(plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 			}

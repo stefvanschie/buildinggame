@@ -249,7 +249,7 @@ public class VoteTimer extends Timer {
 				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 					Player player = gamePlayer.getPlayer();
 					
-					if (!config.getBoolean("names-after-voting"))
+					if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable"))
 						arena.getVoteScoreboard().show(player);
 					
 					player.setPlayerTime(this.plot.getTime().decode(this.plot.getTime()), false);

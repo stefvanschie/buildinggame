@@ -51,6 +51,14 @@ scoreboards:
     worlds:
       enable:
       -
+  lobby:
+    enable: true
+  build:
+    enable: true
+  vote:
+    enable: true
+  win:
+    enable: true
 
 blocked-entities:
 - 'ender_crystal'
