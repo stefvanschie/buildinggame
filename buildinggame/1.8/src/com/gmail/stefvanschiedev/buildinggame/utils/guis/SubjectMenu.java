@@ -31,7 +31,7 @@ public class SubjectMenu extends Gui {
 	private static YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	
 	public SubjectMenu() {
-		super(null, 36, MessageManager.translate(messages.getString("subject-gui.title")), config.getInt("subject-gui.subject-amount") == -1 ? config.getStringList("subjects").size() / 27 : config.getInt("subject-gui.subject-amount"));
+		super(null, 36, MessageManager.translate(messages.getString("subject-gui.title")), config.getInt("subject-gui.subject-amount") == -1 ? (int) Math.ceil(config.getStringList("subjects").size() / 27.0) : (int) Math.ceil(config.getInt("subject-gui.subject-amount") / 27.0));
 	
 		int amountOfSubjects = config.getInt("subject-gui.subject-amount");
 		
