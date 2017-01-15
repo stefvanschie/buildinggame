@@ -18,6 +18,9 @@ public class LiquidFlow implements Listener {
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
+				if (plot.getBoundary() == null)
+					continue;
+				
 				if ((plot.getBoundary().isInside(from.getLocation()) && !plot.getBoundary().isInside(to.getLocation())) || (!plot.getBoundary().isInside(from.getLocation()) && plot.getBoundary().isInside(to.getLocation())))
 					//checks if the source flows/goes out of the boundary and vice versa
 					e.setCancelled(true);
