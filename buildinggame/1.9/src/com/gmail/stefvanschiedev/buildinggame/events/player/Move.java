@@ -37,14 +37,15 @@ public class Move implements Listener {
 					continue;
 				
 				for (Plot plot : arena.getPlots()) {
-					if (plot.getBoundary().isInside(to) && !plot.getBoundary().isInside(from))
+					if (plot.getBoundary().isInside(to) && !plot.getBoundary().isInside(from)) {
 						//teleport this intruder back
 						player.teleport(from);
-					else if (plot.getBoundary().isInside(to))
+						MessageManager.getInstance().send(player, ChatColor.RED + "You can't access this plot when this arena is in-game");
+					} else if (plot.getBoundary().isInside(to)) {
 						//use algorithm to find nearest block to push them out of the arena
 						player.teleport(getClosestPositionOutsideActivePlot(player.getLocation()));
-					
-					MessageManager.getInstance().send(player, ChatColor.RED + "You can't access this plot when this arena is in-game");
+						MessageManager.getInstance().send(player, ChatColor.RED + "You can't access this plot when this arena is in-game");
+					}
 				}
 			}
 			
