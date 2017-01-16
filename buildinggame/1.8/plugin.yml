@@ -2,7 +2,7 @@ main: com.gmail.stefvanschiedev.buildinggame.Main
 version: 4.0.1
 name: BuildingGame
 author: stefvanschie
-softdepend: [Vault, BarAPI, SocketAPI]
+softdepend: [Vault, BarAPI, Socket4MC]
 
 commands:
   bg:
