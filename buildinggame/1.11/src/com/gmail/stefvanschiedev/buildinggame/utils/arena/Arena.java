@@ -391,7 +391,7 @@ public class Arena {
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
 		//fill lives and hunger
-		player.setHealth(20);
+		player.setHealth(player.getMaxHealth());
 		player.setFoodLevel(20);
 		//gamemode
 		player.setGameMode(GameMode.ADVENTURE);
