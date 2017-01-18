@@ -19,7 +19,7 @@ public class SetGameMode extends ConsoleCommand {
 	public CommandResult onCommand(CommandSender sender, String[] args) {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		
-		if (args.length < 1) {
+		if (args.length < 2) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and gamemode");
 			return CommandResult.ARGUMENTEXCEPTION;
 		}
