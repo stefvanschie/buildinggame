@@ -81,7 +81,7 @@ public class FloorMenu extends Gui {
 	};
 	
 	public FloorMenu(final Plot plot) {
-		super(null, 54, ChatColor.GOLD + "Floor Menu", (int) Math.ceil(getBlocks().size() / 45) + 1);
+		super(null, 54, ChatColor.GOLD + "Wybierz Podloge", (int) Math.ceil(getBlocks().size() / 45) + 1);
 		
 		for (int page = 0; page < pages; page++) {
 			setStartingPoint(54 * page);
@@ -168,17 +168,17 @@ public class FloorMenu extends Gui {
 	static {
 		previousPage = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta previousPageMeta = previousPage.getItemMeta();
-		previousPageMeta.setDisplayName(ChatColor.GREEN + "Previous page");
+		previousPageMeta.setDisplayName(ChatColor.GREEN + "Poprzednia strona");
 		previousPage.setItemMeta(previousPageMeta);
 		
 		nextPage = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextPageMeta = nextPage.getItemMeta();
-		nextPageMeta.setDisplayName(ChatColor.GREEN + "Next page");
+		nextPageMeta.setDisplayName(ChatColor.GREEN + "Nastepna strona");
 		nextPage.setItemMeta(nextPageMeta);
 		
 		closeMenu = new ItemStack(Material.BOOK);
 		ItemMeta closeMenuMeta = closeMenu.getItemMeta();
-		closeMenuMeta.setDisplayName(ChatColor.GREEN + "Close menu");
+		closeMenuMeta.setDisplayName(ChatColor.GREEN + "Zamknij menu");
 		closeMenu.setItemMeta(closeMenuMeta);
 	}
 }
