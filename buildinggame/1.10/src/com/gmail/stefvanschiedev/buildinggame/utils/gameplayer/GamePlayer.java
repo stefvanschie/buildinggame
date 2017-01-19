@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Scoreboard;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -31,6 +32,7 @@ public class GamePlayer {
 	private Player player;
 	private ItemStack[] inventory;
 	private ItemStack[] armor;
+	private Scoreboard scoreboard;
 	
 	//titles and subtitle
 	private List<String> titles;
@@ -49,6 +51,7 @@ public class GamePlayer {
 		this.player = player;
 		inventory = player.getInventory().getContents();
 		armor = player.getInventory().getArmorContents();
+		scoreboard = player.getScoreboard();
 		
 		titles = new ArrayList<String>();
 		subtitles = new ArrayList<String>();
@@ -166,6 +169,10 @@ public class GamePlayer {
 		return player;
 	}
 	
+	public Scoreboard getScoreboard() {
+		return scoreboard;
+	}
+	
 	public GamePlayer getSpectates() {
 		return spectates;
 	}
@@ -214,6 +221,7 @@ public class GamePlayer {
 		player.setGameMode(gameMode);
 		player.getInventory().setContents(inventory);
 		player.setLevel(levels);
+		player.setScoreboard(scoreboard);
 	}
 	
 	public void sendSubtitle(String subtitle) {
@@ -314,6 +322,10 @@ public class GamePlayer {
 	
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	
+	public void setScoreboard(Scoreboard scoreboard) {
+		this.scoreboard = scoreboard;
 	}
 	
 	public void setSpectates(GamePlayer spectates) {
