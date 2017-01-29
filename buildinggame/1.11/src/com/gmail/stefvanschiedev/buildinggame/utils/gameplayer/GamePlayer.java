@@ -109,7 +109,7 @@ public class GamePlayer {
 		if (Bukkit.getPluginManager().isPluginEnabled("SocketAPI") && config.getBoolean("bungeecord.enable")) {
 			if (!player.getServer().getServerName().equals(server))
 				SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + getPlayer().getName() + ", " + server);
-		
+			
 			BukkitRunnable task = new BukkitRunnable() {
 				@Override
 				public void run() {

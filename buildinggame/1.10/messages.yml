@@ -297,6 +297,19 @@ gui:
     name: "&aFloor block"
     lores:
     - "&7Change the block on the floor of your plot"
+    title: "&aFloor menu"
+    previous-page:
+      name: "&aPrevious page"
+      lores:
+      -
+    close-menu:
+      name: "&aClose menu"
+      lores:
+      -
+    next-page:
+      name: "&aNext page"
+      lores:
+      -
   time:
     name: "&aPlot time"
     lores:

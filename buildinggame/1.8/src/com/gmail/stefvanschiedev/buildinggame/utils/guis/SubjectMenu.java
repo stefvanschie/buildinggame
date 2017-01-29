@@ -48,7 +48,11 @@ public class SubjectMenu extends Gui {
 	}
 	
 	@Override
-	public void open(Player player, int page) {	
+	public void open(Player player, int page) {
+		clear();
+		
+		setStartingPoint((page - 1) * 36);
+		
 		for (int index = 0; index < 27; index++) {
 			if (subjects.size() - 1 < index + ((page - 1) * 27))
 				break;
@@ -71,22 +75,22 @@ public class SubjectMenu extends Gui {
 			meta.setLore(lores);
 			item.setItemMeta(meta);
 			
-			setItem(item, new GuiAction() {
+			addItem(item, new GuiAction() {
 					
 				@Override
 				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-						if (type != GuiActionType.CLICK)
-							return false;
+					if (type != GuiActionType.CLICK)
+						return false;
 						
-						InventoryClickEvent event = (InventoryClickEvent) e;
+					InventoryClickEvent event = (InventoryClickEvent) e;
 						
-						addVote((Player) event.getWhoClicked(), subject);
-						update();
+					addVote((Player) event.getWhoClicked(), subject);
+					update();
 						
-						return true;
-					}
-				}, index);
-			}
+					return true;
+				}
+			});
+		}
 			
 		if (page - 1 > 0) {
 			//previous page
@@ -116,7 +120,7 @@ public class SubjectMenu extends Gui {
 					return true;
 				}
 					
-			}, 29);
+			}, 29 + ((page - 1) * 36));
 		}
 			
 		ItemStack closeItem = new ItemStack(Material.BOOK);
@@ -144,7 +148,7 @@ public class SubjectMenu extends Gui {
 				removePlayer((Player) humanEntity);
 				return true;
 			}
-		}, 31);
+		}, 31 + ((page - 1) * 36));
 			
 		if (subjects.size() > 27 * page) {
 			//next page
@@ -173,7 +177,7 @@ public class SubjectMenu extends Gui {
 						
 					return true;
 				}
-			}, 33);
+			}, 33 + ((page - 1) * 36));
 		}
 		
 		super.open(player, page);

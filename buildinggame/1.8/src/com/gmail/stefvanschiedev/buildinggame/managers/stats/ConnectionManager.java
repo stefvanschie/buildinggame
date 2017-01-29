@@ -58,10 +58,10 @@ public class ConnectionManager {
         } catch (Exception e) {
         	plugin.getLogger().info("Connection failed! Returning to file stats.");
         	e.printStackTrace(); //you should use exception wrapping on real-production code
-        	return true;
+        	return false;
         }
         
-        return false;
+        return true;
     }
 
     public void shutdownConnPool() {

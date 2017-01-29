@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,10 +14,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class FloorMenu extends Gui {
+	
+	private static YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 	
 	private static ItemStack previousPage;
 	private static ItemStack nextPage;
@@ -81,7 +83,7 @@ public class FloorMenu extends Gui {
 	};
 	
 	public FloorMenu(final Plot plot) {
-		super(null, 54, ChatColor.GOLD + "Floor Menu", (int) Math.ceil(getBlocks().size() / 45) + 1);
+		super(null, 54, MessageManager.translate(messages.getString("gui.floor.title")), (int) Math.ceil(getBlocks().size() / 45) + 1);
 		
 		for (int page = 0; page < pages; page++) {
 			setStartingPoint(54 * page);
@@ -168,17 +170,20 @@ public class FloorMenu extends Gui {
 	static {
 		previousPage = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta previousPageMeta = previousPage.getItemMeta();
-		previousPageMeta.setDisplayName(ChatColor.GREEN + "Previous page");
+		previousPageMeta.setDisplayName(MessageManager.translate(messages.getString("gui.floor.previous-page.name")));
+		previousPageMeta.setLore(MessageManager.translate(messages.getStringList("gui.floor.previous-page.lores")));
 		previousPage.setItemMeta(previousPageMeta);
 		
 		nextPage = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta nextPageMeta = nextPage.getItemMeta();
-		nextPageMeta.setDisplayName(ChatColor.GREEN + "Next page");
+		nextPageMeta.setDisplayName(MessageManager.translate(messages.getString("gui.floor.next-page.name")));
+		nextPageMeta.setLore(MessageManager.translate(messages.getStringList("gui.floor.next-page.lores")));
 		nextPage.setItemMeta(nextPageMeta);
 		
 		closeMenu = new ItemStack(Material.BOOK);
 		ItemMeta closeMenuMeta = closeMenu.getItemMeta();
-		closeMenuMeta.setDisplayName(ChatColor.GREEN + "Close menu");
+		closeMenuMeta.setDisplayName(MessageManager.translate(messages.getString("gui.floor.close-menu.name")));
+		closeMenuMeta.setLore(MessageManager.translate(messages.getStringList("gui.floor.close-menu.lores")));
 		closeMenu.setItemMeta(closeMenuMeta);
 	}
 }
