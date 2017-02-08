@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import fr.rhaz.socketapi.Bukkit.BukkitSocketJSONEvent;
+import fr.rhaz.socket4mc.Bukkit.BukkitSocketJSONEvent;
 
 public class ReceiveMessage implements Listener {
 

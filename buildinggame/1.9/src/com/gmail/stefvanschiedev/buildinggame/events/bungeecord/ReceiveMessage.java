@@ -12,7 +12,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
-import fr.rhaz.socketapi.Bukkit.BukkitSocketJSONEvent;
+import fr.rhaz.socket4mc.Bukkit.BukkitSocketJSONEvent;
 
 public class ReceiveMessage implements Listener {
 

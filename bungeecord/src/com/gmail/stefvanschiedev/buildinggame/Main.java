@@ -3,8 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.rhaz.socketapi.Bungee.BungeeSocketHandshakeEvent;
-import fr.rhaz.socketapi.Bungee.BungeeSocketJSONEvent;
+import fr.rhaz.socket4mc.Bungee.BungeeSocketHandshakeEvent;
+import fr.rhaz.socket4mc.Bungee.BungeeSocketJSONEvent;
 import fr.rhaz.socketapi.SocketAPI.Server.SocketMessenger;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.config.ServerInfo;

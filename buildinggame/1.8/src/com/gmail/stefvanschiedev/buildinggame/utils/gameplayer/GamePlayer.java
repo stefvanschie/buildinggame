@@ -17,7 +17,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 
-import fr.rhaz.socketapi.SocketAPI;
+import fr.rhaz.socket4mc.Socket4MC;
 
 public class GamePlayer {
 
@@ -107,12 +107,12 @@ public class GamePlayer {
 		
 		if (Bukkit.getPluginManager().isPluginEnabled("SocketAPI") && config.getBoolean("bungeecord.enable")) {
 			if (!player.getServer().getServerName().equals(server))
-				SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + getPlayer().getName() + ", " + server);
+				Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + getPlayer().getName() + ", " + server);
 		
 			BukkitRunnable task = new BukkitRunnable() {
 				@Override
 				public void run() {
-					SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "teleport: " +
+					Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "teleport: " +
 							getPlayer().getName() + ", " +
 							location.getWorld().getName() + ", " +
 							location.getBlockX() + ", " +

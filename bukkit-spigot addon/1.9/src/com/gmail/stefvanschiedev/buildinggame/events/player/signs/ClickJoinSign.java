@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 
-import fr.rhaz.socketapi.SocketAPI;
+import fr.rhaz.socket4mc.Socket4MC;
 
 public class ClickJoinSign implements Listener {
 
@@ -46,7 +46,7 @@ public class ClickJoinSign implements Listener {
 			String arenaName = signs.getString(key + ".arena");
 			String playerName = e.getPlayer().getName();
 			
-			SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + playerName + ", " + SettingsManager.getInstance().getConfig().getString("main-plugin.server-name"));
+			Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + playerName + ", " + SettingsManager.getInstance().getConfig().getString("main-plugin.server-name"));
 			players.put(playerName, arenaName);
 		}
 	}
@@ -59,7 +59,7 @@ public class ClickJoinSign implements Listener {
 		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
-				SocketAPI.bukkit().getSocketClient().writeJSON("BuildingGame", "join: " + e.getPlayer().getName() + ", " + players.get(e.getPlayer().getName()));
+				Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "join: " + e.getPlayer().getName() + ", " + players.get(e.getPlayer().getName()));
 			}
 		};
 		task.runTaskLater(Main.getInstance(), 2L);
