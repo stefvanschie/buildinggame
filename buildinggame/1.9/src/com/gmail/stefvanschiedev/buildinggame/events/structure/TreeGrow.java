@@ -16,6 +16,9 @@ public class TreeGrow implements Listener {
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot p : arena.getPlots()) {
+				if (p.getBoundary() == null)
+					continue;
+				
 				if (p.getBoundary().isInside(e.getLocation())) {
 					plot = p;
 					break;
