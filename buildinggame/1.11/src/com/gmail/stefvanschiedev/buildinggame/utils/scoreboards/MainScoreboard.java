@@ -68,6 +68,9 @@ public class MainScoreboard {
 	}
 	
 	public void show(Player player) {
+		if (!player.isOnline())
+			return;
+		
 		int place = 0;
 		for (int i = teams.size(); i > 0; i--) {
 			Team team = teams.get(place);
@@ -112,6 +115,9 @@ public class MainScoreboard {
 	
 
 	public void update(Player player) {
+		if (!player.isOnline())
+			return;
+		
 		for (int i = 0; i < strings.size(); i++) {
 			Team team = teams.get(i);
 			
