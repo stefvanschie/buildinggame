@@ -6,6 +6,7 @@ import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
@@ -34,6 +35,20 @@ public class EntitySpawn implements Listener {
 			if (!plot.addEntity(vehicle))
 				vehicle.remove();
 		}
+	}
+	
+	@EventHandler(ignoreCancelled = true)
+	public void onHangingPlace(HangingPlaceEvent e) {
+		if (ArenaManager.getInstance().getArena(e.getPlayer()) == null)
+			return;
+		
+		Entity entity = e.getEntity();
+		Plot plot;
+		if ((plot = isInside(entity.getLocation())) != null) {
+			if (!plot.addEntity(entity))
+				e.setCancelled(true);
+		} else
+			e.setCancelled(true);
 	}
 	
 	private Plot isInside(Location location) {
