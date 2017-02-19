@@ -65,7 +65,7 @@ public class Arena {
 	private Plot votingPlot;
 	private BuildScoreboard buildScoreboard = new BuildScoreboard(this);
 	private LobbyScoreboard lobbyScoreboard = new LobbyScoreboard(this);
-	private VoteScoreboard voteScoreboard = new VoteScoreboard();
+	private VoteScoreboard voteScoreboard = new VoteScoreboard(this);
 	private WinScoreboard winScoreboard = new WinScoreboard(this);
 	private String subject;
 	
@@ -778,7 +778,7 @@ public class Arena {
 		setSecondPlot(null);
 		setThirdPlot(null);
 		
-		setVoteScoreboard(new VoteScoreboard());
+		setVoteScoreboard(new VoteScoreboard(this));
 		setSubject(null);
 		getVotedPlots().clear();
 		

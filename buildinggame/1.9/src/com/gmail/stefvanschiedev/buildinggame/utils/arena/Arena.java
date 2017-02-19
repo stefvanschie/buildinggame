@@ -66,7 +66,7 @@ public class Arena {
 	private Plot votingPlot;
 	private BuildScoreboard buildScoreboard = new BuildScoreboard(this);
 	private LobbyScoreboard lobbyScoreboard = new LobbyScoreboard(this);
-	private VoteScoreboard voteScoreboard = new VoteScoreboard();
+	private VoteScoreboard voteScoreboard = new VoteScoreboard(this);
 	private WinScoreboard winScoreboard = new WinScoreboard(this);
 	private String subject;
 	
@@ -803,7 +803,7 @@ public class Arena {
 		setBuildTimer(new BuildTimer(config.getInt("timer"), this));
 		setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
 		setWinTimer(new WinTimer(config.getInt("wintimer"), this));
-		setVoteScoreboard(new VoteScoreboard());
+		setVoteScoreboard(new VoteScoreboard(this));
 		setSubject(null);
 		
 		setFirstPlot(null);

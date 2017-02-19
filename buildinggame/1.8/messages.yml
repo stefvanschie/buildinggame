@@ -3998,6 +3998,15 @@ scoreboards:
     - "&a%subject%"
   vote:
     header: "&e&lPoints"
+    text:
+    - "&5Map:"
+    - "&a%arena%"
+    - ""
+    - "&5Players:"
+    - "&a%players%/%max_players%"
+    - " "
+    - "&5Theme:"
+    - "&a%subject%"
   win:
     header: "&e&lBuilding Game"
     text:

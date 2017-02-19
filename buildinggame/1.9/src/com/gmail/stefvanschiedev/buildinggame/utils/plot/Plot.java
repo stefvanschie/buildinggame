@@ -177,7 +177,9 @@ public class Plot {
 		
 		votes.add(vote);
 		
-		arena.getVoteScoreboard().setScore(getPlayerFormat(), getPoints());
+		if (!config.getBoolean("scoreboards.vote.text"))
+			arena.getVoteScoreboard().setScore(getPlayerFormat(), getPoints());
+		
 		if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable")) {
 			for (Plot p : arena.getPlots()) {
 				if (!p.getGamePlayers().isEmpty()) {

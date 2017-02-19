@@ -57,6 +57,7 @@ scoreboards:
     enable: true
   vote:
     enable: true
+    text: false
   win:
     enable: true
 
