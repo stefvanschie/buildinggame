@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.block.LiquidFlow;
+import com.gmail.stefvanschiedev.buildinggame.events.block.PistonBlockMove;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.JoinSignBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.JoinSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.LeaveSignCreate;
@@ -184,6 +185,7 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new StatSignCreate(), this);
 			pm.registerEvents(new StatSignBreak(), this);
 			pm.registerEvents(new LiquidFlow(), this);
+			pm.registerEvents(new PistonBlockMove(), this);
 			
 			pm.registerEvents(new ClickJoinSign(), this);
 			pm.registerEvents(new ClickLeaveSign(), this);
