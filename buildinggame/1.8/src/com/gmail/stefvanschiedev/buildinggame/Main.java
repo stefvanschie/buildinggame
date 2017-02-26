@@ -7,6 +7,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockBreak;
+import com.gmail.stefvanschiedev.buildinggame.events.block.BlockDispenseItem;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.block.LiquidFlow;
 import com.gmail.stefvanschiedev.buildinggame.events.block.PistonBlockMove;
@@ -193,6 +194,7 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new Interact(), this);
 			pm.registerEvents(new InventoryMove(), this);
 			pm.registerEvents(new BlockBreak(), this);
+			pm.registerEvents(new BlockDispenseItem(), this);
 			pm.registerEvents(new BlockPlace(), this);
 			pm.registerEvents(new Leave(), this);
 			pm.registerEvents(new Move(), this);
