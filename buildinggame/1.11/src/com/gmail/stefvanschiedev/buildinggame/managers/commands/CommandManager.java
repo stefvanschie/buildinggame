@@ -16,6 +16,7 @@ import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.CreateArena;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.DeleteArena;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.DeleteSpawn;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.ForceStart;
+import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.ForceTheme;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Join;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.LeaveCommand;
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.ListCommand;
@@ -49,6 +50,7 @@ public class CommandManager implements CommandExecutor {
 		subCommands.add(new DeleteArena());
 		subCommands.add(new DeleteSpawn());
 		subCommands.add(new ForceStart());
+		subCommands.add(new ForceTheme());
 		subCommands.add(new Join());
 		subCommands.add(new LeaveCommand());
 		subCommands.add(new ListCommand());

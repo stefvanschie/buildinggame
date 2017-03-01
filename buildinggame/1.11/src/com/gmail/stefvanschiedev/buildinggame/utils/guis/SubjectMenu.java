@@ -24,6 +24,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.SubjectVote;
 public class SubjectMenu extends Gui {
 
 	private List<String> subjects = new ArrayList<>();
+	private String forcedTheme;
 	
 	private Map<String, SubjectVote> votes = new HashMap<String, SubjectVote>();
 	
@@ -197,7 +198,14 @@ public class SubjectMenu extends Gui {
 		votes.get(subject).setVotes(votes.get(subject).getVotes() + 1);
 	}
 	
+	public void forceTheme(String theme) {
+		forcedTheme = theme;
+	}
+	
 	public String getHighestVote() {
+		if (forcedTheme != null)
+			return forcedTheme;
+		
 		int highest = -1;
 		List<String> subjects = new ArrayList<String>();
 		
