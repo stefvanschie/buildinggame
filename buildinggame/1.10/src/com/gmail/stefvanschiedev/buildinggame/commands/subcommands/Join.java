@@ -13,6 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
 
 public class Join extends PlayerCommand {
 
@@ -28,9 +29,7 @@ public class Join extends PlayerCommand {
 				return CommandResult.ERROR;
 			}
 			
-			getFullestArena(arenas).join(player);
-			
-			return CommandResult.SUCCES;
+			new ArenaSelection().open(player);
 		} else {
 			Arena arena = ArenaManager.getInstance().getArena(args[0]);
 			
@@ -40,9 +39,9 @@ public class Join extends PlayerCommand {
 			}
 		
 			arena.join(player);
-		
-			return CommandResult.SUCCES;
 		}
+		
+		return CommandResult.SUCCES;
 	}
 
 	@Override
@@ -72,16 +71,5 @@ public class Join extends PlayerCommand {
 				arenas.add(arena);
 		}
 		return arenas;
-	}
-	
-	private Arena getFullestArena(List<Arena> arenas) {
-		Arena highest = null;
-		
-		for (Arena arena : arenas) {
-			if (highest == null || arena.getPlayers() > highest.getPlayers())
-				highest = arena;
-		}
-		
-		return highest;
 	}
 }
