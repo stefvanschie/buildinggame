@@ -98,6 +98,14 @@ public class VoteScoreboard {
 						.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
 						.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getInstance().getEconomy().getBalance(player.getName()) + "" : "%money%")
 						.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
+						.replace("%vote_name%", arena.getVotingPlot() == null ? "?" : arena.getVotingPlot().getVote(player) == null ? "?" :
+							arena.getVotingPlot().getVote(player).getPoints() == 2 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.second-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 3 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.third-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 4 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.fourth-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 5 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.fifth-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 6 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.sixth-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 7 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.seventh-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 8 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.eighth-slot-block")) : "?")
 						.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
 						.replace("%date_day_of_month%", calendar.get(Calendar.DAY_OF_MONTH) + "")
 						.replace("%date_day_of_week%", calendar.get(Calendar.DAY_OF_WEEK) + "")
