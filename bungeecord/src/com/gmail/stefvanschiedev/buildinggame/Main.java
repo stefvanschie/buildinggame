@@ -15,13 +15,13 @@ import net.md_5.bungee.event.EventHandler;
 
 public class Main extends Plugin implements Listener {
 
-	private List<SocketMessenger> socketMessengers = new ArrayList<SocketMessenger>();
+	private final List<SocketMessenger> socketMessengers = new ArrayList<>();
 	
 	@Override
 	public void onEnable() {
 		BungeeCord.getInstance().getPluginManager().registerListener(this, this);
 		
-		getLogger().info("BuildingGane - BungeeCord AddOn has been enabled");
+		getLogger().info("BuildingGame - BungeeCord AddOn has been enabled");
 	}
 	
 	@Override
@@ -29,12 +29,14 @@ public class Main extends Plugin implements Listener {
 		getLogger().info("BuildingGame - BungeeCord AddOn has been disabled");
 	}
 	
-	@EventHandler
+	@SuppressWarnings("unused")
+    @EventHandler
 	public void onBungeeSocketHandshake(BungeeSocketHandshakeEvent e) {
 		socketMessengers.add(e.getMessenger());
 	}
 	
-	@EventHandler
+	@SuppressWarnings("unused")
+    @EventHandler
 	public void onBungeeSocketJSON(BungeeSocketJSONEvent e) {
 		//send the information through
 		if (!e.getChannel().equals("BuildingGame"))
@@ -51,8 +53,9 @@ public class Main extends Plugin implements Listener {
 			
 			System.out.println(proxiedPlayer == null ? "proxiedplayer == null" : "proxiedplayer != null");
 			System.out.println(serverInfo == null ? "serverinfo == null" : "serverinfo != null");
-			
-			proxiedPlayer.connect(serverInfo);
+
+			if (proxiedPlayer != null)
+				proxiedPlayer.connect(serverInfo);
 		}
 		
 		for (SocketMessenger socketMessenger : socketMessengers)
