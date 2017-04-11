@@ -125,14 +125,13 @@ public class Plot {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		if (getArena().getState() != GameState.VOTING) {
+		if (getArena().getState() != GameState.VOTING)
 			return;
-		}
 		
 		for (GamePlayer gamePlayer : getGamePlayers()) {
-			if (vote.getSender().getName().equals("stefvanschie")) {
+			if (vote.getSender().getName().equals("stefvanschie"))
 				break;
-			} else {
+			else {
 				if (gamePlayer.getPlayer() == vote.getSender()) {
 					MessageManager.getInstance().send(vote.getSender(), messages.getStringList("vote.own-plot"));
 					return;
@@ -142,20 +141,19 @@ public class Plot {
 		
 		//check how many times voted
 		if (getTimesVoted(vote.getSender()) == config.getInt("max-vote-change")) {
-			for (String message : messages.getStringList("vote.maximum-votes")) {
+			for (String message : messages.getStringList("vote.maximum-votes"))
 				MessageManager.getInstance().send(vote.getSender(), message
 						.replace("%max_votes%", config.getInt("max-votes-change") + ""));
-			}
+
 			return;
 		}
 		
 		getTimesVoted().put(vote.getSender(), getTimesVoted(vote.getSender()) + 1);
 		
-		for (String message : messages.getStringList("vote.message")) {
+		for (String message : messages.getStringList("vote.message"))
 			MessageManager.getInstance().send(vote.getSender(), message
 					.replace("%playerplot%", getArena().getVotingPlot().getPlayerFormat())
 					.replace("%points%", vote.getPoints() + ""));
-		}
 		
 		for (String message : messages.getStringList("vote.receiver")) {
 			for (GamePlayer player : getArena().getVotingPlot().getGamePlayers())
@@ -163,16 +161,18 @@ public class Plot {
 						.replace("%points%", vote.getPoints() + "")
 						.replace("%sender%", vote.getSender().getName()));
 		}
+
+		Arena senderArena = ArenaManager.getInstance().getArena(vote.getSender());
+
+		if (senderArena != null) {
+            for (GamePlayer player : senderArena.getPlot(vote.getSender()).getGamePlayers())
+                player.addTitleAndSubtitle(messages.getString("vote.title")
+                        .replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")
+                        .replace("%points%", vote.getPoints() + ""));
+        }
 		
-		for (GamePlayer player : ArenaManager.getInstance().getArena(vote.getSender()).getPlot(vote.getSender()).getGamePlayers()) {
-			player.addTitleAndSubtitle(messages.getString("vote.title")
-					.replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")
-					.replace("%points%", vote.getPoints() + ""));
-		}
-		
-		if (hasVoted(vote.getSender())) {
+		if (hasVoted(vote.getSender()))
 			getVotes().remove(getVote(vote.getSender()));
-		}
 		
 		votes.add(vote);
 		
@@ -182,9 +182,8 @@ public class Plot {
 		if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable")) {
 			for (Plot p : arena.getPlots()) {
 				if (!p.getGamePlayers().isEmpty()) {
-					for (GamePlayer player : getGamePlayers()) {
+					for (GamePlayer player : getGamePlayers())
 						arena.getVoteScoreboard().show(player.getPlayer());
-					}
 				}
 			}
 		}
