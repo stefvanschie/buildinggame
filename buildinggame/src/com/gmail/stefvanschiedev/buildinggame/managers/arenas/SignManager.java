@@ -41,6 +41,9 @@ public class SignManager {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			arena.getSigns().clear();
 		}
+
+		leaveSigns.clear();
+		statSigns.clear();
 		
 		for (String string : signs.getKeys(false)) {
 			//location check

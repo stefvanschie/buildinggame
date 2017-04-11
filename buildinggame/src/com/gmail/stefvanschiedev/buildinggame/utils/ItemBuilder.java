@@ -92,7 +92,7 @@ public class ItemBuilder extends ItemStack implements Listener {
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!e.getCurrentItem().equals(this))
+		if (e.getCurrentItem() == null || !e.getCurrentItem().equals(this))
 			return;
 		
 		if (!moveable)
