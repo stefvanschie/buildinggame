@@ -697,10 +697,11 @@ public class Arena {
 		setState(GameState.BUILDING);
 		
 		//save blocks
-		for (Plot plot : getPlots()) {
+		for (Plot plot : getPlots())
 			plot.save();
-		}
-		
+
+		SignManager.getInstance().updateJoinSigns(this);
+
 		buildTimer.runTaskTimer(Main.getInstance(), 20L, 20L);
 	}
 	
