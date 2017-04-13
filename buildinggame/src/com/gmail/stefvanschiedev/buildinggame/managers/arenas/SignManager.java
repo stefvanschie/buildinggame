@@ -1,10 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,7 +18,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
-public class SignManager {
+public final class SignManager {
 
 	private SignManager() {}
 	
@@ -32,8 +28,8 @@ public class SignManager {
 		return INSTANCE;
 	}
 	
-	private final List<Sign> leaveSigns = new ArrayList<>();
-	private final List<StatSign> statSigns = new ArrayList<>();
+	private final Collection<Sign> leaveSigns = new ArrayList<>();
+	private final Collection<StatSign> statSigns = new ArrayList<>();
 	
 	public void setup() {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
@@ -101,7 +97,8 @@ public class SignManager {
 			updateJoinSigns(arena);
 	}
 	
-	public void updateJoinSigns(Arena arena) {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void updateJoinSigns(Arena arena) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		for (Sign sign : arena.getSigns()) {
@@ -115,22 +112,22 @@ public class SignManager {
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
 			sign.setLine(1, MessageManager.translate(line2
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
 			sign.setLine(2, MessageManager.translate(line3
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
 			sign.setLine(3, MessageManager.translate(line4
 					.replace("%arena%", arena.getName())
 					.replace("%players%", arena.getPlayers() + "")
 					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase()))));
+					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
 			sign.update();
 		}
 	}
@@ -154,11 +151,11 @@ public class SignManager {
 		for (StatSign sign : statSigns) {
 			Sign s = sign.getSign();
 			
-			if (config.getBoolean("stats.enable")) {
-				String line1 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase() + ".line-1"));
-				String line2 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase() + ".line-2"));
-				String line3 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase() + ".line-3"));
-				String line4 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase() + ".line-4"));
+			if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault()))) {
+				String line1 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-1"));
+				String line2 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-2"));
+				String line3 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-3"));
+				String line4 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-4"));
 			
 				Map<OfflinePlayer, Integer> stats = new HashMap<>();
 				
@@ -199,8 +196,8 @@ public class SignManager {
 						.replace("%amount%", value + ""));
 			} else {
 				s.setLine(0, "");
-				s.setLine(1, ChatColor.RED + "Stats are");
-				s.setLine(2, ChatColor.RED + "disabled");
+				s.setLine(1, ChatColor.RED + "Stat type");
+				s.setLine(2, ChatColor.RED + "is disabled");
 				s.setLine(3, "");
 			}
 			
@@ -208,7 +205,7 @@ public class SignManager {
 		}
 	}
 	
-	public List<Sign> getLeaveSigns() {
+	public Collection<Sign> getLeaveSigns() {
 		return leaveSigns;
 	}
 }

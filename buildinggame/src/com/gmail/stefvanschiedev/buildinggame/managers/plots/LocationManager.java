@@ -10,7 +10,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
-public class LocationManager {
+public final class LocationManager {
 
 	private LocationManager() {}
 	
@@ -20,16 +20,17 @@ public class LocationManager {
 		return INSTANCE;
 	}
 	
-	public void setup() {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
 				try {
-					plot.setLocation(new Location(Bukkit.getWorld(arenas.getString(arena.getName() + "." + plot.getID() + ".world")),
-							arenas.getInt(arena.getName() + "." + plot.getID() + ".x"),
-							arenas.getInt(arena.getName() + "." + plot.getID() + ".y"),
-							arenas.getInt(arena.getName() + "." + plot.getID() + ".z")));
+					plot.setLocation(new Location(Bukkit.getWorld(arenas.getString(arena.getName() + '.' + plot.getID() + ".world")),
+							arenas.getInt(arena.getName() + '.' + plot.getID() + ".x"),
+							arenas.getInt(arena.getName() + '.' + plot.getID() + ".y"),
+							arenas.getInt(arena.getName() + '.' + plot.getID() + ".z")));
 					
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
 						Main.getInstance().getLogger().info("Loaded spawn for plot " + plot.getID() + " in arena " + arena.getName());

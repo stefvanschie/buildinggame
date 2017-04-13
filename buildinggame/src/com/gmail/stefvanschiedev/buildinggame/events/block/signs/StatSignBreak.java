@@ -14,7 +14,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 public class StatSignBreak implements Listener {
 
 	@EventHandler
-	public void onBlockbreak(BlockBreakEvent e) {
+	public static void onBlockbreak(BlockBreakEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
 		Block block = e.getBlock();

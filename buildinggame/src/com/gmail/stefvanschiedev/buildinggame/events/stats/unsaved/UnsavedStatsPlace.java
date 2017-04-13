@@ -12,7 +12,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 public class UnsavedStatsPlace implements Listener {
 
 	@EventHandler(ignoreCancelled=true)
-	public void onBlockPlace(BlockPlaceEvent e) {
+	public static void onBlockPlace(BlockPlaceEvent e) {
 		Player player = e.getPlayer();
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);

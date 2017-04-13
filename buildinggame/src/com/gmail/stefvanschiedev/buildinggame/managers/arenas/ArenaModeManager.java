@@ -7,7 +7,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 
-public class ArenaModeManager {
+public final class ArenaModeManager {
 
 	private ArenaModeManager() {}
 	
@@ -17,7 +17,8 @@ public class ArenaModeManager {
 		return INSTANCE;
 	}
 	
-	public void setup() {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void setup() {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {

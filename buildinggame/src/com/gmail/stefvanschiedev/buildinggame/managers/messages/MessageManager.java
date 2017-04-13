@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 
-public class MessageManager {
+public final class MessageManager {
 
 	private MessageManager() {}
 	
@@ -18,30 +18,30 @@ public class MessageManager {
 		return INSTANCE;
 	}
 	
-	public void send(CommandSender sender, String message) {
-		if (message.equals("")) {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void send(CommandSender sender, String message) {
+		if (message.isEmpty())
 			return;
-		}
 		
 		sender.sendMessage(translate(SettingsManager.getInstance().getMessages().getString("global.prefix"))
 				+ translate(message));
 	}
 	
-	public void send(CommandSender sender, List<String> messages) {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void send(CommandSender sender, Iterable<String> messages) {
 		for (String message : messages) {
-			if (message.equals("")) {
+			if (message.isEmpty())
 				return;
-			}
 		
 			sender.sendMessage(translate(SettingsManager.getInstance().getMessages().getString("global.prefix")) 
 					+ translate(message));
 		}
 	}
 	
-	public void sendWithoutPrefix(CommandSender sender, String message) {
-		if (message.equals("")) {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void sendWithoutPrefix(CommandSender sender, String message) {
+		if (message.isEmpty())
 			return;
-		}
 		
 		sender.sendMessage(translate(message));
 	}
@@ -66,7 +66,7 @@ public class MessageManager {
 		        .replace("%ss%", "ß"));
 	}
 	
-	public static List<String> translate(List<String> s) {
+	public static List<String> translate(Iterable<String> s) {
 		List<String> list = new ArrayList<>();
 		
 		for (String text : s) {

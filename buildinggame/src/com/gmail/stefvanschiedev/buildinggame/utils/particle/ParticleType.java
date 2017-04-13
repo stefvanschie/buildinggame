@@ -19,7 +19,5 @@ public enum ParticleType {
 	SNOWBALL_POOF,
 	SMOKE,
 	SWEEP_ATTACK,
-	TOTEM;
-
-    ParticleType() {}
+	TOTEM
 }

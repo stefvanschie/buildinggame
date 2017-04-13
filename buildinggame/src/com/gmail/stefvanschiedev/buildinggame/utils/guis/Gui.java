@@ -71,8 +71,9 @@ public class Gui implements Listener {
 	
 	private int getFirstEmptySlot(int startingPoint) {
 		int firstNotNull = -1;
-		
-		for (int i = startingPoint; i < items.length; i++) {
+        int length = items.length;
+
+		for (int i = startingPoint; i < length; i++) {
 			if (items[i] == null) {
 				firstNotNull = i;
 				break;
@@ -95,8 +96,9 @@ public class Gui implements Listener {
 		System.arraycopy(items, (page - 1) * splittedItems.length, splittedItems, 0, splittedItems.length);
 		
 		ItemStack[] newItems = new ItemStack[size];
-		
-		for (int i = 0; i < splittedItems.length; i++) {
+
+		int length = splittedItems.length;
+		for (int i = 0; i < length; i++) {
 			if (splittedItems[i] == null)
 				continue;
 			

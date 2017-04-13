@@ -6,9 +6,10 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.WinTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
-public class WinTimerManager {
+public final class WinTimerManager {
 
-	public void setup() {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void setup() {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		

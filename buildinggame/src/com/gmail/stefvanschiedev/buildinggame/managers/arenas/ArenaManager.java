@@ -11,7 +11,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
-public class ArenaManager {
+public final class ArenaManager {
 
 	private ArenaManager() {}
 	
@@ -52,7 +52,7 @@ public class ArenaManager {
 		for (Arena arena : arenas) {
 			for (Plot plot : arena.getUsedPlots()) {
 				if (plot.getGamePlayer(player) != null) {
-					if (plot.getGamePlayer(player).getPlayer() == player) {
+					if (plot.getGamePlayer(player).getPlayer().equals(player)) {
 						return arena;
 					}
 				}

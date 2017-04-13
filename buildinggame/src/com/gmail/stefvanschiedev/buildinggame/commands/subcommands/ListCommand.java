@@ -8,12 +8,14 @@ import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.ConsoleComma
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+import java.util.Locale;
+
 public class ListCommand extends ConsoleCommand {
 
 	@Override
 	public CommandResult onCommand(CommandSender sender, String[] args) {
 		for (Arena arena : ArenaManager.getInstance().getArenas())
-			sender.sendMessage(ChatColor.DARK_AQUA + " - " + arena.getName() + ChatColor.DARK_GREEN + " - " + arena.getState().toString().toLowerCase());
+			sender.sendMessage(ChatColor.DARK_AQUA + " - " + arena.getName() + ChatColor.DARK_GREEN + " - " + arena.getState().toString().toLowerCase(Locale.getDefault()));
 		
 		return CommandResult.SUCCES;
 	}

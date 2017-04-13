@@ -11,7 +11,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 public class TreeGrow implements Listener {
 
 	@EventHandler
-	public void onStructureGrow(StructureGrowEvent e) {
+	public static void onStructureGrow(StructureGrowEvent e) {
 		Plot plot = null;
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
@@ -34,7 +34,8 @@ public class TreeGrow implements Listener {
 				continue;
 			if (!plot.getBoundary().isInside(e.getBlocks().get(i).getLocation())) {
 				e.getBlocks().remove(e.getBlocks().get(i));
-				i--;
+                //noinspection AssignmentToForLoopParameter
+                i--;
 			}
 		}
 	}

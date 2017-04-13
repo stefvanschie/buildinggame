@@ -16,7 +16,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 public class ClickLeaveSign implements Listener {
 
 	@EventHandler
-	public void onPlayerInteract (PlayerInteractEvent e) {
+	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
 		
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {

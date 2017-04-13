@@ -7,7 +7,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
-public class MaxPlayersManager {
+public final class MaxPlayersManager {
 
 	private MaxPlayersManager() {}
 	
@@ -17,7 +17,8 @@ public class MaxPlayersManager {
 		return INSTANCE;
 	}
 	
-	public void setup() {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 			YamlConfiguration config = SettingsManager.getInstance().getConfig();

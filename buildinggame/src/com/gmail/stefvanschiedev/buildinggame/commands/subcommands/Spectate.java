@@ -67,7 +67,7 @@ public class Spectate extends PlayerCommand {
 		
 		arena.getPlot(toSpectateGameplayer.getPlayer()).addSpectator(player, toSpectateGameplayer);
 		
-		MessageManager.getInstance().send(player, ChatColor.GREEN + "Now spectating " + toSpectateGameplayer.getPlayer().getName() + "!");
+		MessageManager.getInstance().send(player, ChatColor.GREEN + "Now spectating " + toSpectateGameplayer.getPlayer().getName() + '!');
 		
 		return CommandResult.SUCCES;
 	}
@@ -92,7 +92,7 @@ public class Spectate extends PlayerCommand {
 		return "bg.spectate";
 	}
 	
-	private GamePlayer getPlayer(Arena arena, String playerName) {
+	private static GamePlayer getPlayer(Arena arena, String playerName) {
 		for (Plot plot : arena.getPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				if (gamePlayer.getPlayer().getName().equals(playerName))
@@ -103,11 +103,11 @@ public class Spectate extends PlayerCommand {
 		return null;
 	}
 	
-	private Plot isSpectating(Player player) {
+	private static Plot isSpectating(Player player) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				for (GamePlayer gamePlayer : plot.getSpectators()) {
-					if (gamePlayer.getPlayer() == player)
+					if (gamePlayer.getPlayer().equals(player))
 						return plot;
 				}
 			}

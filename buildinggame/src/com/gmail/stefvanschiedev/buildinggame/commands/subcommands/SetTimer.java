@@ -43,7 +43,7 @@ public class SetTimer extends ConsoleCommand {
 		SettingsManager.getInstance().save();
 		BuildTimerManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Timer setting for arena '" + arena.getName() + "' changed to '" + seconds + "'");
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Timer setting for arena '" + arena.getName() + "' changed to '" + seconds + '\'');
 		return CommandResult.SUCCES;
 	}
 

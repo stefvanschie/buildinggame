@@ -16,7 +16,14 @@ names-after-voting: false
 enable-item-drop: false
 
 stats:
-  enable: true
+  enable:
+    plays: true
+    first: true
+    second: true
+    third: true
+    broken: true
+    placed: true
+    walked: true
   save-delay: 900
   database:
     enable: false

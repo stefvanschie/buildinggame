@@ -15,7 +15,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 public class PlaceBucket implements Listener {
 
 	@EventHandler
-	public void onBucketEmpty(PlayerBucketEmptyEvent e) {
+	public static void onBucketEmpty(PlayerBucketEmptyEvent e) {
 		Player player = e.getPlayer();
 		Location clicked = e.getBlockClicked().getLocation();
 		switch (e.getBlockFace()) {

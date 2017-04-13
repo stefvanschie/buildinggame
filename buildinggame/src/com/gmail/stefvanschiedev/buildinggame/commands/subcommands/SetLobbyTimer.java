@@ -43,7 +43,7 @@ public class SetLobbyTimer extends ConsoleCommand {
 		SettingsManager.getInstance().save();
 		LobbyTimerManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Lobby timer setting for arena '" + arena.getName() + "' changed to '" + seconds + "'");
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Lobby timer setting for arena '" + arena.getName() + "' changed to '" + seconds + '\'');
 		return CommandResult.SUCCES;
 	}
 

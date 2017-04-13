@@ -17,7 +17,7 @@ import fr.rhaz.socket4mc.Bukkit.BukkitSocketJSONEvent;
 public class ReceiveMessage implements Listener {
 
 	@EventHandler
-	public void onBukkitSocketJSON(BukkitSocketJSONEvent e) {
+	public static void onBukkitSocketJSON(BukkitSocketJSONEvent e) {
 		if (!e.getChannel().equals("BuildingGame"))
 			return;
 		
@@ -48,13 +48,7 @@ public class ReceiveMessage implements Listener {
 					return;
 			}
 			
-			Object value;
-			if (data[2].startsWith("(int)"))
-					value = Integer.parseInt(data[2].replace("(int)", "").trim());
-			else
-				value = data[2];
-			
-			file.set(data[1], value);
+			file.set(data[1], data[2].startsWith("(int)") ? Integer.parseInt(data[2].replace("(int)", "").trim()) : data[2]);
 		} else if (rawData.startsWith("save"))
 			SettingsManager.getInstance().save();
 		else if (rawData.startsWith("join:")) {

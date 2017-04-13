@@ -13,7 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 public class MoveStat implements Listener {
 
 	@EventHandler
-	public void onPlayerMove(PlayerMoveEvent e) {
+	public static void onPlayerMove(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
 		
 		int x = Math.abs(e.getFrom().getBlockX() - e.getTo().getBlockX());

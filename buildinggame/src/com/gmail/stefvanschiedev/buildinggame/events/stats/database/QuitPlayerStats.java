@@ -11,17 +11,19 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+import java.util.Locale;
+
 public class QuitPlayerStats implements Listener {
 
 	@SuppressWarnings("deprecation")
 	@EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event){
+    public static void onPlayerQuit(PlayerQuitEvent event){
         final Player player = event.getPlayer();
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), new BukkitRunnable() {
             @Override
             public void run() {
                 for (StatType type : StatType.values())
-                    StatManager.getInstance().getMySQLDatabase().setStat(player.getUniqueId().toString(), type.toString().toLowerCase(), StatManager.getInstance().getStat(player, type).getValue());
+                    StatManager.getInstance().getMySQLDatabase().setStat(player.getUniqueId().toString(), type.toString().toLowerCase(Locale.getDefault()), StatManager.getInstance().getStat(player, type).getValue());
             }
         });
 	}

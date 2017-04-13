@@ -10,6 +10,8 @@ import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.ConsoleComma
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
+import java.util.Locale;
+
 public class Style extends ConsoleCommand {
 
 	@Override
@@ -29,10 +31,10 @@ public class Style extends ConsoleCommand {
 			return CommandResult.ERROR;
 		}
 		
-		config.set("bossbar.style", barStyle.toString().toLowerCase());
+		config.set("bossbar.style", barStyle.toString().toLowerCase(Locale.getDefault()));
 		SettingsManager.getInstance().save();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Style set to " + barStyle.toString().toLowerCase());
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Style set to " + barStyle.toString().toLowerCase(Locale.getDefault()));
 		
 		return CommandResult.SUCCES;
 	}

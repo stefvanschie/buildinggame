@@ -18,8 +18,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.MapMaker;
 import com.google.common.primitives.Primitives;
 
-@SuppressWarnings("deprecation")
-public class NbtFactory {   
+public final class NbtFactory {
     // Convert between NBT id and the equivalent class in java
     private static final BiMap<Integer, Class<?>> NBT_CLASS = HashBiMap.create();
     private static final BiMap<Integer, NbtType> NBT_ENUM = HashBiMap.create();
@@ -88,6 +87,7 @@ public class NbtFactory {
      * Represents an object that provides a view of a native NMS class.
      * @author Kristian
      */
+    @FunctionalInterface
     public interface Wrapper {
         /**
          * Retrieve the underlying native NBT tag.
@@ -130,16 +130,11 @@ public class NbtFactory {
         }
     }
      
-    private String getPackageName() {
+    private static String getPackageName() {
     	Server server = Bukkit.getServer();
 		String name = server != null ? server.getClass().getPackage().getName() : null;
-    	
-    	if (name != null && name.contains("craftbukkit")) {
-    		return name;
-    	} else {
-    		// Fallback
-    		return "org.bukkit.craftbukkit.v1_7_R3"; 
-    	}
+
+        return name != null && name.contains("craftbukkit") ? name : "org.bukkit.craftbukkit.v1_7_R3";
     } 
     
     @SuppressWarnings("unchecked")
@@ -255,7 +250,7 @@ public class NbtFactory {
      * @param primitive - the primitive type.
      * @return The corresponding type.
      */
-    private NbtType getPrimitiveType(Object primitive) {
+    private static NbtType getPrimitiveType(Object primitive) {
         NbtType type = NBT_ENUM.get(NBT_CLASS.inverse().get(
             Primitives.unwrap(primitive.getClass())
         ));
@@ -386,7 +381,7 @@ public class NbtFactory {
         
         private final CachedNativeWrapper cache = new CachedNativeWrapper();
 
-        public ConvertedMap(Object handle, Map<String, Object> original) {
+        private ConvertedMap(Object handle, Map<String, Object> original) {
             this.handle = handle;
             this.original = original;
         }
@@ -490,7 +485,7 @@ public class NbtFactory {
         private final List<Object> original;
         private final CachedNativeWrapper cache = new CachedNativeWrapper();
         
-        public ConvertedList(Object handle, List<Object> original) {
+        private ConvertedList(Object handle, List<Object> original) {
             if (NBT_LIST_TYPE == null)
                 NBT_LIST_TYPE = getField(handle, null, "type");
             this.handle = handle;

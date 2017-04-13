@@ -16,9 +16,9 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class BuildTimer extends Timer {
 
-	private boolean running = false;
-	private int originalSeconds = 0;
-	private int seconds = 0;
+	private boolean running;
+	private final int originalSeconds;
+	private int seconds;
 	private final Arena arena;
 	
 	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
@@ -98,22 +98,18 @@ public class BuildTimer extends Timer {
 		//timings
 		try {
 			for (String key : config.getConfigurationSection("timings.build-timer.at").getKeys(false)) {
-				try {
-					if (seconds == Integer.parseInt(key)) {
-						for (String command : config.getStringList("timings.build-timer.at." + Integer.parseInt(key)))
-							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
-					}
-				} catch (NumberFormatException e) {}
+                if (seconds == Integer.parseInt(key)) {
+                    for (String command : config.getStringList("timings.build-timer.at." + Integer.parseInt(key)))
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+                }
 			}
 			for (String key : config.getConfigurationSection("timings.build-timer.every").getKeys(false)) {
-				try {
-					if (seconds % Integer.parseInt(key) == 0) {
-						for (String command : config.getStringList("timings.build-timer.every." + Integer.parseInt(key)))
-							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
-					}
-				} catch (NumberFormatException e) {}
+                if (seconds % Integer.parseInt(key) == 0) {
+                    for (String command : config.getStringList("timings.build-timer.every." + Integer.parseInt(key)))
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+                }
 			}
-		} catch (NullPointerException e) {}
+		} catch (NullPointerException | NumberFormatException e) {}
 		seconds--;
 	}
 	

@@ -11,10 +11,10 @@ import java.sql.SQLException;
 
 class ConnectionManager {
 
-    private BoneCP connectionPool = null;
+    private BoneCP connectionPool;
     private final JavaPlugin plugin;
 
-    public ConnectionManager(JavaPlugin plugin){
+    ConnectionManager(JavaPlugin plugin){
         this.plugin = plugin;
     }
 
@@ -63,31 +63,12 @@ class ConnectionManager {
     }
 
     public Connection getConnection() {
-
-
-
-        Connection conn = null;
-        try {
-            conn = getConnectionPool().getConnection();
-            //will get a thread-safe connection from the BoneCP connection pool.
-            //synchronization of the method will be done inside BoneCP source
-
+        try (BoneCP connectionPool = getConnectionPool(); Connection conn = connectionPool.getConnection()) {
+            return conn;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return conn;
-
-    }
-
-    public void closeConnection(Connection conn) {
-        try {
-            if (conn != null)
-                conn.close(); //release the connection - the name is tricky but connection is not closed it is released
-            //and it will stay in pool
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        return null;
     }
 
     private BoneCP getConnectionPool() {

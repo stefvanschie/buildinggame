@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -82,7 +83,7 @@ class FloorMenu extends Gui {
 		Material.WOODEN_DOOR,
 	};
 	
-	public FloorMenu(final Plot plot) {
+	FloorMenu(final Plot plot) {
 		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.floor.title")), (int) Math.ceil(getBlocks().size() / 45) + 1);
 		
 		for (int page = 0; page < pages; page++) {
@@ -160,7 +161,7 @@ class FloorMenu extends Gui {
 		List<Material> blocks = new ArrayList<>();
 		
 		for (Material material : Material.values()) {
-			if (material.isBlock() && !Arrays.asList(SKIP_MATERIALS).contains(material) && !config.getStringList("blocks.blocked").contains(material.toString().toLowerCase()) && !config.getStringList("gui.floor.excluded-blocks").contains(material.toString().toLowerCase()))
+			if (material.isBlock() && !Arrays.asList(SKIP_MATERIALS).contains(material) && !config.getStringList("blocks.blocked").contains(material.toString().toLowerCase(Locale.getDefault())) && !config.getStringList("gui.floor.excluded-blocks").contains(material.toString().toLowerCase(Locale.getDefault())))
 				blocks.add(material);
 		}
 		

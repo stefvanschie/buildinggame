@@ -27,7 +27,7 @@ public class PlayerWinEvent extends Event {
 		return arena;
 	}
 	
-	public List<GamePlayer> getPlayers() {
+	public Iterable<GamePlayer> getPlayers() {
 		return players;
 	}
 	

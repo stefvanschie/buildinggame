@@ -111,7 +111,7 @@ public class Metrics {
     /**
      * The scheduled task
      */
-    private volatile BukkitTask task = null;
+    private volatile BukkitTask task;
 
     public Metrics(final Plugin plugin) throws IOException {
         if (plugin == null) {
@@ -236,11 +236,7 @@ public class Metrics {
     private int getOnlinePlayers() {
         try {
             Method onlinePlayerMethod = Server.class.getMethod("getOnlinePlayers");
-            if(onlinePlayerMethod.getReturnType().equals(Collection.class)) {
-                return ((Collection<?>)onlinePlayerMethod.invoke(Bukkit.getServer())).size();
-            } else {
-                return ((Player[])onlinePlayerMethod.invoke(Bukkit.getServer())).length;
-            }
+            return onlinePlayerMethod.getReturnType().equals(Collection.class) ? ((Collection<?>) onlinePlayerMethod.invoke(Bukkit.getServer())).size() : ((Player[]) onlinePlayerMethod.invoke(Bukkit.getServer())).length;
         } catch (Exception ex) {
             if (debug) {
                 Bukkit.getLogger().log(Level.INFO, "[Metrics] " + ex.getMessage());
@@ -275,10 +271,7 @@ public class Metrics {
         appendJSONPair(json, "players_online", Integer.toString(playersOnline));
 
         // New data as of R6
-        String osname = System.getProperty("os.name");
         String osarch = System.getProperty("os.arch");
-        String osversion = System.getProperty("os.version");
-        String java_version = System.getProperty("java.version");
         int coreCount = Runtime.getRuntime().availableProcessors();
 
         // normalize os arch .. amd64 -> x86_64
@@ -286,11 +279,14 @@ public class Metrics {
             osarch = "x86_64";
         }
 
+        String osname = System.getProperty("os.name");
         appendJSONPair(json, "osname", osname);
         appendJSONPair(json, "osarch", osarch);
+        String osversion = System.getProperty("os.version");
         appendJSONPair(json, "osversion", osversion);
         appendJSONPair(json, "cores", Integer.toString(coreCount));
         appendJSONPair(json, "auth_mode", onlineMode ? "1" : "0");
+        String java_version = System.getProperty("java.version");
         appendJSONPair(json, "java_version", java_version);
 
         // If we're pinging, append it
@@ -298,7 +294,7 @@ public class Metrics {
             appendJSONPair(json, "ping", "1");
         }
 
-        if (graphs.size() > 0) {
+        if (!graphs.isEmpty()) {
             synchronized (graphs) {
                 json.append(',');
                 json.append('"');
@@ -316,16 +312,11 @@ public class Metrics {
         // Create the url
         URL url = new URL(BASE_URL + String.format(REPORT_URL, urlEncode(pluginName)));
 
-        // Connect to the website
-        URLConnection connection;
 
         // Mineshafter creates a socks proxy, so we can safely bypass it
         // It does not reroute POST requests so we need to go around it
-        if (isMineshafterPresent()) {
-            connection = url.openConnection(Proxy.NO_PROXY);
-        } else {
-            connection = url.openConnection();
-        }
+        // Connect to the website
+        URLConnection connection = isMineshafterPresent() ? url.openConnection(Proxy.NO_PROXY) : url.openConnection();
 
 
         byte[] uncompressed = json.toString().getBytes();
@@ -346,24 +337,20 @@ public class Metrics {
         }
 
         // Write the data
-        OutputStream os = connection.getOutputStream();
-        os.write(compressed);
-        os.flush();
+        String response;
+        try (OutputStream os = connection.getOutputStream(); final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            os.write(compressed);
+            os.flush();
 
-        // Now read the response
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String response = reader.readLine();
+            // Now read the response
+            response = reader.readLine();
+        }
 
-        // close resources
-        os.close();
-        reader.close();
-
-        if (response == null || response.startsWith("ERR") || response.startsWith("7")) {
-            if (response == null) {
+        if (response == null || response.startsWith("ERR") || response.charAt(0) == '7') {
+            if (response == null)
                 response = "null";
-            } else if (response.startsWith("7")) {
+            else if (response.charAt(0) == '7')
                 response = response.substring(response.startsWith("7,") ? 2 : 1);
-            }
 
             throw new IOException(response);
         }
@@ -377,18 +364,11 @@ public class Metrics {
      */
     private static byte[] gzip(String input) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        GZIPOutputStream gzos = null;
 
-        try {
-            gzos = new GZIPOutputStream(baos);
+        try (GZIPOutputStream gzos = new GZIPOutputStream(baos)) {
             gzos.write(input.getBytes("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (gzos != null) try {
-                gzos.close();
-            } catch (IOException ignore) {
-            }
         }
 
         return baos.toByteArray();
@@ -399,7 +379,7 @@ public class Metrics {
      *
      * @return true if mineshafter is installed on the server
      */
-    private boolean isMineshafterPresent() {
+    private static boolean isMineshafterPresent() {
         try {
             Class.forName("mineshafter.MineServer");
             return true;
@@ -415,11 +395,11 @@ public class Metrics {
      * @param key key to be appended
      * @param value value to be appended
      */
-    private static void appendJSONPair(StringBuilder json, String key, String value) {
+    private static void appendJSONPair(StringBuilder json, CharSequence key, String value) {
         boolean isValueNumeric = false;
 
         try {
-            if (value.equals("0") || !value.endsWith("0")) {
+            if (value.equals("0") || !(!value.isEmpty() && value.charAt(value.length() - 1) == '0')) {
                 //noinspection ResultOfMethodCallIgnored
                 Double.parseDouble(value);
                 isValueNumeric = true;
@@ -448,7 +428,7 @@ public class Metrics {
      * @param text text to escape
      * @return escaped text
      */
-    private static String escapeJSON(String text) {
+    private static String escapeJSON(CharSequence text) {
         StringBuilder builder = new StringBuilder();
 
         builder.append('"');

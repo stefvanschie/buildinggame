@@ -15,7 +15,7 @@ public class WaitTimer extends Timer {
 
 	private int seconds;
 	private final Arena arena;
-	private boolean running = false;
+	private boolean running;
 	
 	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
 	private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -58,22 +58,18 @@ public class WaitTimer extends Timer {
 		//timings
 		try {
 			for (String key : config.getConfigurationSection("timings.lobby-timer.at").getKeys(false)) {
-				try {
-					if (seconds == Integer.parseInt(key)) {
-						for (String command : config.getStringList("timings.lobby-timer.at." + Integer.parseInt(key)))
-							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
-					}
-				} catch (NumberFormatException e) {}
+                if (seconds == Integer.parseInt(key)) {
+                    for (String command : config.getStringList("timings.lobby-timer.at." + Integer.parseInt(key)))
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+                }
 			}
 			for (String key : config.getConfigurationSection("timings.lobby-timer.every").getKeys(false)) {
-				try {
-					if (seconds % Integer.parseInt(key) == 0) {
-						for (String command : config.getStringList("timings.lobby-timer.every." + Integer.parseInt(key)))
-							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
-					}
-				} catch (NumberFormatException e) {}
+                if (seconds % Integer.parseInt(key) == 0) {
+                    for (String command : config.getStringList("timings.lobby-timer.every." + Integer.parseInt(key)))
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+                }
 			}
-		} catch (NullPointerException e) {}
+		} catch (NullPointerException | NumberFormatException e) {}
 		seconds--;
 	}
 	

@@ -17,11 +17,13 @@ public class Chat implements Listener {
 		
 		if (arena == null)
 			return;
-		
-		for (int i = 0; i < e.getRecipients().toArray().length; i++) {
+
+        //noinspection ArrayLengthInLoopCondition
+        for (int i = 0; i < e.getRecipients().toArray().length; i++) {
 			if (!arena.contains((Player) e.getRecipients().toArray()[i])) {
                 //noinspection SuspiciousMethodCalls
                 e.getRecipients().remove(e.getRecipients().toArray()[i]);
+                //noinspection AssignmentToForLoopParameter
                 i--;
             }
 		}

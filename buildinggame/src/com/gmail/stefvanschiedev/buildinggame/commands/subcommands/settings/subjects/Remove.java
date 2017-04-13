@@ -25,7 +25,7 @@ public class Remove extends ConsoleCommand {
 		StringBuilder subject = new StringBuilder();
 		
 		for (String arg : args)
-			subject.append(arg).append(" ");
+			subject.append(arg).append(' ');
 		
 		List<String> subjects = config.getStringList("subjects");
 		subjects.remove(subject.toString());

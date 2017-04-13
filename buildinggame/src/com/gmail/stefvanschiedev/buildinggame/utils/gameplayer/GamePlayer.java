@@ -29,7 +29,7 @@ public class GamePlayer {
 	private GamePlayer spectates;
 	private final GamePlayerType gamePlayerType;
 	private final int levels;
-	private int blocksPlaced = 0;
+	private int blocksPlaced;
 	private final Player player;
 	private final ItemStack[] inventory;
 	private final ItemStack[] armor;
@@ -88,7 +88,7 @@ public class GamePlayer {
 	}
 	
 	public void addTitleAndSubtitle(String title, String subtitle) {
-		if (title.equals("") && subtitle.equals(""))
+		if (title.isEmpty() && subtitle.isEmpty())
 			return;
 		
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
@@ -237,7 +237,7 @@ public class GamePlayer {
 	}
 	
 	private void sendTitleAndSubtitle(String title, String subtitle) {
-		if (title.equals("") && subtitle.equals(""))
+		if (title.isEmpty() && subtitle.isEmpty())
 			return;
 		
 		sendTitle(title);
@@ -270,16 +270,16 @@ public class GamePlayer {
 		}
 	}
 	
-	private Class<?> getNMSClass(String name) {
+	private static Class<?> getNMSClass(String name) {
 		try {
-			return Class.forName("net.minecraft.server." + getVersion() + "." + name);
+			return Class.forName("net.minecraft.server." + getVersion() + '.' + name);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	private String getVersion() {
+	private static String getVersion() {
 		return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	}
 }

@@ -1,8 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.arena;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -57,8 +56,8 @@ public class Arena {
 	private BossBar bossbar;
 	private GameState state = GameState.WAITING;
 	private final List<Plot> plots = new ArrayList<>();
-	private final List<Plot> votedPlots = new ArrayList<>();
-	private final List<Sign> signs = new ArrayList<>();
+	private final Collection<Plot> votedPlots = new ArrayList<>();
+	private final Collection<Sign> signs = new ArrayList<>();
 	private Lobby lobby;
 	private final String name;
 	private int maxPlayers = plots.size();
@@ -90,7 +89,9 @@ public class Arena {
 		
 		try {
 			this.bossbar = Bukkit.createBossBar(MessageManager.translate(messages.getString("global.bossbar-header")
-					.replace("%subject%", "?")), BarColor.valueOf(config.getString("bossbar.color").toUpperCase()), BarStyle.valueOf(config.getString("bossbar.style").toUpperCase()));
+					.replace("%subject%", "?")),
+                    BarColor.valueOf(config.getString("bossbar.color").toUpperCase(Locale.getDefault())),
+                    BarStyle.valueOf(config.getString("bossbar.style").toUpperCase(Locale.getDefault())));
 			getBossBar().setVisible(false);
 		} catch (IllegalArgumentException e) {
 			Main.getInstance().getLogger().warning("Bossbar couldn't be loaded, check the data and try again.");
@@ -108,7 +109,7 @@ public class Arena {
 	public boolean contains(Player player) {
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				if (gamePlayer.getPlayer() == player)
+				if (gamePlayer.getPlayer().equals(player))
 					return true;
 			}
 		}
@@ -190,7 +191,7 @@ public class Arena {
 	public Plot getPlot(Player player) {
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-				if (gamePlayer.getPlayer() == player) {
+				if (gamePlayer.getPlayer().equals(player)) {
 					return plot;
 				}
 			}
@@ -206,7 +207,7 @@ public class Arena {
 		return second;
 	}
 	
-	public List<Sign> getSigns() {
+	public Collection<Sign> getSigns() {
 		return signs;
 	}
 	
@@ -214,7 +215,7 @@ public class Arena {
 		return state;
 	}
 	
-	public String getSubject() {
+	public CharSequence getSubject() {
 		return subject;
 	}
 	
@@ -233,8 +234,8 @@ public class Arena {
 		return third;
 	}
 	
-	public List<Plot> getUsedPlots() {
-		List<Plot> usedPlots = new ArrayList<>();
+	public Collection<Plot> getUsedPlots() {
+		Collection<Plot> usedPlots = new ArrayList<>();
 		
 		for (Plot plot : getPlots()) {
 			if (!plot.getGamePlayers().isEmpty()) {
@@ -245,7 +246,7 @@ public class Arena {
 		return usedPlots;
 	}
 	
-	public List<Plot> getVotedPlots() {
+	public Collection<Plot> getVotedPlots() {
 		return votedPlots;
 	}
 	
@@ -300,19 +301,19 @@ public class Arena {
 		if (!isSetup()) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Your arena isn't setup right, you still need to do this:");
 			if (getLobby() == null) {
-				MessageManager.getInstance().send(player, ChatColor.RED + " - The lobby of arena " + getName() + "(/bg setlobby " + getName() + ")");
+				MessageManager.getInstance().send(player, ChatColor.RED + " - The lobby of arena " + getName() + "(/bg setlobby " + getName() + ')');
 			}
 			if (MainSpawnManager.getInstance().getMainSpawn() == null) {
 				MessageManager.getInstance().send(player, ChatColor.RED + " - The main spawn (/bg setmainspawn)");
 			}
 			for (Plot plot : getPlots()) {
 				if (plot.getBoundary() == null) {
-					MessageManager.getInstance().send(player, ChatColor.RED + " - The boundary of plot " + plot.getID() + " (/bg setbounds " + getName() + " " + plot.getID() + ")");
+					MessageManager.getInstance().send(player, ChatColor.RED + " - The boundary of plot " + plot.getID() + " (/bg setbounds " + getName() + ' ' + plot.getID() + ')');
 				}
 			}
 			for (Plot plot : getPlots()) {
 				if (plot.getFloor() == null) {
-					MessageManager.getInstance().send(player, ChatColor.RED + " - The floor of plot " + plot.getID() + " (/bg setfloor " + getName() + " " + plot.getID() + ")");
+					MessageManager.getInstance().send(player, ChatColor.RED + " - The floor of plot " + plot.getID() + " (/bg setfloor " + getName() + ' ' + plot.getID() + ')');
 				}
 			}
 			return;
@@ -493,7 +494,7 @@ public class Arena {
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
-				if (pl == player) {
+				if (pl.equals(player)) {
 					plot.leave(gamePlayer);
 					
 					MessageManager.getInstance().send(player, messages.getStringList("leave.message"));
@@ -611,8 +612,8 @@ public class Arena {
 							.replace("%playerplot%", votingPlot.getPlayerFormat()), messages.getString("voting.subtitle")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
-				
-				player.teleport(votingPlot.getBoundary().getAllBlocks().get(new Random().nextInt(votingPlot.getBoundary().getAllBlocks().size())).getLocation());
+
+				player.teleport(votingPlot.getBoundary().getAllBlocks().get(ThreadLocalRandom.current().nextInt(votingPlot.getBoundary().getAllBlocks().size())).getLocation());
 				
 				//give blocks
 				player.getInventory().clear();
@@ -628,7 +629,7 @@ public class Arena {
 				if (config.getBoolean("scoreboards.vote.enable"))
 					getVoteScoreboard().show(player);
 				
-				player.setPlayerTime(plot.getTime().decode(plot.getTime()), false);
+				player.setPlayerTime(plot.getTime().decode(), false);
 				player.setPlayerWeather(plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 			}
 		}
@@ -676,7 +677,7 @@ public class Arena {
 				final Player player = gamePlayer.getPlayer();
 				player.getInventory().clear();
 				player.setGameMode(GameMode.CREATIVE);
-				player.setPlayerTime(plot.getTime().decode(plot.getTime()), false);
+				player.setPlayerTime(plot.getTime().decode(), false);
 				
 				ItemBuilder.check(player);
 				

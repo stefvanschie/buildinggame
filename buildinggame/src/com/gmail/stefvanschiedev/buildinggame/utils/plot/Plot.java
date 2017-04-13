@@ -1,9 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -12,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.WeatherType;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -40,15 +38,15 @@ import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 public class Plot {
 
 	private Arena arena;
-	private boolean raining = false;
+	private boolean raining;
 	private Boundary boundary;
 	private Floor floor;
 	private final int ID;
 	private final List<GamePlayer> gamePlayers = new ArrayList<>();
-	private final List<BlockState> blocks = new ArrayList<>();
+	private final Collection<BlockState> blocks = new ArrayList<>();
 	private final Map<Entity, Location> entities;
-	private final List<Vote> votes = new ArrayList<>();
-	private final List<Particle> particles = new ArrayList<>();
+	private final Collection<Vote> votes = new ArrayList<>();
+	private final Collection<Particle> particles = new ArrayList<>();
 	private Location location;
 	private final Map<Player, Integer> timesVoted = new HashMap<>();
 	private Time time = Time.AM6;
@@ -70,7 +68,7 @@ public class Plot {
 		if (!config.getBoolean("mobs.allow"))
 			return false;
 		
-		if (config.getStringList("blocked-entities").contains(entity.getType().toString().toLowerCase()))
+		if (config.getStringList("blocked-entities").contains(entity.getType().toString().toLowerCase(Locale.getDefault())))
 			return false;
 		
 		if (config.getBoolean("mobs.enable-noai")) {
@@ -83,7 +81,7 @@ public class Plot {
 		return true;
 	}
 	
-	public void addParticle(Particle particle, Player player) {
+	public void addParticle(Particle particle, CommandSender player) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
@@ -132,7 +130,7 @@ public class Plot {
 			if (vote.getSender().getName().equals("stefvanschie"))
 				break;
 			else {
-				if (gamePlayer.getPlayer() == vote.getSender()) {
+				if (gamePlayer.getPlayer().equals(vote.getSender())) {
 					MessageManager.getInstance().send(vote.getSender(), messages.getStringList("vote.own-plot"));
 					return;
 				}
@@ -189,7 +187,7 @@ public class Plot {
 		}
 	}
 	
-	public List<GamePlayer> getAllGamePlayers() {
+	public Collection<GamePlayer> getAllGamePlayers() {
 		return gamePlayers;
 	}
 	
@@ -215,7 +213,7 @@ public class Plot {
 	
 	public GamePlayer getGamePlayer(Player player) {
 		for (GamePlayer gamePlayer : getAllGamePlayers()) {
-			if (gamePlayer.getPlayer() == player) {
+			if (gamePlayer.getPlayer().equals(player)) {
 				return gamePlayer;
 			}
 		}
@@ -245,7 +243,7 @@ public class Plot {
 		return arena.getMaxPlayers() / arena.getPlots().size();
 	}
 	
-	public List<Particle> getParticles() {
+	public Collection<Particle> getParticles() {
 		return particles;
 	}
 	
@@ -283,8 +281,8 @@ public class Plot {
 		return points;
 	}
 	
-	public List<GamePlayer> getSpectators() {
-		List<GamePlayer> spectators = new ArrayList<>();
+	public Iterable<GamePlayer> getSpectators() {
+		Collection<GamePlayer> spectators = new ArrayList<>();
 		
 		for (GamePlayer gamePlayer : getAllGamePlayers()) {
 			if (gamePlayer.getGamePlayerType() == GamePlayerType.SPECTATOR)
@@ -311,20 +309,20 @@ public class Plot {
 	
 	public Vote getVote(Player player) {
 		for (Vote vote : getVotes()) {
-			if (vote.getSender() == player) {
+			if (vote.getSender().equals(player)) {
 				return vote;
 			}
 		}
 		return null;
 	}
 	
-	public List<Vote> getVotes() {
+	public Collection<Vote> getVotes() {
 		return votes;
 	}
 	
 	public boolean hasVoted(Player player) {
 		for (Vote vote : getVotes()) {
-			if (vote.getSender() == player) {
+			if (vote.getSender().equals(player)) {
 				return true;
 			}
 		}
@@ -456,7 +454,7 @@ public class Plot {
 	public void setTime(Time time) {
 		this.time = time;
 		for (GamePlayer gamePlayer : getGamePlayers()) {
-			gamePlayer.getPlayer().setPlayerTime(time.decode(time), false);
+			gamePlayer.getPlayer().setPlayerTime(time.decode(), false);
 		}
 	}
 }

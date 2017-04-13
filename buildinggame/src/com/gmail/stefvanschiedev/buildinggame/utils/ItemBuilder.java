@@ -99,7 +99,8 @@ public class ItemBuilder extends ItemStack implements Listener {
 			e.setCancelled(true);
 	}
 	
-	public interface ClickEvent {
+	@FunctionalInterface
+    public interface ClickEvent {
 		
 		boolean onClick(PlayerInteractEvent event);
 		

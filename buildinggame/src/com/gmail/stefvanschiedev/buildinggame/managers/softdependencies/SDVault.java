@@ -6,13 +6,13 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 
-public class SDVault {
+public final class SDVault {
 
 	private SDVault() {}
 	
 	private static final SDVault INSTANCE = new SDVault();
 	private static Economy econ;
-	private boolean enabled = false;
+	private boolean enabled;
 	
 	public static SDVault getInstance() {
 		return INSTANCE;
@@ -26,7 +26,7 @@ public class SDVault {
 		enabled = true;
 	}
 	
-	private boolean setupEconomy() {
+	private static boolean setupEconomy() {
 		if (Main.getInstance().getServer().getPluginManager().getPlugin("Vault") == null)
 			return false;
 		RegisteredServiceProvider<Economy> rsp = Main.getInstance().getServer().getServicesManager().getRegistration(Economy.class);
@@ -36,7 +36,7 @@ public class SDVault {
 		return econ != null;
 	}
     
-	public Economy getEconomy() {
+	public static Economy getEconomy() {
 		return econ;
 	}
 	

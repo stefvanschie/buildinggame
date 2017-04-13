@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Chunk;
@@ -41,8 +42,8 @@ public class Boundary {
 		return blocks;
 	}
 	
-	public List<Chunk> getAllChunks() {
-		List<Chunk> chunks = new ArrayList<>();
+	public Iterable<Chunk> getAllChunks() {
+		Collection<Chunk> chunks = new ArrayList<>();
 		
 		for (Block block : getAllBlocks()) {
 			if (!chunks.contains(block.getChunk())) {
@@ -82,6 +83,6 @@ public class Boundary {
 	}
 	
 	public boolean isInside(Location location) {
-        return location.getWorld() == getWorld() && !(location.getBlockX() < getLowX() || location.getBlockX() > getHighX()) && !(location.getBlockY() < getLowY() || location.getBlockY() > getHighY()) && !(location.getBlockZ() < getLowZ() || location.getBlockZ() > getHighZ());
+        return location.getWorld().equals(getWorld()) && !(location.getBlockX() < getLowX() || location.getBlockX() > getHighX()) && !(location.getBlockY() < getLowY() || location.getBlockY() > getHighY()) && !(location.getBlockZ() < getLowZ() || location.getBlockZ() > getHighZ());
     }
 }

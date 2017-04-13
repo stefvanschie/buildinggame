@@ -20,7 +20,7 @@ class ParticlesMenu extends Gui {
 
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
 	
-	public ParticlesMenu() {
+	ParticlesMenu() {
 		super(null, 27, MessageManager.translate(MESSAGES.getString("gui.particles.title")), 1);
 		
 		//flames
@@ -442,14 +442,8 @@ class ParticlesMenu extends Gui {
 				
  				if (arena == null)
 					return false;
-				
- 				Particle particle;
- 				if (event.getCursor() != null)
- 					particle = new Particle(player.getLocation(), ParticleType.FALLING_DUST, event.getCursor().getData());
- 				else
- 					particle = new Particle(player.getLocation(), ParticleType.FALLING_DUST);
  				
-				arena.getPlot(player).addParticle(particle, player);
+				arena.getPlot(player).addParticle(event.getCursor() != null ? new Particle(player.getLocation(), ParticleType.FALLING_DUST, event.getCursor().getData()) : new Particle(player.getLocation(), ParticleType.FALLING_DUST), player);
 				return true;
 			}
 		}, 16);

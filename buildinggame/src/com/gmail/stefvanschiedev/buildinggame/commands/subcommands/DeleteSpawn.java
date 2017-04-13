@@ -54,9 +54,9 @@ public class DeleteSpawn extends ConsoleCommand {
 		int maxplayers = arenas.getInt(arena.getName() + ".maxplayers");
 		
 		for (int i = plot.getID(); i < maxplayers; i++)
-			arenas.set(arena.getName() + "." + i, arenas.getConfigurationSection(arena.getName() + "." + i++));
+			arenas.set(arena.getName() + '.' + i, arenas.getConfigurationSection(arena.getName() + '.' + i + 1));
 		
-		arenas.set(arena.getName() + "." + maxplayers, null);
+		arenas.set(arena.getName() + '.' + maxplayers, null);
 		arenas.set(arena.getName() + ".maxplayers", maxplayers - 1);
 		
 		SettingsManager.getInstance().save();

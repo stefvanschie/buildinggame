@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.Locale;
+
 /**
  * Created by TomVerschueren on 17/10/2016.
  */
@@ -23,7 +25,7 @@ public class JoinPlayerStats implements Listener {
                 StatManager.getInstance().getMySQLDatabase().insertPlayer(player.getUniqueId().toString());
 
             for (StatType statType : StatType.values())
-                StatManager.getInstance().registerStat(player, statType, StatManager.getInstance().getMySQLDatabase().getStat(player.getUniqueId().toString(),statType.toString().toLowerCase()));
+                StatManager.getInstance().registerStat(player, statType, StatManager.getInstance().getMySQLDatabase().getStat(player.getUniqueId().toString(),statType.toString().toLowerCase(Locale.getDefault())));
         });
     }
 }

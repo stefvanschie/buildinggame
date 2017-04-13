@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.commands.subcommands.settings.com
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -16,7 +17,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
 public class Third extends ConsoleCommand {
 
-	private final List<SubCommand> subCommands = new ArrayList<>();
+	private final Collection<SubCommand> subCommands = new ArrayList<>();
 	
 	@Override
 	public CommandResult onCommand(CommandSender sender, String[] args) {
@@ -38,9 +39,8 @@ public class Third extends ConsoleCommand {
 				if (sender.hasPermission(subCommand.getPermission())) {
 					//remove first argument
 												
-					List<String> arguments = new ArrayList<>();
-					arguments.addAll(Arrays.asList(args));
-					arguments.remove(0);
+					List<String> arguments = new ArrayList<>(Arrays.asList(args));
+                    arguments.remove(0);
 					args = arguments.toArray(new String[arguments.size()]);
 
 					return subCommand.onCommand(sender, args);

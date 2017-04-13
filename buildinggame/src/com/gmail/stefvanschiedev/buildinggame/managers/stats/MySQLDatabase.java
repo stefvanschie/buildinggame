@@ -20,7 +20,7 @@ public class MySQLDatabase {
     public MySQLDatabase(JavaPlugin javaPlugin){
         this.plugin = javaPlugin;
     }
-    
+
     public boolean setup() {
         this.manager = new ConnectionManager(plugin);
         plugin.getLogger().info("Configuring connection pool...");
@@ -28,9 +28,8 @@ public class MySQLDatabase {
         if (!manager.configureConnPool())
         	return false;
 
-        try {
-            Connection connection = manager.getConnection();
-            connection.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS `buildinggamestats` (\n" +
+        try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS `buildinggamestats` (\n" +
                     "  `UUID` text NOT NULL,\n" +
                     "  `plays` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `first` int(11) NOT NULL DEFAULT '0',\n" +
@@ -40,7 +39,7 @@ public class MySQLDatabase {
                     "  `placed` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `walked` int(11) NOT NULL DEFAULT '0'\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
-            manager.closeConnection(connection);
+            closeConnection(connection);
         } catch (SQLException e) {
         	plugin.getLogger().info("Failed to create table in database! Returning to file stats.");
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -56,15 +55,12 @@ public class MySQLDatabase {
      * @param query SQL command to be performed.
      */
     private void executeUpdate(String query){
-        try {
-            Connection connection = manager.getConnection();
-            Statement statement = connection.createStatement();
+        try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
-            manager.closeConnection(connection);
+            closeConnection(connection);
         } catch (SQLException e) {
-            plugin.getLogger().warning("Failed to execute update: "+query);
+            plugin.getLogger().warning("Failed to execute update: " + query);
         }
-
     }
 
 
@@ -74,11 +70,9 @@ public class MySQLDatabase {
      * @return Returns a resultset which gives you the information that is asked
      */
     private ResultSet executeQuery(String query){
-        try {
-            Connection connection = manager.getConnection();
-            Statement statement = connection.createStatement();
+        try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(query);
-            manager.closeConnection(connection);
+            closeConnection(connection);
             return rs;
         } catch (SQLException exception){
             exception.printStackTrace();
@@ -93,17 +87,15 @@ public class MySQLDatabase {
      * @param UUID UUID from player
      */
     public void insertPlayer(String UUID) {
-    	ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats WHERE UUID='" + UUID + "'");
+    	try (ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats WHERE UUID='" + UUID + '\'')) {
+            if (set == null)
+                return;
 
-    	if (set == null)
-    	    return;
-
-    	try {
             if (!set.next())
-    			executeUpdate("INSERT INTO buildinggamestats (UUID,walked) VALUES ('" + UUID + "',0)");
-    	} catch (SQLException e) {
-    		e.printStackTrace();
-    	}
+                executeUpdate("INSERT INTO buildinggamestats (UUID,walked) VALUES ('" + UUID + "',0)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -114,7 +106,7 @@ public class MySQLDatabase {
      * @param number Reset to this amount
      */
     public void setStat(String UUID, String stat, int number){
-        executeUpdate("UPDATE buildinggamestats SET "+stat+"="+number+" WHERE UUID='"+UUID+"'");
+        executeUpdate("UPDATE buildinggamestats SET "+stat+ '=' +number+" WHERE UUID='"+UUID+ '\'');
     }
 
     /**
@@ -125,15 +117,14 @@ public class MySQLDatabase {
      * @return returns an int which represents the stat
      */
     public int getStat(String UUID, String stat){
-        ResultSet set = executeQuery("SELECT "+stat+" FROM buildinggamestats WHERE UUID='"+UUID+"'");
+        try (ResultSet set = executeQuery("SELECT "+stat+" FROM buildinggamestats WHERE UUID='"+UUID+ '\'')) {
 
-        if (set == null)
-            return 0;
-
-        try {
-            if(!set.next())
+            if (set == null)
                 return 0;
-            return(set.getInt(1));
+
+            if (!set.next())
+                return 0;
+            return (set.getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return 0;
@@ -142,19 +133,29 @@ public class MySQLDatabase {
 
     public Set<UUID> getAllPlayers() {
     	Set<UUID> uuids = new HashSet<>();
-    	ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats");
 
-    	if (set == null)
-    	    return uuids;
+    	try (ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats")) {
 
-    	try {
-    		while (set.next())
-    			uuids.add(UUID.fromString(set.getString(1)));
-    	} catch (SQLException e) {
-    		plugin.getLogger().warning("Error while retrieving data from database");
-    		e.printStackTrace();
-    	}
+            if (set == null)
+                return uuids;
+
+            while (set.next())
+                uuids.add(UUID.fromString(set.getString(1)));
+        } catch (SQLException e) {
+            plugin.getLogger().warning("Error while retrieving data from database");
+            e.printStackTrace();
+        }
     	
     	return uuids;
+    }
+
+    private static void closeConnection(Connection conn) {
+        try {
+            if (conn != null)
+                conn.close(); //release the connection - the name is tricky but connection is not closed it is released
+            //and it will stay in pool
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

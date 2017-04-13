@@ -13,7 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 public class ThirdStat implements Listener {
 
 	@EventHandler
-	public void onPlayerWin(PlayerWinEvent e) {
+	public static void onPlayerWin(PlayerWinEvent e) {
 		if (e.getWin() != Win.THIRD)
 			return;
 		

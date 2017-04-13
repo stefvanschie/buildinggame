@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 
-public class SettingsManager {
+public final class SettingsManager {
 
 	private SettingsManager() {}
 	
@@ -185,7 +185,7 @@ public class SettingsManager {
 			
 			for (String string : defMessages.getKeys(true)) {
 				if (messages.isString(string) && defMessages.isList(string)) {
-					List<String> list = new ArrayList<>();
+					Collection<String> list = new ArrayList<>();
 					list.add(messages.getString(string));
 					messages.set(string, list);
 				}

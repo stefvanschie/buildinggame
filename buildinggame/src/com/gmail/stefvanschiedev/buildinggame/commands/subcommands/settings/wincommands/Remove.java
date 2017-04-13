@@ -23,7 +23,7 @@ public class Remove extends ConsoleCommand {
 		StringBuilder command = new StringBuilder();
 		
 		for (String arg : args)
-			command.append(arg).append(" ");
+			command.append(arg).append(' ');
 		
 		config.set("win-commands", config.getStringList("win-commands").remove(command.toString().trim()));
 		SettingsManager.getInstance().save();

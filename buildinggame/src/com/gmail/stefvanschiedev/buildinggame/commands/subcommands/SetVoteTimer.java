@@ -43,7 +43,7 @@ public class SetVoteTimer extends ConsoleCommand {
 		SettingsManager.getInstance().save();
 		VoteTimerManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Vote timer setting for arena '" + arena.getName() + "' changed to '" + seconds + "'");
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Vote timer setting for arena '" + arena.getName() + "' changed to '" + seconds + '\'');
 		return CommandResult.SUCCES;
 	}
 

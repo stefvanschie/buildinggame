@@ -5,7 +5,8 @@ import java.lang.reflect.Method;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 
-public class NmsClasses {
+@SuppressWarnings("UtilityClassCanBeEnum")
+public final class NmsClasses {
 
 	private NmsClasses() {}
 	
@@ -22,7 +23,7 @@ public class NmsClasses {
 	    for (Method method : methods) {
 	        if ((method.getName().equals("a"))
 			        && (method.getParameterTypes().length == 1)
-			        && (method.getParameterTypes()[0] == getClass("NBTTagCompound"))) {
+			        && (method.getParameterTypes()[0].equals(getClass("NBTTagCompound")))) {
 			    try {
 			        method.setAccessible(true);
 			        method.invoke(nms, (getClass("NBTTagCompound")).cast(tag));
@@ -39,7 +40,7 @@ public class NmsClasses {
 	
 	private static Class<?> getClass(String name) {
 		try {
-			return Class.forName("net.minecraft.server." + getVersion() + "." + name);
+			return Class.forName("net.minecraft.server." + getVersion() + '.' + name);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

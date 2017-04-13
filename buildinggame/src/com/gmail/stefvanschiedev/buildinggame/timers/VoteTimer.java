@@ -26,7 +26,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 public class VoteTimer extends Timer {
 
-	private boolean running = false;
+	private boolean running;
 	private int seconds;
 	private int originalSeconds;
 	private final Arena arena;
@@ -120,8 +120,8 @@ public class VoteTimer extends Timer {
 								.replace("%third_points%", third == null ? "0" : second.getPoints() + ""));
 					
 						if(SDVault.getInstance().isEnabled() && gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
-							Economy vault = SDVault.getInstance().getEconomy();
-							if (first == plot) {
+							Economy vault = SDVault.getEconomy();
+							if (first.equals(plot)) {
 								double money = config.getInt("money.first");
 								
 								if (player.hasPermission("bg.rewards.money.double")) {
@@ -149,7 +149,7 @@ public class VoteTimer extends Timer {
 												.replace("%money%", money + ""));
 									}
 								}
-							} else if (second == plot) {
+							} else if (second.equals(plot)) {
 								double money = config.getInt("money.second");
 								
 								if (player.hasPermission("bg.rewards.money.double")) {
@@ -177,7 +177,7 @@ public class VoteTimer extends Timer {
 												.replace("%money%", money + ""));
 									}
 								}
-							} else if (third == plot) {
+							} else if (third.equals(plot)) {
 								double money = config.getInt("money.third");
 								
 								if (player.hasPermission("bg.rewards.money.double")) {
@@ -257,7 +257,7 @@ public class VoteTimer extends Timer {
 					if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable"))
 						arena.getVoteScoreboard().show(player);
 					
-					player.setPlayerTime(this.plot.getTime().decode(this.plot.getTime()), false);
+					player.setPlayerTime(this.plot.getTime().decode(), false);
 					player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 				}
 			}
@@ -265,22 +265,18 @@ public class VoteTimer extends Timer {
 		//timings
 		try {
 			for (String key : config.getConfigurationSection("timings.vote-timer.at").getKeys(false)) {
-				try {
-					if (seconds == Integer.parseInt(key)) {
-						for (String command : config.getStringList("timings.vote-timer.at." + Integer.parseInt(key)))
-							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
-					}
-				} catch (NumberFormatException e) {}
+                if (seconds == Integer.parseInt(key)) {
+                    for (String command : config.getStringList("timings.vote-timer.at." + Integer.parseInt(key)))
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+                }
 			}
 			for (String key : config.getConfigurationSection("timings.vote-timer.every").getKeys(false)) {
-				try {
-					if (seconds % Integer.parseInt(key) == 0) {
-						for (String command : config.getStringList("timings.vote-timer.every." + Integer.parseInt(key)))
-							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
-					}
-				} catch (NumberFormatException e) {}
+                if (seconds % Integer.parseInt(key) == 0) {
+                    for (String command : config.getStringList("timings.vote-timer.every." + Integer.parseInt(key)))
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
+                }
 			}
-		} catch (NullPointerException e) {}
+		} catch (NullPointerException | NumberFormatException e) {}
 		
 		seconds--;
 		if (seconds <= 0) {

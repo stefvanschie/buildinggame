@@ -6,7 +6,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
-public class PlotManager {
+public final class PlotManager {
 
 	private PlotManager() {}
 	
@@ -16,7 +16,8 @@ public class PlotManager {
 		return INSTANCE;
 	}
 	
-	public void setup() {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			arena.getPlots().clear();
 			for (String plot : SettingsManager.getInstance().getArenas().getConfigurationSection(arena.getName()).getKeys(false)) {

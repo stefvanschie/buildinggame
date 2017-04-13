@@ -17,7 +17,7 @@ class SpeedMenu extends Gui {
 
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
 	
-	public SpeedMenu() {
+	SpeedMenu() {
 		super(null, 18, MessageManager.translate(MESSAGES.getString("gui.fly-speed.title")), 1);
 		
 		//fly speed 1

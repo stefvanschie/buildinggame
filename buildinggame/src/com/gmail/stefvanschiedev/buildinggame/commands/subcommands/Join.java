@@ -24,7 +24,7 @@ public class Join extends PlayerCommand {
 		if (args.length == 0) {
 			List<Arena> arenas = getArenas();
 			
-			if (arenas.size() == 0) {
+			if (arenas.isEmpty()) {
 				MessageManager.getInstance().send(player, messages.getStringList("join.no-arena"));
 				return CommandResult.ERROR;
 			}
@@ -64,7 +64,7 @@ public class Join extends PlayerCommand {
 		return "bg.join";
 	}
 	
-	private List<Arena> getArenas() {
+	private static List<Arena> getArenas() {
 		List<Arena> arenas = new ArrayList<>();
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			if (!arena.isFull() && (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING))

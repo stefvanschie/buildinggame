@@ -23,7 +23,8 @@ public class AllowFlyOutBounds extends ConsoleCommand {
 		config.set("allow-fly-out-bounds", Boolean.parseBoolean(args[0]));
 		SettingsManager.getInstance().save();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Allow fly out bounds changed to " + Boolean.parseBoolean(args[0]));
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Allow fly out bounds changed to " +
+                Boolean.parseBoolean(args[0]));
 		
 		return CommandResult.SUCCES;
 	}

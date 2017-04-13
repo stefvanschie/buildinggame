@@ -23,7 +23,7 @@ public class Add extends ConsoleCommand {
 		StringBuilder command = new StringBuilder();
 		
 		for (String arg : args)
-			command.append(arg).append(" ");
+			command.append(arg).append(' ');
 		
 		config.set("commands.second", config.getStringList("commands.second").add(command.toString().trim()));
 		SettingsManager.getInstance().save();

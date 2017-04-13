@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -42,7 +43,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
 public class CommandManager implements CommandExecutor {
 
-	private final List<SubCommand> subCommands = new ArrayList<>();
+	private final Collection<SubCommand> subCommands = new ArrayList<>();
 	
 	public void setup() {
 		subCommands.clear();
@@ -99,9 +100,8 @@ public class CommandManager implements CommandExecutor {
 				return false;
 			}
 			
-			List<String> arguments = new ArrayList<>();
-			arguments.addAll(Arrays.asList(args));
-			arguments.remove(0);
+			List<String> arguments = new ArrayList<>(Arrays.asList(args));
+            arguments.remove(0);
 			
 			args = arguments.toArray(new String[arguments.size()]);
 			

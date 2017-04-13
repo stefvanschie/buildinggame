@@ -12,10 +12,12 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+import java.util.Locale;
+
 public class StatSignCreate implements Listener {
 
 	@EventHandler
-	public void onSignChange(SignChangeEvent e) {
+	public static void onSignChange(SignChangeEvent e) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
@@ -33,7 +35,7 @@ public class StatSignCreate implements Listener {
 		StatType type;
 		
 		try {
-			type = StatType.valueOf(lineTwo.toUpperCase());
+			type = StatType.valueOf(lineTwo.toUpperCase(Locale.getDefault()));
 		} catch (IllegalArgumentException ex) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "'" + lineTwo + "' isn't a valid statistic");
 			return;

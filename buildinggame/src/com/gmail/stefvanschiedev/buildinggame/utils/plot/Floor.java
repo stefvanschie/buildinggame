@@ -1,7 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
@@ -25,8 +26,8 @@ public class Floor {
 		this.lowZ = lowZ;
 	}
 	
-	public List<Block> getAllBlocks() {
-		List<Block> blocks = new ArrayList<>();
+	public Iterable<Block> getAllBlocks() {
+		Collection<Block> blocks = new ArrayList<>();
 		
 		for (int x = lowX; x <= highX; x++) {
 			for (int y = lowY; y <= highY; y++) {

@@ -6,7 +6,7 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
-public class MinPlayersManager {
+public final class MinPlayersManager {
 
 	private MinPlayersManager() {}
 	
@@ -16,7 +16,8 @@ public class MinPlayersManager {
 		return INSTANCE;
 	}
 	
-	public void setup() {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 			try {

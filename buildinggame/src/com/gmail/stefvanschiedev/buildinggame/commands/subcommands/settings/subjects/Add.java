@@ -25,7 +25,7 @@ public class Add extends ConsoleCommand {
 		StringBuilder subject = new StringBuilder();
 		
 		for (String arg : args)
-			subject.append(arg).append(" ");
+			subject.append(arg).append(' ');
 		
 		List<String> subjects = config.getStringList("subjects");
 		subjects.add(subject.toString().trim());

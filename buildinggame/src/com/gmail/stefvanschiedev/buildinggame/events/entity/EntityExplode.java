@@ -30,12 +30,13 @@ public class EntityExplode implements Listener {
 			
 			if (!plot.getBoundary().isInside(block.getLocation())) {
 				e.blockList().remove(block);
-				i--;
+                //noinspection AssignmentToForLoopParameter
+                i--;
 			}
 		}
 	}
 	
-	private Plot isInside(Location location) {
+	private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getBoundary().isInside(location))

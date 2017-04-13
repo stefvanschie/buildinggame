@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.ChatColor;
@@ -186,10 +185,10 @@ public class SubjectMenu extends Gui {
 	private void addVote(Player player, String subject) {
 		subject = ChatColor.stripColor(subject);
 		
-		for (String s : votes.keySet()) {
-			if (votes.get(s).getPlayers().contains(player)) {
-				votes.get(s).removePlayer(player);
-				votes.get(s).setVotes(votes.get(s).getVotes() - 1);
+		for (Map.Entry<String, SubjectVote> entry : votes.entrySet()) {
+			if (entry.getValue().getPlayers().contains(player)) {
+                entry.getValue().removePlayer(player);
+                entry.getValue().setVotes(entry.getValue().getVotes() - 1);
 			}
 		}
 		
@@ -206,20 +205,19 @@ public class SubjectMenu extends Gui {
 			return forcedTheme;
 		
 		int highest = -1;
-		List<String> subjects = new ArrayList<>();
-		
-		for (String s : votes.keySet()) {
-			if (votes.get(s).getVotes() > highest) {
-				highest = votes.get(s).getVotes();
+
+        for (Map.Entry<String, SubjectVote> entry : votes.entrySet()) {
+			if (entry.getValue().getVotes() > highest) {
+				highest = entry.getValue().getVotes();
 			}
 		}
-		
-		for (String s : votes.keySet()) {
-			if (votes.get(s).getVotes() == highest) {
-				subjects.add(s);
-			}
+
+        List<String> subjects = new ArrayList<>();
+        for (Map.Entry<String, SubjectVote> entry : votes.entrySet()) {
+			if (entry.getValue().getVotes() == highest)
+				subjects.add(entry.getKey());
 		}
 		
-		return subjects.get(new Random().nextInt(subjects.size()));
+		return subjects.get(ThreadLocalRandom.current().nextInt(subjects.size()));
 	}
 }

@@ -74,9 +74,9 @@ public class SetBounds extends PlayerCommand {
 					//second time
 					Location location = e.getClickedBlock().getLocation();
 					
-					if (previousLocation.getWorld() == location.getWorld()) {
-						arenas.set(arena.getName() + "." + plot.getID() + ".high.world", location.getWorld().getName());
-						arenas.set(arena.getName() + "." + plot.getID() + ".low.world", previousLocation.getWorld().getName());
+					if (previousLocation.getWorld().equals(location.getWorld())) {
+						arenas.set(arena.getName() + '.' + plot.getID() + ".high.world", location.getWorld().getName());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".low.world", previousLocation.getWorld().getName());
 					} else {
 						MessageManager.getInstance().send(player, ChatColor.RED + "The world has to be the same");
 						return true;
@@ -84,29 +84,29 @@ public class SetBounds extends PlayerCommand {
 					
 					//x
 					if (previousLocation.getBlockX() < location.getBlockX()) {
-						arenas.set(arena.getName() + "." + plot.getID() + ".high.x", location.getBlockX());
-						arenas.set(arena.getName() + "." + plot.getID() + ".low.x", previousLocation.getBlockX());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", location.getBlockX());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", previousLocation.getBlockX());
 					} else {
-						arenas.set(arena.getName() + "." + plot.getID() + ".low.x", location.getBlockX());
-						arenas.set(arena.getName() + "." + plot.getID() + ".high.x", previousLocation.getBlockX());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", location.getBlockX());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", previousLocation.getBlockX());
 					}
 					
 					//y
 					if (previousLocation.getBlockY() < location.getBlockY()) {
-						arenas.set(arena.getName() + "." + plot.getID() + ".high.y", location.getBlockY());
-						arenas.set(arena.getName() + "." + plot.getID() + ".low.y", previousLocation.getBlockY());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", location.getBlockY());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", previousLocation.getBlockY());
 					} else {
-						arenas.set(arena.getName() + "." + plot.getID() + ".low.y", location.getBlockY());
-						arenas.set(arena.getName() + "." + plot.getID() + ".high.y", previousLocation.getBlockY());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", location.getBlockY());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", previousLocation.getBlockY());
 					}
 					
 					//z
 					if (previousLocation.getBlockZ() < location.getBlockZ()) {
-						arenas.set(arena.getName() + "." + plot.getID() + ".high.z", location.getBlockZ());
-						arenas.set(arena.getName() + "." + plot.getID() + ".low.z", previousLocation.getBlockZ());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", location.getBlockZ());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", previousLocation.getBlockZ());
 					} else {
-						arenas.set(arena.getName() + "." + plot.getID() + ".low.z", location.getBlockZ());
-						arenas.set(arena.getName() + "." + plot.getID() + ".high.z", previousLocation.getBlockZ());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", location.getBlockZ());
+						arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", previousLocation.getBlockZ());
 					}
 					
 					SettingsManager.getInstance().save();

@@ -10,7 +10,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 public class TakeDamage implements Listener {
 
 	@EventHandler
-	public void onEntityDamage(EntityDamageEvent e) {
+	public static void onEntityDamage(EntityDamageEvent e) {
 		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}

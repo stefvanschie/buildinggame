@@ -1,15 +1,15 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.scoreboards;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.MainScoreboard;
 
-public class MainScoreboardManager {
+public final class MainScoreboardManager {
 
-	private final List<Player> players = new ArrayList<>();
+	private final Collection<Player> players = new ArrayList<>();
 	private final MainScoreboard scoreboard = new MainScoreboard();
 	
 	public MainScoreboard getScoreboard() {

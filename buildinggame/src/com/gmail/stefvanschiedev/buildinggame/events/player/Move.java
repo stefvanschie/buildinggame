@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -75,7 +75,7 @@ public class Move implements Listener {
 				return;
 			}
 			if (!arena.getVotingPlot().getBoundary().isInside(from)) {
-				player.teleport(arena.getVotingPlot().getBoundary().getAllBlocks().get(new Random().nextInt(arena.getVotingPlot().getBoundary().getAllBlocks().size())).getLocation());
+				player.teleport(arena.getVotingPlot().getBoundary().getAllBlocks().get(ThreadLocalRandom.current().nextInt(arena.getVotingPlot().getBoundary().getAllBlocks().size())).getLocation());
 				return;
 			}
 			
@@ -91,7 +91,7 @@ public class Move implements Listener {
 				return;
 			}
 			if (!arena.getFirstPlot().getBoundary().isInside(from)) {
-				player.teleport(arena.getFirstPlot().getBoundary().getAllBlocks().get(new Random().nextInt(arena.getFirstPlot().getBoundary().getAllBlocks().size())).getLocation());
+				player.teleport(arena.getFirstPlot().getBoundary().getAllBlocks().get(ThreadLocalRandom.current().nextInt(arena.getFirstPlot().getBoundary().getAllBlocks().size())).getLocation());
 				return;
 			}
 			
@@ -107,7 +107,7 @@ public class Move implements Listener {
 		}
 		
 		if (!plot.getBoundary().isInside(from)) {
-			player.teleport(plot.getBoundary().getAllBlocks().get(new Random().nextInt(plot.getBoundary().getAllBlocks().size())).getLocation());
+			player.teleport(plot.getBoundary().getAllBlocks().get(ThreadLocalRandom.current().nextInt(plot.getBoundary().getAllBlocks().size())).getLocation());
 			return;
 		}
 		
@@ -117,7 +117,7 @@ public class Move implements Listener {
 		}
 	}
 	
-	private Location getClosestPositionOutsideActivePlot(Location start) {
+	private static Location getClosestPositionOutsideActivePlot(Location start) {
 		Location closest = null;
 		
 		//radius is for a cube not a sphere as the name suggests

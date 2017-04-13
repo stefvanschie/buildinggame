@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 
-public class MainSpawnManager {
+public final class MainSpawnManager {
 
 	private MainSpawnManager() {}
 	

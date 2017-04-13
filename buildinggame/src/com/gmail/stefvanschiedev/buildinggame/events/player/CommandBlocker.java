@@ -30,8 +30,8 @@ public class CommandBlocker implements Listener {
 		for (String string : config.getStringList("command-whitelist")) {
 			String newString = string;
 			
-			if (!string.startsWith("/")) {
-				newString = "/" + string;
+			if (string.charAt(0) != '/') {
+				newString = '/' + string;
 			}
 			if (e.getMessage().startsWith(newString)) {
 				return;

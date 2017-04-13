@@ -13,7 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 public class PlaceStat implements Listener {
 
 	@EventHandler
-	public void onBlockPlace(BlockPlaceEvent e) {
+	public static void onBlockPlace(BlockPlaceEvent e) {
 		Player player = e.getPlayer();
 		
 		if (ArenaManager.getInstance().getArena(player) == null)

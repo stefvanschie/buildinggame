@@ -13,7 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 public class PlaysStat implements Listener {
 
 	@EventHandler
-	public void onArenaStart(ArenaStartEvent e) {
+	public static void onArenaStart(ArenaStartEvent e) {
 		for (Plot plot : e.getArena().getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 				StatManager.getInstance().registerStat(gamePlayer.getPlayer(), StatType.PLAYS, StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.PLAYS) == null ? 1 : StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.PLAYS).getValue() + 1);

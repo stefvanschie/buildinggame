@@ -19,7 +19,7 @@ class SpeedMenu extends Gui {
 
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
 	
-	public SpeedMenu() {
+	SpeedMenu() {
 		super(null, 18, MessageManager.translate(MESSAGES.getString("spectator-gui.fly-speed.title")), 1);
 		
 		ItemStack speed1 = new ItemStack(Material.FEATHER, 1);

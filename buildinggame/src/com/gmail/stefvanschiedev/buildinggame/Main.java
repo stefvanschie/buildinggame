@@ -77,8 +77,8 @@ public class Main extends JavaPlugin {
 
 	private static Main instance;
 	private final LoadCooldown load = new LoadCooldown();
-	private boolean loadedListeners = false;
-	private boolean loadedCommands = false;
+	private boolean loadedListeners;
+	private boolean loadedCommands;
 	
 	@Override
 	public void onEnable() {
@@ -253,8 +253,7 @@ public class Main extends JavaPlugin {
 		getLogger().info("BuildingGame has been enabled in " + (end - start) + " milliseconds!");
 		
 	}
-	
-	public static Main getInstance() {
+    public static Main getInstance() {
 		return instance;
 	}
 }

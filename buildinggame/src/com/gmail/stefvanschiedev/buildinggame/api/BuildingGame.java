@@ -7,10 +7,12 @@ import org.bukkit.entity.Player;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
-@SuppressWarnings("WeakerAccess")
-public class BuildingGame {
+@SuppressWarnings({"WeakerAccess", "UtilityClassCanBeEnum"})
+public final class BuildingGame {
 
-	@SuppressWarnings("unused")
+    private BuildingGame() {}
+
+    @SuppressWarnings("unused")
     public static Arena getArena(String name) {
 		return ArenaManager.getInstance().getArena(name);
 	}

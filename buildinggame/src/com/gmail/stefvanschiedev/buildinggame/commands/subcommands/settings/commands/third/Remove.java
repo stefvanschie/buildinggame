@@ -23,7 +23,7 @@ public class Remove extends ConsoleCommand {
 		StringBuilder command = new StringBuilder();
 		
 		for (String arg : args)
-			command.append(arg).append(" ");
+			command.append(arg).append(' ');
 		
 		config.set("commands.third", config.getStringList("commands.third").remove(command.toString()));
 		SettingsManager.getInstance().save();

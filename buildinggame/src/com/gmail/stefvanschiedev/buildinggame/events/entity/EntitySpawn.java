@@ -91,7 +91,7 @@ public class EntitySpawn implements Listener {
             e.setCancelled(true);
     }
 
-	private Plot isInside(Location location) {
+	private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getBoundary() == null) 

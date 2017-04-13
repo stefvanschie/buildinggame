@@ -1,7 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,7 +57,7 @@ public class MainScoreboard {
 			Team team = teams.get(place);
 			
 			StatManager manager = StatManager.getInstance();
-			Calendar calendar = Calendar.getInstance();
+            LocalDateTime localDateTime = LocalDateTime.now();
 			
 			String text = strings.get(place)
 					.replace("%stat_plays%", manager.getStat(player, StatType.PLAYS) == null ? "0" : manager.getStat(player, StatType.PLAYS).getValue() + "")
@@ -66,18 +67,14 @@ public class MainScoreboard {
 					.replace("%stat_broken%", manager.getStat(player, StatType.BROKEN) == null ? "0" : manager.getStat(player, StatType.BROKEN).getValue() + "")
 					.replace("%stat_placed%", manager.getStat(player, StatType.PLACED) == null ? "0" : manager.getStat(player, StatType.PLACED).getValue() + "")
 					.replace("%stat_walked%", manager.getStat(player, StatType.WALKED) == null ? "0" : manager.getStat(player, StatType.WALKED).getValue() + "")
-					.replace("%date_day_of_month%", calendar.get(Calendar.DAY_OF_MONTH) + "")
-					.replace("%date_day_of_week%", calendar.get(Calendar.DAY_OF_WEEK) + "")
-					.replace("%date_day_of_year%", calendar.get(Calendar.DAY_OF_YEAR) + "")
-					.replace("%date_hour%", calendar.get(Calendar.HOUR) + "")
-					.replace("%date_hour_of_day%", calendar.get(Calendar.HOUR_OF_DAY) + "")
-					.replace("%date_millisecond%", calendar.get(Calendar.MILLISECOND) + "")
-					.replace("%date_minute%", calendar.get(Calendar.MINUTE) + "")
-					.replace("%date_month%", calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))
-					.replace("%date_second%", calendar.get(Calendar.SECOND) + "")
-					.replace("%date_week_of_month%", calendar.get(Calendar.WEEK_OF_MONTH) + "")
-					.replace("%date_week_of_year%", calendar.get(Calendar.WEEK_OF_YEAR) + "")
-					.replace("%date_year%", calendar.get(Calendar.YEAR) + "");
+                    .replace("%date_day_of_month%", localDateTime.getDayOfMonth() + "")
+                    .replace("%date_day_of_week%", localDateTime.getDayOfWeek() + "")
+                    .replace("%date_day_of_year%", localDateTime.getDayOfYear() + "")
+                    .replace("%date_hour%", localDateTime.getHour() + "")
+                    .replace("%date_minute%", localDateTime.getMinute() + "")
+                    .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()))
+                    .replace("%date_second%", localDateTime.getSecond() + "")
+                    .replace("%date_year%", localDateTime.getYear() + "");
 			
 			int length = text.length();
 			
@@ -102,7 +99,7 @@ public class MainScoreboard {
 			Team team = teams.get(i);
 			
 			StatManager manager = StatManager.getInstance();
-			Calendar calendar = Calendar.getInstance();
+			LocalDateTime localDateTime = LocalDateTime.now();
 			
 			String text = strings.get(i)
 					.replace("%stat_plays%", manager.getStat(player, StatType.PLAYS) == null ? "0" : manager.getStat(player, StatType.PLAYS).getValue() + "")
@@ -112,18 +109,14 @@ public class MainScoreboard {
 					.replace("%stat_broken%", manager.getStat(player, StatType.BROKEN) == null ? "0" : manager.getStat(player, StatType.BROKEN).getValue() + "")
 					.replace("%stat_placed%", manager.getStat(player, StatType.PLACED) == null ? "0" : manager.getStat(player, StatType.PLACED).getValue() + "")
 					.replace("%stat_walked%", manager.getStat(player, StatType.WALKED) == null ? "0" : manager.getStat(player, StatType.WALKED).getValue() + "")
-					.replace("%date_day_of_month%", calendar.get(Calendar.DAY_OF_MONTH) + "")
-					.replace("%date_day_of_week%", calendar.get(Calendar.DAY_OF_WEEK) + "")
-					.replace("%date_day_of_year%", calendar.get(Calendar.DAY_OF_YEAR) + "")
-					.replace("%date_hour%", calendar.get(Calendar.HOUR) + "")
-					.replace("%date_hour_of_day%", calendar.get(Calendar.HOUR_OF_DAY) + "")
-					.replace("%date_millisecond%", calendar.get(Calendar.MILLISECOND) + "")
-					.replace("%date_minute%", calendar.get(Calendar.MINUTE) + "")
-					.replace("%date_month%", calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))
-					.replace("%date_second%", calendar.get(Calendar.SECOND) + "")
-					.replace("%date_week_of_month%", calendar.get(Calendar.WEEK_OF_MONTH) + "")
-					.replace("%date_week_of_year%", calendar.get(Calendar.WEEK_OF_YEAR) + "")
-					.replace("%date_year%", calendar.get(Calendar.YEAR) + "");
+                    .replace("%date_day_of_month%", localDateTime.getDayOfMonth() + "")
+                    .replace("%date_day_of_week%", localDateTime.getDayOfWeek() + "")
+                    .replace("%date_day_of_year%", localDateTime.getDayOfYear() + "")
+                    .replace("%date_hour%", localDateTime.getHour() + "")
+                    .replace("%date_minute%", localDateTime.getMinute() + "")
+                    .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()))
+                    .replace("%date_second%", localDateTime.getSecond() + "")
+                    .replace("%date_year%", localDateTime.getYear() + "");
 			
 			int length = text.length();
 			

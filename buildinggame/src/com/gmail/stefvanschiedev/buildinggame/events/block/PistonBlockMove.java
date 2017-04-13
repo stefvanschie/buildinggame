@@ -13,18 +13,18 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 public class PistonBlockMove implements Listener {
 
 	@EventHandler(ignoreCancelled = true)
-	public void onBlockPistonExtend(BlockPistonExtendEvent e) {
+	public static void onBlockPistonExtend(BlockPistonExtendEvent e) {
 		if (isInside(e.getBlock().getLocation()) != null)
 			e.setCancelled(true);
 	}
 	
 	@EventHandler(ignoreCancelled = true)
-	public void onBlockPistonRetract(BlockPistonRetractEvent e) {
+	public static void onBlockPistonRetract(BlockPistonRetractEvent e) {
 		if (isInside(e.getBlock().getLocation()) != null)
 			e.setCancelled(true);
 	}
 	
-	private Plot isInside(Location location) {
+	private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getBoundary() == null) 

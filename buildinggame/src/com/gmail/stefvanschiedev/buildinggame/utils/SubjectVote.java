@@ -1,14 +1,14 @@
 package com.gmail.stefvanschiedev.buildinggame.utils;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import org.bukkit.entity.Player;
 
 public class SubjectVote {
 
-	private int votes = 0;
-	private final List<Player> players = new ArrayList<>();
+	private int votes;
+	private final Collection<Player> players = new ArrayList<>();
 	
 	public SubjectVote(int votes) {
 		this.votes = votes;
@@ -22,7 +22,7 @@ public class SubjectVote {
 		return votes;
 	}
 	
-	public List<Player> getPlayers() {
+	public Collection<Player> getPlayers() {
 		return players;
 	}
 	

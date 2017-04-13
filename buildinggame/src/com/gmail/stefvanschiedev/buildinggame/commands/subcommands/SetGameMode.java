@@ -13,6 +13,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 
+import java.util.Locale;
+
 public class SetGameMode extends ConsoleCommand {
 
 	@Override
@@ -33,7 +35,7 @@ public class SetGameMode extends ConsoleCommand {
 		
 		ArenaMode mode;
 		try {
-			mode = ArenaMode.valueOf(args[1].toUpperCase());
+			mode = ArenaMode.valueOf(args[1].toUpperCase(Locale.getDefault()));
 		} catch (IllegalArgumentException e) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "'" + args[1] + "' isn't a valid gamemode");
 			return CommandResult.ERROR;
@@ -44,7 +46,7 @@ public class SetGameMode extends ConsoleCommand {
 		
 		ArenaModeManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Succesfully changed gamemode of arena " + arena.getName() + " to " + mode.toString().toLowerCase());
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Succesfully changed gamemode of arena " + arena.getName() + " to " + mode.toString().toLowerCase(Locale.getDefault()));
 		
 		return CommandResult.SUCCES;
 	}

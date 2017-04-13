@@ -23,7 +23,7 @@ public class Add extends ConsoleCommand {
 		StringBuilder command = new StringBuilder();
 		
 		for (String argument : args)
-			command.append(argument).append(" ");
+			command.append(argument).append(' ');
 		
 		config.set("command-whitelist", config.getStringList("command-whitelist").add(command.toString().trim()));
 		SettingsManager.getInstance().save();

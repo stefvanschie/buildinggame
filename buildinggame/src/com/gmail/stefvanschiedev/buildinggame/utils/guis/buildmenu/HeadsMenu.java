@@ -39,7 +39,7 @@ class HeadsMenu extends Gui {
 	private final CharactersHeadsMenu charactersMenu;
 	private final PokemonHeadsMenu pokemonMenu;
 	
-	public HeadsMenu() {
+	HeadsMenu() {
 		super(null, 45, MessageManager.translate(MESSAGES.getString("gui.heads.title")), 1);
 		
 		foodMenu = new FoodHeadsMenu();

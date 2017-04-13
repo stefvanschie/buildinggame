@@ -16,7 +16,7 @@ public class TitleCountdown extends BukkitRunnable {
 	
 	@Override
 	public void run() {	
-		if (gamePlayer.getTitles().size() > 0) {
+		if (!gamePlayer.getTitles().isEmpty()) {
 			YamlConfiguration config = SettingsManager.getInstance().getConfig();
 			
 			gamePlayer.sendTitle(gamePlayer.getTitles().get(0));	
@@ -25,7 +25,7 @@ public class TitleCountdown extends BukkitRunnable {
 		} else
 			gamePlayer.setTitleCountdown(null);
 		
-		if (gamePlayer.getTitles().size() > 0)
+		if (!gamePlayer.getTitles().isEmpty())
 			gamePlayer.getTitles().remove(0);
 		
 	}

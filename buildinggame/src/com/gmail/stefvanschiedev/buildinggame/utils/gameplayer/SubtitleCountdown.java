@@ -16,7 +16,7 @@ public class SubtitleCountdown extends BukkitRunnable {
 	
 	@Override
 	public void run() {			
-		if (gamePlayer.getSubtitles().size() > 0) {
+		if (!gamePlayer.getSubtitles().isEmpty()) {
 			YamlConfiguration config = SettingsManager.getInstance().getConfig();
 			
 			gamePlayer.sendSubtitle(gamePlayer.getSubtitles().get(0));	
@@ -25,7 +25,7 @@ public class SubtitleCountdown extends BukkitRunnable {
 		} else
 			gamePlayer.setSubtitleCountdown(null);
 		
-		if (gamePlayer.getSubtitles().size() > 0)
+		if (!gamePlayer.getSubtitles().isEmpty())
 			gamePlayer.getSubtitles().remove(0);
 	}
 }

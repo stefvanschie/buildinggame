@@ -6,9 +6,10 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.VoteTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
-public class VoteTimerManager {
+public final class VoteTimerManager {
 
-	public void setup() {
+	@SuppressWarnings("MethodMayBeStatic")
+    public void setup() {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		

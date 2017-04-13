@@ -43,7 +43,7 @@ public class SetWinTimer extends ConsoleCommand {
 		SettingsManager.getInstance().save();
 		WinTimerManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Win timer setting for arena '" + arena.getName() + "' changed to '" + seconds + "'");
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Win timer setting for arena '" + arena.getName() + "' changed to '" + seconds + '\'');
 		return CommandResult.SUCCES;
 	}
 
