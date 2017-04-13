@@ -138,7 +138,6 @@ public class MySQLDatabase {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return 0;
         }
-
     }
 
     public Set<UUID> getAllPlayers() {
@@ -150,9 +149,10 @@ public class MySQLDatabase {
 
     	try {
     		while (set.next())
-    			uuids.add(UUID.fromString(set.getString(set.getRow())));
+    			uuids.add(UUID.fromString(set.getString(1)));
     	} catch (SQLException e) {
     		plugin.getLogger().warning("Error while retrieving data from database");
+    		e.printStackTrace();
     	}
     	
     	return uuids;

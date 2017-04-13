@@ -211,8 +211,4 @@ public class SignManager {
 	public List<Sign> getLeaveSigns() {
 		return leaveSigns;
 	}
-	
-	public List<StatSign> getStatSigns() {
-		return statSigns;
-	}
 }
