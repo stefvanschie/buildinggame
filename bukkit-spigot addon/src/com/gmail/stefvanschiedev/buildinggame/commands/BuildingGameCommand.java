@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.commands;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -13,7 +14,7 @@ import com.gmail.stefvanschiedev.buildinggame.commands.subcommand.SetMainSpawn;
 
 public class BuildingGameCommand implements CommandExecutor {
 	
-	private final List<SubCommand> subCommands = new ArrayList<>();
+	private final Collection<SubCommand> subCommands = new ArrayList<>();
 	
 	public BuildingGameCommand() {
 		subCommands.add(new SetMainSpawn());

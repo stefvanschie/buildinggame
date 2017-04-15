@@ -252,4 +252,32 @@ class HeadsMenu extends Gui {
 			}
 		}, 34);
 	}
+
+    @Override
+    public void open(Player player, int page) {
+        if (!player.hasPermission("bg.buildmenu.heads.food"))
+            clear(10);
+        if (!player.hasPermission("bg.buildmenu.heads.devices"))
+            clear(12);
+        if (!player.hasPermission("bg.buildmenu.heads.misc"))
+            clear(14);
+        if (!player.hasPermission("bg.buildmenu.heads.alphabet"))
+            clear(16);
+        if (!player.hasPermission("bg.buildmenu.heads.interior"))
+            clear(20);
+        if (!player.hasPermission("bg.buildmenu.heads.colors"))
+            clear(22);
+        if (!player.hasPermission("bg.buildmenu.heads.blocks"))
+            clear(24);
+        if (!player.hasPermission("bg.buildmenu.heads.mobs"))
+            clear(28);
+        if (!player.hasPermission("bg.buildmenu.heads.games"))
+            clear(30);
+        if (!player.hasPermission("bg.buildmenu.heads.characters"))
+            clear(32);
+        if (!player.hasPermission("bg.buildmenu.heads.pokemon"))
+            clear(34);
+
+        super.open(player, page);
+    }
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -61,7 +62,7 @@ public class SettingsManager {
 		}
 	}
 	
-	public YamlConfiguration getConfig() {
+	public ConfigurationSection getConfig() {
 		return config;
 	}
 	

@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -31,7 +32,7 @@ public class ClickJoinSign implements Listener {
 		if (!(e.getClickedBlock().getState() instanceof Sign))
 			return;
 
-		Sign sign = (Sign) e.getClickedBlock().getState();
+		BlockState sign = e.getClickedBlock().getState();
 		
 		for (String key : signs.getKeys(false)) {
 			if (!signs.getString(key + ".world").equals(sign.getWorld().getName()))

@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -21,7 +22,7 @@ public class JoinSignBreak implements Listener {
 			return;
 		}
 		
-		Sign sign = (Sign) block.getState();
+		BlockState sign = block.getState();
 		
 		for (String string : signs.getKeys(false)) {
 			if (!signs.getString(string + ".world").equals(sign.getLocation().getWorld().getName()))

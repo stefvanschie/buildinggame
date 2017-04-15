@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import fr.rhaz.socket4mc.Bungee.BungeeSocketHandshakeEvent;
@@ -15,7 +16,7 @@ import net.md_5.bungee.event.EventHandler;
 
 public class Main extends Plugin implements Listener {
 
-	private final List<SocketMessenger> socketMessengers = new ArrayList<>();
+	private final Collection<SocketMessenger> socketMessengers = new ArrayList<>();
 	
 	@Override
 	public void onEnable() {
