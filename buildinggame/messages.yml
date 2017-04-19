@@ -129,6 +129,11 @@ signs:
     line-2: "&8&0join"
     line-3: "&nMap: %arena%"
     line-4: "%players%/%max_players%"
+    random:
+      line-1: "&lBuilding Game"
+      line-2: "&8&0join"
+      line-3: ""
+      line-4: ""
   leave:
     line-1: "&lBuilding Game"
     line-2: "&8&0leave"

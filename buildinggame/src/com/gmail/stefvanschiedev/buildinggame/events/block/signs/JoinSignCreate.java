@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,11 +27,6 @@ public class JoinSignCreate implements Listener {
 		if (!e.getLine(1).equalsIgnoreCase("join"))
 			return;
 		
-		if (ArenaManager.getInstance().getArena(e.getLine(2)) == null) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid arena");
-			return;
-		}
-		
 		Arena arena = ArenaManager.getInstance().getArena(e.getLine(2));
 		
 		if (!player.hasPermission("bg.sign.create")) {
@@ -50,7 +44,7 @@ public class JoinSignCreate implements Listener {
 		
 		number++;
 		
-		signs.set(number + ".arena", arena.getName());
+		signs.set(number + ".arena", arena == null ? "" : arena.getName());
 		signs.set(number + ".type", "join");
 		signs.set(number + ".world", e.getBlock().getLocation().getWorld().getName());
 		signs.set(number + ".x", e.getBlock().getLocation().getBlockX());
@@ -59,5 +53,7 @@ public class JoinSignCreate implements Listener {
 		SettingsManager.getInstance().save();
 		
 		SignManager.getInstance().setup();
+
+		e.setCancelled(true);
 	}
 }

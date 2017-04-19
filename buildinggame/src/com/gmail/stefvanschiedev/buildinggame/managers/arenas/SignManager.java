@@ -27,17 +27,18 @@ public final class SignManager {
 	public static SignManager getInstance() {
 		return INSTANCE;
 	}
-	
+
+	private final Collection<Sign> randomJoinSigns = new ArrayList<>();
 	private final Collection<Sign> leaveSigns = new ArrayList<>();
 	private final Collection<StatSign> statSigns = new ArrayList<>();
 	
 	public void setup() {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+		for (Arena arena : ArenaManager.getInstance().getArenas())
 			arena.getSigns().clear();
-		}
 
+		randomJoinSigns.clear();
 		leaveSigns.clear();
 		statSigns.clear();
 		
@@ -61,7 +62,7 @@ public final class SignManager {
 				Arena arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
 			
 				if (arena == null) {
-					signs.set(string, null);
+					randomJoinSigns.add(sign);
 					continue;
 				}
 			
@@ -89,6 +90,7 @@ public final class SignManager {
 	private void updateSigns() {
 		updateStatSigns();
 		updateLeaveSigns();
+		updateRandomJoinSigns();
 		updateJoinSigns();
 	}
 	
@@ -131,7 +133,25 @@ public final class SignManager {
 			sign.update();
 		}
 	}
-	
+
+	private void updateRandomJoinSigns() {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        for (Sign sign : randomJoinSigns) {
+            //get design
+            String line1 = messages.getString("signs.join.random.line-1");
+            String line2 = messages.getString("signs.join.random.line-2");
+            String line3 = messages.getString("signs.join.random.line-3");
+            String line4 = messages.getString("signs.join.random.line-4");
+
+            sign.setLine(0, MessageManager.translate(line1));
+            sign.setLine(1, MessageManager.translate(line2));
+            sign.setLine(2, MessageManager.translate(line3));
+            sign.setLine(3, MessageManager.translate(line4));
+            sign.update();
+        }
+    }
+
 	private void updateLeaveSigns() {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
@@ -204,7 +224,11 @@ public final class SignManager {
 			s.update(true);
 		}
 	}
-	
+
+	public Collection<Sign> getRandomJoinSigns() {
+	    return randomJoinSigns;
+    }
+
 	public Collection<Sign> getLeaveSigns() {
 		return leaveSigns;
 	}

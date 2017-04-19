@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -36,10 +38,15 @@ public class ClickJoinSign implements Listener {
 			}
 		}
 		
-		if (arena == null) {
-			return;
+		if (arena == null && SignManager.getInstance().getRandomJoinSigns().contains(sign)) {
+            arena = getRandomArena();
+
+            if (arena == null) {
+                MessageManager.getInstance().send(player, ChatColor.RED + "Unable to join an arena right now");
+                return;
+            }
 		}
-		
+
 		if (ArenaManager.getInstance().getArena(player) != null) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
 			return;
@@ -47,4 +54,17 @@ public class ClickJoinSign implements Listener {
 		
 		arena.join(player);
 	}
+
+	private static Arena getRandomArena() {
+	    Arena arena = null;
+
+	    for (Arena a : ArenaManager.getInstance().getArenas()) {
+	        if ((a.getState() != GameState.WAITING && a.getState() != GameState.STARTING) || a.isFull() || a.getPlayers() < (arena == null ? 0 : arena.getPlayers()))
+	            continue;
+
+	        arena = a;
+        }
+
+        return arena;
+    }
 }
