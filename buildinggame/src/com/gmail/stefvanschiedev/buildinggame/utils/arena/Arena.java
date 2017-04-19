@@ -5,7 +5,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.WeatherType;
@@ -68,6 +67,9 @@ public class Arena {
 	private VoteScoreboard voteScoreboard = new VoteScoreboard(this);
 	private final WinScoreboard winScoreboard = new WinScoreboard(this);
 	private String subject;
+
+	private int matches;
+	private int maxMatches;
 	
 	private Plot first;
 	private Plot second;
@@ -273,7 +275,11 @@ public class Arena {
 	public WinTimer getWinTimer() {
 		return winTimer;
 	}
-	
+
+	public boolean isEmpty() {
+	    return getPlayers() == 0;
+	}
+
 	public boolean isFull() {
 		return getUsedPlots().size() >= getMaxPlayers();
 	}
@@ -557,7 +563,11 @@ public class Arena {
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;
 	}
-	
+
+	public void setMaxMatches(int maxMatches) {
+	    this.maxMatches = maxMatches;
+    }
+
 	public void setMaxPlayers(int maxPlayers) {
 		this.maxPlayers = maxPlayers;
 	}
@@ -701,11 +711,60 @@ public class Arena {
 		for (Plot plot : getPlots())
 			plot.save();
 
+        matches++;
+
 		SignManager.getInstance().updateJoinSigns(this);
 
 		buildTimer.runTaskTimer(Main.getInstance(), 20L, 20L);
 	}
-	
+
+	public void nextMatch() {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
+        setState(GameState.WAITING);
+        setWaitTimer(new WaitTimer(config.getInt("waittimer"), this));
+        setBuildTimer(new BuildTimer(config.getInt("timer"), this));
+        setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
+        setWinTimer(new WinTimer(config.getInt("wintimer"), this));
+        setVoteScoreboard(new VoteScoreboard(this));
+        setSubject(null);
+
+        setFirstPlot(null);
+        setSecondPlot(null);
+        setThirdPlot(null);
+
+        getVotedPlots().clear();
+
+        for (Plot plot : getUsedPlots()) {
+            plot.getTimesVoted().clear();
+            plot.getVotes().clear();
+
+            for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
+                Player player = gamePlayer.getPlayer();
+
+                player.setPlayerTime(player.getWorld().getFullTime(), true);
+                player.resetPlayerWeather();
+            }
+        }
+
+        for (Plot plot : getPlots()) {
+            plot.restore();
+
+            for (Entity entity : plot.getEntities().keySet())
+                entity.remove();
+
+            plot.getEntities().clear();
+        }
+
+        subjectMenu = new SubjectMenu();
+        SignManager.getInstance().updateJoinSigns(this);
+
+        if (matches == maxMatches)
+            stop();
+        else
+            start();
+    }
+
 	public void stop() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -720,20 +779,7 @@ public class Arena {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers())
 				gamePlayer.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
 		}
-		//reset
-		setState(GameState.WAITING);
-		setWaitTimer(new WaitTimer(config.getInt("waittimer"), this));
-		setBuildTimer(new BuildTimer(config.getInt("timer"), this));
-		setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
-		setWinTimer(new WinTimer(config.getInt("wintimer"), this));
-		setVoteScoreboard(new VoteScoreboard(this));
-		setSubject(null);
-		
-		setFirstPlot(null);
-		setSecondPlot(null);
-		setThirdPlot(null);
-		
-		getVotedPlots().clear();
+
 		//update bossbar
 		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
 				.replace("%subject%", "?")));
@@ -747,37 +793,16 @@ public class Arena {
 				
 				gamePlayer.restore();
 				player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-				player.setPlayerTime(player.getWorld().getFullTime(), true);
-				player.resetPlayerWeather();
 				
 				//show all players again
 				if (config.getBoolean("tab-list.adjust")) {
 					for (Player pl : Bukkit.getOnlinePlayers())
 						player.showPlayer(pl);
 				}
-				
-				plot.getTimesVoted().clear();
-			
-				plot.getVotes().clear();
 			}
 		}
 		
-		for (Plot plot : getPlots()) {
-			plot.restore();
-			
-			for (Chunk chunk : plot.getBoundary().getAllChunks()) {
-				for (Entity entity : chunk.getEntities()) {
-					if (plot.getBoundary().isInside(entity.getLocation())) {
-						entity.remove();
-					}
-				}
-			}
-			
+		for (Plot plot : getPlots())
 			plot.getAllGamePlayers().clear();
-		}
-		
-		subjectMenu = new SubjectMenu();
-		
-		SignManager.getInstance().updateJoinSigns(this);
 	}
 }

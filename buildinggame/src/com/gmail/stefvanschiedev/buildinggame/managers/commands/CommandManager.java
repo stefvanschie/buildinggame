@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,31 +14,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResult;
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.SubCommand;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.CreateArena;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.DeleteArena;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.DeleteSpawn;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.ForceStart;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.ForceTheme;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Join;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.LeaveCommand;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.ListCommand;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Reload;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetBounds;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetFloor;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetGameMode;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetLobby;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetLobbyTimer;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetMainSpawn;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetMaxPlayers;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetMinPlayers;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetSpawn;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetTimer;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetVoteTimer;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.SetWinTimer;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Setting;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Spectate;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.Stats;
-import com.gmail.stefvanschiedev.buildinggame.commands.subcommands.VoteCommand;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
@@ -62,6 +38,7 @@ public class CommandManager implements CommandExecutor {
 		subCommands.add(new SetLobby());
 		subCommands.add(new SetLobbyTimer());
 		subCommands.add(new SetMainSpawn());
+		subCommands.add(new SetMatches());
 		subCommands.add(new SetMaxPlayers());
 		subCommands.add(new SetMinPlayers());
 		subCommands.add(new SetSpawn());

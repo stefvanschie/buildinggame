@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.io.IOException;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,16 +47,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.SecondStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.ThirdStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved.UnsavedStatsPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.structure.TreeGrow;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaModeManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.BuildTimerManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.LobbyManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.LobbyTimerManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.MaxPlayersManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.MinPlayersManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.VoteTimerManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.WinTimerManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
@@ -139,6 +130,7 @@ public class Main extends JavaPlugin {
 		LobbyManager.getInstance().setup();
 		LobbyTimerManager.getInstance().setup();
 		MinPlayersManager.getInstance().setup();
+        MatchesManager.getInstance().setup();
 		MaxPlayersManager.getInstance().setup();
 		VoteTimerManager.getInstance().setup();
 		WinTimerManager.getInstance().setup();

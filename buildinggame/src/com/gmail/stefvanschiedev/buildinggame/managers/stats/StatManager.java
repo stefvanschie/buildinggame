@@ -76,7 +76,7 @@ public final class StatManager {
 	
 	public Stat getStat(Player player, StatType type) {
 		for (Stat stat : stats) {
-			if (stat.getPlayer().getPlayer().equals(player) && stat.getType() == type)
+			if (player.equals(stat.getPlayer().getPlayer()) && stat.getType() == type)
 				return stat;
 		}
 		return null;

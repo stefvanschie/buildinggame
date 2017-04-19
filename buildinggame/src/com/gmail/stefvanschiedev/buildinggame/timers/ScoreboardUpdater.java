@@ -23,7 +23,7 @@ public class ScoreboardUpdater extends BukkitRunnable {
 					for (GamePlayer gamePlayer : plot.getGamePlayers())
 						arena.getLobbyScoreboard().update(gamePlayer.getPlayer());
 				}
-			} else if (arena.getState() == GameState.BUILDING && config.getBoolean("scoreboard.build.enable")) {
+			} else if (arena.getState() == GameState.BUILDING && config.getBoolean("scoreboards.build.enable")) {
 				for (Plot plot : arena.getUsedPlots()) {
 					for (GamePlayer gamePlayer : plot.getGamePlayers())
 						arena.getBuildScoreboard().update(gamePlayer.getPlayer());

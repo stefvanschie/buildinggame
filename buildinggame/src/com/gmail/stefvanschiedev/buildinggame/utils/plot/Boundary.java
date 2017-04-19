@@ -1,10 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -40,18 +38,6 @@ public class Boundary {
 			}
 		}
 		return blocks;
-	}
-	
-	public Iterable<Chunk> getAllChunks() {
-		Collection<Chunk> chunks = new ArrayList<>();
-		
-		for (Block block : getAllBlocks()) {
-			if (!chunks.contains(block.getChunk())) {
-				chunks.add(block.getChunk());
-			}
-		}
-		
-		return chunks;
 	}
 	
 	private int getHighX() {

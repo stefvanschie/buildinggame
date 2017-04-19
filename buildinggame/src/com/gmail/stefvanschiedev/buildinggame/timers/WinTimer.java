@@ -25,7 +25,7 @@ public class WinTimer extends Timer {
 		if (!isActive())
 			running = true;
 		if (seconds <= 0) {
-			arena.stop();
+			arena.nextMatch();
 			running = false;
 			this.cancel();
 			return;
