@@ -697,11 +697,12 @@ public class Arena {
 				
 				//bossbar
 				getBossBar().setVisible(true);
-				
-				player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager.translate(messages.getString("gui.options-emerald"))).setLore(MessageManager.translate(messages.getStringList("gui.options-lores"))).moveable(false).setClickEvent(e -> {
-                    getPlot(player).getBuildMenu().open(player);
-                    return true;
-            	}));
+
+				if (config.getBoolean("gui.enable"))
+				    player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager.translate(messages.getString("gui.options-emerald"))).setLore(MessageManager.translate(messages.getStringList("gui.options-lores"))).moveable(false).setClickEvent(e -> {
+                        getPlot(player).getBuildMenu().open(player);
+                        return true;
+            	    }));
 			}
 		}
 		

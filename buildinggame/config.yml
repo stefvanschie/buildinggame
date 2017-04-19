@@ -202,6 +202,7 @@ team-selection:
   
 gui:
   slot: 8
+  enable: true
   particles:
     id: 'red_rose'
     enabled: true
