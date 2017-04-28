@@ -1,7 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
-import java.io.IOException;
-
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -74,7 +72,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		
+
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, true);
 		
@@ -83,14 +81,11 @@ public class Main extends JavaPlugin {
 			return;
 		}
 
+		System.out.println("§a");
+
 		//loading metrics
 		getLogger().info("Loading metrics");
-		try {
-			Metrics metrics = new Metrics(this);
-			metrics.start();
-		} catch (IOException e) {
-			getLogger().info("Couldn't enable Metrics");
-		}
+        new Metrics(this);
 		
 		if (SettingsManager.getInstance().getConfig().getBoolean("loading.load-after-plugins")) {
 			getLogger().info("Waiting until other plugins are loaded");
