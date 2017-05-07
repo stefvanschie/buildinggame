@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.BungeeCordHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.Plugin;
@@ -8,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.gmail.stefvanschiedev.buildinggame.commands.BuildingGameCommand;
 import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignCreate;
-import com.gmail.stefvanschiedev.buildinggame.events.bungeecord.ReceiveMessage;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 
@@ -28,9 +28,9 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new JoinSignBreak(), this);
 		Bukkit.getPluginManager().registerEvents(new JoinSignCreate(), this);
 		
-		Bukkit.getPluginManager().registerEvents(new ReceiveMessage(), this);
-		
 		Bukkit.getPluginManager().registerEvents(new ClickJoinSign(), this);
+
+        Bukkit.getPluginManager().registerEvents(BungeeCordHandler.getInstance(), this);
 	
 		SettingsManager.getInstance().setup(this);
 		

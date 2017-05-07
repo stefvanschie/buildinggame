@@ -1,8 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.gmail.stefvanschiedev.buildinggame.utils.BungeeCordHandler;
+import com.gmail.stefvanschiedev.buildinggame.utils.IdentifiedCallable;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,17 +9,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 
-import fr.rhaz.socket4mc.Socket4MC;
-
 public class ClickJoinSign implements Listener {
-
-	private final Map<String, String> players = new HashMap<>();
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
@@ -46,23 +38,15 @@ public class ClickJoinSign implements Listener {
 			
 			String arenaName = signs.getString(key + ".arena");
 			String playerName = e.getPlayer().getName();
-			
-			Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + playerName + ", " + SettingsManager.getInstance().getConfig().getString("main-plugin.server-name"));
-			players.put(playerName, arenaName);
+
+            BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, e.getPlayer(), SettingsManager.getInstance().getConfig().getString("main-plugin.server-name"), new IdentifiedCallable() {
+                @Override
+                public void call(String response) {
+                    BungeeCordHandler.getInstance().join(BungeeCordHandler.Receiver.MAIN, playerName, arenaName, null);
+
+                    System.out.println("Callback called");
+                }
+            });
 		}
-	}
-	
-	@EventHandler
-	public void onDisconnect(final PlayerQuitEvent e) {
-		if (!players.containsKey(e.getPlayer().getName()))
-			return;
-		
-		BukkitRunnable task = new BukkitRunnable() {
-			@Override
-			public void run() {
-				Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "join: " + e.getPlayer().getName() + ", " + players.get(e.getPlayer().getName()));
-			}
-		};
-		task.runTaskLater(Main.getInstance(), 2L);
 	}
 }

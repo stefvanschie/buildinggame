@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,7 +16,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.signs.JoinSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.LeaveSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignCreate;
-import com.gmail.stefvanschiedev.buildinggame.events.bungeecord.ReceiveMessage;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.ChickenSpawnByEgg;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityExplode;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntitySpawn;
@@ -80,8 +80,6 @@ public class Main extends JavaPlugin {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
-
-		System.out.println("§a");
 
 		//loading metrics
 		getLogger().info("Loading metrics");
@@ -167,8 +165,8 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new PistonBlockMove(), this);
 			
 			//bungeecord
-			if (pm.isPluginEnabled("SocketAPI"))
-				pm.registerEvents(new ReceiveMessage(), this);
+			if (pm.isPluginEnabled("Socket4MC"))
+				pm.registerEvents(BungeeCordHandler.getInstance(), this);
 			
 			pm.registerEvents(new ClickJoinSign(), this);
 			pm.registerEvents(new ClickLeaveSign(), this);

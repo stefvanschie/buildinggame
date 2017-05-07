@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
+import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -12,13 +14,10 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-
-import fr.rhaz.socket4mc.Socket4MC;
 
 public class GamePlayer {
 
@@ -103,22 +102,19 @@ public class GamePlayer {
 	public void connect(String server, final Location location) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		if (Bukkit.getPluginManager().isPluginEnabled("SocketAPI") && config.getBoolean("bungeecord.enable")) {
+		if (Bukkit.getPluginManager().isPluginEnabled("Socket4MC") && config.getBoolean("bungeecord.enable")) {
 			if (!player.getServer().getServerName().equals(server))
-				Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "connect: " + getPlayer().getName() + ", " + server);
-			
-			BukkitRunnable task = new BukkitRunnable() {
-				@Override
-				public void run() {
-					Socket4MC.bukkit().getSocketClient().writeJSON("BuildingGame", "teleport: " +
-							getPlayer().getName() + ", " +
-							location.getWorld().getName() + ", " +
-							location.getBlockX() + ", " +
-							location.getBlockY() + ", " +
-							location.getBlockZ());
-				}
-			};
-			task.runTaskLater(Main.getInstance(), 10L);
+                BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player, server,
+                        new IdentifiedCallable() {
+                    @Override
+                    public void call(String response) {
+                        BungeeCordHandler.getInstance().teleport(BungeeCordHandler.Receiver.SUB_SERVER,
+                                player.getName(), location.getWorld().getName(), location.getBlockX(),
+                                location.getBlockY(), location.getBlockZ(), null);
+
+                        System.out.println("Callback called");
+                    }
+                });
 		} else if (location != null)
 			getPlayer().teleport(location);
     }
