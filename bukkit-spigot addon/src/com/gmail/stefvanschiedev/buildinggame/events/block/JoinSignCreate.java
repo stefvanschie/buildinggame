@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,5 +27,7 @@ public class JoinSignCreate implements Listener {
 		signs.set(number + ".y", e.getBlock().getLocation().getBlockY());
 		signs.set(number + ".z", e.getBlock().getLocation().getBlockZ());
 		SettingsManager.getInstance().save();
+
+        JoinSign.load();
 	}
 }

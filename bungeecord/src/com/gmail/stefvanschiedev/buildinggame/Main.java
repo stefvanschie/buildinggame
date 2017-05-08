@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.util.*;
 
-import com.sun.org.apache.regexp.internal.RE;
 import fr.rhaz.socket4mc.Bungee.BungeeSocketHandshakeEvent;
 import fr.rhaz.socket4mc.Bungee.BungeeSocketJSONEvent;
 import fr.rhaz.socketapi.SocketAPI;
@@ -11,7 +10,6 @@ import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
-import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
@@ -49,8 +47,6 @@ public class Main extends Plugin implements Listener {
     public void onServerConnected(ServerConnectedEvent e) {
         ProxiedPlayer proxiedPlayer = e.getPlayer();
 
-        System.out.println("Server connected");
-
         if (!pendingConnections.containsKey(proxiedPlayer))
             return;
 
@@ -66,8 +62,6 @@ public class Main extends Plugin implements Listener {
 		//send the information through
 		if (!e.getChannel().equals("BuildingGame"))
 			return;
-
-        System.out.println("Received message");
 
         //encode data
         String[] data = e.getData().split(";");
@@ -96,8 +90,6 @@ public class Main extends Plugin implements Listener {
         ProxiedPlayer proxiedPlayer = getProxy().getPlayer(data[0]);
         ServerInfo serverInfo = getProxy().getServerInfo(data[1]);
 
-        System.out.println("Connecting player");
-
         if (proxiedPlayer != null && serverInfo != null) {
             proxiedPlayer.connect(serverInfo);
             pendingConnections.put(proxiedPlayer, new AbstractMap.SimpleEntry<>(messenger, "response:success" +
@@ -111,8 +103,6 @@ public class Main extends Plugin implements Listener {
 
     public final class Receiver {
         static final String BUNGEE = "bungee";
-        static final String SUB_SERVER = "sub-server";
-        static final String MAIN = "main";
 
         private Receiver() {}
     }

@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
@@ -18,9 +19,8 @@ public class JoinSignBreak implements Listener {
 		
 		Block block = e.getBlock();
 		
-		if (!(block.getState() instanceof Sign)) {
+		if (!(block.getState() instanceof Sign))
 			return;
-		}
 		
 		BlockState sign = block.getState();
 		
@@ -33,9 +33,11 @@ public class JoinSignBreak implements Listener {
 				continue;
 			if (signs.getInt(string + ".z") != sign.getLocation().getBlockZ())
 				continue;
-			SettingsManager.getInstance().save();
 
 			signs.set(string, null);
+            SettingsManager.getInstance().save();
+
+            JoinSign.load();
 		}
 	}
 }

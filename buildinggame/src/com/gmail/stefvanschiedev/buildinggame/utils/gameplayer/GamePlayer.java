@@ -111,8 +111,6 @@ public class GamePlayer {
                         BungeeCordHandler.getInstance().teleport(BungeeCordHandler.Receiver.SUB_SERVER,
                                 player.getName(), location.getWorld().getName(), location.getBlockX(),
                                 location.getBlockY(), location.getBlockZ(), null);
-
-                        System.out.println("Callback called");
                     }
                 });
 		} else if (location != null)

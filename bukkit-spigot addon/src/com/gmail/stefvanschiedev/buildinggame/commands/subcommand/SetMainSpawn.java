@@ -1,14 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommand;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.BungeeCordHandler;
-import fr.rhaz.socket4mc.Bungee;
+import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.commands.SubCommand;
-
-import fr.rhaz.socket4mc.Socket4MC;
 
 public class SetMainSpawn extends SubCommand {
 

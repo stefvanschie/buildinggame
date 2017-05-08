@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
 import java.util.*;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -98,38 +99,47 @@ public final class SignManager {
 		for (Arena arena : ArenaManager.getInstance().getArenas())
 			updateJoinSigns(arena);
 	}
-	
-	@SuppressWarnings("MethodMayBeStatic")
+
     public void updateJoinSigns(Arena arena) {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
+
+        //get lines
+        String line1 = MessageManager.translate(messages.getString("signs.join.line-1")
+                .replace("%arena%", arena.getName())
+                .replace("%players%", arena.getPlayers() + "")
+                .replace("%max_players%", arena.getMaxPlayers() + "")
+                .replace("%status%", messages.getString("variables.join-sign.status." + arena.getState()
+                        .toString().toLowerCase(Locale.getDefault()))));
+        String line2 = MessageManager.translate(messages.getString("signs.join.line-2")
+                .replace("%arena%", arena.getName())
+                .replace("%players%", arena.getPlayers() + "")
+                .replace("%max_players%", arena.getMaxPlayers() + "")
+                .replace("%status%", messages.getString("variables.join-sign.status." + arena.getState()
+                        .toString().toLowerCase(Locale.getDefault()))));
+        String line3 = MessageManager.translate(messages.getString("signs.join.line-3")
+                .replace("%arena%", arena.getName())
+                .replace("%players%", arena.getPlayers() + "")
+                .replace("%max_players%", arena.getMaxPlayers() + "")
+                .replace("%status%", messages.getString("variables.join-sign.status." + arena.getState()
+                        .toString().toLowerCase(Locale.getDefault()))));
+        String line4 = MessageManager.translate(messages.getString("signs.join.line-4")
+                .replace("%arena%", arena.getName())
+                .replace("%players%", arena.getPlayers() + "")
+                .replace("%max_players%", arena.getMaxPlayers() + "")
+                .replace("%status%", messages.getString("variables.join-sign.status." + arena.getState()
+                        .toString().toLowerCase(Locale.getDefault()))));
+
+        if (config.getBoolean("bungeecord.enable"))
+            BungeeCordHandler.getInstance().sign(BungeeCordHandler.Receiver.SUB_SERVER, arena, line1, line2, line3,
+                    line4, null);
+
 		for (Sign sign : arena.getSigns()) {
-			//get design
-			String line1 = messages.getString("signs.join.line-1");
-			String line2 = messages.getString("signs.join.line-2");
-			String line3 = messages.getString("signs.join.line-3");
-			String line4 = messages.getString("signs.join.line-4");
-				
-			sign.setLine(0, MessageManager.translate(line1
-					.replace("%arena%", arena.getName())
-					.replace("%players%", arena.getPlayers() + "")
-					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
-			sign.setLine(1, MessageManager.translate(line2
-					.replace("%arena%", arena.getName())
-					.replace("%players%", arena.getPlayers() + "")
-					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
-			sign.setLine(2, MessageManager.translate(line3
-					.replace("%arena%", arena.getName())
-					.replace("%players%", arena.getPlayers() + "")
-					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
-			sign.setLine(3, MessageManager.translate(line4
-					.replace("%arena%", arena.getName())
-					.replace("%players%", arena.getPlayers() + "")
-					.replace("%max_players%", arena.getMaxPlayers() + "")
-					.replace("%status%", messages.getString("variables.join-sign.status." + arena.getState().toString().toLowerCase(Locale.getDefault())))));
+			sign.setLine(0, line1);
+			sign.setLine(1, line2);
+			sign.setLine(2, line3);
+			sign.setLine(3, line4);
+
 			sign.update();
 		}
 	}

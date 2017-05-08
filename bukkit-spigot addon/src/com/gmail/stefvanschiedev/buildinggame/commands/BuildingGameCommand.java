@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.commands;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

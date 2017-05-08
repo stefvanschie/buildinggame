@@ -42,16 +42,20 @@ public class BungeeCordHandler implements Listener {
 
     public void connect(String receiver, AnimalTamer player, String server, IdentifiedCallable callable) {
         send("connect:" + player.getName() + ", " + server + ";receiver:" + receiver, callable);
-
-        System.out.println("Connecting player");
     }
 
     public void teleport(String receiver, String playerName, String world, double x, double y, double z,
                                 IdentifiedCallable callable) {
         send("teleport:" + playerName + ", " + world + ", " + x + ", " + y + ", " + z + ";receiver:" +
                 receiver, callable);
+    }
 
-        System.out.println("Teleporting player");
+    public void sign(String receiver, Arena arena, String line1, String line2, String line3, String line4,
+                     IdentifiedCallable callable) {
+        //escape the special ':' character
+        send("sign:" + arena.getName() + ", " + line1.replace(":", "\\:") + ", " + line2
+                .replace(":", "\\:") + ", " + line3.replace(":", "\\:") + ", " +
+                line4.replace(":", "\\:") + ";receiver:" + receiver, callable);
     }
 
     @EventHandler
@@ -59,13 +63,11 @@ public class BungeeCordHandler implements Listener {
         if (!e.getChannel().equals("BuildingGame"))
             return;
 
-        System.out.println("Received message");
-
         //encode data
         String[] data = e.getData().split(";");
 
         if (data[0].startsWith("response") && data.length > 1)
-            getCallable(UUID.fromString(data[2].split(":")[1])).call(data[0].split(":")[1]);
+            getCallable(UUID.fromString(data[1].split(":")[1])).call(data[0].split(":")[1]);
         else if (data[0].startsWith("write"))
             send(write(data[0].split(":")[1]) + ';' + (data.length > 2 ? data[2] : ""), null);
         else if (data[0].startsWith("save"))
@@ -98,15 +100,11 @@ public class BungeeCordHandler implements Listener {
         file.set(data[1], data[2].startsWith("(int)") ? Integer.parseInt(data[2].replace("(int)", "")
                 .trim()) : data[2]);
 
-        System.out.println("Writing to file");
-
         return "response:success";
     }
 
     private String save() {
         SettingsManager.getInstance().save();
-
-        System.out.println("Saving files");
 
         return "response:success";
     }
@@ -117,10 +115,8 @@ public class BungeeCordHandler implements Listener {
         Player player = org.bukkit.Bukkit.getPlayer(data[0].trim());
         Arena arena = ArenaManager.getInstance().getArena(data[1].trim());
 
-        if (player == null || arena == null) {
-            System.out.println("Couldn't find player/arena");
+        if (player == null || arena == null)
             return "response:failed";
-        }
 
         new BukkitRunnable() {
             @Override
@@ -128,8 +124,6 @@ public class BungeeCordHandler implements Listener {
                 arena.join(player);
             }
         }.runTask(Main.getInstance());
-
-        System.out.println("Joining arena");
 
         return "response:success";
     }

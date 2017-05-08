@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.BungeeCordHandler;
+import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
+import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.Plugin;
@@ -33,6 +34,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(BungeeCordHandler.getInstance(), this);
 	
 		SettingsManager.getInstance().setup(this);
+        JoinSign.load();
 		
 		getLogger().info("BuildingGame - BungeeCord Addon has been enabled");
 	}
