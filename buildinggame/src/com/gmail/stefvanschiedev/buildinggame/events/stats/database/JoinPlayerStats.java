@@ -15,6 +15,7 @@ import java.util.Locale;
 /**
  * Created by TomVerschueren on 17/10/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class JoinPlayerStats implements Listener {
 
     @EventHandler
