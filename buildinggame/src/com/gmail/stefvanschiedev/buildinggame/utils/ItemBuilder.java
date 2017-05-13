@@ -1,8 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,8 +20,9 @@ public class ItemBuilder extends ItemStack implements Listener {
 	
 	private ClickEvent event;
 	private boolean moveable;
+	private Player player;
 	
-	private static final Map<Player, ItemBuilder> REGISTERED_ITEMS = new HashMap<>();
+	private static final Map<Player, Set<ItemBuilder>> REGISTERED_ITEMS = new HashMap<>();
 	
 	public ItemBuilder(Player player, Material material) {
 		this(player, material, 1);
@@ -37,8 +36,12 @@ public class ItemBuilder extends ItemStack implements Listener {
 		setType(material);
 		setAmount(amount);
 		setDurability(damage);
-		
-		REGISTERED_ITEMS.put(player, this);
+
+		this.player = player;
+
+		if (!REGISTERED_ITEMS.containsKey(player))
+		    REGISTERED_ITEMS.put(player, new HashSet<>());
+		REGISTERED_ITEMS.get(player).add(this);
 		
 		Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
 	}
@@ -72,18 +75,20 @@ public class ItemBuilder extends ItemStack implements Listener {
 	}
 	
 	public static void check(Player player) {
-		ItemBuilder builder = REGISTERED_ITEMS.get(player);
+		Set<ItemBuilder> builders = REGISTERED_ITEMS.get(player);
 		
-		if (builder == null)
+		if (builders == null)
 			return;
-		
-		if (!player.getInventory().contains(builder))
-			builder.unregister();
+
+		for (ItemBuilder builder : builders) {
+            if (!player.getInventory().contains(builder))
+                builder.unregister();
+        }
 	}
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (e.getItem() == null || !this.isSimilar(e.getItem()) || event == null)
+		if (e.getItem() == null || !this.isSimilar(e.getItem()) || event == null || !e.getPlayer().equals(player))
 			return;
 		
 		if (e.getHand() == EquipmentSlot.HAND)
