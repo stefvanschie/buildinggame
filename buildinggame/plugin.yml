@@ -1,5 +1,5 @@
 main: com.gmail.stefvanschiedev.buildinggame.Main
-version: 4.0.6
+version: 4.0.7
 name: BuildingGame
 author: stefvanschie
 softdepend: [Vault, Socket4MC]

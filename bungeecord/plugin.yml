@@ -1,4 +1,4 @@
 name: BuildingGame_BungeeCord
 main: com.gmail.stefvanschiedev.buildinggame.Main
-version: 4.0.6
+version: 4.0.7
 depend: [Socket4MC]

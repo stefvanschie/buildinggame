@@ -105,22 +105,15 @@ public final class StatManager {
 		stats.add(new Stat(type, player, value));
 	}
 	
-	/**
+	/*
 	 * Because of massive amount of stat saving,
 	 * we need to do this every once in a while.
 	 */
-	public void saveToFile() {
+	public synchronized void saveToFile() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
 		
-		/* 
-		 * Create a new instance of the stat list
-		 * because of ConcurrentModificationException
-		 */
-		
-		List<Stat> statistics = this.stats;
-		
-		for (Stat stat : statistics) {
+		for (Stat stat : this.stats) {
 		    String type = stat.getType().toString().toLowerCase(Locale.getDefault());
 
 		    if (config.getBoolean("stats.enable." + type))
