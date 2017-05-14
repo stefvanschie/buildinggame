@@ -55,7 +55,7 @@ public class Plot {
 	public Plot(int ID) {
 		this.ID = ID;
 		
-		this.buildMenu = new BuildMenu();
+		this.buildMenu = new BuildMenu(this);
 		this.entities = new HashMap<>();
 	}
 	

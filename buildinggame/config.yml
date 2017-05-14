@@ -211,6 +211,7 @@ gui:
     enabled: true
     excluded-blocks:
     - red_rose
+    cooldown: 0
   time:
     id: 'watch'
     enabled: true

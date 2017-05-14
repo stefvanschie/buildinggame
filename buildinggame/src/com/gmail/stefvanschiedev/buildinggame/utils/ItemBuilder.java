@@ -20,7 +20,7 @@ public class ItemBuilder extends ItemStack implements Listener {
 	
 	private ClickEvent event;
 	private boolean moveable;
-	private Player player;
+	private final Player player;
 	
 	private static final Map<Player, Set<ItemBuilder>> REGISTERED_ITEMS = new HashMap<>();
 	

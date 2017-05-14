@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -25,14 +26,18 @@ public class BuildMenu extends Gui {
 	private static final YamlConfiguration CONFIG = SettingsManager.getInstance().getConfig();
 	
 	private final ParticlesMenu particlesMenu;
+	private final FloorMenu floorMenu;
 	private final TimeMenu timeMenu;
 	private final SpeedMenu flySpeedMenu;
 	private final HeadsMenu headsMenu;
-	
-	public BuildMenu() {
+
+	private long floorChange;
+
+    public BuildMenu(Plot plot) {
 		super(null, 36, MessageManager.translate(MESSAGES.getString("gui.options-title")), 1);
-		
+
 		particlesMenu = new ParticlesMenu();
+		floorMenu = new FloorMenu(plot);
 		timeMenu = new TimeMenu();
 		flySpeedMenu = new SpeedMenu();
 		headsMenu = new HeadsMenu();
@@ -77,17 +82,25 @@ public class BuildMenu extends Gui {
 				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
 					if (type != GuiActionType.CLICK)
 						return false;
-					
-					InventoryClickEvent event = (InventoryClickEvent) e;
-					Player player = (Player) event.getWhoClicked();
+
+                    InventoryClickEvent event = (InventoryClickEvent) e;
+                    Player player = (Player) event.getWhoClicked();
+
+                    int cooldown = (int) CONFIG.getDouble("gui.floor.cooldown") * 1000;
+
+					if (cooldown > 0 && System.currentTimeMillis() - floorChange < cooldown) {
+					    MessageManager.getInstance().send(player, ChatColor.YELLOW + "You have to wait " +
+                                (((cooldown - System.currentTimeMillis()) + floorChange) / 1000.0) +
+                                " seconds before you can change the floor again");
+                        return true;
+					}
 					
 					if (ArenaManager.getInstance().getArena(player) == null)
 						return false;
 					
-					Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
-					
 					if (event.getCursor().getType() == Material.AIR) {
-						new FloorMenu(plot).open(player);
+						floorMenu.open(player);
+						floorChange = System.currentTimeMillis();
 						return true;
 					}
 					
@@ -99,18 +112,23 @@ public class BuildMenu extends Gui {
 							return true;
 						}
 					}
-					
+
+
 					if (event.getCursor().getType() == Material.WATER_BUCKET) {
 						for (Block block : plot.getFloor().getAllBlocks())
 							block.setType(Material.WATER);
-						
+
+                        floorChange = System.currentTimeMillis();
+
 						return true;
 					}
 					
 					if (event.getCursor().getType() == Material.LAVA_BUCKET) {
 						for (Block block : plot.getFloor().getAllBlocks())
 							block.setType(Material.LAVA);
-						
+
+                        floorChange = System.currentTimeMillis();
+
 						return true;
 					}
 					
@@ -128,7 +146,9 @@ public class BuildMenu extends Gui {
 						block.setType(event.getCursor().getType());
 						block.setData(event.getCursor().getData().getData());
 					}
-					
+
+                    floorChange = System.currentTimeMillis();
+
 					return true;
 				}
 			}, 13);
