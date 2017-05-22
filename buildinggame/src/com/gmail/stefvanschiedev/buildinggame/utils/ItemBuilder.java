@@ -106,8 +106,9 @@ public class ItemBuilder extends ItemStack implements Listener {
 	
 	@FunctionalInterface
     public interface ClickEvent {
-		
-		boolean onClick(PlayerInteractEvent event);
+
+		@SuppressWarnings("MissingEventHandlerAnnotation")
+        boolean onClick(PlayerInteractEvent event);
 		
 	}
 }
