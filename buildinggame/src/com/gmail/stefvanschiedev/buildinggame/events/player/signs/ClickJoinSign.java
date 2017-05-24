@@ -20,39 +20,38 @@ public class ClickJoinSign implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
 		
-		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
 			return;
-		}
 		
-		if (!(e.getClickedBlock().getState() instanceof Sign)) {
+		if (!(e.getClickedBlock().getState() instanceof Sign))
 			return;
-		}
 		
 		Sign sign = (Sign) e.getClickedBlock().getState();
-		
+
 		Arena arena = null;
-		
+
 		for (Arena a : ArenaManager.getInstance().getArenas()) {
-			if (a.getSigns().contains(sign)) {
-				arena = a;
-			}
-		}
-		
-		if (arena == null && SignManager.getInstance().getRandomJoinSigns().contains(sign)) {
-            arena = getRandomArena();
+            if (a.getSigns().contains(sign))
+                arena = a;
+        }
 
-            if (arena == null) {
-                MessageManager.getInstance().send(player, ChatColor.RED + "Unable to join an arena right now");
-                return;
+		if (arena == null) {
+		    if (SignManager.getInstance().getRandomJoinSigns().contains(sign)) {
+                arena = getRandomArena();
+
+                if (arena == null)
+                    MessageManager.getInstance().send(player, ChatColor.RED + "Unable to join an arena right now");
+                else if (ArenaManager.getInstance().getArena(player) != null)
+                    MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
+                else
+                    arena.join(player);
             }
-		}
-
-		if (ArenaManager.getInstance().getArena(player) != null) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
-			return;
-		}
-		
-		arena.join(player);
+        } else {
+            if (ArenaManager.getInstance().getArena(player) != null)
+                MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
+            else
+                arena.join(player);
+        }
 	}
 
 	private static Arena getRandomArena() {
