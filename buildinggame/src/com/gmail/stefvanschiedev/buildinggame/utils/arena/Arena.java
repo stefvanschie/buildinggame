@@ -77,19 +77,19 @@ public class Arena {
 	
 	private SubjectMenu subjectMenu = new SubjectMenu();
 	private TeamSelection teamSelection;
-	
-	private WaitTimer waitTimer = new WaitTimer(SettingsManager.getInstance().getConfig().getInt("waittimer"), this);
-	private WinTimer winTimer = new WinTimer(SettingsManager.getInstance().getConfig().getInt("wintimer"), this);
-	private BuildTimer buildTimer = new BuildTimer(SettingsManager.getInstance().getConfig().getInt("timer"), this);
-	private VoteTimer voteTimer = new VoteTimer(SettingsManager.getInstance().getConfig().getInt("votetimer"), this);
+
+    private WaitTimer waitTimer;
+    private WinTimer winTimer;
+    private BuildTimer buildTimer;
+    private VoteTimer voteTimer;
 	
 	public Arena(String name) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		this.name = name;
-		
-		try {
+
+        try {
 			this.bossbar = Bukkit.createBossBar(MessageManager.translate(messages.getString("global.bossbar-header")
 					.replace("%subject%", "?")),
                     BarColor.valueOf(config.getString("bossbar.color").toUpperCase(Locale.getDefault())),
@@ -457,6 +457,7 @@ public class Arena {
 	}
 	
 	public void leave(Player player) {
+	    YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
@@ -526,22 +527,22 @@ public class Arena {
 		if (getPlayers() <= 1) {
 			if (getWaitTimer().isActive()) {
 				waitTimer.cancel();
-				setWaitTimer(new WaitTimer(config.getInt("waittimer"), this));
+				setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), this));
 				setState(GameState.WAITING);
 			}
 			if (getBuildTimer().isActive()) {
 				buildTimer.cancel();
-				setBuildTimer(new BuildTimer(config.getInt("buildtimer"), this));
+				setBuildTimer(new BuildTimer(arenas.getInt(name + ".timer"), this));
 				stop();
 			}
 			if (getVoteTimer().isActive()) {
 				voteTimer.cancel();
-				setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
+				setVoteTimer(new VoteTimer(arenas.getInt(name + ".vote-timer"), this));
 				stop();
 			}
 			if (getWinTimer().isActive()) {
 				winTimer.cancel();
-				setWinTimer(new WinTimer(config.getInt("wintimer"), this));
+				setWinTimer(new WinTimer(arenas.getInt(name + ".win-timer"), this));
 				stop();
 			}
 		}
@@ -720,13 +721,13 @@ public class Arena {
 	}
 
 	public void nextMatch() {
-        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
         setState(GameState.WAITING);
-        setWaitTimer(new WaitTimer(config.getInt("waittimer"), this));
-        setBuildTimer(new BuildTimer(config.getInt("timer"), this));
-        setVoteTimer(new VoteTimer(config.getInt("votetimer"), this));
-        setWinTimer(new WinTimer(config.getInt("wintimer"), this));
+        this.waitTimer = new WaitTimer(arenas.getInt(name + ".lobby-timer"), this);
+        this.buildTimer = new BuildTimer(arenas.getInt(name + ".timer"), this);
+        this.voteTimer = new VoteTimer(arenas.getInt(name + ".vote-timer"), this);
+        this.winTimer = new WinTimer(arenas.getInt(name + ".win-timer"), this);
         setVoteScoreboard(new VoteScoreboard(this));
         setSubject(null);
 
