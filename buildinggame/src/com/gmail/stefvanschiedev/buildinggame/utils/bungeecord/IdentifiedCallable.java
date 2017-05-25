@@ -9,11 +9,11 @@ public abstract class IdentifiedCallable {
 
     private final UUID uuid;
 
-    public IdentifiedCallable() {
+    protected IdentifiedCallable() {
         this.uuid = UUID.randomUUID();
     }
 
-    public UUID getUuid() {
+    UUID getUuid() {
         return uuid;
     }
 

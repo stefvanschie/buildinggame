@@ -8,6 +8,7 @@ import org.bukkit.event.HandlerList;
 import com.gmail.stefvanschiedev.buildinggame.api.Win;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import org.jetbrains.annotations.Contract;
 
 public class PlayerWinEvent extends Event {
 
@@ -40,7 +41,8 @@ public class PlayerWinEvent extends Event {
 		return HANDLERS;
 	}
 	
-	@SuppressWarnings("unused")
+	@Contract(pure = true)
+    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.jetbrains.annotations.Contract;
 
 public class Boundary {
 
@@ -40,31 +41,38 @@ public class Boundary {
 		return blocks;
 	}
 	
-	private int getHighX() {
+	@Contract(pure = true)
+    private int getHighX() {
 		return highX;
 	}
 	
-	private int getHighY() {
+	@Contract(pure = true)
+    private int getHighY() {
 		return highY;
 	}
 	
-	private int getHighZ() {
+	@Contract(pure = true)
+    private int getHighZ() {
 		return highZ;
 	}
 	
-	private int getLowX() {
+	@Contract(pure = true)
+    private int getLowX() {
 		return lowX;
 	}
 	
-	private int getLowY() {
+	@Contract(pure = true)
+    private int getLowY() {
 		return lowY;
 	}
 	
-	private int getLowZ() {
+	@Contract(pure = true)
+    private int getLowZ() {
 		return lowZ;
 	}
 	
-	private World getWorld() {
+	@Contract(pure = true)
+    private World getWorld() {
 		return world;
 	}
 	

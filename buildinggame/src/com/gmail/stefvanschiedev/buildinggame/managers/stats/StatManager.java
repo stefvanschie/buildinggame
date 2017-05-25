@@ -11,6 +11,8 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 public final class StatManager {
 	
@@ -74,7 +76,8 @@ public final class StatManager {
 		return false;
 	}
 	
-	public Stat getStat(Player player, StatType type) {
+	@Nullable
+    public Stat getStat(Player player, StatType type) {
 		for (Stat stat : stats) {
 			if (player.equals(stat.getPlayer().getPlayer()) && stat.getType() == type)
 				return stat;
@@ -136,11 +139,13 @@ public final class StatManager {
         }
 	}
 	
-	public static StatManager getInstance() {
+	@Contract(pure = true)
+    public static StatManager getInstance() {
 		return INSTANCE;
 	}
 	
-	public MySQLDatabase getMySQLDatabase() {
+	@Contract(pure = true)
+    public MySQLDatabase getMySQLDatabase() {
 		return database;
 	}
 }

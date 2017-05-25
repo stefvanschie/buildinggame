@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.VoteTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
 
 public final class VoteTimerManager {
 
@@ -23,7 +24,8 @@ public final class VoteTimerManager {
 	
 	private VoteTimerManager() {}
 	private static final VoteTimerManager INSTANCE = new VoteTimerManager();
-	public static VoteTimerManager getInstance() {
+	@Contract(pure = true)
+    public static VoteTimerManager getInstance() {
 		return INSTANCE;
 	}
 }

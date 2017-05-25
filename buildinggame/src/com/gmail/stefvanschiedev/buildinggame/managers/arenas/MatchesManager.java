@@ -4,11 +4,13 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.Contract;
 
 public class MatchesManager {
 
     private MatchesManager() {}
     private static final MatchesManager INSTANCE = new MatchesManager();
+    @Contract(pure = true)
     public static MatchesManager getInstance() {
         return INSTANCE;
     }

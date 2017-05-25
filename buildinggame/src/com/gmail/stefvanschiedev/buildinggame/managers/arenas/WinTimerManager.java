@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.WinTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
 
 public final class WinTimerManager {
 
@@ -23,7 +24,8 @@ public final class WinTimerManager {
 	
 	private WinTimerManager() {}
 	private static final WinTimerManager INSTANCE = new WinTimerManager();
-	public static WinTimerManager getInstance() {
+	@Contract(pure = true)
+    public static WinTimerManager getInstance() {
 		return INSTANCE;
 	}
 }

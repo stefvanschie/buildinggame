@@ -5,6 +5,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
 
 public class ArenaStopEvent extends Event implements Cancellable {
 
@@ -37,7 +38,8 @@ public class ArenaStopEvent extends Event implements Cancellable {
 		return HANDLERS;
 	}
 	
-	@SuppressWarnings("unused")
+	@Contract(pure = true)
+    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}

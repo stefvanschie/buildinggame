@@ -5,6 +5,7 @@ import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Contract;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ class ConnectionManager {
         this.plugin = plugin;
     }
 
-    public boolean configureConnPool() {
+    boolean configureConnPool() {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
         try {
@@ -71,6 +72,7 @@ class ConnectionManager {
         return null;
     }
 
+    @Contract(pure = true)
     private BoneCP getConnectionPool() {
         return connectionPool;
     }

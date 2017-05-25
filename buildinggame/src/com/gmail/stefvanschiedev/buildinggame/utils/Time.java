@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils;
 
+import org.jetbrains.annotations.Contract;
+
 public enum Time {
 
 	MIDNIGHT(18000),
@@ -21,7 +23,8 @@ public enum Time {
 	    this.value = value;
     }
 
-	public int decode() {
+	@Contract(pure = true)
+    public int decode() {
 		return value;
 	}
 }

@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.material.MaterialData;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import org.jetbrains.annotations.Contract;
 
 public class Particle {
 
@@ -22,7 +23,8 @@ public class Particle {
 		this.data = data;
 	}
 	
-	private ParticleType getType() {
+	@Contract(pure = true)
+    private ParticleType getType() {
 		return type;
 	}
 	

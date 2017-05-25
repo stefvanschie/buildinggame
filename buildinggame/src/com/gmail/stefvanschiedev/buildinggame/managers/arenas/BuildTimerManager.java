@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.BuildTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
 
 public final class BuildTimerManager {
 
@@ -23,7 +24,8 @@ public final class BuildTimerManager {
 	
 	private BuildTimerManager() {}
 	private static final BuildTimerManager INSTANCE = new BuildTimerManager();
-	public static BuildTimerManager getInstance() {
+	@Contract(pure = true)
+    public static BuildTimerManager getInstance() {
 		return INSTANCE;
 	}
 }

@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ public class MySQLDatabase {
      * Creates table in the database if it doesn't exist yet.
      * @param javaPlugin main instance of plugin.
      */
-    public MySQLDatabase(JavaPlugin javaPlugin){
+    MySQLDatabase(JavaPlugin javaPlugin){
         this.plugin = javaPlugin;
     }
 
@@ -69,6 +70,7 @@ public class MySQLDatabase {
      * @param query SQL command to be performed
      * @return Returns a resultset which gives you the information that is asked
      */
+    @Nullable
     private ResultSet executeQuery(String query){
         try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(query);
@@ -131,7 +133,7 @@ public class MySQLDatabase {
         }
     }
 
-    public Set<UUID> getAllPlayers() {
+    Set<UUID> getAllPlayers() {
     	Set<UUID> uuids = new HashSet<>();
 
     	try (ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats")) {

@@ -12,6 +12,7 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
+import org.jetbrains.annotations.Contract;
 
 public class Main extends JavaPlugin {
 	
@@ -46,7 +47,8 @@ public class Main extends JavaPlugin {
 		getLogger().info("BuildingGame - BungeeCord Addon has been disabled");
 	}
 	
-	public static Plugin getInstance() {
+	@Contract(pure = true)
+    public static Plugin getInstance() {
 		return instance;
 	}
 }

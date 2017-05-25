@@ -13,6 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
 public class BuildTimer extends Timer {
 
@@ -113,7 +114,8 @@ public class BuildTimer extends Timer {
 		seconds--;
 	}
 	
-	private int getOriginalSeconds() {
+	@Contract(pure = true)
+    private int getOriginalSeconds() {
 		return originalSeconds;
 	}
 	

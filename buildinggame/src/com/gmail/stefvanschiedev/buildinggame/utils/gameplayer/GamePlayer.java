@@ -18,6 +18,7 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import org.jetbrains.annotations.Nullable;
 
 public class GamePlayer {
 
@@ -133,11 +134,11 @@ public class GamePlayer {
 		return spectates;
 	}
 	
-	public SubtitleCountdown getSubtitleCountdown() {
+    SubtitleCountdown getSubtitleCountdown() {
 		return subtitleCountdown;
 	}
 	
-	public List<String> getSubtitles() {
+    List<String> getSubtitles() {
 		return subtitles;
 	}
 	
@@ -160,11 +161,11 @@ public class GamePlayer {
 		}
 	}
 	
-	public TitleCountdown getTitleCountdown() {
+	TitleCountdown getTitleCountdown() {
 		return titleCountdown;
 	}
 	
-	public List<String> getTitles() {
+	List<String> getTitles() {
 		return titles;
 	}
 	
@@ -181,7 +182,7 @@ public class GamePlayer {
 	}
 	
 	@SuppressWarnings("ConstantConditions")
-	public void sendSubtitle(String subtitle) {
+	void sendSubtitle(String subtitle) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		try {
@@ -203,7 +204,7 @@ public class GamePlayer {
 	}
 	
 	@SuppressWarnings("ConstantConditions")
-	public void sendTitle(String title) {
+	void sendTitle(String title) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		try {
@@ -246,11 +247,11 @@ public class GamePlayer {
 		this.spectates = spectates;
 	}
 	
-	public void setSubtitleCountdown(SubtitleCountdown subtitleCountdown) {
+	void setSubtitleCountdown(SubtitleCountdown subtitleCountdown) {
 		this.subtitleCountdown = subtitleCountdown;
 	}
 	
-	public void setTitleCountdown(TitleCountdown titleCountdown) {
+	void setTitleCountdown(TitleCountdown titleCountdown) {
 		this.titleCountdown = titleCountdown;
 	}
 	
@@ -264,7 +265,8 @@ public class GamePlayer {
 		}
 	}
 	
-	private static Class<?> getNMSClass(String name) {
+	@Nullable
+    private static Class<?> getNMSClass(String name) {
 		try {
 			return Class.forName("net.minecraft.server." + getVersion() + '.' + name);
 		} catch (ClassNotFoundException e) {

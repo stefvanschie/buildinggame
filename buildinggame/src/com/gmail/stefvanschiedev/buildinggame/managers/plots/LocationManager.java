@@ -9,6 +9,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
 public final class LocationManager {
 
@@ -16,7 +17,8 @@ public final class LocationManager {
 	
 	private static final LocationManager INSTANCE = new LocationManager();
 	
-	public static LocationManager getInstance() {
+	@Contract(pure = true)
+    public static LocationManager getInstance() {
 		return INSTANCE;
 	}
 	

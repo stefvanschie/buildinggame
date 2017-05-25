@@ -34,6 +34,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NmsClasses;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory.NbtCompound;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
+import org.jetbrains.annotations.Contract;
 
 public class Plot {
 
@@ -191,7 +192,8 @@ public class Plot {
 		return gamePlayers;
 	}
 	
-	private Arena getArena() {
+	@Contract(pure = true)
+    private Arena getArena() {
 		return arena;
 	}
 	

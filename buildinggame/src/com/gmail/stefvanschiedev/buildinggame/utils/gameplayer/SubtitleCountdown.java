@@ -10,7 +10,7 @@ public class SubtitleCountdown extends BukkitRunnable {
 
 	private final GamePlayer gamePlayer;
 	
-	public SubtitleCountdown(GamePlayer gamePlayer) {
+    SubtitleCountdown(GamePlayer gamePlayer) {
 		this.gamePlayer = gamePlayer;
 	}
 	

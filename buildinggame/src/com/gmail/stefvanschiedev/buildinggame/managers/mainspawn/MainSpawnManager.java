@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import org.jetbrains.annotations.Contract;
 
 public final class MainSpawnManager {
 
@@ -13,7 +14,8 @@ public final class MainSpawnManager {
 	
 	private static final MainSpawnManager INSTANCE = new MainSpawnManager();
 	
-	public static MainSpawnManager getInstance() {
+	@Contract(pure = true)
+    public static MainSpawnManager getInstance() {
 		return INSTANCE;
 	}
 	
@@ -43,11 +45,13 @@ public final class MainSpawnManager {
 		}
 	}
 
-	public Location getMainSpawn() {
+	@Contract(pure = true)
+    public Location getMainSpawn() {
 		return mainSpawn;
 	}
 
-	public String getServer() {
+	@Contract(pure = true)
+    public String getServer() {
 		return server;
 	}
 	

@@ -16,6 +16,7 @@ import org.bukkit.event.vehicle.VehicleCreateEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Nullable;
 
 public class EntitySpawn implements Listener {
 
@@ -91,7 +92,8 @@ public class EntitySpawn implements Listener {
             e.setCancelled(true);
     }
 
-	private static Plot isInside(Location location) {
+	@Nullable
+    private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getBoundary() == null) 

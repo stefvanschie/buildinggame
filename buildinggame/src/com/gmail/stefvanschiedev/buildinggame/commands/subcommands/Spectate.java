@@ -13,6 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Nullable;
 
 public class Spectate extends PlayerCommand {
 
@@ -92,7 +93,8 @@ public class Spectate extends PlayerCommand {
 		return "bg.spectate";
 	}
 	
-	private static GamePlayer getPlayer(Arena arena, String playerName) {
+	@Nullable
+    private static GamePlayer getPlayer(Arena arena, String playerName) {
 		for (Plot plot : arena.getPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				if (gamePlayer.getPlayer().getName().equals(playerName))
@@ -103,7 +105,8 @@ public class Spectate extends PlayerCommand {
 		return null;
 	}
 	
-	private static Plot isSpectating(Player player) {
+	@Nullable
+    private static Plot isSpectating(Player player) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				for (GamePlayer gamePlayer : plot.getSpectators()) {

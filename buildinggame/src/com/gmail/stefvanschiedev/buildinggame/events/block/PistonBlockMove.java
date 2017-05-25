@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockPistonRetractEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Nullable;
 
 public class PistonBlockMove implements Listener {
 
@@ -24,7 +25,8 @@ public class PistonBlockMove implements Listener {
 			e.setCancelled(true);
 	}
 	
-	private static Plot isInside(Location location) {
+	@Nullable
+    private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				if (plot.getBoundary() == null) 

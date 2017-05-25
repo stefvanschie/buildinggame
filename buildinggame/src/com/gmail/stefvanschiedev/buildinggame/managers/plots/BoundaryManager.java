@@ -9,6 +9,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Boundary;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
 public final class BoundaryManager {
 
@@ -16,7 +17,8 @@ public final class BoundaryManager {
 	
 	private static final BoundaryManager INSTANCE = new BoundaryManager();
 	
-	public static BoundaryManager getInstance() {
+	@Contract(pure = true)
+    public static BoundaryManager getInstance() {
 		return INSTANCE;
 	}
 	

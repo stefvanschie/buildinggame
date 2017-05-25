@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -59,6 +60,7 @@ public class JoinSign {
         }
     }
 
+    @Contract(pure = true)
     public static Collection<JoinSign> getSigns() {
         return SIGNS;
     }

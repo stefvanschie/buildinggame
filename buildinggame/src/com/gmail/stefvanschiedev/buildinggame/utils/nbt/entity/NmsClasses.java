@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UtilityClassCanBeEnum")
 public final class NmsClasses {
@@ -38,7 +39,8 @@ public final class NmsClasses {
 		return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	}
 	
-	private static Class<?> getClass(String name) {
+	@Nullable
+    private static Class<?> getClass(String name) {
 		try {
 			return Class.forName("net.minecraft.server." + getVersion() + '.' + name);
 		} catch (ClassNotFoundException e) {

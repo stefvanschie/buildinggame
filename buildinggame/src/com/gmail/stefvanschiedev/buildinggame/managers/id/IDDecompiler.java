@@ -10,6 +10,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 public final class IDDecompiler {
 	
@@ -17,11 +19,13 @@ public final class IDDecompiler {
 	
 	private static final IDDecompiler INSTANCE = new IDDecompiler();
 	
-	public static IDDecompiler getInstance() {
+	@Contract(pure = true)
+    public static IDDecompiler getInstance() {
 		return INSTANCE;
 	}
 	
-	@SuppressWarnings("MethodMayBeStatic")
+	@Nullable
+    @SuppressWarnings("MethodMayBeStatic")
     public ItemBuilder decompile(Player player, CharSequence block) {
 		Matcher matcher = Pattern.compile("([_a-zA-Z]+)([:][0-9]+)?").matcher(block);
 		if (matcher.matches()) {
@@ -35,7 +39,8 @@ public final class IDDecompiler {
 		return null;
 	}
 	
-	@SuppressWarnings("MethodMayBeStatic")
+	@Nullable
+    @SuppressWarnings("MethodMayBeStatic")
     public ItemStack decompile(CharSequence block) {
 		Matcher matcher = Pattern.compile("([_a-zA-Z]+)([:][0-9]+)?").matcher(block);
 		if (matcher.matches()) {

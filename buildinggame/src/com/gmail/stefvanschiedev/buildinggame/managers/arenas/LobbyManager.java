@@ -8,6 +8,7 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.Lobby;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
 
 public final class LobbyManager {
 
@@ -15,7 +16,8 @@ public final class LobbyManager {
 	
 	private static final LobbyManager INSTANCE = new LobbyManager();
 	
-	public static LobbyManager getInstance() {
+	@Contract(pure = true)
+    public static LobbyManager getInstance() {
 		return INSTANCE;
 	}
 	

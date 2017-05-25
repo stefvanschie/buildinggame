@@ -16,6 +16,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
 public class TeamSelection extends Gui {
 
@@ -74,7 +75,8 @@ public class TeamSelection extends Gui {
 		}
 	}
 	
-	private static int round(int i) {
+	@Contract(pure = true)
+    private static int round(int i) {
 		while (i % 9 != 0 || i == 0)
 			i++;
 		return i;

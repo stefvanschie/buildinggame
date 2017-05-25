@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
 
 public final class MinPlayersManager {
 
@@ -12,7 +13,8 @@ public final class MinPlayersManager {
 	
 	private static final MinPlayersManager INSTANCE = new MinPlayersManager();
 	
-	public static MinPlayersManager getInstance() {
+	@Contract(pure = true)
+    public static MinPlayersManager getInstance() {
 		return INSTANCE;
 	}
 	

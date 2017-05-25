@@ -7,6 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public final class MessageManager {
 
@@ -14,7 +16,8 @@ public final class MessageManager {
 	
 	private static final MessageManager INSTANCE = new MessageManager();
 	
-	public static MessageManager getInstance() {
+	@Contract(pure = true)
+    public static MessageManager getInstance() {
 		return INSTANCE;
 	}
 	
@@ -46,7 +49,8 @@ public final class MessageManager {
 		sender.sendMessage(translate(message));
 	}
 	
-	public static String translate(String s) {
+	@NotNull
+    public static String translate(String s) {
 		return ChatColor.translateAlternateColorCodes('&', s
                 .replace("%:a%", "ä")
 		        .replace("%:e%", "ë")

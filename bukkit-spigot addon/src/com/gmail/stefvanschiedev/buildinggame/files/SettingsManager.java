@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.jetbrains.annotations.Contract;
 
 public class SettingsManager {
 
@@ -85,7 +86,8 @@ public class SettingsManager {
 		}
 	}
 	
-	public static SettingsManager getInstance() {
+	@Contract(pure = true)
+    public static SettingsManager getInstance() {
 		return INSTANCE;
 	}
 }

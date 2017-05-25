@@ -18,6 +18,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import org.jetbrains.annotations.Contract;
 
 public final class SignManager {
 
@@ -25,7 +26,8 @@ public final class SignManager {
 	
 	private static final SignManager INSTANCE = new SignManager();
 	
-	public static SignManager getInstance() {
+	@Contract(pure = true)
+    public static SignManager getInstance() {
 		return INSTANCE;
 	}
 
@@ -235,11 +237,13 @@ public final class SignManager {
 		}
 	}
 
-	public Collection<Sign> getRandomJoinSigns() {
+	@Contract(pure = true)
+    public Collection<Sign> getRandomJoinSigns() {
 	    return randomJoinSigns;
     }
 
-	public Collection<Sign> getLeaveSigns() {
+	@Contract(pure = true)
+    public Collection<Sign> getLeaveSigns() {
 		return leaveSigns;
 	}
 }

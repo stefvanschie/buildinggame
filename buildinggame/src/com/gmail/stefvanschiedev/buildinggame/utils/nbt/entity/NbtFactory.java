@@ -17,6 +17,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.MapMaker;
 import com.google.common.primitives.Primitives;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public final class NbtFactory {
     // Convert between NBT id and the equivalent class in java
@@ -47,6 +49,8 @@ public final class NbtFactory {
             NBT_ENUM.put(id, this);
         }
         
+        @NotNull
+        @Contract(pure = true)
         private String getFieldName() {
             if (this == TAG_COMPOUND) 
                 return "map";
@@ -153,6 +157,7 @@ public final class NbtFactory {
      * Construct a new NBT compound.
      * @return The NBT compound.
      */
+    @NotNull
     public static NbtCompound createCompound() {
         return get().new NbtCompound(
             INSTANCE.createNbtTag(NbtType.TAG_COMPOUND, null)
@@ -164,6 +169,7 @@ public final class NbtFactory {
      * @param value - the value of the element to create. Can be a List or a Map.
      * @return The NBT element.
      */
+    @Contract("null -> null")
     private Object unwrapValue(Object value) {
         if (value == null)
             return null;
@@ -188,6 +194,7 @@ public final class NbtFactory {
      * @param nms - the NBT element.
      * @return The wrapper equivalent.
      */
+    @Contract("null -> null")
     private Object wrapNative(Object nms) {
         if (nms == null)
             return null;
@@ -443,6 +450,7 @@ public final class NbtFactory {
             };
         }
         
+        @NotNull
         private Iterator<Entry<String, Object>> iterator() {
             final Iterator<Entry<String, Object>> proxy = original.entrySet().iterator();
             

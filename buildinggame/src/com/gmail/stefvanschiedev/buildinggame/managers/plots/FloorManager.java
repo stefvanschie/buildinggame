@@ -9,6 +9,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Floor;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
 public final class FloorManager {
 
@@ -16,7 +17,8 @@ public final class FloorManager {
 	
 	private static final FloorManager INSTANCE = new FloorManager();
 	
-	public static FloorManager getInstance() {
+	@Contract(pure = true)
+    public static FloorManager getInstance() {
 		return INSTANCE;
 	}
 	

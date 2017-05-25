@@ -10,6 +10,8 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 public final class ArenaManager {
 
@@ -17,7 +19,8 @@ public final class ArenaManager {
 	
 	private static final ArenaManager INSTANCE = new ArenaManager();
 	
-	public static ArenaManager getInstance() {
+	@Contract(pure = true)
+    public static ArenaManager getInstance() {
 		return INSTANCE;
 	}
 	
@@ -36,11 +39,13 @@ public final class ArenaManager {
 		}
 	}
 	
-	public List<Arena> getArenas() {
+	@Contract(pure = true)
+    public List<Arena> getArenas() {
 		return arenas;
 	}
 	
-	public Arena getArena(String name) {
+	@Nullable
+    public Arena getArena(String name) {
 		for (Arena arena : arenas) {
 			if (arena.getName().equals(name))
 				return arena;
@@ -48,7 +53,8 @@ public final class ArenaManager {
 		return null;
 	}
 	
-	public Arena getArena(Player player) {
+	@Nullable
+    public Arena getArena(Player player) {
 		for (Arena arena : arenas) {
 			for (Plot plot : arena.getUsedPlots()) {
 				if (plot.getGamePlayer(player) != null) {

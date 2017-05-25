@@ -61,6 +61,7 @@ import com.gmail.stefvanschiedev.buildinggame.timers.ScoreboardUpdater;
 import com.gmail.stefvanschiedev.buildinggame.timers.StatSaveTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.metrics.Metrics;
+import org.jetbrains.annotations.Contract;
 
 public class Main extends JavaPlugin {
 
@@ -238,6 +239,8 @@ public class Main extends JavaPlugin {
 		getLogger().info("BuildingGame has been enabled in " + (end - start) + " milliseconds!");
 		
 	}
+
+    @Contract(pure = true)
     public static Main getInstance() {
 		return instance;
 	}

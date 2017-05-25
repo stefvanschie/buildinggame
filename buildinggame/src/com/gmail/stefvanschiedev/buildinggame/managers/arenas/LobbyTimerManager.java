@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.WaitTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
 
 public final class LobbyTimerManager {
 
@@ -23,7 +24,8 @@ public final class LobbyTimerManager {
 	
 	private LobbyTimerManager() {}
 	private static final LobbyTimerManager INSTANCE = new LobbyTimerManager();
-	public static LobbyTimerManager getInstance() {
+	@Contract(pure = true)
+    public static LobbyTimerManager getInstance() {
 		return INSTANCE;
 	}
 }

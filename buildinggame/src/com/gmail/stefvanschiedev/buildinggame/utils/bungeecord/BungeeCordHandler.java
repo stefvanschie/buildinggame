@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -76,6 +78,7 @@ public class BungeeCordHandler implements Listener {
             send(join(data[0].split(":")[1]) + ';' + (data.length > 2 ? data[2] : ""), null);
     }
 
+    @NotNull
     private String write(String input) {
         String[] data = input.split(", ");
         YamlConfiguration file;
@@ -103,12 +106,14 @@ public class BungeeCordHandler implements Listener {
         return "response:success";
     }
 
+    @NotNull
     private String save() {
         SettingsManager.getInstance().save();
 
         return "response:success";
     }
 
+    @NotNull
     private String join(String input) {
         String[] data = input.split(", ");
 
@@ -128,6 +133,7 @@ public class BungeeCordHandler implements Listener {
         return "response:success";
     }
 
+    @Nullable
     private IdentifiedCallable getCallable(UUID uuid) {
         for (IdentifiedCallable callable : callables) {
             if (callable.getUuid().equals(uuid))

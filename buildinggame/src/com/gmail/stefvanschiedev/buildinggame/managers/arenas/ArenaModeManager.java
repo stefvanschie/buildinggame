@@ -6,6 +6,7 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
+import org.jetbrains.annotations.Contract;
 
 public final class ArenaModeManager {
 
@@ -13,7 +14,8 @@ public final class ArenaModeManager {
 	
 	private static final ArenaModeManager INSTANCE = new ArenaModeManager();
 	
-	public static ArenaModeManager getInstance() {
+	@Contract(pure = true)
+    public static ArenaModeManager getInstance() {
 		return INSTANCE;
 	}
 	

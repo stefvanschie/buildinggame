@@ -16,6 +16,7 @@ import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResul
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.SubCommand;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import org.jetbrains.annotations.Nullable;
 
 public class CommandManager implements CommandExecutor {
 
@@ -89,7 +90,8 @@ public class CommandManager implements CommandExecutor {
 		return false;
 	}
 
-	private SubCommand getSubCommand(String name) {
+	@Nullable
+    private SubCommand getSubCommand(String name) {
 		for (SubCommand subCommand : subCommands) {
 			if (subCommand.getName().equalsIgnoreCase(name)) {
 				return subCommand;

@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.jetbrains.annotations.Contract;
 
 public final class SettingsManager {
 
@@ -17,7 +18,8 @@ public final class SettingsManager {
 	
 	private static final SettingsManager INSTANCE = new SettingsManager();
 	
-	public static SettingsManager getInstance() {
+	@Contract(pure = true)
+    public static SettingsManager getInstance() {
 		return INSTANCE;
 	}
 	
@@ -99,23 +101,28 @@ public final class SettingsManager {
 		generateMessages(save);
 	}
 	
-	public YamlConfiguration getArenas() {
+	@Contract(pure = true)
+    public YamlConfiguration getArenas() {
 		return arenas;
 	}
 	
-	public YamlConfiguration getConfig() {
+	@Contract(pure = true)
+    public YamlConfiguration getConfig() {
 		return config;
 	}
 	
-	public YamlConfiguration getMessages() {
+	@Contract(pure = true)
+    public YamlConfiguration getMessages() {
 		return messages;
 	}
 	
-	public YamlConfiguration getSigns() {
+	@Contract(pure = true)
+    public YamlConfiguration getSigns() {
 		return signs;
 	}
 	
-	public YamlConfiguration getStats() {
+	@Contract(pure = true)
+    public YamlConfiguration getStats() {
 		return stats;
 	}
 	

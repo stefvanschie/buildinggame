@@ -6,6 +6,7 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
 public final class MaxPlayersManager {
 
@@ -13,7 +14,8 @@ public final class MaxPlayersManager {
 	
 	private static final MaxPlayersManager INSTANCE = new MaxPlayersManager();
 	
-	public static MaxPlayersManager getInstance() {
+	@Contract(pure = true)
+    public static MaxPlayersManager getInstance() {
 		return INSTANCE;
 	}
 	

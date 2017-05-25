@@ -48,6 +48,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.BuildScoreboard;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.LobbyScoreboard;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.VoteScoreboard;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.WinScoreboard;
+import org.jetbrains.annotations.Contract;
 
 public class Arena {
 
@@ -139,7 +140,8 @@ public class Arena {
 		return buildScoreboard;
 	}
 	
-	private BuildTimer getBuildTimer() {
+	@Contract(pure = true)
+    private BuildTimer getBuildTimer() {
 		return buildTimer;
 	}
 	
@@ -147,7 +149,8 @@ public class Arena {
 		return first;
 	}
 	
-	private Lobby getLobby() {
+	@Contract(pure = true)
+    private Lobby getLobby() {
 		return lobby;
 	}
 	
@@ -159,7 +162,8 @@ public class Arena {
 		return maxPlayers;
 	}
 	
-	private int getMinPlayers() {
+	@Contract(pure = true)
+    private int getMinPlayers() {
 		return minPlayers;
 	}
 	

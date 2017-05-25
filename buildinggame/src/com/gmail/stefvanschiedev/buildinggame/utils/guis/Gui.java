@@ -15,6 +15,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.jetbrains.annotations.Contract;
 
 public class Gui implements Listener {
 	
@@ -69,7 +70,8 @@ public class Gui implements Listener {
 		items[position] = null;
 	}
 	
-	private int getFirstEmptySlot(int startingPoint) {
+	@Contract(pure = true)
+    private int getFirstEmptySlot(int startingPoint) {
 		int firstNotNull = -1;
         int length = items.length;
 
@@ -177,20 +179,20 @@ public class Gui implements Listener {
 		private final ItemStack itemStack;
 		private final GuiAction guiAction;
 		
-		public GuiItem(ItemStack itemStack) {
+		GuiItem(ItemStack itemStack) {
 			this(itemStack, new GuiAction());
 		}
 		
-		public GuiItem(ItemStack itemStack, GuiAction guiAction) {
+		GuiItem(ItemStack itemStack, GuiAction guiAction) {
 			this.itemStack = itemStack;
 			this.guiAction = guiAction;
 		}
 		
-		public ItemStack getItemStack() {
+		ItemStack getItemStack() {
 			return itemStack;
 		}
 		
-		public GuiAction getGuiAction() {
+		GuiAction getGuiAction() {
 			return guiAction;
 		}
 	}

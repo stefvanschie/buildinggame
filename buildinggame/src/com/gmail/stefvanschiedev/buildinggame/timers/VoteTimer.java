@@ -23,6 +23,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Nullable;
 
 public class VoteTimer extends Timer {
 
@@ -301,7 +302,8 @@ public class VoteTimer extends Timer {
 		}
 	}
 	
-	private Plot getNextPlot() {
+	@Nullable
+    private Plot getNextPlot() {
 		for (Plot plot : arena.getPlots()) {
 			if (!arena.getVotedPlots().contains(plot)) {
 				if (!plot.getGamePlayers().isEmpty()) {

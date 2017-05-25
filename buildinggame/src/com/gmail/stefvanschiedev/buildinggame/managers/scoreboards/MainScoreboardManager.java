@@ -6,13 +6,15 @@ import java.util.Collection;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.MainScoreboard;
+import org.jetbrains.annotations.Contract;
 
 public final class MainScoreboardManager {
 
 	private final Collection<Player> players = new ArrayList<>();
 	private final MainScoreboard scoreboard = new MainScoreboard();
 	
-	public MainScoreboard getScoreboard() {
+	@Contract(pure = true)
+    public MainScoreboard getScoreboard() {
 		return scoreboard;
 	}
 	
@@ -34,7 +36,8 @@ public final class MainScoreboardManager {
 	
 	private static final MainScoreboardManager INSTANCE = new MainScoreboardManager();
 	
-	public static MainScoreboardManager getInstance() {
+	@Contract(pure = true)
+    public static MainScoreboardManager getInstance() {
 		return INSTANCE;
 	}
 }

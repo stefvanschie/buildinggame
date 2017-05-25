@@ -5,6 +5,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.jetbrains.annotations.Contract;
 
 public final class SDVault {
 
@@ -14,7 +15,8 @@ public final class SDVault {
 	private static Economy econ;
 	private boolean enabled;
 	
-	public static SDVault getInstance() {
+	@Contract(pure = true)
+    public static SDVault getInstance() {
 		return INSTANCE;
 	}
 	
@@ -36,11 +38,13 @@ public final class SDVault {
 		return econ != null;
 	}
     
-	public static Economy getEconomy() {
+	@Contract(pure = true)
+    public static Economy getEconomy() {
 		return econ;
 	}
 	
-	public boolean isEnabled() {
+	@Contract(pure = true)
+    public boolean isEnabled() {
 		return enabled;
 	}
 }

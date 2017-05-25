@@ -5,6 +5,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
 public final class PlotManager {
 
@@ -12,7 +13,8 @@ public final class PlotManager {
 	
 	private static final PlotManager INSTANCE = new PlotManager();
 	
-	public static PlotManager getInstance() {
+	@Contract(pure = true)
+    public static PlotManager getInstance() {
 		return INSTANCE;
 	}
 	
