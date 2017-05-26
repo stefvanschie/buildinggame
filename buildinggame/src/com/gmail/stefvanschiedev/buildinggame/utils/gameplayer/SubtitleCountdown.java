@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 
-public class SubtitleCountdown extends BukkitRunnable {
+class SubtitleCountdown extends BukkitRunnable {
 
 	private final GamePlayer gamePlayer;
 	

@@ -118,7 +118,12 @@ public class Arena {
 		}
 		return false;
 	}
-	
+
+	public void forceStop() {
+	    this.matches = maxMatches;
+	    nextMatch();
+    }
+
 	public Timer getActiveTimer() {
 		if (waitTimer.isActive()) {
 			return waitTimer;
@@ -537,17 +542,17 @@ public class Arena {
 			if (getBuildTimer().isActive()) {
 				buildTimer.cancel();
 				setBuildTimer(new BuildTimer(arenas.getInt(name + ".timer"), this));
-				stop();
+				forceStop();
 			}
 			if (getVoteTimer().isActive()) {
 				voteTimer.cancel();
 				setVoteTimer(new VoteTimer(arenas.getInt(name + ".vote-timer"), this));
-				stop();
+				forceStop();
 			}
 			if (getWinTimer().isActive()) {
 				winTimer.cancel();
 				setWinTimer(new WinTimer(arenas.getInt(name + ".win-timer"), this));
-				stop();
+				forceStop();
 			}
 		}
 		

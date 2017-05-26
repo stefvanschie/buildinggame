@@ -23,10 +23,10 @@ public class PlaceBucket implements Listener {
 				clicked.add(0, 1, 0);
 				break;
 			case DOWN:
-				clicked.add(0, -1, 0);
+				clicked.subtract(0, 1, 0);
 				break;
 			case NORTH:
-				clicked.add(0, 0, -1);
+				clicked.subtract(0, 0, 1);
 				break;
 			case EAST:
 				clicked.add(1, 0, 0);
@@ -35,7 +35,7 @@ public class PlaceBucket implements Listener {
 				clicked.add(0, 0, 1);
 				break;
 			case WEST:
-				clicked.add(-1, 0, 0);
+				clicked.subtract(1, 0, 0);
 				break;
 			default:
 				break;
