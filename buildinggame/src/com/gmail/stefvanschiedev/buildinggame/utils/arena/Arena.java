@@ -815,5 +815,7 @@ public class Arena {
 		
 		for (Plot plot : getPlots())
 			plot.getAllGamePlayers().clear();
+
+		SignManager.getInstance().updateJoinSigns(this);
 	}
 }
