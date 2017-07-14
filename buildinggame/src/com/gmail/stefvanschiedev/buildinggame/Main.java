@@ -103,7 +103,7 @@ public class Main extends JavaPlugin {
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, true);
 		
-		if (!Bukkit.getBukkitVersion().split("\\.")[1].substring(0, 2).equals("11")) {
+		if (!Bukkit.getBukkitVersion().split("\\.")[1].substring(0, 2).equals("12")) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}

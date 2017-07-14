@@ -33,7 +33,7 @@ public final class StatManager {
 	/**
      * All statistics from all players
      */
-	private final List<Stat> stats = new ArrayList<>();
+	private final List<Stat> stats = Collections.synchronizedList(new ArrayList<>());
 
 	/**
      * Constructs a new StatManager. This shouldn't be called to keep this class a singleton.

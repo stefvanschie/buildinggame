@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.files;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -131,11 +132,10 @@ public final class SettingsManager {
      *
      * @since 2.1.0
      */
-	@SuppressWarnings("deprecation")
 	private void loadConfig() {
 		InputStream defConfigStream = Main.getInstance().getResource("config.yml");
 		if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
 			
 			for (String key : defConfig.getKeys(true)) {
 				if (!config.contains(key))

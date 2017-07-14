@@ -522,7 +522,7 @@ public class Arena {
      * @return the subject
      * @since 2.1.0
      */
-	@NotNull
+	@Nullable
     @Contract(pure = true)
 	public CharSequence getSubject() {
 		return subject;

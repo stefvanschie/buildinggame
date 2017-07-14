@@ -148,9 +148,9 @@ join:
     time: 6000
 
 win-commands:
-- 'execute %winner% ~1 ~ ~-4 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[14263784,581228,995542,3255052,13888116,4175055],FadeColors:[8848460]}]}}}}'
-- 'execute %winner% ~-2 ~ ~3 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:2,Colors:[14495340,12909992,8969028,7924605],FadeColors:[10438567,12267580,2724499,9942861]}]}}}}'
-- 'execute %winner% ~-4 ~ ~1 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[2540754],FadeColors:[14655338,2417053,631931,4555299,15572482,3482736,693669]}]}}}}'
+- 'execute %winner% ~1 ~ ~-4 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[I;14263784,581228,995542,3255052,13888116,4175055],FadeColors:[I;8848460]}]}}}}'
+- 'execute %winner% ~-2 ~ ~3 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:2,Colors:[I;14495340,12909992,8969028,7924605],FadeColors:[I;10438567,12267580,2724499,9942861]}]}}}}'
+- 'execute %winner% ~-4 ~ ~1 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[I;2540754],FadeColors:[I;14655338,2417053,631931,4555299,15572482,3482736,693669]}]}}}}'
 
 hotbar:
   default:
