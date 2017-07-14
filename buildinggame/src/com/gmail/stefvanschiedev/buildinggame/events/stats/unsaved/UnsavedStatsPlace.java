@@ -9,9 +9,21 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * Handles unsaved block placed
+ *
+ * @since 2.2.0
+ */
 public class UnsavedStatsPlace implements Listener {
 
-	@EventHandler(ignoreCancelled=true)
+    /**
+     * Handles unsaved block placed
+     *
+     * @param e an event representing a block being placed
+     * @see BlockPlaceEvent
+     * @since 2.2.0
+     */
+	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPlace(BlockPlaceEvent e) {
 		Player player = e.getPlayer();
 		

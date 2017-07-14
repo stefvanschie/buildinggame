@@ -12,8 +12,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * Handles players creating join signs
+ *
+ * @since 3.1.0
+ */
 public class JoinSignCreate implements Listener {
 
+    /**
+     * Handles players creating join signs
+     *
+     * @param e an event indicating that a sign's text has changed
+     * @see SignChangeEvent
+     * @since 3.1.0
+     */
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();

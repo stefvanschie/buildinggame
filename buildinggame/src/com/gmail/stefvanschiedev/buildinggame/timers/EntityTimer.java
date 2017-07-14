@@ -8,8 +8,18 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * This class handles entity movement (as there is no EntityMoveEvent)
+ *
+ * @since 4.0.0
+ */
 public class EntityTimer extends BukkitRunnable {
-	
+
+    /**
+     * Checks to see if the entities are still in the correct plot and teleports them back if that's not the case
+     *
+     * @since 4.0.0
+     */
 	@Override
 	public void run() {
 		new BukkitRunnable() {

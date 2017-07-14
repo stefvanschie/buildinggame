@@ -8,8 +8,20 @@ import org.bukkit.event.player.PlayerEggThrowEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * Handles chickens spawning by eggs
+ *
+ * @since 3.1.2
+ */
 public class ChickenSpawnByEgg implements Listener {
 
+    /**
+     * Handles players breaking join signs
+     *
+     * @param e an event indicating that an egg is thrown
+     * @see PlayerEggThrowEvent
+     * @since 3.1.2
+     */
 	@EventHandler
 	public void onPlayerEggThrowEvent(PlayerEggThrowEvent e) {
 		Player player = e.getPlayer();

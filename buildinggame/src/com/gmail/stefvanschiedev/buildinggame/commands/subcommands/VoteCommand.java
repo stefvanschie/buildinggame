@@ -13,10 +13,29 @@ import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * Represents a command to vote on a plot
+ *
+ * @since 2.1.0
+ */
 public class VoteCommand extends PlayerCommand {
 
-	@Override
+    /**
+     * The method which is called once the correct command is entered
+     *
+     * @param player the player who entered the command
+     * @param args the arguments provided
+     * @return the commandresult this execution yielded
+     * @see CommandResult
+     * @since 2.1.0
+     */
+	@NotNull
+    @Override
 	public CommandResult onCommand(Player player, String[] args) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
@@ -62,24 +81,56 @@ public class VoteCommand extends PlayerCommand {
 		return null;
 	}
 
-	@Override
+    /**
+     * Returns the name of this subcommand
+     *
+     * @return the name of this subcommand
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getName() {
 		return "vote";
 	}
 
+    /**
+     * Returns the aliases for this sbucommand
+     *
+     * @return an array of aliases for this subcommand
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	@Override
 	public String[] getAliases() {
 		return null;
 	}
 
-	@Override
+    /**
+     * Returns an informational message about this subcommand
+     *
+     * @return an informational message
+     * @since 2.1.0
+     */
+    @Nls
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getInfo() {
 		return "Vote on someone's plot";
 	}
 
-	@Override
+    /**
+     * Returns the permission node required for this subcommand
+     *
+     * @return the permission node for this subcommand
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getPermission() {
 		return "bg.vote";
 	}
-
 }

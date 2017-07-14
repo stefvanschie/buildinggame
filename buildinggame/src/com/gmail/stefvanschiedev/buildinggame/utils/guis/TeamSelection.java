@@ -18,10 +18,23 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 
+/**
+ * A menu for selecting a team
+ *
+ * @since 2.1.0
+ */
 public class TeamSelection extends Gui {
 
+    /**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * Constructs a new TeamSelection
+     *
+     * @param arena the arena this team selection menu is for
+     */
 	public TeamSelection(final Arena arena) {
 		super(null, round(arena.getPlots().size()), MessageManager.translate(MESSAGES.getString("team-gui.title")), 1);
 
@@ -74,7 +87,14 @@ public class TeamSelection extends Gui {
 			iteration++;
 		}
 	}
-	
+
+	/**
+     * Rounds a value up to the next multiple of nine (excluding zero)
+     *
+     * @param i the value to be rounded
+     * @return the rounded number
+     * @since 2.1.0
+     */
 	@Contract(pure = true)
     private static int round(int i) {
 		while (i % 9 != 0 || i == 0)

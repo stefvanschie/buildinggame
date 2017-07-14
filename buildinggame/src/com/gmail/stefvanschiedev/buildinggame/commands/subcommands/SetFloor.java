@@ -18,10 +18,29 @@ import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder;
 import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder.ClickEvent;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * Represents a command to set the floor of a plot
+ *
+ * @since 2.1.0
+ */
 public class SetFloor extends PlayerCommand {
-	
-	@Override
+
+    /**
+     * The method which is called once the correct command is entered
+     *
+     * @param player the player who entered the command
+     * @param args the arguments provided
+     * @return the commandresult this execution yielded
+     * @see CommandResult
+     * @since 2.1.0
+     */
+	@NotNull
+    @Override
 	public CommandResult onCommand(Player player, String[] args) {
 		if (args.length < 2) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arena and plot");
@@ -128,24 +147,56 @@ public class SetFloor extends PlayerCommand {
 		return CommandResult.SUCCES;
 	}
 
-	@Override
+    /**
+     * Returns the name of this subcommand
+     *
+     * @return the name of this subcommand
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getName() {
 		return "setfloor";
 	}
 
+    /**
+     * Returns the aliases for this sbucommand
+     *
+     * @return an array of aliases for this subcommand
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	@Override
 	public String[] getAliases() {
 		return null;
 	}
 
-	@Override
+    /**
+     * Returns an informational message about this subcommand
+     *
+     * @return an informational message
+     * @since 2.1.0
+     */
+    @Nls
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getInfo() {
 		return "Set the floor of the plot";
 	}
 
-	@Override
+    /**
+     * Returns the permission node required for this subcommand
+     *
+     * @return the permission node for this subcommand
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getPermission() {
 		return "bg.setfloor";
 	}
-
 }

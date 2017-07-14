@@ -13,11 +13,21 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.Locale;
 
 /**
- * Created by TomVerschueren on 17/10/2016.
+ * Handles MySQL statistic loading for new players
+ *
+ * @author TomVerschueren
+ * @since 4.0.0
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class JoinPlayerStats implements Listener {
 
+    /**
+     * Handles MySQL statistic loading for new players
+     *
+     * @author TomVerschueren
+     * @param event an event representing a player joining
+     * @see PlayerJoinEvent
+     * @since 4.0.0
+     */
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         final Player player = event.getPlayer();

@@ -10,8 +10,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+/**
+ * Handles statistics for players becoming third
+ *
+ * @since 2.2.0
+ */
 public class ThirdStat implements Listener {
 
+    /**
+     * Handles statistics for players becoming third
+     *
+     * @param e an event representing a player winning
+     * @see PlayerWinEvent
+     * @since 2.2.0
+     */
 	@EventHandler
 	public static void onPlayerWin(PlayerWinEvent e) {
 		if (e.getWin() != Win.THIRD)

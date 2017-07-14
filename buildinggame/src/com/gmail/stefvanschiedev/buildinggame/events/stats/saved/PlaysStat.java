@@ -10,8 +10,20 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+/**
+ * Handles statistics for games played
+ *
+ * @since 2.2.0
+ */
 public class PlaysStat implements Listener {
 
+    /**
+     * Handles statistics for games played
+     *
+     * @param e an event that represents an arena starting
+     * @see ArenaStartEvent
+     * @since 2.2.0
+     */
 	@EventHandler
 	public static void onArenaStart(ArenaStartEvent e) {
 		for (Plot plot : e.getArena().getUsedPlots()) {

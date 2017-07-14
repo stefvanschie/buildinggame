@@ -11,14 +11,35 @@ import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.commands.subcommand.SetMainSpawn;
 
+/**
+ * The main Building Game command
+ *
+ * @since 2.1.0
+ */
 public class BuildingGameCommand implements CommandExecutor {
-	
+
+    /**
+     * A collection of all sub commands
+     */
 	private final Collection<SubCommand> subCommands = new ArrayList<>();
-	
+
+    /**
+     * Constructs a new BuildingGameCommand which initializes all sub commands
+     */
 	public BuildingGameCommand() {
 		subCommands.add(new SetMainSpawn());
 	}
-	
+
+    /**
+     * Called whenever a player executes the Building Game command
+     *
+     * @param sender the sender who executed the command
+     * @param cmd the command that was executed
+     * @param label the name of the command executed
+     * @param args the arguments from the command
+     * @return whether the command was successful
+     * @since 2.1.0
+     */
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {

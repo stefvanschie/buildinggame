@@ -10,11 +10,29 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
+/**
+ * A utility class for giving a player a vote block
+ *
+ * @since 2.1.0
+ */
 public class VoteBlocks {
 
+    /**
+     * YAML configuration for the config.yml
+     */
 	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
+    /**
+     * YAML configuration for the messages.yml
+     */
 	private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-	
+
+    /**
+     * Gives the player the voting blocks
+     *
+     * @param player the player to give the blocks to
+     * @since 2.1.0
+     */
 	public void give(final Player player) {
 	    Plot plot = ArenaManager.getInstance().getArena(player).getVotingPlot();
 

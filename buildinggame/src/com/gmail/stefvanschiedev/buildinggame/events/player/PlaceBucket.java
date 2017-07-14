@@ -12,8 +12,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * Handles placement of water or lava buckets
+ *
+ * @since 2.1.0
+ */
 public class PlaceBucket implements Listener {
 
+    /**
+     * Handles placement of water and lava buckets
+     *
+     * @param e an event representing a player emptying a bucket
+     * @see PlayerBucketEmptyEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public static void onBucketEmpty(PlayerBucketEmptyEvent e) {
 		Player player = e.getPlayer();

@@ -10,18 +10,52 @@ import org.bukkit.plugin.Plugin;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
-public class SettingsManager {
+/**
+ * Handles all files and settings for this plugin
+ *
+ * @since 2.1.0
+ */
+public final class SettingsManager {
 
+    /**
+     * Private constructor to keep this class a singleton
+     */
 	private SettingsManager() {}
-	
+
+    /**
+     * An instance of this class for the singleton pattern
+     */
 	private static final SettingsManager INSTANCE = new SettingsManager();
-	
+
+    /**
+     * The config.yml file
+     */
 	private File configFile;
+
+    /**
+     * YAML configuration for the config.yml
+     */
 	private YamlConfiguration config;
+
+    /**
+     * The signs.yml file
+     */
 	private File signsFile;
+
+    /**
+     * YAML configuration for the signs.yml
+     */
 	private YamlConfiguration signs;
-	
+
+    /**
+     * Loads and creates all files and folders and populates them
+     *
+     * @param p the plugin the load the files for
+     * @since 2.1.0
+     */
+    @Contract("null -> fail")
 	public void setup(Plugin p) {
 		if (!p.getDataFolder().exists()) {
 			if (!p.getDataFolder().mkdir())
@@ -53,7 +87,12 @@ public class SettingsManager {
 		
 		loadConfig();
 	}
-	
+
+    /**
+     * Saves all files
+     *
+     * @since 2.1.0
+     */
 	public void save() {
 		try {
 			config.save(configFile);
@@ -62,15 +101,36 @@ public class SettingsManager {
 			e.printStackTrace();
 		}
 	}
-	
+
+    /**
+     * Returns the config.yml YAML configuration
+     *
+     * @return the YAML configuration
+     * @since 2.1.0
+     */
+	@NotNull
+	@Contract(pure = true)
 	public ConfigurationSection getConfig() {
 		return config;
 	}
-	
+
+    /**
+     * Returns the signs.yml YAML configuration
+     *
+     * @return the YAML configuration
+     * @since 2.1.0
+     */
+	@NotNull
+	@Contract(pure = true)
 	public YamlConfiguration getSigns() {
 		return signs;
 	}
-	
+
+    /**
+     * Populates the config.yml with its data
+     *
+     * @since 2.1.0
+     */
 	@SuppressWarnings("deprecation")
 	private void loadConfig() {
 		InputStream defConfigStream = Main.getInstance().getResource("config.yml");
@@ -85,7 +145,14 @@ public class SettingsManager {
 			save();
 		}
 	}
-	
+
+    /**
+     * Returns an instance of this class for the singleton pattern
+     *
+     * @return an instance of this class
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public static SettingsManager getInstance() {
 		return INSTANCE;

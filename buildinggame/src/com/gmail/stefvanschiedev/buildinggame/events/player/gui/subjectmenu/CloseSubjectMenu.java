@@ -12,8 +12,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * Handles closing the subject menu
+ *
+ * @since 2.1.0
+ */
 public class CloseSubjectMenu implements Listener {
 
+    /**
+     * Handles closing the subject menu
+     *
+     * @param e an event that represents an inventory closing
+     * @see InventoryCloseEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();

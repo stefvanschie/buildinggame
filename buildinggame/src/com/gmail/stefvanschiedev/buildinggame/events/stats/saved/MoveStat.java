@@ -10,8 +10,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+/**
+ * Handles statistics for walked blocks
+ *
+ * @since 2.2.0
+ */
 public class MoveStat implements Listener {
 
+    /**
+     * Handles statistics for walked blocks
+     *
+     * @param e an event representing a player moving
+     * @see PlayerMoveEvent
+     * @since 2.2.0
+     */
 	@EventHandler
 	public static void onPlayerMove(PlayerMoveEvent e) {
 		Player player = e.getPlayer();

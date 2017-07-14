@@ -7,8 +7,20 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 
+/**
+ * Handles taking damage in the lobby
+ *
+ * @since 2.1.0
+ */
 public class TakeDamage implements Listener {
 
+    /**
+     * Handles taking damage in the lobby
+     *
+     * @param e an event representing an entity taking damage
+     * @see EntityDamageEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public static void onEntityDamage(EntityDamageEvent e) {
 		if (!(e.getEntity() instanceof Player)) {

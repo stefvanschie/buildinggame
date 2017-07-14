@@ -6,9 +6,24 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.commands.SubCommand;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * The command for setting the main spawn
+ *
+ * @since 2.1.0
+ */
 public class SetMainSpawn extends SubCommand {
 
+    /**
+     * Called whenever a player executes this command
+     *
+     * @param player the player who executed the command
+     * @param args the arguments entered
+     * @since 2.1.0
+     */
+    @Contract("null, _ -> fail")
 	@Override
 	public void onCommand(Player player, String[] args) {
         BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml",
@@ -26,7 +41,15 @@ public class SetMainSpawn extends SubCommand {
 		
 		player.sendMessage(ChatColor.GREEN + "Main spawn set!");
 	}
-	
+
+    /**
+     * Returns the name of this command
+     *
+     * @return the name
+     * @since 2.1.0
+     */
+    @NotNull
+    @Contract(pure = true)
 	@Override
 	public String getName() {
 		return "setmainspawn";

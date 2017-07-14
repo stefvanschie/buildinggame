@@ -9,18 +9,42 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.Lobby;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class handles all lobbies
+ *
+ * @since 2.1.0
+ */
 public final class LobbyManager {
 
+    /**
+     * Constructs a new LobbyManager. This shouldn't be called to keep this class a singleton.
+     */
 	private LobbyManager() {}
-	
+
+	/**
+     * An instance of this class for the singleton principle
+     */
 	private static final LobbyManager INSTANCE = new LobbyManager();
-	
+
+	/**
+     * Returns the instance of this singleton class
+     *
+     * @return an instance of this class
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public static LobbyManager getInstance() {
 		return INSTANCE;
 	}
-	
+
+	/**
+     * Loads/Reloads all lobbies for all arenas
+     *
+     * @since 2.1.0
+     */
 	@SuppressWarnings("MethodMayBeStatic")
     public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {

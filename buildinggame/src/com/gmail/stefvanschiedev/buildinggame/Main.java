@@ -62,14 +62,40 @@ import com.gmail.stefvanschiedev.buildinggame.timers.StatSaveTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.metrics.Metrics;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * The main class of this plugin
+ *
+ * @since 2.1.0
+ */
 public class Main extends JavaPlugin {
 
+    /**
+     * An instance of this class
+     */
 	private static Main instance;
+
+    /**
+     * The delay for loading this plugin
+     */
 	private final LoadCooldown load = new LoadCooldown();
+
+    /**
+     * Whether the listeners have been loaded
+     */
 	private boolean loadedListeners;
+
+    /**
+     * Whether the commands have been loaded
+     */
 	private boolean loadedCommands;
-	
+
+    /**
+     * Called whenever this plugin is being enabled
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -93,7 +119,13 @@ public class Main extends JavaPlugin {
 		} else
 			loadPlugin();
 	}
-	
+
+    /**
+     * Called whenever this plugin is being disabled
+     *
+     * @since 2.1.0
+     */
+	@Override
 	public void onDisable() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			if (arena.getPlayers() > 0) {
@@ -110,7 +142,12 @@ public class Main extends JavaPlugin {
 		
 		instance = null;
 	}
-	
+
+    /**
+     * Loads the entire plugin
+     *
+     * @since 2.1.0
+     */
 	public void loadPlugin() {
 		long start = System.currentTimeMillis();
 		
@@ -240,6 +277,13 @@ public class Main extends JavaPlugin {
 		
 	}
 
+    /**
+     * Returns an instance of this plugin for the singleton principle
+     *
+     * @return an instance of this plugin
+     * @since 2.1.0
+     */
+	@NotNull
     @Contract(pure = true)
     public static Main getInstance() {
 		return instance;

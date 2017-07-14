@@ -12,9 +12,22 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
+import org.jetbrains.annotations.Contract;
 
+/**
+ * Called whenever a player clicks on a join sign
+ *
+ * @since 2.1.0
+ */
 public class ClickJoinSign implements Listener {
-	
+
+    /**
+     * Called whenever a player interacts with its environment
+     *
+     * @param e the event that occurred
+     * @since 2.1.0
+     */
+    @Contract("null -> fail")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)

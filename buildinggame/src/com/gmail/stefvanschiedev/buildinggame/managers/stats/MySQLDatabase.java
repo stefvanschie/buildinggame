@@ -8,20 +8,41 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * This class handles the MySQL database
+ *
+ * @author TomVerschueren
+ * @since 4.0.6
+ */
 public class MySQLDatabase {
 
+    /**
+     * The connection manager managing this database
+     */
     private ConnectionManager manager;
+
+    /**
+     * The main plugin
+     */
     private final JavaPlugin plugin;
 
 
     /**
      * Creates table in the database if it doesn't exist yet.
+     *
      * @param javaPlugin main instance of plugin.
+     * @since 4.0.6
      */
     MySQLDatabase(JavaPlugin javaPlugin){
         this.plugin = javaPlugin;
     }
 
+    /**
+     * Creates the database if it doesn't exist yet
+     *
+     * @return whether the database was setup correctly
+     * @since 4.0.6
+     */
     public boolean setup() {
         this.manager = new ConnectionManager(plugin);
         plugin.getLogger().info("Configuring connection pool...");
@@ -53,7 +74,9 @@ public class MySQLDatabase {
 
     /**
      * Updates database with new information
+     *
      * @param query SQL command to be performed.
+     * @since 4.0.6
      */
     private void executeUpdate(String query){
         try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
@@ -66,9 +89,11 @@ public class MySQLDatabase {
 
 
     /**
-     *  Get information from the database
+     * Get information from the database
+     *
      * @param query SQL command to be performed
      * @return Returns a resultset which gives you the information that is asked
+     * @since 4.0.6
      */
     @Nullable
     private ResultSet executeQuery(String query){
@@ -84,9 +109,11 @@ public class MySQLDatabase {
     }
 
     /**
-     *  Insert a new player in the table that is not there yet
-     *  WARNING: Use this in a Async task!
+     * Insert a new player in the table that is not there yet
+     * WARNING: Use this in a Async task!
+     *
      * @param UUID UUID from player
+     * @since 4.0.6
      */
     public void insertPlayer(String UUID) {
     	try (ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats WHERE UUID='" + UUID + '\'')) {
@@ -101,11 +128,13 @@ public class MySQLDatabase {
     }
 
     /**
-     *  Reset stat to the desired amount
-     *  WARNING: Use this in a Async task!
+     * Reset stat to the desired amount
+     * WARNING: Use this in a Async task!
+     *
      * @param UUID UUID from player
      * @param stat String from stat to be updated
      * @param number Reset to this amount
+     * @since 4.0.6
      */
     public void setStat(String UUID, String stat, int number){
         executeUpdate("UPDATE buildinggamestats SET "+stat+ '=' +number+" WHERE UUID='"+UUID+ '\'');
@@ -114,9 +143,11 @@ public class MySQLDatabase {
     /**
      * Retrieve stat from database
      * WARNING: Use this in a Async task!
+     *
      * @param UUID UUID from player
      * @param stat String from stat to be retrieved
      * @return returns an int which represents the stat
+     * @since 4.0.6
      */
     public int getStat(String UUID, String stat){
         try (ResultSet set = executeQuery("SELECT "+stat+" FROM buildinggamestats WHERE UUID='"+UUID+ '\'')) {
@@ -133,6 +164,11 @@ public class MySQLDatabase {
         }
     }
 
+    /**
+     * Retrieves a set of all UUIDs currently in the database
+     *
+     * @return a set of all UUIDs in the database
+     */
     Set<UUID> getAllPlayers() {
     	Set<UUID> uuids = new HashSet<>();
 
@@ -151,6 +187,12 @@ public class MySQLDatabase {
     	return uuids;
     }
 
+    /**
+     * Releases the connection with the database
+     *
+     * @param conn the connection to release
+     * @since 4.0.6
+     */
     private static void closeConnection(Connection conn) {
         try {
             if (conn != null)

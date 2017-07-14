@@ -15,8 +15,20 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * Handles players breaking blocks
+ *
+ * @since 2.1.0
+ */
 public class BlockBreak implements Listener {
 
+    /**
+     * Handles players breaking blocks
+     *
+     * @param e an event indicating that a block is broken
+     * @see BlockBreakEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();

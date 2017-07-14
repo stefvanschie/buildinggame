@@ -10,8 +10,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+/**
+ * Handles statistics for placed blocks
+ *
+ * @since 2.2.0
+ */
 public class PlaceStat implements Listener {
 
+    /**
+     * Handles statistics for placed blocks
+     *
+     * @param e an event that represents a block being placed
+     * @see BlockPlaceEvent
+     * @since 2.2.0
+     */
 	@EventHandler
 	public static void onBlockPlace(BlockPlaceEvent e) {
 		Player player = e.getPlayer();

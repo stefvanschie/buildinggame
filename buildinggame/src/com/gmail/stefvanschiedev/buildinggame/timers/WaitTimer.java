@@ -10,21 +10,56 @@ import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 
+/**
+ * This timer handles the lobby time
+ *
+ * @since 2.1.0
+ */
 public class WaitTimer extends Timer {
 
+    /**
+     * The amount of seconds left
+     */
 	private int seconds;
+
+	/**
+     * The arena this timer belongs to
+     */
 	private final Arena arena;
+
+	/**
+     * Whether this timer is running or not
+     */
 	private boolean running;
-	
+
+	/**
+     * The config.yml YAML configuration
+     */
 	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
+	/**
+     * The messages.yml YAML configuration
+     */
 	private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * Constructs a new WaitTimer with the given amount of seconds
+     *
+     * @param seconds the amount of time
+     * @param arena the arena this timer belongs to
+     */
 	public WaitTimer(int seconds, Arena arena) {
 		this.seconds = seconds;
 		this.arena = arena;
 	}
-	
+
+	/**
+     * Called whenever a second has passed
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void run() {
 		running = true;
@@ -72,16 +107,36 @@ public class WaitTimer extends Timer {
 		} catch (NullPointerException | NumberFormatException e) {}
 		seconds--;
 	}
-	
+
+	/**
+     * Returns the amount of seconds left
+     *
+     * @return amount of seconds left
+     * @since 2.1.0
+     */
+	@Contract(pure = true)
 	@Override
 	public int getSeconds() {
 		return seconds;
 	}
 
+	/**
+     * Returns whether this timer is active or not
+     *
+     * @return true if this timer is active, false otherwise
+     * @since 2.1.0
+     */
+	@Contract(pure = true)
 	public boolean isActive() {
 		return running;
 	}
 
+	/**
+     * Changes the amount of seconds left
+     *
+     * @param seconds the new amount of seconds left
+     * @since 2.1.0
+     */
 	public void setSeconds(int seconds) {
 		this.seconds = seconds;
 	}

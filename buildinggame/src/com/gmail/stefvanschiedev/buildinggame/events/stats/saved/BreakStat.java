@@ -10,8 +10,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+/**
+ * Handles statistics for broken blocks
+ *
+ * @since 2.2.0
+ */
 public class BreakStat implements Listener {
 
+    /**
+     * Handles statistics for broken blocks
+     *
+     * @param e an event representing a block being broken
+     * @see BlockBreakEvent
+     * @since 2.2.0
+     */
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		Player player = e.getPlayer();

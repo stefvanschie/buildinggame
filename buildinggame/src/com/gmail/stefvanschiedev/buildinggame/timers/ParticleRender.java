@@ -7,8 +7,18 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * Renders all particles for each plot
+ *
+ * @since 2.1.0
+ */
 public class ParticleRender extends BukkitRunnable {
 
+    /**
+     * Renders all particles again
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void run() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {

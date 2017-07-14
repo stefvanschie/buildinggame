@@ -10,8 +10,20 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
 
+/**
+ * Handles the main scoreboard for players switching worlds
+ *
+ * @since 3.1.1
+ */
 public class MainScoreboardWorldChange implements Listener {
 
+    /**
+     * Handles the main scoreboard for players switching worlds
+     *
+     * @param e an event representing a player who switched between worlds
+     * @see PlayerChangedWorldEvent
+     * @since 3.1.1
+     */
 	@EventHandler
 	public void onWorldChange(PlayerChangedWorldEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();

@@ -13,9 +13,23 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * Handles players clicking on join signs
+ *
+ * @since 2.1.0
+ */
 public class ClickJoinSign implements Listener {
 
+    /**
+     * Handles players clicking on join signs
+     *
+     * @param e an event representing a player interacting
+     * @see PlayerInteractEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
@@ -54,6 +68,15 @@ public class ClickJoinSign implements Listener {
         }
 	}
 
+	/**
+     * Returns a random arena which can be joined
+     *
+     * @return an open arena
+     * @see Arena
+     * @since 4.0.6
+     */
+	@Nullable
+    @Contract(pure = true)
 	private static Arena getRandomArena() {
 	    Arena arena = null;
 

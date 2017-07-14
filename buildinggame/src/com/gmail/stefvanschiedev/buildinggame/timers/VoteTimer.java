@@ -23,25 +23,69 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * This handles the voting time for this arena
+ *
+ * @since 2.1.0
+ */
 public class VoteTimer extends Timer {
 
+    /**
+     * Whether this timer is active or not
+     */
 	private boolean running;
+
+	/**
+     * The amount of seconds left for this plot
+     */
 	private int seconds;
+
+	/**
+     * The original amount of seconds per plot
+     */
 	private int originalSeconds;
+
+	/**
+     * The arena this timer belongs to
+     */
 	private final Arena arena;
+
+	/**
+     * The plot which is currently being voted on
+     */
 	private Plot plot;
-	
+
+	/**
+     * The config.yml YAML configuration
+     */
 	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
+	/**
+     * The messages.yml YAML configuration
+     */
 	private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * Constructs a new VoteTimer with the given amount of seconds
+     *
+     * @param seconds the amount of time per plot
+     * @param arena the arena this timer belongs to
+     */
 	public VoteTimer(int seconds, Arena arena) {
 		this.seconds = seconds;
 		originalSeconds = seconds;
 		this.arena = arena;
 	}
 
+	/**
+     * Called whenever a second has passed. This will generate a new plot if needed or end the game if all plots have
+     * been voted on.
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void run() {
 		running = true;
@@ -301,8 +345,15 @@ public class VoteTimer extends Timer {
 			originalSeconds = seconds;
 		}
 	}
-	
+
+	/**
+     * Returns a plot which we haven't voted for yet
+     *
+     * @return the next unvoted plot
+     * @since 2.1.0
+     */
 	@Nullable
+    @Contract(pure = true)
     private Plot getNextPlot() {
 		for (Plot plot : arena.getPlots()) {
 			if (!arena.getVotedPlots().contains(plot)) {
@@ -314,11 +365,25 @@ public class VoteTimer extends Timer {
 		return null;
 	}
 
+	/**
+     * Returns the amount of seconds left for this plot
+     *
+     * @return the amount of seconds left
+     * @since 2.1.0
+     */
+    @Contract(pure = true)
 	@Override
 	public int getSeconds() {
 		return seconds;
 	}
 
+	/**
+     * Returns whether this timer is running or not
+     *
+     * @return true if this timer is running, false otherwise
+     * @since 2.1.0
+     */
+	@Contract(pure = true)
 	public boolean isActive() {
 		return running;
 	}

@@ -16,8 +16,20 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * Handles players placing blocks
+ *
+ * @since 2.1.0
+ */
 public class BlockPlace implements Listener {
 
+    /**
+     * Handles players placing blocks
+     *
+     * @param e an event indicating that a block is broken
+     * @see BlockPlaceEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();

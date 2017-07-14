@@ -49,41 +49,156 @@ import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.LobbyScoreboard;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.VoteScoreboard;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.WinScoreboard;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * Represents an arena
+ *
+ * @since 2.1.0
+ */
 public class Arena {
 
+    /**
+     * Whether this aren is in solo or team mode
+     */
 	private ArenaMode mode = ArenaMode.SOLO;
+
+	/**
+     * The bossbar for the building phase
+     */
 	private BossBar bossbar;
+
+	/**
+     * The state of this arena
+     */
 	private GameState state = GameState.WAITING;
+
+	/**
+     * A list of all plots
+     */
 	private final List<Plot> plots = new ArrayList<>();
+
+	/**
+     * A list of all plots which has been voted on
+     */
 	private final Collection<Plot> votedPlots = new ArrayList<>();
+
+	/**
+     * A list of all join signs belonging to this arena
+     */
 	private final Collection<Sign> signs = new ArrayList<>();
+
+	/**
+     * The lobby of this arena
+     */
 	private Lobby lobby;
+
+	/**
+     * The name of this arena
+     */
 	private final String name;
+
+	/**
+     * The maximum amount of players
+     */
 	private int maxPlayers = plots.size();
+
+	/**
+     * The minimum amount of players
+     */
 	private int minPlayers;
+
+	/**
+     * The plot which is currently being voted for
+     */
 	private Plot votingPlot;
+
+	/**
+     * The build scoreboard
+     */
 	private final BuildScoreboard buildScoreboard = new BuildScoreboard(this);
+
+	/**
+     * The lobby scoreboard
+     */
 	private final LobbyScoreboard lobbyScoreboard = new LobbyScoreboard(this);
+
+	/**
+     * The vote scoreboard
+     */
 	private VoteScoreboard voteScoreboard = new VoteScoreboard(this);
+
+	/**
+     * The win scoreboard
+     */
 	private final WinScoreboard winScoreboard = new WinScoreboard(this);
+
+	/**
+     * The subject
+     */
 	private String subject;
 
+	/**
+     * The amount of matches which have been or are being played
+     */
 	private int matches;
+
+	/**
+     * The maximum amount of matches
+     */
 	private int maxMatches;
-	
+
+	/**
+     * The plot that became first
+     */
 	private Plot first;
+
+	/**
+     * The plot that became second
+     */
 	private Plot second;
+
+	/**
+     * The plot that become third
+     */
 	private Plot third;
-	
+
+	/**
+     * The subject menu
+     */
 	private SubjectMenu subjectMenu = new SubjectMenu();
+
+	/**
+     * The team selection
+     */
 	private TeamSelection teamSelection;
 
+	/**
+     * The wait timer
+     */
     private WaitTimer waitTimer;
+
+    /**
+     * The win timer
+     */
     private WinTimer winTimer;
+
+    /**
+     * The build timer
+     */
     private BuildTimer buildTimer;
+
+    /**
+     * The vote timer
+     */
     private VoteTimer voteTimer;
-	
+
+    /**
+     * Constructs a new arena with the given name as identifier
+     *
+     * @param name the name of the arena
+     */
 	public Arena(String name) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -100,15 +215,35 @@ public class Arena {
 			Main.getInstance().getLogger().warning("Bossbar couldn't be loaded, check the data and try again.");
 		}
 	}
-	
+
+	/**
+     * Adds a plot to the list
+     *
+     * @param plot the plot to add
+     * @see Plot
+     * @since 2.1.0
+     */
 	public void addPlot(Plot plot) {
 		plots.add(plot);
 	}
-	
+
+	/**
+     * Add a join sign to the list
+     *
+     * @param sign the sign to add
+     * @since 2.1.0
+     */
 	public void addSign(Sign sign) {
 		getSigns().add(sign);
 	}
-	
+
+	/**
+     * Returns whether this arena has the specified player
+     *
+     * @param player the player to look for
+     * @return true if the players is in this arena, false otherwise
+     * @since 2.2.1
+     */
 	public boolean contains(Player player) {
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
@@ -119,11 +254,25 @@ public class Arena {
 		return false;
 	}
 
-	public void forceStop() {
+	/**
+     * Forces this arena to stop no matter how many matches have been played
+     *
+     * @since 5.0.0
+     */
+	private void forceStop() {
 	    this.matches = maxMatches;
 	    nextMatch();
     }
 
+    /**
+     * Returns the timer that is currently active
+     *
+     * @return the timer which is currently active or null if there is no timer active
+     * @see Timer
+     * @since 2.1.0
+     */
+    @Nullable
+    @Contract(pure = true)
 	public Timer getActiveTimer() {
 		if (waitTimer.isActive()) {
 			return waitTimer;
@@ -136,50 +285,138 @@ public class Arena {
 		}
 		return null;
 	}
-	
+
+	/**
+     * Returns the bossbar
+     *
+     * @return the bossbar
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public BossBar getBossBar() {
 		return bossbar;
 	}
-	
+
+	/**
+     * Returns the build scoreboard
+     *
+     * @return the build scoreboard
+     * @see BuildScoreboard
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public BuildScoreboard getBuildScoreboard() {
 		return buildScoreboard;
 	}
-	
+
+	/**
+     * Returns the build timer
+     *
+     * @return the build timer
+     * @see BuildTimer
+     * @since 2.1.0
+     */
+	@Nullable
 	@Contract(pure = true)
     private BuildTimer getBuildTimer() {
 		return buildTimer;
 	}
-	
+
+	/**
+     * Returns the plot that became first or null if voting isn't over yet
+     *
+     * @return the plot that became first
+     * @see Plot
+     * @since 3.0.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public Plot getFirstPlot() {
 		return first;
 	}
-	
+
+	/**
+     * Returns the lobby
+     *
+     * @return the lobby
+     * @see Lobby
+     * @since 2.1.0
+     */
+	@Nullable
 	@Contract(pure = true)
     private Lobby getLobby() {
 		return lobby;
 	}
-	
+
+	/**
+     * Returns the lobby scoreboard or null if it doesn't exist
+     *
+     * @return the lobby scoreboard
+     * @see LobbyScoreboard
+     * @since 2.3.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public LobbyScoreboard getLobbyScoreboard() {
 		return lobbyScoreboard;
 	}
-	
+
+	/**
+     * Returns the maximum amount of players
+     *
+     * @return the max. amount of players
+     * @since 2.1.0
+     */
+	@Contract(pure = true)
 	public int getMaxPlayers() {
 		return maxPlayers;
 	}
-	
+
+	/**
+     * Returns the minimum amount of players
+     *
+     * @return the min. amount of players
+     * @since 2.1.0
+     */
 	@Contract(pure = true)
     private int getMinPlayers() {
 		return minPlayers;
 	}
-	
+
+	/**
+     * Returns the mode this arena is in
+     *
+     * @return the arena mode
+     * @see ArenaMode
+     * @since 2.1.0
+     */
+	@NotNull
+	@Contract(pure = true)
 	public ArenaMode getMode() {
 		return mode;
 	}
-	
+
+	/**
+     * Returns the name of this arena
+     *
+     * @return the name of this arena
+     * @since 2.1.0
+     */
+	@NotNull
+	@Contract(pure = true)
 	public String getName() {
 		return name;
 	}
-	
+
+	/**
+     * Returns the amount of players in this arena (this excludes spectators)
+     *
+     * @return the amount of players
+     * @since 2.1.0
+     */
+	@Contract(pure = true)
 	public int getPlayers() {
 		int players = 0;
 		
@@ -189,7 +426,17 @@ public class Arena {
 		
 		return players;
 	}
-	
+
+	/**
+     * Returns the plot by the given ID or null if such a plot doesn;t exist
+     *
+     * @param ID the ID to look for
+     * @return the plot with the given ID
+     * @see Plot
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public Plot getPlot(int ID) {
 		for (Plot plot : plots) {
 			if (plot.getID() == ID) {
@@ -198,7 +445,17 @@ public class Arena {
 		}
 		return null;
 	}
-	
+
+	/**
+     * Returns the plot which contains the given player or null if such a plot doesn;t exist
+     *
+     * @param player the player to look for
+     * @return the plot the given player is in
+     * @see Plot
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(value = "null -> null", pure = true)
 	public Plot getPlot(Player player) {
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
@@ -209,42 +466,117 @@ public class Arena {
 		}
 		return null;
 	}
-	
+
+	/**
+     * Returns a list of all plots belonging to this arena
+     *
+     * @return a list of plots
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public List<Plot> getPlots() {
 		return plots;
 	}
-	
+
+	/**
+     * Returns the plot that became second or null if voting isn't over yet
+     *
+     * @return the plot that became second
+     * @see Plot
+     * @since 3.0.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public Plot getSecondPlot() {
 		return second;
 	}
-	
+
+	/**
+     * Returns a collection of join signs belonging to this arena
+     *
+     * @return a collection of signs
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public Collection<Sign> getSigns() {
 		return signs;
 	}
-	
+
+	/**
+     * Returns the current state of this arena
+     *
+     * @return the current game state
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public GameState getState() {
 		return state;
 	}
-	
+
+	/**
+     * Returns the subject or null if no subject has been chosen yet
+     *
+     * @return the subject
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public CharSequence getSubject() {
 		return subject;
 	}
-	
+
+	/**
+     * Returns the subject menu
+     *
+     * @return the subject menu
+     * @see SubjectMenu
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public SubjectMenu getSubjectMenu() {
 		return subjectMenu;
 	}
-	
+
+	/**
+     * Returns the team selection and creates one if it doesn't exist yet
+     *
+     * @return the team selection
+     * @see TeamSelection
+     * @since 2.1.0
+     */
+	@NotNull
 	private TeamSelection getTeamSelection() {
 		if (teamSelection == null)
 			this.teamSelection = new TeamSelection(this);
 		
 		return teamSelection;
 	}
-	
+
+	/**
+     * Returns the plot that became third or null if voting isn't over yet
+     *
+     * @return the plot that became third
+     * @see Plot
+     * @since 3.0.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public Plot getThirdPlot() {
 		return third;
 	}
-	
+
+	/**
+     * Returns a collection of used plots; which contain at least one player
+     *
+     * @return a collection of used plots
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public Collection<Plot> getUsedPlots() {
 		Collection<Plot> usedPlots = new ArrayList<>();
 		
@@ -256,43 +588,125 @@ public class Arena {
 		
 		return usedPlots;
 	}
-	
+
+	/**
+     * Returns a collection of plots which haven been or are currently being voted for
+     *
+     * @return a collection of voted plots
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
 	public Collection<Plot> getVotedPlots() {
 		return votedPlots;
 	}
-	
+
+	/**
+     * Returns the vote scoreboard or null if it doesn't exist
+     *
+     * @return the vote scoreboard
+     * @see VoteScoreboard
+     * @since 2.3.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public VoteScoreboard getVoteScoreboard() {
 		return voteScoreboard;
 	}
-	
+
+	/**
+     * Returns the vote timer
+     *
+     * @return the vote timer
+     * @see VoteTimer
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public VoteTimer getVoteTimer() {
 		return voteTimer;
 	}
-	
+
+	/**
+     * Returns the plot which is currently being voted for
+     *
+     * @return the plot currently being voted for
+     * @see Plot
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public Plot getVotingPlot() {
 		return votingPlot;
 	}
-	
+
+	/**
+     * Returns the wait (lobby) timer
+     *
+     * @return the wait timer
+     * @see WaitTimer
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public WaitTimer getWaitTimer() {
 		return waitTimer;
 	}
-	
+
+	/**
+     * Returns the win scoreboard or null if it doesn't exist
+     *
+     * @return the win scoreboard
+     * @see WinScoreboard
+     * @since 2.3.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public WinScoreboard getWinScoreboard() {
 		return winScoreboard;
 	}
-	
+
+	/**
+     * Returns the win timer
+     *
+     * @return the win timer
+     * @see WinTimer
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	public WinTimer getWinTimer() {
 		return winTimer;
 	}
 
+	/**
+     * Returns whether tis arena is empty; no players are present
+     *
+     * @return true if this arena is empty, false otherwise
+     * @since 4.0.6
+     */
+	@Contract(pure = true)
 	public boolean isEmpty() {
 	    return getPlayers() == 0;
 	}
 
+	/**
+     * Returns whether the amount of plots in use are greater than the maximum amount of players
+     *
+     * @return true if this arena is full, false otherwise
+     * @since 2.1.0
+     */
+	@Contract(pure = true)
 	public boolean isFull() {
 		return getUsedPlots().size() >= getMaxPlayers();
 	}
-	
+
+	/**
+     * Returns whether all necessary steps are taken to make this arena's setup complete
+     *
+     * @return true if this arena is setup fully, false otherwise
+     */
+	@Contract(pure = true)
 	private boolean isSetup() {
 		if (getLobby() == null) {
 			return false;
@@ -307,7 +721,15 @@ public class Arena {
 		}
 		return true;
 	}
-	
+
+	/**
+     * Joins the given player this arena, with all messages being send and all items given to the player. It'll teleport
+     * the player to the {@link #lobby} and will join the first open plot. An ArenaJoinEvent may fire once this method
+     * is called.
+     *
+     * @param player the player to join this arena
+     * @since 2.1.0
+     */
 	public void join(final Player player) {
 		final YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -464,7 +886,16 @@ public class Arena {
 		
 		SignManager.getInstance().updateJoinSigns(this);
 	}
-	
+
+	/**
+     * Leaves the specified player. This will send messages to the player, restore their inventory, exp, armor etc.,
+     * reset their time and weather to the one by the server, will make all invisible players visible again, cancel
+     * timers if needed, updates the join signs for this arena and will leave the plot for the player. An
+     * ArenaLeaveEvert may fire once this method is called.
+     *
+     * @param player the player to leave
+     * @since 2.1.0
+     */
 	public void leave(Player player) {
 	    YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
@@ -561,59 +992,143 @@ public class Arena {
 		
 		SignManager.getInstance().updateJoinSigns(this);
 	}
-	
+
+	/**
+     * Sets a new build timer. This won't cancel the current build timer if started.
+     *
+     * @param buildTimer the new build timer
+     * @see BuildTimer
+     * @since 2.1.0
+     */
 	public void setBuildTimer(BuildTimer buildTimer) {
 		this.buildTimer = buildTimer;
 	}
-	
+
+	/**
+     * Sets the pot that became first after voting
+     *
+     * @param first the plot that became first
+     * @see Plot
+     * @since 3.0.0
+     */
 	public void setFirstPlot(Plot first) {
 		this.first = first;
 	}
-	
+
+	/**
+     * Sets a new lobby
+     *
+     * @param lobby the new lobby
+     * @see Lobby
+     * @since 2.1.0
+     */
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;
 	}
 
+	/**
+     * Sets the maximum amount of matches to be played
+     *
+     * @param maxMatches the max. amount of matches
+     * @since 4.0.6
+     */
 	public void setMaxMatches(int maxMatches) {
 	    this.maxMatches = maxMatches;
     }
 
+    /**
+     * Sets the maximum amount of players
+     *
+     * @param maxPlayers the new max. amount of players
+     * @since 2.1.0
+     */
 	public void setMaxPlayers(int maxPlayers) {
 		this.maxPlayers = maxPlayers;
 	}
-	
+
+	/**
+     * Sets the minimum amount of players
+     *
+     * @param minPlayers the new min. amount of players
+     * @since 2.1.0
+     */
 	public void setMinPlayers(int minPlayers) {
 		this.minPlayers = minPlayers;
 	}
-	
+
+	/**
+     * Sets the arena mode
+     *
+     * @param mode the new mode
+     * @see ArenaMode
+     * @since 2.1.0
+     */
 	public void setMode(ArenaMode mode) {
 		this.mode = mode;
 	}
-	
+
+	/**
+     * Sets the plot that became second after voting
+     *
+     * @param second the plot that became second
+     * @see Plot
+     * @since 3.0.0
+     */
 	public void setSecondPlot(Plot second) {
 		this.second = second;
 	}
-	
+
+	/**
+     * Sets the game state
+     *
+     * @param state the new state
+     * @see GameState
+     * @since 2.1.0
+     */
 	public void setState(GameState state) {
 		this.state = state;
 	}
-	
+
+	/**
+     * Sets the subject
+     *
+     * @param subject the new subject
+     * @since 2.1.0
+     */
 	private void setSubject(String subject) {
 		this.subject = subject;
 	}
-	
+
+	/**
+     * Sets the plot that became third after voting
+     *
+     * @param third the plot that became third
+     * @see Plot
+     * @since 3.0.0
+     */
 	public void setThirdPlot(Plot third) {
 		this.third = third;
 	}
-	
-	private void setVoteScoreboard(VoteScoreboard voteScoreboard) {
-		this.voteScoreboard = voteScoreboard;
-	}
-	
+
+	/**
+     * Sets the vote timer
+     *
+     * @param voteTimer the new vote timer
+     * @see VoteTimer
+     * @since 2.1.0
+     */
 	public void setVoteTimer(VoteTimer voteTimer) {
 		this.voteTimer = voteTimer;
 	}
-	
+
+	/**
+     * Sets the new voting plot, send messages and titles, teleports all players, gives them new vote items and changes
+     * their time and weather.
+     *
+     * @param votingPlot the new voting plot
+     * @see Plot
+     * @since 2.1.0
+     */
 	public void setVotingPlot(Plot votingPlot) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -656,15 +1171,34 @@ public class Arena {
 		
 		getVotedPlots().add(votingPlot);
 	}
-	
+
+	/**
+     * Sets the wait (lobby) timer
+     *
+     * @param waitTimer the new wait (lobby) timer
+     * @see WaitTimer
+     * @since 2.1.0
+     */
 	public void setWaitTimer(WaitTimer waitTimer) {
 		this.waitTimer = waitTimer;
 	}
-	
+
+	/**
+     * Sets the win timer
+     *
+     * @param winTimer the new win timer
+     * @see WinTimer
+     * @since 2.1.0
+     */
 	public void setWinTimer(WinTimer winTimer) {
 		this.winTimer = winTimer;
 	}
-	
+
+	/**
+     * Starts a new match. An ArenaStartEvent will be fired once this method is called.
+     *
+     * @since 2.1.0
+     */
 	public void start() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -729,6 +1263,12 @@ public class Arena {
 		buildTimer.runTaskTimer(Main.getInstance(), 20L, 20L);
 	}
 
+	/**
+     * Moves on to the next match or stops the game if all matches have been played. This won't cancel any timers, and
+     * if called incorrectly this will mess with the arena resulting in incorrect behviour.
+     *
+     * @since 4.0.6
+     */
 	public void nextMatch() {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
@@ -737,7 +1277,7 @@ public class Arena {
         this.buildTimer = new BuildTimer(arenas.getInt(name + ".timer"), this);
         this.voteTimer = new VoteTimer(arenas.getInt(name + ".vote-timer"), this);
         this.winTimer = new WinTimer(arenas.getInt(name + ".win-timer"), this);
-        setVoteScoreboard(new VoteScoreboard(this));
+        this.voteScoreboard = new VoteScoreboard(this);
         setSubject(null);
 
         setFirstPlot(null);
@@ -776,6 +1316,12 @@ public class Arena {
             start();
     }
 
+    /**
+     * Stops the arena and resets it so it's open for new players. If you want to stop the arena while it's still
+     * running use {@link #forceStop()}.
+     *
+     * @since 2.1.0
+     */
 	public void stop() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();

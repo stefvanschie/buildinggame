@@ -21,17 +21,48 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * The scoreboard displayed when the arena is in lobby state
+ *
+ * @since 2.3.0
+ */
 public class LobbyScoreboard {
 
+    /**
+     * The global scoreboard manager
+     */
 	private final ScoreboardManager manager = Bukkit.getScoreboardManager();
+
+	/**
+     * The scoreboard this class is a wrapper for
+     */
 	private final Scoreboard scoreboard = manager.getNewScoreboard();
+
+	/**
+     * The objective used for this scoreboard
+     */
     private final Objective objective = scoreboard.registerNewObjective("bg-lobby", "dummy");
-	
+
+    /**
+     * The arena this scoreboard belongs to
+     */
     private final Arena arena;
-    
+
+    /**
+     * A list of the text to display on the scoreboard after the basic placeholders have been parsed
+     */
     private final List<String> strings = new ArrayList<>();
+
+    /**
+     * A list of teams that's used to hold the text
+     */
     private final List<Team> teams = new ArrayList<>();
-    
+
+    /**
+     * Constructs a new LobbyScoreboard
+     *
+     * @param arena the arena this scoreboard belongs to
+     */
 	public LobbyScoreboard(Arena arena) {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
@@ -51,7 +82,13 @@ public class LobbyScoreboard {
 			this.strings.add(MessageManager.translate(strings.get(i)));
 		}
 	}
-	
+
+    /**
+     * Shows the scoreboard for the specified player
+     *
+     * @param player the player to show the scoreboard to
+     * @since 2.3.0
+     */
 	@SuppressWarnings("deprecation")
 	public void show(Player player) {
 		int place = 0;
@@ -95,7 +132,13 @@ public class LobbyScoreboard {
 		
 		player.setScoreboard(scoreboard);
 	}
-	
+
+    /**
+     * Updates the scoreboard for the specified player
+     *
+     * @param player the player to update the scoreboard for
+     * @since 2.3.0
+     */
 	@SuppressWarnings("deprecation")
 	public void update(Player player) {
 		for (int i = 0; i < strings.size(); i++) {

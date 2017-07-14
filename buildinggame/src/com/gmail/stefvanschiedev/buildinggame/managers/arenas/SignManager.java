@@ -19,22 +19,57 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class handles all join, leave and statistic signs
+ *
+ * @since 2.1.0
+ */
 public final class SignManager {
 
+    /**
+     * Constructs a new SignManager. This shouldn't be called to keep this class a singleton.
+     */
 	private SignManager() {}
-	
+
+	/**
+     * An instance of this class for the singleton principle
+     */
 	private static final SignManager INSTANCE = new SignManager();
-	
+
+	/**
+     * Returns the instance of this singleton class
+     *
+     * @return this instance
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public static SignManager getInstance() {
 		return INSTANCE;
 	}
 
+	/**
+     * A collection of all random join signs
+     */
 	private final Collection<Sign> randomJoinSigns = new ArrayList<>();
+
+	/**
+     * A collection of all leave signs
+     */
 	private final Collection<Sign> leaveSigns = new ArrayList<>();
+
+	/**
+     * A collection of all statistic signs
+     */
 	private final Collection<StatSign> statSigns = new ArrayList<>();
-	
+
+	/**
+     * Loads/Reloads all signs
+     *
+     * @since 2.1.0
+     */
 	public void setup() {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
@@ -89,19 +124,37 @@ public final class SignManager {
 		
 		SettingsManager.getInstance().save();
 	}
-	
+
+	/**
+     * Updates the text of all signs
+     *
+     * @since 3.1.0
+     */
 	private void updateSigns() {
 		updateStatSigns();
 		updateLeaveSigns();
 		updateRandomJoinSigns();
 		updateJoinSigns();
 	}
-	
+
+	/**
+     * Updates all join signs
+     *
+     * @since 2.1.0
+     */
 	private void updateJoinSigns() {
 		for (Arena arena : ArenaManager.getInstance().getArenas())
 			updateJoinSigns(arena);
 	}
 
+	/**
+     * Updates all join signs for the given arena
+     *
+     * @param arena the arena to update the join signs for
+     * @see Arena
+     * @since 2.1.0
+     */
+	@Contract("null -> fail")
     public void updateJoinSigns(Arena arena) {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -146,6 +199,11 @@ public final class SignManager {
 		}
 	}
 
+	/**
+     * Updates all random join signs
+     *
+     * @since 4.0.6
+     */
 	private void updateRandomJoinSigns() {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
@@ -164,6 +222,11 @@ public final class SignManager {
         }
     }
 
+    /**
+     * Updates all leave signs
+     *
+     * @since 3.1.0
+     */
 	private void updateLeaveSigns() {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
@@ -175,7 +238,12 @@ public final class SignManager {
 			sign.update();
 		}
 	}
-	
+
+	/**
+     * Updates all statistic signs
+     *
+     * @since 3.1.0
+     */
 	public void updateStatSigns() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -237,11 +305,25 @@ public final class SignManager {
 		}
 	}
 
+	/**
+     * Returns a collection of all random join signs
+     *
+     * @return all random join signs
+     * @since 4.0.6
+     */
+	@NotNull
 	@Contract(pure = true)
     public Collection<Sign> getRandomJoinSigns() {
 	    return randomJoinSigns;
     }
 
+    /**
+     * Returns a collection of all leave signs
+     *
+     * @return all leave signs
+     * @since 3.1.0
+     */
+    @NotNull
 	@Contract(pure = true)
     public Collection<Sign> getLeaveSigns() {
 		return leaveSigns;

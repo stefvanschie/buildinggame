@@ -18,8 +18,20 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Handles entity spawning
+ *
+ * @since 2.1.0
+ */
 public class EntitySpawn implements Listener {
 
+    /**
+     * Handles entity spawning
+     *
+     * @param e an event representing a spawned entity
+     * @see EntitySpawnEvent
+     * @since 2.1.0
+     */
 	@EventHandler(ignoreCancelled = true)
 	public void onEntitySpawn(EntitySpawnEvent e) {
 		Entity entity = e.getEntity();
@@ -30,7 +42,14 @@ public class EntitySpawn implements Listener {
 				entity.remove();
 		}
 	}
-	
+
+	/**
+     * Handles vehicle spawning
+     *
+     * @param e an event representing a vehicle that has spawned
+     * @see VehicleCreateEvent
+     * @since 4.0.0
+     */
 	@EventHandler(ignoreCancelled = true)
 	public void onVehicleCreate(VehicleCreateEvent e) {
 		Vehicle vehicle = e.getVehicle();
@@ -41,7 +60,14 @@ public class EntitySpawn implements Listener {
 				vehicle.remove();
 		}
 	}
-	
+
+	/**
+     * Handles hanging entity spawning
+     *
+     * @param e an event representing a hanging entity that has spawned
+     * @see HangingPlaceEvent
+     * @since 4.0.4
+     */
 	@EventHandler(ignoreCancelled = true)
 	public void onHangingPlace(HangingPlaceEvent e) {
 		if (ArenaManager.getInstance().getArena(e.getPlayer()) == null)
@@ -56,6 +82,13 @@ public class EntitySpawn implements Listener {
 			e.setCancelled(true);
 	}
 
+	/**
+     * Handles placement of entities
+     *
+     * @param e an event representing a player that interacts
+     * @see PlayerInteractEvent
+     * @since 4.0.6
+     */
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
@@ -92,6 +125,14 @@ public class EntitySpawn implements Listener {
             e.setCancelled(true);
     }
 
+    /**
+     * Returns the plot by the given location based on the boundary
+     *
+     * @param location the location inside the boundary
+     * @return the plot which boundary contains the given location
+     * @see Plot
+     * @since 2.1.0
+     */
 	@Nullable
     private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {

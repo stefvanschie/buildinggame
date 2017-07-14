@@ -15,10 +15,21 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 
+/**
+ * A menu to change the fly speed for spectators
+ *
+ * @since 3.0.0
+ */
 class SpeedMenu extends Gui {
 
+    /**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * Constructs a new SpeedMenu
+     */
 	SpeedMenu() {
 		super(null, 18, MessageManager.translate(MESSAGES.getString("spectator-gui.fly-speed.title")), 1);
 		

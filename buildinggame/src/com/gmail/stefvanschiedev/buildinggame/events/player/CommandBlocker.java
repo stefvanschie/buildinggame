@@ -10,8 +10,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 
+/**
+ * Handles blocked commands while in-game
+ *
+ * @since 2.1.0
+ */
 public class CommandBlocker implements Listener {
 
+    /**
+     * Handles blocked commands while in-game
+     *
+     * @param e an event representing a command executed
+     * @see PlayerCommandPreprocessEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();

@@ -13,10 +13,23 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.SkullItem;
 
+/**
+ * The gui for the heads in the mobs category
+ *
+ * @since 4.0.0
+ */
 public class MobsHeadsMenu extends Gui {
 
+    /**
+     * Yaml Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+    /**
+     * Constructs a new menu and adds all items to it
+     *
+     * @since 4.0.0
+     */
 	public MobsHeadsMenu() {
 		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.heads.mobs.title")), 2);
 		
@@ -492,8 +505,19 @@ public class MobsHeadsMenu extends Gui {
 			}
 		}, 103);
 	}
-	
+
+    /**
+     * The action that belongs to the heads
+     *
+     * @since 4.0.0
+     */
 	public class Action extends GuiAction {
+
+        /**
+         * Called whenever a player clicks on an item in the menu
+         *
+         * @since 4.0.0
+         */
 		@SuppressWarnings("deprecation")
 		@Override
 		public boolean actionPerformed(GuiActionType type, InventoryEvent e) {

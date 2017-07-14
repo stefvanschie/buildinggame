@@ -21,11 +21,19 @@ import java.util.UUID;
 
 /**
  * Handles all bungeecord calls
+ *
+ * @since 4.0.6
  */
-public class BungeeCordHandler implements Listener {
+public final class BungeeCordHandler implements Listener {
 
+    /**
+     * The channel name, only this plugin should use it. Addons should use their own channel.
+     */
     private static final String CHANNEL = "BuildingGame";
 
+    /**
+     * A utility class for the names of people who can receive a message
+     */
     public final class Receiver {
         public static final String BUNGEE = "bungee";
         public static final String SUB_SERVER = "main";
@@ -33,8 +41,18 @@ public class BungeeCordHandler implements Listener {
         private Receiver() {}
     }
 
+    /**
+     * A collection of all callables that haven't been answered yet
+     */
     private final Collection<IdentifiedCallable> callables = new HashSet<>();
 
+    /**
+     * Sends the provided message and will return a message to the specified callable if any exists
+     *
+     * @param message the message to send; the provided methods should be used for this
+     * @param callable the callable that should be called once there is a response
+     * @since 4.0.6
+     */
     private void send(String message, IdentifiedCallable callable) {
         if (callable != null)
             callables.add(callable);
@@ -42,16 +60,49 @@ public class BungeeCordHandler implements Listener {
                 callable.getUuid()));
     }
 
+    /**
+     * Connect a player with a different server
+     *
+     * @param receiver the server that should receive this message
+     * @param player the player to connect to a different server
+     * @param server the name of the server the player should connect to
+     * @param callable the callable that should be called once there is a response
+     * @since 4.0.6
+     */
     public void connect(String receiver, AnimalTamer player, String server, IdentifiedCallable callable) {
         send("connect:" + player.getName() + ", " + server + ";receiver:" + receiver, callable);
     }
 
+    /**
+     * Teleports a player on a different server to a different location
+     *
+     * @param receiver the server that should receive this message
+     * @param playerName the name of the player who should be teleported
+     * @param world the world this player should teleport to
+     * @param x the x position this player should teleport to
+     * @param y the y position this player should teleport to
+     * @param z the z position this player should teleport to
+     * @param callable the callable that should be called once there is a response
+     * @since 4.0.6
+     */
     public void teleport(String receiver, String playerName, String world, double x, double y, double z,
                                 IdentifiedCallable callable) {
         send("teleport:" + playerName + ", " + world + ", " + x + ", " + y + ", " + z + ";receiver:" +
                 receiver, callable);
     }
 
+    /**
+     * Sends a join sign update to the server
+     *
+     * @param receiver the server that should receive this message
+     * @param arena the arena for which the signs should update
+     * @param line1 the new first line of the sign
+     * @param line2 the new second line of the sign
+     * @param line3 the new third line of the sign
+     * @param line4 the new fourth line of the sign
+     * @param callable the callable that should be called once there is a response
+     * @since 4.0.6
+     */
     public void sign(String receiver, Arena arena, String line1, String line2, String line3, String line4,
                      IdentifiedCallable callable) {
         //escape the special ':' character
@@ -60,6 +111,12 @@ public class BungeeCordHandler implements Listener {
                 line4.replace(":", "\\:") + ";receiver:" + receiver, callable);
     }
 
+    /**
+     * Called whenever a message is received
+     *
+     * @param e an event representing an incoming message
+     * @since 4.0.6
+     */
     @EventHandler
     public void onBukkitSocketJSON(Bukkit.BukkitSocketJSONEvent e) {
         if (!e.getChannel().equals("BuildingGame"))
@@ -78,6 +135,13 @@ public class BungeeCordHandler implements Listener {
             send(join(data[0].split(":")[1]) + ';' + (data.length > 2 ? data[2] : ""), null);
     }
 
+    /**
+     * Writes raw input to a file
+     *
+     * @param input the input to write
+     * @return a response message
+     * @since 4.0.6
+     */
     @NotNull
     private String write(String input) {
         String[] data = input.split(", ");
@@ -106,6 +170,12 @@ public class BungeeCordHandler implements Listener {
         return "response:success";
     }
 
+    /**
+     * Saves all files
+     *
+     * @return a response message
+     * @since 4.0.6
+     */
     @NotNull
     private String save() {
         SettingsManager.getInstance().save();
@@ -113,6 +183,13 @@ public class BungeeCordHandler implements Listener {
         return "response:success";
     }
 
+    /**
+     * Joins a player to an arena
+     *
+     * @param input the raw received input
+     * @return a response message
+     * @since 4.0.6
+     */
     @NotNull
     private String join(String input) {
         String[] data = input.split(", ");
@@ -133,6 +210,14 @@ public class BungeeCordHandler implements Listener {
         return "response:success";
     }
 
+    /**
+     * Returns the callable by the specified uuid
+     *
+     * @param uuid the uuid to look for
+     * @return the identified callable with the given uuid
+     * @see IdentifiedCallable
+     * @since 4.0.6
+     */
     @Nullable
     private IdentifiedCallable getCallable(UUID uuid) {
         for (IdentifiedCallable callable : callables) {
@@ -143,8 +228,23 @@ public class BungeeCordHandler implements Listener {
         return null;
     }
 
+    /**
+     * A private constructor to keep this class a singleton
+     */
     private BungeeCordHandler() {}
+
+    /**
+     * An instance of this class
+     */
     private static BungeeCordHandler INSTANCE;
+
+    /**
+     * Returns an instance of this singleton class or creates one if it doesn't exist yet
+     *
+     * @return an instance of this class
+     * @since 4.0.6
+     */
+    @NotNull
     public static BungeeCordHandler getInstance() {
         if (INSTANCE == null)
             INSTANCE = new BungeeCordHandler();

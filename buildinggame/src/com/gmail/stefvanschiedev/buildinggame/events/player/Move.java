@@ -18,9 +18,23 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * Handles player movement in-game
+ *
+ * @since 2.1.0
+ */
 public class Move implements Listener {
 
+    /**
+     * Handles player movement in-game
+     *
+     * @param e an event representing a player moving
+     * @see PlayerMoveEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
@@ -116,7 +130,17 @@ public class Move implements Listener {
 			MessageManager.getInstance().send(player, messages.getStringList("in-game.move-out-bounds"));
 		}
 	}
-	
+
+    /**
+     * Returns the closest position outside any active plots from the current position
+     *
+     * @param start the starting point inside an active plot
+     * @return the location outside any active plots
+     * @see Location
+     * @since 4.0.1
+     */
+    @NotNull
+    @Contract(pure = true)
 	private static Location getClosestPositionOutsideActivePlot(Location start) {
 		Location closest = null;
 		

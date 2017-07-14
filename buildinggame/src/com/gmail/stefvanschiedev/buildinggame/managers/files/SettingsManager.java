@@ -11,29 +11,94 @@ import org.bukkit.plugin.Plugin;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class handles all settings in all files
+ *
+ * @since 2.1.0
+ */
 public final class SettingsManager {
 
+    /**
+     * Constructs a new SettingsManager. This shouldn't be called to keep this class a singleton.
+     */
 	private SettingsManager() {}
-	
+
+	/**
+     * An instance of this class for the singleton principle
+     */
 	private static final SettingsManager INSTANCE = new SettingsManager();
-	
+
+	/**
+     * Returns the instance of this singleton class
+     *
+     * @return an instance of this singleton class
+     */
+	@NotNull
 	@Contract(pure = true)
     public static SettingsManager getInstance() {
 		return INSTANCE;
 	}
-	
+
+	/**
+     * The arenas.yml YAML configuration
+     */
 	private YamlConfiguration arenas;
+
+	/**
+     * The arenas.yml file
+     */
 	private File arenasFile;
+
+	/**
+     * The config.yml YAML configuration
+     */
 	private YamlConfiguration config;
+
+    /**
+     * The config.yml file
+     */
 	private File configFile;
+
+	/**
+     * The messages.yml YAML configuration
+     */
 	private YamlConfiguration messages;
+
+	/**
+     * The messages.yml file
+     */
 	private File messagesFile;
+
+	/**
+     * The signs.yml YAML configuration
+     */
 	private YamlConfiguration signs;
+
+	/**
+     * The signs.yml file
+     */
 	private File signsFile;
+
+	/**
+     * The stats.yml YAML configuration
+     */
 	private YamlConfiguration stats;
+
+	/**
+     * The stats.yml file
+     */
 	private File statsFile;
-	
+
+	/**
+     * Loads/Reloads all files and YAML configurations
+     *
+     * @param p the main class
+     * @param save whether the files should be saved after loading
+     * @since 2.1.0
+     */
+	@Contract("null, _ -> fail")
 	public void setup(Plugin p, boolean save) {
 		if (!p.getDataFolder().exists()) {
             if (!p.getDataFolder().mkdir())
@@ -100,32 +165,72 @@ public final class SettingsManager {
 		generateSettings(save);
 		generateMessages(save);
 	}
-	
+
+	/**
+     * Returns the arenas.yml YAML configuration
+     *
+     * @return the YAML configuration
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public YamlConfiguration getArenas() {
 		return arenas;
 	}
-	
+
+	/**
+     * Returns the config.yml YAML configuration
+     *
+     * @return the YAML configuration
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public YamlConfiguration getConfig() {
 		return config;
 	}
-	
+
+	/**
+     * Returns the messages.yml YAML configuration
+     *
+     * @return the YAML configuration
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public YamlConfiguration getMessages() {
 		return messages;
 	}
-	
+
+	/**
+     * Returns the signs.yml YAML configuration
+     *
+     * @return the YAML configuration
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public YamlConfiguration getSigns() {
 		return signs;
 	}
-	
+
+	/**
+     * Returns the stats.yml YAML configuration
+     *
+     * @return the YAML configuration
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public YamlConfiguration getStats() {
 		return stats;
 	}
-	
+
+	/**
+     * Saves all files
+     *
+     * @since 2.1.0
+     */
 	public void save() {
 		try {
 			arenas.save(arenasFile);
@@ -133,11 +238,17 @@ public final class SettingsManager {
 			messages.save(messagesFile);
 			signs.save(signsFile);
 			stats.save(statsFile);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+     * Compares the config.yml with the default config.yml and adds, removes and modifies key/value pairs when needed
+     *
+     * @param save whether all files should be saved when this execution is done
+     * @since 2.1.0
+     */
 	@SuppressWarnings("deprecation")
 	private void generateSettings(boolean save) {
 		int settings = 0;
@@ -179,7 +290,14 @@ public final class SettingsManager {
         if (save)
         	save();
 	}
-	
+
+    /**
+     * Compares the messages.yml with the default messages.yml and adds, removes and modifies key/value pairs when
+     * needed
+     *
+     * @param save whether all files should be saved when this execution is done
+     * @since 2.1.0
+     */
 	@SuppressWarnings("deprecation")
 	private void generateMessages(boolean save) {
 		int settings = 0;

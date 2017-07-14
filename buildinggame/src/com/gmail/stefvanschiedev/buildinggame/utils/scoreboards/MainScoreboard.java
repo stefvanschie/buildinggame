@@ -21,15 +21,41 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
+/**
+ * The scoreboard displayed when you're in the main hub
+ *
+ * @since 3.1.1
+ */
 public class MainScoreboard {
 
+    /**
+     * The global scoreboard manager
+     */
 	private final ScoreboardManager manager = Bukkit.getScoreboardManager();
+
+    /**
+     * The scoreboard this class is a wrapper for
+     */
 	private final Scoreboard scoreboard = manager.getNewScoreboard();
+
+    /**
+     * The objective used for this scoreboard
+     */
     private final Objective objective = scoreboard.registerNewObjective("bg-main", "dummy");
-    
+
+    /**
+     * A list of the text to display on the scoreboard after the basic placeholders have been parsed
+     */
     private final List<String> strings = new ArrayList<>();
+
+    /**
+     * A list of teams that's used to hold the text
+     */
     private final List<Team> teams = new ArrayList<>();
-    
+
+    /**
+     * Constructs a new MainScoreboard
+     */
 	public MainScoreboard() {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
@@ -47,7 +73,13 @@ public class MainScoreboard {
 			this.strings.add(MessageManager.translate(strings.get(i)));
 		}
 	}
-	
+
+    /**
+     * Shows the scoreboard for the specified player
+     *
+     * @param player the player to show the scoreboard to
+     * @since 3.1.1
+     */
 	public void show(Player player) {
 		if (!player.isOnline())
 			return;
@@ -89,8 +121,13 @@ public class MainScoreboard {
 		
 		player.setScoreboard(scoreboard);
 	}
-	
 
+    /**
+     * Updates the scoreboard for the specified player
+     *
+     * @param player the player to update the scoreboard for
+     * @since 2.3.0
+     */
 	public void update(Player player) {
 		if (!player.isOnline())
 			return;

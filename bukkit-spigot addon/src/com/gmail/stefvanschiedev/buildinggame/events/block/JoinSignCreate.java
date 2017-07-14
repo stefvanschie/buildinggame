@@ -7,9 +7,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
+import org.jetbrains.annotations.Contract;
 
+/**
+ * Called whenever a join sign's being created
+ *
+ * @since 2.1.0
+ */
 public class JoinSignCreate implements Listener {
 
+    /**
+     * Called whenever a sign's text has been changed; if it's a join sign it will be added
+     *
+     * @param e the event that occurred
+     * @since 2.1.0
+     */
+    @Contract("null -> fail")
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();

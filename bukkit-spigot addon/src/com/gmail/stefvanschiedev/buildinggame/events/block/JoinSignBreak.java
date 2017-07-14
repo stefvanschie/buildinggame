@@ -10,9 +10,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
+import org.jetbrains.annotations.Contract;
 
+/**
+ * Event handler called whenever a sign has been broken
+ *
+ * @since 2.1.0
+ */
 public class JoinSignBreak implements Listener {
 
+    /**
+     * Called whenever a block has been broken; this will remove the sign if a join sign was broken
+     *
+     * @param e the event that occurred
+     * @since 2.1.0
+     */
+    @Contract("null -> fail")
 	@EventHandler(ignoreCancelled = true)
 	public void onBlockBreak(BlockBreakEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();

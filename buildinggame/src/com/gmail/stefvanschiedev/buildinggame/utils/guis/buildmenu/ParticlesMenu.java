@@ -16,10 +16,21 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
 
+/**
+ * The gui for particles
+ *
+ * @since 2.1.0
+ */
 class ParticlesMenu extends Gui {
 
+    /**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * Constructs a new Particles menu
+     */
 	ParticlesMenu() {
 		super(null, 27, MessageManager.translate(MESSAGES.getString("gui.particles.title")), 1);
 		

@@ -13,10 +13,29 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.LocationManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * Represents a command to set the minimum amount of players in an arena
+ *
+ * @since 2.1.0
+ */
 public class SetSpawn extends PlayerCommand {
 
-	@Override
+    /**
+     * The method which is called once the correct command is entered
+     *
+     * @param player the player who entered the command
+     * @param args the arguments provided
+     * @return the commandresult this execution yielded
+     * @see CommandResult
+     * @since 2.1.0
+     */
+	@NotNull
+    @Override
 	public CommandResult onCommand(Player player, String[] args) {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -54,24 +73,56 @@ public class SetSpawn extends PlayerCommand {
 		return CommandResult.ERROR;
 	}
 
-	@Override
+    /**
+     * Returns the name of this subcommand
+     *
+     * @return the name of this subcommand
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getName() {
 		return "setspawn";
 	}
 
+    /**
+     * Returns the aliases for this sbucommand
+     *
+     * @return an array of aliases for this subcommand
+     * @since 2.1.0
+     */
+	@Nullable
+    @Contract(pure = true)
 	@Override
 	public String[] getAliases() {
 		return null;
 	}
 
-	@Override
+    /**
+     * Returns an informational message about this subcommand
+     *
+     * @return an informational message
+     * @since 2.1.0
+     */
+	@Nls
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getInfo() {
 		return "Set a new spawn";
 	}
 
-	@Override
+    /**
+     * Returns the permission node required for this subcommand
+     *
+     * @return the permission node for this subcommand
+     * @since 2.1.0
+     */
+	@NotNull
+    @Contract(pure = true)
+    @Override
 	public String getPermission() {
 		return "bg.setspawn";
 	}
-
 }

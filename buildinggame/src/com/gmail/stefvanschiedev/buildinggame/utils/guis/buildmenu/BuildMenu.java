@@ -20,19 +20,59 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * The gui for plot settings and tools
+ *
+ * @since 2.1.0
+ */
 public class BuildMenu extends Gui {
 
+    /**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
+
+	/**
+     * YAML Configuration for the config.yml
+     */
 	private static final YamlConfiguration CONFIG = SettingsManager.getInstance().getConfig();
-	
+
+	/**
+     * The particles menu
+     */
 	private final ParticlesMenu particlesMenu;
+
+	/**
+     * The floor menu
+     */
 	private final FloorMenu floorMenu;
+
+	/**
+     * The time menu
+     */
 	private final TimeMenu timeMenu;
+
+	/**
+     * The fly speed menu
+     */
 	private final SpeedMenu flySpeedMenu;
+
+	/**
+     * The heads menu
+     */
 	private final HeadsMenu headsMenu;
 
+	/**
+     * The las time the floor was changed (according to System.currentMillis())
+     */
 	private long floorChange;
 
+	/**
+     * Constructs a new build menu for the specified plot
+     *
+     * @param plot the plot this menu belongs to
+     * @see Plot
+     */
     public BuildMenu(Plot plot) {
 		super(null, 36, MessageManager.translate(MESSAGES.getString("gui.options-title")), 1);
 
@@ -279,7 +319,14 @@ public class BuildMenu extends Gui {
 			}
 		}, 31);
 	}
-	
+
+	/**
+     * Called whenever the gui is being opened
+     *
+     * @param player the player who's opening the gui
+     * @param page the page to open the gui at
+     * @since 4.0.0
+     */
 	@Override
 	public void open(Player player, int page) {
 		if (!player.hasPermission("bg.buildmenu.particles"))

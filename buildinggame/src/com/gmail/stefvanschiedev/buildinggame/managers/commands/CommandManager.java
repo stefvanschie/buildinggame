@@ -16,12 +16,26 @@ import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResul
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.SubCommand;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * This class handles all subcommands for the buildinggame command
+ *
+ * @since 2.1.0
+ */
 public class CommandManager implements CommandExecutor {
 
+    /**
+     * A collection of all registered subcommands
+     */
 	private final Collection<SubCommand> subCommands = new ArrayList<>();
-	
+
+	/**
+     * Loads/Reloads all subcommands
+     *
+     * @since 2.1.0
+     */
 	public void setup() {
 		subCommands.clear();
 		subCommands.add(new CreateArena());
@@ -52,6 +66,18 @@ public class CommandManager implements CommandExecutor {
 		subCommands.add(new VoteCommand());
 	}
 
+	/**
+     * This methods is called when the main buildinggame command is executed an dwill search for the correct subcommand
+     * to execute
+     *
+     * @param sender the sender who executed the command
+     * @param cmd the command executed
+     * @param label the command name entered
+     * @param args the arguments provided
+     * @return a boolean indicating the result of this execution
+     * @since 2.1.0
+     */
+	@Contract("null, _, _, _ -> fail; _, null, _, _ -> fail; _, _, _, null -> fail")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
@@ -90,7 +116,16 @@ public class CommandManager implements CommandExecutor {
 		return false;
 	}
 
+    /**
+     * Returns the subcommand by the given name or null if there is no registered subcommand with the given name
+     *
+     * @param name the name of the subcommand
+     * @return the subcommand by the given name or null if there is no subcommand with the given name
+     * @see SubCommand
+     * @since 2.1.0
+     */
 	@Nullable
+    @Contract("null -> null")
     private SubCommand getSubCommand(String name) {
 		for (SubCommand subCommand : subCommands) {
 			if (subCommand.getName().equalsIgnoreCase(name)) {

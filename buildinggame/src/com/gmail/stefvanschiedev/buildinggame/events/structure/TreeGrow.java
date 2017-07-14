@@ -8,8 +8,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * Handles trees growing
+ *
+ * @since 2.1.0
+ */
 public class TreeGrow implements Listener {
 
+    /**
+     * Handles trees growing
+     *
+     * @param e an event representing a structure growing
+     * @see StructureGrowEvent
+     * @since 2.1.0
+     */
 	@EventHandler
 	public static void onStructureGrow(StructureGrowEvent e) {
 		Plot plot = null;

@@ -13,11 +13,25 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * Main class for this plugin
+ *
+ * @since 2.1.0
+ */
 public class Main extends JavaPlugin {
-	
+
+    /**
+     * An instance of this class for the singleton pattern
+     */
 	private static Main instance;
-	
+
+    /**
+     * Called whenever this plugin is being enabled
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -39,14 +53,26 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("BuildingGame - BungeeCord Addon has been enabled");
 	}
-	
+
+    /**
+     * Called whenever this plugin is being disabled
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void onDisable() {
 		instance = null;
 		
 		getLogger().info("BuildingGame - BungeeCord Addon has been disabled");
 	}
-	
+
+    /**
+     * Returns the instance of this class
+     *
+     * @return this class
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public static Plugin getInstance() {
 		return instance;

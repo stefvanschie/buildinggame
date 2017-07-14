@@ -12,8 +12,20 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * Handles players breaking join signs
+ *
+ * @since 3.1.0
+ */
 public class JoinSignBreak implements Listener {
 
+    /**
+     * Handles players breaking join signs
+     *
+     * @param e an event indicating that a block is broken
+     * @see BlockBreakEvent
+     * @since 3.1.0
+     */
 	@EventHandler(ignoreCancelled = true)
 	public void onBlockBreak(BlockBreakEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();

@@ -23,22 +23,77 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.Mob
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.PokemonHeadsMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.SkullItem;
 
+/**
+ * The gui to get heads
+ *
+ * @since 2.1.0
+ */
 class HeadsMenu extends Gui {
 
+    /**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * The food category
+     */
 	private final FoodHeadsMenu foodMenu;
+
+	/**
+     * The devices category
+     */
 	private final DevicesHeadsMenu devicesMenu;
+
+
+	/**
+     * The miscellaneous category
+     */
 	private final MiscHeadsMenu miscMenu;
+
+	/**
+     * The alphabet category
+     */
 	private final AlphabetHeadsMenu alphabetMenu;
+
+	/**
+     * The interior category
+     */
 	private final InteriorHeadsMenu interiorMenu;
+
+	/**
+     * The colors category
+     */
 	private final ColorsHeadsMenu colorsMenu;
+
+	/**
+     * The blocks category
+     */
 	private final BlocksHeadsMenu blocksMenu;
+
+	/**
+     * The mobs category
+     */
 	private final MobsHeadsMenu mobsMenu;
+
+	/**
+     * The games category
+     */
 	private final GamesHeadsMenu gamesMenu;
+
+	/**
+     * The characters category
+     */
 	private final CharactersHeadsMenu charactersMenu;
+
+	/**
+     * The pokémon category
+     */
 	private final PokemonHeadsMenu pokemonMenu;
-	
+
+	/**
+     * Constructs a new HeadsMenu
+     */
 	HeadsMenu() {
 		super(null, 45, MessageManager.translate(MESSAGES.getString("gui.heads.title")), 1);
 		
@@ -253,6 +308,13 @@ class HeadsMenu extends Gui {
 		}, 34);
 	}
 
+	/**
+     * Called whenever the gui is opened
+     *
+     * @param player the player opening the gui
+     * @param page the page that is being opened
+     * @since 4.0.0
+	 */
     @Override
     public void open(Player player, int page) {
         if (!player.hasPermission("bg.buildmenu.heads.food"))

@@ -11,8 +11,18 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
+/**
+ * Loads/Reloads all scoreboards
+ *
+ * @since 2.1.0
+ */
 public class ScoreboardUpdater extends BukkitRunnable {
 
+    /**
+     * Loads/Reloads all scoreboards for all arenas and plots
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void run() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();

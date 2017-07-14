@@ -14,13 +14,31 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 
+/**
+ * Main class for this plugin
+ */
 public class Main extends Plugin implements Listener {
 
+    /**
+     * A collection of socket messengers
+     */
 	private Collection<SocketMessenger> socketMessengers;
+
+    /**
+     * A map of the connections which still have to be send to a server
+     */
 	private Map<ProxiedPlayer, Map.Entry<SocketMessenger, String>> pendingConnections;
 
+    /**
+     * The channel name
+     */
 	private static final String CHANNEL = "BuildingGame";
 
+    /**
+     * Called whenever this plugin is being enabled
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void onEnable() {
 		BungeeCord.getInstance().getPluginManager().registerListener(this, this);
@@ -30,18 +48,35 @@ public class Main extends Plugin implements Listener {
 
 		getLogger().info("BuildingGame - BungeeCord AddOn has been enabled");
 	}
-	
+
+    /**
+     * Called whenever this plugin is being disabled
+     *
+     * @since 2.1.0
+     */
 	@Override
 	public void onDisable() {
 		getLogger().info("BuildingGame - BungeeCord AddOn has been disabled");
 	}
-	
+
+    /**
+     * Called whenever the server connects with BungeeCord correctly
+     *
+     * @param e the event that occurs
+     * @since 2.1.0
+     */
 	@SuppressWarnings("unused")
     @EventHandler
 	public void onBungeeSocketHandshake(BungeeSocketHandshakeEvent e) {
         socketMessengers.add(e.getMessenger());
 	}
 
+    /**
+     * Called whenever a player is connected to a server
+     *
+     * @param e the event that occurs
+     * @since 4.0.6
+     */
     @SuppressWarnings("unused")
     @EventHandler
     public void onServerConnected(ServerConnectedEvent e) {
@@ -56,6 +91,12 @@ public class Main extends Plugin implements Listener {
         pendingConnections.remove(proxiedPlayer);
     }
 
+    /**
+     * Called whenever BungeeCord receives information from a server
+     *
+     * @param e the event that occurs
+     * @since 2.1.0
+     */
 	@SuppressWarnings("unused")
     @EventHandler
 	public void onBungeeSocketJSON(BungeeSocketJSONEvent e) {
@@ -84,6 +125,14 @@ public class Main extends Plugin implements Listener {
         }
 	}
 
+    /**
+     * Connects the player to a server, based on the given response
+     *
+     * @param response the response gotten from the server
+     * @param messenger the messenger which sent this message
+     * @param uuid the uuid of the callable on the sending server
+     * @since 4.0.6
+     */
 	private void connect(String response, SocketMessenger messenger, String uuid) {
         String[] data = response.replace("connect:", "").trim().split(", ");
 
@@ -101,9 +150,20 @@ public class Main extends Plugin implements Listener {
         messenger.writeJSON(CHANNEL, "response:failed" + (uuid != null ? ';' + uuid : ""));
     }
 
+    /**
+     * Represents different names for receivers
+     *
+     * @since 4.0.6
+     */
     public final class Receiver {
+        /**
+         * The name of the BungeeCord receiver
+         */
         static final String BUNGEE = "bungee";
 
+        /**
+         * To keep this class a utility class
+         */
         private Receiver() {}
     }
 }

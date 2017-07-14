@@ -12,17 +12,39 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * This class handles all statistics of all players
+ */
 public final class StatManager {
-	
+
+    /**
+     * An instance of this class for the singleton principle
+     */
 	private static final StatManager INSTANCE = new StatManager();
+
+	/**
+     * The MySQL database containing the statistics
+     */
 	private MySQLDatabase database;
-	
+
+	/**
+     * All statistics from all players
+     */
 	private final List<Stat> stats = new ArrayList<>();
-	
+
+	/**
+     * Constructs a new StatManager. This shouldn't be called to keep this class a singleton.
+     */
 	private StatManager() {}
-	
+
+	/**
+     * Loads/Reloads all statistics and configures the database if necessary
+     *
+     * @since 2.2.0
+     */
 	public void setup() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
@@ -66,7 +88,14 @@ public final class StatManager {
 			}
 		}
 	}
-	
+
+	/**
+     * Checks to see if the there are stats available for the given UUID
+     *
+     * @param uuid the UUId to search for
+     * @return whether the UUId was found or not
+     * @since 4.0.0
+     */
 	public boolean containsUUID(UUID uuid) {
 		for (Stat stat : stats) {
 			if (stat.getPlayer().getUniqueId().equals(uuid))
@@ -75,7 +104,16 @@ public final class StatManager {
 		
 		return false;
 	}
-	
+
+	/**
+     * Returns the statistic for the given player and stat type
+     *
+     * @param player the player to look for
+     * @param type the stat type to filter by
+     * @return the statistic matching the two parameters
+     * @see Stat
+     * @since 2.2.0
+     */
 	@Nullable
     public Stat getStat(Player player, StatType type) {
 		for (Stat stat : stats) {
@@ -84,7 +122,14 @@ public final class StatManager {
 		}
 		return null;
 	}
-	
+
+	/**
+     * Returns all stats by the given type
+     *
+     * @param type the stat type to look for
+     * @return an iterable of all stats with the given type
+     * @since 3.1.0
+     */
 	public Iterable<Stat> getStats(StatType type) {
 		Collection<Stat> stats = new ArrayList<>();
 		
@@ -95,7 +140,15 @@ public final class StatManager {
 		
 		return stats;
 	}
-	
+
+	/**
+     * Registers the stat with the given player, type and value unless the config has the given stat type disabled
+     *
+     * @param player the player who obtained the statistic
+     * @param type the type of statistic
+     * @param value the value of the statistic
+     * @since 2.2.0
+     */
 	public void registerStat(Player player, StatType type, int value) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
@@ -107,11 +160,12 @@ public final class StatManager {
 		
 		stats.add(new Stat(type, player, value));
 	}
-	
-	/*
-	 * Because of massive amount of stat saving,
-	 * we need to do this every once in a while.
-	 */
+
+    /**
+     * Saves all statistics to the stats.yml file
+     *
+     * @since 2.2.0
+     */
 	public synchronized void saveToFile() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
@@ -125,7 +179,12 @@ public final class StatManager {
 		
 		SettingsManager.getInstance().save();
 	}
-	
+
+	/**
+     * Saves all statistics to the database
+     *
+     * @since 4.0.0
+     */
 	public void saveToDatabase() {
 	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
@@ -138,12 +197,26 @@ public final class StatManager {
                 getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), type, stat.getValue());
         }
 	}
-	
+
+	/**
+     * Returns the instance of this singleton class
+     *
+     * @return an instance of this class
+     * @since 2.2.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public static StatManager getInstance() {
 		return INSTANCE;
 	}
-	
+
+	/**
+     * Returns the MySQL database assigned to this manager
+     *
+     * @return the MySQL database
+     * @since 4.0.0
+     */
+	@Nullable
 	@Contract(pure = true)
     public MySQLDatabase getMySQLDatabase() {
 		return database;

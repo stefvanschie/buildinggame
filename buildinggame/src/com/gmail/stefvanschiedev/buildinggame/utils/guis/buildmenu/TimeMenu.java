@@ -15,10 +15,21 @@ import com.gmail.stefvanschiedev.buildinggame.utils.Time;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 
+/**
+ * The gui for changing the time
+ *
+ * @since 2.1.0
+ */
 class TimeMenu extends Gui {
 
+    /**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * Constructs a new TimeMenu
+     */
 	TimeMenu() {
 		super(null, 18, MessageManager.translate(MESSAGES.getString("gui.time.title")), 1);
 		

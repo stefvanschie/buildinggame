@@ -21,17 +21,48 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * The scoreboard displayed when the arena is in build state
+ *
+ * @since 2.1.0
+ */
 public class BuildScoreboard {
 
+    /**
+     * The global scoreboard manager
+     */
 	private final ScoreboardManager manager = Bukkit.getScoreboardManager();
+
+	/**
+     * The scoreboard this class is a wrapper for
+     */
 	private final Scoreboard scoreboard = manager.getNewScoreboard();
+
+	/**
+     * The objective used for this scoreboard
+     */
     private final Objective objective = scoreboard.registerNewObjective("bg-build", "dummy");
-    
+
+    /**
+     * The arena this scoreboard belongs to
+     */
     private final Arena arena;
-    
+
+    /**
+     * A list of the text to display on the scoreboard after the basic placeholders have been parsed
+     */
     private final List<String> strings = new ArrayList<>();
+
+    /**
+     * A list of teams that's used to hold the text
+     */
     private final List<Team> teams = new ArrayList<>();
-    
+
+    /**
+     * Constructs a new BuildScoreboard.
+     *
+     * @param arena the arena this scoreboard belongs to
+     */
 	public BuildScoreboard(Arena arena) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
@@ -51,7 +82,13 @@ public class BuildScoreboard {
 			this.strings.add(MessageManager.translate(strings.get(i)));
 		}
 	}
-	
+
+    /**
+     * Updates/Shows the scoreboard for the specified player
+     *
+     * @param player the player to show the scoreboard to
+     * @since 2.1.0
+     */
 	@SuppressWarnings("deprecation")
 	public void update(Player player) {
 		for (int i = 0; i < strings.size(); i++) {

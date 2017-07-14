@@ -22,18 +22,53 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
+/**
+ * The scoreboard displayed when the arena is in voting phase
+ *
+ * @since 2.1.0
+ */
 public class VoteScoreboard {
-	
+
+    /**
+     * YAML configuration for the messages.yml
+     */
 	private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+    /**
+     * The global scoreboard manager
+     */
 	private final ScoreboardManager manager = Bukkit.getScoreboardManager();
+
+    /**
+     * The scoreboard this class is a wrapper for
+     */
 	private final Scoreboard scoreboard = manager.getNewScoreboard();
+
+    /**
+     * The objective used for this scoreboard
+     */
     private final Objective objective = scoreboard.registerNewObjective("bg-vote", "dummy");
-	
+
+    /**
+     * The arena this scoreboard belongs to
+     */
     private final Arena arena;
-    
+
+    /**
+     * A list of the text to display on the scoreboard after the basic placeholders have been parsed
+     */
     private final List<String> strings = new ArrayList<>();
+
+    /**
+     * A list of teams that's used to hold the text
+     */
     private final List<Team> teams = new ArrayList<>();
-    
+
+    /**
+     * Constructs a new VoteScoreboard
+     *
+     * @param arena the arena this scoreboard belongs to
+     */
 	public VoteScoreboard(Arena arena) {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.vote.header")));
@@ -51,12 +86,25 @@ public class VoteScoreboard {
 			this.strings.add(MessageManager.translate(strings.get(i)));
 		}
 	}
-	
+
+	/**
+     * Sets the score for the specified text to the amount of points
+     *
+     * @param name the name of the player
+     * @param points the ne amount of points
+     * @since 2.1.0
+     */
 	public void setScore(String name, int points) {
 		Score score = objective.getScore(name);
 		score.setScore(points);
 	}
-	
+
+    /**
+     * Shows the scoreboard for the specified player
+     *
+     * @param player the player to show the scoreboard to
+     * @since 2.1.0
+     */
 	@SuppressWarnings("deprecation")
 	public void show(Player player) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();

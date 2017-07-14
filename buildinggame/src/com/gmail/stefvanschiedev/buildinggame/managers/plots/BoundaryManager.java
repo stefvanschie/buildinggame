@@ -10,18 +10,42 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Boundary;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class handles the boundaries
+ *
+ * @since 2.1.0
+ */
 public final class BoundaryManager {
 
+    /**
+     * Constructs a new BoundaryManager. This shouldn't be called to keep this class a singleton.
+     */
 	private BoundaryManager() {}
-	
+
+	/**
+     * An instance of this class for the singleton principle
+     */
 	private static final BoundaryManager INSTANCE = new BoundaryManager();
-	
+
+	/**
+     * Returns the instance of this singleton class
+     *
+     * @return an instance of this class
+     * @since 2.1.0
+     */
+	@NotNull
 	@Contract(pure = true)
     public static BoundaryManager getInstance() {
 		return INSTANCE;
 	}
-	
+
+	/**
+     * Loads/Reloads all boundaries for all plots
+     *
+     * @since 2.1.0
+     */
 	@SuppressWarnings("MethodMayBeStatic")
     public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {

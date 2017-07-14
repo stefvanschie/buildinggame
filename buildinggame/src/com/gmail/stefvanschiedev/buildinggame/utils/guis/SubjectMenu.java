@@ -19,17 +19,44 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.SubjectVote;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * A menu for voting on a theme
+ *
+ * @since 2.1.0
+ */
 public class SubjectMenu extends Gui {
 
+    /**
+     * A list of all subjects
+     */
 	private final List<String> subjects = new ArrayList<>();
+
+	/**
+     * The subject that is forced to be chosen
+     */
 	private String forcedTheme;
-	
+
+	/**
+     * A map containg all votes for all subjects
+     */
 	private final Map<String, SubjectVote> votes = new HashMap<>();
-	
+
+	/**
+     * YAML Configuration for the config.yml
+     */
 	private static final YamlConfiguration CONFIG = SettingsManager.getInstance().getConfig();
+
+	/**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * Constructs a new SubjectMenu
+     */
 	public SubjectMenu() {
 		super(null, 36, MessageManager.translate(MESSAGES.getString("subject-gui.title")), CONFIG.getInt("subject-gui.subject-amount") == -1 ? (int) Math.ceil(CONFIG.getStringList("subjects").size()/ 27.0) : (int) Math.ceil(CONFIG.getInt("subject-gui.subject-amount")/ 27.0));
 	
@@ -45,7 +72,14 @@ public class SubjectMenu extends Gui {
 		for (String s : subjects)
 			votes.put(s, new SubjectVote(0));
 	}
-		
+
+	/**
+     * Called whenever a player wants or is forced to open the gui
+     *
+     * @param player the player to show the gui for
+     * @param page the page this gui should open at
+     * @since 4.0.0
+     */
 	@Override
 	public void open(Player player, int page) {
 		clear();
@@ -181,7 +215,14 @@ public class SubjectMenu extends Gui {
 		
 		super.open(player, page);
 	}
-	
+
+	/**
+     * Adds a vote for the specified theme
+     *
+     * @param player the player that voted for the theme
+     * @param subject the them the player voted for
+     * @since 2.1.0
+     */
 	private void addVote(Player player, String subject) {
 		subject = ChatColor.stripColor(subject);
 		
@@ -195,11 +236,25 @@ public class SubjectMenu extends Gui {
 		votes.get(subject).addPlayer(player);
 		votes.get(subject).setVotes(votes.get(subject).getVotes() + 1);
 	}
-	
+
+	/**
+     * Forces a specific theme to be chosen
+     *
+     * @param theme the theme that's forced to be chosen
+     * @since 4.0.4
+     */
 	public void forceTheme(String theme) {
 		forcedTheme = theme;
 	}
-	
+
+	/**
+     * Returns the theme that received the most votes. If there are multiple themes with the highest amount of votes,
+     * one of those will be picked at random.
+     *
+     * @return the theme that received the highest amount of votes
+     */
+	@Nullable
+	@Contract(pure = true)
 	public String getHighestVote() {
 		if (forcedTheme != null)
 			return forcedTheme;

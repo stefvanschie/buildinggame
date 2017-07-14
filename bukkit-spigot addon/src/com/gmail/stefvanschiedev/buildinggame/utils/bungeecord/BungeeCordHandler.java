@@ -10,6 +10,7 @@ import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,21 +20,52 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Handles all bungeecord calls
+ * Handles all BungeeCord calls
+ *
+ * @since 4.0.6
  */
-public class BungeeCordHandler implements Listener {
+public final class BungeeCordHandler implements Listener {
 
+    /**
+     * The channel name
+     */
     private static final String CHANNEL = "BuildingGame";
 
+    /**
+     * Utility class for different types of receivers
+     *
+     * @since 4.0.6
+     */
     public final class Receiver {
+
+        /**
+         * BungeeCord receiver
+         */
         public static final String BUNGEE = "bungee";
+
+        /**
+         * Main server receiver
+         */
         public static final String MAIN = "main";
 
+        /**
+         * Private constructor to keep this class a utility class
+         */
         private Receiver() {}
     }
 
+    /**
+     * A collection of all callables that aren't called yet
+     */
     private final Collection<IdentifiedCallable> callables = new HashSet<>();
 
+    /**
+     * Sends a message to the BungeeCord server
+     *
+     * @param message the message to be send
+     * @param callable the callable that should be called
+     * @since 4.0.6
+     */
     private void send(String message, IdentifiedCallable callable) {
         if (callable != null)
             callables.add(callable);
@@ -41,22 +73,63 @@ public class BungeeCordHandler implements Listener {
                 callable.getUuid()));
     }
 
+    /**
+     * Connects a player to a different server
+     *
+     * @param receiver the server that should receive this message
+     * @param player the player that should be moved
+     * @param server the new server
+     * @param callable the callable that should be called after this is successful
+     * @since 4.0.6
+     */
     public void connect(String receiver, AnimalTamer player, String server, IdentifiedCallable callable) {
         send("connect:" + player.getName() + ", " + server + ";receiver:" + receiver, callable);
     }
 
+    /**
+     * Writes a key/value pair to a file on another server
+     *
+     * @param receiver the server that should receive this message
+     * @param file the file to write to
+     * @param key the key that should be added
+     * @param value the value that belongs to the key
+     * @param callable the callable that should be called after this is successful
+     * @since 4.0.6
+     */
     public void write(String receiver, String file, String key, String value, IdentifiedCallable callable) {
         send("write:" + file + ", " + key + ", " + value + ";receiver:" + receiver, callable);
     }
 
+    /**
+     * Saves all files on a different server
+     *
+     * @param receiver the server that should receive this message
+     * @param callable the callable that should be called after this is successful
+     * @since 4.0.6
+     */
     public void save(String receiver, IdentifiedCallable callable) {
         send("save;receiver:" + receiver, callable);
     }
 
+    /**
+     * Makes a player join an arena on a different server
+     *
+     * @param receiver the server that should receive this message
+     * @param playerName the name of the player to join
+     * @param arena the arena that the player should join
+     * @param callable the callable that should be called after this is successful
+     * @since 4.0.6
+     */
     public void join(String receiver, String playerName, String arena, IdentifiedCallable callable) {
         send("join:" + playerName + ", " + arena + ";receiver:" + receiver, callable);
     }
 
+    /**
+     * Called whenever a message is received
+     *
+     * @param e the event that occurs
+     */
+    @Contract("null -> fail")
     @EventHandler
     public void onBukkitSocketJSON(Bukkit.BukkitSocketJSONEvent e) {
         if (!e.getChannel().equals("BuildingGame"))
@@ -73,7 +146,15 @@ public class BungeeCordHandler implements Listener {
             send(sign(data[0].split("[^\\\\]:")[1]) + ';' + (data.length > 2 ? data[2] : ""), null);
     }
 
+    /**
+     * Called whenever a teleport command has been received
+     *
+     * @param input the message received
+     * @return the response message
+     * @since 4.0.6
+     */
     @NotNull
+    @Contract("null -> fail")
     private String teleport(String input) {
         String[] data = input.split(", ");
 
@@ -98,7 +179,15 @@ public class BungeeCordHandler implements Listener {
         return "response:success";
     }
 
+    /**
+     * Called whenever a sign command has been received
+     *
+     * @param input the message received
+     * @return the response message
+     * @since 4.0.6
+     */
     @NotNull
+    @Contract("null -> fail")
     private String sign(String input) {
         //undo escaping of special ':' character
         String[] data = input.replace("\\:", ":").split(", ");
@@ -117,7 +206,15 @@ public class BungeeCordHandler implements Listener {
         return "response: success";
     }
 
+    /**
+     * Returns the callable by the given UUID
+     *
+     * @param uuid the UUID of the callable
+     * @return the callable that belongs to this UUID
+     * @since 4.0.6
+     */
     @Nullable
+    @Contract(pure = true)
     private IdentifiedCallable getCallable(UUID uuid) {
         for (IdentifiedCallable callable : callables) {
             if (callable.getUuid().equals(uuid))
@@ -127,8 +224,23 @@ public class BungeeCordHandler implements Listener {
         return null;
     }
 
+    /**
+     * Private constructor to keep this class a singleton
+     */
     private BungeeCordHandler() {}
+
+    /**
+     * Instance of this class for the singleton pattern
+     */
     private static BungeeCordHandler INSTANCE;
+
+    /**
+     * Returns an instance of this class
+     *
+     * @return this class
+     * @since 4.0.6
+     */
+    @NotNull
     public static BungeeCordHandler getInstance() {
         if (INSTANCE == null)
             INSTANCE = new BungeeCordHandler();

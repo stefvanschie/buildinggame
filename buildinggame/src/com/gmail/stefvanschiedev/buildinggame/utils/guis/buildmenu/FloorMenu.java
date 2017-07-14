@@ -18,15 +18,39 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * The gui to change the floor's material
+ *
+ * @since 4.0.0
+ */
 class FloorMenu extends Gui {
-	
+
+    /**
+     * YAML Configuration for the messages.yml
+     */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-	
+
+	/**
+     * An item stack for going to the previous page
+     */
 	private static final ItemStack PREVIOUS_PAGE;
+
+	/**
+     * An item stack for going to the next page
+     */
 	private static final ItemStack NEXT_PAGE;
+
+	/**
+     * An item stack for closing the menu
+     */
 	private static final ItemStack CLOSE_MENU;
-	
+
+	/**
+     * An array of materials which should not be included in the menu
+     */
 	private static final Material[] SKIP_MATERIALS = {
 		Material.ACACIA_DOOR,
 		Material.AIR,
@@ -82,7 +106,13 @@ class FloorMenu extends Gui {
 		Material.WOOD_DOUBLE_STEP,
 		Material.WOODEN_DOOR,
 	};
-	
+
+	/**
+     * Constructs a new FloorMenu for the provided plot
+     *
+     * @param plot the plot this menu belongs to
+     * @see Plot
+     */
 	FloorMenu(final Plot plot) {
 		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.floor.title")), (int) Math.ceil(getBlocks().size() / 45) + 1);
 		
@@ -155,7 +185,16 @@ class FloorMenu extends Gui {
 				}, 51 + (54 * page));
 		}
 	}
-	
+
+	/**
+     * Returns a list of materials without the once that should be blocked from the menu specified in the config.yml and
+     * the {@link #SKIP_MATERIALS} array
+     *
+     * @return a list of materials
+     * @since 4.0.0
+     */
+	@NotNull
+	@Contract(pure = true)
 	private static List<Material> getBlocks() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		List<Material> blocks = new ArrayList<>();
