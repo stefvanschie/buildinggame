@@ -280,19 +280,23 @@ public final class SignManager {
 				
 				s.setLine(0, line1
 						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%", player == null ? "missingno" : player.getName())
+						.replace("%player%",
+                                player == null || player.getName() == null ? "missingno" : player.getName())
 						.replace("%amount%", value + ""));
 				s.setLine(1, line2
 						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%", player == null ? "missingno" : player.getName())
+						.replace("%player%",
+                                player == null || player.getName() == null ? "missingno" : player.getName())
 						.replace("%amount%", value + ""));
 				s.setLine(2, line3
 						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%", player == null ? "missingno" : player.getName())
+						.replace("%player%",
+                                player == null || player.getName() == null ? "missingno" : player.getName())
 						.replace("%amount%", value + ""));
 				s.setLine(3, line4
 						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%", player == null ? "missingno" : player.getName())
+						.replace("%player%",
+                                player == null || player.getName() == null ? "missingno" : player.getName())
 						.replace("%amount%", value + ""));
 			} else {
 				s.setLine(0, "");
