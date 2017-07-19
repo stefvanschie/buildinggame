@@ -44,7 +44,10 @@ public final class IDDecompiler {
 	}
 
 	/**
-     * Creates an ItemBuilder based on the player and the block provided
+     * Creates an ItemBuilder based on the player and the block provided. The item builder is not registered yet.
+     * If you're programming and wish we did register it in this class, because you don't make changes to the returned
+     * object anyway, you're using this incorrectly, switch to normal ItemStacks. ItemBuilder should only be used over
+     * ItemStack if you either want to disable movement or attach an event to it.
      *
      * @param player the player for whom the item is
      * @param block the CharSequence to parse the ItemBuilder from
@@ -58,9 +61,9 @@ public final class IDDecompiler {
     public ItemBuilder decompile(Player player, CharSequence block) {
 		Matcher matcher = Pattern.compile("([_a-zA-Z]+)([:][0-9]+)?").matcher(block);
 		if (matcher.matches()) {
-			return new ItemBuilder(player, Material.matchMaterial(matcher.group(1)), 1, 
-					matcher.group(2) != null ? Short.parseShort(matcher.group(2).substring(1)) : 0);
-		} else {
+            return new ItemBuilder(player, Material.matchMaterial(matcher.group(1)), 1,
+                    matcher.group(2) != null ? Short.parseShort(matcher.group(2).substring(1)) : 0);
+        } else {
 			Main.getInstance().getLogger().warning("Failed to load id '" + block + '\'');
 			Main.getInstance().getLogger().warning("If you're sure all your ids are right, please contact the plugin developer");
 			Main.getInstance().getLogger().warning("There will likely be a stracktrace due to this");

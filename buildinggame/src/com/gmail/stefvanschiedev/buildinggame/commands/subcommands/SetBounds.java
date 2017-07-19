@@ -69,82 +69,84 @@ public class SetBounds extends PlayerCommand {
 			MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid plot");
 			return CommandResult.ERROR;
 		}
-		
-		player.getInventory().setItemInMainHand(new ItemBuilder(player, Material.STICK).setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new ClickEvent() {
-			private Location previousLocation;
-			
-			@Override
-			public boolean onClick(PlayerInteractEvent e) {
-				YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-				YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-				
-				Player player = e.getPlayer();
-				Action action = e.getAction();
-				
-				if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
-					return false;
-				
-				if (previousLocation == null) {
-					previousLocation = e.getClickedBlock().getLocation();
-					
-					MessageManager.getInstance().send(player, ChatColor.GREEN + "Now click on the other corner");
-					return true;
-				} else {
-					//second time
-					Location location = e.getClickedBlock().getLocation();
-					
-					if (previousLocation.getWorld().equals(location.getWorld())) {
-						arenas.set(arena.getName() + '.' + plot.getID() + ".high.world", location.getWorld().getName());
-						arenas.set(arena.getName() + '.' + plot.getID() + ".low.world", previousLocation.getWorld().getName());
-					} else {
-						MessageManager.getInstance().send(player, ChatColor.RED + "The world has to be the same");
-						return true;
-					}
-					
-					//x
-					if (previousLocation.getBlockX() < location.getBlockX()) {
-						arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", location.getBlockX());
-						arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", previousLocation.getBlockX());
-					} else {
-						arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", location.getBlockX());
-						arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", previousLocation.getBlockX());
-					}
-					
-					//y
-					if (previousLocation.getBlockY() < location.getBlockY()) {
-						arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", location.getBlockY());
-						arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", previousLocation.getBlockY());
-					} else {
-						arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", location.getBlockY());
-						arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", previousLocation.getBlockY());
-					}
-					
-					//z
-					if (previousLocation.getBlockZ() < location.getBlockZ()) {
-						arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", location.getBlockZ());
-						arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", previousLocation.getBlockZ());
-					} else {
-						arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", location.getBlockZ());
-						arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", previousLocation.getBlockZ());
-					}
-					
-					SettingsManager.getInstance().save();
-					BoundaryManager.getInstance().setup();
-					
-					for (String message : messages.getStringList("setBounds.succes"))
-						MessageManager.getInstance().send(player, message
-								.replace("%place%", plot.getID() + "")
-								.replace("%arena%", arena.getName()));
-	
-					previousLocation = null;
-					
-					player.getInventory().setItemInMainHand(null);
-					ItemBuilder.check(player);
-					
-					return true;
-				}
-			}
-		}));
+
+        ItemBuilder itemBuilder = new ItemBuilder(player, Material.STICK).setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new ClickEvent() {
+            private Location previousLocation;
+
+            @Override
+            public boolean onClick(PlayerInteractEvent e) {
+                YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+                YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+                Player player = e.getPlayer();
+                Action action = e.getAction();
+
+                if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
+                    return false;
+
+                if (previousLocation == null) {
+                    previousLocation = e.getClickedBlock().getLocation();
+
+                    MessageManager.getInstance().send(player, ChatColor.GREEN + "Now click on the other corner");
+                    return true;
+                } else {
+                    //second time
+                    Location location = e.getClickedBlock().getLocation();
+
+                    if (previousLocation.getWorld().equals(location.getWorld())) {
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.world", location.getWorld().getName());
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.world", previousLocation.getWorld().getName());
+                    } else {
+                        MessageManager.getInstance().send(player, ChatColor.RED + "The world has to be the same");
+                        return true;
+                    }
+
+                    //x
+                    if (previousLocation.getBlockX() < location.getBlockX()) {
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", location.getBlockX());
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", previousLocation.getBlockX());
+                    } else {
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", location.getBlockX());
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", previousLocation.getBlockX());
+                    }
+
+                    //y
+                    if (previousLocation.getBlockY() < location.getBlockY()) {
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", location.getBlockY());
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", previousLocation.getBlockY());
+                    } else {
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", location.getBlockY());
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", previousLocation.getBlockY());
+                    }
+
+                    //z
+                    if (previousLocation.getBlockZ() < location.getBlockZ()) {
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", location.getBlockZ());
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", previousLocation.getBlockZ());
+                    } else {
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", location.getBlockZ());
+                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", previousLocation.getBlockZ());
+                    }
+
+                    SettingsManager.getInstance().save();
+                    BoundaryManager.getInstance().setup();
+
+                    for (String message : messages.getStringList("setBounds.succes"))
+                        MessageManager.getInstance().send(player, message
+                                .replace("%place%", plot.getID() + "")
+                                .replace("%arena%", arena.getName()));
+
+                    previousLocation = null;
+
+                    player.getInventory().setItemInMainHand(null);
+                    ItemBuilder.check(player);
+
+                    return true;
+                }
+            }
+        });
+		ItemBuilder.register(itemBuilder);
+        player.getInventory().setItemInMainHand(itemBuilder);
 		
 		MessageManager.getInstance().send(player, ChatColor.GREEN + "Please click on one corner");
 		

@@ -861,24 +861,32 @@ public class Arena {
 			@Override
 			public void run() {
 				//give team selection
-				if (getMode() == ArenaMode.TEAM)
-					player.getInventory().setItem(0, IDDecompiler.getInstance().decompile(player, config.getString("team-selection.item.id")).setDisplayName(MessageManager.translate(messages.getString("team-gui.item.name"))).setLore(MessageManager.translate(messages.getStringList("team-gui.item.lores"))).setClickEvent(event -> {
-						getTeamSelection().open(player);
-						return true;
-					}));
+				if (getMode() == ArenaMode.TEAM) {
+                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config.getString("team-selection.item.id")).setDisplayName(MessageManager.translate(messages.getString("team-gui.item.name"))).setLore(MessageManager.translate(messages.getStringList("team-gui.item.lores"))).setClickEvent(event -> {
+                        getTeamSelection().open(player);
+                        return true;
+                    });
+                    ItemBuilder.register(itemBuilder);
+                    player.getInventory().setItem(0, itemBuilder);
+                }
 				
 				//give paper for subject
-				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting"))
-					player.getInventory().setItem(config.getInt("subject-gui.slot"), IDDecompiler.getInstance().decompile(player, config.getString("subject-gui.item.id")).setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"))).setLore(MessageManager.translate(messages.getStringList("subject-gui.item.lores"))).setClickEvent(event -> {
+				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
+                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config.getString("subject-gui.item.id")).setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"))).setLore(MessageManager.translate(messages.getStringList("subject-gui.item.lores"))).setClickEvent(event -> {
                         getSubjectMenu().open(player);
                         return false;
-                    }));
-				
-				player.getInventory().setItem(config.getInt("leave-item.slot"), IDDecompiler.getInstance().decompile(player, config.getString("leave-item.id")).setDisplayName(MessageManager.translate(messages.getString("leave-item.name"))).setClickEvent(event -> {
+                    });
+                    ItemBuilder.register(itemBuilder);
+                    player.getInventory().setItem(config.getInt("subject-gui.slot"), itemBuilder);
+                }
+
+                ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config.getString("leave-item.id")).setDisplayName(MessageManager.translate(messages.getString("leave-item.name"))).setClickEvent(event -> {
                     leave(player);
                     return false;
-                }));
-				player.updateInventory();
+                });
+				ItemBuilder.register(itemBuilder);
+                player.getInventory().setItem(config.getInt("leave-item.slot"), itemBuilder);
+                player.updateInventory();
 			}
 		};
 		
@@ -1242,11 +1250,14 @@ public class Arena {
 				//bossbar
 				getBossBar().setVisible(true);
 
-				if (config.getBoolean("gui.enable"))
-				    player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager.translate(messages.getString("gui.options-emerald"))).setLore(MessageManager.translate(messages.getStringList("gui.options-lores"))).moveable(false).setClickEvent(e -> {
+				if (config.getBoolean("gui.enable")) {
+                    ItemBuilder itemBuilder = new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager.translate(messages.getString("gui.options-emerald"))).setLore(MessageManager.translate(messages.getStringList("gui.options-lores"))).moveable(false).setClickEvent(e -> {
                         getPlot(player).getBuildMenu().open(player);
                         return true;
-            	    }));
+                    });
+                    ItemBuilder.register(itemBuilder);
+                    player.getInventory().setItem(config.getInt("gui.slot"), itemBuilder);
+                }
 			}
 		}
 		

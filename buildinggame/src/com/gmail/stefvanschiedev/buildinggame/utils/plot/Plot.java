@@ -193,17 +193,22 @@ public class Plot {
 		
 		for (GamePlayer player : getAllGamePlayers())
 			player.getPlayer().hidePlayer(spectator);
-		
-		spectator.getInventory().setItem(config.getInt("leave-item.slot"), IDDecompiler.getInstance().decompile(spectator, config.getString("leave-item.id")).setDisplayName(MessageManager.translate(messages.getString("leave-item.name"))).setClickEvent(event -> {
+
+        ItemBuilder spectatorLeaveItem = IDDecompiler.getInstance().decompile(spectator, config.getString("leave-item.id")).setDisplayName(MessageManager.translate(messages.getString("leave-item.name"))).setClickEvent(event -> {
             gamePlayer.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
             removeSpectator(gamePlayer);
             MessageManager.getInstance().send(spectator, ChatColor.GREEN + "Stopped spectating");
             return true;
-        }));
-		spectator.getInventory().setItem(8, new ItemBuilder(spectator, Material.EMERALD).setDisplayName(ChatColor.GREEN + "Spectator menu").setClickEvent(event -> {
+        });
+        ItemBuilder.register(spectatorLeaveItem);
+        spectator.getInventory().setItem(config.getInt("leave-item.slot"), spectatorLeaveItem);
+
+        ItemBuilder itemBuilder = new ItemBuilder(spectator, Material.EMERALD).setDisplayName(ChatColor.GREEN + "Spectator menu").setClickEvent(event -> {
             new SpectatorMenu().open(spectator);
             return true;
-        }));
+        });
+        ItemBuilder.register(itemBuilder);
+        spectator.getInventory().setItem(8, itemBuilder);
 		
 		spectator.teleport(spectates.getPlayer().getLocation());
 		spectator.setGameMode(GameMode.CREATIVE);

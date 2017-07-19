@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Easily allows you to create items with click events
@@ -69,12 +70,19 @@ public class ItemBuilder extends ItemStack implements Listener {
 
 		this.player = player;
 
-		if (!REGISTERED_ITEMS.containsKey(player))
-		    REGISTERED_ITEMS.put(player, new HashSet<>());
-		REGISTERED_ITEMS.get(player).add(this);
-
 		Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
 	}
+
+    /**
+     * Returns the player who belongs to this instance
+     *
+     * @return the player
+     */
+    @NotNull
+    @Contract(pure = true)
+	private Player getPlayer() {
+	    return player;
+    }
 
     /**
      * Sets whether this item should be able to be moved
@@ -129,13 +137,26 @@ public class ItemBuilder extends ItemStack implements Listener {
 	}
 
     /**
-     * Unregisters this item from the listeners
+     * Registers this instance
      *
-     * @since 4.0.6
+     * @since 5.0.0
      */
-	private void unregister() {
-		HandlerList.unregisterAll(this);
-	}
+	public static void register(ItemBuilder builder) {
+	    Player player = builder.getPlayer();
+
+        if (!REGISTERED_ITEMS.containsKey(player))
+            REGISTERED_ITEMS.put(player, new HashSet<>());
+	    REGISTERED_ITEMS.get(player).add(builder);
+    }
+
+    private static int getAll() {
+	    int i = 0;
+
+	    for (Set<ItemBuilder> sets : REGISTERED_ITEMS.values())
+	        i += sets.size();
+
+        return i;
+    }
 
     /**
      * Checks to see if the specified player still has this item in their inventory
@@ -149,9 +170,13 @@ public class ItemBuilder extends ItemStack implements Listener {
 		if (builders == null)
 			return;
 
-		for (ItemBuilder builder : builders) {
-            if (!player.getInventory().contains(builder))
-                builder.unregister();
+		for (Iterator<ItemBuilder> iterator = builders.iterator(); iterator.hasNext();) {
+		    ItemBuilder builder = iterator.next();
+
+            if (!player.getInventory().contains(builder)) {
+                HandlerList.unregisterAll(builder);
+                iterator.remove();
+            }
         }
 	}
 
@@ -186,6 +211,22 @@ public class ItemBuilder extends ItemStack implements Listener {
 		if (!moveable)
 			e.setCancelled(true);
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+    public int hashCode() {
+        return 31 * super.hashCode() + player.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+	    return super.equals(obj) && obj instanceof ItemBuilder && player.equals(((ItemBuilder) obj).getPlayer());
+    }
 
     /**
      * Used to represent click events
