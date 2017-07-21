@@ -10,6 +10,8 @@ import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Contract;
 
 /**
@@ -29,10 +31,10 @@ public class WaitTimer extends Timer {
      */
 	private final Arena arena;
 
-	/**
+    /**
      * Whether this timer is running or not
      */
-	private boolean running;
+    private boolean running;
 
 	/**
      * The config.yml YAML configuration
@@ -62,10 +64,9 @@ public class WaitTimer extends Timer {
      */
 	@Override
 	public void run() {
-		running = true;
 		if (seconds <= 0) {
 			arena.start();
-			running = false;
+            running = false;
 			this.cancel();
 			return;
 		} else if (seconds % 15 == 0 || (seconds <= 10 && seconds >= 1)) {
@@ -107,6 +108,16 @@ public class WaitTimer extends Timer {
 		} catch (NullPointerException | NumberFormatException e) {}
 		seconds--;
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+    public synchronized BukkitTask runTaskTimer(Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
+        running = true;
+
+	    return super.runTaskTimer(plugin, delay, period);
+    }
 
 	/**
      * Returns the amount of seconds left

@@ -1373,6 +1373,8 @@ public class Arena {
 		for (Plot plot : getPlots())
 			plot.getAllGamePlayers().clear();
 
+		this.matches = 0;
+
 		SignManager.getInstance().updateJoinSigns(this);
 	}
 }
