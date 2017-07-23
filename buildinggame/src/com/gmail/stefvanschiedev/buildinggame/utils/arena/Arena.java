@@ -3,11 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame.utils.arena;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.WeatherType;
+import com.gmail.stefvanschiedev.buildinggame.utils.plot.Boundary;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Sign;
 import org.bukkit.boss.BarColor;
@@ -1142,7 +1139,10 @@ public class Arena {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		this.votingPlot = votingPlot;
-		
+
+		Boundary boundary = votingPlot.getBoundary();
+        Location safeLocation = boundary.getSafeLocation();
+
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				Player player = gamePlayer.getPlayer();
@@ -1156,8 +1156,13 @@ public class Arena {
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
 
-				player.teleport(votingPlot.getBoundary().getAllBlocks().get(ThreadLocalRandom.current().nextInt(votingPlot.getBoundary().getAllBlocks().size())).getLocation());
-				
+				if (safeLocation == null)
+                    player.teleport(boundary.getAllBlocks().get(
+                            ThreadLocalRandom.current().nextInt(votingPlot.getBoundary().getAllBlocks().size())
+                    ).getLocation());
+				else
+				    player.teleport(safeLocation);
+
 				//give blocks
 				player.getInventory().clear();
 				

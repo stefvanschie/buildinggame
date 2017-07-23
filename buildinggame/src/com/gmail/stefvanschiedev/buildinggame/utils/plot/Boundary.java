@@ -6,8 +6,10 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A class for marking the boundary for plots
@@ -92,6 +94,33 @@ public class Boundary {
 		}
 		return blocks;
 	}
+
+    /**
+     * Returns a location that is safe for a player. This includes both blocks being inside the boundary and being fully
+     * transparent. When no space inside a plot is safe this will return null.
+     *
+     * @return a safe location inside the boundary or null if there's no safe spot
+     */
+    @Nullable
+    @Contract(pure = true)
+	public Location getSafeLocation() {
+	    Location loc = new Location(world, highX, highY - 1, highZ);
+
+	    for (int xOffset = 0; xOffset < highX - lowX; xOffset++) {
+	        for (int yOffset = 0; yOffset < highY - lowY - 1; yOffset++) {
+	            for (int zOffset = 0; zOffset < highZ - lowZ; zOffset++) {
+                    Location newLoc = loc.clone().subtract(xOffset, yOffset, zOffset);
+                    Block newBlock = newLoc.getBlock();
+
+                    if (newBlock.getType().isTransparent() &&
+                            newBlock.getRelative(BlockFace.UP).getType().isTransparent())
+                        return newLoc;
+                }
+            }
+        }
+
+        return null;
+    }
 
 	/**
      * Returns whether the location is inside the boundary or not

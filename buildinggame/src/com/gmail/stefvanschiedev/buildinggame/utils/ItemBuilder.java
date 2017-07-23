@@ -149,15 +149,6 @@ public class ItemBuilder extends ItemStack implements Listener {
 	    REGISTERED_ITEMS.get(player).add(builder);
     }
 
-    private static int getAll() {
-	    int i = 0;
-
-	    for (Set<ItemBuilder> sets : REGISTERED_ITEMS.values())
-	        i += sets.size();
-
-        return i;
-    }
-
     /**
      * Checks to see if the specified player still has this item in their inventory
      *
