@@ -225,5 +225,17 @@ gui:
     id: 'skull_item:3'
     enabled: true
 
+
+#Possible colors: BLACK, BLUE, BROWN, CYAN, GRAY, GREEN, LIGHT_BLUE, LIME, MAGENTA, ORANGE,PINK, PURPLE, RED, SILVER, WHITE,YELLOW
+#If you have glass-colors-enabled enabled but the stained glass colors do not show, check your console
+signs:
+  glass-colors-enabled: false
+  glass-colors:
+    waiting: LIME
+    starting: GREEN
+    full: RED
+    building: RED
+    voting: ORANGE
+    reseting: ORANGE
 debug: false
 clean-files: false

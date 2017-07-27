@@ -2,12 +2,12 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
 import java.util.*;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -18,6 +18,10 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import org.bukkit.material.Attachable;
+import org.bukkit.material.Colorable;
+import org.bukkit.material.MaterialData;
+import org.jcp.xml.dsig.internal.SignerOutputStream;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +31,9 @@ import org.jetbrains.annotations.NotNull;
  * @since 2.1.0
  */
 public final class SignManager {
+
+	private HashMap<GameState,DyeColor> gameStatesColor= new HashMap<>();
+	private boolean GLASS_COLORS_ENABLED = false;
 
     /**
      * Constructs a new SignManager. This shouldn't be called to keep this class a singleton.
@@ -119,6 +126,29 @@ public final class SignManager {
 				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
 					Main.getInstance().getLogger().info("Found stat sign");
 			}
+
+			//Putting the configurations for glass colors in a hashmap so we are able to retrieve them later.
+
+		}
+		YamlConfiguration config = SettingsManager.getInstance().getConfig();
+		if(config.contains("signs.glass-colors")){
+			GLASS_COLORS_ENABLED = config.getBoolean("signs.glass-colors-enabled");
+			if(GLASS_COLORS_ENABLED) {
+				for (String key : config.getConfigurationSection("signs.glass-colors").getKeys(false)) {
+					try {
+						if (config.isInt("signs.glass-colors." + key)) {
+							int color = config.getInt("signs.glass-colors." + key);
+							gameStatesColor.put(GameState.valueOf(key.toUpperCase()), DyeColor.values()[color]);
+						} else {
+							String color = config.getString("signs.glass-colors." + key);
+							gameStatesColor.put(GameState.valueOf(key.toUpperCase()), DyeColor.valueOf(color));
+						}
+					}catch(IllegalArgumentException e){
+						//catch IllegalArgumentException for the easy of your clients.
+						System.out.println("Wrong parameter in config at: sign.glass-colors." + key + "." );
+					}
+				}
+			}
 		}
 		updateSigns();
 		
@@ -143,8 +173,11 @@ public final class SignManager {
      * @since 2.1.0
      */
 	private void updateJoinSigns() {
-		for (Arena arena : ArenaManager.getInstance().getArenas())
+
+		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			updateJoinSigns(arena);
+
+		}
 	}
 
 	/**
@@ -156,6 +189,9 @@ public final class SignManager {
      */
 	@Contract("null -> fail")
     public void updateJoinSigns(Arena arena) {
+		if(GLASS_COLORS_ENABLED) {
+			updateBlockBehindJoinSigns(arena);
+		}
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
@@ -197,6 +233,8 @@ public final class SignManager {
 
 			sign.update();
 		}
+
+
 	}
 
 	/**
@@ -331,5 +369,34 @@ public final class SignManager {
 	@Contract(pure = true)
     public Collection<Sign> getLeaveSigns() {
 		return leaveSigns;
+	}
+
+
+	/**
+	 * Updates the blocks behind the signs according to the values given in the configuration.
+	 * @param arena The arena wherefrom the signs need to be updated.
+	 */
+	private void updateBlockBehindJoinSigns(Arena arena){
+		for(Sign sign:arena.getSigns()){
+			Block attachedBlock = null;
+
+			MaterialData signMaterialData = sign.getBlock().getState().getData();
+			if(signMaterialData instanceof Attachable) {
+
+				attachedBlock = sign.getBlock().getRelative(((Attachable) signMaterialData).getAttachedFace());
+				attachedBlock.setType(Material.STAINED_GLASS);
+				if(gameStatesColor.get(arena.getState()) != null) {
+
+					//((Colorable) attachedBlock.getState()).setColor((gameStatesColor.get(arena.getState())));
+					//No other viable method found for setting the color of stained glass. Above method does not work but who knows, in the future.
+					attachedBlock.setData((byte) gameStatesColor.get(arena.getState()).ordinal());
+					attachedBlock.getState().update();
+				}else{
+					System.out.println("Wrong input at config.yml at signs.glass-colors." + arena.getState().toString().toLowerCase());
+				}
+
+			}
+
+		}
 	}
 }
