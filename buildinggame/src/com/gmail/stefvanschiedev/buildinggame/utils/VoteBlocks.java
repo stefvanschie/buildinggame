@@ -45,7 +45,7 @@ public class VoteBlocks {
             player.getInventory().setItem(1, secondSlot);
 
             ItemBuilder thirdSlot = IDDecompiler.getInstance().decompile(player, config.getString("voting.third-slot.id")).setDisplayName(MessageManager.translate(messages.getString("voting.third-slot-block"))).moveable(false).setClickEvent(event -> {
-                plot.addVote(new Vote(config.getInt("voting.second-slot.points"), player));
+                plot.addVote(new Vote(config.getInt("voting.third-slot.points"), player));
                 return true;
             });
             ItemBuilder.register(thirdSlot);
