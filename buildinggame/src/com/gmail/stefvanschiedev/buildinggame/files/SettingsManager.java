@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.files;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -139,7 +140,7 @@ public final class SettingsManager {
 		
 		InputStream defConfigStream = Main.getInstance().getResource("config.yml");
         if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
 			
 			for (String string : defConfig.getKeys(true)) {
 				if (!config.contains(string)) {
@@ -181,7 +182,7 @@ public final class SettingsManager {
 		
 		InputStream defMessagesStream = Main.getInstance().getResource("messages.yml");
         if (defMessagesStream != null) {
-			YamlConfiguration defMessages = YamlConfiguration.loadConfiguration(defMessagesStream);
+			YamlConfiguration defMessages = YamlConfiguration.loadConfiguration(new InputStreamReader(defMessagesStream));
 			
 			for (String string : defMessages.getKeys(true)) {
 				if (messages.isString(string) && defMessages.isList(string)) {
