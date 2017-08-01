@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -66,8 +67,13 @@ public class VoteCommand extends PlayerCommand {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You're not in an arena");
 			return CommandResult.ERROR;
 		}
-		
-		if (arena.getState() != GameState.VOTING) {
+
+		if (arena.getPlot(player).getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
+		    MessageManager.getInstance().send(player, ChatColor.RED + "Spectators can't vote");
+		    return CommandResult.ERROR;
+        }
+
+        if (arena.getState() != GameState.VOTING) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You can't vote at this moment");
 			return CommandResult.ERROR;
 		}
