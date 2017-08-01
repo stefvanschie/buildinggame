@@ -96,6 +96,18 @@ public class Boundary {
 	}
 
     /**
+     * Returns the center location of this boundary
+     *
+     * @return the center
+     */
+    @NotNull
+    @Contract(pure = true)
+	public Location getCenter() {
+	    return new Location(world, lowX + ((highX - lowX) / 2.0), lowY + ((highY - lowY) / 2.0),
+                lowZ  + ((highZ - lowZ) / 2.0));
+    }
+
+    /**
      * Returns a location that is safe for a player. This includes both blocks being inside the boundary and being fully
      * transparent. When no space inside a plot is safe this will return null.
      *

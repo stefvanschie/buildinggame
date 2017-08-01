@@ -1,5 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.api.events;
-import org.bukkit.event.Cancellable;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

@@ -78,7 +78,7 @@ public class VoteCommand extends PlayerCommand {
 		MessageManager.getInstance().send(player, messages.getString("vote.message")
 				.replace("%playerplot%", plot.getPlayerFormat())
 				.replace("%points%", points + ""));
-		return null;
+		return CommandResult.SUCCES;
 	}
 
     /**

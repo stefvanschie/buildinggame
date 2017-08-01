@@ -123,14 +123,14 @@ public final class StatManager {
 		return null;
 	}
 
-	/**
-	 *
-	 * @return Returns the every stat from every statType from every player that has every played on this server
-	 */
-	public List<Stat> getStats(){
-		//@Stef. Explain how RobiRami can extract every stat from this list and he should do the rest normally.
-		return stats;
-	}
+    /**
+     *
+     * @return Returns the every stat from every statType from every player that has every played on this server
+     */
+    public List<Stat> getStats(){
+        //@Stef. Explain how RobiRami can extract every stat from this list and he should do the rest normally.
+        return stats;
+    }
 
 	/**
      * Returns all stats by the given type

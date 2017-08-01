@@ -1142,6 +1142,34 @@ public class Arena {
 
 		Boundary boundary = votingPlot.getBoundary();
         Location safeLocation = boundary.getSafeLocation();
+        Location center = boundary.getCenter();
+
+        //turn head position to center of plot (thanks to bergerkiller)
+        //https://bukkit.org/threads/lookat-and-move-functions.26768/
+        if (safeLocation != null) {
+            //Clone the loc to prevent applied changes to the input loc
+            safeLocation = safeLocation.clone();
+
+            // Values of change in distance (make it relative)
+            double dx = center.getX() - safeLocation.getX();
+            double dz = center.getZ() - safeLocation.getZ();
+
+            // Set yaw
+            if (dx != 0)
+                safeLocation.setYaw(
+                        (dx < 0 ? ((float) (1.5 * Math.PI)) : ((float) (0.5 * Math.PI))) - (float) Math.atan(dz / dx)
+                );
+            else if (dz < 0)
+                safeLocation.setYaw((float) Math.PI);
+
+            // Set pitch
+            safeLocation.setPitch((float) -Math.atan((center.getY() - safeLocation.getY()) /
+                    (Math.sqrt(Math.pow(dx, 2) + Math.pow(dz, 2)))));
+
+            // Set values, convert to degrees (invert the yaw since Bukkit uses a different yaw dimension format)
+            safeLocation.setYaw(-safeLocation.getYaw() * 180f / (float) Math.PI);
+            safeLocation.setPitch(safeLocation.getPitch() * 180f / (float) Math.PI);
+        }
 
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
