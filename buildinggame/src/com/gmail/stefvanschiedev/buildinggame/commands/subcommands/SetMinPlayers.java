@@ -66,7 +66,7 @@ public class SetMinPlayers extends ConsoleCommand {
 		
 		MessageManager.getInstance().send(sender, messages.getStringList("setMinPlayers.succes"));
 		
-		return null;
+		return CommandResult.SUCCES;
 	}
 
     /**
