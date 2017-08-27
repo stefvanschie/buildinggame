@@ -229,15 +229,12 @@ public class Plot {
 		if (arena.getState() != GameState.VOTING)
 			return;
 
+		//check if player votes on his/her own plot
 		for (GamePlayer gamePlayer : getGamePlayers()) {
-			if (vote.getSender().getName().equals("stefvanschie"))
-				break;
-			else {
-				if (gamePlayer.getPlayer().equals(vote.getSender())) {
-					MessageManager.getInstance().send(vote.getSender(), messages.getStringList("vote.own-plot"));
-					return;
-				}
-			}
+            if (gamePlayer.getPlayer().equals(vote.getSender())) {
+                MessageManager.getInstance().send(vote.getSender(), messages.getStringList("vote.own-plot"));
+                return;
+            }
 		}
 
 		//check how many times voted
