@@ -40,7 +40,6 @@ public class MainScoreboardJoinShow implements Listener {
 		    new BukkitRunnable() {
                 @Override
                 public void run() {
-                    manager.getScoreboard().show(player);
                     manager.register(player);
                 }
             }.runTaskLater(Main.getInstance(), 1L);

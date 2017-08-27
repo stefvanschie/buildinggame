@@ -321,7 +321,7 @@ public class Gui implements Listener {
      *
      * @since 4.0.0
      */
-	public class GuiItem {
+	class GuiItem {
 
 	    /**
          * The item linked to this class

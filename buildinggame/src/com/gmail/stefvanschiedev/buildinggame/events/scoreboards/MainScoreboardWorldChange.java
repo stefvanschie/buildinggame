@@ -34,11 +34,10 @@ public class MainScoreboardWorldChange implements Listener {
 		if (!config.getBoolean("scoreboards.main.enable"))
 			return;
 		
-		if (config.getStringList("scoreboards.main.worlds.enable").contains(player.getWorld().getName())) {
+		if (config.getStringList("scoreboards.main.worlds.enable").contains(player.getWorld().getName()))
 			//show scoreboard and other stuff
 			manager.register(player);
-			manager.getScoreboard().show(player);
-		} else if (config.getStringList("scoreboards.main.worlds.enable").contains(e.getFrom().getName())) {
+		else if (config.getStringList("scoreboards.main.worlds.enable").contains(e.getFrom().getName())) {
 			//show scoreboard and other stuff
 			manager.remove(player);
 			player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());

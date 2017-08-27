@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.scoreboards;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.bukkit.entity.Player;
 
@@ -19,24 +19,7 @@ public final class MainScoreboardManager {
     /**
      * A collection of players who should currently have the main scoreboard
      */
-	private final Collection<Player> players = new ArrayList<>();
-
-	/**
-     * An instance of the main scoreboard
-     */
-	private final MainScoreboard scoreboard = new MainScoreboard();
-
-	/**
-     * Returns the main scoreboard
-     *
-     * @return the main scoreboard
-     * @since 3.1.1
-     */
-	@NotNull
-	@Contract(pure = true)
-    public MainScoreboard getScoreboard() {
-		return scoreboard;
-	}
+	private final Collection<MainScoreboard> scoreboards = new HashSet<>();
 
 	/**
      * Registers a new player. This player will get the main scoreboard once {@link #update()} is called.
@@ -45,8 +28,12 @@ public final class MainScoreboardManager {
      * @since 3.1.1
      */
 	public void register(Player player) {
-		if (!players.contains(player))
-			players.add(player);
+	    for (MainScoreboard scoreboard : scoreboards) {
+            if (scoreboard.getPlayer().equals(player))
+                return;
+        }
+
+        scoreboards.add(new MainScoreboard(player));
 	}
 
 	/**
@@ -57,7 +44,7 @@ public final class MainScoreboardManager {
      * @since 3.1.1
      */
 	public void remove(Player player) {
-		players.remove(player);
+        scoreboards.removeIf(mainScoreboard -> mainScoreboard.getPlayer().equals(player));
 	}
 
 	/**
@@ -66,8 +53,8 @@ public final class MainScoreboardManager {
      * @since 3.1.1
      */
 	public void update() {
-		for (Player player : players)
-			scoreboard.update(player);
+	    for (MainScoreboard scoreboard : scoreboards)
+            scoreboard.update();
 	}
 
 	/**

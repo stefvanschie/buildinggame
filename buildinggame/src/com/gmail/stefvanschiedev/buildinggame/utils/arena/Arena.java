@@ -931,10 +931,8 @@ public class Arena {
 		if (MainSpawnManager.getInstance().getMainSpawn() != null)
 			p.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
 		
-		if (config.getBoolean("scoreboards.main.enable")) {
+		if (config.getBoolean("scoreboards.main.enable"))
 			MainScoreboardManager.getInstance().register(player);
-			MainScoreboardManager.getInstance().getScoreboard().show(player);
-		}
 		
 		player.resetPlayerTime();
 		player.resetPlayerWeather();

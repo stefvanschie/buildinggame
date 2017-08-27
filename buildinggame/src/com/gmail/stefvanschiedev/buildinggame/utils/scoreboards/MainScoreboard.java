@@ -20,6 +20,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The scoreboard displayed when you're in the main hub
@@ -54,10 +56,19 @@ public class MainScoreboard {
     private final List<Team> teams = new ArrayList<>();
 
     /**
-     * Constructs a new MainScoreboard
+     * The player that this scoreboard is meant for
      */
-	public MainScoreboard() {
+    private final Player player;
+
+    /**
+     * Constructs a new MainScoreboard
+     *
+     * @param player the player this scoreboard is meant for
+     */
+	public MainScoreboard(Player player) {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        this.player = player;
 
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.main.header")));
@@ -75,63 +86,26 @@ public class MainScoreboard {
 	}
 
     /**
-     * Shows the scoreboard for the specified player
+     * Returns the player this scoreboard is tracking
      *
-     * @param player the player to show the scoreboard to
-     * @since 3.1.1
+     * @return the player
+     * @since 5.0.4
      */
-	public void show(Player player) {
-		if (!player.isOnline())
-			return;
-		
-		int place = 0;
-		for (int i = teams.size(); i > 0; i--) {
-			Team team = teams.get(place);
-			
-			StatManager manager = StatManager.getInstance();
-            LocalDateTime localDateTime = LocalDateTime.now();
-			
-			String text = strings.get(place)
-					.replace("%stat_plays%", manager.getStat(player, StatType.PLAYS) == null ? "0" : manager.getStat(player, StatType.PLAYS).getValue() + "")
-					.replace("%stat_first%", manager.getStat(player, StatType.FIRST) == null ? "0" : manager.getStat(player, StatType.FIRST).getValue() + "")
-					.replace("%stat_second%", manager.getStat(player, StatType.SECOND) == null ? "0" : manager.getStat(player, StatType.SECOND).getValue() + "")
-					.replace("%stat_third%", manager.getStat(player, StatType.THIRD) == null ? "0" : manager.getStat(player, StatType.THIRD).getValue() + "")
-					.replace("%stat_broken%", manager.getStat(player, StatType.BROKEN) == null ? "0" : manager.getStat(player, StatType.BROKEN).getValue() + "")
-					.replace("%stat_placed%", manager.getStat(player, StatType.PLACED) == null ? "0" : manager.getStat(player, StatType.PLACED).getValue() + "")
-					.replace("%stat_walked%", manager.getStat(player, StatType.WALKED) == null ? "0" : manager.getStat(player, StatType.WALKED).getValue() + "")
-                    .replace("%date_day_of_month%", localDateTime.getDayOfMonth() + "")
-                    .replace("%date_day_of_week%", localDateTime.getDayOfWeek() + "")
-                    .replace("%date_day_of_year%", localDateTime.getDayOfYear() + "")
-                    .replace("%date_hour%", localDateTime.getHour() + "")
-                    .replace("%date_minute%", localDateTime.getMinute() + "")
-                    .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()))
-                    .replace("%date_second%", localDateTime.getSecond() + "")
-                    .replace("%date_year%", localDateTime.getYear() + "");
-			
-			int length = text.length();
-			
-			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
-			
-			if (length > 16)
-				team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 : length));
-			
-			objective.getScore(ChatColor.values()[place].toString()).setScore(i);
-			place++;
-		}
-		
-		player.setScoreboard(scoreboard);
-	}
+	@NotNull
+	@Contract(pure = true)
+	public Player getPlayer() {
+	    return player;
+    }
 
     /**
-     * Updates the scoreboard for the specified player
+     * Updates the scoreboard for the player
      *
-     * @param player the player to update the scoreboard for
      * @since 2.3.0
      */
-	public void update(Player player) {
+	public void update() {
 		if (!player.isOnline())
 			return;
-		
+
 		for (int i = 0; i < strings.size(); i++) {
 			Team team = teams.get(i);
 			
@@ -164,6 +138,7 @@ public class MainScoreboard {
 			
 			objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
 		}
+
 		player.setScoreboard(scoreboard);
 	}
 }
