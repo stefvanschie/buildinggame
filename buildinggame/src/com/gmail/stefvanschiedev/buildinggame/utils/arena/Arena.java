@@ -910,19 +910,25 @@ public class Arena {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You're not in a game");
 			return;
 		}
-		
-		//call event
+
+        //call event
 		ArenaLeaveEvent event = new ArenaLeaveEvent(this, player);
 		Bukkit.getPluginManager().callEvent(event);
 		if (event.isCancelled())
 			return;
-		
-		GamePlayer p = getPlot(player).getGamePlayer(player);
+
+        Plot plot = getPlot(player);
+
+        //this shouldn't happen unless you screwed up with the api
+        if (plot == null)
+            return;
+
+		GamePlayer p = plot.getGamePlayer(player);
 		p.restore();
 		
 		ItemBuilder.check(player);
 		
-		if (getPlot(player) == null) {
+		if (plot == null) {
 			MessageManager.getInstance().send(player, "You're not in a game");
 			ArenaManager.getInstance().getArena(player).leave(player);
 			return;
@@ -941,11 +947,11 @@ public class Arena {
 		for (Player pl : Bukkit.getOnlinePlayers())
 			player.showPlayer(pl);
 		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+		for (Plot usedPlot : getUsedPlots()) {
+			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
 				if (pl.equals(player)) {
-					plot.leave(gamePlayer);
+					usedPlot.leave(gamePlayer);
 					
 					MessageManager.getInstance().send(player, messages.getStringList("leave.message"));
 					break;
@@ -953,8 +959,8 @@ public class Arena {
 			}
 		}
 		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+		for (Plot usedPlot : getUsedPlots()) {
+			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
 				
 				for (String message : messages.getStringList("leave.otherPlayers")) {
