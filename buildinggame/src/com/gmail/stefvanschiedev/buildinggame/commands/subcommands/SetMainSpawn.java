@@ -51,6 +51,8 @@ public class SetMainSpawn extends PlayerCommand {
 		arenas.set("main-spawn.x", player.getLocation().getBlockX());
 		arenas.set("main-spawn.y", player.getLocation().getBlockY());
 		arenas.set("main-spawn.z", player.getLocation().getBlockZ());
+		arenas.set("main-spawn.pitch", player.getLocation().getPitch());
+		arenas.set("main-spawn.yaw", player.getLocation().getYaw());
 		SettingsManager.getInstance().save();
 		
 		MainSpawnManager.getInstance().setMainSpawn(player.getLocation());

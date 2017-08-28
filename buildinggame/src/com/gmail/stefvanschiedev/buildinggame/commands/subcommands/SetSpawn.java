@@ -59,6 +59,8 @@ public class SetSpawn extends PlayerCommand {
 		arenas.set(arena.getName() + '.' + place + ".x", player.getLocation().getBlockX());
 		arenas.set(arena.getName() + '.' + place + ".y", player.getLocation().getBlockY());
 		arenas.set(arena.getName() + '.' + place + ".z", player.getLocation().getBlockZ());
+		arenas.set(arena.getName() + '.' + place + ".pitch", player.getLocation().getPitch());
+		arenas.set(arena.getName() + '.' + place + ".yaw", player.getLocation().getYaw());
 		arenas.set(arena.getName() + ".maxplayers", place);
 		SettingsManager.getInstance().save();
 		

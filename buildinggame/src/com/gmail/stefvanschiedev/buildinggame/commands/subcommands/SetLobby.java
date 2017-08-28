@@ -55,6 +55,8 @@ public class SetLobby extends PlayerCommand {
 		arenas.set(arena.getName() + ".lobby.x", player.getLocation().getBlockX());
 		arenas.set(arena.getName() + ".lobby.y", player.getLocation().getBlockY());
 		arenas.set(arena.getName() + ".lobby.z", player.getLocation().getBlockZ());
+		arenas.set(arena.getName() + ".lobby.pitch", player.getLocation().getPitch());
+		arenas.set(arena.getName() + ".lobby.yaw", player.getLocation().getYaw());
 		SettingsManager.getInstance().save();
 		
 		LobbyManager.getInstance().setup();

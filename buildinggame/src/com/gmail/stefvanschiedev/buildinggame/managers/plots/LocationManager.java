@@ -32,7 +32,9 @@ public final class LocationManager {
 					plot.setLocation(new Location(Bukkit.getWorld(arenas.getString(arena.getName() + '.' + plot.getID() + ".world")),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".x"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".y"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".z")));
+							arenas.getInt(arena.getName() + '.' + plot.getID() + ".z"),
+                            (float) arenas.getDouble(arena.getName() + '.' + plot.getID() + ".yaw", 0),
+                            (float) arenas.getDouble(arena.getName() + '.' + plot.getID() + ".pitch", 0)));
 					
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
 						Main.getInstance().getLogger().info("Loaded spawn for plot " + plot.getID() + " in arena " + arena.getName());

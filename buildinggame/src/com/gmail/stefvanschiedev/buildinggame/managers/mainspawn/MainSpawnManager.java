@@ -64,7 +64,9 @@ public final class MainSpawnManager {
 			setMainSpawn(new Location(Bukkit.getWorld(arenas.getString("main-spawn.world")),
 					arenas.getInt("main-spawn.x"),
 					arenas.getInt("main-spawn.y"),
-					arenas.getInt("main-spawn.z")));
+					arenas.getInt("main-spawn.z"),
+                    (float) arenas.getDouble("main-spawn.yaw", 0),
+                    (float) arenas.getDouble("main-spawn.pitch", 0)));
 			
 			setServer(arenas.getString("main-spawn.server"));
 			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
