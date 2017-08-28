@@ -154,12 +154,13 @@ public class Main extends JavaPlugin {
 		LobbyTimerManager.getInstance().setup();
 		MinPlayersManager.getInstance().setup();
         MatchesManager.getInstance().setup();
-		MaxPlayersManager.getInstance().setup();
 		VoteTimerManager.getInstance().setup();
 		WinTimerManager.getInstance().setup();
 		
 		getLogger().info("Loading plots");
 		PlotManager.getInstance().setup();
+		//has to be down here for some config stuff
+        MaxPlayersManager.getInstance().setup();
 		LocationManager.getInstance().setup();
 		BoundaryManager.getInstance().setup();
 		FloorManager.getInstance().setup();

@@ -30,63 +30,75 @@ public class TeamSelection extends Gui {
      */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
 
+    /**
+     * The arena this team selection gui belongs to
+     */
+	private final Arena arena;
+
 	/**
      * Constructs a new TeamSelection
      *
      * @param arena the arena this team selection menu is for
      */
-	public TeamSelection(final Arena arena) {
+	public TeamSelection(Arena arena) {
 		super(null, round(arena.getPlots().size()), MessageManager.translate(MESSAGES.getString("team-gui.title")), 1);
 
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		int iteration = 0;
-		
-		for (final Plot plot : arena.getPlots()) {
-			ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + (iteration + 1) + ".id"));
-			ItemMeta itemMeta = item.getItemMeta();
-			itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
-					.replace("%plot%", plot.getID() + "")
-					.replace("%plot_players%", plot.getPlayers() + "")
-					.replace("%plot_max_players%", plot.getMaxPlayers() + "")));
-			
-			List<String> lores = new ArrayList<>();
-			
-			if (!config.getBoolean("team-selection.show-names-as-lore")) {
-				for (String lore : MESSAGES.getStringList("team-gui.team.lores"))
-					lores.add(MessageManager.translate(lore));
-			} else {
-				for (GamePlayer gamePlayer : plot.getGamePlayers())
-					lores.add(gamePlayer.getPlayer().getName());
-			}
-			
-			itemMeta.setLore(lores);
-			item.setItemMeta(itemMeta);
-			setItem(item, new GuiAction() {
-				
-				private final Plot p = plot;
-				
-				@Override
-				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-					if (type != GuiActionType.CLICK)
-						return false;
-					
-					InventoryClickEvent event = (InventoryClickEvent) e;
-					
-					Player player = (Player) event.getWhoClicked();
-					Plot previousPlot = arena.getPlot(player);
-					GamePlayer gamePlayer = previousPlot.getGamePlayer(player);
-					
-					if (p.join(gamePlayer))
-						previousPlot.leave(gamePlayer);
-					
-					player.closeInventory();
-					return true;
-				}
-			}, iteration);
-			
-			iteration++;
-		}
+		this.arena = arena;
 	}
+
+	@Override
+    public void open(Player player, int page) {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        int iteration = 0;
+
+        for (final Plot plot : arena.getPlots()) {
+            ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + (iteration + 1) + ".id"));
+            ItemMeta itemMeta = item.getItemMeta();
+            itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
+                    .replace("%plot%", plot.getID() + "")
+                    .replace("%plot_players%", plot.getPlayers() + "")
+                    .replace("%plot_max_players%", plot.getMaxPlayers() + "")));
+
+            List<String> lores = new ArrayList<>();
+
+            if (!config.getBoolean("team-selection.show-names-as-lore")) {
+                for (String lore : MESSAGES.getStringList("team-gui.team.lores"))
+                    lores.add(MessageManager.translate(lore));
+            } else {
+                for (GamePlayer gamePlayer : plot.getGamePlayers())
+                    lores.add(gamePlayer.getPlayer().getName());
+            }
+
+            itemMeta.setLore(lores);
+            item.setItemMeta(itemMeta);
+            setItem(item, new GuiAction() {
+
+                @Override
+                public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
+                    if (type != GuiActionType.CLICK)
+                        return false;
+
+                    InventoryClickEvent event = (InventoryClickEvent) e;
+
+                    Player player = (Player) event.getWhoClicked();
+                    Plot previousPlot = arena.getPlot(player);
+                    GamePlayer gamePlayer = previousPlot.getGamePlayer(player);
+
+                    if (plot.join(gamePlayer))
+                        previousPlot.leave(gamePlayer);
+
+                    player.closeInventory();
+                    update();
+
+                    return true;
+                }
+            }, iteration);
+
+            iteration++;
+        }
+
+	    super.open(player, page);
+    }
 
 	/**
      * Rounds a value up to the next multiple of nine (excluding zero)
