@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.Bukkit;
@@ -19,15 +20,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.ChickenSpawnByEgg;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityExplode;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntitySpawn;
-import com.gmail.stefvanschiedev.buildinggame.events.player.Chat;
-import com.gmail.stefvanschiedev.buildinggame.events.player.CommandBlocker;
-import com.gmail.stefvanschiedev.buildinggame.events.player.Drop;
-import com.gmail.stefvanschiedev.buildinggame.events.player.EntityDamage;
-import com.gmail.stefvanschiedev.buildinggame.events.player.Leave;
-import com.gmail.stefvanschiedev.buildinggame.events.player.LoseFood;
-import com.gmail.stefvanschiedev.buildinggame.events.player.Move;
-import com.gmail.stefvanschiedev.buildinggame.events.player.PlaceBucket;
-import com.gmail.stefvanschiedev.buildinggame.events.player.TakeDamage;
 import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.CloseSubjectMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickLeaveSign;
@@ -213,6 +205,7 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new Leave(), this);
 			pm.registerEvents(new Move(), this);
 			pm.registerEvents(new PlaceBucket(), this);
+			pm.registerEvents(new PlaceIgnoreSpectators(), this);
 			if (SettingsManager.getInstance().getConfig().getBoolean("chat.adjust"))
 				pm.registerEvents(new Chat(), this);
 			pm.registerEvents(new CommandBlocker(), this);
