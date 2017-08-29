@@ -196,8 +196,9 @@ public class Gui implements Listener {
 		inventory.setContents(newItems);
 		
 		player.openInventory(inventory);
-		
-		playerPages.put(player, page);
+
+		if (!playerPages.containsKey(player) || playerPages.get(player) != page)
+		    playerPages.put(player, page);
 	}
 
 	/**
@@ -239,8 +240,7 @@ public class Gui implements Listener {
      * @since 4.0.0
      */
 	synchronized void update() {
-        for (Player player : playerPages.keySet())
-            update(player);
+	    playerPages.keySet().forEach(this::update);
 	}
 
 	/**

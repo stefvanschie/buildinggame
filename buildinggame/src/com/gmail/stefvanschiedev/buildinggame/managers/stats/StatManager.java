@@ -169,12 +169,14 @@ public final class StatManager {
 	public synchronized void saveToFile() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
-		
-		for (Stat stat : this.stats) {
-		    String type = stat.getType().toString().toLowerCase(Locale.getDefault());
 
-		    if (config.getBoolean("stats.enable." + type))
-                stats.set(stat.getPlayer().getUniqueId() + "." + type, stat.getValue());
+		synchronized (this.stats) {
+            for (Stat stat : this.stats) {
+                String type = stat.getType().toString().toLowerCase(Locale.getDefault());
+
+                if (config.getBoolean("stats.enable." + type))
+                    stats.set(stat.getPlayer().getUniqueId() + "." + type, stat.getValue());
+            }
         }
 		
 		SettingsManager.getInstance().save();
