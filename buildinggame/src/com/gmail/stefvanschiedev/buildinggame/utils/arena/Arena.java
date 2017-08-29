@@ -879,7 +879,7 @@ public class Arena {
 
                 ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config.getString("leave-item.id")).setDisplayName(MessageManager.translate(messages.getString("leave-item.name"))).setClickEvent(event -> {
                     leave(player);
-                    return false;
+                    return true;
                 });
 				ItemBuilder.register(itemBuilder);
                 player.getInventory().setItem(config.getInt("leave-item.slot"), itemBuilder);
