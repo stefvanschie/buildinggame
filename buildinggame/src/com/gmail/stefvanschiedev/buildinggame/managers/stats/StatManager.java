@@ -187,16 +187,16 @@ public final class StatManager {
      *
      * @since 4.0.0
      */
-	public void saveToDatabase() {
+	public synchronized void saveToDatabase() {
 	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
-		List<Stat> stats = this.stats;
+	    synchronized (stats) {
+            for (Stat stat : stats) {
+                String type = stat.getType().toString().toLowerCase(Locale.getDefault());
 
-		for (Stat stat : stats) {
-		    String type = stat.getType().toString().toLowerCase(Locale.getDefault());
-
-		    if (config.getBoolean("stats.enable." + type))
-                getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), type, stat.getValue());
+                if (config.getBoolean("stats.enable." + type))
+                    getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), type, stat.getValue());
+            }
         }
 	}
 

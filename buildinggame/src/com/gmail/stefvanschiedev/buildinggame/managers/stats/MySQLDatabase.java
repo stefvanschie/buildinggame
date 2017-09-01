@@ -50,7 +50,12 @@ public class MySQLDatabase {
         if (!manager.configureConnPool())
         	return false;
 
-        try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = manager.getConnection();
+            statement = connection.createStatement();
+
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `buildinggamestats` (\n" +
                     "  `UUID` text NOT NULL,\n" +
                     "  `plays` int(11) NOT NULL DEFAULT '0',\n" +
@@ -61,11 +66,17 @@ public class MySQLDatabase {
                     "  `placed` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `walked` int(11) NOT NULL DEFAULT '0'\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
-            closeConnection(connection);
         } catch (SQLException e) {
         	plugin.getLogger().info("Failed to create table in database! Returning to file stats.");
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return false;
+        } finally {
+            try {
+                statement.close();
+                closeConnection(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         // Table exists
@@ -78,12 +89,24 @@ public class MySQLDatabase {
      * @param query SQL command to be performed.
      * @since 4.0.6
      */
-    private void executeUpdate(String query){
-        try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
+    private void executeUpdate(String query) {
+        Connection connection = null;
+        Statement statement = null;
+
+        try {
+            connection = manager.getConnection();
+            statement = connection.createStatement();
+
             statement.executeUpdate(query);
-            closeConnection(connection);
         } catch (SQLException e) {
             plugin.getLogger().warning("Failed to execute update: " + query);
+        } finally {
+            try {
+                statement.close();
+                closeConnection(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -97,13 +120,25 @@ public class MySQLDatabase {
      */
     @Nullable
     private ResultSet executeQuery(String query){
-        try (Connection connection = manager.getConnection(); Statement statement = connection.createStatement()) {
-            ResultSet rs = statement.executeQuery(query);
-            closeConnection(connection);
-            return rs;
+        Connection connection = null;
+        Statement statement = null;
+
+        try {
+            connection = manager.getConnection();
+            statement = connection.createStatement();
+
+            return statement.executeQuery(query);
         } catch (SQLException exception){
             exception.printStackTrace();
             plugin.getLogger().warning("Failed to execute request: "+query);
+
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            closeConnection(connection);
             return null;
         }
     }
@@ -116,14 +151,24 @@ public class MySQLDatabase {
      * @since 4.0.6
      */
     public void insertPlayer(String UUID) {
-    	try (ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats WHERE UUID='" + UUID + '\'')) {
-            if (set == null)
+        ResultSet set = null;
+
+    	try {
+            set = executeQuery("SELECT UUID FROM buildinggamestats WHERE UUID='" + UUID + '\'');
+
+    	    if (set == null)
                 return;
 
             if (!set.next())
                 executeUpdate("INSERT INTO buildinggamestats (UUID,walked) VALUES ('" + UUID + "',0)");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                set.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -149,18 +194,30 @@ public class MySQLDatabase {
      * @return returns an int which represents the stat
      * @since 4.0.6
      */
-    public int getStat(String UUID, String stat){
-        try (ResultSet set = executeQuery("SELECT "+stat+" FROM buildinggamestats WHERE UUID='"+UUID+ '\'')) {
+    public int getStat(String UUID, String stat) {
+        ResultSet set = null;
+
+        try {
+            set = executeQuery("SELECT "+stat+" FROM buildinggamestats WHERE UUID='"+UUID+ '\'');
 
             if (set == null)
                 return 0;
 
             if (!set.next())
                 return 0;
+
             return (set.getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return 0;
+        } finally {
+            try {
+                set.close();
+                set.getStatement().close();
+                closeConnection(set.getStatement().getConnection());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -171,8 +228,10 @@ public class MySQLDatabase {
      */
     Set<UUID> getAllPlayers() {
     	Set<UUID> uuids = new HashSet<>();
+        ResultSet set = null;
 
-    	try (ResultSet set = executeQuery("SELECT UUID FROM buildinggamestats")) {
+    	try {
+    	    set = executeQuery("SELECT UUID FROM buildinggamestats");
 
             if (set == null)
                 return uuids;
@@ -182,6 +241,14 @@ public class MySQLDatabase {
         } catch (SQLException e) {
             plugin.getLogger().warning("Error while retrieving data from database");
             e.printStackTrace();
+        } finally {
+            try {
+                set.close();
+                set.getStatement().close();
+                closeConnection(set.getStatement().getConnection());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     	
     	return uuids;
