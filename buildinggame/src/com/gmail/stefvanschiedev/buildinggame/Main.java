@@ -268,7 +268,7 @@ public class Main extends JavaPlugin {
 		
 		long end = System.currentTimeMillis();
 		
-		getLogger().info("BuildingGame has been enabled in " + (end - start) + " milliseconds!");
+		getLogger().info("BuildingGame has been enabled in " + ((end - start) / 1000.0) + " seconds!");
 		
 	}
 
