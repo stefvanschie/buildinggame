@@ -7,4 +7,4 @@ Navigating the files:
   The bungeecord version in the bungeecord folder.
 
 Shaded libraries:
-  This plugin contains libraries which are shaded in the projects, but are not shown on here. These libraries include BoneCP (http://www.jolbox.com/) and SLF4J (http://www.slf4j.org/).
+  This plugin contains libraries which are shaded in the projects, but are not shown on here. These libraries include HikariCP (https://github.com/brettwooldridge/HikariCP) and SLF4J (http://www.slf4j.org/).
