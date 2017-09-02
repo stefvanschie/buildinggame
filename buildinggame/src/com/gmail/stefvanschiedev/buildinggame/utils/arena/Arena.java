@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.arena;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 

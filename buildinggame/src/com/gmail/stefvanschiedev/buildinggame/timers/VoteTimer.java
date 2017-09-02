@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.api.Win;
 import com.gmail.stefvanschiedev.buildinggame.api.events.PlayerWinEvent;
-import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandExecuter;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
@@ -80,7 +79,7 @@ public class VoteTimer extends Timer {
 		this.arena = arena;
 	}
 
-	/**
+    /**
      * Called whenever a second has passed. This will generate a new plot if needed or end the game if all plots have
      * been voted on.
      *
@@ -167,7 +166,7 @@ public class VoteTimer extends Timer {
 						if(SDVault.getInstance().isEnabled() && gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
 							Economy vault = SDVault.getEconomy();
 							if (first.equals(plot)) {
-								double money = config.getInt("money.first");
+								double money = config.getDouble("money.first");
 								
 								if (player.hasPermission("bg.rewards.money.double")) {
 									money *= 2;
@@ -181,7 +180,7 @@ public class VoteTimer extends Timer {
 								}
 						
 								for (String command : config.getStringList("commands.first")) {
-									String cmd = CommandExecuter.execute(command
+									String cmd = execute(command
 											.replace("%player%", player.getName()));
 									if (cmd != null)
 										player.performCommand(command
@@ -195,7 +194,7 @@ public class VoteTimer extends Timer {
 									}
 								}
 							} else if (second.equals(plot)) {
-								double money = config.getInt("money.second");
+								double money = config.getDouble("money.second");
 								
 								if (player.hasPermission("bg.rewards.money.double")) {
 									money *= 2;
@@ -209,7 +208,7 @@ public class VoteTimer extends Timer {
 								}
 						
 								for (String command : config.getStringList("commands.second")) {
-									String cmd = CommandExecuter.execute(command
+									String cmd = execute(command
 											.replace("%player%", player.getName()));
 									if (cmd != null)
 										player.performCommand(command
@@ -223,7 +222,7 @@ public class VoteTimer extends Timer {
 									}
 								}
 							} else if (third.equals(plot)) {
-								double money = config.getInt("money.third");
+								double money = config.getDouble("money.third");
 								
 								if (player.hasPermission("bg.rewards.money.double")) {
 									money *= 2;
@@ -237,7 +236,7 @@ public class VoteTimer extends Timer {
 								}
 						
 								for (String command : config.getStringList("commands.third")) {
-									String cmd = CommandExecuter.execute(command
+									String cmd = execute(command
 											.replace("%player%", player.getName()));
 									if (cmd != null)
 										player.performCommand(command
@@ -251,7 +250,7 @@ public class VoteTimer extends Timer {
 									}
 								}
 							} else {
-								double money = config.getInt("money.others");
+								double money = config.getDouble("money.others");
 								
 								if (player.hasPermission("bg.rewards.money.double")) {
 									money *= 2;
@@ -260,7 +259,7 @@ public class VoteTimer extends Timer {
 								EconomyResponse r = vault.depositPlayer(player, money);
 							
 								for (String command : config.getStringList("commands.others")) {
-									String cmd = CommandExecuter.execute(command
+									String cmd = execute(command
 											.replace("%player%", player.getName()));
 									if (cmd != null)
 										player.performCommand(command
@@ -280,7 +279,7 @@ public class VoteTimer extends Timer {
 				if (first != null && !first.getGamePlayers().isEmpty()) {
 					for (GamePlayer gamePlayer : first.getGamePlayers()) {
 						for (String command : config.getStringList("win-commands")) {
-							String cmd = CommandExecuter.execute(command
+							String cmd = execute(command
 									.replace("%winner%", gamePlayer.getPlayer().getName()));
 							if (cmd != null)
 								gamePlayer.getPlayer().performCommand(command
@@ -364,6 +363,24 @@ public class VoteTimer extends Timer {
 		}
 		return null;
 	}
+
+    /**
+     * Executes a string from the config.yml. When the command is prefixed with %console% it will be executed by the
+     * console, otherwise it'll return itself.
+     *
+     * @param command the command to execute
+     * @return the command or null in case the string is prefixed with %console%
+     * @since 2.1.0
+     */
+    @Nullable
+    @Contract("null -> fail")
+    private static String execute(String command) {
+        if (command.startsWith("%console%")) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replaceFirst("%console%", "").trim());
+            return null;
+        } else
+            return command;
+    }
 
 	/**
      * Returns the amount of seconds left for this plot

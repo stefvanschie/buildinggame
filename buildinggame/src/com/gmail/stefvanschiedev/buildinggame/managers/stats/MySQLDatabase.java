@@ -125,6 +125,7 @@ public class MySQLDatabase {
 
         try {
             connection = manager.getConnection();
+            //noinspection JDBCResourceOpenedButNotSafelyClosed
             statement = connection.createStatement();
 
             return statement.executeQuery(query);
