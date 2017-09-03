@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.*;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -20,10 +21,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
-import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder;
-import com.gmail.stefvanschiedev.buildinggame.utils.Time;
-import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
@@ -58,12 +55,12 @@ public class Plot {
 	/**
      * The boundary for this plot
      */
-	private Boundary boundary;
+	private Region boundary;
 
 	/**
      * The floor for this plot
      */
-	private Floor floor;
+	private Region floor;
 
 	/**
      * The ID assigned to this plot
@@ -307,7 +304,7 @@ public class Plot {
      */
 	@Nullable
     @Contract(pure = true)
-	public Boundary getBoundary() {
+	public Region getBoundary() {
 		return boundary;
 	}
 
@@ -343,7 +340,7 @@ public class Plot {
      */
 	@Nullable
     @Contract(pure = true)
-	public Floor getFloor() {
+	public Region getFloor() {
 		return floor;
 	}
 
@@ -747,7 +744,7 @@ public class Plot {
      * @param boundary the new boundary
      * @since 2.1.0
      */
-	public void setBoundary(Boundary boundary) {
+	public void setBoundary(Region boundary) {
 		this.boundary = boundary;
 	}
 
@@ -757,7 +754,7 @@ public class Plot {
      * @param floor the new floor
      * @since 2.1.0
      */
-	public void setFloor(Floor floor) {
+	public void setFloor(Region floor) {
 		this.floor = floor;
 	}
 

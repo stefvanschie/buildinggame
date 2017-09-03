@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Boundary;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Sign;
@@ -1141,7 +1140,7 @@ public class Arena {
 		
 		this.votingPlot = votingPlot;
 
-		Boundary boundary = votingPlot.getBoundary();
+		Region boundary = votingPlot.getBoundary();
         Location safeLocation = boundary.getSafeLocation();
         Location center = boundary.getCenter();
 

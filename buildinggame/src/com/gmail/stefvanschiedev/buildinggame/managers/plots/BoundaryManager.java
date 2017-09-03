@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.plots;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -7,7 +8,6 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Boundary;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +52,7 @@ public final class BoundaryManager {
 			for (Plot plot : arena.getPlots()) {
 				try {
 					YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-					plot.setBoundary(new Boundary(Bukkit.getWorld(arenas.getString(arena.getName() + '.' + plot.getID() + ".high.world")),
+					plot.setBoundary(new Region(Bukkit.getWorld(arenas.getString(arena.getName() + '.' + plot.getID() + ".high.world")),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".high.x"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".high.y"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".high.z"),
