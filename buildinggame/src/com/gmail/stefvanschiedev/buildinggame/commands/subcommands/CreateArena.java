@@ -38,8 +38,8 @@ public class CreateArena extends ConsoleCommand {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		if (args.length == 0) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arenaname");
-			return CommandResult.ARGUMENTEXCEPTION;
+			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena name");
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		if (arenas.contains(args[0])) {
@@ -61,7 +61,7 @@ public class CreateArena extends ConsoleCommand {
 			MessageManager.getInstance().send(sender, message
 					.replace("%arena%", args[0]));
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
 	/**

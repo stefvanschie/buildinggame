@@ -48,20 +48,23 @@ public final class BoundaryManager {
      */
 	@SuppressWarnings("MethodMayBeStatic")
     public void setup() {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
 				try {
-					YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-					plot.setBoundary(new Region(Bukkit.getWorld(arenas.getString(arena.getName() + '.' + plot.getID() + ".high.world")),
+					plot.setBoundary(new Region(Bukkit.getWorld(
+					        arenas.getString(arena.getName() + '.' + plot.getID() + ".high.world")),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".high.x"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".high.y"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".high.z"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".low.x"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".low.y"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".low.z")));
-					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-						Main.getInstance().getLogger().info("Loaded boundary for plot " + plot.getID() + " in arena " + arena.getName());
-					}
+
+					if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+						Main.getInstance().getLogger().info("Loaded boundary for plot " + plot.getID() +
+                                " in arena " + arena.getName());
 				} catch (NullPointerException | IllegalArgumentException e) {
 					plot.setBoundary(null);
 				}

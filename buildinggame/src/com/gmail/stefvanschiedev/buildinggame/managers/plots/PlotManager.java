@@ -41,7 +41,9 @@ public final class PlotManager {
     public void setup() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			arena.getPlots().clear();
-			for (String plot : SettingsManager.getInstance().getArenas().getConfigurationSection(arena.getName()).getKeys(false)) {
+
+			for (String plot : SettingsManager.getInstance().getArenas().getConfigurationSection(arena.getName())
+                    .getKeys(false)) {
 				int id;
 
 				try {
@@ -49,13 +51,14 @@ public final class PlotManager {
 				} catch (NumberFormatException e) {
 					continue;
 				}
-				
+
 				Plot p = new Plot(id);
+                p.setArena(arena);
 				arena.addPlot(p);
-				p.setArena(arena);
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-					Main.getInstance().getLogger().info("Loaded plot " + p.getID() + " in arena " + arena.getName());
-				}
+
+				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+					Main.getInstance().getLogger().info("Loaded plot " + p.getID() + " in arena " +
+                            arena.getName());
 			}
 		}
 	}

@@ -4,13 +4,14 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Handles MySQL statistic loading for new players
@@ -31,12 +32,21 @@ public class JoinPlayerStats implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         final Player player = event.getPlayer();
-        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
-            if (!StatManager.getInstance().containsUUID(player.getUniqueId()) && StatManager.getInstance().getMySQLDatabase() != null)
-                StatManager.getInstance().getMySQLDatabase().insertPlayer(player.getUniqueId().toString());
 
-            for (StatType statType : StatType.values())
-                StatManager.getInstance().registerStat(player, statType, StatManager.getInstance().getMySQLDatabase().getStat(player.getUniqueId().toString(),statType.toString().toLowerCase(Locale.getDefault())));
-        });
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                StatManager instance = StatManager.getInstance();
+                UUID uniqueId = player.getUniqueId();
+                String uuidString = uniqueId.toString();
+
+                if (!instance.containsUUID(uniqueId) && instance.getMySQLDatabase() != null)
+                    instance.getMySQLDatabase().insertPlayer(uuidString);
+
+                for (StatType statType : StatType.values())
+                    instance.registerStat(player, statType, instance.getMySQLDatabase().getStat(uuidString,
+                            statType.toString().toLowerCase(Locale.getDefault())));
+            }
+        }.runTaskAsynchronously(Main.getInstance());
     }
 }

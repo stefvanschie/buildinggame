@@ -27,7 +27,7 @@ public abstract class PlayerCommand extends SubCommand {
 	@Override
 	public CommandResult onCommand(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Only players can perform this commmand");
+			MessageManager.getInstance().send(sender, ChatColor.RED + "Only players can perform this command");
 			return CommandResult.ERROR;
 		}
 		

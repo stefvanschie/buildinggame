@@ -57,7 +57,8 @@ public final class StatManager {
 				
 				for (UUID uuid : uuids) {
 					for (StatType statType : StatType.values())
-						this.stats.add(new Stat(statType, Bukkit.getOfflinePlayer(uuid), database.getStat(uuid.toString(), statType.toString().toLowerCase(Locale.getDefault()))));
+						this.stats.add(new Stat(statType, Bukkit.getOfflinePlayer(uuid), database.getStat(uuid
+                                .toString(), statType.toString().toLowerCase(Locale.getDefault()))));
 				}
 				
 				return;
@@ -96,6 +97,7 @@ public final class StatManager {
      * @return whether the UUId was found or not
      * @since 4.0.0
      */
+	@Contract("null -> false")
 	public boolean containsUUID(UUID uuid) {
 		for (Stat stat : stats) {
 			if (stat.getPlayer().getUniqueId().equals(uuid))
@@ -115,11 +117,13 @@ public final class StatManager {
      * @since 2.2.0
      */
 	@Nullable
+    @Contract("_, null -> null")
     public Stat getStat(Player player, StatType type) {
 		for (Stat stat : stats) {
 			if (player.equals(stat.getPlayer().getPlayer()) && stat.getType() == type)
 				return stat;
 		}
+
 		return null;
 	}
 
@@ -130,6 +134,7 @@ public final class StatManager {
      * @return an iterable of all stats with the given type
      * @since 3.1.0
      */
+	@NotNull
 	public Iterable<Stat> getStats(StatType type) {
 		Collection<Stat> stats = new ArrayList<>();
 		
@@ -149,6 +154,7 @@ public final class StatManager {
      * @param value the value of the statistic
      * @since 2.2.0
      */
+	@Contract("_, null, _ -> fail")
 	public void registerStat(Player player, StatType type, int value) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		

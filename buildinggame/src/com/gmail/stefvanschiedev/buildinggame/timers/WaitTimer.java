@@ -73,6 +73,7 @@ public class WaitTimer extends Timer {
 			for (Plot plot : arena.getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 					Player player = gamePlayer.getPlayer();
+
 					for (String message : messages.getStringList("lobbyCountdown.message")) {
 						MessageManager.getInstance().send(player, message
 								.replace("%seconds%", seconds + "")
@@ -83,13 +84,9 @@ public class WaitTimer extends Timer {
 				}
 			}
 		}
-		for (Plot plot : arena.getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				Player player = gamePlayer.getPlayer();
-				
-				player.setLevel(seconds);
-			}
-		}
+
+        arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
+                gamePlayer.getPlayer().setLevel(seconds)));
 		
 		//timings
 		try {
@@ -105,7 +102,8 @@ public class WaitTimer extends Timer {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
                 }
 			}
-		} catch (NullPointerException | NumberFormatException e) {}
+		} catch (NullPointerException | NumberFormatException ignore) {}
+
 		seconds--;
 	}
 
@@ -113,7 +111,8 @@ public class WaitTimer extends Timer {
      * {@inheritDoc}
      */
 	@Override
-    public synchronized BukkitTask runTaskTimer(Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
+    public synchronized BukkitTask runTaskTimer(Plugin plugin, long delay, long period) throws IllegalArgumentException,
+            IllegalStateException {
         running = true;
 
 	    return super.runTaskTimer(plugin, delay, period);

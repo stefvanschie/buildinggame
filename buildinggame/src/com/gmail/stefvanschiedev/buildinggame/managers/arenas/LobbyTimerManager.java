@@ -26,10 +26,12 @@ public final class LobbyTimerManager {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			if (!arenas.contains(arena.getName() + ".lobby-timer"))
-				arenas.set(arena.getName() + ".lobby-timer", config.getInt("waittimer"));
+            String name = arena.getName();
+
+            if (!arenas.contains(name + ".lobby-timer"))
+				arenas.set(name + ".lobby-timer", config.getInt("waittimer"));
 			
-			arena.setWaitTimer(new WaitTimer(arenas.getInt(arena.getName() + ".lobby-timer"), arena));
+			arena.setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), arena));
 		}
 	}
 

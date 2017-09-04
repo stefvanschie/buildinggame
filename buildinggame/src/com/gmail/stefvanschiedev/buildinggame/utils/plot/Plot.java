@@ -135,13 +135,9 @@ public class Plot {
 	public boolean addEntity(Entity entity) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING)
-			return false;
-		
-		if (!config.getBoolean("mobs.allow"))
-			return false;
-		
-		if (config.getStringList("blocked-entities").contains(entity.getType().toString().toLowerCase(Locale.getDefault())))
+		if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING ||
+                !config.getBoolean("mobs.allow") || config.getStringList("blocked-entities")
+                .contains(entity.getType().toString().toLowerCase(Locale.getDefault())))
 			return false;
 		
 		if (config.getBoolean("mobs.enable-noai")) {
@@ -162,13 +158,11 @@ public class Plot {
      * @since 2.1.0
      */
 	public void addParticle(Particle particle, CommandSender player) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
-		if (getParticles().size() != config.getInt("max-particles"))
+		if (getParticles().size() != SettingsManager.getInstance().getConfig().getInt("max-particles"))
 			particles.add(particle);
 		else
-			MessageManager.getInstance().send(player, messages.getStringList("particle.max-particles"));
+			MessageManager.getInstance().send(player, SettingsManager.getInstance().getMessages()
+                    .getStringList("particle.max-particles"));
 	}
 
 	/**
@@ -181,7 +175,6 @@ public class Plot {
 	@Contract("null, _ -> fail; _, null -> fail")
 	public void addSpectator(final Player spectator, GamePlayer spectates) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		final GamePlayer gamePlayer = new GamePlayer(spectator, GamePlayerType.SPECTATOR);
 		gamePlayer.setSpectates(spectates);
@@ -191,7 +184,9 @@ public class Plot {
 		for (GamePlayer player : getAllGamePlayers())
 			player.getPlayer().hidePlayer(spectator);
 
-        ItemBuilder spectatorLeaveItem = IDDecompiler.getInstance().decompile(spectator, config.getString("leave-item.id")).setDisplayName(MessageManager.translate(messages.getString("leave-item.name"))).setClickEvent(event -> {
+        ItemBuilder spectatorLeaveItem = IDDecompiler.getInstance().decompile(spectator,
+                config.getString("leave-item.id")).setDisplayName(MessageManager.translate(SettingsManager
+                .getInstance().getMessages().getString("leave-item.name"))).setClickEvent(event -> {
             gamePlayer.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
             removeSpectator(gamePlayer);
             MessageManager.getInstance().send(spectator, ChatColor.GREEN + "Stopped spectating");
@@ -200,7 +195,8 @@ public class Plot {
         ItemBuilder.register(spectatorLeaveItem);
         spectator.getInventory().setItem(config.getInt("leave-item.slot"), spectatorLeaveItem);
 
-        ItemBuilder itemBuilder = new ItemBuilder(spectator, Material.EMERALD).setDisplayName(ChatColor.GREEN + "Spectator menu").setClickEvent(event -> {
+        ItemBuilder itemBuilder = new ItemBuilder(spectator, Material.EMERALD).setDisplayName(ChatColor.GREEN +
+                "Spectator menu").setClickEvent(event -> {
             new SpectatorMenu().open(spectator);
             return true;
         });
@@ -355,10 +351,10 @@ public class Plot {
     @Contract(pure = true)
 	public GamePlayer getGamePlayer(Player player) {
 		for (GamePlayer gamePlayer : getAllGamePlayers()) {
-			if (gamePlayer.getPlayer().equals(player)) {
+			if (gamePlayer.getPlayer().equals(player))
 				return gamePlayer;
-			}
 		}
+
 		return null;
 	}
 
@@ -454,13 +450,12 @@ public class Plot {
 		for (int i = 0; i < getGamePlayers().size(); i++) {
 			GamePlayer player = getGamePlayers().get(i);
 			
-			if (i == getGamePlayers().size() - 1) {
+			if (i == getGamePlayers().size() - 1)
 				players.append(player.getPlayer().getName());
-			} else if (i == getGamePlayers().size() - 2) {
+			else if (i == getGamePlayers().size() - 2)
 				players.append(player.getPlayer().getName()).append(messages.getString("global.combine-names"));
-			} else {
+			else
 				players.append(player.getPlayer().getName()).append(", ");
-			}
 		}
 		
 		return players.toString();
@@ -476,9 +471,8 @@ public class Plot {
 	public int getPoints() {
 		int points = 0;
 		
-		for (Vote vote : votes) {
+		for (Vote vote : votes)
 			points += vote.getPoints();
-		}
 		
 		return points;
 	}
@@ -535,10 +529,7 @@ public class Plot {
      */
 	@Contract(pure = true)
 	private int getTimesVoted(Player player) {
-		if (timesVoted.get(player) == null) {
-			return 0;
-		}
-		return timesVoted.get(player);
+		return timesVoted.get(player) == null ? 0 : timesVoted.get(player);
 	}
 
 	/**
@@ -552,10 +543,10 @@ public class Plot {
 	@Contract(pure = true)
 	public Vote getVote(Player player) {
 		for (Vote vote : getVotes()) {
-			if (vote.getSender().equals(player)) {
+			if (vote.getSender().equals(player))
 				return vote;
-			}
 		}
+
 		return null;
 	}
 
@@ -581,10 +572,10 @@ public class Plot {
 	@Contract(value = "null -> false", pure = true)
 	public boolean hasVoted(Player player) {
 		for (Vote vote : getVotes()) {
-			if (vote.getSender().equals(player)) {
+			if (vote.getSender().equals(player))
 				return true;
-			}
 		}
+
 		return false;
 	}
 
@@ -597,14 +588,11 @@ public class Plot {
 	@Contract(pure = true)
 	public boolean isFull() {
 		if (arena.getMode() == ArenaMode.TEAM) {
-			if ((arena.getMaxPlayers() / arena.getPlots().size()) == getGamePlayers().size()) {
+			if ((arena.getMaxPlayers() / arena.getPlots().size()) == getGamePlayers().size())
 				return true;
-			}
-		} else {
-			if (!getGamePlayers().isEmpty()) {
-				return true;
-			}
-		}
+		} else if (!getGamePlayers().isEmpty())
+            return true;
+
 		return false;
 	}
 
@@ -635,11 +623,13 @@ public class Plot {
 				gamePlayers.add(gamePlayer);
 				
 				for (String s : MessageManager.translate(messages.getStringList("join.plot.message")))
-					MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%", getID() + ""));
+					MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%",
+                            getID() + ""));
 				
 				return true;
 			} else {
-				MessageManager.getInstance().send(gamePlayer.getPlayer(), MessageManager.translate(messages.getStringList("join.plot.full")));
+				MessageManager.getInstance().send(gamePlayer.getPlayer(), MessageManager.translate(messages
+                        .getStringList("join.plot.full")));
 				return false;
 			}
 		} else {
@@ -650,7 +640,8 @@ public class Plot {
 				gamePlayers.add(gamePlayer);
 			
 			for (String s : MessageManager.translate(messages.getStringList("join.plot.message")))
-				MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%", getID() + ""));
+				MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%",
+                        getID() + ""));
 			
 			return true;
 		}
@@ -694,11 +685,8 @@ public class Plot {
      */
 	@SuppressWarnings("deprecation")
 	public void restore() {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		if (!config.getBoolean("restore-plots")) {
+		if (!SettingsManager.getInstance().getConfig().getBoolean("restore-plots"))
 			return;
-		}
 		
 		for (BlockState blockState : blocks) {
 			blockState.getLocation().getBlock().setType(blockState.getType());
@@ -723,9 +711,8 @@ public class Plot {
 			return;
 		}
 		
-		for (Block block : getBoundary().getAllBlocks()) {
+		for (Block block : getBoundary().getAllBlocks())
 			blocks.add(block.getState());
-		}
 	}
 
     /**
@@ -776,14 +763,13 @@ public class Plot {
      */
 	public void setRaining(boolean raining) {
 		this.raining = raining;
+
 		if (raining) {
-			for (GamePlayer gamePlayer : getGamePlayers()) {
+			for (GamePlayer gamePlayer : getGamePlayers())
 				gamePlayer.getPlayer().setPlayerWeather(WeatherType.DOWNFALL);
-			}
 		} else {
-			for (GamePlayer gamePlayer : getGamePlayers()) {
+			for (GamePlayer gamePlayer : getGamePlayers())
 				gamePlayer.getPlayer().setPlayerWeather(WeatherType.CLEAR);
-			}
 		}
 	}
 
@@ -795,8 +781,8 @@ public class Plot {
      */
 	public void setTime(Time time) {
 		this.time = time;
-		for (GamePlayer gamePlayer : getGamePlayers()) {
+
+		for (GamePlayer gamePlayer : getGamePlayers())
 			gamePlayer.getPlayer().setPlayerTime(time.decode(), false);
-		}
 	}
 }

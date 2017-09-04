@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -101,25 +102,30 @@ public final class SettingsManager {
      */
 	@Contract("null, _ -> fail")
 	public void setup(Plugin p, boolean save) {
-		if (!p.getDataFolder().exists()) {
-            if (!p.getDataFolder().mkdir())
-                p.getLogger().warning("Unable to create data folder");
+        File dataFolder = p.getDataFolder();
+        Logger logger = p.getLogger();
+
+        if (!dataFolder.exists()) {
+            if (!dataFolder.mkdir())
+                logger.warning("Unable to create data folder");
         }
-		arenasFile = new File(p.getDataFolder(), "arenas.yml");
-		configFile = new File(p.getDataFolder(), "config.yml");
-		messagesFile = new File(p.getDataFolder(), "messages.yml");
-		signsFile = new File(p.getDataFolder(), "signs.yml");
-		statsFile = new File(p.getDataFolder(), "stats.yml");
+
+		arenasFile = new File(dataFolder, "arenas.yml");
+		configFile = new File(dataFolder, "config.yml");
+		messagesFile = new File(dataFolder, "messages.yml");
+		signsFile = new File(dataFolder, "signs.yml");
+		statsFile = new File(dataFolder, "stats.yml");
 		
 		arenas = YamlConfiguration.loadConfiguration(arenasFile);
 		config = YamlConfiguration.loadConfiguration(configFile);
 		messages = YamlConfiguration.loadConfiguration(messagesFile);
 		signs = YamlConfiguration.loadConfiguration(signsFile);
 		stats = YamlConfiguration.loadConfiguration(statsFile);
-		if (!arenasFile.exists()) {
+
+        if (!arenasFile.exists()) {
 			try {
 				if (!arenasFile.createNewFile())
-				    p.getLogger().warning("Unable to create arenas file");
+				    logger.warning("Unable to create arenas file");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -127,7 +133,7 @@ public final class SettingsManager {
 		if (!configFile.exists()) {
 			try {
 				if (!configFile.createNewFile())
-				    p.getLogger().warning("Unable to create config file");
+				    logger.warning("Unable to create config file");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -135,7 +141,7 @@ public final class SettingsManager {
 		if (!messagesFile.exists()) {
 			try {
 				if (!messagesFile.createNewFile())
-				    p.getLogger().warning("Unable to create messages file");
+				    logger.warning("Unable to create messages file");
 
 				save();
 			} catch (IOException e) {
@@ -145,7 +151,7 @@ public final class SettingsManager {
 		if (!signsFile.exists()) {
 			try {
 				if (!signsFile.createNewFile())
-				    p.getLogger().warning("Unable to create signs file");
+				    logger.warning("Unable to create signs file");
 
 				save();
 			} catch (IOException e) {
@@ -156,13 +162,14 @@ public final class SettingsManager {
 		if (!statsFile.exists()) {
 			try {
 				if (!statsFile.createNewFile())
-				    p.getLogger().warning("Unable to create stats file");
+				    logger.warning("Unable to create stats file");
 
 				save();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+
 		generateSettings(save);
 		generateMessages(save);
 	}
@@ -256,35 +263,40 @@ public final class SettingsManager {
 		int removedSettings = 0;
 		
 		InputStream defConfigStream = Main.getInstance().getResource("config.yml");
+
         if (defConfigStream != null) {
 			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
 			
 			for (String string : defConfig.getKeys(true)) {
 				if (!config.contains(string)) {
 					config.set(string, defConfig.get(string));
+
 					if (config.getBoolean("debug"))
 						addedSettings++;
 				}
 				
-				if (config.getBoolean("debug")) {
-					if (!config.isConfigurationSection(string))
-						settings++;
-				}
+				if (config.getBoolean("debug") && !config.isConfigurationSection(string))
+				    settings++;
 			}
+
 			if (config.getBoolean("clean-files")) {
 				for (String string : config.getKeys(true)) {
 					if (!defConfig.contains(string)) {
 						if (config.getBoolean("debug") && !config.isConfigurationSection(string))
 							removedSettings++;
+
 						config.set(string, null);
 					}
 				}
 			}
         }
+
         if (config.getBoolean("debug")) {
-        	Main.getInstance().getLogger().info("Found " + settings + " settings");
-        	Main.getInstance().getLogger().info("Added " + addedSettings + " new settings");
-        	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
+            Logger logger = Main.getInstance().getLogger();
+
+            logger.info("Found " + settings + " settings");
+        	logger.info("Added " + addedSettings + " new settings");
+        	logger.info("Removed " + removedSettings + " old settings");
         }
         
         if (save)
@@ -304,6 +316,7 @@ public final class SettingsManager {
 		int removedSettings = 0;
 		
 		InputStream defMessagesStream = Main.getInstance().getResource("messages.yml");
+
         if (defMessagesStream != null) {
 			YamlConfiguration defMessages = YamlConfiguration.loadConfiguration(new InputStreamReader(defMessagesStream));
 			
@@ -313,16 +326,16 @@ public final class SettingsManager {
 					list.add(messages.getString(string));
 					messages.set(string, list);
 				}
+
 				if (!messages.contains(string)) {
 					messages.set(string, defMessages.get(string));
+
 					if (config.getBoolean("debug"))
 						addedSettings++;
 				}
 				
-				if (config.getBoolean("debug")) {
-					if (!config.isConfigurationSection(string))
-						settings++;
-				}
+				if (config.getBoolean("debug") && !config.isConfigurationSection(string))
+                    settings++;
 			}
 			
 			if (config.getBoolean("clean-files")) {
@@ -330,15 +343,19 @@ public final class SettingsManager {
 					if (!defMessages.contains(string)) {
 						if (config.getBoolean("debug") && !messages.isConfigurationSection(string))
 							removedSettings++;
+
 						messages.set(string, null);
 					}
 				}
 			}
         }
+
         if (config.getBoolean("debug")) {
-        	Main.getInstance().getLogger().info("Found " + settings + " settings");
-        	Main.getInstance().getLogger().info("Added " + addedSettings + " new settings");
-        	Main.getInstance().getLogger().info("Removed " + removedSettings + " old settings");
+            Logger logger = Main.getInstance().getLogger();
+
+            logger.info("Found " + settings + " settings");
+        	logger.info("Added " + addedSettings + " new settings");
+        	logger.info("Removed " + removedSettings + " old settings");
         }
         
         if (save)

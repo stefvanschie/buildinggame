@@ -12,7 +12,7 @@ public enum CommandResult {
      *
      * @since 2.1.0
      */
-	ARGUMENTEXCEPTION,
+	ARGUMENT_EXCEPTION,
 
     /**
      * There was an error while executing the command
@@ -26,6 +26,6 @@ public enum CommandResult {
      *
      * @since 2.1.0
      */
-	SUCCES
+	SUCCESS
 	
 }

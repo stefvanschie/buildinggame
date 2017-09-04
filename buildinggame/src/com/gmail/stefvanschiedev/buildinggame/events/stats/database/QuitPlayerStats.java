@@ -34,8 +34,12 @@ public class QuitPlayerStats implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
+                StatManager instance = StatManager.getInstance();
+
                 for (StatType type : StatType.values())
-                    StatManager.getInstance().getMySQLDatabase().setStat(player.getUniqueId().toString(), type.toString().toLowerCase(Locale.getDefault()), StatManager.getInstance().getStat(player, type).getValue());
+                    instance.getMySQLDatabase().setStat(player.getUniqueId().toString(),
+                            type.toString().toLowerCase(Locale.getDefault()),
+                            instance.getStat(player, type).getValue());
             }
         }.runTaskAsynchronously(Main.getInstance());
 	}

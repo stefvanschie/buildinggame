@@ -39,7 +39,7 @@ public class Spectate extends PlayerCommand {
 	public CommandResult onCommand(Player player, String[] args) {
 		if (args.length < 1) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify a player");
-			return CommandResult.ARGUMENTEXCEPTION;
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Player toSpectate = Bukkit.getPlayer(args[0]);
@@ -48,47 +48,52 @@ public class Spectate extends PlayerCommand {
 			MessageManager.getInstance().send(player, ChatColor.RED + args[0] + " is not a valid player");
 			return CommandResult.ERROR;
 		}
-		
-		if (ArenaManager.getInstance().getArena(toSpectate) == null) {
+
+        Arena arena = ArenaManager.getInstance().getArena(toSpectate);
+
+		if (arena == null) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Arena " + args[0] + " not found");
 			return CommandResult.ERROR;
 		}
-		
-		Arena arena = ArenaManager.getInstance().getArena(toSpectate);
-		
+
 		if (arena.getState() != GameState.BUILDING) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You can't spectate right now");
 			return CommandResult.ERROR;
 		}
 		
-		GamePlayer toSpectateGameplayer = getPlayer(arena, toSpectate.getName());
+		GamePlayer toSpectateGamePlayer = getPlayer(arena, toSpectate.getName());
 
-		if (toSpectateGameplayer == null) {
+		if (toSpectateGamePlayer == null) {
 		    MessageManager.getInstance().send(player, ChatColor.RED + "Couldn't find the player to spectate");
 		    return CommandResult.ERROR;
         }
 
-		if (toSpectateGameplayer.getGamePlayerType() == GamePlayerType.SPECTATOR) {
+		if (toSpectateGamePlayer.getGamePlayerType() == GamePlayerType.SPECTATOR) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You can't spectate a spectator");
 			return CommandResult.ERROR;
 		}
 		
 		//check if the player is playing the game
-		if (ArenaManager.getInstance().getArena(player) != null && ArenaManager.getInstance().getArena(player).getPlot(player).getGamePlayer(player).getGamePlayerType() == GamePlayerType.PLAYER) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "You can't spectate while you're in game");
+		if (ArenaManager.getInstance().getArena(player) != null &&
+                ArenaManager.getInstance().getArena(player).getPlot(player).getGamePlayer(player)
+                        .getGamePlayerType() == GamePlayerType.PLAYER) {
+			MessageManager.getInstance().send(player,
+                    ChatColor.RED + "You can't spectate while you're in game");
 			return CommandResult.ERROR;
 		}
 		
 		//check if we are already spectating
-		if (isSpectating(player) != null)
+        Plot spectating = isSpectating(player);
+
+        if (spectating != null)
             //noinspection ConstantConditions
-            isSpectating(player).removeSpectator(isSpectating(player).getGamePlayer(player));
+            spectating.removeSpectator(spectating.getGamePlayer(player));
 		
-		arena.getPlot(toSpectateGameplayer.getPlayer()).addSpectator(player, toSpectateGameplayer);
+		arena.getPlot(toSpectateGamePlayer.getPlayer()).addSpectator(player, toSpectateGamePlayer);
 		
-		MessageManager.getInstance().send(player, ChatColor.GREEN + "Now spectating " + toSpectateGameplayer.getPlayer().getName() + '!');
+		MessageManager.getInstance().send(player, ChatColor.GREEN + "Now spectating " + toSpectateGamePlayer.getPlayer().getName() + '!');
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**
@@ -155,7 +160,7 @@ public class Spectate extends PlayerCommand {
 	@Nullable
     @Contract(pure = true)
     private static GamePlayer getPlayer(Arena arena, String playerName) {
-		for (Plot plot : arena.getPlots()) {
+		for (Plot plot : arena.getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 				if (gamePlayer.getPlayer().getName().equals(playerName))
 					return gamePlayer;
@@ -176,7 +181,7 @@ public class Spectate extends PlayerCommand {
     @Contract(pure = true)
     private static Plot isSpectating(Player player) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Plot plot : arena.getPlots()) {
+			for (Plot plot : arena.getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getSpectators()) {
 					if (gamePlayer.getPlayer().equals(player))
 						return plot;

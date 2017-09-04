@@ -42,7 +42,7 @@ public class Reload extends ConsoleCommand {
 		
 		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Reloaded the plugin!");
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

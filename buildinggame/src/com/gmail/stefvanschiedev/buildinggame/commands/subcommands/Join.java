@@ -60,7 +60,7 @@ public class Join extends PlayerCommand {
 			arena.join(player);
 		}
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

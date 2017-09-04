@@ -1,7 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
@@ -91,6 +90,7 @@ public class VoteTimer extends Timer {
 		
 		if (seconds == originalSeconds) {
 			plot = getNextPlot();
+
 			if (plot == null) {
 				arena.setState(GameState.RESETING);
 				
@@ -105,11 +105,13 @@ public class VoteTimer extends Timer {
 						first = plot;
 						continue;
 					}
+
 					if (second == null || second.getPoints() < plot.getPoints()) {
 						third = second;
 						second = plot;
 						continue;
 					}
+
 					if (third == null || third.getPoints() < plot.getPoints())
 						third = plot;
 				}
@@ -138,6 +140,7 @@ public class VoteTimer extends Timer {
 						ItemBuilder.check(player);
 						
 						MessageManager.getInstance().send(player, messages.getStringList("game-ends.message"));
+
 						if (second != null && third != null) {
 							for (String message : messages.getStringList("game-ends.winners")) {
 								MessageManager.getInstance().send(gamePlayer.getPlayer(), message
@@ -163,31 +166,28 @@ public class VoteTimer extends Timer {
 								.replace("%second_points%", second == null ? "0" : second.getPoints() + "")
 								.replace("%third_points%", third == null ? "0" : second.getPoints() + ""));
 					
-						if(SDVault.getInstance().isEnabled() && gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
+						if (SDVault.getInstance().isEnabled() &&
+                                gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
 							Economy vault = SDVault.getEconomy();
+
 							if (first.equals(plot)) {
 								double money = config.getDouble("money.first");
 								
-								if (player.hasPermission("bg.rewards.money.double")) {
+								if (player.hasPermission("bg.rewards.money.double"))
 									money *= 2;
-								}
-								
-								EconomyResponse r = vault.depositPlayer(player, money);
 					
-								for (String message : messages.getStringList("winner.first")) {
+								for (String message : messages.getStringList("winner.first"))
 									MessageManager.getInstance().send(player, message
-											.replace("%points%", plot.getPoints() + ""));
-								}
+                                            .replace("%points%", plot.getPoints() + ""));
 						
 								for (String command : config.getStringList("commands.first")) {
-									String cmd = execute(command
-											.replace("%player%", player.getName()));
+									String cmd = execute(command.replace("%player%", player.getName()));
+
 									if (cmd != null)
-										player.performCommand(command
-												.replace("%player%", player.getName()));
+										player.performCommand(command.replace("%player%", player.getName()));
 								}
 						
-								if (r.transactionSuccess()) {
+								if (vault.depositPlayer(player, money).transactionSuccess()) {
 									for (String message : messages.getStringList("vault.message")) {
 										MessageManager.getInstance().send(player, message
 												.replace("%money%", money + ""));
@@ -196,54 +196,44 @@ public class VoteTimer extends Timer {
 							} else if (second.equals(plot)) {
 								double money = config.getDouble("money.second");
 								
-								if (player.hasPermission("bg.rewards.money.double")) {
+								if (player.hasPermission("bg.rewards.money.double"))
 									money *= 2;
-								}
 								
-								EconomyResponse r = vault.depositPlayer(player, money);
-								
-								for (String message : messages.getStringList("winner.second")) {
+								for (String message : messages.getStringList("winner.second"))
 									MessageManager.getInstance().send(player, message
-											.replace("%points%", plot.getPoints() + ""));
-								}
+                                            .replace("%points%", plot.getPoints() + ""));
 						
 								for (String command : config.getStringList("commands.second")) {
-									String cmd = execute(command
-											.replace("%player%", player.getName()));
+									String cmd = execute(command.replace("%player%", player.getName()));
+
 									if (cmd != null)
-										player.performCommand(command
-												.replace("%player%", player.getName()));
+										player.performCommand(command.replace("%player%", player.getName()));
 								}
 						
-								if (r.transactionSuccess()) {
+								if (vault.depositPlayer(player, money).transactionSuccess()) {
 									for (String message : messages.getStringList("vault.message")) {
 										MessageManager.getInstance().send(player, message
-												.replace("%money%", money + ""));
+                                                .replace("%money%", money + ""));
 									}
 								}
 							} else if (third.equals(plot)) {
 								double money = config.getDouble("money.third");
 								
-								if (player.hasPermission("bg.rewards.money.double")) {
+								if (player.hasPermission("bg.rewards.money.double"))
 									money *= 2;
-								}
-								
-								EconomyResponse r = vault.depositPlayer(player, money);
 					
-								for (String message : messages.getStringList("winner.third")) {
+								for (String message : messages.getStringList("winner.third"))
 									MessageManager.getInstance().send(player, message
 											.replace("%points%", plot.getPoints() + ""));
-								}
 						
 								for (String command : config.getStringList("commands.third")) {
-									String cmd = execute(command
-											.replace("%player%", player.getName()));
+									String cmd = execute(command.replace("%player%", player.getName()));
+
 									if (cmd != null)
-										player.performCommand(command
-												.replace("%player%", player.getName()));
+										player.performCommand(command.replace("%player%", player.getName()));
 								}
-						
-								if (r.transactionSuccess()) {
+
+                                if (vault.depositPlayer(player, money).transactionSuccess()) {
 									for (String message : messages.getStringList("vault.message")) {
 										MessageManager.getInstance().send(player, message
 												.replace("%money%", money + ""));
@@ -252,21 +242,17 @@ public class VoteTimer extends Timer {
 							} else {
 								double money = config.getDouble("money.others");
 								
-								if (player.hasPermission("bg.rewards.money.double")) {
+								if (player.hasPermission("bg.rewards.money.double"))
 									money *= 2;
-								}
-								
-								EconomyResponse r = vault.depositPlayer(player, money);
 							
 								for (String command : config.getStringList("commands.others")) {
-									String cmd = execute(command
-											.replace("%player%", player.getName()));
+									String cmd = execute(command.replace("%player%", player.getName()));
+
 									if (cmd != null)
-										player.performCommand(command
-												.replace("%player%", player.getName()));
+										player.performCommand(command.replace("%player%", player.getName()));
 								}
 						
-								if (r.transactionSuccess()) {
+								if (vault.depositPlayer(player, money).transactionSuccess()) {
 									for (String message : messages.getStringList("vault.message")) {
 										MessageManager.getInstance().send(player, message
 												.replace("%money%", money + ""));
@@ -276,17 +262,19 @@ public class VoteTimer extends Timer {
 						}
 					}
 				}
+
 				if (first != null && !first.getGamePlayers().isEmpty()) {
 					for (GamePlayer gamePlayer : first.getGamePlayers()) {
 						for (String command : config.getStringList("win-commands")) {
-							String cmd = execute(command
-									.replace("%winner%", gamePlayer.getPlayer().getName()));
+							String cmd = execute(command.replace("%winner%", gamePlayer.getPlayer().getName()));
+
 							if (cmd != null)
 								gamePlayer.getPlayer().performCommand(command
-										.replace("%winner%", gamePlayer.getPlayer().getName()).trim());
+                                        .replace("%winner%", gamePlayer.getPlayer().getName()).trim());
 						}
 					}
 				}
+
 				arena.getWinTimer().runTaskTimer(Main.getInstance(), 20L, 20L);
 				running = false;
 				this.cancel();
@@ -294,6 +282,7 @@ public class VoteTimer extends Timer {
 			}
 
 			arena.setVotingPlot(plot);
+
 			for (Plot plot : arena.getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 					Player player = gamePlayer.getPlayer();
@@ -320,26 +309,31 @@ public class VoteTimer extends Timer {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
                 }
 			}
-		} catch (NullPointerException | NumberFormatException e) {}
+		} catch (NullPointerException | NumberFormatException ignore) {}
 		
 		seconds--;
+
 		if (seconds <= 0) {
-				for (Plot plot : arena.getUsedPlots()) {
-					for (GamePlayer player : plot.getGamePlayers()) {
-						if (config.getBoolean("names-after-voting")) {
-							for (String message : messages.getStringList("voting.message")) {
-								MessageManager.getInstance().send(player.getPlayer(), message
-										.replace("%playerplot%", this.plot.getPlayerFormat()));
-							}
-							player.addTitleAndSubtitle(messages.getString("voting.title")
-									.replace("%playerplot%", this.plot.getPlayerFormat()), messages.getString("voting.subtitle")
-									.replace("%playerplot%", this.plot.getPlayerFormat()));
-						}
-						if (!this.plot.hasVoted(player.getPlayer())) {
-							this.plot.addVote(new Vote(config.getInt("voting.default-vote-points"), player.getPlayer()));
-						}
-					}
-				}
+            for (Plot plot : arena.getUsedPlots()) {
+                for (GamePlayer player : plot.getGamePlayers()) {
+                    if (config.getBoolean("names-after-voting")) {
+                        for (String message : messages.getStringList("voting.message")) {
+                            MessageManager.getInstance().send(player.getPlayer(), message
+                                    .replace("%playerplot%", this.plot.getPlayerFormat()));
+                        }
+
+                        player.addTitleAndSubtitle(messages.getString("voting.title")
+                                .replace("%playerplot%", this.plot.getPlayerFormat()),
+                                messages.getString("voting.subtitle")
+                                .replace("%playerplot%", this.plot.getPlayerFormat()));
+                    }
+
+                    if (!this.plot.hasVoted(player.getPlayer()))
+                        this.plot.addVote(new Vote(config.getInt("voting.default-vote-points"),
+                                player.getPlayer()));
+                }
+            }
+
 			seconds = config.getInt("votetimer");
 			originalSeconds = seconds;
 		}
@@ -355,12 +349,10 @@ public class VoteTimer extends Timer {
     @Contract(pure = true)
     private Plot getNextPlot() {
 		for (Plot plot : arena.getPlots()) {
-			if (!arena.getVotedPlots().contains(plot)) {
-				if (!plot.getGamePlayers().isEmpty()) {
-					return plot;
-				}
-			}
+			if (!arena.getVotedPlots().contains(plot) && !plot.getGamePlayers().isEmpty())
+                return plot;
 		}
+
 		return null;
 	}
 
@@ -376,7 +368,9 @@ public class VoteTimer extends Timer {
     @Contract("null -> fail")
     private static String execute(String command) {
         if (command.startsWith("%console%")) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replaceFirst("%console%", "").trim());
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replaceFirst("%console%", "")
+                    .trim());
+
             return null;
         } else
             return command;

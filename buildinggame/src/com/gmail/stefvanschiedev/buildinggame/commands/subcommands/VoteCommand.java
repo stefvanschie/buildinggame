@@ -58,9 +58,7 @@ public class VoteCommand extends PlayerCommand {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Points can only be between 1 and 10");
 			return CommandResult.ERROR;
 		}
-		
-		Vote vote = new Vote(points, player);
-		
+
 		Arena arena = ArenaManager.getInstance().getArena(player);
 		
 		if (arena == null) {
@@ -77,14 +75,14 @@ public class VoteCommand extends PlayerCommand {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You can't vote at this moment");
 			return CommandResult.ERROR;
 		}
-		
+
 		Plot plot = arena.getVotingPlot();
-		
-		plot.addVote(vote);
+		plot.addVote(new Vote(points, player));
+
 		MessageManager.getInstance().send(player, messages.getString("vote.message")
 				.replace("%playerplot%", plot.getPlayerFormat())
 				.replace("%points%", points + ""));
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

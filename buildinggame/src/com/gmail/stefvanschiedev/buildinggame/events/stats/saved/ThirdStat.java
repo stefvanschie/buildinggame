@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.saved;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -28,10 +30,16 @@ public class ThirdStat implements Listener {
 	public static void onPlayerWin(PlayerWinEvent e) {
 		if (e.getWin() != Win.THIRD)
 			return;
-		
-		for (GamePlayer gamePlayer : e.getPlayers())
-			StatManager.getInstance().registerStat(gamePlayer.getPlayer(), StatType.THIRD, StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.THIRD) == null ? 1 : StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.THIRD).getValue() + 1);
-	
+
+        StatManager instance = StatManager.getInstance();
+
+        for (GamePlayer gamePlayer : e.getPlayers()) {
+            Player player = gamePlayer.getPlayer();
+            Stat stat = instance.getStat(player, StatType.THIRD);
+
+            instance.registerStat(player, StatType.THIRD, stat == null ? 1 : stat.getValue() + 1);
+        }
+
 		SignManager.getInstance().updateStatSigns();
 	}
 }

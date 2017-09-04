@@ -42,7 +42,7 @@ public class LeaveCommand extends PlayerCommand {
 		
 		arena.leave(player);
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

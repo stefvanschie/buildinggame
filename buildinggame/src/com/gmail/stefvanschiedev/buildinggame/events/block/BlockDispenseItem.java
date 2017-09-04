@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDispenseEvent;
@@ -24,12 +26,16 @@ public class BlockDispenseItem implements Listener  {
      */
 	@EventHandler(ignoreCancelled = true)
 	public void onBlockDispense(BlockDispenseEvent e) {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+        Location location = e.getBlock().getLocation();
+
+        for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
-				if (plot.getBoundary() == null) 
+                Region boundary = plot.getBoundary();
+
+                if (boundary == null)
 					continue;
 				
-				if (plot.getBoundary().isInside(e.getBlock().getLocation())) {
+				if (boundary.isInside(location)) {
 					e.setCancelled(true);
 					return;
 				}

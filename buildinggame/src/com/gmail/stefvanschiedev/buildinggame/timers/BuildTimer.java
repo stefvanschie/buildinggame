@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.timers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -72,7 +73,9 @@ public class BuildTimer extends Timer {
 	@Override
 	public void run() {
 		running = true;
-		if (seconds <= 0) {
+        BossBar bossBar = arena.getBossBar();
+
+        if (seconds <= 0) {
 			//voten
 			for (Plot plot : arena.getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
@@ -82,15 +85,17 @@ public class BuildTimer extends Timer {
 					player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 				
 					//messages
-					MessageManager.getInstance().send(player, messages.getStringList("buildingCountdown.time-up.message"));
+					MessageManager.getInstance().send(player,
+                            messages.getStringList("buildingCountdown.time-up.message"));
 					
 					gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.time-up.title"),
 							messages.getString("buildingCountdown.time-up.subtitle"));
-				
-					if (arena.getBossBar().getPlayers().contains(player))
-						arena.getBossBar().removePlayer(player);
+
+                    if (bossBar.getPlayers().contains(player))
+						bossBar.removePlayer(player);
 				}
 			}
+
 			arena.setState(GameState.VOTING);
 			arena.getVoteTimer().runTaskTimer(Main.getInstance(), 20L, 20L);
 			running = false;
@@ -100,17 +105,20 @@ public class BuildTimer extends Timer {
 			for (Plot plot : arena.getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 					Player player = gamePlayer.getPlayer();
+
 					for (String message : messages.getStringList("buildingCountdown.message"))
 						MessageManager.getInstance().send(player, message
 								.replace("%seconds%", getSeconds() + "")
 								.replace("%minutes%", getMinutes() + "")
 								.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
 								.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
+
 					gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.title")
 							.replace("%seconds%", getSeconds() + "")
 							.replace("%minutes%", getMinutes() + "")
 							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
-							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""), messages.getString("buildingCountdown.subtitle")
+							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""),
+                            messages.getString("buildingCountdown.subtitle")
 							.replace("%seconds%", getSeconds() + "")
 							.replace("%minutes%", getMinutes() + "")
 							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
@@ -118,21 +126,17 @@ public class BuildTimer extends Timer {
 				}
 			}
 		}
-		for (Plot plot : arena.getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				Player player = gamePlayer.getPlayer();
-				
-				player.setLevel(getSeconds());
-			}
-		}
+
+        arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
+                gamePlayer.getPlayer().setLevel(getSeconds())));
 		
 		//bossbar
-		arena.getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header"))
+		bossBar.setTitle(MessageManager.translate(messages.getString("global.bossbar-header"))
 				.replace("%seconds%", getSeconds() + "")
 				.replace("%seconds_from_minutes%", getSecondsFromMinute() + "")
 				.replace("%minutes%", getMinutes() + "")
 				.replace("%subject%", arena.getSubject()));
-		arena.getBossBar().setProgress((double) getSeconds() / (double) getOriginalSeconds());
+		bossBar.setProgress((double) getSeconds() / (double) getOriginalSeconds());
 		
 		//timings
 		try {
@@ -148,7 +152,8 @@ public class BuildTimer extends Timer {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
                 }
 			}
-		} catch (NullPointerException | NumberFormatException e) {}
+		} catch (NullPointerException | NumberFormatException ignore) {}
+
 		seconds--;
 	}
 

@@ -41,16 +41,14 @@ public final class MinPlayersManager {
      */
 	@SuppressWarnings("MethodMayBeStatic")
     public void setup() {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-			try {
-				arena.setMinPlayers(arenas.getInt(arena.getName() + ".minplayers"));
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-					Main.getInstance().getLogger().info("Loaded min players for " + arena.getName());
-				}
-			} catch (NullPointerException npe) {
-				arena.setMinPlayers(0);
-			}
+            String name = arena.getName();
+            arena.setMinPlayers(arenas.getInt(name + ".minplayers", 0));
+
+            if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                Main.getInstance().getLogger().info("Loaded min players for " + name);
 		}
 	}
 }

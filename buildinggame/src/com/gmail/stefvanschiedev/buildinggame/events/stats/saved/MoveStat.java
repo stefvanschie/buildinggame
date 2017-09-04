@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.saved;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,18 +29,17 @@ public class MoveStat implements Listener {
 	@EventHandler
 	public static void onPlayerMove(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
-		
-		int x = Math.abs(e.getFrom().getBlockX() - e.getTo().getBlockX());
-		int y = Math.abs(e.getFrom().getBlockY() - e.getTo().getBlockY());
-		int z = Math.abs(e.getFrom().getBlockZ() - e.getTo().getBlockZ());
+        Location from = e.getFrom();
+        Location to = e.getTo();
 		     
-		if (x == 0 && y == 0 && z == 0)
+		if ((Math.abs(from.getBlockX() - to.getBlockX()) == 0 && Math.abs(from.getBlockY() - to.getBlockY()) == 0 &&
+                Math.abs(from.getBlockZ() - to.getBlockZ()) == 0) || ArenaManager.getInstance().getArena(player) == null)
 			return;
-		
-		if (ArenaManager.getInstance().getArena(player) == null)
-			return;
-		
-		StatManager.getInstance().registerStat(player, StatType.WALKED, StatManager.getInstance().getStat(player, StatType.WALKED) == null ? 1 : StatManager.getInstance().getStat(player, StatType.WALKED).getValue() + 1);
+
+        StatManager instance = StatManager.getInstance();
+        Stat stat = instance.getStat(player, StatType.WALKED);
+
+        instance.registerStat(player, StatType.WALKED, stat == null ? 1 : stat.getValue() + 1);
 		SignManager.getInstance().updateStatSigns();
 	}
 }

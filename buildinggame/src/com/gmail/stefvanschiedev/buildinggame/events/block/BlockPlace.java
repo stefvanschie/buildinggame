@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,15 +32,12 @@ public class BlockPlace implements Listener {
      */
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
 		Player player = e.getPlayer();
+        Arena arena = ArenaManager.getInstance().getArena(player);
 		
-		if (ArenaManager.getInstance().getArena(player) == null)
+		if (arena == null)
 			return;
-		
-		Arena arena = ArenaManager.getInstance().getArena(player);
+
 		Plot plot = arena.getPlot(player);
 		
 		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
@@ -54,15 +51,18 @@ public class BlockPlace implements Listener {
 			e.setCancelled(true);
 			return;
 		}
-		
-		if (!plot.getBoundary().isInside(e.getBlock().getLocation())) {
-			MessageManager.getInstance().send(player, messages.getStringList("in-game.build-out-bounds"));
+
+        Block block = e.getBlock();
+
+        if (!plot.getBoundary().isInside(block.getLocation())) {
+			MessageManager.getInstance().send(player,
+                    SettingsManager.getInstance().getMessages().getStringList("in-game.build-out-bounds"));
 			e.setCancelled(true);
 			return;
 		}
 		
-		for (String material : config.getStringList("blocks.blocked")) {
-			if (IDDecompiler.getInstance().matches(material, e.getBlock())) {
+		for (String material : SettingsManager.getInstance().getConfig().getStringList("blocks.blocked")) {
+			if (IDDecompiler.getInstance().matches(material, block)) {
 				e.setCancelled(true);
 				break;
 			}

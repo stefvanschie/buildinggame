@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,10 +32,8 @@ public class LeaveSignCreate implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
-			return;
-			
-		if (!e.getLine(1).equalsIgnoreCase("leave"))
+		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]") ||
+                !e.getLine(1).equalsIgnoreCase("leave"))
 			return;
 			
 		if (!player.hasPermission("bg.sign.create")) {
@@ -42,31 +41,28 @@ public class LeaveSignCreate implements Listener {
 			return;
 		}
 		
-		String line1 = messages.getString("signs.leave.line-1");
-		String line2 = messages.getString("signs.leave.line-2");
-		String line3 = messages.getString("signs.leave.line-3");
-		String line4 = messages.getString("signs.leave.line-4");
-		
-		e.setLine(0, MessageManager.translate(line1));
-		e.setLine(1, MessageManager.translate(line2));
-		e.setLine(2, MessageManager.translate(line3));
-		e.setLine(3, MessageManager.translate(line4));
+		e.setLine(0, MessageManager.translate(messages.getString("signs.leave.line-1")));
+		e.setLine(1, MessageManager.translate(messages.getString("signs.leave.line-2")));
+		e.setLine(2, MessageManager.translate(messages.getString("signs.leave.line-3")));
+		e.setLine(3, MessageManager.translate(messages.getString("signs.leave.line-4")));
 		
 		int number = 0;
 		
 		for (String string : signs.getKeys(false)) {
 			try {
 				number = Integer.parseInt(string);
-			} catch (NumberFormatException nfe) {}
+			} catch (NumberFormatException ignore) {}
 		}
 		
 		number++;
-		
-		signs.set(number + ".type", "leave");
-		signs.set(number + ".world", e.getBlock().getLocation().getWorld().getName());
-		signs.set(number + ".x", e.getBlock().getLocation().getBlockX());
-		signs.set(number + ".y", e.getBlock().getLocation().getBlockY());
-		signs.set(number + ".z", e.getBlock().getLocation().getBlockZ());
+
+        Location location = e.getBlock().getLocation();
+
+        signs.set(number + ".type", "leave");
+		signs.set(number + ".world", location.getWorld().getName());
+		signs.set(number + ".x", location.getBlockX());
+		signs.set(number + ".y", location.getBlockY());
+		signs.set(number + ".z", location.getBlockZ());
 		SettingsManager.getInstance().save();
 		
 		SignManager.getInstance().setup();

@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -24,20 +23,11 @@ public class Chat implements Listener {
      */
 	@EventHandler
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent e) {
-		Player player = e.getPlayer();
-		Arena arena = ArenaManager.getInstance().getArena(player);
+		Arena arena = ArenaManager.getInstance().getArena(e.getPlayer());
 		
 		if (arena == null)
 			return;
 
-        //noinspection ArrayLengthInLoopCondition
-        for (int i = 0; i < e.getRecipients().toArray().length; i++) {
-			if (!arena.contains((Player) e.getRecipients().toArray()[i])) {
-                //noinspection SuspiciousMethodCalls
-                e.getRecipients().remove(e.getRecipients().toArray()[i]);
-                //noinspection AssignmentToForLoopParameter
-                i--;
-            }
-		}
+        e.getRecipients().removeIf(player -> !arena.contains(player));
 	}
 }

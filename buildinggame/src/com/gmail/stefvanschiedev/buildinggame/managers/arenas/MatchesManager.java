@@ -46,13 +46,12 @@ public final class MatchesManager {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
         for (Arena arena : ArenaManager.getInstance().getArenas()) {
-            if (arenas.contains(arena.getName() + ".matches"))
-                arena.setMaxMatches(arenas.getInt(arena.getName() + ".matches"));
-            else
-                arena.setMaxMatches(1);
+            String name = arena.getName();
+
+            arena.setMaxMatches(arenas.getInt(name + ".matches", 1));
 
             if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-                Main.getInstance().getLogger().info("Loaded max matches for " + arena.getName());
+                Main.getInstance().getLogger().info("Loaded max matches for " + name);
         }
     }
 }

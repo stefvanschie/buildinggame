@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -25,19 +27,23 @@ public class EntityTimer extends BukkitRunnable {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				for (Arena arena : ArenaManager.getInstance().getArenas()) {
-					for (Plot plot : arena.getPlots()) {
-						for (Entity entity : plot.getEntities().keySet()) {
-							if (plot.getBoundary() == null)
-								continue;
-							
-							if (!plot.getBoundary().isInside(entity.getLocation()))
-								entity.teleport(plot.getEntities().get(entity));
-							else
-								plot.getEntities().put(entity, entity.getLocation());
-						}
-					}
-				}
+                for (Arena arena : ArenaManager.getInstance().getArenas()) {
+                    for (Plot plot : arena.getPlots()) {
+                        Region boundary = plot.getBoundary();
+
+                        if (boundary == null)
+                            continue;
+
+                        for (Entity entity : plot.getEntities().keySet()) {
+                            Location location = entity.getLocation();
+
+                            if (!boundary.isInside(location))
+                                entity.teleport(plot.getEntities().get(entity));
+                            else
+                                plot.getEntities().put(entity, location);
+                        }
+                    }
+                }
 			}
 		}.runTask(Main.getInstance());
 	}

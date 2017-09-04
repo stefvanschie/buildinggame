@@ -26,10 +26,12 @@ public final class BuildTimerManager {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			if (!arenas.contains(arena.getName() + ".timer"))
-				arenas.set(arena.getName() + ".timer", config.getInt("timer"));
+            String name = arena.getName();
+
+            if (!arenas.contains(name + ".timer"))
+				arenas.set(name + ".timer", config.getInt("timer"));
 			
-			arena.setBuildTimer(new BuildTimer(arenas.getInt(arena.getName() + ".timer"), arena));
+			arena.setBuildTimer(new BuildTimer(arenas.getInt(name + ".timer"), arena));
 		}
 	}
 

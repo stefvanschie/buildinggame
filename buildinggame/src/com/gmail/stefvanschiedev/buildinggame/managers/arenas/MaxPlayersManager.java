@@ -45,26 +45,22 @@ public final class MaxPlayersManager {
      */
 	@SuppressWarnings("MethodMayBeStatic")
     public void setup() {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-			YamlConfiguration config = SettingsManager.getInstance().getConfig();
-			
-			try {
-				int maxPlayers = arenas.getInt(arena.getName() + ".maxplayers");
-				
-				arena.setMaxPlayers(maxPlayers);
-				
-				for (Plot plot : arena.getPlots()) {
-					if (!config.contains("team-selection.team." + plot.getID()))
-						config.set("team-selection.team." + plot.getID() + ".id", "paper");
-				}
-				
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-					Main.getInstance().getLogger().info("Loaded max players for " + arena.getName());
-				}
-			} catch (NullPointerException npe) {
-				arena.setMaxPlayers(0);
-			}
+            String name = arena.getName();
+            arena.setMaxPlayers(arenas.getInt(name + ".maxplayers", 0));
+
+            for (Plot plot : arena.getPlots()) {
+                int id = plot.getID();
+
+                if (!config.contains("team-selection.team." + id))
+                    config.set("team-selection.team." + id + ".id", "paper");
+            }
+
+            if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                Main.getInstance().getLogger().info("Loaded max players for " + name);
 		}
 	}
 }

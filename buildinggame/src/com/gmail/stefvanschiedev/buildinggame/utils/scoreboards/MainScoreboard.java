@@ -113,19 +113,27 @@ public class MainScoreboard {
 			LocalDateTime localDateTime = LocalDateTime.now();
 			
 			String text = strings.get(i)
-					.replace("%stat_plays%", manager.getStat(player, StatType.PLAYS) == null ? "0" : manager.getStat(player, StatType.PLAYS).getValue() + "")
-					.replace("%stat_first%", manager.getStat(player, StatType.FIRST) == null ? "0" : manager.getStat(player, StatType.FIRST).getValue() + "")
-					.replace("%stat_second%", manager.getStat(player, StatType.SECOND) == null ? "0" : manager.getStat(player, StatType.SECOND).getValue() + "")
-					.replace("%stat_third%", manager.getStat(player, StatType.THIRD) == null ? "0" : manager.getStat(player, StatType.THIRD).getValue() + "")
-					.replace("%stat_broken%", manager.getStat(player, StatType.BROKEN) == null ? "0" : manager.getStat(player, StatType.BROKEN).getValue() + "")
-					.replace("%stat_placed%", manager.getStat(player, StatType.PLACED) == null ? "0" : manager.getStat(player, StatType.PLACED).getValue() + "")
-					.replace("%stat_walked%", manager.getStat(player, StatType.WALKED) == null ? "0" : manager.getStat(player, StatType.WALKED).getValue() + "")
+					.replace("%stat_plays%", manager.getStat(player, StatType.PLAYS) == null ? "0" :manager
+                            .getStat(player, StatType.PLAYS).getValue() + "")
+					.replace("%stat_first%", manager.getStat(player, StatType.FIRST) == null ? "0" : manager
+                            .getStat(player, StatType.FIRST).getValue() + "")
+					.replace("%stat_second%", manager.getStat(player, StatType.SECOND) == null ? "0" : manager
+                            .getStat(player, StatType.SECOND).getValue() + "")
+					.replace("%stat_third%", manager.getStat(player, StatType.THIRD) == null ? "0" : manager
+                            .getStat(player, StatType.THIRD).getValue() + "")
+					.replace("%stat_broken%", manager.getStat(player, StatType.BROKEN) == null ? "0" : manager
+                            .getStat(player, StatType.BROKEN).getValue() + "")
+					.replace("%stat_placed%", manager.getStat(player, StatType.PLACED) == null ? "0" : manager
+                            .getStat(player, StatType.PLACED).getValue() + "")
+					.replace("%stat_walked%", manager.getStat(player, StatType.WALKED) == null ? "0" : manager
+                            .getStat(player, StatType.WALKED).getValue() + "")
                     .replace("%date_day_of_month%", localDateTime.getDayOfMonth() + "")
                     .replace("%date_day_of_week%", localDateTime.getDayOfWeek() + "")
                     .replace("%date_day_of_year%", localDateTime.getDayOfYear() + "")
                     .replace("%date_hour%", localDateTime.getHour() + "")
                     .replace("%date_minute%", localDateTime.getMinute() + "")
-                    .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()))
+                    .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL,
+                            Locale.getDefault()))
                     .replace("%date_second%", localDateTime.getSecond() + "")
                     .replace("%date_year%", localDateTime.getYear() + "");
 			
@@ -134,7 +142,8 @@ public class MainScoreboard {
 			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
 			
 			if (length > 16)
-				team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 : length));
+				team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 :
+                        length));
 			
 			objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
 		}

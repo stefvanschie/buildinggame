@@ -30,7 +30,6 @@ public class MainScoreboardJoinShow implements Listener {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		Player player = e.getPlayer();
-		MainScoreboardManager manager = MainScoreboardManager.getInstance();
 		
 		if (!config.getBoolean("scoreboards.main.enable"))
 			return;
@@ -40,7 +39,7 @@ public class MainScoreboardJoinShow implements Listener {
 		    new BukkitRunnable() {
                 @Override
                 public void run() {
-                    manager.register(player);
+                    MainScoreboardManager.getInstance().register(player);
                 }
             }.runTaskLater(Main.getInstance(), 1L);
 		}

@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,15 +24,10 @@ public class TakeDamage implements Listener {
      */
 	@EventHandler
 	public static void onEntityDamage(EntityDamageEvent e) {
-		if (!(e.getEntity() instanceof Player)) {
+        Entity entity = e.getEntity();
+
+        if (!(entity instanceof Player) || ArenaManager.getInstance().getArena((Player) entity) == null)
 			return;
-		}
-		
-		Player player = (Player) e.getEntity();
-		
-		if (ArenaManager.getInstance().getArena(player) == null) {
-			return;
-		}
 		
 		e.setCancelled(true);
 	}

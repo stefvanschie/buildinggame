@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Region;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -16,6 +17,7 @@ import org.bukkit.event.vehicle.VehicleCreateEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -92,8 +94,16 @@ public class EntitySpawn implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
+        Arena arena = ArenaManager.getInstance().getArena(player);
+        ItemStack item = e.getItem();
 
-        if (ArenaManager.getInstance().getArena(player) == null || e.getItem() == null || (e.getItem().getType() != Material.MONSTER_EGG && e.getItem().getType() != Material.ARMOR_STAND) || e.getAction() != Action.RIGHT_CLICK_BLOCK)
+        if (item == null)
+            return;
+
+        Material type = item.getType();
+
+        if (arena == null || (type != Material.MONSTER_EGG && type != Material.ARMOR_STAND) ||
+                e.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
 
         Location improvedLocation = e.getClickedBlock().getLocation();
@@ -121,7 +131,7 @@ public class EntitySpawn implements Listener {
                 break;
         }
 
-        if (!ArenaManager.getInstance().getArena(player).getPlot(player).getBoundary().isInside(improvedLocation))
+        if (!arena.getPlot(player).getBoundary().isInside(improvedLocation))
             e.setCancelled(true);
     }
 
@@ -137,10 +147,12 @@ public class EntitySpawn implements Listener {
     private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
-				if (plot.getBoundary() == null) 
+                Region boundary = plot.getBoundary();
+
+                if (boundary == null)
 					continue;
 				
-				if (plot.getBoundary().isInside(location))
+				if (boundary.isInside(location))
 					return plot;
 			}
 		}

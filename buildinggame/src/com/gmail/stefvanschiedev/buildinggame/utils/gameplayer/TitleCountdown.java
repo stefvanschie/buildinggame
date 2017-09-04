@@ -40,7 +40,8 @@ class TitleCountdown extends BukkitRunnable {
 			
 			gamePlayer.sendTitle(gamePlayer.getTitles().get(0));	
 			gamePlayer.setTitleCountdown(new TitleCountdown(gamePlayer));
-			gamePlayer.getTitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") + config.getInt("title.stay") + config.getInt("title.fade_out"));
+			gamePlayer.getTitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") +
+                    config.getInt("title.stay") + config.getInt("title.fade_out"));
 		} else
 			gamePlayer.setTitleCountdown(null);
 		

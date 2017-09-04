@@ -75,7 +75,7 @@ public class WinTimer extends Timer {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%arena%", arena.getName()));
                 }
 			}
-		} catch (NullPointerException | NumberFormatException e) {}
+		} catch (NullPointerException | NumberFormatException ignore) {}
 		seconds--;
 	}
 

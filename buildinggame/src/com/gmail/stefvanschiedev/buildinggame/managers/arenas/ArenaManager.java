@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -56,12 +57,13 @@ public final class ArenaManager {
 	public void setup() {
 		arenas.clear();
 		Set<String> arenas = SettingsManager.getInstance().getArenas().getKeys(false);
+
 		for (String arena : arenas) {
 			if (!arena.equals("main-spawn")) {
 				this.arenas.add(new Arena(arena));
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+
+				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
 					Main.getInstance().getLogger().info("Loaded arena " + arena);
-				}
 			}
 		}
 	}
@@ -93,6 +95,7 @@ public final class ArenaManager {
 			if (arena.getName().equals(name))
 				return arena;
 		}
+
 		return null;
 	}
 
@@ -109,8 +112,10 @@ public final class ArenaManager {
     public Arena getArena(Player player) {
 		for (Arena arena : arenas) {
 			for (Plot plot : arena.getUsedPlots()) {
-				if (plot.getGamePlayer(player) != null) {
-					if (plot.getGamePlayer(player).getPlayer().equals(player))
+                GamePlayer gamePlayer = plot.getGamePlayer(player);
+
+                if (gamePlayer != null) {
+					if (gamePlayer.getPlayer().equals(player))
 						return arena;
 				}
 			}

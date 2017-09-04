@@ -38,8 +38,9 @@ public class SetWinTimer extends ConsoleCommand {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		
 		if (args.length < 2) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and the amount of seconds");
-			return CommandResult.ARGUMENTEXCEPTION;
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "Please specify the arena and the amount of seconds");
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -62,8 +63,9 @@ public class SetWinTimer extends ConsoleCommand {
 		SettingsManager.getInstance().save();
 		WinTimerManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Win timer setting for arena '" + arena.getName() + "' changed to '" + seconds + '\'');
-		return CommandResult.SUCCES;
+		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Win timer setting for arena '" +
+                arena.getName() + "' changed to '" + seconds + '\'');
+		return CommandResult.SUCCESS;
 	}
 
     /**

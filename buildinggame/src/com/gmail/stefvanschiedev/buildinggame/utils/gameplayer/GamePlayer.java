@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.gameplayer;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,7 +147,8 @@ public class GamePlayer {
 			//start new countdown	
 			sendSubtitle(subtitle);	
 			setSubtitleCountdown(new SubtitleCountdown(this));
-			getSubtitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") + config.getInt("title.stay") + config.getInt("title.fade_out"));
+			getSubtitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") +
+                    config.getInt("title.stay") + config.getInt("title.fade_out"));
 		}
 	}
 
@@ -168,7 +168,8 @@ public class GamePlayer {
 			
 			sendTitle(title);	
 			setTitleCountdown(new TitleCountdown(this));
-			getTitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") + config.getInt("title.stay") + config.getInt("title.fade_out"));
+			getTitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") +
+                    config.getInt("title.stay") + config.getInt("title.fade_out"));
 		}
 	}
 
@@ -183,9 +184,7 @@ public class GamePlayer {
 		if (title.isEmpty() && subtitle.isEmpty())
 			return;
 		
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		if (!config.getBoolean("title.syncronize")) {
+		if (!SettingsManager.getInstance().getConfig().getBoolean("title.syncronize")) {
 			addTitle(title);
 			addSubtitle(subtitle);
 		} else
@@ -302,17 +301,10 @@ public class GamePlayer {
 	@SuppressWarnings("ConstantConditions")
 	private void setTimes(int fadeIn, int stay, int fadeOut) {
 		try {
-			Constructor<?> constructor = getNMSClass("PacketPlayOutTitle")
-					.getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0],
-							getNMSClass("IChatBaseComponent"),
-							int.class,
-							int.class,
-							int.class);
-			
-			Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TIMES").get(null);
-			
-			Object packet = constructor.newInstance(enumTitle, null, fadeIn, stay, fadeOut);
-			sendPacket(packet);
+			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
+                    .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"), int.class, int.class, int.class)
+                    .newInstance(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0]
+                            .getField("TIMES").get(null), null, fadeIn, stay, fadeOut));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -371,18 +363,16 @@ public class GamePlayer {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		try {
-			Constructor<?> constructor = getNMSClass("PacketPlayOutTitle")
-					.getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0],
-							getNMSClass("IChatBaseComponent"));
-			
-			Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("SUBTITLE").get(null);
-			Object chatSerializer = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0]
-					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + MessageManager.translate(subtitle) + "\"}"));
-			
-			setTimes(config.getInt("title.fade_in"), config.getInt("title.stay"), config.getInt("title.fade_out"));
-			
-			Object packet = constructor.newInstance(enumTitle, chatSerializer);
-			sendPacket(packet);
+			setTimes(config.getInt("title.fade_in"), config.getInt("title.stay"),
+                    config.getInt("title.fade_out"));
+
+			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
+                    .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"))
+                    .newInstance(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0]
+                            .getField("SUBTITLE").get(null), getNMSClass("IChatBaseComponent")
+                            .getDeclaredClasses()[0].getMethod("a", String.class).invoke(null,
+                            ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" +
+                                    MessageManager.translate(subtitle) + "\"}"))));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -399,24 +389,16 @@ public class GamePlayer {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		try {
-			Constructor<?> constructor = getNMSClass("PacketPlayOutTitle")
-					.getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0],
-							getNMSClass("IChatBaseComponent"));
-			
-			Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TITLE").get(null);
-			Object chatSerializer = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0]
-					.getMethod("a", String.class).invoke(null, ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" + title
-							.replace("%:a%", "�")
-							.replace("%:e%", "�")
-							.replace("%:i%", "�")
-							.replace("%:o%", "�")
-							.replace("%:u%", "�")
-							.replace("%ss%", "�") + "\"}"));
-			
-			setTimes(config.getInt("title.fade_in"), config.getInt("title.stay"), config.getInt("title.fade_out"));
-			
-			Object packet = constructor.newInstance(enumTitle, chatSerializer);
-			sendPacket(packet);
+			setTimes(config.getInt("title.fade_in"), config.getInt("title.stay"),
+                    config.getInt("title.fade_out"));
+
+			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
+                    .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"))
+                    .newInstance(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0]
+                            .getField("TITLE").get(null), getNMSClass("IChatBaseComponent")
+                            .getDeclaredClasses()[0].getMethod("a", String.class).invoke(null,
+                            ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" +
+                                    title + "\"}"))));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -487,7 +469,8 @@ public class GamePlayer {
 		try {
 			Object handle = getPlayer().getClass().getMethod("getHandle").invoke(getPlayer());
 			Object playerConnection = handle.getClass().getField("playerConnection").get(handle);
-			playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet")).invoke(playerConnection, packet);
+			playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet"))
+                    .invoke(playerConnection, packet);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

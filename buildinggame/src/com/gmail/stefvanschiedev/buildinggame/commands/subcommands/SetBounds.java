@@ -44,7 +44,7 @@ public class SetBounds extends PlayerCommand {
 	public CommandResult onCommand(Player player, String[] args) {
 		if (args.length < 2) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arena and plot");
-			return CommandResult.ARGUMENTEXCEPTION;
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		final Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -70,7 +70,8 @@ public class SetBounds extends PlayerCommand {
 			return CommandResult.ERROR;
 		}
 
-        ItemBuilder itemBuilder = new ItemBuilder(player, Material.STICK).setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new ClickEvent() {
+        ItemBuilder itemBuilder = new ItemBuilder(player, Material.STICK)
+                .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new ClickEvent() {
             private Location previousLocation;
 
             @Override
@@ -87,45 +88,49 @@ public class SetBounds extends PlayerCommand {
                 if (previousLocation == null) {
                     previousLocation = e.getClickedBlock().getLocation();
 
-                    MessageManager.getInstance().send(player, ChatColor.GREEN + "Now click on the other corner");
+                    MessageManager.getInstance().send(player,
+                            ChatColor.GREEN + "Now click on the other corner");
                     return true;
                 } else {
                     //second time
                     Location location = e.getClickedBlock().getLocation();
+                    String name = arena.getName();
+                    int plotID = plot.getID();
 
                     if (previousLocation.getWorld().equals(location.getWorld())) {
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.world", location.getWorld().getName());
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.world", previousLocation.getWorld().getName());
+                        arenas.set(name + '.' + plotID + ".high.world", location.getWorld().getName());
+                        arenas.set(name + '.' + plotID + ".low.world", previousLocation.getWorld().getName());
                     } else {
-                        MessageManager.getInstance().send(player, ChatColor.RED + "The world has to be the same");
+                        MessageManager.getInstance().send(player,
+                                ChatColor.RED + "The world has to be the same");
                         return true;
                     }
 
                     //x
                     if (previousLocation.getBlockX() < location.getBlockX()) {
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", location.getBlockX());
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", previousLocation.getBlockX());
+                        arenas.set(name + '.' + plotID + ".high.x", location.getBlockX());
+                        arenas.set(name + '.' + plotID + ".low.x", previousLocation.getBlockX());
                     } else {
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.x", location.getBlockX());
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.x", previousLocation.getBlockX());
+                        arenas.set(name + '.' + plotID + ".low.x", location.getBlockX());
+                        arenas.set(name + '.' + plotID + ".high.x", previousLocation.getBlockX());
                     }
 
                     //y
                     if (previousLocation.getBlockY() < location.getBlockY()) {
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", location.getBlockY());
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", previousLocation.getBlockY());
+                        arenas.set(name + '.' + plotID + ".high.y", location.getBlockY());
+                        arenas.set(name + '.' + plotID + ".low.y", previousLocation.getBlockY());
                     } else {
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.y", location.getBlockY());
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.y", previousLocation.getBlockY());
+                        arenas.set(name + '.' + plotID + ".low.y", location.getBlockY());
+                        arenas.set(name + '.' + plotID + ".high.y", previousLocation.getBlockY());
                     }
 
                     //z
                     if (previousLocation.getBlockZ() < location.getBlockZ()) {
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", location.getBlockZ());
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", previousLocation.getBlockZ());
+                        arenas.set(name + '.' + plotID + ".high.z", location.getBlockZ());
+                        arenas.set(name + '.' + plotID + ".low.z", previousLocation.getBlockZ());
                     } else {
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".low.z", location.getBlockZ());
-                        arenas.set(arena.getName() + '.' + plot.getID() + ".high.z", previousLocation.getBlockZ());
+                        arenas.set(name + '.' + plotID + ".low.z", location.getBlockZ());
+                        arenas.set(name + '.' + plotID + ".high.z", previousLocation.getBlockZ());
                     }
 
                     SettingsManager.getInstance().save();
@@ -133,8 +138,8 @@ public class SetBounds extends PlayerCommand {
 
                     for (String message : messages.getStringList("setBounds.succes"))
                         MessageManager.getInstance().send(player, message
-                                .replace("%place%", plot.getID() + "")
-                                .replace("%arena%", arena.getName()));
+                                .replace("%place%", plotID + "")
+                                .replace("%arena%", name));
 
                     previousLocation = null;
 
@@ -150,7 +155,7 @@ public class SetBounds extends PlayerCommand {
 		
 		MessageManager.getInstance().send(player, ChatColor.GREEN + "Please click on one corner");
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -36,7 +37,8 @@ public class JoinSignBreak implements Listener {
 			return;
 		
 		Sign sign = (Sign) block.getState();
-		
+        Location location = sign.getLocation();
+
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			if (!arena.getSigns().contains(sign))
 				continue;
@@ -44,17 +46,17 @@ public class JoinSignBreak implements Listener {
 			for (String string : signs.getKeys(false)) {
 				if (!signs.getString(string + ".arena").equals(arena.getName()))
 					continue;
-				
-				if (!signs.getString(string + ".world").equals(sign.getLocation().getWorld().getName()))
+
+                if (!signs.getString(string + ".world").equals(location.getWorld().getName()))
 					continue;
 				
-				if (signs.getInt(string + ".x") != sign.getLocation().getBlockX())
+				if (signs.getInt(string + ".x") != location.getBlockX())
 					continue;
 				
-				if (signs.getInt(string + ".y") != sign.getLocation().getBlockY())
+				if (signs.getInt(string + ".y") != location.getBlockY())
 					continue;
 				
-				if (signs.getInt(string + ".z") != sign.getLocation().getBlockZ())
+				if (signs.getInt(string + ".z") != location.getBlockZ())
 					continue;
 				
 				SettingsManager.getInstance().save();

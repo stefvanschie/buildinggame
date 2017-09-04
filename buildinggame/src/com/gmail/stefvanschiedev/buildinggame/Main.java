@@ -121,9 +121,8 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			if (arena.getPlayers() > 0) {
+			if (arena.getPlayers() > 0)
 				arena.stop();
-			}
 		}
 		
 		if (StatManager.getInstance().getMySQLDatabase() == null)
@@ -170,9 +169,8 @@ public class Main extends JavaPlugin {
 		MainSpawnManager.getInstance().setup();
 		
 		getLogger().info("Loading soft dependencies");
-		if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+		if (Bukkit.getPluginManager().isPluginEnabled("Vault"))
 			SDVault.getInstance().setup();
-		}
 		
 		getLogger().info("Loading commands");
 		CommandManager command = new CommandManager();
@@ -255,8 +253,10 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("Loading timer");
 		new ParticleRender().runTaskTimerAsynchronously(this, 0L, 10L);
-		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig().getLong("scoreboard-update-delay"));
-		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig().getLong("stats.save-delay"));
+		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig()
+                .getLong("scoreboard-update-delay"));
+		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig()
+                .getLong("stats.save-delay"));
 		new EntityTimer().runTaskTimerAsynchronously(this, 0L, 20L);
 		
 		if (!loadedCommands) {

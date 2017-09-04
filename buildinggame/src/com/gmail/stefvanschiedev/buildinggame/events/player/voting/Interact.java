@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.voting;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -25,13 +24,10 @@ public class Interact implements Listener {
      */
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		Player player = e.getPlayer();
-		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+        Arena arena = ArenaManager.getInstance().getArena(e.getPlayer());
+
+        if (arena == null)
 			return;
-		}
-		
-		Arena arena = ArenaManager.getInstance().getArena(player);
 		
 		if (arena.getState() == GameState.VOTING)
 			e.setCancelled(true);

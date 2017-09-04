@@ -56,6 +56,7 @@ public final class BungeeCordHandler implements Listener {
     private void send(String message, IdentifiedCallable callable) {
         if (callable != null)
             callables.add(callable);
+
         Socket4MC.bukkit().getSocketClient().writeJSON(CHANNEL, message + (callable == null ? "" : ";uuid:" +
                 callable.getUuid()));
     }
@@ -248,6 +249,7 @@ public final class BungeeCordHandler implements Listener {
     public static BungeeCordHandler getInstance() {
         if (INSTANCE == null)
             INSTANCE = new BungeeCordHandler();
+
         return INSTANCE;
     }
 }

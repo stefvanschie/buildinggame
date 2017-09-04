@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -34,9 +35,10 @@ public class ListCommand extends ConsoleCommand {
     @Override
 	public CommandResult onCommand(CommandSender sender, String[] args) {
 		for (Arena arena : ArenaManager.getInstance().getArenas())
-			sender.sendMessage(ChatColor.DARK_AQUA + " - " + arena.getName() + ChatColor.DARK_GREEN + " - " + arena.getState().toString().toLowerCase(Locale.getDefault()));
+            MessageManager.getInstance().send(sender, ChatColor.DARK_AQUA + " - " + arena.getName() +
+                    ChatColor.DARK_GREEN + " - " + arena.getState().toString().toLowerCase(Locale.getDefault()));
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,8 +34,6 @@ public class StatSignCreate implements Listener {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		Player player = e.getPlayer();
-		
 		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
 			return;
 		
@@ -42,14 +41,16 @@ public class StatSignCreate implements Listener {
 		
 		if (!lineOne.equalsIgnoreCase("stat") && !lineOne.equalsIgnoreCase("statistic"))
 			return;
-		
+
+        Player player = e.getPlayer();
 		String lineTwo = e.getLine(2);
 		StatType type;
-		
+
 		try {
 			type = StatType.valueOf(lineTwo.toUpperCase(Locale.getDefault()));
 		} catch (IllegalArgumentException ex) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "'" + lineTwo + "' isn't a valid statistic");
+			MessageManager.getInstance().send(player,
+                    ChatColor.RED + "'" + lineTwo + "' isn't a valid statistic");
 			return;
 		}
 		
@@ -73,22 +74,24 @@ public class StatSignCreate implements Listener {
 		for (String string : signs.getKeys(false)) {
 			try {
 				i = Integer.parseInt(string);
-			} catch (NumberFormatException nfe) {}
+			} catch (NumberFormatException ignore) {}
 		}
 		
 		i++;
-		
-		signs.set(i + ".number", number);
+
+        Location location = e.getBlock().getLocation();
+
+        signs.set(i + ".number", number);
 		signs.set(i + ".stat", type.toString());
 		signs.set(i + ".type", "stat");
-		signs.set(i + ".world", e.getBlock().getLocation().getWorld().getName());
-		signs.set(i + ".x", e.getBlock().getLocation().getBlockX());
-		signs.set(i + ".y", e.getBlock().getLocation().getBlockY());
-		signs.set(i + ".z", e.getBlock().getLocation().getBlockZ());
+		signs.set(i + ".world", location.getWorld().getName());
+		signs.set(i + ".x", location.getBlockX());
+		signs.set(i + ".y", location.getBlockY());
+		signs.set(i + ".z", location.getBlockZ());
 		SettingsManager.getInstance().save();
-		
+
+        SignManager.getInstance().setup();
+
 		e.setCancelled(true);
-		
-		SignManager.getInstance().setup();
 	} 
 }

@@ -44,12 +44,14 @@ public class DeleteSpawn extends ConsoleCommand {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		if (args.length < 2) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and the spawn");
-			return CommandResult.ARGUMENTEXCEPTION;
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "Please specify the arena and the spawn");
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		if (ArenaManager.getInstance().getArena(args[0]) == null) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "That's not a valid arena. Try to create one first.");
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "That's not a valid arena. Try to create one first.");
 			return CommandResult.ERROR;
 		}
 		
@@ -59,24 +61,26 @@ public class DeleteSpawn extends ConsoleCommand {
 		try {
 			id = Integer.parseInt(args[1]);
 		} catch (NumberFormatException nfe) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "That's not a valid plot. Try to create one first.");
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "That's not a valid plot. Try to create one first.");
 			return CommandResult.ERROR;
 		}
 		
 		if (arena.getPlot(id) == null) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "That's not a valid plot. Try to create one first.");
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "That's not a valid plot. Try to create one first.");
 			return CommandResult.ERROR;
 		}
 		
 		Plot plot = arena.getPlot(id);
 		
-		int maxplayers = arenas.getInt(arena.getName() + ".maxplayers");
+		int maxPlayers = arenas.getInt(arena.getName() + ".maxplayers");
 		
-		for (int i = plot.getID(); i < maxplayers; i++)
+		for (int i = plot.getID(); i < maxPlayers; i++)
 			arenas.set(arena.getName() + '.' + i, arenas.getConfigurationSection(arena.getName() + '.' + i + 1));
 		
-		arenas.set(arena.getName() + '.' + maxplayers, null);
-		arenas.set(arena.getName() + ".maxplayers", maxplayers - 1);
+		arenas.set(arena.getName() + '.' + maxPlayers, null);
+		arenas.set(arena.getName() + ".maxplayers", maxPlayers - 1);
 		
 		SettingsManager.getInstance().save();
 		
@@ -91,7 +95,7 @@ public class DeleteSpawn extends ConsoleCommand {
 			MessageManager.getInstance().send(sender, message
 					.replace("%place%", plot.getID() + ""));
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

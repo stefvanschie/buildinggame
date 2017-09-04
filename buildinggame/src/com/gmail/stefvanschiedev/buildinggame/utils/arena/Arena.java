@@ -194,15 +194,15 @@ public class Arena {
      */
 	public Arena(String name) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		this.name = name;
 
         try {
-			this.bossbar = Bukkit.createBossBar(MessageManager.translate(messages.getString("global.bossbar-header")
-					.replace("%subject%", "?")),
+			this.bossbar = Bukkit.createBossBar(MessageManager.translate(SettingsManager.getInstance().getMessages()
+                            .getString("global.bossbar-header").replace("%subject%", "?")),
                     BarColor.valueOf(config.getString("bossbar.color").toUpperCase(Locale.getDefault())),
                     BarStyle.valueOf(config.getString("bossbar.style").toUpperCase(Locale.getDefault())));
+
 			getBossBar().setVisible(false);
 		} catch (IllegalArgumentException e) {
 			Main.getInstance().getLogger().warning("Bossbar couldn't be loaded, check the data and try again.");
@@ -244,6 +244,7 @@ public class Arena {
 					return true;
 			}
 		}
+
 		return false;
 	}
 
@@ -267,15 +268,18 @@ public class Arena {
     @Nullable
     @Contract(pure = true)
 	public Timer getActiveTimer() {
-		if (waitTimer.isActive()) {
+		if (waitTimer.isActive())
 			return waitTimer;
-		} else if (buildTimer.isActive()) {
+
+		if (buildTimer.isActive())
 			return buildTimer;
-		} else if (voteTimer.isActive()) {
+
+		if (voteTimer.isActive())
 			return voteTimer;
-		} else if (winTimer.isActive()) {
+
+		if (winTimer.isActive())
 			return winTimer;
-		}
+
 		return null;
 	}
 
@@ -305,19 +309,6 @@ public class Arena {
 	}
 
 	/**
-     * Returns the build timer
-     *
-     * @return the build timer
-     * @see BuildTimer
-     * @since 2.1.0
-     */
-	@Nullable
-	@Contract(pure = true)
-    private BuildTimer getBuildTimer() {
-		return buildTimer;
-	}
-
-	/**
      * Returns the plot that became first or null if voting isn't over yet
      *
      * @return the plot that became first
@@ -328,19 +319,6 @@ public class Arena {
     @Contract(pure = true)
 	public Plot getFirstPlot() {
 		return first;
-	}
-
-	/**
-     * Returns the lobby
-     *
-     * @return the lobby
-     * @see Lobby
-     * @since 2.1.0
-     */
-	@Nullable
-	@Contract(pure = true)
-    private Lobby getLobby() {
-		return lobby;
 	}
 
 	/**
@@ -365,17 +343,6 @@ public class Arena {
 	@Contract(pure = true)
 	public int getMaxPlayers() {
 		return maxPlayers;
-	}
-
-	/**
-     * Returns the minimum amount of players
-     *
-     * @return the min. amount of players
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-    private int getMinPlayers() {
-		return minPlayers;
 	}
 
 	/**
@@ -413,9 +380,8 @@ public class Arena {
 	public int getPlayers() {
 		int players = 0;
 		
-		for (Plot plot : getUsedPlots()) {
+		for (Plot plot : getUsedPlots())
 			players += plot.getGamePlayers().size();
-		}
 		
 		return players;
 	}
@@ -432,10 +398,10 @@ public class Arena {
     @Contract(pure = true)
 	public Plot getPlot(int ID) {
 		for (Plot plot : plots) {
-			if (plot.getID() == ID) {
+			if (plot.getID() == ID)
 				return plot;
-			}
 		}
+
 		return null;
 	}
 
@@ -452,11 +418,11 @@ public class Arena {
 	public Plot getPlot(Player player) {
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-				if (gamePlayer.getPlayer().equals(player)) {
+				if (gamePlayer.getPlayer().equals(player))
 					return plot;
-				}
 			}
 		}
+
 		return null;
 	}
 
@@ -574,9 +540,8 @@ public class Arena {
 		Collection<Plot> usedPlots = new ArrayList<>();
 		
 		for (Plot plot : getPlots()) {
-			if (!plot.getGamePlayers().isEmpty()) {
+			if (!plot.getGamePlayers().isEmpty())
 				usedPlots.add(plot);
-			}
 		}
 		
 		return usedPlots;
@@ -701,17 +666,14 @@ public class Arena {
      */
 	@Contract(pure = true)
 	private boolean isSetup() {
-		if (getLobby() == null) {
+		if (lobby == null || MainSpawnManager.getInstance().getMainSpawn() == null)
 			return false;
-		}
-		if (MainSpawnManager.getInstance().getMainSpawn() == null) {
-			return false;
-		}
+
 		for (Plot plot : getPlots()) {
-			if (plot.getBoundary() == null || plot.getFloor() == null) {
+			if (plot.getBoundary() == null || plot.getFloor() == null)
 				return false;
-			}
 		}
+
 		return true;
 	}
 
@@ -729,23 +691,29 @@ public class Arena {
 		
 		//check if everything is set up
 		if (!isSetup()) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "Your arena isn't setup right, you still need to do this:");
-			if (getLobby() == null) {
-				MessageManager.getInstance().send(player, ChatColor.RED + " - The lobby of arena " + getName() + "(/bg setlobby " + getName() + ')');
-			}
-			if (MainSpawnManager.getInstance().getMainSpawn() == null) {
-				MessageManager.getInstance().send(player, ChatColor.RED + " - The main spawn (/bg setmainspawn)");
-			}
+			MessageManager.getInstance().send(player, ChatColor.RED +
+                    "Your arena isn't setup right, you still need to do this:");
+
+			if (lobby == null)
+				MessageManager.getInstance().send(player, ChatColor.RED + " - The lobby of arena " + getName()
+                        + "(/bg setlobby " + getName() + ')');
+
+			if (MainSpawnManager.getInstance().getMainSpawn() == null)
+				MessageManager.getInstance().send(player, ChatColor.RED +
+                        " - The main spawn (/bg setmainspawn)");
+
 			for (Plot plot : getPlots()) {
-				if (plot.getBoundary() == null) {
-					MessageManager.getInstance().send(player, ChatColor.RED + " - The boundary of plot " + plot.getID() + " (/bg setbounds " + getName() + ' ' + plot.getID() + ')');
-				}
+				if (plot.getBoundary() == null)
+					MessageManager.getInstance().send(player, ChatColor.RED + " - The boundary of plot " +
+                            plot.getID() + " (/bg setbounds " + getName() + ' ' + plot.getID() + ')');
 			}
+
 			for (Plot plot : getPlots()) {
-				if (plot.getFloor() == null) {
-					MessageManager.getInstance().send(player, ChatColor.RED + " - The floor of plot " + plot.getID() + " (/bg setfloor " + getName() + ' ' + plot.getID() + ')');
-				}
+				if (plot.getFloor() == null)
+					MessageManager.getInstance().send(player, ChatColor.RED + " - The floor of plot " +
+                            plot.getID() + " (/bg setfloor " + getName() + ' ' + plot.getID() + ')');
 			}
+
 			return;
 		}
 		
@@ -785,28 +753,26 @@ public class Arena {
 		if (config.getBoolean("scoreboards.lobby.enable"))
 			lobbyScoreboard.show(player);
 		
-		for (String message : messages.getStringList("join.message")) {
+		for (String message : messages.getStringList("join.message"))
 			MessageManager.getInstance().send(player, message
 					.replace("%players%", getPlayers() + "")
 					.replace("%max_players%", getMaxPlayers() + ""));
-		}
 		
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
 				
-				for (String message : messages.getStringList("join.otherPlayers")) {
+				for (String message : messages.getStringList("join.otherPlayers"))
 					MessageManager.getInstance().send(pl, message
-							.replace("%player%", player.getName())
+                            .replace("%player%", player.getName())
 							.replace("%players%", getPlayers() + "")
 							.replace("%max_players%", getMaxPlayers() + ""));
-				}
 			}
 		}
 		
 		
-		if (getLobby() != null)
-			player.teleport(getLobby().getLocation());
+		if (lobby != null)
+			player.teleport(lobby.getLocation());
 		
 		if (config.getBoolean("scoreboards.lobby.enable")) {
 			for (Plot plot : getUsedPlots()) {
@@ -842,12 +808,11 @@ public class Arena {
 				gamePlayer.getPlayer().showPlayer(player);
 		}
 		
-		if (getPlayers() >= getMinPlayers() && !waitTimer.isActive())
+		if (getPlayers() >= minPlayers && !waitTimer.isActive())
 			waitTimer.runTaskTimer(Main.getInstance(), 0L, 20L);
 		
-		if (getPlayers() >= getMaxPlayers()) {
+		if (getPlayers() >= getMaxPlayers())
 			waitTimer.setSeconds(0);
-		}
 		
 		//bukkit runnable because of instant leaving and instant subject opening
 		BukkitRunnable runnable = new BukkitRunnable () {
@@ -855,7 +820,10 @@ public class Arena {
 			public void run() {
 				//give team selection
 				if (getMode() == ArenaMode.TEAM) {
-                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config.getString("team-selection.item.id")).setDisplayName(MessageManager.translate(messages.getString("team-gui.item.name"))).setLore(MessageManager.translate(messages.getStringList("team-gui.item.lores"))).setClickEvent(event -> {
+                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
+                            .getString("team-selection.item.id")).setDisplayName(MessageManager
+                            .translate(messages.getString("team-gui.item.name"))).setLore(MessageManager
+                            .translate(messages.getStringList("team-gui.item.lores"))).setClickEvent(event -> {
                         getTeamSelection().open(player);
                         return true;
                     });
@@ -865,7 +833,10 @@ public class Arena {
 				
 				//give paper for subject
 				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
-                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config.getString("subject-gui.item.id")).setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"))).setLore(MessageManager.translate(messages.getStringList("subject-gui.item.lores"))).setClickEvent(event -> {
+                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
+                            .getString("subject-gui.item.id")).setDisplayName(MessageManager.translate(messages
+                            .getString("subject-gui.item.name"))).setLore(MessageManager.translate(messages
+                            .getStringList("subject-gui.item.lores"))).setClickEvent(event -> {
                         getSubjectMenu().open(player);
                         return false;
                     });
@@ -873,7 +844,9 @@ public class Arena {
                     player.getInventory().setItem(config.getInt("subject-gui.slot"), itemBuilder);
                 }
 
-                ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config.getString("leave-item.id")).setDisplayName(MessageManager.translate(messages.getString("leave-item.name"))).setClickEvent(event -> {
+                ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
+                        .getString("leave-item.id")).setDisplayName(MessageManager.translate(messages
+                        .getString("leave-item.name"))).setClickEvent(event -> {
                     leave(player);
                     return true;
                 });
@@ -916,19 +889,16 @@ public class Arena {
         Plot plot = getPlot(player);
 
         //this shouldn't happen unless you screwed up with the api
-        if (plot == null)
+        if (plot == null) {
+            MessageManager.getInstance().send(player, "You're not in a game");
+            ArenaManager.getInstance().getArena(player).leave(player);
             return;
+        }
 
 		GamePlayer p = plot.getGamePlayer(player);
 		p.restore();
 		
 		ItemBuilder.check(player);
-		
-		if (plot == null) {
-			MessageManager.getInstance().send(player, "You're not in a game");
-			ArenaManager.getInstance().getArena(player).leave(player);
-			return;
-		}
 		
 		if (MainSpawnManager.getInstance().getMainSpawn() != null)
 			p.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
@@ -959,10 +929,9 @@ public class Arena {
 			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
 				
-				for (String message : messages.getStringList("leave.otherPlayers")) {
+				for (String message : messages.getStringList("leave.otherPlayers"))
 					MessageManager.getInstance().send(pl, message
 							.replace("%player%", player.getName()));
-				}
 				
 				if (config.getBoolean("scoreboards.lobby.enable"))
 					lobbyScoreboard.update(pl);
@@ -975,7 +944,7 @@ public class Arena {
 				setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), this));
 				setState(GameState.WAITING);
 			}
-			if (getBuildTimer().isActive()) {
+			if (buildTimer.isActive()) {
 				buildTimer.cancel();
 				setBuildTimer(new BuildTimer(arenas.getInt(name + ".timer"), this));
 				forceStop();
@@ -1095,16 +1064,6 @@ public class Arena {
 	}
 
 	/**
-     * Sets the subject
-     *
-     * @param subject the new subject
-     * @since 2.1.0
-     */
-	private void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	/**
      * Sets the plot that became third after voting
      *
      * @param third the plot that became third
@@ -1156,9 +1115,8 @@ public class Arena {
 
             // Set yaw
             if (dx != 0)
-                safeLocation.setYaw(
-                        (dx < 0 ? ((float) (1.5 * Math.PI)) : ((float) (0.5 * Math.PI))) - (float) Math.atan(dz / dx)
-                );
+                safeLocation.setYaw((dx < 0 ? ((float) (1.5 * Math.PI)) : ((float) (0.5 * Math.PI))) -
+                        (float) Math.atan(dz / dx));
             else if (dz < 0)
                 safeLocation.setYaw((float) Math.PI);
 
@@ -1179,15 +1137,16 @@ public class Arena {
 					for (String message : messages.getStringList("voting.message"))
 						MessageManager.getInstance().send(player, message
 								.replace("%playerplot%", votingPlot.getPlayerFormat()));
-					gamePlayer.addTitleAndSubtitle(messages.getString("voting.title")
-							.replace("%playerplot%", votingPlot.getPlayerFormat()), messages.getString("voting.subtitle")
+
+					gamePlayer.addTitleAndSubtitle(messages.getString("voting.title"
+							.replace("%playerplot%", votingPlot.getPlayerFormat())),
+                            messages.getString("voting.subtitle")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
 
 				if (safeLocation == null)
-                    player.teleport(boundary.getAllBlocks().get(
-                            ThreadLocalRandom.current().nextInt(votingPlot.getBoundary().getAllBlocks().size())
-                    ).getLocation());
+                    player.teleport(boundary.getAllBlocks().get(ThreadLocalRandom.current().nextInt(votingPlot
+                            .getBoundary().getAllBlocks().size())).getLocation());
 				else
 				    player.teleport(safeLocation);
 
@@ -1196,10 +1155,8 @@ public class Arena {
 				
 				ItemBuilder.check(player);
 				
-				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
-					VoteBlocks blocks = new VoteBlocks();
-					blocks.give(player);
-				}
+				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER)
+					new VoteBlocks().give(player);
 				
 				//update scoreboard and update time and weather
 				if (config.getBoolean("scoreboards.vote.enable"))
@@ -1250,7 +1207,7 @@ public class Arena {
 		if (event.isCancelled())
 			return;
 		
-		setSubject(getSubjectMenu().getHighestVote());
+		subject = getSubjectMenu().getHighestVote();
 		
 		//update bossbar
 		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
@@ -1260,7 +1217,8 @@ public class Arena {
 			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
 				gamePlayer.getPlayer().teleport(plot.getLocation());
 				
-				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages.getStringList("gameStarts.message"));
+				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages
+                        .getStringList("gameStarts.message"));
 				for (String message : messages.getStringList("gameStarts.subject"))
 					MessageManager.getInstance().send(gamePlayer.getPlayer(), message
 							.replace("%subject%", getSubject()));
@@ -1278,13 +1236,17 @@ public class Arena {
 				
 				//hotbar
 				for (int i = 0; i < 9; i++)
-					player.getInventory().setItem(i, IDDecompiler.getInstance().decompile(config.getString("hotbar.default.slot-" + (i + 1))));
+					player.getInventory().setItem(i, IDDecompiler.getInstance().decompile(config
+                            .getString("hotbar.default.slot-" + (i + 1))));
 				
 				//bossbar
 				getBossBar().setVisible(true);
 
 				if (config.getBoolean("gui.enable")) {
-                    ItemBuilder itemBuilder = new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager.translate(messages.getString("gui.options-emerald"))).setLore(MessageManager.translate(messages.getStringList("gui.options-lores"))).moveable(false).setClickEvent(e -> {
+                    ItemBuilder itemBuilder = new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager
+                            .translate(messages.getString("gui.options-emerald"))).setLore(MessageManager
+                            .translate(messages.getStringList("gui.options-lores"))).moveable(false)
+                            .setClickEvent(e -> {
                         getPlot(player).getBuildMenu().open(player);
                         return true;
                     });
@@ -1322,7 +1284,7 @@ public class Arena {
         this.voteTimer = new VoteTimer(arenas.getInt(name + ".vote-timer"), this);
         this.winTimer = new WinTimer(arenas.getInt(name + ".win-timer"), this);
         this.voteScoreboard = new VoteScoreboard(this);
-        setSubject(null);
+        subject = null;
 
         setFirstPlot(null);
         setSecondPlot(null);
@@ -1385,6 +1347,7 @@ public class Arena {
 		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
 				.replace("%subject%", "?")));
 		getBossBar().setVisible(false);
+
 		for (Player player : getBossBar().getPlayers())
 			getBossBar().removePlayer(player);
 		

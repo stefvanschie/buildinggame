@@ -42,7 +42,7 @@ public class SetSpawn extends PlayerCommand {
 		
 		if (args.length == 0) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arenaname");
-			return CommandResult.ARGUMENTEXCEPTION;
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -53,15 +53,16 @@ public class SetSpawn extends PlayerCommand {
 		}
 		
 		int place = arena.getMaxPlayers() + 1;
-		
-		arenas.set(arena.getName() + '.' + place + ".server", player.getServer().getServerName());
-		arenas.set(arena.getName() + '.' + place + ".world", player.getLocation().getWorld().getName());
-		arenas.set(arena.getName() + '.' + place + ".x", player.getLocation().getBlockX());
-		arenas.set(arena.getName() + '.' + place + ".y", player.getLocation().getBlockY());
-		arenas.set(arena.getName() + '.' + place + ".z", player.getLocation().getBlockZ());
-		arenas.set(arena.getName() + '.' + place + ".pitch", player.getLocation().getPitch());
-		arenas.set(arena.getName() + '.' + place + ".yaw", player.getLocation().getYaw());
-		arenas.set(arena.getName() + ".maxplayers", place);
+        String name = arena.getName();
+
+        arenas.set(name + '.' + place + ".server", player.getServer().getServerName());
+		arenas.set(name + '.' + place + ".world", player.getLocation().getWorld().getName());
+		arenas.set(name + '.' + place + ".x", player.getLocation().getBlockX());
+		arenas.set(name + '.' + place + ".y", player.getLocation().getBlockY());
+		arenas.set(name + '.' + place + ".z", player.getLocation().getBlockZ());
+		arenas.set(name + '.' + place + ".pitch", player.getLocation().getPitch());
+		arenas.set(name + '.' + place + ".yaw", player.getLocation().getYaw());
+		arenas.set(name + ".maxplayers", place);
 		SettingsManager.getInstance().save();
 		
 		PlotManager.getInstance().setup();

@@ -143,9 +143,8 @@ public final class MessageManager {
 	public static List<String> translate(Iterable<String> s) {
 		List<String> list = new ArrayList<>();
 		
-		for (String text : s) {
+		for (String text : s)
 			list.add(translate(text));
-		}
 		
 		return list;
 	}

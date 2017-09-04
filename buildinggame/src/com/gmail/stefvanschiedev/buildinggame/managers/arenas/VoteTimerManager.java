@@ -26,10 +26,12 @@ public final class VoteTimerManager {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			if (!arenas.contains(arena.getName() + ".vote-timer"))
-				arenas.set(arena.getName() + ".vote-timer", config.getInt("votetimer"));
+            String name = arena.getName();
+
+            if (!arenas.contains(name + ".vote-timer"))
+				arenas.set(name + ".vote-timer", config.getInt("votetimer"));
 			
-			arena.setVoteTimer(new VoteTimer(arenas.getInt(arena.getName() + ".vote-timer"), arena));
+			arena.setVoteTimer(new VoteTimer(arenas.getInt(name + ".vote-timer"), arena));
 		}
 	}
 

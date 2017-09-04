@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.saved;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -28,9 +30,15 @@ public class FirstStat implements Listener {
 	public void onPlayerWin(PlayerWinEvent e) {
 		if (e.getWin() != Win.FIRST)
 			return;
-		
-		for (GamePlayer gamePlayer : e.getPlayers())
-			StatManager.getInstance().registerStat(gamePlayer.getPlayer(), StatType.FIRST, StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.FIRST) == null ? 1 : StatManager.getInstance().getStat(gamePlayer.getPlayer(), StatType.FIRST).getValue() + 1);
+
+        StatManager instance = StatManager.getInstance();
+
+        for (GamePlayer gamePlayer : e.getPlayers()) {
+            Player player = gamePlayer.getPlayer();
+            Stat stat = instance.getStat(player, StatType.FIRST);
+
+            instance.registerStat(player, StatType.FIRST, stat == null ? 1 : stat.getValue() + 1);
+        }
 	
 		SignManager.getInstance().updateStatSigns();
 	}

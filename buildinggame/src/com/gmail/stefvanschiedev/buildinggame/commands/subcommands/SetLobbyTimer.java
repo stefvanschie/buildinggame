@@ -39,7 +39,7 @@ public class SetLobbyTimer extends ConsoleCommand {
 		
 		if (args.length < 2) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and the amount of seconds");
-			return CommandResult.ARGUMENTEXCEPTION;
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -63,7 +63,7 @@ public class SetLobbyTimer extends ConsoleCommand {
 		LobbyTimerManager.getInstance().setup();
 		
 		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Lobby timer setting for arena '" + arena.getName() + "' changed to '" + seconds + '\'');
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

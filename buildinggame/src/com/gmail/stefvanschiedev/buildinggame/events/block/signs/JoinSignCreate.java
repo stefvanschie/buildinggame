@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -51,17 +52,19 @@ public class JoinSignCreate implements Listener {
 		for (String string : signs.getKeys(false)) {
 			try {
 				number = Integer.parseInt(string);
-			} catch (NumberFormatException nfe) {}
+			} catch (NumberFormatException ignore) {}
 		}
 		
 		number++;
-		
-		signs.set(number + ".arena", arena == null ? "" : arena.getName());
+
+        Location location = e.getBlock().getLocation();
+
+        signs.set(number + ".arena", arena == null ? "" : arena.getName());
 		signs.set(number + ".type", "join");
-		signs.set(number + ".world", e.getBlock().getLocation().getWorld().getName());
-		signs.set(number + ".x", e.getBlock().getLocation().getBlockX());
-		signs.set(number + ".y", e.getBlock().getLocation().getBlockY());
-		signs.set(number + ".z", e.getBlock().getLocation().getBlockZ());
+		signs.set(number + ".world", location.getWorld().getName());
+		signs.set(number + ".x", location.getBlockX());
+		signs.set(number + ".y", location.getBlockY());
+		signs.set(number + ".z", location.getBlockZ());
 		SettingsManager.getInstance().save();
 		
 		SignManager.getInstance().setup();

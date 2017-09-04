@@ -55,6 +55,7 @@ public final class MainSpawnManager {
 	public void setup() {
 		mainSpawn = null;
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
 		try {
 			if (!arenas.contains("main-spawn.server")) {
 				arenas.set("main-spawn.server", Bukkit.getServer().getServerName());
@@ -69,9 +70,9 @@ public final class MainSpawnManager {
                     (float) arenas.getDouble("main-spawn.pitch", 0)));
 			
 			setServer(arenas.getString("main-spawn.server"));
-			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+
+			if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
 				Main.getInstance().getLogger().info("Loaded main spawn");
-			}
 		} catch (NullPointerException | IllegalArgumentException e) {
 			setMainSpawn(null);
 		}

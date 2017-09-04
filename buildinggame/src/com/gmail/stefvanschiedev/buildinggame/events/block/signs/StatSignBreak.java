@@ -26,7 +26,7 @@ public class StatSignBreak implements Listener {
      * @since 3.1.0
      */
 	@EventHandler
-	public static void onBlockbreak(BlockBreakEvent e) {
+	public static void onBlockBreak(BlockBreakEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
 		Block block = e.getBlock();

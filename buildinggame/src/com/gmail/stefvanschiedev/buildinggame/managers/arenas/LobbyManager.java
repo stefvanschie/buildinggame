@@ -47,22 +47,23 @@ public final class LobbyManager {
      */
 	@SuppressWarnings("MethodMayBeStatic")
     public void setup() {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-			
-			if (!arenas.contains(arena.getName() + ".lobby"))
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
+        for (Arena arena : ArenaManager.getInstance().getArenas()) {
+            String name = arena.getName();
+
+            if (!arenas.contains(name + ".lobby"))
 				continue;
 			
-			arena.setLobby(new Lobby(new Location(Bukkit.getWorld(arenas.getString(arena.getName() + ".lobby.world")),
-					arenas.getInt(arena.getName() + ".lobby.x"),
-					arenas.getInt(arena.getName() + ".lobby.y"),
-					arenas.getInt(arena.getName() + ".lobby.z"),
-                    (float) arenas.getDouble(arena.getName() + ".lobby.yaw", 0),
-                    (float) arenas.getDouble(arena.getName() + ".lobby.pitch", 0))));
-			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-				Main.getInstance().getLogger().info("Loaded lobby for " + arena.getName());
-			}
+			arena.setLobby(new Lobby(new Location(Bukkit.getWorld(arenas.getString(name + ".lobby.world")),
+					arenas.getInt(name + ".lobby.x"),
+					arenas.getInt(name + ".lobby.y"),
+					arenas.getInt(name + ".lobby.z"),
+                    (float) arenas.getDouble(name + ".lobby.yaw", 0),
+                    (float) arenas.getDouble(name + ".lobby.pitch", 0))));
+
+			if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+				Main.getInstance().getLogger().info("Loaded lobby for " + name);
 		}
 	}
-	
 }

@@ -41,7 +41,7 @@ public class SetGameMode extends ConsoleCommand {
 		
 		if (args.length < 2) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and gamemode");
-			return CommandResult.ARGUMENTEXCEPTION;
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -55,7 +55,8 @@ public class SetGameMode extends ConsoleCommand {
 		try {
 			mode = ArenaMode.valueOf(args[1].toUpperCase(Locale.getDefault()));
 		} catch (IllegalArgumentException e) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "'" + args[1] + "' isn't a valid gamemode");
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "'" + args[1] + "' isn't a valid game mode");
 			return CommandResult.ERROR;
 		}
 		
@@ -64,9 +65,11 @@ public class SetGameMode extends ConsoleCommand {
 		
 		ArenaModeManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Succesfully changed gamemode of arena " + arena.getName() + " to " + mode.toString().toLowerCase(Locale.getDefault()));
+		MessageManager.getInstance().send(sender, ChatColor.GREEN +
+                "Successfully changed game mode of arena " + arena.getName() + " to " +
+                mode.toString().toLowerCase(Locale.getDefault()));
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

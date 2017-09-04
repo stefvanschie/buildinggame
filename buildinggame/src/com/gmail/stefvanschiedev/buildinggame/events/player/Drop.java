@@ -1,7 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -25,15 +23,10 @@ public class Drop implements Listener {
      */
 	@EventHandler
 	public void onItemDrop(PlayerDropItemEvent e) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		Player player = e.getPlayer();
-
-		if (ArenaManager.getInstance().getArena(player) == null) {
+		if (ArenaManager.getInstance().getArena(e.getPlayer()) == null)
 			return;
-		}
 	
-		if (!config.getBoolean("enable-item-drop"))
+		if (!SettingsManager.getInstance().getConfig().getBoolean("enable-item-drop"))
 			e.setCancelled(true);
 	}
 }

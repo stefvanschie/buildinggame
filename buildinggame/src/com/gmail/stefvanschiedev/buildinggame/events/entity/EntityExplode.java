@@ -1,7 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,19 +32,13 @@ public class EntityExplode implements Listener {
 		
 		if ((plot = isInside(e.getLocation())) == null)
 			return;
-		
+
+		Vector vector = new Vector(0, 0, 0);
+
 		for (Entity entity : plot.getEntities().keySet())
-			entity.setVelocity(new Vector(0, 0, 0));
-		
-		for (int i = 0; i < e.blockList().size(); i++) {
-			Block block = e.blockList().get(i);
-			
-			if (!plot.getBoundary().isInside(block.getLocation())) {
-				e.blockList().remove(block);
-                //noinspection AssignmentToForLoopParameter
-                i--;
-			}
-		}
+			entity.setVelocity(vector);
+
+        e.blockList().removeIf(block -> !plot.getBoundary().isInside(block.getLocation()));
 	}
 
     /**

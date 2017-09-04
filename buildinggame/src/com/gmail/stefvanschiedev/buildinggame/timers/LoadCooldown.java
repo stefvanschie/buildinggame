@@ -22,10 +22,10 @@ public class LoadCooldown extends BukkitRunnable {
 	@Override
 	public void run() {
 		for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-			if (!plugin.isEnabled()) {
+			if (!plugin.isEnabled())
 				return;
-			}
 		}
+
 		Main.getInstance().loadPlugin();
 		this.cancel();
 	}

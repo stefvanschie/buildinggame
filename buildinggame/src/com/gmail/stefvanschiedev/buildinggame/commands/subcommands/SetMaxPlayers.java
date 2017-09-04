@@ -40,8 +40,9 @@ public class SetMaxPlayers extends ConsoleCommand {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		if (args.length < 1) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and the max players");
-			return CommandResult.ARGUMENTEXCEPTION;
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "Please specify the arena and the max players");
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -52,7 +53,8 @@ public class SetMaxPlayers extends ConsoleCommand {
 		}
 		
 		if (arena.getMode() == ArenaMode.SOLO) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "You can only modify the maxplayers from arenas, which are in team mode");
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "You can only modify the maxplayers from arenas, which are in team mode");
 			return CommandResult.ERROR;
 		}
 
@@ -66,7 +68,8 @@ public class SetMaxPlayers extends ConsoleCommand {
 		}
 		
 		if (maxPlayers % arena.getPlots().size() != 0) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Your max players has to be a number dividible by " + arena.getPlots().size());
+			MessageManager.getInstance().send(sender, ChatColor.RED +
+                    "Your max players has to be a number dividible by " + arena.getPlots().size());
 			return CommandResult.ERROR;
 		}
 		
@@ -86,7 +89,7 @@ public class SetMaxPlayers extends ConsoleCommand {
 		
 		MessageManager.getInstance().send(sender, ChatColor.GREEN + "Max players changed!");
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

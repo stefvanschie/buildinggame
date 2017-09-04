@@ -37,8 +37,9 @@ public class SetMatches extends ConsoleCommand {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
         if (args.length < 2) {
-            MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena name and the amount of matches");
-            return CommandResult.ARGUMENTEXCEPTION;
+            MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "Please specify the arena name and the amount of matches");
+            return CommandResult.ARGUMENT_EXCEPTION;
         }
 
         Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -49,7 +50,8 @@ public class SetMatches extends ConsoleCommand {
         }
 
         if (!arena.isEmpty()) {
-            MessageManager.getInstance().send(sender, ChatColor.RED + "The arena isn't empty, changing the matches now is likely to cause problems. Please wait until the arena is empty.");
+            MessageManager.getInstance().send(sender, ChatColor.RED +
+                    "The arena isn't empty, changing the matches now is likely to cause problems. Please wait until the arena is empty.");
             return CommandResult.ERROR;
         }
 
@@ -69,7 +71,7 @@ public class SetMatches extends ConsoleCommand {
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Amount of matches changed!");
 
-        return null;
+        return CommandResult.SUCCESS;
     }
 
     /**

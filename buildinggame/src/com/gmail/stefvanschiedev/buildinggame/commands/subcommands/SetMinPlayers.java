@@ -39,8 +39,9 @@ public class SetMinPlayers extends ConsoleCommand {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		if (args.length <= 1) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena and the amount of players");
-			return CommandResult.ARGUMENTEXCEPTION;
+			MessageManager.getInstance().send(sender, ChatColor.RED +
+                    "Please specify the arena and the amount of players");
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -66,7 +67,7 @@ public class SetMinPlayers extends ConsoleCommand {
 		
 		MessageManager.getInstance().send(sender, messages.getStringList("setMinPlayers.succes"));
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

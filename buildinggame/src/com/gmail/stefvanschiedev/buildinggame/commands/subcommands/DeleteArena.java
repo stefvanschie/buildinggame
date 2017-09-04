@@ -46,11 +46,12 @@ public class DeleteArena extends ConsoleCommand {
 		
 		if (args.length < 1) {
 			MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify the arena name");
-			return CommandResult.ARGUMENTEXCEPTION;
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		if (ArenaManager.getInstance().getArena(args[0]) == null) {
-			MessageManager.getInstance().send(sender, ChatColor.RED + "That's not a valid arena. Try creating one first.");
+			MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "That's not a valid arena. Try creating one first.");
 			return CommandResult.ERROR;
 		}
 		
@@ -73,7 +74,7 @@ public class DeleteArena extends ConsoleCommand {
 			MessageManager.getInstance().send(sender, message
 					.replace("%arena%", arena.getName()));
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
 	/**

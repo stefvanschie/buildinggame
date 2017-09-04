@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Region;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -58,10 +59,12 @@ public class PistonBlockMove implements Listener {
     private static Plot isInside(Location location) {
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
-				if (plot.getBoundary() == null) 
+                Region boundary = plot.getBoundary();
+
+                if (boundary == null)
 					continue;
 				
-				if (plot.getBoundary().isInside(location))
+				if (boundary.isInside(location))
 					return plot;
 			}
 		}

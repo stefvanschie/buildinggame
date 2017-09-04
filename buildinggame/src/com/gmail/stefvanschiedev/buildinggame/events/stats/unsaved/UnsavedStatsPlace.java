@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,15 +27,13 @@ public class UnsavedStatsPlace implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPlace(BlockPlaceEvent e) {
 		Player player = e.getPlayer();
-		
 		Arena arena = ArenaManager.getInstance().getArena(player);
 		
-		if (arena == null)
+		if (arena == null || arena.getState() != GameState.BUILDING)
 			return;
-		
-		if (arena.getState() != GameState.BUILDING)
-			return;
-		
-		arena.getPlot(player).getGamePlayer(player).setBlocksPlaced(arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + 1);
+
+        GamePlayer gamePlayer = arena.getPlot(player).getGamePlayer(player);
+
+        gamePlayer.setBlocksPlaced(gamePlayer.getBlocksPlaced() + 1);
 	}
 }

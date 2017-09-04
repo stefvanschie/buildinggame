@@ -6,6 +6,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -30,7 +31,6 @@ import org.jetbrains.annotations.NotNull;
 public final class SignManager {
 
     private final Map<GameState, DyeColor> gameStatesColor= new HashMap<>();
-    private boolean GLASS_COLORS_ENABLED;
 
     /**
      * Constructs a new SignManager. This shouldn't be called to keep this class a singleton.
@@ -75,7 +75,8 @@ public final class SignManager {
      * @since 2.1.0
      */
 	public void setup() {
-		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas())
 			arena.getSigns().clear();
@@ -85,17 +86,17 @@ public final class SignManager {
 		statSigns.clear();
 		
 		for (String string : signs.getKeys(false)) {
-			//location check
-			Location location = new Location(Bukkit.getWorld(signs.getString(string + ".world")),
-					signs.getInt(string + ".x"),
-					signs.getInt(string + ".y"),
-					signs.getInt(string + ".z"));
-			if (!(location.getBlock().getState() instanceof Sign)) {
+            BlockState state = new Location(Bukkit.getWorld(signs.getString(string + ".world")),
+                    signs.getInt(string + ".x"),
+                    signs.getInt(string + ".y"),
+                    signs.getInt(string + ".z")).getBlock().getState();
+
+            if (!(state instanceof Sign)) {
 				signs.set(string, null);
 				continue;
 			}
 			
-			Sign sign = (Sign) location.getBlock().getState();
+			Sign sign = (Sign) state;
 			
 			if (!signs.contains(string + ".type"))
 				signs.set(string + ".type", "join");
@@ -109,6 +110,7 @@ public final class SignManager {
 				}
 			
 				arena.addSign(sign);
+
 				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
 					Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
 			} else if (signs.getString(string + ".type").equals("leave")) {
@@ -124,26 +126,23 @@ public final class SignManager {
 					Main.getInstance().getLogger().info("Found stat sign");
 			}
 		}
-        YamlConfiguration config = SettingsManager.getInstance().getConfig();
-        if(config.contains("signs.glass-colors")){
-            GLASS_COLORS_ENABLED = config.getBoolean("signs.glass-colors-enabled");
-            if(GLASS_COLORS_ENABLED) {
-                for (String key : config.getConfigurationSection("signs.glass-colors").getKeys(false)) {
-                    try {
-                        if (config.isInt("signs.glass-colors." + key)) {
-                            int color = config.getInt("signs.glass-colors." + key);
-                            gameStatesColor.put(GameState.valueOf(key.toUpperCase(Locale.getDefault())), DyeColor.values()[color]);
-                        } else {
-                            String color = config.getString("signs.glass-colors." + key);
-                            gameStatesColor.put(GameState.valueOf(key.toUpperCase(Locale.getDefault())), DyeColor.valueOf(color));
-                        }
-                    }catch(IllegalArgumentException e){
-                        //catch IllegalArgumentException for the easy of your clients.
-                        Main.getInstance().getLogger().warning("Wrong parameter in config at: sign.glass-colors." + key + '.');
-                    }
+
+        if(config.getBoolean("signs.glass-colors-enabled")) {
+            for (String key : config.getConfigurationSection("signs.glass-colors").getKeys(false)) {
+                try {
+                    if (config.isInt("signs.glass-colors." + key))
+                        gameStatesColor.put(GameState.valueOf(key.toUpperCase(Locale.getDefault())),
+                                DyeColor.values()[config.getInt("signs.glass-colors." + key)]);
+                    else
+                        gameStatesColor.put(GameState.valueOf(key.toUpperCase(Locale.getDefault())),
+                                DyeColor.valueOf(config.getString("signs.glass-colors." + key)));
+                } catch (IllegalArgumentException e) {
+                    //catch IllegalArgumentException for the easy of your clients.
+                    Main.getInstance().getLogger().warning("Wrong parameter in config at: sign.glass-colors." + key + '.');
                 }
             }
         }
+
 		updateSigns();
 		
 		SettingsManager.getInstance().save();
@@ -180,11 +179,11 @@ public final class SignManager {
      */
 	@Contract("null -> fail")
     public void updateJoinSigns(Arena arena) {
-        if(GLASS_COLORS_ENABLED) {
-            updateBlockBehindJoinSigns(arena);
-        }
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        if (config.getBoolean("signs.glass-colors-enabled"))
+            updateBlockBehindJoinSigns(arena);
 
         //get lines
         String line1 = MessageManager.translate(messages.getString("signs.join.line-1")
@@ -235,16 +234,11 @@ public final class SignManager {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
         for (Sign sign : randomJoinSigns) {
-            //get design
-            String line1 = messages.getString("signs.join.random.line-1");
-            String line2 = messages.getString("signs.join.random.line-2");
-            String line3 = messages.getString("signs.join.random.line-3");
-            String line4 = messages.getString("signs.join.random.line-4");
+            sign.setLine(0, MessageManager.translate(messages.getString("signs.join.random.line-1")));
+            sign.setLine(1, MessageManager.translate(messages.getString("signs.join.random.line-2")));
+            sign.setLine(2, MessageManager.translate(messages.getString("signs.join.random.line-3")));
+            sign.setLine(3, MessageManager.translate(messages.getString("signs.join.random.line-4")));
 
-            sign.setLine(0, MessageManager.translate(line1));
-            sign.setLine(1, MessageManager.translate(line2));
-            sign.setLine(2, MessageManager.translate(line3));
-            sign.setLine(3, MessageManager.translate(line4));
             sign.update();
         }
     }
@@ -262,6 +256,7 @@ public final class SignManager {
 			sign.setLine(1, MessageManager.translate(messages.getString("signs.leave.line-2")));
 			sign.setLine(2, MessageManager.translate(messages.getString("signs.leave.line-3")));
 			sign.setLine(3, MessageManager.translate(messages.getString("signs.leave.line-4")));
+
 			sign.update();
 		}
 	}
@@ -279,11 +274,6 @@ public final class SignManager {
 			Sign s = sign.getSign();
 			
 			if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault()))) {
-				String line1 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-1"));
-				String line2 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-2"));
-				String line3 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-3"));
-				String line4 = MessageManager.translate(messages.getString("signs.stat." + sign.getType().toString().toLowerCase(Locale.getDefault()) + ".line-4"));
-			
 				Map<OfflinePlayer, Integer> stats = new HashMap<>();
 				
 				for (Stat stat : StatManager.getInstance().getStats(sign.getType()))
@@ -305,22 +295,26 @@ public final class SignManager {
 						player = op;
 				}
 				
-				s.setLine(0, line1
+				s.setLine(0, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
+                        .toString().toLowerCase(Locale.getDefault()) + ".line-1"))
+                        .replace("%number%", sign.getNumber() + "")
+						.replace("%player%",
+                                player == null || player.getName() == null ? "missingno" : player.getName())
+						.replace("%amount%", value + ""));
+				s.setLine(1, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
+                        .toString().toLowerCase(Locale.getDefault()) + ".line-2"))
 						.replace("%number%", sign.getNumber() + "")
 						.replace("%player%",
                                 player == null || player.getName() == null ? "missingno" : player.getName())
 						.replace("%amount%", value + ""));
-				s.setLine(1, line2
+				s.setLine(2, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
+                        .toString().toLowerCase(Locale.getDefault()) + ".line-3"))
 						.replace("%number%", sign.getNumber() + "")
 						.replace("%player%",
                                 player == null || player.getName() == null ? "missingno" : player.getName())
 						.replace("%amount%", value + ""));
-				s.setLine(2, line3
-						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%",
-                                player == null || player.getName() == null ? "missingno" : player.getName())
-						.replace("%amount%", value + ""));
-				s.setLine(3, line4
+				s.setLine(3, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
+                        .toString().toLowerCase(Locale.getDefault()) + ".line-4"))
 						.replace("%number%", sign.getNumber() + "")
 						.replace("%player%",
                                 player == null || player.getName() == null ? "missingno" : player.getName())
@@ -366,24 +360,24 @@ public final class SignManager {
      */
     @SuppressWarnings("deprecation")
     private void updateBlockBehindJoinSigns(Arena arena){
-        for(Sign sign:arena.getSigns()){
+        for (Sign sign : arena.getSigns()) {
             MaterialData signMaterialData = sign.getBlock().getState().getData();
-            if(signMaterialData instanceof Attachable) {
 
+            if (signMaterialData instanceof Attachable) {
                 Block attachedBlock = sign.getBlock().getRelative(((Attachable) signMaterialData).getAttachedFace());
-                attachedBlock.setType(Material.STAINED_GLASS);
-                if(gameStatesColor.get(arena.getState()) != null) {
+                DyeColor dyeColor = gameStatesColor.get(arena.getState());
 
+                attachedBlock.setType(Material.STAINED_GLASS);
+
+                if (dyeColor != null) {
                     //((Colorable) attachedBlock.getState()).setColor((gameStatesColor.get(arena.getState())));
                     //No other viable method found for setting the color of stained glass. Above method does not work but who knows, in the future.
-                    attachedBlock.setData((byte) gameStatesColor.get(arena.getState()).ordinal());
+                    attachedBlock.setData((byte) dyeColor.ordinal());
                     attachedBlock.getState().update();
-                }else{
-                    Main.getInstance().getLogger().warning("Wrong input at config.yml at signs.glass-colors." + arena.getState().toString().toLowerCase(Locale.getDefault()));
-                }
-
+                } else
+                    Main.getInstance().getLogger().warning("Wrong input at config.yml at signs.glass-colors." +
+                            arena.getState().toString().toLowerCase(Locale.getDefault()));
             }
-
         }
     }
 }

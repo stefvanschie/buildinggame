@@ -52,6 +52,7 @@ public class MySQLDatabase {
 
         Connection connection = null;
         Statement statement = null;
+
         try {
             connection = manager.getConnection();
             statement = connection.createStatement();
@@ -183,7 +184,7 @@ public class MySQLDatabase {
      * @since 4.0.6
      */
     public void setStat(String UUID, String stat, int number){
-        executeUpdate("UPDATE buildinggamestats SET "+stat+ '=' +number+" WHERE UUID='"+UUID+ '\'');
+        executeUpdate("UPDATE buildinggamestats SET " + stat + '=' + number + " WHERE UUID='" + UUID + '\'');
     }
 
     /**
@@ -201,13 +202,10 @@ public class MySQLDatabase {
         try {
             set = executeQuery("SELECT "+stat+" FROM buildinggamestats WHERE UUID='"+UUID+ '\'');
 
-            if (set == null)
+            if (set == null || !set.next())
                 return 0;
 
-            if (!set.next())
-                return 0;
-
-            return (set.getInt(1));
+            return set.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return 0;

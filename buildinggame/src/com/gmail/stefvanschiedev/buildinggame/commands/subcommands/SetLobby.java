@@ -39,8 +39,8 @@ public class SetLobby extends PlayerCommand {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		if (args.length == 0) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arenaname");
-			return CommandResult.ARGUMENTEXCEPTION;
+			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify the arena name");
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(args[0]);
@@ -63,7 +63,7 @@ public class SetLobby extends PlayerCommand {
 		
 		MessageManager.getInstance().send(player, messages.getStringList("setLobby.succes"));
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

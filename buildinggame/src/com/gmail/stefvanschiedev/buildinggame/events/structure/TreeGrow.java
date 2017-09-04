@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.structure;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Region;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.StructureGrowEvent;
@@ -28,27 +29,26 @@ public class TreeGrow implements Listener {
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot p : arena.getPlots()) {
-				if (p.getBoundary() == null)
+                Region boundary = p.getBoundary();
+
+                if (boundary == null)
 					continue;
 				
-				if (p.getBoundary().isInside(e.getLocation())) {
+				if (boundary.isInside(e.getLocation())) {
 					plot = p;
 					break;
 				}
 			}
 		}
-		
+
 		if (plot == null)
 			return;
-		
-		for (int i = 0; i < e.getBlocks().size(); i++) {
-			if (plot.getBoundary() == null)
-				continue;
-			if (!plot.getBoundary().isInside(e.getBlocks().get(i).getLocation())) {
-				e.getBlocks().remove(e.getBlocks().get(i));
-                //noinspection AssignmentToForLoopParameter
-                i--;
-			}
-		}
+
+        Region boundary = plot.getBoundary();
+
+        if (boundary == null)
+            return;
+
+        e.getBlocks().removeIf(blockState -> !boundary.isInside(blockState.getLocation()));
 	}
 }

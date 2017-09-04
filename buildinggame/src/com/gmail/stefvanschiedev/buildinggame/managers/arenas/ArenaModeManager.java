@@ -48,15 +48,15 @@ public final class ArenaModeManager {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			if (!arenas.contains(arena.getName() + ".mode")) {
-				arenas.set(arena.getName() + ".mode", "SOLO");
-			}
+            String name = arena.getName();
+
+            if (!arenas.contains(name + ".mode"))
+				arenas.set(name + ".mode", "SOLO");
 			
-			arena.setMode(ArenaMode.valueOf(arenas.getString(arena.getName() + ".mode")));
+			arena.setMode(ArenaMode.valueOf(arenas.getString(name + ".mode")));
 			
-			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-				Main.getInstance().getLogger().info("Loaded gamemode for " + arena.getName());
-			}
+			if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+				Main.getInstance().getLogger().info("Loaded gamemode for " + name);
 		}
 	}
 }

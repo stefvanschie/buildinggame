@@ -38,7 +38,7 @@ public class Setting extends ConsoleCommand {
 
 	    if (args.length < 2) {
             MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify a path and a value");
-            return CommandResult.ARGUMENTEXCEPTION;
+            return CommandResult.ARGUMENT_EXCEPTION;
         }
 
         if (!config.contains(args[0])) {
@@ -50,7 +50,7 @@ public class Setting extends ConsoleCommand {
 	        if (args.length < 3) {
                 MessageManager.getInstance().send(sender, ChatColor.RED +
                         "Please specify if you want to add or remove this value and the value");
-                return CommandResult.ARGUMENTEXCEPTION;
+                return CommandResult.ARGUMENT_EXCEPTION;
             }
 
             if (args[1].equalsIgnoreCase("add")) {
@@ -70,7 +70,7 @@ public class Setting extends ConsoleCommand {
             }
 
             SettingsManager.getInstance().save();
-            return CommandResult.SUCCES;
+            return CommandResult.SUCCESS;
         }
 
         //whole bunch of checking
@@ -111,7 +111,7 @@ public class Setting extends ConsoleCommand {
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Value changed in config");
         SettingsManager.getInstance().save();
 
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**

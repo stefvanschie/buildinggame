@@ -119,29 +119,53 @@ public class VoteScoreboard {
 						.replace("%players%", arena.getPlayers() + "")
 						.replace("%max_players%", arena.getMaxPlayers() + "")
 						.replace("%subject%", arena.getSubject() != null ? arena.getSubject() : "?")
-						.replace("%seconds%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getSeconds() + "")
-						.replace("%minutes%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getMinutes() + "")
+						.replace("%seconds%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer()
+                                .getSeconds() + "")
+						.replace("%minutes%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer()
+                                .getMinutes() + "")
 						.replace("%plot%", arena.getPlot(player).getID() + "")
-						.replace("%time%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getMinutes() + ":" + arena.getActiveTimer().getSecondsFromMinute())
-						.replace("%seconds_from_minute%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer().getSecondsFromMinute() + "")
-						.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player).getBlocksPlaced() + "")
-						.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getEconomy().getBalance(player.getName()) + "" : "%money%")
-						.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot().getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
-						.replace("%vote_name%", arena.getVotingPlot() == null ? "?" : arena.getVotingPlot().getVote(player) == null ? "?" :
-							arena.getVotingPlot().getVote(player).getPoints() == 2 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.second-slot-block")) :
-							arena.getVotingPlot().getVote(player).getPoints() == 3 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.third-slot-block")) :
-							arena.getVotingPlot().getVote(player).getPoints() == 4 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.fourth-slot-block")) :
-							arena.getVotingPlot().getVote(player).getPoints() == 5 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.fifth-slot-block")) :
-							arena.getVotingPlot().getVote(player).getPoints() == 6 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.sixth-slot-block")) :
-							arena.getVotingPlot().getVote(player).getPoints() == 7 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.seventh-slot-block")) :
-							arena.getVotingPlot().getVote(player).getPoints() == 8 ? ChatColor.translateAlternateColorCodes('&', messages.getString("voting.eighth-slot-block")) : "?")
-						.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ? "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
+						.replace("%time%", arena.getActiveTimer() == null ? "0" : arena.getActiveTimer()
+                                .getMinutes() + ":" + arena.getActiveTimer().getSecondsFromMinute())
+						.replace("%seconds_from_minute%", arena.getActiveTimer() == null ? "0" : arena
+                                .getActiveTimer().getSecondsFromMinute() + "")
+						.replace("%blocks_placed%", arena.getPlot(player).getGamePlayer(player)
+                                .getBlocksPlaced() + "")
+						.replace("%money%", SDVault.getInstance().isEnabled() ? SDVault.getEconomy()
+                                .getBalance(player.getName()) + "" : "%money%")
+						.replace("%vote%", arena.getVotingPlot() == null ? "0" : arena.getVotingPlot()
+                                .getVote(player) == null ? "0" : arena.getVotingPlot().getVote(player) + "")
+						.replace("%vote_name%", arena.getVotingPlot() == null ? "?" : arena.getVotingPlot()
+                                .getVote(player) == null ? "?" :
+							arena.getVotingPlot().getVote(player).getPoints() == 2 ? ChatColor
+                                    .translateAlternateColorCodes('&', messages
+                                            .getString("voting.second-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 3 ? ChatColor
+                                    .translateAlternateColorCodes('&', messages
+                                            .getString("voting.third-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 4 ? ChatColor
+                                    .translateAlternateColorCodes('&', messages
+                                            .getString("voting.fourth-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 5 ? ChatColor
+                                    .translateAlternateColorCodes('&', messages
+                                            .getString("voting.fifth-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 6 ? ChatColor
+                                    .translateAlternateColorCodes('&', messages
+                                            .getString("voting.sixth-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 7 ? ChatColor
+                                    .translateAlternateColorCodes('&', messages
+                                            .getString("voting.seventh-slot-block")) :
+							arena.getVotingPlot().getVote(player).getPoints() == 8 ? ChatColor
+                                    .translateAlternateColorCodes('&', messages
+                                            .getString("voting.eighth-slot-block")) : "?")
+						.replace("%playerplot%", arena.getVotingPlot() == null ? arena.getPlot(player) == null ?
+                                "?" : arena.getPlot(player).getPlayerFormat() : arena.getVotingPlot().getPlayerFormat())
                         .replace("%date_day_of_month%", localDateTime.getDayOfMonth() + "")
                         .replace("%date_day_of_week%", localDateTime.getDayOfWeek() + "")
                         .replace("%date_day_of_year%", localDateTime.getDayOfYear() + "")
                         .replace("%date_hour%", localDateTime.getHour() + "")
                         .replace("%date_minute%", localDateTime.getMinute() + "")
-                        .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()))
+                        .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL,
+                                Locale.getDefault()))
                         .replace("%date_second%", localDateTime.getSecond() + "")
                         .replace("%date_year%", localDateTime.getYear() + "");
 				
@@ -150,7 +174,8 @@ public class VoteScoreboard {
 				team.setPrefix(text.substring(0, length > 16 ? 16 : length));
 				
 				if (length > 16)
-					team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 : length));
+					team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 :
+                            length));
 				
 				objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
 			}

@@ -3,6 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,15 +35,17 @@ public class ClickJoinSign implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
-		
-		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
-			return;
-		
-		if (!(e.getClickedBlock().getState() instanceof Sign))
-			return;
-		
-		Sign sign = (Sign) e.getClickedBlock().getState();
+        Block clickedBlock = e.getClickedBlock();
 
+        if (clickedBlock == null)
+		    return;
+
+        BlockState state = clickedBlock.getState();
+
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(state instanceof Sign))
+			return;
+		
+		Sign sign = (Sign) state;
 		Arena arena = null;
 
 		for (Arena a : ArenaManager.getInstance().getArenas()) {
@@ -49,19 +53,22 @@ public class ClickJoinSign implements Listener {
                 arena = a;
         }
 
-		if (arena == null) {
+        Arena playerArena = ArenaManager.getInstance().getArena(player);
+
+        if (arena == null) {
 		    if (SignManager.getInstance().getRandomJoinSigns().contains(sign)) {
                 arena = getRandomArena();
 
                 if (arena == null)
-                    MessageManager.getInstance().send(player, ChatColor.RED + "Unable to join an arena right now");
-                else if (ArenaManager.getInstance().getArena(player) != null)
+                    MessageManager.getInstance().send(player,
+                            ChatColor.RED + "Unable to join an arena right now");
+                else if (playerArena != null)
                     MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
                 else
                     arena.join(player);
             }
         } else {
-            if (ArenaManager.getInstance().getArena(player) != null)
+            if (playerArena != null)
                 MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
             else
                 arena.join(player);
@@ -81,7 +88,8 @@ public class ClickJoinSign implements Listener {
 	    Arena arena = null;
 
 	    for (Arena a : ArenaManager.getInstance().getArenas()) {
-	        if ((a.getState() != GameState.WAITING && a.getState() != GameState.STARTING) || a.isFull() || a.getPlayers() < (arena == null ? 0 : arena.getPlayers()))
+	        if ((a.getState() != GameState.WAITING && a.getState() != GameState.STARTING) || a.isFull() ||
+                    a.getPlayers() < (arena == null ? 0 : arena.getPlayers()))
 	            continue;
 
 	        arena = a;

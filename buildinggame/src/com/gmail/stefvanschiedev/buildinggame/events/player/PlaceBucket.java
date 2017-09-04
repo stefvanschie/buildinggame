@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -30,6 +31,7 @@ public class PlaceBucket implements Listener {
 	public static void onBucketEmpty(PlayerBucketEmptyEvent e) {
 		Player player = e.getPlayer();
 		Location clicked = e.getBlockClicked().getLocation();
+
 		switch (e.getBlockFace()) {
 			case UP:
 				clicked.add(0, 1, 0);
@@ -52,12 +54,13 @@ public class PlaceBucket implements Listener {
 			default:
 				break;
 		}
-		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+
+        Arena arena = ArenaManager.getInstance().getArena(player);
+
+        if (arena == null)
 			return;
-		}
 		
-		Plot plot = ArenaManager.getInstance().getArena(player).getPlot(player);
+		Plot plot = arena.getPlot(player);
 		
 		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Spectators can't build");

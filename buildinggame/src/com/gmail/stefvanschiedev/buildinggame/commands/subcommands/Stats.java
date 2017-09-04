@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -31,14 +32,25 @@ public class Stats extends PlayerCommand {
 	@NotNull
     @Override
 	public CommandResult onCommand(Player player, String[] args) {
-		player.sendMessage(ChatColor.GREEN + "Games played: " + (StatManager.getInstance().getStat(player, StatType.PLAYS) == null ? 0 : StatManager.getInstance().getStat(player, StatType.PLAYS).getValue()));
-		player.sendMessage(ChatColor.GREEN + "First places: " + (StatManager.getInstance().getStat(player, StatType.FIRST) == null ? 0 : StatManager.getInstance().getStat(player, StatType.FIRST).getValue()));
-		player.sendMessage(ChatColor.GREEN + "Second places: " + (StatManager.getInstance().getStat(player, StatType.SECOND) == null ? 0 : StatManager.getInstance().getStat(player, StatType.SECOND).getValue()));
-		player.sendMessage(ChatColor.GREEN + "Third places: " + (StatManager.getInstance().getStat(player, StatType.THIRD) == null ? 0 : StatManager.getInstance().getStat(player, StatType.THIRD).getValue()));
-		player.sendMessage(ChatColor.GREEN + "Blocks placed: " + (StatManager.getInstance().getStat(player, StatType.PLACED) == null ? 0 : StatManager.getInstance().getStat(player, StatType.PLACED).getValue()));
-		player.sendMessage(ChatColor.GREEN + "Blocks broken: " + (StatManager.getInstance().getStat(player, StatType.BROKEN) == null ? 0 : StatManager.getInstance().getStat(player, StatType.BROKEN).getValue()));
-		player.sendMessage(ChatColor.GREEN + "Distance walked: " + (StatManager.getInstance().getStat(player, StatType.WALKED) == null ? 0 : StatManager.getInstance().getStat(player, StatType.WALKED).getValue()));
-		return CommandResult.SUCCES;
+        StatManager instance = StatManager.getInstance();
+
+        Stat playStat = instance.getStat(player, StatType.PLAYS);
+        Stat firstStat = instance.getStat(player, StatType.FIRST);
+        Stat secondStat = instance.getStat(player, StatType.SECOND);
+        Stat thirdStat = instance.getStat(player, StatType.THIRD);
+        Stat placedStat = instance.getStat(player, StatType.PLACED);
+        Stat brokenStat = instance.getStat(player, StatType.BROKEN);
+        Stat walkedStat = instance.getStat(player, StatType.WALKED);
+
+        player.sendMessage(ChatColor.GREEN + "Games played: " + (playStat == null ? 0 : playStat.getValue()));
+		player.sendMessage(ChatColor.GREEN + "First places: " + (firstStat == null ? 0 : firstStat.getValue()));
+		player.sendMessage(ChatColor.GREEN + "Second places: " + (secondStat == null ? 0 : secondStat.getValue()));
+		player.sendMessage(ChatColor.GREEN + "Third places: " + (thirdStat == null ? 0 : thirdStat.getValue()));
+		player.sendMessage(ChatColor.GREEN + "Blocks placed: " + (placedStat == null ? 0 : placedStat.getValue()));
+		player.sendMessage(ChatColor.GREEN + "Blocks broken: " + (brokenStat == null ? 0 : brokenStat.getValue()));
+		player.sendMessage(ChatColor.GREEN + "Distance walked: " + (walkedStat == null ? 0 : walkedStat.getValue()));
+
+		return CommandResult.SUCCESS;
 	}
 
     /**

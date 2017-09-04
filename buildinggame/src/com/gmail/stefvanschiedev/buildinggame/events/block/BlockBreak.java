@@ -1,7 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,14 +30,12 @@ public class BlockBreak implements Listener {
      */
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
 		Player player = e.getPlayer();
-		
-		if (ArenaManager.getInstance().getArena(player) == null)
+        Arena arena = ArenaManager.getInstance().getArena(player);
+
+        if (arena == null)
 			return;
-		
-		Arena arena = ArenaManager.getInstance().getArena(player);
+
 		Plot plot = arena.getPlot(player);
 		
 		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
@@ -54,7 +51,8 @@ public class BlockBreak implements Listener {
 		}
 		
 		if (!plot.getBoundary().isInside(e.getBlock().getLocation())) {
-			MessageManager.getInstance().send(player, messages.getStringList("in-game.build-out-bounds"));
+			MessageManager.getInstance().send(player,
+                    SettingsManager.getInstance().getMessages().getStringList("in-game.build-out-bounds"));
 			e.setCancelled(true);
 		}
 	}

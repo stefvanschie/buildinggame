@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
-import org.bukkit.block.Block;
+import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
@@ -25,15 +26,17 @@ public class LiquidFlow implements Listener {
      */
 	@EventHandler
 	public void onBlockFromTo(BlockFromToEvent e) {
-		Block from = e.getBlock();
-		Block to = e.getToBlock();
+		Location from = e.getBlock().getLocation();
+		Location to = e.getToBlock().getLocation();
 		
 		for (Arena arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot plot : arena.getPlots()) {
-				if (plot.getBoundary() == null)
+                Region boundary = plot.getBoundary();
+
+                if (boundary == null)
 					continue;
 				
-				if ((plot.getBoundary().isInside(from.getLocation()) && !plot.getBoundary().isInside(to.getLocation())) || (!plot.getBoundary().isInside(from.getLocation()) && plot.getBoundary().isInside(to.getLocation())))
+				if (boundary.isInside(from) != boundary.isInside(to))
 					//checks if the source flows/goes out of the boundary and vice versa
 					e.setCancelled(true);
 			}

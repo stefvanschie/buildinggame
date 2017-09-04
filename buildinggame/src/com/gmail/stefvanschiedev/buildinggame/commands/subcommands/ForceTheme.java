@@ -35,7 +35,7 @@ public class ForceTheme extends PlayerCommand {
 	public CommandResult onCommand(Player player, String[] args) {
 		if (args.length < 1) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify a theme");
-			return CommandResult.ARGUMENTEXCEPTION;
+			return CommandResult.ARGUMENT_EXCEPTION;
 		}
 		
 		Arena arena = ArenaManager.getInstance().getArena(player);
@@ -55,7 +55,7 @@ public class ForceTheme extends PlayerCommand {
 		arena.getSubjectMenu().forceTheme(theme);
 		MessageManager.getInstance().send(player, ChatColor.GREEN + "Forced '" + theme + "' to be the theme");
 		
-		return CommandResult.SUCCES;
+		return CommandResult.SUCCESS;
 	}
 
     /**
