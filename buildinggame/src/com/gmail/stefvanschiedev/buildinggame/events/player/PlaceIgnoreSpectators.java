@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.events.player;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,13 +38,20 @@ public class PlaceIgnoreSpectators implements Listener {
 
         boolean nearbySpectator = false;
         Block relativeBlock = clickedBlock.getRelative(e.getBlockFace());
+        Location blockLocation = relativeBlock.getLocation();
 
         //check if there's a spectator nearby
         for (GamePlayer spectator : arena.getPlot(player).getSpectators()) {
+            Location location = spectator.getPlayer().getLocation();
+
+            //check if the locations are in the same world before measuring the distance
+            if (!location.getWorld().equals(blockLocation.getWorld()))
+                continue;
+
             //the value 1.8 is the result of the pythagorean theorem applied in 3 dimensional space.
             //The actual value is a little lower than 1.8 (1.771...), but overestimating the value isn't a problem in
             //this case, as the result will be the same (the player won't place the block, but we'll do it for them)
-            if (spectator.getPlayer().getLocation().distanceSquared(relativeBlock.getLocation()) <= 1.8)
+            if (location.distanceSquared(blockLocation) <= 1.8)
                 nearbySpectator = true;
         }
 
