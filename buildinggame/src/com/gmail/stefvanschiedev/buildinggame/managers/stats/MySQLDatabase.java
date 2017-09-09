@@ -168,6 +168,8 @@ public class MySQLDatabase {
         } finally {
             try {
                 set.close();
+                set.getStatement().close();
+                closeConnection(set.getStatement().getConnection());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
