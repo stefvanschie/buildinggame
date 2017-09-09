@@ -4,7 +4,7 @@ waittimer: 60
 wintimer: 10
 
 loading:
-  load-after-plugins: true
+  load-after-plugins: false
 
 allow-fly-out-bounds: false
 enable-subject-voting: true
