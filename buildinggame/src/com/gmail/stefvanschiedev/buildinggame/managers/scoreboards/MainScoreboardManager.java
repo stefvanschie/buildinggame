@@ -54,7 +54,7 @@ public final class MainScoreboardManager {
      */
 	public void update() {
 	    for (MainScoreboard scoreboard : scoreboards)
-            scoreboard.update();
+            scoreboard.show();
 	}
 
 	/**

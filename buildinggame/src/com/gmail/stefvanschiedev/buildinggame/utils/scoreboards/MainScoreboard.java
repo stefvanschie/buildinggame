@@ -98,11 +98,11 @@ public class MainScoreboard {
     }
 
     /**
-     * Updates the scoreboard for the player
+     * Shows the scoreboard for the player
      *
      * @since 2.3.0
      */
-	public void update() {
+	public void show() {
 		if (!player.isOnline())
 			return;
 

@@ -90,7 +90,7 @@ public class WinScoreboard {
      * @since 2.3.0
      */
 	@SuppressWarnings("deprecation")
-	public void update(Player player) {
+	public void show(Player player) {
 		for (int i = 0; i < strings.size(); i++) {
             LocalDateTime localDateTime = LocalDateTime.now();
 			

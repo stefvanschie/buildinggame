@@ -777,7 +777,7 @@ public class Arena {
 		if (config.getBoolean("scoreboards.lobby.enable")) {
 			for (Plot plot : getUsedPlots()) {
 				for (GamePlayer gamePlayer : plot.getGamePlayers())
-					lobbyScoreboard.update(gamePlayer.getPlayer());
+					lobbyScoreboard.show(gamePlayer.getPlayer());
 			}
 		}
 		
@@ -934,7 +934,7 @@ public class Arena {
 							.replace("%player%", player.getName()));
 				
 				if (config.getBoolean("scoreboards.lobby.enable"))
-					lobbyScoreboard.update(pl);
+					lobbyScoreboard.show(pl);
 			}
 		}
 		

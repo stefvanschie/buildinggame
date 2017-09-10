@@ -29,10 +29,10 @@ public class ScoreboardUpdater extends BukkitRunnable {
 			if ((arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) &&
                     config.getBoolean("scoreboards.lobby.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getLobbyScoreboard().update(gamePlayer.getPlayer())));
+                        arena.getLobbyScoreboard().show(gamePlayer.getPlayer())));
 			else if (arena.getState() == GameState.BUILDING && config.getBoolean("scoreboards.build.enable"))
 				arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getBuildScoreboard().update(gamePlayer.getPlayer())));
+                        arena.getBuildScoreboard().show(gamePlayer.getPlayer())));
 			else if (arena.getState() == GameState.VOTING && !config.getBoolean("names-after-voting") &&
                     config.getBoolean("scoreboards.vote.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
@@ -40,7 +40,7 @@ public class ScoreboardUpdater extends BukkitRunnable {
 			else if (arena.getState() == GameState.RESETING && !config.getBoolean("names-after-voting") &&
                     config.getBoolean("scoreboards.win.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getWinScoreboard().update(gamePlayer.getPlayer())));
+                        arena.getWinScoreboard().show(gamePlayer.getPlayer())));
 			else if (arena.getState() == GameState.RESETING && config.getBoolean("names-after-voting") &&
                     config.getBoolean("scoreboards.vote.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
