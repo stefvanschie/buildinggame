@@ -2,61 +2,27 @@ package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The scoreboard displayed when the arena is in lobby state
  *
  * @since 2.3.0
  */
-public class LobbyScoreboard {
-
-    /**
-     * The global scoreboard manager
-     */
-	private final ScoreboardManager manager = Bukkit.getScoreboardManager();
-
-	/**
-     * The scoreboard this class is a wrapper for
-     */
-	private final Scoreboard scoreboard = manager.getNewScoreboard();
-
-	/**
-     * The objective used for this scoreboard
-     */
-    private final Objective objective = scoreboard.registerNewObjective("bg-lobby", "dummy");
-
-    /**
-     * The arena this scoreboard belongs to
-     */
-    private final Arena arena;
-
-    /**
-     * A list of the text to display on the scoreboard after the basic placeholders have been parsed
-     */
-    private final List<String> strings = new ArrayList<>();
-
-    /**
-     * A list of teams that's used to hold the text
-     */
-    private final List<Team> teams = new ArrayList<>();
+public class LobbyScoreboard extends ArenaScoreboard {
 
     /**
      * Constructs a new LobbyScoreboard
@@ -64,31 +30,13 @@ public class LobbyScoreboard {
      * @param arena the arena this scoreboard belongs to
      */
 	public LobbyScoreboard(Arena arena) {
-        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.lobby.header")));
-		
-		this.arena = arena;
-		
-		List<String> strings = messages.getStringList("scoreboards.lobby.text");
-		
-		for (int i = 0; i < strings.size(); i++) {
-			Team team = scoreboard.registerNewTeam(i + "");
-			team.addEntry(ChatColor.values()[i].toString());
-			team.setDisplayName("");
-			
-			teams.add(team);
-			this.strings.add(MessageManager.translate(strings.get(i)));
-		}
+        super(arena);
 	}
 
     /**
-     * Shows the scoreboard for the specified player
-     *
-     * @param player the player to update the scoreboard for
-     * @since 2.3.0
+     * {@inheritDoc}
      */
+    @Override
 	@SuppressWarnings("deprecation")
 	public void show(Player player) {
 		for (int i = 0; i < strings.size(); i++) {
@@ -140,4 +88,26 @@ public class LobbyScoreboard {
 
 		player.setScoreboard(scoreboard);
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+    @Nls
+    @NotNull
+    @Contract(pure = true)
+    @Override
+    public String getHeader() {
+        return MessageManager.translate(SettingsManager.getInstance().getMessages()
+                .getString("scoreboards.lobby.header"));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @NotNull
+    @Contract(pure = true)
+    @Override
+    public List<String> getLines() {
+        return SettingsManager.getInstance().getMessages().getStringList("scoreboards.lobby.text");
+    }
 }

@@ -2,61 +2,27 @@ package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The scoreboard displayed when the arena is in build state
  *
  * @since 2.1.0
  */
-public class BuildScoreboard {
-
-    /**
-     * The global scoreboard manager
-     */
-	private final ScoreboardManager manager = Bukkit.getScoreboardManager();
-
-	/**
-     * The scoreboard this class is a wrapper for
-     */
-	private final Scoreboard scoreboard = manager.getNewScoreboard();
-
-	/**
-     * The objective used for this scoreboard
-     */
-    private final Objective objective = scoreboard.registerNewObjective("bg-build", "dummy");
-
-    /**
-     * The arena this scoreboard belongs to
-     */
-    private final Arena arena;
-
-    /**
-     * A list of the text to display on the scoreboard after the basic placeholders have been parsed
-     */
-    private final List<String> strings = new ArrayList<>();
-
-    /**
-     * A list of teams that's used to hold the text
-     */
-    private final List<Team> teams = new ArrayList<>();
+public class BuildScoreboard extends ArenaScoreboard {
 
     /**
      * Constructs a new BuildScoreboard.
@@ -64,30 +30,11 @@ public class BuildScoreboard {
      * @param arena the arena this scoreboard belongs to
      */
 	public BuildScoreboard(Arena arena) {
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.build.header")));
-		
-		this.arena = arena;
-		
-		List<String> strings = messages.getStringList("scoreboards.build.text");
-		
-		for (int i = 0; i < strings.size(); i++) {
-			Team team = scoreboard.registerNewTeam(i + "");
-			team.addEntry(ChatColor.values()[i].toString());
-			team.setDisplayName("");
-			
-			teams.add(team);
-			this.strings.add(MessageManager.translate(strings.get(i)));
-		}
+		super(arena);
 	}
 
     /**
-     * Updates/Shows the scoreboard for the specified player
-     *
-     * @param player the player to show the scoreboard to
-     * @since 2.1.0
+     * {@inheritDoc}
      */
 	@SuppressWarnings("deprecation")
 	public void show(Player player) {
@@ -139,4 +86,26 @@ public class BuildScoreboard {
 
 		player.setScoreboard(scoreboard);
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+    @Nls
+    @NotNull
+    @Contract(pure = true)
+    @Override
+    public String getHeader() {
+        return MessageManager.translate(SettingsManager.getInstance().getMessages()
+                .getString("scoreboards.build.header"));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @NotNull
+    @Contract(pure = true)
+    @Override
+    public List<String> getLines() {
+        return SettingsManager.getInstance().getMessages().getStringList("scoreboards.build.text");
+    }
 }

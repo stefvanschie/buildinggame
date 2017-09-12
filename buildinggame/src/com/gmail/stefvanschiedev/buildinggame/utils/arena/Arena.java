@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.*;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Sign;
@@ -37,10 +38,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.TeamSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
-import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.BuildScoreboard;
-import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.LobbyScoreboard;
-import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.VoteScoreboard;
-import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.WinScoreboard;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -110,12 +107,12 @@ public class Arena {
 	/**
      * The build scoreboard
      */
-	private final BuildScoreboard buildScoreboard = new BuildScoreboard(this);
+	private final ArenaScoreboard buildScoreboard = new BuildScoreboard(this);
 
 	/**
      * The lobby scoreboard
      */
-	private final LobbyScoreboard lobbyScoreboard = new LobbyScoreboard(this);
+	private final ArenaScoreboard lobbyScoreboard = new LobbyScoreboard(this);
 
 	/**
      * The vote scoreboard
@@ -125,7 +122,7 @@ public class Arena {
 	/**
      * The win scoreboard
      */
-	private final WinScoreboard winScoreboard = new WinScoreboard(this);
+	private final ArenaScoreboard winScoreboard = new WinScoreboard(this);
 
 	/**
      * The subject
@@ -304,7 +301,7 @@ public class Arena {
      */
 	@NotNull
     @Contract(pure = true)
-	public BuildScoreboard getBuildScoreboard() {
+	public ArenaScoreboard getBuildScoreboard() {
 		return buildScoreboard;
 	}
 
@@ -330,7 +327,7 @@ public class Arena {
      */
 	@Nullable
     @Contract(pure = true)
-	public LobbyScoreboard getLobbyScoreboard() {
+	public ArenaScoreboard getLobbyScoreboard() {
 		return lobbyScoreboard;
 	}
 
@@ -620,7 +617,7 @@ public class Arena {
      */
 	@Nullable
     @Contract(pure = true)
-	public WinScoreboard getWinScoreboard() {
+	public ArenaScoreboard getWinScoreboard() {
 		return winScoreboard;
 	}
 
