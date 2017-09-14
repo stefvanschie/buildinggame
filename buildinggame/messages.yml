@@ -176,6 +176,57 @@ signs:
       line-3: "&1Blocks walked"
       line-4: "&6%amount%"
 
+leader-heads-gui:
+  plays:
+    title: "&4Top players"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} plays"
+      line-4: "&c&m------------"
+  first:
+    title: "&4Top winners"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} wins"
+      line-4: "&c&m------------"
+  second:
+    title: "&4Top second places"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} second places"
+      line-4: "&c&m------------"
+  third:
+    title: "&4Top third places"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} third places"
+      line-4: "&c&m------------"
+  broken:
+    title: "&4Top broken blocks"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} broken blocks"
+      line-4: "&c&m------------"
+  placed:
+    title: "&4Top placed blocks"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} placed blocks"
+      line-4: "&c&m------------"
+  walked:
+    title: "&4Top walked blocks"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} walked blocks"
+      line-4: "&c&m------------"
+
 subject-gui:
   title: "&aVote for a subject"
   item:

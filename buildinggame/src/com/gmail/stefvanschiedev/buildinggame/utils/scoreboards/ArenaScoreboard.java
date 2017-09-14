@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * The base class for all scoreboards that belong to an arena
  *
- * @since 5.0.6
+ * @since 5.1.0
  */
 public abstract class ArenaScoreboard {
 
@@ -77,7 +77,7 @@ public abstract class ArenaScoreboard {
      * Updates/Shows the scoreboard for the specified player
      *
      * @param player the player to show the scoreboard to
-     * @since 5.0.6
+     * @since 5.1.0
      */
     public abstract void show(Player player);
 
@@ -85,7 +85,7 @@ public abstract class ArenaScoreboard {
      * Returns the header of this scoreboard
      *
      * @return the header
-     * @since 5.0.6
+     * @since 5.1.0
      */
     @Nls
     @NotNull
@@ -96,7 +96,7 @@ public abstract class ArenaScoreboard {
      * Returns a list of all displayed lines
      *
      * @return a list of lines
-     * @since 5.0.6
+     * @since 5.1.0
      */
     @NotNull
     @Contract(pure = true)

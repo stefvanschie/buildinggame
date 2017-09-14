@@ -2,7 +2,9 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
+import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -171,6 +173,17 @@ public class Main extends JavaPlugin {
 		getLogger().info("Loading soft dependencies");
 		if (Bukkit.getPluginManager().isPluginEnabled("Vault"))
 			SDVault.getInstance().setup();
+
+		if (Bukkit.getPluginManager().isPluginEnabled("LeaderHeads")) {
+		    new LeaderHeadsStatistic(StatType.PLAYS);
+		    new LeaderHeadsStatistic(StatType.FIRST);
+		    new LeaderHeadsStatistic(StatType.SECOND);
+		    new LeaderHeadsStatistic(StatType.THIRD);
+		    new LeaderHeadsStatistic(StatType.BROKEN);
+		    new LeaderHeadsStatistic(StatType.PLACED);
+		    new LeaderHeadsStatistic(StatType.BROKEN);
+		    new LeaderHeadsStatistic(StatType.WALKED);
+        }
 		
 		getLogger().info("Loading commands");
 		CommandManager command = new CommandManager();
