@@ -36,16 +36,16 @@ public class LeaderHeadsStatistic extends DataCollector {
      */
     public LeaderHeadsStatistic(StatType statType) {
         super("bg-" + statType.toString().toLowerCase(Locale.getDefault()), Main.getInstance().getName(),
-                BoardType.DEFAULT, MessageManager.translate(MESSAGES.getString("leader-heads-gui." + statType
+                BoardType.DEFAULT, MessageManager.translate(MESSAGES.getString("leader-heads." + statType
                         .toString().toLowerCase(Locale.getDefault()) + ".title")),
                 "bglh-" + statType.toString().toLowerCase(Locale.getDefault()), Arrays.asList(
-                        MessageManager.translate(MESSAGES.getString("leader-heads-gui." + statType.toString()
+                        MessageManager.translate(MESSAGES.getString("leader-heads." + statType.toString()
                                 .toLowerCase(Locale.getDefault()) + ".lines.line-1")),
-                        MessageManager.translate(MESSAGES.getString("leader-heads-gui." + statType.toString()
+                        MessageManager.translate(MESSAGES.getString("leader-heads." + statType.toString()
                                 .toLowerCase(Locale.getDefault()) + ".lines.line-2")),
-                        MessageManager.translate(MESSAGES.getString("leader-heads-gui." + statType.toString()
+                        MessageManager.translate(MESSAGES.getString("leader-heads." + statType.toString()
                                 .toLowerCase(Locale.getDefault()) + ".lines.line-3")),
-                        MessageManager.translate(MESSAGES.getString("leader-heads-gui." + statType.toString()
+                        MessageManager.translate(MESSAGES.getString("leader-heads." + statType.toString()
                                 .toLowerCase(Locale.getDefault()) + ".lines.line-4"))), true, UUID.class);
 
         this.statType = statType;

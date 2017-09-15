@@ -176,7 +176,7 @@ signs:
       line-3: "&1Blocks walked"
       line-4: "&6%amount%"
 
-leader-heads-gui:
+leader-heads:
   plays:
     title: "&4Top players"
     lines:
