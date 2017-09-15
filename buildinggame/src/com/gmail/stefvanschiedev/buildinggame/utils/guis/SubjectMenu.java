@@ -1,9 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.ChatColor;
@@ -40,9 +37,9 @@ public class SubjectMenu extends Gui {
 	private String forcedTheme;
 
 	/**
-     * A map containg all votes for all subjects
+     * A map containing all votes for all subjects
      */
-	private final Map<String, SubjectVote> votes = new HashMap<>();
+	private final Set<SubjectVote> votes = new HashSet<>();
 
 	/**
      * YAML Configuration for the config.yml
@@ -70,7 +67,7 @@ public class SubjectMenu extends Gui {
 		}
 		
 		for (String s : subjects)
-			votes.put(s, new SubjectVote(0));
+			votes.add(new SubjectVote(s, 0));
 	}
 
 	/**
@@ -92,8 +89,8 @@ public class SubjectMenu extends Gui {
 			
 			final String subject = ChatColor.stripColor(subjects.get(index + ((page - 1) * 27)));
 			
-			if (!votes.containsKey(subject))
-				votes.put(subject, new SubjectVote(0));
+			if (getSubjectVote(subject) == null)
+				votes.add(new SubjectVote(subject, 0));
 			
 			ItemStack item = new ItemStack(Material.PAPER);
 			ItemMeta meta = item.getItemMeta();
@@ -103,7 +100,7 @@ public class SubjectMenu extends Gui {
 				
 			for (String lore : MESSAGES.getStringList("subject-gui.subject.lores"))
 				lores.add(MessageManager.translate(lore
-					.replace("%votes%", votes.get(subject).getVotes() + "")));
+					.replace("%votes%", getSubjectVote(subject).getVotes() + "")));
 				
 			meta.setLore(lores);
 			item.setItemMeta(meta);
@@ -168,7 +165,7 @@ public class SubjectMenu extends Gui {
 		closeItem.setItemMeta(closeMeta);
 			
 		setItem(closeItem, new GuiAction() {
-				
+
 			@Override
 			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
 				if (type != GuiActionType.CLICK)
@@ -226,15 +223,17 @@ public class SubjectMenu extends Gui {
 	private void addVote(Player player, String subject) {
 		subject = ChatColor.stripColor(subject);
 		
-		for (Map.Entry<String, SubjectVote> entry : votes.entrySet()) {
-			if (entry.getValue().getPlayers().contains(player)) {
-                entry.getValue().removePlayer(player);
-                entry.getValue().setVotes(entry.getValue().getVotes() - 1);
+		for (SubjectVote subjectVote : votes) {
+			if (subjectVote.getPlayers().contains(player)) {
+                subjectVote.removePlayer(player);
+                subjectVote.setVotes(subjectVote.getVotes() - 1);
 			}
 		}
-		
-		votes.get(subject).addPlayer(player);
-		votes.get(subject).setVotes(votes.get(subject).getVotes() + 1);
+
+        SubjectVote subjectVote = getSubjectVote(subject);
+
+        subjectVote.addPlayer(player);
+        subjectVote.setVotes(subjectVote.getVotes() + 1);
 	}
 
 	/**
@@ -261,18 +260,35 @@ public class SubjectMenu extends Gui {
 		
 		int highest = -1;
 
-        for (Map.Entry<String, SubjectVote> entry : votes.entrySet()) {
-			if (entry.getValue().getVotes() > highest) {
-				highest = entry.getValue().getVotes();
-			}
+        for (SubjectVote subjectVote : votes) {
+			if (subjectVote.getVotes() > highest)
+				highest = subjectVote.getVotes();
 		}
 
         List<String> subjects = new ArrayList<>();
-        for (Map.Entry<String, SubjectVote> entry : votes.entrySet()) {
-			if (entry.getValue().getVotes() == highest)
-				subjects.add(entry.getKey());
+        for (SubjectVote subjectVote : votes) {
+			if (subjectVote.getVotes() == highest)
+				subjects.add(subjectVote.getSubject());
 		}
 		
 		return subjects.get(ThreadLocalRandom.current().nextInt(subjects.size()));
 	}
+
+    /**
+     * Returns the subject vote by the given subject
+     *
+     * @param subject the subject to look for
+     * @return the subject vote corresponding with the subject
+     * @since 5.1.1
+     */
+	@Nullable
+    @Contract(pure = true)
+	private SubjectVote getSubjectVote(String subject) {
+	    for (SubjectVote subjectVote : votes) {
+	        if (subjectVote.getSubject().equals(subject))
+	            return subjectVote;
+        }
+
+        return null;
+    }
 }

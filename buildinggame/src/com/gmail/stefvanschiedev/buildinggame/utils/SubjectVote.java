@@ -15,6 +15,11 @@ import org.jetbrains.annotations.NotNull;
 public class SubjectVote {
 
     /**
+     * The subject this class keeps track of
+     */
+    private final String subject;
+
+    /**
      * The amount of votes this subject has had
      */
 	private int votes;
@@ -29,7 +34,8 @@ public class SubjectVote {
      *
      * @param votes the starting amount of votes
      */
-	public SubjectVote(int votes) {
+	public SubjectVote(String subject, int votes) {
+	    this.subject = subject;
 		this.votes = votes;
 	}
 
@@ -65,6 +71,18 @@ public class SubjectVote {
 	public Collection<Player> getPlayers() {
 		return players;
 	}
+
+    /**
+     * Returns the subject this class is keeping track of
+     *
+     * @return the subject
+     * @since 5.1.1
+     */
+	@NotNull
+    @Contract(pure = true)
+	public String getSubject() {
+        return subject;
+    }
 
     /**
      * Removes a player from the collection of voters

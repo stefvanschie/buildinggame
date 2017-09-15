@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -240,7 +241,8 @@ public class Gui implements Listener {
      * @since 4.0.0
      */
 	synchronized void update() {
-	    playerPages.keySet().forEach(this::update);
+	    //safe from cme
+	    new HashSet<>(playerPages.keySet()).forEach(this::update);
 	}
 
 	/**
