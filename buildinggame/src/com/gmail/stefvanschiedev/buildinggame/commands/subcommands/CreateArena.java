@@ -12,7 +12,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a command to create a new arena
@@ -75,19 +74,6 @@ public class CreateArena extends ConsoleCommand {
     @Override
 	public String getName() {
 		return "createarena";
-	}
-
-	/**
-     * Returns the aliases for this subcommand
-     *
-     * @return an array of aliases for this subcommand
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	@Override
-	public String[] getAliases() {
-		return null;
 	}
 
 	/**

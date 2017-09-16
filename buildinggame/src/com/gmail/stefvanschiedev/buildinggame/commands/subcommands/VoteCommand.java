@@ -17,7 +17,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a command to vote on a plot
@@ -96,19 +95,6 @@ public class VoteCommand extends PlayerCommand {
     @Override
 	public String getName() {
 		return "vote";
-	}
-
-    /**
-     * Returns the aliases for this sbucommand
-     *
-     * @return an array of aliases for this subcommand
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	@Override
-	public String[] getAliases() {
-		return null;
 	}
 
     /**

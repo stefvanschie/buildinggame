@@ -110,19 +110,6 @@ public class Spectate extends PlayerCommand {
 	}
 
     /**
-     * Returns the aliases for this sbucommand
-     *
-     * @return an array of aliases for this subcommand
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	@Override
-	public String[] getAliases() {
-		return null;
-	}
-
-    /**
      * Returns an informational message about this subcommand
      *
      * @return an informational message

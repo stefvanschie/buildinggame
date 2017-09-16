@@ -39,7 +39,7 @@ public class SubjectMenu extends Gui {
 	/**
      * A map containing all votes for all subjects
      */
-	private final Set<SubjectVote> votes = new HashSet<>();
+	private final Collection<SubjectVote> votes = new HashSet<>();
 
 	/**
      * YAML Configuration for the config.yml

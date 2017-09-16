@@ -13,7 +13,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a command to set the amount of matches of an arena
@@ -85,19 +84,6 @@ public class SetMatches extends ConsoleCommand {
     @Override
     public String getName() {
         return "setmatches";
-    }
-
-    /**
-     * Returns the aliases for this sbucommand
-     *
-     * @return an array of aliases for this subcommand
-     * @since 4.0.6
-     */
-    @Nullable
-    @Contract(pure = true)
-    @Override
-    public String[] getAliases() {
-        return null;
     }
 
     /**

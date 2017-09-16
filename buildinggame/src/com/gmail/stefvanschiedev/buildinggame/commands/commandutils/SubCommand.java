@@ -4,7 +4,6 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A base class for all commands which fall under the main buildinggame command.
@@ -33,16 +32,6 @@ public abstract class SubCommand {
 	@NotNull
     @Contract(pure = true)
 	public abstract String getName();
-
-	/**
-     * Gets all aliases of this command. This may return null if there are no aliases.
-     *
-     * @return an array of aliases or null if no aliases exist
-     */
-	@Nullable
-    @Contract(pure = true)
-	@SuppressWarnings({"unused", "SameReturnValue"})
-    public abstract String[] getAliases();
 
 	/**
      * Returns a small informational message about this command.

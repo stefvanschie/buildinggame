@@ -12,7 +12,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a command to force a theme to be selected
@@ -69,19 +68,6 @@ public class ForceTheme extends PlayerCommand {
     @Override
 	public String getName() {
 		return "forcetheme";
-	}
-
-    /**
-     * Returns the aliases for this sbucommand
-     *
-     * @return an array of aliases for this subcommand
-     * @since 4.0.4
-     */
-	@Nullable
-    @Contract(pure = true)
-	@Override
-	public String[] getAliases() {
-		return null;
 	}
 
     /**

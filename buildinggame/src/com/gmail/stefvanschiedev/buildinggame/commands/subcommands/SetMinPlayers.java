@@ -14,7 +14,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a command to set the minimum amount of players in an arena
@@ -81,19 +80,6 @@ public class SetMinPlayers extends ConsoleCommand {
     @Override
 	public String getName() {
 		return "setminplayers";
-	}
-
-    /**
-     * Returns the aliases for this sbucommand
-     *
-     * @return an array of aliases for this subcommand
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	@Override
-	public String[] getAliases() {
-		return null;
 	}
 
     /**

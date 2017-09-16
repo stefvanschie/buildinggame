@@ -300,7 +300,7 @@ public class Plot {
      */
 	@NotNull
     @Contract(pure = true)
-    public Arena getArena() {
+    private Arena getArena() {
 	    return arena;
     }
 
