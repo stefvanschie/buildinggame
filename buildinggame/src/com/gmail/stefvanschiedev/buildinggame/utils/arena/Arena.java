@@ -1370,4 +1370,20 @@ public class Arena {
 
 		SignManager.getInstance().updateJoinSigns(this);
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+    public boolean equals(Object obj) {
+        return obj instanceof Arena && ((Arena) obj).getName().equals(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+	    return name.hashCode();
+    }
 }

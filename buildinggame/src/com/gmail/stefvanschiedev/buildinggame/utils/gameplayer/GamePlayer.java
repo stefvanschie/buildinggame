@@ -503,4 +503,20 @@ public class GamePlayer {
 	private static String getVersion() {
 		return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+    public boolean equals(Object obj) {
+	    return obj instanceof GamePlayer && ((GamePlayer) obj).getPlayer().equals(player);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+	    return player.hashCode();
+    }
 }

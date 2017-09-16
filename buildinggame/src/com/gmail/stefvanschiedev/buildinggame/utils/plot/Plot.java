@@ -292,6 +292,18 @@ public class Plot {
 		return gamePlayers;
 	}
 
+    /**
+     * Returns the arena this plot belongs to
+     *
+     * @return the arena
+     * @since 5.1.1
+     */
+	@NotNull
+    @Contract(pure = true)
+    public Arena getArena() {
+	    return arena;
+    }
+
 	/**
      * Returns the boundary of this plot
      *
@@ -785,4 +797,30 @@ public class Plot {
 		for (GamePlayer gamePlayer : getGamePlayers())
 			gamePlayer.getPlayer().setPlayerTime(time.decode(), false);
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public boolean equals(Object obj) {
+	    if (!(obj instanceof Plot))
+	        return false;
+
+	    Plot plot = (Plot) obj;
+
+	    return plot.getID() == ID && plot.getArena().equals(arena);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        int hashCode = 1;
+
+        hashCode = 31 * hashCode + arena.hashCode();
+        hashCode = 31 * hashCode + ID;
+
+        return hashCode;
+    }
 }
