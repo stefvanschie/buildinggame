@@ -279,7 +279,7 @@ public class SubjectMenu extends Gui {
      *
      * @param subject the subject to look for
      * @return the subject vote corresponding with the subject
-     * @since 5.1.1
+     * @since 5.2.0
      */
 	@Nullable
     @Contract(pure = true)

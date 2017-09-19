@@ -76,7 +76,7 @@ public class SubjectVote {
      * Returns the subject this class is keeping track of
      *
      * @return the subject
-     * @since 5.1.1
+     * @since 5.2.0
      */
 	@NotNull
     @Contract(pure = true)

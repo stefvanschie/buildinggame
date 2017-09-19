@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import com.gmail.stefvanschiedev.buildinggame.events.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
@@ -210,7 +211,11 @@ public class Main extends JavaPlugin {
 			//bungeecord
 			if (pm.isPluginEnabled("Socket4MC"))
 				pm.registerEvents(BungeeCordHandler.getInstance(), this);
-			
+
+			//per world inventory compatibility fix
+			/*if (pm.isPluginEnabled("PerWorldInventory"))
+			    pm.registerEvents(new PerWorldInventoryCancel(), this);*/
+
 			pm.registerEvents(new ClickJoinSign(), this);
 			pm.registerEvents(new ClickLeaveSign(), this);
 			pm.registerEvents(new Drop(), this);

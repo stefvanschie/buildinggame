@@ -296,7 +296,7 @@ public class Plot {
      * Returns the arena this plot belongs to
      *
      * @return the arena
-     * @since 5.1.1
+     * @since 5.2.0
      */
 	@NotNull
     @Contract(pure = true)
