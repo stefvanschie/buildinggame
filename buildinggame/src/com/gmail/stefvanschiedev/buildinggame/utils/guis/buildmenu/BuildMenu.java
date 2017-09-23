@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu.BaseColorBannerMenu;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -62,6 +63,11 @@ public class BuildMenu extends Gui {
      */
 	private final HeadsMenu headsMenu;
 
+    /**
+     * The banner menu
+     */
+    private final BaseColorBannerMenu bannerMenu;
+
 	/**
      * The las time the floor was changed (according to System.currentMillis())
      */
@@ -81,6 +87,7 @@ public class BuildMenu extends Gui {
 		timeMenu = new TimeMenu();
 		flySpeedMenu = new SpeedMenu();
 		headsMenu = new HeadsMenu();
+		bannerMenu = new BaseColorBannerMenu();
 		
 		if (CONFIG.getBoolean("gui.particles.enabled")) {
 			ItemStack particle = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.particles.id"));
@@ -103,7 +110,7 @@ public class BuildMenu extends Gui {
 					particlesMenu.open((Player) event.getWhoClicked());
 					return true;
 				}
-			}, 11);
+			}, 10);
 		}
 		
 		if (CONFIG.getBoolean("gui.floor.enabled")) {
@@ -191,7 +198,7 @@ public class BuildMenu extends Gui {
 
 					return true;
 				}
-			}, 13);
+			}, 12);
 		}
 		
 		if (CONFIG.getBoolean("gui.time.enabled")) {
@@ -215,7 +222,7 @@ public class BuildMenu extends Gui {
 					timeMenu.open((Player) event.getWhoClicked());
 					return true;
 				}
-			}, 15);
+			}, 14);
 		}
 		
 		if (CONFIG.getBoolean("gui.rain.enabled")) {
@@ -245,7 +252,7 @@ public class BuildMenu extends Gui {
 					plot.setRaining(!plot.isRaining());
 					return true;
 				}
-			}, 20);
+			}, 16);
 		}
 		
 		if (CONFIG.getBoolean("gui.fly-speed.enabled")) {
@@ -269,7 +276,7 @@ public class BuildMenu extends Gui {
 					flySpeedMenu.open((Player) event.getWhoClicked());
 					return true;
 				}
-			}, 22);
+			}, 20);
 		}
 		
 		if (CONFIG.getBoolean("gui.heads.enabled")) {
@@ -293,8 +300,29 @@ public class BuildMenu extends Gui {
 					headsMenu.open((Player) event.getWhoClicked());
 					return true;
 				}
-			}, 24);
+			}, 22);
 		}
+
+        if (CONFIG.getBoolean("gui.banners.enabled")) {
+            ItemStack banners = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.banners.id"));
+            ItemMeta bannersMeta = banners.getItemMeta();
+            bannersMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.name")));
+            bannersMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.lore")));
+            banners.setItemMeta(bannersMeta);
+
+            setItem(banners, new GuiAction() {
+                @Override
+                public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
+                    if (type != GuiActionType.CLICK)
+                        return false;
+
+                    InventoryClickEvent event = (InventoryClickEvent) e;
+
+                    bannerMenu.open((Player) event.getWhoClicked());
+                    return true;
+                }
+            }, 24);
+        }
 		
 		ItemStack close = new ItemStack(Material.BOOK, 1);
 		ItemMeta closeMeta = close.getItemMeta();
@@ -330,17 +358,19 @@ public class BuildMenu extends Gui {
 	@Override
 	public void open(Player player, int page) {
 		if (!player.hasPermission("bg.buildmenu.particles"))
-			clear(11);
+			clear(10);
 		if (!player.hasPermission("bg.buildmenu.floor"))
-			clear(13);
+			clear(12);
 		if (!player.hasPermission("bg.buildmenu.time"))
-			clear(15);
+			clear(14);
 		if (!player.hasPermission("bg.buildmenu.rain"))
-			clear(20);
+			clear(16);
 		if (!player.hasPermission("bg.buildmenu.flyspeed"))
-			clear(22);
+			clear(20);
 		if (!player.hasPermission("bg.buildmenu.heads"))
-			clear(24);
+			clear(22);
+        if (!player.hasPermission("bg.buildmenu.banners"))
+            clear(24);
 		
 		super.open(player, page);
 	}

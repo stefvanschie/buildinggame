@@ -223,6 +223,9 @@ gui:
   heads:
     id: 'skull_item:3'
     enabled: true
+  banners:
+    id: 'banner'
+    enabled: true
 
 
 #Possible colors: BLACK, BLUE, BROWN, CYAN, GRAY, GREEN, LIGHT_BLUE, LIME, MAGENTA, ORANGE,PINK, PURPLE, RED, SILVER, WHITE,YELLOW

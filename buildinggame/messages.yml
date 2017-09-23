@@ -3996,6 +3996,296 @@ gui:
         name: "&aNext Page"
         lores:
         -
+  banners:
+    name: "&aBanners"
+    lore:
+    -
+    base-color:
+      title: "&aBase color"
+      black:
+        name: "&0Black"
+        lore:
+        -
+      red:
+        name: "&4Red"
+        lore:
+        -
+      green:
+        name: "&2Green"
+        lore:
+        -
+      brown:
+        name: "&6Brown"
+        lore:
+        -
+      blue:
+        name: "&1Blue"
+        lore:
+        -
+      purple:
+        name: "&5Purple"
+        lore:
+        -
+      cyan:
+        name: "&bCyan"
+        lore:
+        -
+      light-gray:
+        name: "&7Light gray"
+        lore:
+        -
+      gray:
+        name: "&8Gray"
+        lore:
+        -
+      pink:
+        name: "&cPink"
+        lore:
+        -
+      lime:
+        name: "&aLime"
+        lore:
+        -
+      yellow:
+        name: "&eYellow"
+        lore:
+        -
+      light-blue:
+        name: "&9Light blue"
+        lore:
+        -
+      magenta:
+        name: "&dMagenta"
+        lore:
+        -
+      orange:
+        name: "&6Orange"
+        lore:
+        -
+      white:
+        name: "&fWhite"
+        lore:
+        -
+    color:
+      title: "&aColor"
+      black:
+        name: "&0Black"
+        lore:
+        -
+      red:
+        name: "&4Red"
+        lore:
+        -
+      green:
+        name: "&2Green"
+        lore:
+        -
+      brown:
+        name: "&6Brown"
+        lore:
+        -
+      blue:
+        name: "&1Blue"
+        lore:
+        -
+      purple:
+        name: "&5Purple"
+        lore:
+        -
+      cyan:
+        name: "&bCyan"
+        lore:
+        -
+      light-gray:
+        name: "&7Light gray"
+        lore:
+        -
+      gray:
+        name: "&8Gray"
+        lore:
+        -
+      pink:
+        name: "&cPink"
+        lore:
+        -
+      lime:
+        name: "&aLime"
+        lore:
+        -
+      yellow:
+        name: "&eYellow"
+        lore:
+        -
+      light-blue:
+        name: "&9Light blue"
+        lore:
+        -
+      magenta:
+        name: "&dMagenta"
+        lore:
+        -
+      orange:
+        name: "&6Orange"
+        lore:
+        -
+      white:
+        name: "&fWhite"
+        lore:
+        -
+    pattern:
+      title: "&aPattern"
+      base:
+        name: "&aBase pattern"
+        lore:
+        -
+      chief:
+        name: "&aChief pattern"
+        lore:
+        -
+      pale-dexter:
+        name: "&aPale dexter pattern"
+        lore:
+        -
+      pale-sinister:
+        name: "&aPale sinister pattern"
+        lore:
+        -
+      pale:
+        name: "&aPale pattern"
+        lore:
+        -
+      fess:
+        name: "&aFess pattern"
+        lore:
+        -
+      bend:
+        name: "&aBend pattern"
+        lore:
+        -
+      bend-sinister:
+        name: "&aBend sinister pattern"
+        lore:
+        -
+      paly:
+        name: "&aPaly pattern"
+        lore:
+        -
+      saltire:
+        name: "&aSaltire pattern"
+        lore:
+        -
+      cross:
+        name: "&aCross pattern"
+        lore:
+        -
+      per-bend-sinister:
+        name: "&aPer bend sinister pattern"
+        lore:
+        -
+      per-bend:
+        name: "&aPer bend pattern"
+        lore:
+        -
+      per-bend-inverted:
+        name: "&a Per bend inverted pattern"
+        lore:
+        -
+      per-bend-sinister-inverted:
+        name: "&aPer bend sinister inverted pattern"
+        lore:
+        -
+      per-pale:
+        name: "&aPer pale pattern"
+        lore:
+        -
+      per-pale-inverted:
+        name: "&aPer pale inverted pattern"
+        lore:
+        -
+      per-fess:
+        name: "&aPer fess pattern"
+        lore:
+        -
+      per-fess-inverted:
+        name: "&aPer fess inverted pattern"
+        lore:
+        -
+      base-dexter-canton:
+        name: "&aBase dexter canton pattern"
+        lore:
+        -
+      base-sinister-canton:
+        name: "&aBase sinister canton pattern"
+        lore:
+        -
+      chief-dexter-canton:
+        name: "&aChief dexter canton pattern"
+        lore:
+        -
+      chief-sinister-canton:
+        name: "&aChief sinister canton pattern"
+        lore:
+        -
+      chevron:
+        name: "&aChevron pattern"
+        lore:
+        -
+      inverted-chevron:
+        name: "&aInverted chevron pattern"
+        lore:
+        -
+      base-indented:
+        name: "&aBase indented pattern"
+        lore:
+        -
+      chief-indented:
+        name: "&aChief indented pattern"
+        lore:
+        -
+      roundel:
+        name: "&aRoundel pattern"
+        lore:
+        -
+      lozenge:
+        name: "&aLozenge pattern"
+        lore:
+        -
+      bordure:
+        name: "&aBordure pattern"
+        lore:
+        -
+      dyed-bordure-indented:
+        name: "&aDyed bordure indented pattern"
+        lore:
+        -
+      dyed-field-masoned:
+        name: "&aDyed field masoned pattern"
+        lore:
+        -
+      gradient:
+        name: "&aGradient pattern"
+        lore:
+        -
+      base-gradient:
+        name: "&aBase gradient pattern"
+        lore:
+        -
+      dyed-creeper-charge:
+        name: "&aDyed creeper charge pattern"
+        lore:
+        -
+      dyed-skull-charge:
+        name: "&aDyed skull charge pattern"
+        lore:
+        -
+      dyed-flower-charge:
+        name: "&aDyed flower charge pattern"
+        lore:
+        -
+      dyed-thing:
+        name: "&aDyed thing pattern"
+        lore:
+        -
   close-menu:
     name: "&aClose menu"
     lores:

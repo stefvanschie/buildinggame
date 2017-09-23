@@ -224,6 +224,17 @@ public class Gui implements Listener {
 		items[position] = new GuiItem(itemStack, action);
 	}
 
+    /**
+     * Sets an item to the specified position
+     *
+     * @param itemStack the item to add
+     * @param position the position to put the item in
+     * @since 4.0.0
+     */
+    protected void setItem(ItemStack itemStack, int position) {
+        items[position] = new GuiItem(itemStack);
+    }
+
 	/**
      * Sets the starting point for the gui. This is the position that new items via {@link #addItem(ItemStack)} and
      * {@link #addItem(ItemStack, GuiAction)} will be added.
