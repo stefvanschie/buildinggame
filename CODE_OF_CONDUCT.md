@@ -4,13 +4,14 @@ We (the community) highly encourage others to give feedback on the project, shar
 To make this an enjoyable experience for everyone there needs to be a set of rules that are enforced to create a healthy workspace, where we
 can all enjoy our time. The rules and standards apply to everyone who contributes to this project (issues, pull requests, etc.) regardless
 of age, ethnicity, religion, role/status, gender identity/expression, nationality, preferences, race, sexual identity/orientation,
-experience, size and personal appearance.
+experience, size or personal appearance.
 
 ## Rules and Standards
 
 * Be welcoming to new users and help them learn about this project if needed
 * Keep conversations on topic: if you think your reply isn't on topic, please refrain from posting and instead create a new issue/pull request
 * Use swearing in moderation and don't target swear words at other users
+* All users are equal regardless of age, ethnicity, religion, role/status, gender identity/expression, nationality, preferences, race, sexual identity/orientation, experience, size or personal appearance.
 * Don't harass others based on their English skills. Correcting them is allowed and encouraged, but should be done in a civil manner
 * All posts should be made in English, or at the very least an English translation should be provided.
 * Do not spread hate towards other (similar) projects/communties
