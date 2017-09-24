@@ -1,6 +1,6 @@
 main: com.gmail.stefvanschiedev.buildinggame.Main
 name: BuildingGame_Addon
-version: 5.1.0
+version: 5.2.0
 depend: [Socket4MC]
 
 commands:
