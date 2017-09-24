@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
-import com.gmail.stefvanschiedev.buildinggame.events.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;

@@ -4286,6 +4286,75 @@ gui:
         name: "&aDyed thing pattern"
         lore:
         -
+  biome:
+    name: "&aBiomes"
+    lores:
+    - "&7Change the biome of your plot"
+    title: "&aBiomes"
+    ice-plains:
+      name: "&aIce Plains"
+      lores:
+      - "&7Change the biome to Ice Plains"
+    taiga:
+      name: "&aTaiga"
+      lores:
+      - "&7Change the biome to Taiga"
+    extreme-hills:
+      name: "&aExtreme Hills"
+      lores:
+      - "&7Change the biome to Extreme Hills"
+    plains:
+      name: "&aPlains"
+      lores:
+      - "&7Change the biome to Plains"
+    forest:
+      name: "&aForest"
+      lores:
+      - "&7Change the biome to Forest"
+    roofed-forest:
+      name: "&aRoofed Forest"
+      lores:
+      - "&7Change the biome to Roofed Forest"
+    swampland:
+      name: "&aSwampland"
+      lores:
+      - "&7Change the biome to Swampland"
+    jungle:
+      name: "&aJungle"
+      lores:
+      - "&7Change the biome to Jungle"
+    mushroom-island:
+      name: "&aMushroom Island"
+      lores:
+      - "&7Change the biome to Mushroom Island"
+    the-end:
+      name: "&aThe End"
+      lores:
+      - "&7Change the biome to The End"
+    desert:
+      name: "&aDesert"
+      lores:
+      - "&7Change the biome to Desert"
+    savanna:
+      name: "&aSavanna"
+      lores:
+      - "&7Change the biome to Savanna"
+    mesa:
+      name: "&aMesa"
+      lores:
+      - "&7Change the biome to Mesa"
+    the-nether:
+      name: "&aThe Nether"
+      lores:
+      - "&7Change the biome to The Nether"
+    ocean:
+      name: "&aOcean"
+      lores:
+      - "&7Change the biome to Ocean"
+    the-void:
+      name: "&aThe Void"
+      lores:
+      - "&7Change the biome to The Void"
   close-menu:
     name: "&aClose menu"
     lores:

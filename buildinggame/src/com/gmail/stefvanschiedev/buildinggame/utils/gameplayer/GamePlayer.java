@@ -1,15 +1,13 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.gameplayer;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -334,6 +332,27 @@ public class GamePlayer {
 	List<String> getTitles() {
 		return titles;
 	}
+
+    /**
+     * Refreshes the specified chunk for this game player
+     *
+     * @param chunk the chunk to refresh
+     * @since 5.2.0
+     */
+	public void refreshChunk(Chunk chunk) {
+        try {
+            //unload the chunk (bukkit prevents you from unloading it with internal methods when the player is still there, so make use of packets)
+            sendPacket(getNMSClass("PacketPlayOutUnloadChunk").getConstructor(int.class, int.class)
+                    .newInstance(chunk.getX(), chunk.getZ()));
+
+            //send the chunk again
+            sendPacket(getNMSClass("PacketPlayOutMapChunk").getConstructor(getNMSClass("Chunk"), int.class)
+                    .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF));
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
+                InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
 
 	/**
      * This restores the player to before it joined an arena

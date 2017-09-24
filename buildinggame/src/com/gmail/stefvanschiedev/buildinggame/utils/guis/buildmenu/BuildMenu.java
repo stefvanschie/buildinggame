@@ -68,7 +68,12 @@ public class BuildMenu extends Gui {
      */
     private final BaseColorBannerMenu bannerMenu;
 
-	/**
+    /**
+     * The biome menu
+     */
+    private final BiomeMenu biomeMenu;
+
+    /**
      * The las time the floor was changed (according to System.currentMillis())
      */
 	private long floorChange;
@@ -88,6 +93,7 @@ public class BuildMenu extends Gui {
 		flySpeedMenu = new SpeedMenu();
 		headsMenu = new HeadsMenu();
 		bannerMenu = new BaseColorBannerMenu();
+		biomeMenu = new BiomeMenu(plot);
 		
 		if (CONFIG.getBoolean("gui.particles.enabled")) {
 			ItemStack particle = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.particles.id"));
@@ -276,7 +282,7 @@ public class BuildMenu extends Gui {
 					flySpeedMenu.open((Player) event.getWhoClicked());
 					return true;
 				}
-			}, 20);
+			}, 19);
 		}
 		
 		if (CONFIG.getBoolean("gui.heads.enabled")) {
@@ -300,7 +306,7 @@ public class BuildMenu extends Gui {
 					headsMenu.open((Player) event.getWhoClicked());
 					return true;
 				}
-			}, 22);
+			}, 21);
 		}
 
         if (CONFIG.getBoolean("gui.banners.enabled")) {
@@ -321,7 +327,28 @@ public class BuildMenu extends Gui {
                     bannerMenu.open((Player) event.getWhoClicked());
                     return true;
                 }
-            }, 24);
+            }, 23);
+        }
+
+        if (CONFIG.getBoolean("gui.biome.enabled")) {
+            ItemStack banners = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.biome.id"));
+            ItemMeta bannersMeta = banners.getItemMeta();
+            bannersMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.biome.name")));
+            bannersMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.lores")));
+            banners.setItemMeta(bannersMeta);
+
+            setItem(banners, new GuiAction() {
+                @Override
+                public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
+                    if (type != GuiActionType.CLICK)
+                        return false;
+
+                    InventoryClickEvent event = (InventoryClickEvent) e;
+
+                    biomeMenu.open((Player) event.getWhoClicked());
+                    return true;
+                }
+            }, 25);
         }
 		
 		ItemStack close = new ItemStack(Material.BOOK, 1);
@@ -366,11 +393,13 @@ public class BuildMenu extends Gui {
 		if (!player.hasPermission("bg.buildmenu.rain"))
 			clear(16);
 		if (!player.hasPermission("bg.buildmenu.flyspeed"))
-			clear(20);
+			clear(19);
 		if (!player.hasPermission("bg.buildmenu.heads"))
-			clear(22);
+			clear(21);
         if (!player.hasPermission("bg.buildmenu.banners"))
-            clear(24);
+            clear(23);
+        if (!player.hasPermission("bg.buildmenu.biome"))
+            clear(25);
 		
 		super.open(player, page);
 	}

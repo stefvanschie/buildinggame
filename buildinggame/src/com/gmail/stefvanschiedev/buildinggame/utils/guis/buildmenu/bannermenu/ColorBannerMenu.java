@@ -19,7 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @since 5.2.0
  */
-public class ColorBannerMenu extends Gui {
+class ColorBannerMenu extends Gui {
 
     /**
      * YAML Configuration for the messages.yml
@@ -29,7 +29,7 @@ public class ColorBannerMenu extends Gui {
     /**
      * {@inheritDoc}
      */
-    protected ColorBannerMenu(ItemStack banner) {
+    ColorBannerMenu(ItemStack banner) {
         super(null, 27,
                 MessageManager.translate(MESSAGES.getString("gui.banners.color.title")), 1);
 

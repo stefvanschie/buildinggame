@@ -226,6 +226,9 @@ gui:
   banners:
     id: 'banner'
     enabled: true
+  biome:
+    id: 'sapling'
+    enabled: true
 
 
 #Possible colors: BLACK, BLUE, BROWN, CYAN, GRAY, GREEN, LIGHT_BLUE, LIME, MAGENTA, ORANGE,PINK, PURPLE, RED, SILVER, WHITE,YELLOW

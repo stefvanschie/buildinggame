@@ -21,7 +21,7 @@ import org.bukkit.inventory.meta.BannerMeta;
  *
  * @since 5.2.0
  */
-public class PatternBannerMenu extends Gui {
+class PatternBannerMenu extends Gui {
 
     /**
      * YAML Configuration for the messages.yml
@@ -31,7 +31,7 @@ public class PatternBannerMenu extends Gui {
     /**
      * {@inheritDoc}
      */
-    protected PatternBannerMenu(ItemStack banner, DyeColor dyeColor) {
+    PatternBannerMenu(ItemStack banner, DyeColor dyeColor) {
         super(null, 54,
                 MessageManager.translate(MESSAGES.getString("gui.banners.pattern.title")), 1);
 

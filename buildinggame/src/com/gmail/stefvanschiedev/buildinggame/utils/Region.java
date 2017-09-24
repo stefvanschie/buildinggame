@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -9,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -106,6 +109,22 @@ public class Region {
     public Location getCenter() {
         return new Location(world, lowX + ((highX - lowX) / 2.0), lowY + ((highY - lowY) / 2.0),
                 lowZ  + ((highZ - lowZ) / 2.0));
+    }
+
+    /**
+     * Returns every single chunk that is (partially) inside this region
+     *
+     * @return the chunks inside this region
+     * @since 5.2.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public Iterable<Chunk> getChunks() {
+        Collection<Chunk> chunks = new HashSet<>();
+
+        getAllBlocks().forEach(block -> chunks.add(block.getChunk()));
+
+        return chunks;
     }
 
     /**

@@ -8,6 +8,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.WeatherType;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.command.CommandSender;
@@ -75,7 +76,7 @@ public class Plot {
 	/**
      * A collection of the states of the blocks before the building phase started
      */
-	private final Collection<BlockState> blocks = new ArrayList<>();
+	private final Map<BlockState, Biome> blocks = new HashMap<>();
 
 	/**
      * A map containing an entity and their previous stored location
@@ -300,7 +301,7 @@ public class Plot {
      */
 	@NotNull
     @Contract(pure = true)
-    private Arena getArena() {
+    public Arena getArena() {
 	    return arena;
     }
 
@@ -700,10 +701,18 @@ public class Plot {
 		if (!SettingsManager.getInstance().getConfig().getBoolean("restore-plots"))
 			return;
 		
-		for (BlockState blockState : blocks) {
-			blockState.getLocation().getBlock().setType(blockState.getType());
-			blockState.getLocation().getBlock().setData(blockState.getRawData());
+		for (Map.Entry<BlockState, Biome> entry : blocks.entrySet()) {
+            BlockState blockState = entry.getKey();
+
+            blockState.getLocation().getBlock().setType(blockState.getType());
+            blockState.getLocation().getBlock().setData(blockState.getRawData());
+
+            blockState.getLocation().getBlock().setBiome(entry.getValue());
 		}
+
+        //refresh chunks because of the biomes
+        arena.getPlots().forEach(plot -> plot.getBoundary().getChunks().forEach(chunk ->
+                gamePlayers.forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 		
 		setRaining(false);
 		setTime(Time.AM6);
@@ -724,7 +733,7 @@ public class Plot {
 		}
 		
 		for (Block block : getBoundary().getAllBlocks())
-			blocks.add(block.getState());
+			blocks.put(block.getState(), block.getBiome());
 	}
 
     /**
