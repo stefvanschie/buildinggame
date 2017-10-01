@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import com.gmail.stefvanschiedev.buildinggame.events.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
@@ -212,8 +213,30 @@ public class Main extends JavaPlugin {
 				pm.registerEvents(BungeeCordHandler.getInstance(), this);
 
 			//per world inventory compatibility fix
-			/*if (pm.isPluginEnabled("PerWorldInventory"))
-			    pm.registerEvents(new PerWorldInventoryCancel(), this);*/
+            if (pm.isPluginEnabled("PerWorldInventory")) {
+                try {
+                    String version = pm.getPlugin("PerWorldInventory").getDescription().getVersion();
+                    int number = Integer.parseInt(version.replace(".", ""));
+
+                    //Make sure every version has at least three parts (e.g. 1.11.0 instead of 1.11).
+                    //This ensures the versions don't get mixed up (e.g. 1.7.5 being bigger than 1.11).
+                    for (int i = version.split("\\.").length; i < 3; i++)
+                        number *= 10;
+
+                    //1110 is the first version with InventoryLoadEvent control
+                    if (number >= 1110)
+                        pm.registerEvents(new PerWorldInventoryCancel(), this);
+                    else
+                        getLogger().warning(
+                                "PerWorldInventory is outdated, update to a later version to keep BuildingGame compatible with PerWorldInventory."
+                        );
+                } catch (NumberFormatException e) {
+                    getLogger().warning(
+                            "Unable to get PerWorldInventory version, contact the plugin author about this."
+                    );
+                    e.printStackTrace();
+                }
+            }
 
 			pm.registerEvents(new ClickJoinSign(), this);
 			pm.registerEvents(new ClickLeaveSign(), this);
