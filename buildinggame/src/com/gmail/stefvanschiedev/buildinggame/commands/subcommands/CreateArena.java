@@ -1,12 +1,12 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResult;
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.ConsoleCommand;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import org.jetbrains.annotations.Contract;
@@ -55,6 +55,10 @@ public class CreateArena extends ConsoleCommand {
 		SettingsManager.getInstance().save();
 		
 		ArenaManager.getInstance().setup();
+		LobbyTimerManager.getInstance().setup();
+        BuildTimerManager.getInstance().setup();
+        VoteTimerManager.getInstance().setup();
+        WinTimerManager.getInstance().setup();
 		
 		for (String message : messages.getStringList("createArena.succes"))
 			MessageManager.getInstance().send(sender, message

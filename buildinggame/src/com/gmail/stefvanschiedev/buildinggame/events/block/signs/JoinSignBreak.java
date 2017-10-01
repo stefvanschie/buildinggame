@@ -44,6 +44,9 @@ public class JoinSignBreak implements Listener {
 				continue;
 			
 			for (String string : signs.getKeys(false)) {
+			    if (!signs.getString(string + ".type").equals("join"))
+			        continue;
+
 				if (!signs.getString(string + ".arena").equals(arena.getName()))
 					continue;
 
