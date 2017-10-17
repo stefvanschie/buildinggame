@@ -3,6 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -159,6 +161,21 @@ public class Gui implements Listener {
 	int getPage(Player player) {
 		return playerPages.get(player);
 	}
+
+    /**
+     * Inserts the item at the given position while shifting all other items right-down.
+     *
+     * @param item the item to insert
+     * @param action the action assigned to the item
+     * @param position the position to insert this item
+     */
+    protected void insertItem(@NotNull ItemStack item, GuiAction action, int position) {
+        if (items[position] != null)
+            System.arraycopy(items, position, items, position + 1, (int) Stream.of(items).skip(position)
+                    .filter(Objects::nonNull).count());
+
+	    setItem(item, action, position);
+    }
 
 	/**
      * Opens the gui for the specified player on page one
