@@ -61,12 +61,12 @@ public class JoinSignBreak implements Listener {
 				
 				if (signs.getInt(string + ".z") != location.getBlockZ())
 					continue;
-				
+
+                signs.set(string, null);
+
 				SettingsManager.getInstance().save();
 				
 				SignManager.getInstance().setup();
-				
-				signs.set(string, null);
 			}
 		}
 	}
