@@ -1,7 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
 import com.gmail.stefvanschiedev.buildinggame.events.PerWorldInventoryCancel;
-import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
@@ -257,7 +256,6 @@ public class Main extends JavaPlugin {
 			//entity events
 			pm.registerEvents(new ChickenSpawnByEgg(), this);
 			pm.registerEvents(new EntityExplode(), this);
-			pm.registerEvents(new EntityOptionsMenu(), this);
 			pm.registerEvents(new EntitySpawn(), this);
 		
 			//subjectmenu
