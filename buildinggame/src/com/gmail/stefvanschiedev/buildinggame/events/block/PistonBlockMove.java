@@ -1,17 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Region;
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Handles pistons moving blocks
@@ -29,7 +23,7 @@ public class PistonBlockMove implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPistonExtend(BlockPistonExtendEvent e) {
-		if (isInside(e.getBlock().getLocation()) != null)
+		if (Plot.getPlot(e.getBlock().getLocation()) != null)
 			e.setCancelled(true);
 	}
 
@@ -42,33 +36,7 @@ public class PistonBlockMove implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPistonRetract(BlockPistonRetractEvent e) {
-		if (isInside(e.getBlock().getLocation()) != null)
+		if (Plot.getPlot(e.getBlock().getLocation()) != null)
 			e.setCancelled(true);
-	}
-
-	/**
-     * Returns the plot by the given location based on the boundary
-     *
-     * @param location the location inside the boundary
-     * @return the plot which boundary contains the given location
-     * @see Plot
-     * @since 4.0.4
-     */
-	@Nullable
-    @Contract(pure = true)
-    private static Plot isInside(Location location) {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Plot plot : arena.getPlots()) {
-                Region boundary = plot.getBoundary();
-
-                if (boundary == null)
-					continue;
-				
-				if (boundary.isInside(location))
-					return plot;
-			}
-		}
-		
-		return null;
 	}
 }

@@ -1,7 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Region;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -18,7 +16,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Handles entity spawning
@@ -39,7 +36,7 @@ public class EntitySpawn implements Listener {
 		Entity entity = e.getEntity();
 
 		Plot plot;
-		if ((plot = isInside(entity.getLocation())) != null) {
+		if ((plot = Plot.getPlot(entity.getLocation())) != null) {
 			if (!plot.addEntity(entity))
 				entity.remove();
 		}
@@ -57,7 +54,7 @@ public class EntitySpawn implements Listener {
 		Vehicle vehicle = e.getVehicle();
 		
 		Plot plot;
-		if ((plot = isInside(vehicle.getLocation())) != null) {
+		if ((plot = Plot.getPlot(vehicle.getLocation())) != null) {
 			if (!plot.addEntity(vehicle))
 				vehicle.remove();
 		}
@@ -77,7 +74,7 @@ public class EntitySpawn implements Listener {
 		
 		Entity entity = e.getEntity();
 		Plot plot;
-		if ((plot = isInside(entity.getLocation())) != null) {
+		if ((plot = Plot.getPlot(entity.getLocation())) != null) {
 			if (!plot.addEntity(entity))
 				e.setCancelled(true);
 		} else
@@ -106,57 +103,8 @@ public class EntitySpawn implements Listener {
                 e.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
 
-        Location improvedLocation = e.getClickedBlock().getLocation();
-
-        switch (e.getBlockFace()) {
-            case UP:
-                improvedLocation.add(0, 1, 0);
-                break;
-            case DOWN:
-                improvedLocation.subtract(0, 1, 0);
-                break;
-            case NORTH:
-                improvedLocation.subtract(0, 0, 1);
-                break;
-            case EAST:
-                improvedLocation.add(1, 0, 0);
-                break;
-            case SOUTH:
-                improvedLocation.add(0, 0, 1);
-                break;
-            case WEST:
-                improvedLocation.subtract(1, 0, 0);
-                break;
-            default:
-                break;
-        }
-
-        if (!arena.getPlot(player).getBoundary().isInside(improvedLocation))
+        if (!arena.getPlot(player).getBoundary().isInside(e.getClickedBlock().getRelative(e.getBlockFace())
+                .getLocation()))
             e.setCancelled(true);
     }
-
-    /**
-     * Returns the plot by the given location based on the boundary
-     *
-     * @param location the location inside the boundary
-     * @return the plot which boundary contains the given location
-     * @see Plot
-     * @since 2.1.0
-     */
-	@Nullable
-    private static Plot isInside(Location location) {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Plot plot : arena.getPlots()) {
-                Region boundary = plot.getBoundary();
-
-                if (boundary == null)
-					continue;
-				
-				if (boundary.isInside(location))
-					return plot;
-			}
-		}
-		
-		return null;
-	}
 }

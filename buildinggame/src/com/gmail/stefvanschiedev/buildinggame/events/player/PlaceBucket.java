@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.events.player;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,31 +29,6 @@ public class PlaceBucket implements Listener {
 	@EventHandler
 	public static void onBucketEmpty(PlayerBucketEmptyEvent e) {
 		Player player = e.getPlayer();
-		Location clicked = e.getBlockClicked().getLocation();
-
-		switch (e.getBlockFace()) {
-			case UP:
-				clicked.add(0, 1, 0);
-				break;
-			case DOWN:
-				clicked.subtract(0, 1, 0);
-				break;
-			case NORTH:
-				clicked.subtract(0, 0, 1);
-				break;
-			case EAST:
-				clicked.add(1, 0, 0);
-				break;
-			case SOUTH:
-				clicked.add(0, 0, 1);
-				break;
-			case WEST:
-				clicked.subtract(1, 0, 0);
-				break;
-			default:
-				break;
-		}
-
         Arena arena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null)
@@ -68,7 +42,7 @@ public class PlaceBucket implements Listener {
 			return;
 		}
 		
-		if (!plot.getBoundary().isInside(clicked)) {
+		if (!plot.getBoundary().isInside(e.getBlockClicked().getRelative(e.getBlockFace()).getLocation())) {
 			e.setCancelled(true);
 			MessageManager.getInstance().send(player, ChatColor.RED + "You can't place blocks outside your plot");
 		}
