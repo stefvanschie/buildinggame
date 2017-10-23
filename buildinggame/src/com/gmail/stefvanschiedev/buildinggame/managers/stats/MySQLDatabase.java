@@ -58,7 +58,7 @@ public class MySQLDatabase {
             statement = connection.createStatement();
 
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `buildinggamestats` (\n" +
-                    "  `UUID` text NOT NULL,\n" +
+                    "  `UUID` varchar(36) NOT NULL PRIMARY KEY,\n" +
                     "  `plays` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `first` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `second` int(11) NOT NULL DEFAULT '0',\n" +
@@ -74,7 +74,7 @@ public class MySQLDatabase {
         } finally {
             try {
                 statement.close();
-                closeConnection(connection);
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -104,7 +104,7 @@ public class MySQLDatabase {
         } finally {
             try {
                 statement.close();
-                closeConnection(connection);
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -136,11 +136,10 @@ public class MySQLDatabase {
 
             try {
                 statement.close();
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-            closeConnection(connection);
             return null;
         }
     }
@@ -166,13 +165,7 @@ public class MySQLDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                set.close();
-                set.getStatement().close();
-                closeConnection(set.getStatement().getConnection());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResultSet(set);
         }
     }
 
@@ -212,13 +205,7 @@ public class MySQLDatabase {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return 0;
         } finally {
-            try {
-                set.close();
-                set.getStatement().close();
-                closeConnection(set.getStatement().getConnection());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResultSet(set);
         }
     }
 
@@ -243,29 +230,23 @@ public class MySQLDatabase {
             plugin.getLogger().warning("Error while retrieving data from database");
             e.printStackTrace();
         } finally {
-            try {
-                set.close();
-                set.getStatement().close();
-                closeConnection(set.getStatement().getConnection());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResultSet(set);
         }
     	
     	return uuids;
     }
 
     /**
-     * Releases the connection with the database
+     * Releases the result set from the database
      *
-     * @param conn the connection to release
+     * @param set the result set to release
      * @since 4.0.6
      */
-    private static void closeConnection(Connection conn) {
+    private static void closeResultSet(ResultSet set) {
         try {
-            if (conn != null)
-                conn.close(); //release the connection - the name is tricky but connection is not closed it is released
-            //and it will stay in pool
+            set.close();
+            set.getStatement().close();
+            set.getStatement().getConnection().close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

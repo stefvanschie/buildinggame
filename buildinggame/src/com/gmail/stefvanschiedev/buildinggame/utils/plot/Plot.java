@@ -808,6 +808,32 @@ public class Plot {
 	}
 
     /**
+     * Returns the plot by the given location based on the boundary
+     *
+     * @param location the location inside the boundary
+     * @return the plot which boundary contains the given location
+     * @see Plot
+     * @since 4.0.4
+     */
+    @Nullable
+    @Contract(pure = true)
+    public static Plot getPlot(Location location) {
+        for (Arena arena : ArenaManager.getInstance().getArenas()) {
+            for (Plot plot : arena.getPlots()) {
+                Region boundary = plot.getBoundary();
+
+                if (boundary == null)
+                    continue;
+
+                if (boundary.isInside(location))
+                    return plot;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * {@inheritDoc}
      */
 	@Override
