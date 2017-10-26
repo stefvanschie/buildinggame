@@ -26,9 +26,9 @@ public class PlaceStat implements Listener {
      * @since 2.2.0
      */
 	@EventHandler
-	public static void onBlockPlace(BlockPlaceEvent e) {
+	public void onBlockPlace(BlockPlaceEvent e) {
 		Player player = e.getPlayer();
-		
+
 		if (ArenaManager.getInstance().getArena(player) == null)
 			return;
 

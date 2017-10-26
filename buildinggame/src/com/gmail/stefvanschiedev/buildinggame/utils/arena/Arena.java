@@ -480,7 +480,7 @@ public class Arena {
      */
 	@Nullable
     @Contract(pure = true)
-	public CharSequence getSubject() {
+	public String getSubject() {
 		return subject;
 	}
 

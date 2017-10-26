@@ -27,13 +27,17 @@ public class MoveStat implements Listener {
      * @since 2.2.0
      */
 	@EventHandler
-	public static void onPlayerMove(PlayerMoveEvent e) {
+	public void onPlayerMove(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
+
+		if (ArenaManager.getInstance().getArena(player) == null)
+		    return;
+
         Location from = e.getFrom();
         Location to = e.getTo();
 		     
-		if ((Math.abs(from.getBlockX() - to.getBlockX()) == 0 && Math.abs(from.getBlockY() - to.getBlockY()) == 0 &&
-                Math.abs(from.getBlockZ() - to.getBlockZ()) == 0) || ArenaManager.getInstance().getArena(player) == null)
+		if (Math.abs(from.getBlockX() - to.getBlockX()) == 0 && Math.abs(from.getBlockY() - to.getBlockY()) == 0 &&
+                Math.abs(from.getBlockZ() - to.getBlockZ()) == 0)
 			return;
 
         StatManager instance = StatManager.getInstance();

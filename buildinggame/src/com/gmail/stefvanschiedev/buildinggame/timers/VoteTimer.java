@@ -1,7 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
-import net.milkbowl.vault.economy.Economy;
-
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -44,7 +42,7 @@ public class VoteTimer extends Timer {
 	/**
      * The original amount of seconds per plot
      */
-	private int originalSeconds;
+	private final int originalSeconds;
 
 	/**
      * The arena this timer belongs to
@@ -143,7 +141,7 @@ public class VoteTimer extends Timer {
 
 						if (second != null && third != null) {
 							for (String message : messages.getStringList("game-ends.winners")) {
-								MessageManager.getInstance().send(gamePlayer.getPlayer(), message
+								MessageManager.getInstance().send(player, message
 										.replace("%first_players%", first.getPlayerFormat())
 										.replace("%second_players%", second.getPlayerFormat())
 										.replace("%third_players%", third.getPlayerFormat()));
@@ -168,13 +166,10 @@ public class VoteTimer extends Timer {
 					
 						if (SDVault.getInstance().isEnabled() &&
                                 gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
-							Economy vault = SDVault.getEconomy();
+							double money;
 
 							if (first.equals(plot)) {
-								double money = config.getDouble("money.first");
-								
-								if (player.hasPermission("bg.rewards.money.double"))
-									money *= 2;
+								money = config.getDouble("money.first");
 					
 								for (String message : messages.getStringList("winner.first"))
 									MessageManager.getInstance().send(player, message
@@ -186,18 +181,8 @@ public class VoteTimer extends Timer {
 									if (cmd != null)
 										player.performCommand(command.replace("%player%", player.getName()));
 								}
-						
-								if (vault.depositPlayer(player, money).transactionSuccess()) {
-									for (String message : messages.getStringList("vault.message")) {
-										MessageManager.getInstance().send(player, message
-												.replace("%money%", money + ""));
-									}
-								}
 							} else if (second.equals(plot)) {
-								double money = config.getDouble("money.second");
-								
-								if (player.hasPermission("bg.rewards.money.double"))
-									money *= 2;
+								money = config.getDouble("money.second");
 								
 								for (String message : messages.getStringList("winner.second"))
 									MessageManager.getInstance().send(player, message
@@ -209,18 +194,8 @@ public class VoteTimer extends Timer {
 									if (cmd != null)
 										player.performCommand(command.replace("%player%", player.getName()));
 								}
-						
-								if (vault.depositPlayer(player, money).transactionSuccess()) {
-									for (String message : messages.getStringList("vault.message")) {
-										MessageManager.getInstance().send(player, message
-                                                .replace("%money%", money + ""));
-									}
-								}
 							} else if (third.equals(plot)) {
-								double money = config.getDouble("money.third");
-								
-								if (player.hasPermission("bg.rewards.money.double"))
-									money *= 2;
+								money = config.getDouble("money.third");
 					
 								for (String message : messages.getStringList("winner.third"))
 									MessageManager.getInstance().send(player, message
@@ -232,18 +207,8 @@ public class VoteTimer extends Timer {
 									if (cmd != null)
 										player.performCommand(command.replace("%player%", player.getName()));
 								}
-
-                                if (vault.depositPlayer(player, money).transactionSuccess()) {
-									for (String message : messages.getStringList("vault.message")) {
-										MessageManager.getInstance().send(player, message
-												.replace("%money%", money + ""));
-									}
-								}
 							} else {
-								double money = config.getDouble("money.others");
-								
-								if (player.hasPermission("bg.rewards.money.double"))
-									money *= 2;
+								money = config.getDouble("money.others");
 							
 								for (String command : config.getStringList("commands.others")) {
 									String cmd = execute(command.replace("%player%", player.getName()));
@@ -251,19 +216,22 @@ public class VoteTimer extends Timer {
 									if (cmd != null)
 										player.performCommand(command.replace("%player%", player.getName()));
 								}
-						
-								if (vault.depositPlayer(player, money).transactionSuccess()) {
-									for (String message : messages.getStringList("vault.message")) {
-										MessageManager.getInstance().send(player, message
-												.replace("%money%", money + ""));
-									}
-								}
 							}
+
+                            if (player.hasPermission("bg.rewards.money.double"))
+                                money *= 2;
+
+                            if (SDVault.getEconomy().depositPlayer(player, money).transactionSuccess()) {
+                                for (String message : messages.getStringList("vault.message")) {
+                                    MessageManager.getInstance().send(player, message
+                                            .replace("%money%", money + ""));
+                                }
+                            }
 						}
 					}
 				}
 
-				if (first != null && !first.getGamePlayers().isEmpty()) {
+				if (first != null) {
 					for (GamePlayer gamePlayer : first.getGamePlayers()) {
 						for (String command : config.getStringList("win-commands")) {
 							String cmd = execute(command.replace("%winner%", gamePlayer.getPlayer().getName()));
@@ -335,7 +303,6 @@ public class VoteTimer extends Timer {
             }
 
 			seconds = config.getInt("votetimer");
-			originalSeconds = seconds;
 		}
 	}
 

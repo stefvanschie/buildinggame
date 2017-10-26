@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.saved;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,10 +31,11 @@ public class BreakStat implements Listener {
 		
 		if (ArenaManager.getInstance().getArena(player) == null)
 			return;
-		
-		StatManager.getInstance().registerStat(player, StatType.BROKEN, StatManager.getInstance().getStat(player,
-                StatType.BROKEN) == null ? 1 : StatManager.getInstance().getStat(player, StatType.BROKEN)
-                .getValue() + 1);
+
+        StatManager instance = StatManager.getInstance();
+        Stat stat = instance.getStat(player, StatType.BROKEN);
+
+        instance.registerStat(player, StatType.BROKEN, stat == null ? 1 : stat.getValue() + 1);
 		SignManager.getInstance().updateStatSigns();
 	}
 }
