@@ -118,9 +118,9 @@ public final class StatManager {
      */
 	@Nullable
     @Contract("_, null -> null")
-    public Stat getStat(Player player, StatType type) {
-		for (Stat stat : stats) {
-			if (player.equals(stat.getPlayer().getPlayer()) && stat.getType() == type)
+    public Stat getStat(OfflinePlayer player, StatType type) {
+		for (Stat stat : getStats(type)) {
+			if (player.equals(stat.getPlayer().getPlayer()))
 				return stat;
 		}
 

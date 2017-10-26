@@ -1,9 +1,13 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
+import com.google.common.primitives.Chars;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -68,6 +72,11 @@ public final class SignManager {
      * A collection of all statistic signs
      */
 	private final Collection<StatSign> statSigns = new ArrayList<>();
+
+    /**
+     * A map of all replacements and their values
+     */
+    private static final Map<String, BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String>> REPLACEMENTS;
 
 	/**
      * Loads/Reloads all signs
@@ -269,66 +278,91 @@ public final class SignManager {
 	public void updateStatSigns() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
+
 		for (StatSign sign : statSigns) {
 			Sign s = sign.getSign();
-			
+
 			if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault()))) {
 				Map<OfflinePlayer, Integer> stats = new HashMap<>();
-				
+
 				for (Stat stat : StatManager.getInstance().getStats(sign.getType()))
-					stats.put(stat.getPlayer(), stat.getValue());
-				
+                    stats.put(stat.getPlayer(), stat.getValue());
+
 				List<Integer> values = new ArrayList<>(stats.values());
 				Collections.sort(values);
 				Collections.reverse(values);
-				
+
 				int value = -1;
-				
+
 				if (values.size() >= sign.getNumber())
-					value = values.get(sign.getNumber() - 1);
-				
+                    value = values.get(sign.getNumber() - 1);
+
 				OfflinePlayer player = null;
-				
+
 				for (OfflinePlayer op : stats.keySet()) {
 					if (stats.get(op) == value)
-						player = op;
+                        player = op;
 				}
-				
-				s.setLine(0, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
-                        .toString().toLowerCase(Locale.getDefault()) + ".line-1"))
-                        .replace("%number%", sign.getNumber() + "")
-						.replace("%player%",
-                                player == null || player.getName() == null ? "missingno" : player.getName())
-						.replace("%amount%", value + ""));
-				s.setLine(1, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
-                        .toString().toLowerCase(Locale.getDefault()) + ".line-2"))
-						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%",
-                                player == null || player.getName() == null ? "missingno" : player.getName())
-						.replace("%amount%", value + ""));
-				s.setLine(2, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
-                        .toString().toLowerCase(Locale.getDefault()) + ".line-3"))
-						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%",
-                                player == null || player.getName() == null ? "missingno" : player.getName())
-						.replace("%amount%", value + ""));
-				s.setLine(3, MessageManager.translate(messages.getString("signs.stat." + sign.getType()
-                        .toString().toLowerCase(Locale.getDefault()) + ".line-4"))
-						.replace("%number%", sign.getNumber() + "")
-						.replace("%player%",
-                                player == null || player.getName() == null ? "missingno" : player.getName())
-						.replace("%amount%", value + ""));
+
+				for (int i = 0; i < 4; i++)
+                    s.setLine(i, replace(MessageManager.translate(messages.getString("signs.stat." + sign
+                            .getType().toString().toLowerCase(Locale.getDefault()) + ".line-" + (i + 1))), sign, player,
+                            value));
 			} else {
 				s.setLine(0, "");
 				s.setLine(1, ChatColor.RED + "Stat type");
 				s.setLine(2, ChatColor.RED + "is disabled");
 				s.setLine(3, "");
 			}
-			
-			s.update(true);
+
+			s.update();
 		}
 	}
+
+    /**
+     * Replaces all values in the input with the corresponding values from the {@link SignManager#REPLACEMENTS}
+     *
+     * @param input the input string
+     * @param sign the sign to modify
+     * @param player the offline player to use
+     * @param value the value that belongs to the player
+     * @return the new string
+     * @since 5.3.0
+     */
+    @NotNull
+    @Contract(value = "null, _, _, _ -> fail", pure = true)
+    private String replace(String input, StatSign sign, OfflinePlayer player, int value) {
+        List<Character> list = new ArrayList<>(Chars.asList(input.toCharArray()));
+        Matcher matcher = Pattern.compile("%([^%]+)%").matcher(input);
+
+        while (matcher.find()) {
+            for (int i = matcher.start(); i < matcher.end(); i++)
+                list.remove(matcher.start());
+
+            BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String> function = REPLACEMENTS
+                    .get(matcher.group(1));
+
+            if (function == null)
+                continue;
+
+            char[] replacement = function.apply(sign, new AbstractMap.SimpleEntry<>(player, value)).toCharArray();
+
+            int length = replacement.length;
+            for (int i = 0; i < length; i++)
+                list.add(matcher.start() + i, replacement[i]);
+
+            StringBuilder builder = new StringBuilder();
+
+            for (char c : list)
+                builder.append(c);
+
+            input = builder.toString();
+
+            matcher.reset(input);
+        }
+
+        return input;
+    }
 
 	/**
      * Returns a collection of all random join signs
@@ -379,5 +413,21 @@ public final class SignManager {
                             arena.getState().toString().toLowerCase(Locale.getDefault()));
             }
         }
+    }
+
+    static {
+        REPLACEMENTS = new HashMap<>();
+        REPLACEMENTS.put("number", (sign, entry) -> String.valueOf(sign.getNumber()));
+        REPLACEMENTS.put("player", (sign, entry) -> {
+            OfflinePlayer player = entry.getKey();
+
+            if (player == null)
+                return "missingno";
+
+            String name = player.getName();
+
+            return player == null || name == null ? "missingno" : name;
+        });
+        REPLACEMENTS.put("amount", (sign, entry) -> String.valueOf(entry.getValue()));
     }
 }
