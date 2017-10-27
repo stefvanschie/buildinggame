@@ -1135,8 +1135,8 @@ public class Arena {
 						MessageManager.getInstance().send(player, message
 								.replace("%playerplot%", votingPlot.getPlayerFormat()));
 
-					gamePlayer.addTitleAndSubtitle(messages.getString("voting.title"
-							.replace("%playerplot%", votingPlot.getPlayerFormat())),
+					gamePlayer.addTitleAndSubtitle(messages.getString("voting.title")
+							.replace("%playerplot%", votingPlot.getPlayerFormat()),
                             messages.getString("voting.subtitle")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
