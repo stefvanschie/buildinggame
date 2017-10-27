@@ -278,7 +278,7 @@ public class Gui implements Listener {
 	/**
      * Called whenever a player clicks in an inventory
      *
-     * @param e the event representing the click in the ivnentory
+     * @param e the event representing the click in the inventory
      * @since 4.0.0
      */
 	@Contract("null -> fail")
@@ -286,12 +286,15 @@ public class Gui implements Listener {
 	public void onInventoryClick(InventoryClickEvent e) {
 		if (!e.getInventory().getName().equals(inventory.getName()))
 			return;
-		
+
 		Player player = (Player) e.getWhoClicked();
 		
 		if (!playerPages.containsKey(player))
 			return;
-		
+
+		if (e.getRawSlot() < 0 || e.getRawSlot() > inventory.getSize())
+		    return;
+
 		if (e.getCurrentItem() == null)
 			return;
 		
