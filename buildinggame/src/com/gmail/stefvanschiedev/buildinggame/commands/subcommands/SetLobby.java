@@ -60,7 +60,7 @@ public class SetLobby extends PlayerCommand {
 		
 		LobbyManager.getInstance().setup();
 		
-		MessageManager.getInstance().send(player, messages.getStringList("setLobby.succes"));
+		MessageManager.getInstance().send(player, messages.getStringList("commands.setlobby.success"));
 		
 		return CommandResult.SUCCESS;
 	}

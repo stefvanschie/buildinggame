@@ -55,7 +55,7 @@ public class SetMainSpawn extends PlayerCommand {
 		SettingsManager.getInstance().save();
 		
 		MainSpawnManager.getInstance().setMainSpawn(player.getLocation());
-		MessageManager.getInstance().send(player, messages.getStringList("setMainSpawn.succes"));
+		MessageManager.getInstance().send(player, messages.getStringList("commands.setmainspawn.success"));
 		
 		return CommandResult.SUCCESS;
 	}

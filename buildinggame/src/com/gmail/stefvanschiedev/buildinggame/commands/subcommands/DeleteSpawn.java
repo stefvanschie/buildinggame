@@ -90,7 +90,7 @@ public class DeleteSpawn extends ConsoleCommand {
 		BoundaryManager.getInstance().setup();
 		FloorManager.getInstance().setup();
 		
-		for (String message : messages.getStringList("deleteSpawn.succes"))
+		for (String message : messages.getStringList("commands.deletespawn.success"))
 			MessageManager.getInstance().send(sender, message
 					.replace("%place%", plot.getID() + ""));
 		

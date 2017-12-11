@@ -1,7 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResult;
@@ -32,6 +34,8 @@ public class ForceTheme extends PlayerCommand {
 	@NotNull
     @Override
 	public CommandResult onCommand(Player player, String[] args) {
+	    YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
 		if (args.length < 1) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Please specify a theme");
 			return CommandResult.ARGUMENT_EXCEPTION;
@@ -52,7 +56,9 @@ public class ForceTheme extends PlayerCommand {
 		}
 		
 		arena.getSubjectMenu().forceTheme(theme);
-		MessageManager.getInstance().send(player, ChatColor.GREEN + "Forced '" + theme + "' to be the theme");
+
+        for (String message : messages.getStringList("commands.forcetheme.success"))
+            MessageManager.getInstance().send(player, message.replace("%theme%", theme));
 		
 		return CommandResult.SUCCESS;
 	}

@@ -135,7 +135,7 @@ public class SetBounds extends PlayerCommand {
                     SettingsManager.getInstance().save();
                     BoundaryManager.getInstance().setup();
 
-                    for (String message : messages.getStringList("setBounds.succes"))
+                    for (String message : messages.getStringList("commands.setbounds.success"))
                         MessageManager.getInstance().send(player, message
                                 .replace("%place%", plotID + "")
                                 .replace("%arena%", name));
