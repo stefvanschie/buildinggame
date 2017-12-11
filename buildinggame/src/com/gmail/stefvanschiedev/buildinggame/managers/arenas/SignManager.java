@@ -109,31 +109,35 @@ public final class SignManager {
 			
 			if (!signs.contains(string + ".type"))
 				signs.set(string + ".type", "join");
-			
-			if (signs.getString(string + ".type").equals("join")) {
-				Arena arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
-			
-				if (arena == null) {
-					randomJoinSigns.add(sign);
-					continue;
-				}
-			
-				arena.addSign(sign);
 
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-					Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
-			} else if (signs.getString(string + ".type").equals("leave")) {
-				leaveSigns.add(sign);
-				
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-					Main.getInstance().getLogger().info("Found leave sign");
-			} else if (signs.getString(string + ".type").equals("stat")) {
-				statSigns.add(new StatSign(sign, StatType.valueOf(signs.getString(string + ".stat")),
-						Integer.parseInt(signs.getString(string + ".number"))));
-				
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-					Main.getInstance().getLogger().info("Found stat sign");
-			}
+            switch (signs.getString(string + ".type")) {
+                case "join":
+                    Arena arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
+
+                    if (arena == null) {
+                        randomJoinSigns.add(sign);
+                        continue;
+                    }
+
+                    arena.addSign(sign);
+
+                    if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                        Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
+                    break;
+                case "leave":
+                    leaveSigns.add(sign);
+
+                    if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                        Main.getInstance().getLogger().info("Found leave sign");
+                    break;
+                case "stat":
+                    statSigns.add(new StatSign(sign, StatType.valueOf(signs.getString(string + ".stat")),
+                            Integer.parseInt(signs.getString(string + ".number"))));
+
+                    if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                        Main.getInstance().getLogger().info("Found stat sign");
+                    break;
+            }
 		}
 
         if(config.getBoolean("signs.glass-colors-enabled")) {

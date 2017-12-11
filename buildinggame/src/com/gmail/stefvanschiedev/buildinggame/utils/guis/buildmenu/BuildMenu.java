@@ -85,7 +85,7 @@ public class BuildMenu extends Gui {
      * @see Plot
      */
     public BuildMenu(Plot plot) {
-		super(null, 36, MessageManager.translate(MESSAGES.getString("gui.options-title")), 1);
+		super(null, 45, MessageManager.translate(MESSAGES.getString("gui.options-title")), 1);
 
 		particlesMenu = new ParticlesMenu();
 		floorMenu = new FloorMenu(plot);
@@ -331,13 +331,13 @@ public class BuildMenu extends Gui {
         }
 
         if (CONFIG.getBoolean("gui.biome.enabled")) {
-            ItemStack banners = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.biome.id"));
-            ItemMeta bannersMeta = banners.getItemMeta();
-            bannersMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.biome.name")));
-            bannersMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.lores")));
-            banners.setItemMeta(bannersMeta);
+            ItemStack biome = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.biome.id"));
+            ItemMeta biomeMeta = biome.getItemMeta();
+            biomeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.biome.name")));
+            biomeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.lores")));
+            biome.setItemMeta(biomeMeta);
 
-            setItem(banners, new GuiAction() {
+            setItem(biome, new GuiAction() {
                 @Override
                 public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
                     if (type != GuiActionType.CLICK)
@@ -350,7 +350,7 @@ public class BuildMenu extends Gui {
                 }
             }, 25);
         }
-		
+
 		ItemStack close = new ItemStack(Material.BOOK, 1);
 		ItemMeta closeMeta = close.getItemMeta();
 		closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.close-menu.name")));
@@ -400,6 +400,7 @@ public class BuildMenu extends Gui {
             clear(23);
         if (!player.hasPermission("bg.buildmenu.biome"))
             clear(25);
+
 		
 		super.open(player, page);
 	}

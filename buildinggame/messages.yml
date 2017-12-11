@@ -4,30 +4,34 @@ global:
   permissionNode:
   - "&cYou don't have the required permission for that!"
   combine-names: " and "
-setMainSpawn:
-  succes:
-  - "&aBuildinggame main spawn has been set!"
-createArena:
-  succes:
-  - "&aArena %arena% created!"
-deleteArena:
-  succes:
-  - "&aArena %arena% deleted!"
-setSpawn:
-  succes:
-  - "&aSpawn %place% set!"
-deleteSpawn:
-  succes:
-  - "&aSpawn %place% deleted!"
-setLobby:
-  succes:
-  - "&aLobby set!"
-setMinPlayers:
-  succes:
-  - "&aMinimal amount of players set!"
-setBounds:
-  succes:
-  - "&aBoundaries for plot %place% in arena %arena% set!"
+commands:
+  setmainspawn:
+    success:
+    - "&aBuildinggame main spawn has been set!"
+  createarena:
+    success:
+    - "&aArena %arena% created!"
+  deletearena:
+    success:
+    - "&aArena %arena% deleted!"
+  setspawn:
+    success:
+    - "&aSpawn %place% set!"
+  deletespawn:
+    success:
+    - "&aSpawn %place% deleted!"
+  setlobby:
+    success:
+    - "&aLobby set!"
+  setminplayers:
+    success:
+    - "&aMinimal amount of players set!"
+  setbounds:
+    success:
+    - "&aBoundaries for plot %place% in arena %arena% set!"
+  forcetheme:
+    success:
+    - "&aForced '%theme%' to be the theme"
 leave:
   message:
   - "&6You have left the game!"

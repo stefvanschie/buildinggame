@@ -60,7 +60,7 @@ public class CreateArena extends ConsoleCommand {
         VoteTimerManager.getInstance().setup();
         WinTimerManager.getInstance().setup();
 		
-		for (String message : messages.getStringList("createArena.succes"))
+		for (String message : messages.getStringList("commands.createarena.success"))
 			MessageManager.getInstance().send(sender, message
 					.replace("%arena%", args[0]));
 		

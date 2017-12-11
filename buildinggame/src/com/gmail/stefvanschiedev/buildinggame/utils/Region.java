@@ -107,8 +107,8 @@ public class Region {
     @NotNull
     @Contract(pure = true)
     public Location getCenter() {
-        return new Location(world, lowX + ((highX - lowX) / 2.0), lowY + ((highY - lowY) / 2.0),
-                lowZ  + ((highZ - lowZ) / 2.0));
+        return new Location(world, lowX + (highX - lowX / 2.0), lowY + (highY - lowY / 2.0),
+                lowZ  + (highZ - lowZ / 2.0));
     }
 
     /**
@@ -167,5 +167,83 @@ public class Region {
         return location.getWorld().equals(world) && !(location.getBlockX() < lowX || location.getBlockX() > highX) &&
                 !(location.getBlockY() < lowY || location.getBlockY() > highY) &&
                 !(location.getBlockZ() < lowZ || location.getBlockZ() > highZ);
+    }
+
+    /**
+     * Returns the world this region is located in
+     *
+     * @return the world
+     * @since 5.4.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public World getWorld() {
+        return world;
+    }
+
+    /**
+     * Returns the lowest value on the x-axis
+     *
+     * @return the lowest x
+     * @since 5.4.0
+     */
+    @Contract(pure = true)
+    public int getLowX() {
+        return lowX;
+    }
+
+    /**
+     * Returns the lowest value on the y-axis
+     *
+     * @return the lowest y
+     * @since 5.4.0
+     */
+    @Contract(pure = true)
+    public int getLowY() {
+        return lowY;
+    }
+
+    /**
+     * Returns the lowest value on the z-axis
+     *
+     * @return the lowest z
+     * @since 5.4.0
+     */
+    @Contract(pure = true)
+    public int getLowZ() {
+        return lowZ;
+    }
+
+    /**
+     * Returns the highest value on the x-axis
+     *
+     * @return the highest x
+     * @since 5.4.0
+     */
+    @Contract(pure = true)
+    public int getHighX() {
+        return highX;
+    }
+
+    /**
+     * Returns the highest value on the y-axis
+     *
+     * @return the highest y
+     * @since 5.4.0
+     */
+    @Contract(pure = true)
+    public int getHighY() {
+        return highY;
+    }
+
+    /**
+     * Returns the highest value on the z-axis
+     *
+     * @return the highest z
+     * @since 5.4.0
+     */
+    @Contract(pure = true)
+    public int getHighZ() {
+        return highZ;
     }
 }

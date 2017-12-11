@@ -69,7 +69,7 @@ public class DeleteArena extends ConsoleCommand {
 		BoundaryManager.getInstance().setup();
 		FloorManager.getInstance().setup();
 		
-		for (String message : messages.getStringList("deleteArena.succes"))
+		for (String message : messages.getStringList("commands.deletearena.success"))
 			MessageManager.getInstance().send(sender, message
 					.replace("%arena%", arena.getName()));
 		

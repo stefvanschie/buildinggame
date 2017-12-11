@@ -600,14 +600,9 @@ public class Plot {
      */
 	@Contract(pure = true)
 	public boolean isFull() {
-		if (arena.getMode() == ArenaMode.TEAM) {
-			if ((arena.getMaxPlayers() / arena.getPlots().size()) == getGamePlayers().size())
-				return true;
-		} else if (!getGamePlayers().isEmpty())
-            return true;
-
-		return false;
-	}
+        return arena.getMode() == ArenaMode.TEAM ? (arena.getMaxPlayers() / arena.getPlots().size()) == getGamePlayers()
+                .size() : !getGamePlayers().isEmpty();
+    }
 
 	/**
      * Returns whether or not it's raining on this plot
