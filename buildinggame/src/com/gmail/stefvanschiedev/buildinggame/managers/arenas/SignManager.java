@@ -74,6 +74,11 @@ public final class SignManager {
 	private final Collection<StatSign> statSigns = new ArrayList<>();
 
     /**
+     * A map of all spectate signs
+     */
+	private final Map<Sign, OfflinePlayer> spectateSigns = new HashMap<>();
+
+    /**
      * A map of all replacements and their values
      */
     private static final Map<String, BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String>> REPLACEMENTS;
@@ -93,6 +98,7 @@ public final class SignManager {
 		randomJoinSigns.clear();
 		leaveSigns.clear();
 		statSigns.clear();
+		spectateSigns.clear();
 		
 		for (String string : signs.getKeys(false)) {
             BlockState state = new Location(Bukkit.getWorld(signs.getString(string + ".world")),
@@ -121,21 +127,28 @@ public final class SignManager {
 
                     arena.addSign(sign);
 
-                    if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                    if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
                     break;
                 case "leave":
                     leaveSigns.add(sign);
 
-                    if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                    if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found leave sign");
                     break;
                 case "stat":
                     statSigns.add(new StatSign(sign, StatType.valueOf(signs.getString(string + ".stat")),
                             Integer.parseInt(signs.getString(string + ".number"))));
 
-                    if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                    if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found stat sign");
+                    break;
+                case "spectate":
+                    spectateSigns.put(sign, Bukkit.getOfflinePlayer(UUID.fromString(signs.getString(string +
+                            ".player"))));
+
+                    if (config.getBoolean("debug"))
+                        Main.getInstance().getLogger().info("Found spectate sign");
                     break;
             }
 		}
@@ -167,6 +180,7 @@ public final class SignManager {
      * @since 3.1.0
      */
 	private void updateSigns() {
+	    updateSpectateSigns();
 		updateStatSigns();
 		updateLeaveSigns();
 		updateRandomJoinSigns();
@@ -324,6 +338,24 @@ public final class SignManager {
 	}
 
     /**
+     * Updates all spectator signs
+     *
+     * @since 5.4.0
+     */
+	private void updateSpectateSigns() {
+        for (Map.Entry<Sign, OfflinePlayer> entry : spectateSigns.entrySet()) {
+            Sign sign = entry.getKey();
+            OfflinePlayer offlinePlayer = entry.getValue();
+
+            sign.setLine(0, ChatColor.BOLD + "Building Game");
+            sign.setLine(1, "spectate");
+            sign.setLine(2, ChatColor.UNDERLINE + offlinePlayer.getName());
+
+            sign.update();
+        }
+    }
+
+    /**
      * Replaces all values in the input with the corresponding values from the {@link SignManager#REPLACEMENTS}
      *
      * @param input the input string
@@ -391,6 +423,18 @@ public final class SignManager {
     public Collection<Sign> getLeaveSigns() {
 		return leaveSigns;
 	}
+
+    /**
+     * Returns a map of all spectate signs and the corresponding players
+     *
+     * @return all spectate signs
+     * @since 5.4.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public Map<Sign, OfflinePlayer> getSpectateSigns() {
+        return spectateSigns;
+    }
 
     /**
      * Updates the blocks behind the signs according to the values given in the configuration.

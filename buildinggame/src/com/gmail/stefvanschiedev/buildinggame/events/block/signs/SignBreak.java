@@ -14,16 +14,16 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 /**
  * Handles players breaking statistic signs
  *
- * @since 3.1.0
+ * @since 5.4.0
  */
-public class StatSignBreak implements Listener {
+public class SignBreak implements Listener {
 
     /**
      * Handles players breaking statistic signs
      *
      * @param e an event indicating that a block is broken
      * @see BlockBreakEvent
-     * @since 3.1.0
+     * @since 5.4.0
      */
 	@EventHandler
 	public static void onBlockBreak(BlockBreakEvent e) {

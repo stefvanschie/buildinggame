@@ -1,8 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
 import com.gmail.stefvanschiedev.buildinggame.events.PerWorldInventoryCancel;
+import com.gmail.stefvanschiedev.buildinggame.events.block.signs.*;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
+import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateSign;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
@@ -16,11 +18,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.BlockDispenseItem;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.block.LiquidFlow;
 import com.gmail.stefvanschiedev.buildinggame.events.block.PistonBlockMove;
-import com.gmail.stefvanschiedev.buildinggame.events.block.signs.JoinSignBreak;
-import com.gmail.stefvanschiedev.buildinggame.events.block.signs.JoinSignCreate;
-import com.gmail.stefvanschiedev.buildinggame.events.block.signs.LeaveSignCreate;
-import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignBreak;
-import com.gmail.stefvanschiedev.buildinggame.events.block.signs.StatSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.ChickenSpawnByEgg;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityExplode;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntitySpawn;
@@ -201,11 +198,11 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new BlockBreak(), this);
 			pm.registerEvents(new BlockDispenseItem(), this);
 			pm.registerEvents(new BlockPlace(), this);
-			pm.registerEvents(new JoinSignBreak(), this);
 			pm.registerEvents(new JoinSignCreate(), this);
 			pm.registerEvents(new LeaveSignCreate(), this);
 			pm.registerEvents(new StatSignCreate(), this);
-			pm.registerEvents(new StatSignBreak(), this);
+			pm.registerEvents(new SpectateSignCreate(), this);
+			pm.registerEvents(new SignBreak(), this);
 			pm.registerEvents(new LiquidFlow(), this);
 			pm.registerEvents(new PistonBlockMove(), this);
 			
@@ -241,6 +238,7 @@ public class Main extends JavaPlugin {
 
 			pm.registerEvents(new ClickJoinSign(), this);
 			pm.registerEvents(new ClickLeaveSign(), this);
+			pm.registerEvents(new ClickSpectateSign(), this);
 			pm.registerEvents(new Drop(), this);
 			pm.registerEvents(new Interact(), this);
 			pm.registerEvents(new Leave(), this);
@@ -311,7 +309,6 @@ public class Main extends JavaPlugin {
 		long end = System.currentTimeMillis();
 		
 		getLogger().info("BuildingGame has been enabled in " + ((end - start) / 1000.0) + " seconds!");
-		
 	}
 
     /**
