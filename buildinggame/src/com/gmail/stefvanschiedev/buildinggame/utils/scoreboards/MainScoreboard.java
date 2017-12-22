@@ -71,7 +71,7 @@ public class MainScoreboard {
         this.player = player;
 
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.main.header")));
+		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.main.header"), player));
 		
 		List<String> strings = messages.getStringList("scoreboards.main.text");
 		
@@ -81,7 +81,7 @@ public class MainScoreboard {
 			team.setDisplayName("");
 			
 			teams.add(team);
-			this.strings.add(MessageManager.translate(strings.get(i)));
+			this.strings.add(MessageManager.translate(strings.get(i), player));
 		}
 	}
 
