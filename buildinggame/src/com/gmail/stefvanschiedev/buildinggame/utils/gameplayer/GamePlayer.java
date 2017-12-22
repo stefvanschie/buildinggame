@@ -391,7 +391,7 @@ public class GamePlayer {
                             .getField("SUBTITLE").get(null), getNMSClass("IChatBaseComponent")
                             .getDeclaredClasses()[0].getMethod("a", String.class).invoke(null,
                             ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" +
-                                    MessageManager.translate(subtitle) + "\"}"))));
+                                    MessageManager.translate(subtitle, player) + "\"}"))));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

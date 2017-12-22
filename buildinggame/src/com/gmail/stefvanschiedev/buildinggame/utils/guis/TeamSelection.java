@@ -57,13 +57,13 @@ public class TeamSelection extends Gui {
             itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
                     .replace("%plot%", plot.getID() + "")
                     .replace("%plot_players%", plot.getPlayers() + "")
-                    .replace("%plot_max_players%", plot.getMaxPlayers() + "")));
+                    .replace("%plot_max_players%", plot.getMaxPlayers() + ""), player));
 
             List<String> lores = new ArrayList<>();
 
             if (!config.getBoolean("team-selection.show-names-as-lore")) {
                 for (String lore : MESSAGES.getStringList("team-gui.team.lores"))
-                    lores.add(MessageManager.translate(lore));
+                    lores.add(MessageManager.translate(lore, player));
             } else {
                 for (GamePlayer gamePlayer : plot.getGamePlayers())
                     lores.add(gamePlayer.getPlayer().getName());

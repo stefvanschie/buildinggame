@@ -39,7 +39,7 @@ public class VoteBlocks {
 		try {
             ItemBuilder secondSlot = IDDecompiler.getInstance().decompile(player, config
                     .getString("voting.second-slot.id")).setDisplayName(MessageManager.translate(messages
-                    .getString("voting.second-slot-block"))).moveable(false).setClickEvent(event -> {
+                    .getString("voting.second-slot-block"), player)).moveable(false).setClickEvent(event -> {
                 plot.addVote(new Vote(config.getInt("voting.second-slot.points"), player));
                 return true;
             });
@@ -48,7 +48,7 @@ public class VoteBlocks {
 
             ItemBuilder thirdSlot = IDDecompiler.getInstance().decompile(player, config
                     .getString("voting.third-slot.id")).setDisplayName(MessageManager.translate(messages
-                    .getString("voting.third-slot-block"))).moveable(false).setClickEvent(event -> {
+                    .getString("voting.third-slot-block"), player)).moveable(false).setClickEvent(event -> {
                 plot.addVote(new Vote(config.getInt("voting.third-slot.points"), player));
                 return true;
             });
@@ -57,7 +57,7 @@ public class VoteBlocks {
 
             ItemBuilder fourthSlot = IDDecompiler.getInstance().decompile(player, config
                     .getString("voting.fourth-slot.id")).setDisplayName(MessageManager
-                    .translate(messages.getString("voting.fourth-slot-block"))).moveable(false).setClickEvent(event -> {
+                    .translate(messages.getString("voting.fourth-slot-block"), player)).moveable(false).setClickEvent(event -> {
                 plot.addVote(new Vote(config.getInt("voting.fourth-slot.points"), player));
                 return true;
             });
@@ -66,7 +66,7 @@ public class VoteBlocks {
 
             ItemBuilder fifthSlot = IDDecompiler.getInstance().decompile(player, config
                     .getString("voting.fifth-slot.id")).setDisplayName(MessageManager.translate(messages
-                    .getString("voting.fifth-slot-block"))).moveable(false).setClickEvent(event -> {
+                    .getString("voting.fifth-slot-block"), player)).moveable(false).setClickEvent(event -> {
                 plot.addVote(new Vote(config.getInt("voting.fifth-slot.points"), player));
                 return true;
             });
@@ -75,7 +75,7 @@ public class VoteBlocks {
 
             ItemBuilder sixthSlot = IDDecompiler.getInstance().decompile(player, config
                     .getString("voting.sixth-slot.id")).setDisplayName(MessageManager.translate(messages
-                    .getString("voting.sixth-slot-block"))).moveable(false).setClickEvent(event -> {
+                    .getString("voting.sixth-slot-block"), player)).moveable(false).setClickEvent(event -> {
                 plot.addVote(new Vote(config.getInt("voting.sixth-slot.points"), player));
                 return true;
             });
@@ -84,7 +84,7 @@ public class VoteBlocks {
 
             ItemBuilder seventhSlot = IDDecompiler.getInstance().decompile(player, config
                     .getString("voting.seventh-slot.id")).setDisplayName(MessageManager.translate(messages
-                    .getString("voting.seventh-slot-block"))).moveable(false).setClickEvent(event -> {
+                    .getString("voting.seventh-slot-block"), player)).moveable(false).setClickEvent(event -> {
                 plot.addVote(new Vote(config.getInt("voting.seventh-slot.points"), player));
                 return true;
             });
@@ -93,7 +93,7 @@ public class VoteBlocks {
 
             ItemBuilder eighthSlot = IDDecompiler.getInstance().decompile(player, config
                     .getString("voting.eighth-slot.id")).setDisplayName(MessageManager.translate(messages
-                    .getString("voting.eighth-slot-block"))).moveable(false).setClickEvent(event -> {
+                    .getString("voting.eighth-slot-block"), player)).moveable(false).setClickEvent(event -> {
                 plot.addVote(new Vote(config.getInt("voting.eighth-slot.points"), player));
                 return true;
             });

@@ -3,10 +3,13 @@ package com.gmail.stefvanschiedev.buildinggame.managers.messages;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,9 +54,15 @@ public final class MessageManager {
     public void send(CommandSender sender, String message) {
 		if (message.isEmpty())
 			return;
-		
-		sender.sendMessage(translate(SettingsManager.getInstance().getMessages().getString("global.prefix"))
-				+ translate(message));
+
+		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && sender instanceof Player) {
+		    Player player = (Player) sender;
+
+            sender.sendMessage(translate(SettingsManager.getInstance().getMessages()
+                    .getString("global.prefix"), player) + translate(message, player));
+        } else
+            sender.sendMessage(translate(SettingsManager.getInstance().getMessages()
+                    .getString("global.prefix")) + translate(message));
 	}
 
 	/**
@@ -68,9 +77,15 @@ public final class MessageManager {
 		for (String message : messages) {
 			if (message.isEmpty())
 				return;
-		
-			sender.sendMessage(translate(SettingsManager.getInstance().getMessages().getString("global.prefix")) 
-					+ translate(message));
+
+            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && sender instanceof Player) {
+                Player player = (Player) sender;
+
+                sender.sendMessage(translate(SettingsManager.getInstance().getMessages()
+                        .getString("global.prefix"), player) + translate(message, player));
+            } else
+                sender.sendMessage(translate(SettingsManager.getInstance().getMessages()
+                        .getString("global.prefix")) + translate(message));
 		}
 	}
 
@@ -86,8 +101,11 @@ public final class MessageManager {
     public void sendWithoutPrefix(CommandSender sender, String message) {
 		if (message.isEmpty())
 			return;
-		
-		sender.sendMessage(translate(message));
+
+		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && sender instanceof Player)
+            sender.sendMessage(translate(message, (Player) sender));
+		else
+		    sender.sendMessage(translate(message));
 	}
 
 	/**
@@ -131,6 +149,22 @@ public final class MessageManager {
                 .replace("%ayayxa%", "Prelude of Light"));
 	}
 
+    /**
+     * Does the same as {@link #translate(String)}, but it now also replaces PlaceholderAPI placeholders when it's
+     * enabled
+     *
+     * @param s the string to edit the placeholders in
+     * @param player the player to use for PlaceholderAPI placeholders
+     * @return the modified string
+     * @since 5.4.0
+     */
+    @NotNull
+    @Contract(value = "null, _ -> fail", pure = true)
+	public static String translate(String s, Player player) {
+        return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ?
+                PlaceholderAPI.setPlaceholders(player, translate(s)) : translate(s);
+    }
+
 	/**
      * Returns a list containing all provided strings with all variables edited to their corresponding values
      *
@@ -148,4 +182,20 @@ public final class MessageManager {
 		
 		return list;
 	}
+
+    /**
+     * Does the same as {@link #translate(Iterable)}, but it now also replaced PlaceholderAPI placeholders when it's
+     * enabled
+     *
+     * @param s an iterable containing all strings that should bhe modified
+     * @param player the player to use for PlaceholderAPI placeholders
+     * @return a list of strings which have been modified
+     * @since 5.4.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public static List<String> translate(Iterable<String> s, Player player) {
+        return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ?
+                PlaceholderAPI.setPlaceholders(player, translate(s)) : translate(s);
+    }
 }

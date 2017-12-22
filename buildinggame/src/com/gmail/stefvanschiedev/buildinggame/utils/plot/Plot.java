@@ -187,7 +187,7 @@ public class Plot {
 
         ItemBuilder spectatorLeaveItem = IDDecompiler.getInstance().decompile(spectator,
                 config.getString("leave-item.id")).setDisplayName(MessageManager.translate(SettingsManager
-                .getInstance().getMessages().getString("leave-item.name"))).setClickEvent(event -> {
+                .getInstance().getMessages().getString("leave-item.name"), spectator)).setClickEvent(event -> {
             gamePlayer.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
             removeSpectator(gamePlayer);
             MessageManager.getInstance().send(spectator, ChatColor.GREEN + "Stopped spectating");

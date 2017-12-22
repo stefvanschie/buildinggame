@@ -95,12 +95,12 @@ public class SubjectMenu extends Gui {
 			ItemStack item = new ItemStack(Material.PAPER);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.subject.name")
-					.replace("%subject%", subject)));
+					.replace("%subject%", subject), player));
 			List<String> lores = new ArrayList<>();
 				
 			for (String lore : MESSAGES.getStringList("subject-gui.subject.lores"))
 				lores.add(MessageManager.translate(lore
-					.replace("%votes%", getSubjectVote(subject).getVotes() + "")));
+					.replace("%votes%", getSubjectVote(subject).getVotes() + ""), player));
 				
 			meta.setLore(lores);
 			item.setItemMeta(meta);
@@ -126,11 +126,12 @@ public class SubjectMenu extends Gui {
 			//previous page
 			ItemStack prevItem = new ItemStack(Material.SUGAR_CANE);
 			ItemMeta prevMeta = prevItem.getItemMeta();
-			prevMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name")));
+			prevMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name"),
+                    player));
 			List<String> prevLores = new ArrayList<>();
 			
 			for (String lore : MESSAGES.getStringList("subject-gui.previous-page.lores"))
-				prevLores.add(MessageManager.translate(lore));
+				prevLores.add(MessageManager.translate(lore, player));
 			
 			prevMeta.setLore(prevLores);
 			prevItem.setItemMeta(prevMeta);
@@ -155,11 +156,12 @@ public class SubjectMenu extends Gui {
 			
 		ItemStack closeItem = new ItemStack(Material.BOOK);
 		ItemMeta closeMeta = closeItem.getItemMeta();
-		closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name")));
+		closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name"),
+                player));
 		List<String> closeLores = new ArrayList<>();
 			
 		for (String lore : MESSAGES.getStringList("subject-gui.close-menu.lores"))
-			closeLores.add(MessageManager.translate(lore));
+			closeLores.add(MessageManager.translate(lore, player));
 			
 		closeMeta.setLore(closeLores);
 		closeItem.setItemMeta(closeMeta);
@@ -184,11 +186,12 @@ public class SubjectMenu extends Gui {
 			//next page
 			ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
 			ItemMeta nextMeta = nextItem.getItemMeta();
-			nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name")));
+			nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name"),
+                    player));
 			List<String> nextLores = new ArrayList<>();
 			
 			for (String lore : MESSAGES.getStringList("subject-gui.next-page.lores"))
-				nextLores.add(MessageManager.translate(lore));
+				nextLores.add(MessageManager.translate(lore, player));
 			
 			nextMeta.setLore(nextLores);
 			nextItem.setItemMeta(nextMeta);

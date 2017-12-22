@@ -819,8 +819,8 @@ public class Arena {
 				if (getMode() == ArenaMode.TEAM) {
                     ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
                             .getString("team-selection.item.id")).setDisplayName(MessageManager
-                            .translate(messages.getString("team-gui.item.name"))).setLore(MessageManager
-                            .translate(messages.getStringList("team-gui.item.lores"))).setClickEvent(event -> {
+                            .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
+                            .translate(messages.getStringList("team-gui.item.lores"), player)).setClickEvent(event -> {
                         getTeamSelection().open(player);
                         return true;
                     });
@@ -832,8 +832,9 @@ public class Arena {
 				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
                     ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
                             .getString("subject-gui.item.id")).setDisplayName(MessageManager.translate(messages
-                            .getString("subject-gui.item.name"))).setLore(MessageManager.translate(messages
-                            .getStringList("subject-gui.item.lores"))).setClickEvent(event -> {
+                            .getString("subject-gui.item.name"), player)).setLore(MessageManager
+                            .translate(messages.getStringList("subject-gui.item.lores"), player))
+                            .setClickEvent(event -> {
                         getSubjectMenu().open(player);
                         return false;
                     });
@@ -843,7 +844,7 @@ public class Arena {
 
                 ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
                         .getString("leave-item.id")).setDisplayName(MessageManager.translate(messages
-                        .getString("leave-item.name"))).setClickEvent(event -> {
+                        .getString("leave-item.name"), player)).setClickEvent(event -> {
                     leave(player);
                     return true;
                 });
@@ -1241,8 +1242,8 @@ public class Arena {
 
 				if (config.getBoolean("gui.enable")) {
                     ItemBuilder itemBuilder = new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager
-                            .translate(messages.getString("gui.options-emerald"))).setLore(MessageManager
-                            .translate(messages.getStringList("gui.options-lores"))).moveable(false)
+                            .translate(messages.getString("gui.options-emerald"), player)).setLore(MessageManager
+                            .translate(messages.getStringList("gui.options-lores"), player)).moveable(false)
                             .setClickEvent(e -> {
                         getPlot(player).getBuildMenu().open(player);
                         return true;

@@ -155,7 +155,7 @@ public class Main extends Plugin implements Listener {
      *
      * @since 4.0.6
      */
-    public final class Receiver {
+    final class Receiver {
         /**
          * The name of the BungeeCord receiver
          */
