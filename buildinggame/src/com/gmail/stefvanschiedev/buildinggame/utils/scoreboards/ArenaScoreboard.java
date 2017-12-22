@@ -129,6 +129,7 @@ public abstract class ArenaScoreboard {
         replacements.put("date_minute", player -> String.valueOf(LocalDateTime.now().getMinute()));
         replacements.put("date_month", player -> LocalDateTime.now().getMonth().getDisplayName(TextStyle.FULL,
                 Locale.getDefault()));
+        replacements.put("date_month_numeric", player -> String.valueOf(LocalDateTime.now().getMonthValue()));
         replacements.put("date_second", player -> String.valueOf(LocalDateTime.now().getSecond()));
         replacements.put("date_year", player -> String.valueOf(LocalDateTime.now().getYear()));
         replacements.put("vote_name", player -> {
