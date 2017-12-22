@@ -134,6 +134,7 @@ public class MainScoreboard {
                     .replace("%date_minute%", localDateTime.getMinute() + "")
                     .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL,
                             Locale.getDefault()))
+                    .replace("%date_month_numeric%", String.valueOf(localDateTime.getMonthValue()))
                     .replace("%date_second%", localDateTime.getSecond() + "")
                     .replace("%date_year%", localDateTime.getYear() + "");
 			
