@@ -5,8 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -31,23 +29,13 @@ public class RemoveMenu extends Gui {
         removeMeta.setDisplayName(ChatColor.RED + "Remove entity");
         remove.setItemMeta(removeMeta);
 
-        addItem(remove, new GuiAction() {
+        addItem(remove, event -> {
+            plot.getEntities().remove(entity);
+            entity.remove();
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+            event.getWhoClicked().closeInventory();
 
-                plot.getEntities().remove(entity);
-                entity.remove();
-
-                ((InventoryInteractEvent) event).getWhoClicked().closeInventory();
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

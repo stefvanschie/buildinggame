@@ -4,7 +4,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.ChestedHorse;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,19 +26,10 @@ public class ChestMenu extends BabyMenu {
         chestMeta.setDisplayName(ChatColor.GREEN + "Set/Remove chest");
         chest.setItemMeta(chestMeta);
 
-        insertItem(chest, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        insertItem(chest, event -> {
+            chestedHorse.setCarryingChest(!chestedHorse.isCarryingChest());
 
-                chestedHorse.setCarryingChest(!chestedHorse.isCarryingChest());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

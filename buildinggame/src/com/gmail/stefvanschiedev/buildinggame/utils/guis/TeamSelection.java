@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -41,7 +39,8 @@ public class TeamSelection extends Gui {
      * @param arena the arena this team selection menu is for
      */
 	public TeamSelection(Arena arena) {
-		super(null, round(arena.getPlots().size()), MessageManager.translate(MESSAGES.getString("team-gui.title")), 1);
+		super(null, round(arena.getPlots().size()),
+                MessageManager.translate(MESSAGES.getString("team-gui.title")), 1);
 
 		this.arena = arena;
 	}
@@ -52,7 +51,8 @@ public class TeamSelection extends Gui {
         int iteration = 0;
 
         for (final Plot plot : arena.getPlots()) {
-            ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.team." + (iteration + 1) + ".id"));
+            ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.team." +
+                    (iteration + 1) + ".id"));
             ItemMeta itemMeta = item.getItemMeta();
             itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
                     .replace("%plot%", plot.getID() + "")
@@ -71,27 +71,18 @@ public class TeamSelection extends Gui {
 
             itemMeta.setLore(lores);
             item.setItemMeta(itemMeta);
-            setItem(item, new GuiAction() {
+            setItem(item, event -> {
+                Player p = (Player) event.getWhoClicked();
+                Plot previousPlot = arena.getPlot(p);
+                GamePlayer gamePlayer = previousPlot.getGamePlayer(p);
 
-                @Override
-                public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-                    if (type != GuiActionType.CLICK)
-                        return false;
+                if (plot.join(gamePlayer))
+                    previousPlot.leave(gamePlayer);
 
-                    InventoryClickEvent event = (InventoryClickEvent) e;
+                p.closeInventory();
+                update();
 
-                    Player player = (Player) event.getWhoClicked();
-                    Plot previousPlot = arena.getPlot(player);
-                    GamePlayer gamePlayer = previousPlot.getGamePlayer(player);
-
-                    if (plot.join(gamePlayer))
-                        previousPlot.leave(gamePlayer);
-
-                    player.closeInventory();
-                    update();
-
-                    return true;
-                }
+                event.setCancelled(true);
             }, iteration);
 
             iteration++;

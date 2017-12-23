@@ -8,8 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -55,7 +53,10 @@ public class SubjectMenu extends Gui {
      * Constructs a new SubjectMenu
      */
 	public SubjectMenu() {
-		super(null, 36, MessageManager.translate(MESSAGES.getString("subject-gui.title")), CONFIG.getInt("subject-gui.subject-amount") == -1 ? (int) Math.ceil(CONFIG.getStringList("subjects").size()/ 27.0) : (int) Math.ceil(CONFIG.getInt("subject-gui.subject-amount")/ 27.0));
+		super(null, 36, MessageManager.translate(MESSAGES.getString("subject-gui.title")),
+                CONFIG.getInt("subject-gui.subject-amount") == -1 ?
+                        (int) Math.ceil(CONFIG.getStringList("subjects").size() / 27.0) :
+                        (int) Math.ceil(CONFIG.getInt("subject-gui.subject-amount") / 27.0));
 	
 		int amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
 		
@@ -63,7 +64,8 @@ public class SubjectMenu extends Gui {
 			subjects.addAll(CONFIG.getStringList("subjects"));
 		else {
 			for (int i = 0; i < amountOfSubjects; i++)
-				subjects.add(CONFIG.getStringList("subjects").get(ThreadLocalRandom.current().nextInt(amountOfSubjects)));
+				subjects.add(CONFIG.getStringList("subjects").get(ThreadLocalRandom.current()
+                        .nextInt(amountOfSubjects)));
 		}
 		
 		for (String s : subjects)
@@ -105,20 +107,11 @@ public class SubjectMenu extends Gui {
 			meta.setLore(lores);
 			item.setItemMeta(meta);
 			
-			addItem(item, new GuiAction() {
-					
-				@Override
-				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-					if (type != GuiActionType.CLICK)
-						return false;
-						
-					InventoryClickEvent event = (InventoryClickEvent) e;
-						
-					addVote((Player) event.getWhoClicked(), subject);
-					update();
-						
-					return true;
-				}
+			addItem(item, event ->  {
+                addVote((Player) event.getWhoClicked(), subject);
+                update();
+
+                event.setCancelled(true);
 			});
 		}
 			
@@ -136,21 +129,12 @@ public class SubjectMenu extends Gui {
 			prevMeta.setLore(prevLores);
 			prevItem.setItemMeta(prevMeta);
 				
-			setItem(prevItem, new GuiAction() {
-					
-				@Override
-				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-					if (type != GuiActionType.CLICK)
-						return false;
-						
-					InventoryClickEvent event = (InventoryClickEvent) e;
-					Player player = (Player) event.getWhoClicked();
-						
-					open(player, getPage(player) - 1 == 0 ? 1 : getPage(player) - 1);
-						
-					return true;
-				}
-					
+			setItem(prevItem, event -> {
+                Player p = (Player) event.getWhoClicked();
+
+                open(p, getPage(p) - 1 == 0 ? 1 : getPage(p) - 1);
+
+                event.setCancelled(true);
 			}, 29 + ((page - 1) * 36));
 		}
 			
@@ -166,20 +150,13 @@ public class SubjectMenu extends Gui {
 		closeMeta.setLore(closeLores);
 		closeItem.setItemMeta(closeMeta);
 			
-		setItem(closeItem, new GuiAction() {
+		setItem(closeItem, event -> {
+            HumanEntity humanEntity = event.getWhoClicked();
 
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-					
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				HumanEntity humanEntity = event.getWhoClicked();
-					
-				humanEntity.closeInventory();
-				removePlayer((Player) humanEntity);
-				return true;
-			}
+            humanEntity.closeInventory();
+            removePlayer((Player) humanEntity);
+
+            event.setCancelled(true);
 		}, 31 + ((page - 1) * 36));
 			
 		if (subjects.size() > 27 * page) {
@@ -196,20 +173,12 @@ public class SubjectMenu extends Gui {
 			nextMeta.setLore(nextLores);
 			nextItem.setItemMeta(nextMeta);
 				
-			setItem(nextItem, new GuiAction() {
-					
-				@Override
-				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-					if (type != GuiActionType.CLICK)
-						return false;
-						
-					InventoryClickEvent event = (InventoryClickEvent) e;
-					Player player = (Player) event.getWhoClicked();
-						
-					open(player, getPage(player) + 1);
-						
-					return true;
-				}
+			setItem(nextItem, event -> {
+                Player p = (Player) event.getWhoClicked();
+
+                open(p, getPage(p) + 1);
+
+                event.setCancelled(true);
 			}, 33 + ((page - 1) * 36));
 		}
 		

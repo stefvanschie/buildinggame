@@ -4,7 +4,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Parrot;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
@@ -30,20 +29,10 @@ class ParrotTypeMenu extends Gui {
         blueMeta.setDisplayName(ChatColor.GREEN + "Blue");
         blue.setItemMeta(blueMeta);
 
-        addItem(blue, new GuiAction() {
+        addItem(blue, event -> {
+            parrot.setVariant(Parrot.Variant.BLUE);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                parrot.setVariant(Parrot.Variant.BLUE);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //cyan
@@ -52,20 +41,10 @@ class ParrotTypeMenu extends Gui {
         cyanMeta.setDisplayName(ChatColor.GREEN + "Cyan");
         cyan.setItemMeta(cyanMeta);
 
-        addItem(cyan, new GuiAction() {
+        addItem(cyan, event -> {
+            parrot.setVariant(Parrot.Variant.CYAN);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                parrot.setVariant(Parrot.Variant.CYAN);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //gray
@@ -74,20 +53,10 @@ class ParrotTypeMenu extends Gui {
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
 
-        addItem(gray, new GuiAction() {
+        addItem(gray, event -> {
+            parrot.setVariant(Parrot.Variant.GRAY);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                parrot.setVariant(Parrot.Variant.GRAY);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //green
@@ -96,20 +65,10 @@ class ParrotTypeMenu extends Gui {
         greenMeta.setDisplayName(ChatColor.GREEN + "Green");
         green.setItemMeta(greenMeta);
 
-        addItem(green, new GuiAction() {
+        addItem(green, event -> {
+            parrot.setVariant(Parrot.Variant.GREEN);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                parrot.setVariant(Parrot.Variant.GREEN);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //red
@@ -118,20 +77,10 @@ class ParrotTypeMenu extends Gui {
         redMeta.setDisplayName(ChatColor.GREEN + "Red");
         red.setItemMeta(redMeta);
 
-        addItem(red, new GuiAction() {
+        addItem(red, event -> {
+            parrot.setVariant(Parrot.Variant.RED);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                parrot.setVariant(Parrot.Variant.RED);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

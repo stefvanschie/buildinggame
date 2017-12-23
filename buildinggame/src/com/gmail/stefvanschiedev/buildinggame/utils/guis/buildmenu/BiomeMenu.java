@@ -7,7 +7,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -18,8 +17,16 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 class BiomeMenu extends Gui {
 
+    /**
+     * YAML Configuration for the messages.yml
+     */
     private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
 
+    /**
+     * Constructs a new biome menu for the specified plot
+     *
+     * @param plot the plot this menu belongs to
+     */
     BiomeMenu(Plot plot) {
         super(null, 18, MessageManager.translate(MESSAGES.getString("gui.biome.title")),
                 1);
@@ -31,20 +38,14 @@ class BiomeMenu extends Gui {
         icePlainsMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.ice-plains.lores")));
         icePlains.setItemMeta(icePlainsMeta);
 
-        addItem(icePlains, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(icePlains, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.ICE_FLATS));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.ICE_FLATS));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //taiga
@@ -54,20 +55,14 @@ class BiomeMenu extends Gui {
         taigaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.taiga.lores")));
         taiga.setItemMeta(taigaMeta);
 
-        addItem(taiga, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(taiga, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.TAIGA));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.TAIGA));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //extreme hills
@@ -79,20 +74,14 @@ class BiomeMenu extends Gui {
                 .getStringList("gui.biome.extreme-hills.lores")));
         extremeHills.setItemMeta(extremeHillsMeta);
 
-        addItem(extremeHills, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(extremeHills, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.EXTREME_HILLS));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.EXTREME_HILLS));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //plains
@@ -102,20 +91,14 @@ class BiomeMenu extends Gui {
         plainsMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.plains.lores")));
         plains.setItemMeta(plainsMeta);
 
-        addItem(plains, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(plains, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.PLAINS));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.PLAINS));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //forest
@@ -125,20 +108,14 @@ class BiomeMenu extends Gui {
         forestMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.forest.lores")));
         forest.setItemMeta(forestMeta);
 
-        addItem(forest, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(forest, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.FOREST));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.FOREST));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //roofed forest
@@ -150,20 +127,14 @@ class BiomeMenu extends Gui {
                 .getStringList("gui.biome.roofed-forest.lores")));
         roofedForest.setItemMeta(roofedForestMeta);
 
-        addItem(roofedForest, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(roofedForest, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.ROOFED_FOREST));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.ROOFED_FOREST));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //swampland
@@ -173,20 +144,14 @@ class BiomeMenu extends Gui {
         swamplandMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.swampland.lores")));
         swampland.setItemMeta(swamplandMeta);
 
-        addItem(swampland, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(swampland, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.SWAMPLAND));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.SWAMPLAND));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //jungle
@@ -196,20 +161,14 @@ class BiomeMenu extends Gui {
         jungleMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.jungle.lores")));
         jungle.setItemMeta(jungleMeta);
 
-        addItem(jungle, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(jungle, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.JUNGLE));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.JUNGLE));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //mushroom island
@@ -221,20 +180,14 @@ class BiomeMenu extends Gui {
                 .getStringList("gui.biome.mushroom-island.lores")));
         mushroomIsland.setItemMeta(mushroomIslandMeta);
 
-        addItem(mushroomIsland, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(mushroomIsland, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.MUSHROOM_ISLAND));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.MUSHROOM_ISLAND));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //the end
@@ -244,20 +197,14 @@ class BiomeMenu extends Gui {
         theEndMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.the-end.lores")));
         theEnd.setItemMeta(theEndMeta);
 
-        addItem(theEnd, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(theEnd, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.SKY));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.SKY));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //mesa
@@ -267,20 +214,14 @@ class BiomeMenu extends Gui {
         desertMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.mesa.lores")));
         desert.setItemMeta(desertMeta);
 
-        addItem(desert, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(desert, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.DESERT));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.DESERT));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //savanna
@@ -290,20 +231,14 @@ class BiomeMenu extends Gui {
         savannaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.savanna.lores")));
         savanna.setItemMeta(savannaMeta);
 
-        addItem(savanna, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(savanna, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.SAVANNA));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.SAVANNA));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //mesa
@@ -313,20 +248,14 @@ class BiomeMenu extends Gui {
         mesaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.mesa.lores")));
         mesa.setItemMeta(mesaMeta);
 
-        addItem(mesa, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(mesa, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.MESA));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.MESA));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //the nether
@@ -336,20 +265,14 @@ class BiomeMenu extends Gui {
         theNetherMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.the-nether.lores")));
         theNether.setItemMeta(theNetherMeta);
 
-        addItem(theNether, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(theNether, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.HELL));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.HELL));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //ocean
@@ -359,20 +282,14 @@ class BiomeMenu extends Gui {
         oceanMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.ocean.lores")));
         ocean.setItemMeta(oceanMeta);
 
-        addItem(ocean, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(ocean, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.OCEAN));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.OCEAN));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //the void
@@ -382,20 +299,14 @@ class BiomeMenu extends Gui {
         theVoidMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.the-void.lores")));
         theVoid.setItemMeta(theVoidMeta);
 
-        addItem(theVoid, new GuiAction() {
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(theVoid, event -> {
+            plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.VOID));
 
-                plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(Biome.VOID));
+            //just send it to all players directly, so we don't have to do weird trickery
+            plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(p ->
+                    p.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 
-                //just send it to all players directly, so we don't have to do weird trickery
-                plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().forEach(plot ->
-                        plot.getAllGamePlayers().forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

@@ -1,17 +1,14 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu;
 
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.SkullItem;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * The gui for the heads in the alphabet category
@@ -30,7 +27,8 @@ public class AlphabetHeadsMenu extends Gui {
      *
      * @since 4.0.0
      */
-	public AlphabetHeadsMenu() {
+	@SuppressWarnings("deprecation")
+    public AlphabetHeadsMenu() {
 		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.heads.alphabet.title")), 3);
 		
 		//page one
@@ -40,7 +38,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowUpMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-up.lores")));
 		arrowUp.setItemMeta(arrowUpMeta);
 		
-		addItem(arrowUp, new Action());
+		addItem(arrowUp, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack arrowDown = SkullItem.getSkull("http://textures.minecraft.net/texture/2dadd755d08537352bf7a93e3bb7dd4d733121d39f2fb67073cd471f561194dd");
 		ItemMeta arrowDownMeta = arrowDown.getItemMeta();
@@ -48,7 +49,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowDownMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-down.lores")));
 		arrowDown.setItemMeta(arrowDownMeta);
 		
-		addItem(arrowDown, new Action());
+		addItem(arrowDown, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack arrowRight = SkullItem.getSkull("http://textures.minecraft.net/texture/1b6f1a25b6bc199946472aedb370522584ff6f4e83221e5946bd2e41b5ca13b");
 		ItemMeta arrowRightMeta = arrowRight.getItemMeta();
@@ -56,7 +60,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowRightMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-right.lores")));
 		arrowRight.setItemMeta(arrowRightMeta);
 		
-		addItem(arrowRight, new Action());
+		addItem(arrowRight, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack arrowLeft = SkullItem.getSkull("http://textures.minecraft.net/texture/3ebf907494a935e955bfcadab81beafb90fb9be49c7026ba97d798d5f1a23");
 		ItemMeta arrowLeftMeta = arrowLeft.getItemMeta();
@@ -64,7 +71,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowLeftMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-left.lores")));
 		arrowLeft.setItemMeta(arrowLeftMeta);
 		
-		addItem(arrowLeft, new Action());
+		addItem(arrowLeft, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack question = SkullItem.getSkull("http://textures.minecraft.net/texture/5163dafac1d91a8c91db576caac784336791a6e18d8f7f62778fc47bf146b6");
 		ItemMeta questionMeta = question.getItemMeta();
@@ -72,7 +82,10 @@ public class AlphabetHeadsMenu extends Gui {
 		questionMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.question.lores")));
 		question.setItemMeta(questionMeta);
 		
-		addItem(question, new Action());
+		addItem(question, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack exclamation = SkullItem.getSkull("http://textures.minecraft.net/texture/6a53bdd1545531c9ebb9c6f895bc576012f61820e6f489885988a7e8709a3f48");
 		ItemMeta exclamationMeta = exclamation.getItemMeta();
@@ -80,7 +93,10 @@ public class AlphabetHeadsMenu extends Gui {
 		exclamationMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.exclamation.lores")));
 		exclamation.setItemMeta(exclamationMeta);
 		
-		addItem(exclamation, new Action());
+		addItem(exclamation, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack dot = SkullItem.getSkull("http://textures.minecraft.net/texture/733aa24916c88696ee71db7ac8cd306ad73096b5b6ffd868e1c384b1d62cfb3c");
 		ItemMeta dotMeta = dot.getItemMeta();
@@ -88,7 +104,10 @@ public class AlphabetHeadsMenu extends Gui {
 		dotMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.dot.lores")));
 		dot.setItemMeta(dotMeta);
 		
-		addItem(dot, new Action());
+		addItem(dot, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack slash = SkullItem.getSkull("http://textures.minecraft.net/texture/7f95d7c1bbf3afa285d8d96757bb5572259a3ae854f5389dc53207699d94fd8");
 		ItemMeta slashMeta = slash.getItemMeta();
@@ -96,7 +115,10 @@ public class AlphabetHeadsMenu extends Gui {
 		slashMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.slash.lores")));
 		slash.setItemMeta(slashMeta);
 		
-		addItem(slash, new Action());
+		addItem(slash, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack a = SkullItem.getSkull("http://textures.minecraft.net/texture/a67d813ae7ffe5be951a4f41f2aa619a5e3894e85ea5d4986f84949c63d7672e");
 		ItemMeta aMeta = a.getItemMeta();
@@ -104,7 +126,10 @@ public class AlphabetHeadsMenu extends Gui {
 		aMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.a.lores")));
 		a.setItemMeta(aMeta);
 		
-		addItem(a, new Action());
+		addItem(a, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack b = SkullItem.getSkull("http://textures.minecraft.net/texture/50c1b584f13987b466139285b2f3f28df6787123d0b32283d8794e3374e23");
 		ItemMeta bMeta = b.getItemMeta();
@@ -112,7 +137,10 @@ public class AlphabetHeadsMenu extends Gui {
 		bMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.b.lores")));
 		b.setItemMeta(bMeta);
 		
-		addItem(b, new Action());
+		addItem(b, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack c = SkullItem.getSkull("http://textures.minecraft.net/texture/abe983ec478024ec6fd046fcdfa4842676939551b47350447c77c13af18e6f");
 		ItemMeta cMeta = c.getItemMeta();
@@ -120,7 +148,10 @@ public class AlphabetHeadsMenu extends Gui {
 		cMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.c.lores")));
 		c.setItemMeta(cMeta);
 		
-		addItem(c, new Action());
+		addItem(c, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack d = SkullItem.getSkull("http://textures.minecraft.net/texture/3193dc0d4c5e80ff9a8a05d2fcfe269539cb3927190bac19da2fce61d71");
 		ItemMeta dMeta = d.getItemMeta();
@@ -128,7 +159,10 @@ public class AlphabetHeadsMenu extends Gui {
 		dMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.d.lores")));
 		d.setItemMeta(dMeta);
 		
-		addItem(d, new Action());
+		addItem(d, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack e = SkullItem.getSkull("http://textures.minecraft.net/texture/dbb2737ecbf910efe3b267db7d4b327f360abc732c77bd0e4eff1d510cdef");
 		ItemMeta eMeta = e.getItemMeta();
@@ -136,7 +170,10 @@ public class AlphabetHeadsMenu extends Gui {
 		eMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.e.lores")));
 		e.setItemMeta(eMeta);
 		
-		addItem(e, new Action());
+		addItem(e, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack f = SkullItem.getSkull("http://textures.minecraft.net/texture/b183bab50a3224024886f25251d24b6db93d73c2432559ff49e459b4cd6a");
 		ItemMeta fMeta = f.getItemMeta();
@@ -144,7 +181,10 @@ public class AlphabetHeadsMenu extends Gui {
 		fMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.f.lores")));
 		f.setItemMeta(fMeta);
 		
-		addItem(f, new Action());
+		addItem(f, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack g = SkullItem.getSkull("http://textures.minecraft.net/texture/1ca3f324beeefb6a0e2c5b3c46abc91ca91c14eba419fa4768ac3023dbb4b2");
 		ItemMeta gMeta = g.getItemMeta();
@@ -152,7 +192,10 @@ public class AlphabetHeadsMenu extends Gui {
 		gMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.g.lores")));
 		g.setItemMeta(gMeta);
 		
-		addItem(g, new Action());
+		addItem(g, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack h = SkullItem.getSkull("http://textures.minecraft.net/texture/31f3462a473549f1469f897f84a8d4119bc71d4a5d852e85c26b588a5c0c72f");
 		ItemMeta hMeta = h.getItemMeta();
@@ -160,7 +203,10 @@ public class AlphabetHeadsMenu extends Gui {
 		hMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.h.lores")));
 		h.setItemMeta(hMeta);
 		
-		addItem(h, new Action());
+		addItem(h, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack i = SkullItem.getSkull("http://textures.minecraft.net/texture/46178ad51fd52b19d0a3888710bd92068e933252aac6b13c76e7e6ea5d3226");
 		ItemMeta iMeta = i.getItemMeta();
@@ -168,7 +214,10 @@ public class AlphabetHeadsMenu extends Gui {
 		iMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.i.lores")));
 		i.setItemMeta(iMeta);
 		
-		addItem(i, new Action());
+		addItem(i, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack j = SkullItem.getSkull("http://textures.minecraft.net/texture/3a79db9923867e69c1dbf17151e6f4ad92ce681bcedd3977eebbc44c206f49");
 		ItemMeta jMeta = j.getItemMeta();
@@ -176,7 +225,10 @@ public class AlphabetHeadsMenu extends Gui {
 		jMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.j.lores")));
 		j.setItemMeta(jMeta);
 		
-		addItem(j, new Action());
+		addItem(j, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack k = SkullItem.getSkull("http://textures.minecraft.net/texture/9461b38c8e45782ada59d16132a4222c193778e7d70c4542c9536376f37be42");
 		ItemMeta kMeta = k.getItemMeta();
@@ -184,7 +236,10 @@ public class AlphabetHeadsMenu extends Gui {
 		kMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.k.lores")));
 		k.setItemMeta(kMeta);
 		
-		addItem(k, new Action());
+		addItem(k, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack l = SkullItem.getSkull("http://textures.minecraft.net/texture/319f50b432d868ae358e16f62ec26f35437aeb9492bce1356c9aa6bb19a386");
 		ItemMeta lMeta = l.getItemMeta();
@@ -192,7 +247,10 @@ public class AlphabetHeadsMenu extends Gui {
 		lMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.l.lores")));
 		l.setItemMeta(lMeta);
 		
-		addItem(l, new Action());
+		addItem(l, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack m = SkullItem.getSkull("http://textures.minecraft.net/texture/49c45a24aaabf49e217c15483204848a73582aba7fae10ee2c57bdb76482f");
 		ItemMeta mMeta = m.getItemMeta();
@@ -200,7 +258,10 @@ public class AlphabetHeadsMenu extends Gui {
 		mMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet1.m.lores")));
 		m.setItemMeta(mMeta);
 		
-		addItem(m, new Action());
+		addItem(m, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack n = SkullItem.getSkull("http://textures.minecraft.net/texture/35b8b3d8c77dfb8fbd2495c842eac94fffa6f593bf15a2574d854dff3928");
 		ItemMeta nMeta = n.getItemMeta();
@@ -208,7 +269,10 @@ public class AlphabetHeadsMenu extends Gui {
 		nMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.n.lores")));
 		n.setItemMeta(nMeta);
 		
-		addItem(n, new Action());
+		addItem(n, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack o = SkullItem.getSkull("http://textures.minecraft.net/texture/d11de1cadb2ade61149e5ded1bd885edf0df6259255b33b587a96f983b2a1");
 		ItemMeta oMeta = o.getItemMeta();
@@ -216,7 +280,10 @@ public class AlphabetHeadsMenu extends Gui {
 		oMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.o.lores")));
 		o.setItemMeta(oMeta);
 		
-		addItem(o, new Action());
+		addItem(o, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack p = SkullItem.getSkull("http://textures.minecraft.net/texture/a0a7989b5d6e621a121eedae6f476d35193c97c1a7cb8ecd43622a485dc2e912");
 		ItemMeta pMeta = p.getItemMeta();
@@ -224,7 +291,10 @@ public class AlphabetHeadsMenu extends Gui {
 		pMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.p.lores")));
 		p.setItemMeta(pMeta);
 		
-		addItem(p, new Action());
+		addItem(p, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack q = SkullItem.getSkull("http://textures.minecraft.net/texture/43609f1faf81ed49c5894ac14c94ba52989fda4e1d2a52fd945a55ed719ed4");
 		ItemMeta qMeta = q.getItemMeta();
@@ -232,7 +302,10 @@ public class AlphabetHeadsMenu extends Gui {
 		qMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.q.lores")));
 		q.setItemMeta(qMeta);
 		
-		addItem(q, new Action());
+		addItem(q, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack r = SkullItem.getSkull("http://textures.minecraft.net/texture/a5ced9931ace23afc351371379bf05c635ad186943bc136474e4e5156c4c37");
 		ItemMeta rMeta = r.getItemMeta();
@@ -240,7 +313,10 @@ public class AlphabetHeadsMenu extends Gui {
 		rMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.r.lores")));
 		r.setItemMeta(rMeta);
 		
-		addItem(r, new Action());
+		addItem(r, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack s = SkullItem.getSkull("http://textures.minecraft.net/texture/3e41c60572c533e93ca421228929e54d6c856529459249c25c32ba33a1b1517");
 		ItemMeta sMeta = s.getItemMeta();
@@ -248,7 +324,10 @@ public class AlphabetHeadsMenu extends Gui {
 		sMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.s.lores")));
 		s.setItemMeta(sMeta);
 		
-		addItem(s, new Action());
+		addItem(s, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack t = SkullItem.getSkull("http://textures.minecraft.net/texture/1562e8c1d66b21e459be9a24e5c027a34d269bdce4fbee2f7678d2d3ee4718");
 		ItemMeta tMeta = t.getItemMeta();
@@ -256,7 +335,10 @@ public class AlphabetHeadsMenu extends Gui {
 		tMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.t.lores")));
 		t.setItemMeta(tMeta);
 		
-		addItem(t, new Action());
+		addItem(t, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack u = SkullItem.getSkull("http://textures.minecraft.net/texture/607fbc339ff241ac3d6619bcb68253dfc3c98782baf3f1f4efdb954f9c26");
 		ItemMeta uMeta = u.getItemMeta();
@@ -264,7 +346,10 @@ public class AlphabetHeadsMenu extends Gui {
 		uMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.u.lores")));
 		u.setItemMeta(uMeta);
 		
-		addItem(u, new Action());
+		addItem(u, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack v = SkullItem.getSkull("http://textures.minecraft.net/texture/cc9a138638fedb534d79928876baba261c7a64ba79c424dcbafcc9bac7010b8");
 		ItemMeta vMeta = v.getItemMeta();
@@ -272,7 +357,10 @@ public class AlphabetHeadsMenu extends Gui {
 		vMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.v.lores")));
 		v.setItemMeta(vMeta);
 		
-		addItem(v, new Action());
+		addItem(v, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack w = SkullItem.getSkull("http://textures.minecraft.net/texture/269ad1a88ed2b074e1303a129f94e4b710cf3e5b4d995163567f68719c3d9792");
 		ItemMeta wMeta = w.getItemMeta();
@@ -280,7 +368,10 @@ public class AlphabetHeadsMenu extends Gui {
 		wMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.w.lores")));
 		w.setItemMeta(wMeta);
 		
-		addItem(w, new Action());
+		addItem(w, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack x = SkullItem.getSkull("http://textures.minecraft.net/texture/5a6787ba32564e7c2f3a0ce64498ecbb23b89845e5a66b5cec7736f729ed37");
 		ItemMeta xMeta = x.getItemMeta();
@@ -288,7 +379,10 @@ public class AlphabetHeadsMenu extends Gui {
 		xMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.x.lores")));
 		x.setItemMeta(xMeta);
 		
-		addItem(x, new Action());
+		addItem(x, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack y = SkullItem.getSkull("http://textures.minecraft.net/texture/c52fb388e33212a2478b5e15a96f27aca6c62ac719e1e5f87a1cf0de7b15e918");
 		ItemMeta yMeta = y.getItemMeta();
@@ -296,7 +390,10 @@ public class AlphabetHeadsMenu extends Gui {
 		yMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.y.lores")));
 		y.setItemMeta(yMeta);
 		
-		addItem(x, new Action());
+		addItem(x, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack z = SkullItem.getSkull("http://textures.minecraft.net/texture/90582b9b5d97974b11461d63eced85f438a3eef5dc3279f9c47e1e38ea54ae8d");
 		ItemMeta zMeta = z.getItemMeta();
@@ -304,7 +401,10 @@ public class AlphabetHeadsMenu extends Gui {
 		zMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.z.lores")));
 		z.setItemMeta(zMeta);
 		
-		addItem(z, new Action());
+		addItem(z, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack one = SkullItem.getSkull("http://textures.minecraft.net/texture/71bc2bcfb2bd3759e6b1e86fc7a79585e1127dd357fc202893f9de241bc9e530");
 		ItemMeta oneMeta = one.getItemMeta();
@@ -312,7 +412,10 @@ public class AlphabetHeadsMenu extends Gui {
 		oneMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.1.lores")));
 		one.setItemMeta(oneMeta);
 		
-		addItem(one, new Action());
+		addItem(one, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack two = SkullItem.getSkull("http://textures.minecraft.net/texture/4cd9eeee883468881d83848a46bf3012485c23f75753b8fbe8487341419847");
 		ItemMeta twoMeta = two.getItemMeta();
@@ -320,7 +423,10 @@ public class AlphabetHeadsMenu extends Gui {
 		twoMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.2.lores")));
 		two.setItemMeta(twoMeta);
 		
-		addItem(two, new Action());
+		addItem(two, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack three = SkullItem.getSkull("http://textures.minecraft.net/texture/1d4eae13933860a6df5e8e955693b95a8c3b15c36b8b587532ac0996bc37e5");
 		ItemMeta threeMeta = three.getItemMeta();
@@ -328,7 +434,10 @@ public class AlphabetHeadsMenu extends Gui {
 		threeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.3.lores")));
 		three.setItemMeta(threeMeta);
 		
-		addItem(three, new Action());
+		addItem(three, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack four = SkullItem.getSkull("http://textures.minecraft.net/texture/d2e78fb22424232dc27b81fbcb47fd24c1acf76098753f2d9c28598287db5");
 		ItemMeta fourMeta = four.getItemMeta();
@@ -336,7 +445,10 @@ public class AlphabetHeadsMenu extends Gui {
 		fourMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.4.lores")));
 		four.setItemMeta(fourMeta);
 		
-		addItem(four, new Action());
+		addItem(four, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack five = SkullItem.getSkull("http://textures.minecraft.net/texture/6d57e3bc88a65730e31a14e3f41e038a5ecf0891a6c243643b8e5476ae2");
 		ItemMeta fiveMeta = five.getItemMeta();
@@ -344,7 +456,10 @@ public class AlphabetHeadsMenu extends Gui {
 		fiveMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.5.lores")));
 		five.setItemMeta(fiveMeta);
 		
-		addItem(five, new Action());
+		addItem(five, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack six = SkullItem.getSkull("http://textures.minecraft.net/texture/334b36de7d679b8bbc725499adaef24dc518f5ae23e716981e1dcc6b2720ab");
 		ItemMeta sixMeta = six.getItemMeta();
@@ -352,7 +467,10 @@ public class AlphabetHeadsMenu extends Gui {
 		sixMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.6.lores")));
 		six.setItemMeta(sixMeta);
 		
-		addItem(six, new Action());
+		addItem(six, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack seven = SkullItem.getSkull("http://textures.minecraft.net/texture/6db6eb25d1faabe30cf444dc633b5832475e38096b7e2402a3ec476dd7b9");
 		ItemMeta sevenMeta = seven.getItemMeta();
@@ -360,7 +478,10 @@ public class AlphabetHeadsMenu extends Gui {
 		sevenMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.7.lores")));
 		seven.setItemMeta(sevenMeta);
 		
-		addItem(seven, new Action());
+		addItem(seven, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack eight = SkullItem.getSkull("http://textures.minecraft.net/texture/59194973a3f17bda9978ed6273383997222774b454386c8319c04f1f4f74c2b5");
 		ItemMeta eightMeta = eight.getItemMeta();
@@ -368,7 +489,10 @@ public class AlphabetHeadsMenu extends Gui {
 		eightMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.8.lores")));
 		eight.setItemMeta(eightMeta);
 		
-		addItem(eight, new Action());
+		addItem(eight, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack nine = SkullItem.getSkull("http://textures.minecraft.net/texture/e67caf7591b38e125a8017d58cfc6433bfaf84cd499d794f41d10bff2e5b840");
 		ItemMeta nineMeta = nine.getItemMeta();
@@ -376,7 +500,10 @@ public class AlphabetHeadsMenu extends Gui {
 		nineMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.9.lores")));
 		nine.setItemMeta(nineMeta);
 		
-		addItem(nine, new Action());
+		addItem(nine, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack zero = SkullItem.getSkull("http://textures.minecraft.net/texture/0ebe7e5215169a699acc6cefa7b73fdb108db87bb6dae2849fbe24714b27");
 		ItemMeta zeroMeta = zero.getItemMeta();
@@ -384,7 +511,10 @@ public class AlphabetHeadsMenu extends Gui {
 		zeroMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.0.lores")));
 		zero.setItemMeta(zeroMeta);
 		
-		addItem(zero, new Action());
+		addItem(zero, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack arrowUp2 = SkullItem.getSkull("http://textures.minecraft.net/texture/58fe251a40e4167d35d081c27869ac151af96b6bd16dd2834d5dc7235f47791d");
 		ItemMeta arrowUp2Meta = arrowUp2.getItemMeta();
@@ -392,7 +522,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowUp2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-up-2.lores")));
 		arrowUp2.setItemMeta(arrowUp2Meta);
 		
-		addItem(arrowUp2, new Action());
+		addItem(arrowUp2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		//close
 		ItemStack close = new ItemStack(Material.BOOK);
@@ -401,19 +534,13 @@ public class AlphabetHeadsMenu extends Gui {
 		closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.close.lores")));
 		close.setItemMeta(closeMeta);
 		
-		setItem(close, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				player.closeInventory();
-				removePlayer(player);
-				return true;
-			}
+		setItem(close, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            player.closeInventory();
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 49);
 		
 		//next page
@@ -423,17 +550,10 @@ public class AlphabetHeadsMenu extends Gui {
 		nextMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.next-page.lores")));
 		next.setItemMeta(nextMeta);
 		
-		setItem(next, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked(), 2);
-				return true;
-			}
+		setItem(next, event -> {
+            open((Player) event.getWhoClicked(), 2);
+
+            event.setCancelled(true);
 		}, 51);
 		
 		setStartingPoint(54);
@@ -445,7 +565,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowDown2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-down-2.lores")));
 		arrowDown2.setItemMeta(arrowDown2Meta);
 		
-		addItem(arrowDown2, new Action());
+		addItem(arrowDown2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack arrowRight2 = SkullItem.getSkull("http://textures.minecraft.net/texture/f2f3a2dfce0c3dab7ee10db385e5229f1a39534a8ba2646178e37c4fa93b");
 		ItemMeta arrowRight2Meta = arrowRight2.getItemMeta();
@@ -453,7 +576,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowRight2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-right-2.lores")));
 		arrowRight2.setItemMeta(arrowRight2Meta);
 		
-		addItem(arrowRight2, new Action());
+		addItem(arrowRight2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack arrowLeft2 = SkullItem.getSkull("http://textures.minecraft.net/texture/bb0f6e8af46ac6faf88914191ab66f261d6726a7999c637cf2e4159fe1fc477");
 		ItemMeta arrowLeft2Meta = arrowLeft2.getItemMeta();
@@ -461,7 +587,10 @@ public class AlphabetHeadsMenu extends Gui {
 		arrowLeft2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.arrow-left-2.lores")));
 		arrowLeft2.setItemMeta(arrowLeft2Meta);
 		
-		addItem(arrowLeft2, new Action());
+		addItem(arrowLeft2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack question2 = SkullItem.getSkull("http://textures.minecraft.net/texture/3aab272840d790c2ed2be5c860289f95d88e316b65c456ff6a35180d2e5bff6");
 		ItemMeta question2Meta = question2.getItemMeta();
@@ -469,7 +598,10 @@ public class AlphabetHeadsMenu extends Gui {
 		question2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.question-2.lores")));
 		question2.setItemMeta(question2Meta);
 		
-		addItem(question2, new Action());
+		addItem(question2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack exclamation2 = SkullItem.getSkull("http://textures.minecraft.net/texture/87d19aabfcfd99ffaba4214caef299516ce52e6d13bf2dda125985e481b72f9");
 		ItemMeta exclamation2Meta = exclamation2.getItemMeta();
@@ -477,7 +609,10 @@ public class AlphabetHeadsMenu extends Gui {
 		exclamation2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.exclamation-2.lores")));
 		exclamation2.setItemMeta(exclamation2Meta);
 		
-		addItem(exclamation2, new Action());
+		addItem(exclamation2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack dot2 = SkullItem.getSkull("http://textures.minecraft.net/texture/6ff99ff279a2cf25deb4bd5b66c3576b824cc96c36781027af727ed3a4c1308e");
 		ItemMeta dot2Meta = dot2.getItemMeta();
@@ -485,7 +620,10 @@ public class AlphabetHeadsMenu extends Gui {
 		dot2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.dot-2.lores")));
 		dot2.setItemMeta(dot2Meta);
 		
-		addItem(dot2, new Action());
+		addItem(dot2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack slash2 = SkullItem.getSkull("http://textures.minecraft.net/texture/2d593f0945cbb85a8e0be7d9a526010ee774810f2bc428cd4a23e4d232eff8");
 		ItemMeta slash2Meta = slash2.getItemMeta();
@@ -493,7 +631,10 @@ public class AlphabetHeadsMenu extends Gui {
 		slash2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.slash-2.lores")));
 		slash2.setItemMeta(slash2Meta);
 		
-		addItem(slash2, new Action());
+		addItem(slash2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack a2 = SkullItem.getSkull("http://textures.minecraft.net/texture/2ac58b1a3b53b9481e317a1ea4fc5eed6bafca7a25e741a32e4e3c2841278c");
 		ItemMeta a2Meta = a2.getItemMeta();
@@ -501,7 +642,10 @@ public class AlphabetHeadsMenu extends Gui {
 		a2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.a-2.lores")));
 		a2.setItemMeta(a2Meta);
 		
-		addItem(a2, new Action());
+		addItem(a2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack b2 = SkullItem.getSkull("http://textures.minecraft.net/texture/d4c711571e7e214ee78dfe4ee0e1263b92516e418de8fc8f3257ae0901431");
 		ItemMeta b2Meta = b2.getItemMeta();
@@ -509,7 +653,10 @@ public class AlphabetHeadsMenu extends Gui {
 		b2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.b-2.lores")));
 		b2.setItemMeta(b2Meta);
 		
-		addItem(b2, new Action());
+		addItem(b2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack c2 = SkullItem.getSkull("http://textures.minecraft.net/texture/fff5aabead6feafaaecf4422cdd7837cbb36b03c9841dd1b1d2d3edb7825e851");
 		ItemMeta c2Meta = c2.getItemMeta();
@@ -517,7 +664,10 @@ public class AlphabetHeadsMenu extends Gui {
 		c2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.c-2.lores")));
 		c2.setItemMeta(c2Meta);
 		
-		addItem(c2, new Action());
+		addItem(c2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack d2 = SkullItem.getSkull("http://textures.minecraft.net/texture/893e622b581975792f7c119ec6f40a4f16e552bb98776b0c7ae2bdfd4154fe7");
 		ItemMeta d2Meta = d2.getItemMeta();
@@ -525,7 +675,10 @@ public class AlphabetHeadsMenu extends Gui {
 		d2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.d-2.lores")));
 		d2.setItemMeta(d2Meta);
 		
-		addItem(d2, new Action());
+		addItem(d2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack e2 = SkullItem.getSkull("http://textures.minecraft.net/texture/a157d65b19921c760ff4910b3404455b9c2ee36afc202d8538baefec676953");
 		ItemMeta e2Meta = e2.getItemMeta();
@@ -533,7 +686,10 @@ public class AlphabetHeadsMenu extends Gui {
 		e2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.e-2.lores")));
 		e2.setItemMeta(e2Meta);
 		
-		addItem(e2, new Action());
+		addItem(e2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack f2 = SkullItem.getSkull("http://textures.minecraft.net/texture/a157d65b19921c760ff4910b3404455b9c2ee36afc202d8538baefec676953");
 		ItemMeta f2Meta = f2.getItemMeta();
@@ -541,7 +697,10 @@ public class AlphabetHeadsMenu extends Gui {
 		f2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.f-2.lores")));
 		f2.setItemMeta(f2Meta);
 		
-		addItem(f2, new Action());
+		addItem(f2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack g2 = SkullItem.getSkull("http://textures.minecraft.net/texture/d3c9f8a74ca01ba8c54de1edc82e1fc07a83923e66574b6ffe606919240c6");
 		ItemMeta g2Meta = g2.getItemMeta();
@@ -549,7 +708,10 @@ public class AlphabetHeadsMenu extends Gui {
 		g2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.g-2.lores")));
 		g2.setItemMeta(g2Meta);
 		
-		addItem(g2, new Action());
+		addItem(g2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack h2 = SkullItem.getSkull("http://textures.minecraft.net/texture/f8c58c509034617bf81ee0db9be0ba3e85ca15568163914c87669edb2fd7");
 		ItemMeta h2Meta = h2.getItemMeta();
@@ -557,7 +719,10 @@ public class AlphabetHeadsMenu extends Gui {
 		h2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.h-2.lores")));
 		h2.setItemMeta(h2Meta);
 		
-		addItem(h2, new Action());
+		addItem(h2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack i2 = SkullItem.getSkull("http://textures.minecraft.net/texture/4246323c9fb319326ee2bf3f5b63ec3d99df76a12439bf0b4c3ab32d13fd9");
 		ItemMeta i2Meta = i2.getItemMeta();
@@ -565,7 +730,10 @@ public class AlphabetHeadsMenu extends Gui {
 		i2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.i-2.lores")));
 		i2.setItemMeta(i2Meta);
 		
-		addItem(i2, new Action());
+		addItem(i2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack j2 = SkullItem.getSkull("http://textures.minecraft.net/texture/c58456cd9bb8a7e978591ae0cb26af1aadad4fa7a16725b295145e09bed8064");
 		ItemMeta j2Meta = j2.getItemMeta();
@@ -573,7 +741,10 @@ public class AlphabetHeadsMenu extends Gui {
 		j2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.j-2.lores")));
 		j2.setItemMeta(j2Meta);
 		
-		addItem(j2, new Action());
+		addItem(j2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack k2 = SkullItem.getSkull("http://textures.minecraft.net/texture/af49fb708369e7bc2944ad706963fb6ac6ce6d4c67081ddadecfe5da51");
 		ItemMeta k2Meta = k2.getItemMeta();
@@ -581,7 +752,10 @@ public class AlphabetHeadsMenu extends Gui {
 		k2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.k-2.lores")));
 		k2.setItemMeta(k2Meta);
 		
-		addItem(k2, new Action());
+		addItem(k2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack l2 = SkullItem.getSkull("http://textures.minecraft.net/texture/8c84f75416e853a74f6c70fc7e1093d53961879955b433bd8c7c6d5a6df");
 		ItemMeta l2Meta = l2.getItemMeta();
@@ -589,7 +763,10 @@ public class AlphabetHeadsMenu extends Gui {
 		l2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.l-2.lores")));
 		l2.setItemMeta(l2Meta);
 		
-		addItem(l2, new Action());
+		addItem(l2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack m2 = SkullItem.getSkull("http://textures.minecraft.net/texture/31fde91b19b9309913724fea9e85311271c67bcb78578d461bf65d9613074");
 		ItemMeta m2Meta = m2.getItemMeta();
@@ -597,7 +774,10 @@ public class AlphabetHeadsMenu extends Gui {
 		m2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.m-2.lores")));
 		m2.setItemMeta(m2Meta);
 		
-		addItem(m2, new Action());
+		addItem(m2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack n2 = SkullItem.getSkull("http://textures.minecraft.net/texture/1c7c972e6785d6b0aceb779abdd7702d98341c24c2a71e702930eca58055");
 		ItemMeta n2Meta = n2.getItemMeta();
@@ -605,7 +785,10 @@ public class AlphabetHeadsMenu extends Gui {
 		n2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.n-2.lores")));
 		n2.setItemMeta(n2Meta);
 		
-		addItem(n2, new Action());
+		addItem(n2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack o2 = SkullItem.getSkull("http://textures.minecraft.net/texture/8073bb44f9345f9bb31a679027e7939e461842a8c27486d7a6b842c39eb38c4e");
 		ItemMeta o2Meta = o2.getItemMeta();
@@ -613,7 +796,10 @@ public class AlphabetHeadsMenu extends Gui {
 		o2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.o-2.lores")));
 		o2.setItemMeta(o2Meta);
 		
-		addItem(o2, new Action());
+		addItem(o2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack p2 = SkullItem.getSkull("http://textures.minecraft.net/texture/64b231a8d55870cfb5a9f4e65db06dd7f8e34282f1416f95878b19acc34ac95");
 		ItemMeta p2Meta = p2.getItemMeta();
@@ -621,7 +807,10 @@ public class AlphabetHeadsMenu extends Gui {
 		p2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.p-2.lores")));
 		p2.setItemMeta(p2Meta);
 		
-		addItem(p2, new Action());
+		addItem(p2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack q2 = SkullItem.getSkull("http://textures.minecraft.net/texture/ffedd6f9efdb156b86935699b2b4834df0f5d214513c01d38af3bd031cbcc92");
 		ItemMeta q2Meta = q2.getItemMeta();
@@ -629,7 +818,10 @@ public class AlphabetHeadsMenu extends Gui {
 		q2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.q-2.lores")));
 		q2.setItemMeta(q2Meta);
 		
-		addItem(q2, new Action());
+		addItem(q2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack r2 = SkullItem.getSkull("http://textures.minecraft.net/texture/c03a1cd583cbbffde08f943e56ac3e3afafecaede834221a81e6db6c64667f7d");
 		ItemMeta r2Meta = r2.getItemMeta();
@@ -637,7 +829,10 @@ public class AlphabetHeadsMenu extends Gui {
 		r2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.r-2.lores")));
 		r2.setItemMeta(r2Meta);
 		
-		addItem(r2, new Action());
+		addItem(r2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack s2 = SkullItem.getSkull("http://textures.minecraft.net/texture/b6572e655725d78375a9817eb9ee8b37829ca1fea93b6095cc7aa19e5eac");
 		ItemMeta s2Meta = s2.getItemMeta();
@@ -645,7 +840,10 @@ public class AlphabetHeadsMenu extends Gui {
 		s2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.s-2.lores")));
 		s2.setItemMeta(s2Meta);
 		
-		addItem(s2, new Action());
+		addItem(s2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack t2 = SkullItem.getSkull("http://textures.minecraft.net/texture/708c9ef3a3751e254e2af1ad8b5d668ccf5c6ec3ea2641877cba575807d39");
 		ItemMeta t2Meta = t2.getItemMeta();
@@ -653,7 +851,10 @@ public class AlphabetHeadsMenu extends Gui {
 		t2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.t-2.lores")));
 		t2.setItemMeta(t2Meta);
 		
-		addItem(t2, new Action());
+		addItem(t2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack u2 = SkullItem.getSkull("http://textures.minecraft.net/texture/55a6e3ae5ae625923524838fac9fef5b42527f5027c9ca149e6c207792eb");
 		ItemMeta u2Meta = u2.getItemMeta();
@@ -661,7 +862,10 @@ public class AlphabetHeadsMenu extends Gui {
 		u2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.u-2.lores")));
 		u2.setItemMeta(u2Meta);
 		
-		addItem(u2, new Action());
+		addItem(u2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack v2 = SkullItem.getSkull("http://textures.minecraft.net/texture/975121f7d9c68da0e5b6a96ac615298b12b2ee5bd19989436ee647879da5b");
 		ItemMeta v2Meta = v2.getItemMeta();
@@ -669,7 +873,10 @@ public class AlphabetHeadsMenu extends Gui {
 		v2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.v-2.lores")));
 		v2.setItemMeta(v2Meta);
 		
-		addItem(v2, new Action());
+		addItem(v2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack w2 = SkullItem.getSkull("http://textures.minecraft.net/texture/67e165c3edc5541d4654c4728871e6908f613fc0ec46e823c96eac82ac62e62");
 		ItemMeta w2Meta = w2.getItemMeta();
@@ -677,7 +884,10 @@ public class AlphabetHeadsMenu extends Gui {
 		w2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.w-2.lores")));
 		w2.setItemMeta(w2Meta);
 		
-		addItem(w2, new Action());
+		addItem(w2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack x2 = SkullItem.getSkull("http://textures.minecraft.net/texture/1919d1594bf809db7b44b3782bf90a69f449a87ce5d18cb40eb653fdec2722");
 		ItemMeta x2Meta = x2.getItemMeta();
@@ -685,7 +895,10 @@ public class AlphabetHeadsMenu extends Gui {
 		x2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.x-2.lores")));
 		x2.setItemMeta(x2Meta);
 		
-		addItem(x2, new Action());
+		addItem(x2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack y2 = SkullItem.getSkull("http://textures.minecraft.net/texture/e35424bb86305d7747604b13e924d74f1efe38906e4e458dd18dcc67b6ca48");
 		ItemMeta y2Meta = y2.getItemMeta();
@@ -693,7 +906,10 @@ public class AlphabetHeadsMenu extends Gui {
 		y2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.y-2.lores")));
 		y2.setItemMeta(y2Meta);
 		
-		addItem(y2, new Action());
+		addItem(y2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack z2 = SkullItem.getSkull("http://textures.minecraft.net/texture/4e91200df1cae51acc071f85c7f7f5b8449d39bb32f363b0aa51dbc85d133e");
 		ItemMeta z2Meta = z2.getItemMeta();
@@ -701,7 +917,10 @@ public class AlphabetHeadsMenu extends Gui {
 		z2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.z-2.lores")));
 		z2.setItemMeta(z2Meta);
 		
-		addItem(z2, new Action());
+		addItem(z2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack one2 = SkullItem.getSkull("http://textures.minecraft.net/texture/31a9463fd3c433d5e1d9fec6d5d4b09a83a970b0b74dd546ce67a73348caab");
 		ItemMeta one2Meta = one2.getItemMeta();
@@ -709,7 +928,10 @@ public class AlphabetHeadsMenu extends Gui {
 		one2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.1-2.lores")));
 		one2.setItemMeta(one2Meta);
 		
-		addItem(one2, new Action());
+		addItem(one2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack two2 = SkullItem.getSkull("http://textures.minecraft.net/texture/acb419d984d8796373c9646233c7a02664bd2ce3a1d3476dd9b1c5463b14ebe");
 		ItemMeta two2Meta = two2.getItemMeta();
@@ -717,7 +939,10 @@ public class AlphabetHeadsMenu extends Gui {
 		two2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.2-2.lores")));
 		two2.setItemMeta(two2Meta);
 		
-		addItem(two2, new Action());
+		addItem(two2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack three2 = SkullItem.getSkull("http://textures.minecraft.net/texture/f8ebab57b7614bb22a117be43e848bcd14daecb50e8f5d0926e4864dff470");
 		ItemMeta three2Meta = three2.getItemMeta();
@@ -725,7 +950,10 @@ public class AlphabetHeadsMenu extends Gui {
 		three2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.3-2.lores")));
 		three2.setItemMeta(three2Meta);
 		
-		addItem(three2, new Action());
+		addItem(three2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack four2 = SkullItem.getSkull("http://textures.minecraft.net/texture/62bfcfb489da867dce96e3c3c17a3db7c79cae8ac1f9a5a8c8ac95e4ba3");
 		ItemMeta four2Meta = four2.getItemMeta();
@@ -733,7 +961,10 @@ public class AlphabetHeadsMenu extends Gui {
 		four2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.4-2.lores")));
 		four2.setItemMeta(four2Meta);
 		
-		addItem(four2, new Action());
+		addItem(four2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack five2 = SkullItem.getSkull("http://textures.minecraft.net/texture/ef4ecf110b0acee4af1da343fb136f1f2c216857dfda6961defdbee7b9528");
 		ItemMeta five2Meta = five2.getItemMeta();
@@ -741,7 +972,10 @@ public class AlphabetHeadsMenu extends Gui {
 		five2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.5-2.lores")));
 		five2.setItemMeta(five2Meta);
 		
-		addItem(five2, new Action());
+		addItem(five2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack six2 = SkullItem.getSkull("http://textures.minecraft.net/texture/f331a6a6fcd6995b62088d353bfb68d9b89ae258325caf3f2886464f54a7329");
 		ItemMeta six2Meta = six2.getItemMeta();
@@ -749,7 +983,10 @@ public class AlphabetHeadsMenu extends Gui {
 		six2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.6-2.lores")));
 		six2.setItemMeta(six2Meta);
 		
-		addItem(six2, new Action());
+		addItem(six2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack seven2 = SkullItem.getSkull("http://textures.minecraft.net/texture/d4ba6ac07d422377a855793f36dea2ed240223f52fd1648181612ecd1a0cfd5");
 		ItemMeta seven2Meta = seven2.getItemMeta();
@@ -757,7 +994,10 @@ public class AlphabetHeadsMenu extends Gui {
 		seven2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.7-2.lores")));
 		seven2.setItemMeta(seven2Meta);
 		
-		addItem(seven2, new Action());
+		addItem(seven2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack eight2 = SkullItem.getSkull("http://textures.minecraft.net/texture/c61a8a641437be9aea207253dd3f25440d954ea2b5866c552f386b29ac4d049");
 		ItemMeta eight2Meta = eight2.getItemMeta();
@@ -765,7 +1005,10 @@ public class AlphabetHeadsMenu extends Gui {
 		eight2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.8-2.lores")));
 		eight2.setItemMeta(eight2Meta);
 		
-		addItem(eight2, new Action());
+		addItem(eight2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack nine2 = SkullItem.getSkull("http://textures.minecraft.net/texture/a1928e1bfd86a9b79397c4cb4b65ef99af49b7d5f7957ad62c0c699a622cfbe");
 		ItemMeta nine2Meta = nine2.getItemMeta();
@@ -773,7 +1016,10 @@ public class AlphabetHeadsMenu extends Gui {
 		nine2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.9-2.lores")));
 		nine2.setItemMeta(nine2Meta);
 		
-		addItem(nine2, new Action());
+		addItem(nine2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack zero2 = SkullItem.getSkull("http://textures.minecraft.net/texture/55a224807693978ed834355f9e5145f9c56ef68cf6f2c9e1734a46e246aae1");
 		ItemMeta zero2Meta = zero2.getItemMeta();
@@ -781,7 +1027,10 @@ public class AlphabetHeadsMenu extends Gui {
 		zero2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.0-2.lores")));
 		zero2.setItemMeta(zero2Meta);
 		
-		addItem(zero2, new Action());
+		addItem(zero2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack colon = SkullItem.getSkull("http://textures.minecraft.net/texture/bd898c40e47c5d2d76924065360768065d624ee5b9ee0be9e12b98fb77c76");
 		ItemMeta colonMeta = colon.getItemMeta();
@@ -789,7 +1038,10 @@ public class AlphabetHeadsMenu extends Gui {
 		colonMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.colon.lores")));
 		colon.setItemMeta(colonMeta);
 		
-		addItem(colon, new Action());
+		addItem(colon, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack diaeresisA = SkullItem.getSkull("http://textures.minecraft.net/texture/4c9c2bbd7b7f7204dceb5729a6fba7fd45d6f193f3760ec59a6807533e63b");
 		ItemMeta diaeresisAMeta = diaeresisA.getItemMeta();
@@ -797,7 +1049,10 @@ public class AlphabetHeadsMenu extends Gui {
 		diaeresisAMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.diaeresis-a.lores")));
 		diaeresisA.setItemMeta(diaeresisAMeta);
 		
-		addItem(diaeresisA, new Action());
+		addItem(diaeresisA, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		//previous page
 		ItemStack previous2 = new ItemStack (Material.SUGAR_CANE);
@@ -806,17 +1061,10 @@ public class AlphabetHeadsMenu extends Gui {
 		previous2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.previous-page.lores")));
 		previous2.setItemMeta(previous2Meta);
 		
-		setItem(previous2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked());
-				return true;
-			}
+		setItem(previous2, event -> {
+            open((Player) event.getWhoClicked());
+
+            event.setCancelled(true);
 		}, 101);
 		
 		//close
@@ -826,19 +1074,13 @@ public class AlphabetHeadsMenu extends Gui {
 		close2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.close.lores")));
 		close2.setItemMeta(close2Meta);
 		
-		setItem(close2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				player.closeInventory();
-				removePlayer(player);
-				return true;
-			}
+		setItem(close2, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            player.closeInventory();
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 103);
 		
 		//next page
@@ -848,17 +1090,10 @@ public class AlphabetHeadsMenu extends Gui {
 		next2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.next-page.lores")));
 		next2.setItemMeta(next2Meta);
 		
-		setItem(next2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked(), 3);
-				return true;
-			}
+		setItem(next2, event -> {
+            open((Player) event.getWhoClicked(), 3);
+
+            event.setCancelled(true);
 		}, 105);
 		
 		
@@ -871,7 +1106,10 @@ public class AlphabetHeadsMenu extends Gui {
 		diaeresisUMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.diaeresis-u.lores")));
 		diaeresisU.setItemMeta(diaeresisUMeta);
 		
-		addItem(diaeresisU, new Action());
+		addItem(diaeresisU, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack diaeresisO = SkullItem.getSkull("http://textures.minecraft.net/texture/c83d42bcb9b8e66c16166ccf261e2f9f78c68ee7886da225e43895cdbcaf5f");
 		ItemMeta diaeresisOMeta = diaeresisO.getItemMeta();
@@ -879,7 +1117,10 @@ public class AlphabetHeadsMenu extends Gui {
 		diaeresisOMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.diaresis-o.lores")));
 		diaeresisO.setItemMeta(diaeresisOMeta);
 		
-		addItem(diaeresisO, new Action());
+		addItem(diaeresisO, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack a3 = SkullItem.getSkull("http://textures.minecraft.net/texture/9c60da2944a177dd08268fbec04e40812d1d929650be66529b1ee5e1e7eca");
 		ItemMeta a3Meta = a3.getItemMeta();
@@ -887,7 +1128,10 @@ public class AlphabetHeadsMenu extends Gui {
 		a3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.a-3.lores")));
 		a3.setItemMeta(a3Meta);
 		
-		addItem(a3, new Action());
+		addItem(a3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack b3 = SkullItem.getSkull("http://textures.minecraft.net/texture/8041f5e86983d36eaec4e167b2bbb5a3727607cde88f7555ca1b522a039bb");
 		ItemMeta b3Meta = b3.getItemMeta();
@@ -895,7 +1139,10 @@ public class AlphabetHeadsMenu extends Gui {
 		b3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.b-3.lores")));
 		b3.setItemMeta(b3Meta);
 		
-		addItem(b3, new Action());
+		addItem(b3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack c3 = SkullItem.getSkull("http://textures.minecraft.net/texture/d945996c8ae91e376196d4dc676fec31feac790a2f195b2981a703ca1d16cb6");
 		ItemMeta c3Meta = c3.getItemMeta();
@@ -903,7 +1150,10 @@ public class AlphabetHeadsMenu extends Gui {
 		c3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.c-3.lores")));
 		c3.setItemMeta(c3Meta);
 		
-		addItem(c3, new Action());
+		addItem(c3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack d3 = SkullItem.getSkull("http://textures.minecraft.net/texture/1641150f481e8492f7128c948996254d2d91fc90f5a8ff4d8ac5c39a6a88a");
 		ItemMeta d3Meta = d3.getItemMeta();
@@ -911,7 +1161,10 @@ public class AlphabetHeadsMenu extends Gui {
 		d3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.d-3.lores")));
 		d3.setItemMeta(d3Meta);
 		
-		addItem(d3, new Action());
+		addItem(d3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack e3 = SkullItem.getSkull("http://textures.minecraft.net/texture/db251487ff8eef2ebc7a57dab6e3d9f1db7fc926ddc66fea14afe3dff15a45");
 		ItemMeta e3Meta = e3.getItemMeta();
@@ -919,7 +1172,10 @@ public class AlphabetHeadsMenu extends Gui {
 		e3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.e-3.lores")));
 		e3.setItemMeta(e3Meta);
 		
-		addItem(e3, new Action());
+		addItem(e3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack f3 = SkullItem.getSkull("http://textures.minecraft.net/texture/7e433656b443668ed03dac8c442722a2a41221be8bb48e23b35bd8c2e59f63");
 		ItemMeta f3Meta = f3.getItemMeta();
@@ -927,7 +1183,10 @@ public class AlphabetHeadsMenu extends Gui {
 		f3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.f-3.lores")));
 		f3.setItemMeta(f3Meta);
 		
-		addItem(f3, new Action());
+		addItem(f3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack g3 = SkullItem.getSkull("http://textures.minecraft.net/texture/995863b73637605feacbb173b77d5e155e65204c78d5c7911f738f28deb60");
 		ItemMeta g3Meta = g3.getItemMeta();
@@ -935,7 +1194,10 @@ public class AlphabetHeadsMenu extends Gui {
 		g3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.g-3.lores")));
 		g3.setItemMeta(g3Meta);
 		
-		addItem(g3, new Action());
+		addItem(g3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack h3 = SkullItem.getSkull("http://textures.minecraft.net/texture/3c1d358d927074289cc26bff5b1240746f9f4f0cc46f942f5981c6595f72dd");
 		ItemMeta h3Meta = h3.getItemMeta();
@@ -943,7 +1205,10 @@ public class AlphabetHeadsMenu extends Gui {
 		h3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.h-3.lores")));
 		h3.setItemMeta(h3Meta);
 		
-		addItem(h3, new Action());
+		addItem(h3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack i3 = SkullItem.getSkull("http://textures.minecraft.net/texture/8f2295865bda4e47979d36b8a887a75a13b034e6988f78670b64a1e6442c");
 		ItemMeta i3Meta = i3.getItemMeta();
@@ -951,7 +1216,10 @@ public class AlphabetHeadsMenu extends Gui {
 		i3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.i-3.lores")));
 		i3.setItemMeta(i3Meta);
 		
-		addItem(i3, new Action());
+		addItem(i3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack j3 = SkullItem.getSkull("http://textures.minecraft.net/texture/e34462b55d7f5823680ad13f2adbd7d1ed46ba5101017ed4b37aeeeb775d");
 		ItemMeta j3Meta = j3.getItemMeta();
@@ -959,7 +1227,10 @@ public class AlphabetHeadsMenu extends Gui {
 		j3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.j-3.lores")));
 		j3.setItemMeta(j3Meta);
 		
-		addItem(j3, new Action());
+		addItem(j3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack k3 = SkullItem.getSkull("http://textures.minecraft.net/texture/773325a935c067b6ef227367f62ca4bf49f67adb9f6da32091e2d32c5dde328");
 		ItemMeta k3Meta = k3.getItemMeta();
@@ -967,7 +1238,10 @@ public class AlphabetHeadsMenu extends Gui {
 		k3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.k-3.lores")));
 		k3.setItemMeta(k3Meta);
 		
-		addItem(k3, new Action());
+		addItem(k3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack l3 = SkullItem.getSkull("http://textures.minecraft.net/texture/25a1e3328c571aa495d9c5f494815cca176c3acb184feb5a7b9c96ce8e52fce");
 		ItemMeta l3Meta = l3.getItemMeta();
@@ -975,7 +1249,10 @@ public class AlphabetHeadsMenu extends Gui {
 		l3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.l-3.lores")));
 		l3.setItemMeta(l3Meta);
 		
-		addItem(l3, new Action());
+		addItem(l3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack m3 = SkullItem.getSkull("http://textures.minecraft.net/texture/d467bf6be95e5c8e9d01977a2f0c487ed5b0de5c87963a2eb15411c442fb2b");
 		ItemMeta m3Meta = m3.getItemMeta();
@@ -983,7 +1260,10 @@ public class AlphabetHeadsMenu extends Gui {
 		m3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.m-3.lores")));
 		m3.setItemMeta(m3Meta);
 		
-		addItem(m3, new Action());
+		addItem(m3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack n3 = SkullItem.getSkull("http://textures.minecraft.net/texture/823e434d6395fe7e63492431bdee5782bd5ee5bc8cab7559467bdd1f93b925a");
 		ItemMeta n3Meta = n3.getItemMeta();
@@ -991,7 +1271,10 @@ public class AlphabetHeadsMenu extends Gui {
 		n3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.n-3.lores")));
 		n3.setItemMeta(n3Meta);
 		
-		addItem(n3, new Action());
+		addItem(n3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack o3 = SkullItem.getSkull("http://textures.minecraft.net/texture/88445466bdc5ad5bcea82239c4e1b510f6ea5262d82d8a96d7291c342fb89");
 		ItemMeta o3Meta = o3.getItemMeta();
@@ -999,7 +1282,10 @@ public class AlphabetHeadsMenu extends Gui {
 		o3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.o-3.lores")));
 		o3.setItemMeta(o3Meta);
 		
-		addItem(o3, new Action());
+		addItem(o3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack p3 = SkullItem.getSkull("http://textures.minecraft.net/texture/f9de601dee3ffeca4d54595f844201d0ed2091acec4548c696bb16a8a158f6");
 		ItemMeta p3Meta = p3.getItemMeta();
@@ -1013,7 +1299,10 @@ public class AlphabetHeadsMenu extends Gui {
 		q3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.q-3.lores")));
 		q3.setItemMeta(q3Meta);
 		
-		addItem(q3, new Action());
+		addItem(q3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack r3 = SkullItem.getSkull("http://textures.minecraft.net/texture/67a188805162ca5dd4f4649c661d3f6d23c42662aef01645b1a97f78b3f13219");
 		ItemMeta r3Meta = r3.getItemMeta();
@@ -1021,7 +1310,10 @@ public class AlphabetHeadsMenu extends Gui {
 		r3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.r-3.lores")));
 		r3.setItemMeta(r3Meta);
 		
-		addItem(r3, new Action());
+		addItem(r3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack s3 = SkullItem.getSkull("http://textures.minecraft.net/texture/60d09dfd9f5de6243233e0e3325b6c3479335e7ccf13f2448d4e1f7fc4a0df");
 		ItemMeta s3Meta = s3.getItemMeta();
@@ -1029,7 +1321,10 @@ public class AlphabetHeadsMenu extends Gui {
 		s3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.s-3.lores")));
 		s3.setItemMeta(s3Meta);
 		
-		addItem(s3, new Action());
+		addItem(s3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack t3 = SkullItem.getSkull("http://textures.minecraft.net/texture/64c75619b91d241f678350ad9237c134c5e08d87d6860741ede306a4ef91");
 		ItemMeta t3Meta = t3.getItemMeta();
@@ -1037,7 +1332,10 @@ public class AlphabetHeadsMenu extends Gui {
 		t3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.t-3.lores")));
 		t3.setItemMeta(t3Meta);
 		
-		addItem(t3, new Action());
+		addItem(t3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack u3 = SkullItem.getSkull("http://textures.minecraft.net/texture/e9f6d2c6d5285f882ae55d1e91b8f9efdfc9b377208bf4c83f88dd156415e");
 		ItemMeta u3Meta = u3.getItemMeta();
@@ -1045,7 +1343,10 @@ public class AlphabetHeadsMenu extends Gui {
 		u3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.u-3.lores")));
 		u3.setItemMeta(u3Meta);
 		
-		addItem(u3, new Action());
+		addItem(u3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack v3 = SkullItem.getSkull("http://textures.minecraft.net/texture/dce27a153635f835237d85c6bf74f5b1f2e638c48fee8c83038d0558d41da7");
 		ItemMeta v3Meta = v3.getItemMeta();
@@ -1053,7 +1354,10 @@ public class AlphabetHeadsMenu extends Gui {
 		v3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.v-3.lores")));
 		v3.setItemMeta(v3Meta);
 		
-		addItem(v3, new Action());
+		addItem(v3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack w3 = SkullItem.getSkull("http://textures.minecraft.net/texture/aedcf4ffcb53b56d42baac9d0dfb118e343462327442dd9b29d49f50a7d38b");
 		ItemMeta w3Meta = w3.getItemMeta();
@@ -1061,7 +1365,10 @@ public class AlphabetHeadsMenu extends Gui {
 		w3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.w-3.lores")));
 		w3.setItemMeta(w3Meta);
 		
-		addItem(w3, new Action());
+		addItem(w3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack x3 = SkullItem.getSkull("http://textures.minecraft.net/texture/83618ff1217640bec5b525fa2a8e671c75d2a7d7cb2ddc31d79d9d895eab1");
 		ItemMeta x3Meta = x3.getItemMeta();
@@ -1069,7 +1376,10 @@ public class AlphabetHeadsMenu extends Gui {
 		x3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.x-3.lores")));
 		x3.setItemMeta(x3Meta);
 		
-		addItem(x3, new Action());
+		addItem(x3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack y3 = SkullItem.getSkull("http://textures.minecraft.net/texture/d9c1d29a38bcf113b7e8c34e148a79f9fe41edf41aa8b1de873bb1d433b3861");
 		ItemMeta y3Meta = y3.getItemMeta();
@@ -1077,7 +1387,10 @@ public class AlphabetHeadsMenu extends Gui {
 		y3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.y-3.lores")));
 		y3.setItemMeta(y3Meta);
 		
-		addItem(y3, new Action());
+		addItem(y3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack z3 = SkullItem.getSkull("http://textures.minecraft.net/texture/b9295734195d2c7fa389b98757e9686ce6437c16c58bdf2b4cd538389b5912");
 		ItemMeta z3Meta = z3.getItemMeta();
@@ -1085,7 +1398,10 @@ public class AlphabetHeadsMenu extends Gui {
 		z3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.z-3.lores")));
 		z3.setItemMeta(z3Meta);
 		
-		addItem(z3, new Action());
+		addItem(z3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		//previous page
 		ItemStack previous3 = new ItemStack (Material.SUGAR_CANE);
@@ -1094,17 +1410,10 @@ public class AlphabetHeadsMenu extends Gui {
 		previous3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.previous-page.lores")));
 		previous3.setItemMeta(previous3Meta);
 		
-		setItem(previous3, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked(), 2);
-				return true;
-			}
+		setItem(previous3, event -> {
+            open((Player) event.getWhoClicked(), 2);
+
+            event.setCancelled(true);
 		}, 155);
 		
 		//close
@@ -1114,43 +1423,13 @@ public class AlphabetHeadsMenu extends Gui {
 		close3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.alphabet.close.lores")));
 		close3.setItemMeta(close3Meta);
 		
-		setItem(close3, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				player.closeInventory();
-				removePlayer(player);
-				return true;
-			}
+		setItem(close3, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            player.closeInventory();
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 157);
-	}
-
-	/**
-     * The action that belongs to the heads
-     *
-     * @since 4.0.0
-     */
-	public class Action extends GuiAction {
-
-	    /**
-         * Called whenever a player clicks on an item in the menu
-         *
-         * @since 4.0.0
-         */
-		@SuppressWarnings("deprecation")
-		@Override
-		public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-			if (type != GuiActionType.CLICK)
-				return false;
-			
-			InventoryClickEvent event = (InventoryClickEvent) e;
-			event.setCursor(event.getCurrentItem());
-			return true;
-		}
 	}
 }

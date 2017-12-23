@@ -1,17 +1,14 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * The gui for changing the fly speed
@@ -29,7 +26,8 @@ class SpeedMenu extends Gui {
      * Constructs a new SpeedMenu
      */
 	SpeedMenu() {
-		super(null, 18, MessageManager.translate(MESSAGES.getString("gui.fly-speed.title")), 1);
+		super(null, 18, MessageManager.translate(MESSAGES.getString("gui.fly-speed.title")),
+                1);
 		
 		//fly speed 1
 		ItemStack speed1 = new ItemStack(Material.FEATHER, 1);
@@ -38,16 +36,10 @@ class SpeedMenu extends Gui {
 		speed1Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.speed-1.lores")));
 		speed1.setItemMeta(speed1Meta);
 		
-		setItem(speed1, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				((Player) event.getWhoClicked()).setFlySpeed(.1F);
-				return true;
-			}
+		setItem(speed1, event -> {
+            ((Player) event.getWhoClicked()).setFlySpeed(.1F);
+
+            event.setCancelled(true);
 		}, 2);
 		
 		//fly speed 2
@@ -57,16 +49,10 @@ class SpeedMenu extends Gui {
 		speed2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.speed-2.lores")));
 		speed2.setItemMeta(speed2Meta);
 		
-		setItem(speed2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				((Player) event.getWhoClicked()).setFlySpeed(.2F);
-				return true;
-			}
+		setItem(speed2, event -> {
+            ((Player) event.getWhoClicked()).setFlySpeed(.2F);
+
+            event.setCancelled(true);
 		}, 3);
 		
 		//fly speed 3
@@ -76,16 +62,10 @@ class SpeedMenu extends Gui {
 		speed3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.speed-3.lores")));
 		speed3.setItemMeta(speed3Meta);
 		
-		setItem(speed3, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				((Player) event.getWhoClicked()).setFlySpeed(.3F);
-				return true;
-			}
+		setItem(speed3, event -> {
+            ((Player) event.getWhoClicked()).setFlySpeed(.3F);
+
+            event.setCancelled(true);
 		}, 4);
 		
 		//fly speed 4
@@ -95,16 +75,10 @@ class SpeedMenu extends Gui {
 		speed4Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.speed-4.lores")));
 		speed4.setItemMeta(speed4Meta);
 		
-		setItem(speed4, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				((Player) event.getWhoClicked()).setFlySpeed(.4F);
-				return true;
-			}
+		setItem(speed4, event -> {
+            ((Player) event.getWhoClicked()).setFlySpeed(.4F);
+
+            event.setCancelled(true);
 		}, 5);
 		
 		//fly speed 5
@@ -114,16 +88,10 @@ class SpeedMenu extends Gui {
 		speed5Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.speed-5.lores")));
 		speed5.setItemMeta(speed5Meta);
 		
-		setItem(speed5, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				((Player) event.getWhoClicked()).setFlySpeed(.5F);
-				return true;
-			}
+		setItem(speed5, event -> {
+            ((Player) event.getWhoClicked()).setFlySpeed(.5F);
+
+            event.setCancelled(true);
 		}, 6);
 		
 		//back
@@ -133,19 +101,13 @@ class SpeedMenu extends Gui {
 		backMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.back.lores")));
 		back.setItemMeta(backMeta);
 		
-		setItem(back, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				ArenaManager.getInstance().getArena(player).getPlot(player).getBuildMenu().open(player);
-				removePlayer(player);
-				return true;
-			}
+		setItem(back, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            ArenaManager.getInstance().getArena(player).getPlot(player).getBuildMenu().open(player);
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 17);
 	}
 }

@@ -5,7 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Pig;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,19 +27,10 @@ public class PigMenu extends BabyMenu {
         saddleMeta.setDisplayName(ChatColor.GREEN + "Change whether this pig has a saddle");
         saddle.setItemMeta(saddleMeta);
 
-        insertItem(saddle, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        insertItem(saddle, event -> {
+            pig.setSaddle(!pig.hasSaddle());
 
-                pig.setSaddle(!pig.hasSaddle());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

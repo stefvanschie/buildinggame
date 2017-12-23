@@ -3,7 +3,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -45,15 +44,10 @@ public class ArenaSelection extends Gui {
 			itemMeta.setDisplayName(ChatColor.GREEN + arena.getName());
 			item.setItemMeta(itemMeta);
 			
-			addItem(item, new GuiAction() {
-				@Override
-				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-					if (type != GuiActionType.CLICK)
-						return false;
-					
-					arena.join(player);
-					return true;
-				}
+			addItem(item, event -> {
+                arena.join(player);
+
+                event.setCancelled(true);
 			});
 		}
 		

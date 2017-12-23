@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Llama;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
@@ -31,20 +30,10 @@ class LlamaColorSelectionMenu extends Gui {
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
 
-        addItem(brown, new GuiAction() {
+        addItem(brown, event -> {
+            llama.setColor(Llama.Color.BROWN);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                llama.setColor(Llama.Color.BROWN);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //creamy
@@ -53,20 +42,10 @@ class LlamaColorSelectionMenu extends Gui {
         creamyMeta.setDisplayName(ChatColor.GREEN + "Creamy");
         creamy.setItemMeta(creamyMeta);
 
-        addItem(creamy, new GuiAction() {
+        addItem(creamy, event -> {
+            llama.setColor(Llama.Color.CREAMY);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                llama.setColor(Llama.Color.CREAMY);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         setStartingPoint(5);
@@ -77,20 +56,10 @@ class LlamaColorSelectionMenu extends Gui {
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
 
-        addItem(gray, new GuiAction() {
+        addItem(gray, event -> {
+            llama.setColor(Llama.Color.GRAY);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                llama.setColor(Llama.Color.GRAY);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //white
@@ -99,20 +68,10 @@ class LlamaColorSelectionMenu extends Gui {
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
 
-        addItem(white, new GuiAction() {
+        addItem(white, event -> {
+            llama.setColor(Llama.Color.WHITE);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                llama.setColor(Llama.Color.WHITE);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

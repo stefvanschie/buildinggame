@@ -1,25 +1,22 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * The gui to change the floor's material
@@ -114,7 +111,8 @@ class FloorMenu extends Gui {
      * @see Plot
      */
 	FloorMenu(final Plot plot) {
-		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.floor.title")), (int) Math.ceil(getBlocks().size() / 45) + 1);
+		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.floor.title")),
+                (int) Math.ceil(getBlocks().size() / 45) + 1);
 		
 		for (int page = 0; page < pages; page++) {
 			setStartingPoint(54 * page);
@@ -125,63 +123,37 @@ class FloorMenu extends Gui {
 				
 				final Material material = getBlocks().get(i + (45 * page));
 				
-				addItem(new ItemStack(material), new GuiAction() {
-					@Override
-					public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-						if (type != GuiActionType.CLICK)
-							return false;
-					
-						for (Block b : plot.getFloor().getAllBlocks())
-							b.setType(material);
-					
-						return true;
-					}
+				addItem(new ItemStack(material), event -> {
+                    for (Block b : plot.getFloor().getAllBlocks())
+                        b.setType(material);
+
+                    event.setCancelled(true);
 				});
 			}
 			
 			final int currentPage = page;
 			
 			if (page != 0)
-				setItem(PREVIOUS_PAGE, new GuiAction() {
-					@Override
-					public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-						if (type != GuiActionType.CLICK)
-							return false;
-						
-						InventoryClickEvent event = (InventoryClickEvent) e;
-						
-						open((Player) event.getWhoClicked(), currentPage);
-						return true;
-					}
+				setItem(PREVIOUS_PAGE, event -> {
+                    open((Player) event.getWhoClicked(), currentPage);
+
+                    event.setCancelled(true);
 				}, 47 + (54 * page));
 			
-			setItem(CLOSE_MENU, new GuiAction() {
-				@Override
-				public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-					if (type != GuiActionType.CLICK)
-						return false;
-					
-					InventoryClickEvent event = (InventoryClickEvent) e;
-					Player player = (Player) event.getWhoClicked();
-					
-					player.closeInventory();
-					removePlayer(player);
-					return true;
-				}
+			setItem(CLOSE_MENU, event -> {
+                Player player = (Player) event.getWhoClicked();
+
+                player.closeInventory();
+                removePlayer(player);
+
+                event.setCancelled(true);
 			}, 49 + (54 * page));
 			
 			if (page != Math.ceil(getBlocks().size() / 45))
-				setItem(NEXT_PAGE, new GuiAction() {
-					@Override
-					public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-						if (type != GuiActionType.CLICK)
-							return false;
-						
-						InventoryClickEvent event = (InventoryClickEvent) e;
-						
-						open((Player) event.getWhoClicked(), currentPage + 2);
-						return true;
-					}
+				setItem(NEXT_PAGE, event -> {
+                    open((Player) event.getWhoClicked(), currentPage + 2);
+
+                    event.setCancelled(true);
 				}, 51 + (54 * page));
 		}
 	}
@@ -200,7 +172,11 @@ class FloorMenu extends Gui {
 		List<Material> blocks = new ArrayList<>();
 		
 		for (Material material : Material.values()) {
-			if (material.isBlock() && !Arrays.asList(SKIP_MATERIALS).contains(material) && !config.getStringList("blocks.blocked").contains(material.toString().toLowerCase(Locale.getDefault())) && !config.getStringList("gui.floor.excluded-blocks").contains(material.toString().toLowerCase(Locale.getDefault())))
+			if (material.isBlock() && !Arrays.asList(SKIP_MATERIALS).contains(material) &&
+                    !config.getStringList("blocks.blocked").contains(material.toString()
+                            .toLowerCase(Locale.getDefault())) &&
+                    !config.getStringList("gui.floor.excluded-blocks").contains(material.toString()
+                            .toLowerCase(Locale.getDefault())))
 				blocks.add(material);
 		}
 		
@@ -210,8 +186,10 @@ class FloorMenu extends Gui {
 	static {
 		PREVIOUS_PAGE = new ItemStack(Material.SUGAR_CANE);
 		ItemMeta previousPageMeta = PREVIOUS_PAGE.getItemMeta();
-		previousPageMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.previous-page.name")));
-		previousPageMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.previous-page.lores")));
+		previousPageMeta.setDisplayName(MessageManager.translate(MESSAGES
+                .getString("gui.floor.previous-page.name")));
+		previousPageMeta.setLore(MessageManager.translate(MESSAGES
+                .getStringList("gui.floor.previous-page.lores")));
 		PREVIOUS_PAGE.setItemMeta(previousPageMeta);
 		
 		NEXT_PAGE = new ItemStack(Material.SUGAR_CANE);

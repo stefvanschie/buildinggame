@@ -1,17 +1,14 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu;
 
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.nbt.item.SkullItem;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * The gui for the heads in the food category
@@ -30,7 +27,8 @@ public class FoodHeadsMenu extends Gui {
      *
      * @since 4.0.0
      */
-	public FoodHeadsMenu() {
+	@SuppressWarnings("deprecation")
+    public FoodHeadsMenu() {
 		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.heads.food.title")), 3);
 		
 		//page one
@@ -40,7 +38,10 @@ public class FoodHeadsMenu extends Gui {
 		nutellaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.nutella.lores")));
 		nutella.setItemMeta(nutellaMeta);
 		
-		addItem(nutella, new Action());
+		addItem(nutella, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack vegemite = SkullItem.getSkull("http://textures.minecraft.net/texture/ae8890874a3066f426e66e37438f45ab29a5bf2582db73cb4cff6954a578ef");
 		ItemMeta vegemiteMeta = vegemite.getItemMeta();
@@ -48,7 +49,10 @@ public class FoodHeadsMenu extends Gui {
 		vegemiteMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.vegemite.lores")));
 		vegemite.setItemMeta(vegemiteMeta);
 		
-		addItem(vegemite, new Action());
+		addItem(vegemite, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bread = SkullItem.getSkull("http://textures.minecraft.net/texture/f3487d457f9062d787a3e6ce1c4664bf7402ec67dd111256f19b38ce4f670");
 		ItemMeta breadMeta = bread.getItemMeta();
@@ -56,7 +60,10 @@ public class FoodHeadsMenu extends Gui {
 		breadMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.bread.lores")));
 		bread.setItemMeta(breadMeta);
 		
-		addItem(bread, new Action());
+		addItem(bread, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cheese = SkullItem.getSkull("http://textures.minecraft.net/texture/955d611a878e821231749b2965708cad942650672db09e26847a88e2fac2946");
 		ItemMeta cheeseMeta = cheese.getItemMeta();
@@ -64,7 +71,10 @@ public class FoodHeadsMenu extends Gui {
 		cheeseMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cheese.lores")));
 		cheese.setItemMeta(cheeseMeta);
 		
-		addItem(cheese, new Action());
+		addItem(cheese, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack strawberryJam = SkullItem.getSkull("http://textures.minecraft.net/texture/c0b8b5889ee1c6388dc6c2c5dbd70b6984aefe54319a095e64db7638097b821");
 		ItemMeta strawberryJamMeta = strawberryJam.getItemMeta();
@@ -72,7 +82,10 @@ public class FoodHeadsMenu extends Gui {
 		strawberryJamMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.strawberry-jam.lores")));
 		strawberryJam.setItemMeta(strawberryJamMeta);
 		
-		addItem(strawberryJam, new Action());
+		addItem(strawberryJam, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack pancakes = SkullItem.getSkull("http://textures.minecraft.net/texture/347f4f5a74c6691280cd80e7148b49b2ce17dcf64fd55368627f5d92a976a6a8");
 		ItemMeta pancakesMeta = pancakes.getItemMeta();
@@ -80,7 +93,10 @@ public class FoodHeadsMenu extends Gui {
 		pancakesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.pancakes.lores")));
 		pancakes.setItemMeta(pancakesMeta);
 		
-		addItem(pancakes, new Action());
+		addItem(pancakes, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cake = SkullItem.getSkull("http://textures.minecraft.net/texture/f9136514f342e7c5208a1422506a866158ef84d2b249220139e8bf6032e193");
 		ItemMeta cakeMeta = cake.getItemMeta();
@@ -88,7 +104,10 @@ public class FoodHeadsMenu extends Gui {
 		cakeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cake.lores")));
 		cake.setItemMeta(cakeMeta);
 		
-		addItem(cake, new Action());
+		addItem(cake, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cake2 = SkullItem.getSkull("http://textures.minecraft.net/texture/4561ded8d8385b913a091aef4783fccbfd3d38edd90b2e89b723b5a57434bf4");
 		ItemMeta cake2Meta = cake2.getItemMeta();
@@ -96,7 +115,10 @@ public class FoodHeadsMenu extends Gui {
 		cake2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cake-2.lores")));
 		cake2.setItemMeta(cake2Meta);
 		
-		addItem(cake2, new Action());
+		addItem(cake2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack canOfSoup = SkullItem.getSkull("http://textures.minecraft.net/texture/fc91f9507b48b6f719714fbaba77cf68534aa5b728371b11866d55ff833a7f");
 		ItemMeta canOfSoupMeta = canOfSoup.getItemMeta();
@@ -104,7 +126,10 @@ public class FoodHeadsMenu extends Gui {
 		canOfSoupMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.can-of-soup.lores")));
 		canOfSoup.setItemMeta(canOfSoupMeta);
 		
-		addItem(canOfSoup, new Action());
+		addItem(canOfSoup, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cupOfMilk = SkullItem.getSkull("http://textures.minecraft.net/texture/d7ab62fb77189352541dd95a8ee7e3631f7c1658f463f661680c283493d8a");
 		ItemMeta cupOfMilkMeta = cupOfMilk.getItemMeta();
@@ -112,7 +137,10 @@ public class FoodHeadsMenu extends Gui {
 		cupOfMilkMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cup-of-milk.lores")));
 		cupOfMilk.setItemMeta(cupOfMilkMeta);
 		
-		addItem(cupOfMilk, new Action());
+		addItem(cupOfMilk, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack chocolateMuffin = SkullItem.getSkull("http://textures.minecraft.net/texture/83794c736fc76e45706830325b95969466d86f8d7b28fce8edb2c75e2ab25c");
 		ItemMeta chocolateMuffinMeta = chocolateMuffin.getItemMeta();
@@ -120,7 +148,10 @@ public class FoodHeadsMenu extends Gui {
 		chocolateMuffinMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.chocolate-muffin.lores")));
 		chocolateMuffin.setItemMeta(chocolateMuffinMeta);
 		
-		addItem(chocolateMuffin, new Action());
+		addItem(chocolateMuffin, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack muffin = SkullItem.getSkull("http://textures.minecraft.net/texture/343216b3ad2f4757a23c3a24cdaf8ce87bc421d4b6e8bc2ce642aa4803e99");
 		ItemMeta muffinMeta = muffin.getItemMeta();
@@ -128,7 +159,10 @@ public class FoodHeadsMenu extends Gui {
 		muffinMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.muffin.lores")));
 		muffin.setItemMeta(muffinMeta);
 		
-		addItem(muffin, new Action());
+		addItem(muffin, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack oreoSandwich = SkullItem.getSkull("http://textures.minecraft.net/texture/dfd71e20fc50abf0de2ef7decfc01ce27ad51955759e072ceaab96355f594f0");
 		ItemMeta oreoSandwichMeta = oreoSandwich.getItemMeta();
@@ -136,7 +170,10 @@ public class FoodHeadsMenu extends Gui {
 		oreoSandwichMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.oreo-sandwich.lores")));
 		oreoSandwich.setItemMeta(oreoSandwichMeta);
 		
-		addItem(oreoSandwich, new Action());
+		addItem(oreoSandwich, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cookie = SkullItem.getSkull("http://textures.minecraft.net/texture/b592cf9f42a5a8c995968493fdd1b11e0b69aad6473ff45384abe58b7fc7c7");
 		ItemMeta cookieMeta = cookie.getItemMeta();
@@ -144,7 +181,10 @@ public class FoodHeadsMenu extends Gui {
 		cookieMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cookie.lores")));
 		cookie.setItemMeta(cookieMeta);
 		
-		addItem(cookie, new Action());
+		addItem(cookie, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack candyCane = SkullItem.getSkull("http://textures.minecraft.net/texture/4cc3f781c923a2887f14c1eea11050166966f2602578401f1451e6097b979df");
 		ItemMeta candyCaneMeta = candyCane.getItemMeta();
@@ -152,7 +192,10 @@ public class FoodHeadsMenu extends Gui {
 		candyCaneMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.candy-cane.lores")));
 		candyCane.setItemMeta(candyCaneMeta);
 		
-		addItem(candyCane, new Action());
+		addItem(candyCane, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack chocolatebar = SkullItem.getSkull("http://textures.minecraft.net/texture/819f948d17718adace5dd6e050c586229653fef645d7113ab94d17b639cc466");
 		ItemMeta chocolatebarMeta = chocolatebar.getItemMeta();
@@ -160,7 +203,10 @@ public class FoodHeadsMenu extends Gui {
 		chocolatebarMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.chocolatebar.lores")));
 		chocolatebar.setItemMeta(chocolatebarMeta);
 		
-		addItem(chocolatebar, new Action());
+		addItem(chocolatebar, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack chocolatebar2 = SkullItem.getSkull("http://textures.minecraft.net/texture/1ed55260dccc8da59338c75e41d544a2e1e7dbef31a69fe42c01b3298bf2d");
 		ItemMeta chocolatebar2Meta = chocolatebar2.getItemMeta();
@@ -168,7 +214,10 @@ public class FoodHeadsMenu extends Gui {
 		chocolatebar2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.chocolatebar-2.lores")));
 		chocolatebar2.setItemMeta(chocolatebar2Meta);
 		
-		addItem(chocolatebar2, new Action());
+		addItem(chocolatebar2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack slicedLemonCitrusFruit = SkullItem.getSkull("http://textures.minecraft.net/texture/edf410fdf212964a5606ca0a1b47730922775ca7f9763e5aea9a3ab449b6ec");
 		ItemMeta slicedLemonCitrusFruitMeta = slicedLemonCitrusFruit.getItemMeta();
@@ -176,7 +225,10 @@ public class FoodHeadsMenu extends Gui {
 		slicedLemonCitrusFruitMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sliced-lemon-citrus-fruit.lores")));
 		slicedLemonCitrusFruit.setItemMeta(slicedLemonCitrusFruitMeta);
 		
-		addItem(slicedLemonCitrusFruit, new Action());
+		addItem(slicedLemonCitrusFruit, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cherry = SkullItem.getSkull("http://textures.minecraft.net/texture/d525707696bcd15a173056fa39296e80ff41168bb0add552f4523e2558a3119");
 		ItemMeta cherryMeta = cherry.getItemMeta();
@@ -184,7 +236,10 @@ public class FoodHeadsMenu extends Gui {
 		cherryMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cherry.lores")));
 		cherry.setItemMeta(cherryMeta);
 		
-		addItem(cherry, new Action());
+		addItem(cherry, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack apple = SkullItem.getSkull("http://textures.minecraft.net/texture/cbb311f3ba1c07c3d1147cd210d81fe11fd8ae9e3db212a0fa748946c3633");
 		ItemMeta appleMeta = apple.getItemMeta();
@@ -192,7 +247,10 @@ public class FoodHeadsMenu extends Gui {
 		appleMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.apple.lores")));
 		apple.setItemMeta(appleMeta);
 		
-		addItem(apple, new Action());
+		addItem(apple, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack melon = SkullItem.getSkull("http://textures.minecraft.net/texture/c3fed514c3e238ca7ac1c94b897ff6711b1dbe50174afc235c8f80d029");
 		ItemMeta melonMeta = melon.getItemMeta();
@@ -200,7 +258,10 @@ public class FoodHeadsMenu extends Gui {
 		melonMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.melon.lores")));
 		melon.setItemMeta(melonMeta);
 		
-		addItem(melon, new Action());
+		addItem(melon, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack melon2 = SkullItem.getSkull("http://textures.minecraft.net/texture/7e96cedc8b5683bea01673936b6ea96fe948a2b6cb444dc29e1fcff4d2e2cf4");
 		ItemMeta melon2Meta = melon2.getItemMeta();
@@ -208,7 +269,10 @@ public class FoodHeadsMenu extends Gui {
 		melon2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.melon-2.lores")));
 		melon2.setItemMeta(melon2Meta);
 		
-		addItem(melon2, new Action());
+		addItem(melon2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack melon3 = SkullItem.getSkull("http://textures.minecraft.net/texture/241412b8c6fd57e4e162166ddfd74b148a596f9eb1d1593c0469638c8d714");
 		ItemMeta melon3Meta = melon3.getItemMeta();
@@ -216,7 +280,10 @@ public class FoodHeadsMenu extends Gui {
 		melon3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.melon-3.lores")));
 		melon3.setItemMeta(melon3Meta);
 		
-		addItem(melon3, new Action());
+		addItem(melon3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack melon4 = SkullItem.getSkull("http://textures.minecraft.net/texture/f3903066ccc4695e113fee314c96a544eb919622eee7daa1d1966374f3fe848");
 		ItemMeta melon4Meta = melon4.getItemMeta();
@@ -224,7 +291,10 @@ public class FoodHeadsMenu extends Gui {
 		melon4Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.melon-4.lores")));
 		melon4.setItemMeta(melon4Meta);
 		
-		addItem(melon4, new Action());
+		addItem(melon4, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack carvedPumpkin = SkullItem.getSkull("http://textures.minecraft.net/texture/fec415d702f3292a82f1471c8794cf63122d449d28ab886d4dc58fafd66");
 		ItemMeta carvedPumpkinMeta = carvedPumpkin.getItemMeta();
@@ -232,7 +302,10 @@ public class FoodHeadsMenu extends Gui {
 		carvedPumpkinMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.carved-pumpkin.lores")));
 		carvedPumpkin.setItemMeta(carvedPumpkinMeta);
 		
-		addItem(carvedPumpkin, new Action());
+		addItem(carvedPumpkin, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack pumpkin = SkullItem.getSkull("http://textures.minecraft.net/texture/d7d7ad2dcb57dfa9f023dbb99b698fc53075c3e9d654506139a647ac907fddc5");
 		ItemMeta pumpkinMeta = pumpkin.getItemMeta();
@@ -240,7 +313,10 @@ public class FoodHeadsMenu extends Gui {
 		pumpkinMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.pumpkin.lores")));
 		pumpkin.setItemMeta(pumpkinMeta);
 		
-		addItem(pumpkin, new Action());
+		addItem(pumpkin, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack strawberry = SkullItem.getSkull("http://textures.minecraft.net/texture/cbc826aaafb8dbf67881e68944414f13985064a3f8f044d8edfb4443e76ba");
 		ItemMeta strawberryMeta = strawberry.getItemMeta();
@@ -248,7 +324,10 @@ public class FoodHeadsMenu extends Gui {
 		strawberryMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.strawberry.lores")));
 		strawberry.setItemMeta(strawberryMeta);
 		
-		addItem(strawberry, new Action());
+		addItem(strawberry, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack coconut = SkullItem.getSkull("http://textures.minecraft.net/texture/e9b0e969cf3fcced36b712350ffb46d8ed761fe5efb10e3b6a9795e6656da97");
 		ItemMeta coconutMeta = coconut.getItemMeta();
@@ -256,7 +335,10 @@ public class FoodHeadsMenu extends Gui {
 		coconutMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.coconut.lores")));
 		coconut.setItemMeta(coconutMeta);
 		
-		addItem(coconut, new Action());
+		addItem(coconut, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack carrot = SkullItem.getSkull("http://textures.minecraft.net/texture/3063513ecb1a91bbb3481fabd1dc3ac4f131d1c74f61c226df4194812cf3c312");
 		ItemMeta carrotMeta = carrot.getItemMeta();
@@ -264,7 +346,10 @@ public class FoodHeadsMenu extends Gui {
 		carrotMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.carrot.lores")));
 		carrot.setItemMeta(carrotMeta);
 		
-		addItem(carrot, new Action());
+		addItem(carrot, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sugarcane = SkullItem.getSkull("http://textures.minecraft.net/texture/33ca9d8b1d5f2c26547644034a55a4a2463e166f60feb0c7c5af3f724bae");
 		ItemMeta sugarcaneMeta = sugarcane.getItemMeta();
@@ -272,7 +357,10 @@ public class FoodHeadsMenu extends Gui {
 		sugarcaneMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sugarcane.lores")));
 		sugarcane.setItemMeta(sugarcaneMeta);
 		
-		addItem(sugarcane, new Action());
+		addItem(sugarcane, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack hotChocolate = SkullItem.getSkull("http://textures.minecraft.net/texture/411511bdd55bcb82803c8039f1c155fd43062636e23d4d46c4d761c04d22c2");
 		ItemMeta hotChocolateMeta = hotChocolate.getItemMeta();
@@ -280,7 +368,10 @@ public class FoodHeadsMenu extends Gui {
 		hotChocolateMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.hot-chocolate.lores")));
 		hotChocolate.setItemMeta(hotChocolateMeta);
 		
-		addItem(hotChocolate, new Action());
+		addItem(hotChocolate, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cupOfTea = SkullItem.getSkull("http://textures.minecraft.net/texture/d8e94ddd769a5bea748376b4ec7383fd36d267894d7c3bee011e8e4f5fcd7");
 		ItemMeta cupOfTeaMeta = cupOfTea.getItemMeta();
@@ -288,7 +379,10 @@ public class FoodHeadsMenu extends Gui {
 		cupOfTeaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cup-of-tea.lores")));
 		cupOfTea.setItemMeta(cupOfTeaMeta);
 		
-		addItem(cupOfTea, new Action());
+		addItem(cupOfTea, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack taco = SkullItem.getSkull("http://textures.minecraft.net/texture/98ced74a22021a535f6bce21c8c632b273dc2d9552b71a38d57269b3538cf");
 		ItemMeta tacoMeta = taco.getItemMeta();
@@ -296,7 +390,10 @@ public class FoodHeadsMenu extends Gui {
 		tacoMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.taco.lores")));
 		taco.setItemMeta(tacoMeta);
 		
-		addItem(taco, new Action());
+		addItem(taco, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack taco2 = SkullItem.getSkull("http://textures.minecraft.net/texture/ea1f3585f54849b41da5d326a943956a25494364bb961d2458c430be9a6b27");
 		ItemMeta taco2Meta = taco2.getItemMeta();
@@ -304,7 +401,10 @@ public class FoodHeadsMenu extends Gui {
 		taco2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.taco-2.lores")));
 		taco2.setItemMeta(taco2Meta);
 		
-		addItem(taco2, new Action());
+		addItem(taco2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bakedPotatoe = SkullItem.getSkull("http://textures.minecraft.net/texture/6f312a243aa4e69a5edc67e54e44f76eb84f66ec824089557a64bea71f6dc");
 		ItemMeta bakedPotatoeMeta = bakedPotatoe.getItemMeta();
@@ -312,7 +412,10 @@ public class FoodHeadsMenu extends Gui {
 		bakedPotatoeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.baked-potatoe.lores")));
 		bakedPotatoe.setItemMeta(bakedPotatoeMeta);
 		
-		addItem(bakedPotatoe, new Action());
+		addItem(bakedPotatoe, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bacon = SkullItem.getSkull("http://textures.minecraft.net/texture/e7ba22d5df21e821a6de4b8c9d373a3aa187d8ae74f288a82d2b61f272e5");
 		ItemMeta baconMeta = bacon.getItemMeta();
@@ -320,7 +423,10 @@ public class FoodHeadsMenu extends Gui {
 		baconMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.bacon.lores")));
 		bacon.setItemMeta(baconMeta);
 		
-		addItem(bacon, new Action());
+		addItem(bacon, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack fries = SkullItem.getSkull("http://textures.minecraft.net/texture/a0eacac41a9eaf051376ef2f959701e1bbe1bf4aa6715adc34b6dc29a13ea9");
 		ItemMeta friesMeta = fries.getItemMeta();
@@ -328,7 +434,10 @@ public class FoodHeadsMenu extends Gui {
 		friesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.fries.lores")));
 		fries.setItemMeta(friesMeta);
 		
-		addItem(fries, new Action());
+		addItem(fries, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack hamburger = SkullItem.getSkull("http://textures.minecraft.net/texture/a6ef1c25f516f2e7d6f7667420e33adcf3cdf938cb37f9a41a8b35869f569b");
 		ItemMeta hamburgerMeta = hamburger.getItemMeta();
@@ -336,7 +445,10 @@ public class FoodHeadsMenu extends Gui {
 		hamburgerMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.hamburger.lores")));
 		hamburger.setItemMeta(hamburgerMeta);
 		
-		addItem(hamburger, new Action());
+		addItem(hamburger, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack hamburger2 = SkullItem.getSkull("http://textures.minecraft.net/texture/b0e38c176dbf7df9b0632c256eeb6c5aaca99e1c8c1a530656eaff0417aed22");
 		ItemMeta hamburger2Meta = hamburger2.getItemMeta();
@@ -344,7 +456,10 @@ public class FoodHeadsMenu extends Gui {
 		hamburger2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.hamburger-2.lores")));
 		hamburger2.setItemMeta(hamburger2Meta);
 		
-		addItem(hamburger2, new Action());
+		addItem(hamburger2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack hamburger3 = SkullItem.getSkull("http://textures.minecraft.net/texture/cdadf1744433e1c79d1d59d2777d939de159a24cf57e8a61c82bc4fe3777553c");
 		ItemMeta hamburger3Meta = hamburger3.getItemMeta();
@@ -352,7 +467,10 @@ public class FoodHeadsMenu extends Gui {
 		hamburger3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.hamburger-3.lores")));
 		hamburger3.setItemMeta(hamburger3Meta);
 		
-		addItem(hamburger3, new Action());
+		addItem(hamburger3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack popcorn = SkullItem.getSkull("http://textures.minecraft.net/texture/1497b147cfae52205597f72e3c4ef52512e9677020e4b4fa7512c3c6acdd8c1");
 		ItemMeta popcornMeta = popcorn.getItemMeta();
@@ -360,7 +478,10 @@ public class FoodHeadsMenu extends Gui {
 		popcornMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.popcorn.lores")));
 		popcorn.setItemMeta(popcornMeta);
 
-		addItem(popcorn, new Action());
+		addItem(popcorn, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack glassOfCocaCola = SkullItem.getSkull("http://textures.minecraft.net/texture/e9b41e9fe543f2375d0a97dd5922e4d65b8a523baf2265d42398d64c364ef95");
 		ItemMeta glassOfCocaColaMeta = glassOfCocaCola.getItemMeta();
@@ -368,7 +489,10 @@ public class FoodHeadsMenu extends Gui {
 		glassOfCocaColaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.glass-of-coca-cola.lores")));
 		glassOfCocaCola.setItemMeta(glassOfCocaColaMeta);
 		
-		addItem(glassOfCocaCola, new Action());
+		addItem(glassOfCocaCola, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sushiMackerel = SkullItem.getSkull("http://textures.minecraft.net/texture/846d3172e7d6ad6df6a2189755ce0b2dc85a1f9ccd109dc932985867ba6");
 		ItemMeta sushiMackerelMeta = sushiMackerel.getItemMeta();
@@ -376,7 +500,10 @@ public class FoodHeadsMenu extends Gui {
 		sushiMackerelMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sushi-mackerel.lores")));
 		sushiMackerel.setItemMeta(sushiMackerelMeta);
 		
-		addItem(sushiMackerel, new Action());
+		addItem(sushiMackerel, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sushiSalmon = SkullItem.getSkull("http://textures.minecraft.net/texture/23bf8fca2af3592c5574b13e3bcf61e2fae829788535f0ddeaa7a2e45b6ba4");
 		ItemMeta sushiSalmonMeta = sushiSalmon.getItemMeta();
@@ -401,19 +528,13 @@ public class FoodHeadsMenu extends Gui {
 		closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.close.lores")));
 		close.setItemMeta(closeMeta);
 		
-		setItem(close, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				player.closeInventory();
-				removePlayer(player);
-				return true;
-			}
+		setItem(close, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            player.closeInventory();
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 49);
 		
 		//next page
@@ -423,17 +544,10 @@ public class FoodHeadsMenu extends Gui {
 		nextMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.next-page.lores")));
 		next.setItemMeta(nextMeta);
 		
-		setItem(next, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked(), 2);
-				return true;
-			}
+		setItem(next, event -> {
+            open((Player) event.getWhoClicked(), 2);
+
+            event.setCancelled(true);
 		}, 51);
 		
 		setStartingPoint(54);
@@ -445,7 +559,10 @@ public class FoodHeadsMenu extends Gui {
 		riceballMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.riceball.lores")));
 		riceball.setItemMeta(riceballMeta);
 		
-		addItem(riceball, new Action());
+		addItem(riceball, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cornBlock = SkullItem.getSkull("http://textures.minecraft.net/texture/99dfac171e3c2029676ecf8d3a0fd9b7bb2857b95efdefc59e0f252576b5c68");
 		ItemMeta cornBlockMeta = cornBlock.getItemMeta();
@@ -453,7 +570,10 @@ public class FoodHeadsMenu extends Gui {
 		cornBlockMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.corn-block.lores")));
 		cornBlock.setItemMeta(cornBlockMeta);
 		
-		addItem(cornBlock, new Action());
+		addItem(cornBlock, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack hamCheeseSandwich = SkullItem.getSkull("http://textures.minecraft.net/texture/baee84d19c85aff796c88abda21ec4c92c655e2d67b72e5e77b5aa5e99ed");
 		ItemMeta hamCheeseSandwichMeta = hamCheeseSandwich.getItemMeta();
@@ -461,7 +581,10 @@ public class FoodHeadsMenu extends Gui {
 		hamCheeseSandwichMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.ham-cheese-sandwich.lores")));
 		hamCheeseSandwich.setItemMeta(hamCheeseSandwichMeta);
 		
-		addItem(hamCheeseSandwich, new Action());
+		addItem(hamCheeseSandwich, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack glassOfBeer = SkullItem.getSkull("http://textures.minecraft.net/texture/4053e26867bb57538e9789137dbbb53774e18eda6fef51cb2edf426b37264");
 		ItemMeta glassOfBeerMeta = glassOfBeer.getItemMeta();
@@ -469,7 +592,10 @@ public class FoodHeadsMenu extends Gui {
 		glassOfBeerMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.glass-of-beer.lores")));
 		glassOfBeer.setItemMeta(glassOfBeerMeta);
 		
-		addItem(glassOfBeer, new Action());
+		addItem(glassOfBeer, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack medievalBeer = SkullItem.getSkull("http://textures.minecraft.net/texture/229603d82963056be13522cfb7d4520c76ba687f396a0dab125e63b5dacea8");
 		ItemMeta medievalBeerMeta = medievalBeer.getItemMeta();
@@ -477,7 +603,10 @@ public class FoodHeadsMenu extends Gui {
 		medievalBeerMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.medieval-beer.lores")));
 		medievalBeer.setItemMeta(medievalBeerMeta);
 		
-		addItem(medievalBeer, new Action());
+		addItem(medievalBeer, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack ham = SkullItem.getSkull("http://textures.minecraft.net/texture/26336f5bb9975bf57e14db6615c1896c5c4b9c39aad17b17e4ee20b231cf6");
 		ItemMeta hamMeta = ham.getItemMeta();
@@ -485,7 +614,10 @@ public class FoodHeadsMenu extends Gui {
 		hamMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.ham.lores")));
 		ham.setItemMeta(hamMeta);
 		
-		addItem(ham, new Action());
+		addItem(ham, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack mushroomStew = SkullItem.getSkull("http://textures.minecraft.net/texture/cc14144f61c4e66b3c443660debc73cb2125d0140c51b5522c8a68b789414");
 		ItemMeta mushroomStewMeta = mushroomStew.getItemMeta();
@@ -493,7 +625,10 @@ public class FoodHeadsMenu extends Gui {
 		mushroomStewMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.mushroom-stew.lores")));
 		mushroomStew.setItemMeta(mushroomStewMeta);
 		
-		addItem(mushroomStew, new Action());
+		addItem(mushroomStew, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sweetRoll = SkullItem.getSkull("http://textures.minecraft.net/texture/ec6eb8f15ba0d7993bf8708fa1dd86c1e8fde741a7dde9195f22891e02153");
 		ItemMeta sweetRollMeta = sweetRoll.getItemMeta();
@@ -501,7 +636,10 @@ public class FoodHeadsMenu extends Gui {
 		sweetRollMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sweet-roll.lores")));
 		sweetRoll.setItemMeta(sweetRollMeta);
 		
-		addItem(sweetRoll, new Action());
+		addItem(sweetRoll, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack iceCream = SkullItem.getSkull("http://textures.minecraft.net/texture/d8e3b53bc8fab19c6fd0f8abf13bf2303581d81691141f15973b4777e039f73");
 		ItemMeta iceCreamMeta = iceCream.getItemMeta();
@@ -509,7 +647,10 @@ public class FoodHeadsMenu extends Gui {
 		iceCreamMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.ice-cream.lores")));
 		iceCream.setItemMeta(iceCreamMeta);
 		
-		addItem(iceCream, new Action());
+		addItem(iceCream, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack lemon = SkullItem.getSkull("http://textures.minecraft.net/texture/957fd56ca15978779324df519354b6639a8d9bc1192c7c3de925a329baef6c");
 		ItemMeta lemonMeta = lemon.getItemMeta();
@@ -517,7 +658,10 @@ public class FoodHeadsMenu extends Gui {
 		lemonMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.lemon.lores")));
 		lemon.setItemMeta(lemonMeta);
 		
-		addItem(lemon, new Action());
+		addItem(lemon, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack plum = SkullItem.getSkull("http://textures.minecraft.net/texture/5cc016f568d1433860d82fa3379d784cbbd52e56b55f78be7291f8618da38c8");
 		ItemMeta plumMeta = plum.getItemMeta();
@@ -525,7 +669,10 @@ public class FoodHeadsMenu extends Gui {
 		plumMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.plum.lores")));
 		plum.setItemMeta(plumMeta);
 		
-		addItem(plum, new Action());
+		addItem(plum, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack salad = SkullItem.getSkull("http://textures.minecraft.net/texture/1fe92e11a67b56935446a214caa3723d29e6db56c55fa8d43179a8a3176c6c1");
 		ItemMeta saladMeta = salad.getItemMeta();
@@ -533,7 +680,10 @@ public class FoodHeadsMenu extends Gui {
 		saladMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.salad.lores")));
 		salad.setItemMeta(saladMeta);
 		
-		addItem(salad, new Action());
+		addItem(salad, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack whiteFrostedDonut = SkullItem.getSkull("http://textures.minecraft.net/texture/d07b8c51acec2a508bb2fa652fb6e4a08b19485159a099f5982ccb88df1fe27e");
 		ItemMeta whiteFrostedDonutMeta = whiteFrostedDonut.getItemMeta();
@@ -541,7 +691,10 @@ public class FoodHeadsMenu extends Gui {
 		whiteFrostedDonutMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.white-frosted-donut.lores")));
 		whiteFrostedDonut.setItemMeta(whiteFrostedDonutMeta);
 		
-		addItem(whiteFrostedDonut, new Action());
+		addItem(whiteFrostedDonut, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack pinkFrostedDonut = SkullItem.getSkull("http://textures.minecraft.net/texture/837c9b82b186656e9f6363a2a1c6a4b5b93cfa9ef4dad6f16b94ebb5e362678");
 		ItemMeta pinkFrostedDonutMeta = pinkFrostedDonut.getItemMeta();
@@ -549,7 +702,10 @@ public class FoodHeadsMenu extends Gui {
 		pinkFrostedDonutMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.pink-frosted-donut.lores")));
 		pinkFrostedDonut.setItemMeta(pinkFrostedDonutMeta);
 		
-		addItem(pinkFrostedDonut, new Action());
+		addItem(pinkFrostedDonut, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack chocolateFrostedDonut = SkullItem.getSkull("http://textures.minecraft.net/texture/59da54ff366e738e31de92919986abb4d50ca944fa9926af63758b7448f18");
 		ItemMeta chocolateFrostedDonutMeta = chocolateFrostedDonut.getItemMeta();
@@ -557,7 +713,10 @@ public class FoodHeadsMenu extends Gui {
 		chocolateFrostedDonutMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.chocolate-frosted-donut.lores")));
 		chocolateFrostedDonut.setItemMeta(chocolateFrostedDonutMeta);
 		
-		addItem(chocolateFrostedDonut, new Action());
+		addItem(chocolateFrostedDonut, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack turkey = SkullItem.getSkull("http://textures.minecraft.net/texture/f06555706b641fdaf436c07663f923afc5ee72146f90195fb337b9de766588d");
 		ItemMeta turkeyMeta = turkey.getItemMeta();
@@ -565,7 +724,10 @@ public class FoodHeadsMenu extends Gui {
 		turkeyMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.turkey.lores")));
 		turkey.setItemMeta(turkeyMeta);
 		
-		addItem(turkey, new Action());
+		addItem(turkey, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bentoBox = SkullItem.getSkull("http://textures.minecraft.net/texture/fe3052c535e14597a413ec32b32aafdd28686fdab6eed73030e1b94f7c38ff");
 		ItemMeta bentoBoxMeta = bentoBox.getItemMeta();
@@ -573,7 +735,10 @@ public class FoodHeadsMenu extends Gui {
 		bentoBoxMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.bento-box.lores")));
 		bentoBox.setItemMeta(bentoBoxMeta);
 		
-		addItem(bentoBox, new Action());
+		addItem(bentoBox, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack coconut2 = SkullItem.getSkull("http://textures.minecraft.net/texture/32c62fd8e474d09940604f82712a44abb249d63aff87f998374ca849ab17412");
 		ItemMeta coconut2Meta = coconut2.getItemMeta();
@@ -581,7 +746,10 @@ public class FoodHeadsMenu extends Gui {
 		coconut2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.coconut-2.lores")));
 		coconut2.setItemMeta(coconut2Meta);
 		
-		addItem(coconut2, new Action());
+		addItem(coconut2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack coconut3 = SkullItem.getSkull("http://textures.minecraft.net/texture/bf61259a7ed75dfc15f4328f69fa5d549ef1ba9c7aa85c53b8c76173fac3c69");
 		ItemMeta coconut3Meta = coconut3.getItemMeta();
@@ -589,7 +757,10 @@ public class FoodHeadsMenu extends Gui {
 		coconut3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.coconut-3.lores")));
 		coconut3.setItemMeta(coconut3Meta);
 		
-		addItem(coconut3, new Action());
+		addItem(coconut3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack plateOfCookies = SkullItem.getSkull("http://textures.minecraft.net/texture/6368a69c94b45dd0a435de217c29cdbd433c7b447391faa33c241dc08271");
 		ItemMeta plateOfCookiesMeta = plateOfCookies.getItemMeta();
@@ -597,7 +768,10 @@ public class FoodHeadsMenu extends Gui {
 		plateOfCookiesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.plate-of-cookies.lores")));
 		plateOfCookies.setItemMeta(plateOfCookiesMeta);
 		
-		addItem(plateOfCookies, new Action());
+		addItem(plateOfCookies, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack marshmallow = SkullItem.getSkull("http://textures.minecraft.net/texture/b7855166984a725becfac1eab5cfbdcbee7e426466ddc3bee4c71cfd72cb5888");
 		ItemMeta marshmallowMeta = marshmallow.getItemMeta();
@@ -605,7 +779,10 @@ public class FoodHeadsMenu extends Gui {
 		marshmallowMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.marshmallow.lores")));
 		marshmallow.setItemMeta(marshmallowMeta);
 		
-		addItem(marshmallow, new Action());
+		addItem(marshmallow, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack hamburger4 = SkullItem.getSkull("http://textures.minecraft.net/texture/c5e27988a6538010efc0e24756bc3e3eea24d7536b20932c17e0404e5cc55f");
 		ItemMeta hamburger4Meta = hamburger4.getItemMeta();
@@ -613,7 +790,10 @@ public class FoodHeadsMenu extends Gui {
 		hamburger4Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.hamburger-4.lores")));
 		hamburger4.setItemMeta(hamburger4Meta);
 		
-		addItem(hamburger4, new Action());
+		addItem(hamburger4, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bowlOfRice = SkullItem.getSkull("http://textures.minecraft.net/texture/c377e3d6c379fe34a2e6afabba32e7aecf77bcd31a1c3836ec354a935a7e9");
 		ItemMeta bowlOfRiceMeta = bowlOfRice.getItemMeta();
@@ -621,7 +801,10 @@ public class FoodHeadsMenu extends Gui {
 		bowlOfRiceMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.bowl-of-rice.lores")));
 		bowlOfRice.setItemMeta(bowlOfRiceMeta);
 		
-		addItem(bowlOfRice, new Action());
+		addItem(bowlOfRice, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sushiRoll2 = SkullItem.getSkull("http://textures.minecraft.net/texture/50405181d39e76197a262be4cc6541e8e3ed24633384c873adb91dfe3901c");
 		ItemMeta sushiRoll2Meta = sushiRoll2.getItemMeta();
@@ -629,7 +812,10 @@ public class FoodHeadsMenu extends Gui {
 		sushiRoll2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sushi-roll-2.lores")));
 		sushiRoll2.setItemMeta(sushiRoll2Meta);
 		
-		addItem(sushiRoll2, new Action());
+		addItem(sushiRoll2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bowlOfSpaghetti = SkullItem.getSkull("http://textures.minecraft.net/texture/347fe65eb745468e86873a1bda48a5a489fef91cc522d85e0364b55d53f867e");
 		ItemMeta bowlOfSpaghettiMeta = bowlOfSpaghetti.getItemMeta();
@@ -637,7 +823,10 @@ public class FoodHeadsMenu extends Gui {
 		bowlOfSpaghettiMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.bowl-of-spaghetti.lores")));
 		bowlOfSpaghetti.setItemMeta(bowlOfSpaghettiMeta);
 		
-		addItem(bowlOfSpaghetti, new Action());
+		addItem(bowlOfSpaghetti, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bowlOfNoodles = SkullItem.getSkull("http://textures.minecraft.net/texture/26834b5b25426de63538ec82ca8fbecfcbb3e682d8063643d2e67a7621bd");
 		ItemMeta bowlOfNoodlesMeta = bowlOfNoodles.getItemMeta();
@@ -645,7 +834,10 @@ public class FoodHeadsMenu extends Gui {
 		bowlOfNoodlesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.bowl-of-noodles.lores")));
 		bowlOfNoodles.setItemMeta(bowlOfNoodlesMeta);
 		
-		addItem(bowlOfNoodles, new Action());
+		addItem(bowlOfNoodles, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack bowlOfNoodles2 = SkullItem.getSkull("http://textures.minecraft.net/texture/e9485663e65264a3dc30472e6a6931446bed32c2e899905facf18b2919689c1");
 		ItemMeta bowlOfNoodles2Meta = bowlOfNoodles2.getItemMeta();
@@ -653,7 +845,10 @@ public class FoodHeadsMenu extends Gui {
 		bowlOfNoodles2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.bowl-of-noodles-2.lores")));
 		bowlOfNoodles2.setItemMeta(bowlOfNoodles2Meta);
 		
-		addItem(bowlOfNoodles2, new Action());
+		addItem(bowlOfNoodles2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack chineseTakeOutBox = SkullItem.getSkull("http://textures.minecraft.net/texture/6e42286da33a238e4f27fe703fc8a087201b6940fc23744df9663fb985da024");
 		ItemMeta chineseTakeOutBoxMeta = chineseTakeOutBox.getItemMeta();
@@ -661,7 +856,10 @@ public class FoodHeadsMenu extends Gui {
 		chineseTakeOutBoxMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.chinese-take-out-box.lores")));
 		chineseTakeOutBox.setItemMeta(chineseTakeOutBoxMeta);
 		
-		addItem(chineseTakeOutBox, new Action());
+		addItem(chineseTakeOutBox, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack tomato = SkullItem.getSkull("http://textures.minecraft.net/texture/99172226d276070dc21b75ba25cc2aa5649da5cac745ba977695b59aebd");
 		ItemMeta tomatoMeta = tomato.getItemMeta();
@@ -669,7 +867,10 @@ public class FoodHeadsMenu extends Gui {
 		tomatoMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.tomato.lores")));
 		tomato.setItemMeta(tomatoMeta);
 		
-		addItem(tomato, new Action());
+		addItem(tomato, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack orange = SkullItem.getSkull("http://textures.minecraft.net/texture/87b3d291d3b99bcd4c37a1839dc160d885ecd4e237b3aea1baf0adbb1775cd64");
 		ItemMeta orangeMeta = orange.getItemMeta();
@@ -677,7 +878,10 @@ public class FoodHeadsMenu extends Gui {
 		orangeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.orange.lores")));
 		orange.setItemMeta(orangeMeta);
 		
-		addItem(orange, new Action());
+		addItem(orange, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack greenApple = SkullItem.getSkull("http://textures.minecraft.net/texture/c4c05dd5d7a92889d8d22d4df0f1a1fe2bee3eddf192f78fc44e02e14dbf629");
 		ItemMeta greenAppleMeta = greenApple.getItemMeta();
@@ -685,7 +889,10 @@ public class FoodHeadsMenu extends Gui {
 		greenAppleMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.green-apple.lores")));
 		greenApple.setItemMeta(greenAppleMeta);
 		
-		addItem(greenApple, new Action());
+		addItem(greenApple, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack lettuce = SkullItem.getSkull("http://textures.minecraft.net/texture/477dd842c975d8fb03b1add66db8377a18ba987052161f22591e6a4ede7f5");
 		ItemMeta lettuceMeta = lettuce.getItemMeta();
@@ -693,7 +900,10 @@ public class FoodHeadsMenu extends Gui {
 		lettuceMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.lettuce.lores")));
 		lettuce.setItemMeta(lettuceMeta);
 		
-		addItem(lettuce, new Action());
+		addItem(lettuce, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack purpleGrapes = SkullItem.getSkull("http://textures.minecraft.net/texture/ee5935863c53a996f5334e90f55de538e83ffc5f6b0b8e83a4dc4f6e6b1208");
 		ItemMeta purpleGrapesMeta = purpleGrapes.getItemMeta();
@@ -701,7 +911,10 @@ public class FoodHeadsMenu extends Gui {
 		purpleGrapesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.purple-grapes.lores")));
 		purpleGrapes.setItemMeta(purpleGrapesMeta);
 		
-		addItem(purpleGrapes, new Action());
+		addItem(purpleGrapes, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack greenGrapes = SkullItem.getSkull("http://textures.minecraft.net/texture/8cdcf38a8438ed3a547f8d5b47e0801559c595f0e26c45656a76b5bf8a56f");
 		ItemMeta greenGrapesMeta = greenGrapes.getItemMeta();
@@ -709,7 +922,10 @@ public class FoodHeadsMenu extends Gui {
 		greenGrapesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.green-grapes.lores")));
 		greenGrapes.setItemMeta(greenGrapesMeta);
 		
-		addItem(greenGrapes, new Action());
+		addItem(greenGrapes, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack redGrapes = SkullItem.getSkull("http://textures.minecraft.net/texture/d511a5ee4d17682a25f7e8a5da6ff7cd9ad9c4844c258a6de23e7f84f27f9b4");
 		ItemMeta redGrapesMeta = redGrapes.getItemMeta();
@@ -717,7 +933,10 @@ public class FoodHeadsMenu extends Gui {
 		redGrapesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.red-grapes.lores")));
 		redGrapes.setItemMeta(redGrapesMeta);
 		
-		addItem(redGrapes, new Action());
+		addItem(redGrapes, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sandwich = SkullItem.getSkull("http://textures.minecraft.net/texture/9496589fb5c1f69387b7fb17d92312058ff6e8ebeb3eb89e4f73e78196113b");
 		ItemMeta sandwichMeta = sandwich.getItemMeta();
@@ -725,7 +944,10 @@ public class FoodHeadsMenu extends Gui {
 		sandwichMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sandwich.lores")));
 		sandwich.setItemMeta(sandwichMeta);
 		
-		addItem(sandwich, new Action());
+		addItem(sandwich, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cherryPie = SkullItem.getSkull("http://textures.minecraft.net/texture/d53c1e87e537f1ab2774ddafb83439b336f4a777b47ad82bcb30d5fcbdf9bc");
 		ItemMeta cherryPieMeta = cherryPie.getItemMeta();
@@ -733,7 +955,10 @@ public class FoodHeadsMenu extends Gui {
 		cherryPieMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cherry-pie.lores")));
 		cherryPie.setItemMeta(cherryPieMeta);
 		
-		addItem(cherryPie, new Action());
+		addItem(cherryPie, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack pie = SkullItem.getSkull("http://textures.minecraft.net/texture/6483912fb2a30d73361c03844611775b1c33218b3a56bded6ae792c2e439881");
 		ItemMeta pieMeta = pie.getItemMeta();
@@ -741,7 +966,10 @@ public class FoodHeadsMenu extends Gui {
 		pieMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.pie.lores")));
 		pie.setItemMeta(pieMeta);
 		
-		addItem(pie, new Action());
+		addItem(pie, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack chocolateCake = SkullItem.getSkull("http://textures.minecraft.net/texture/9119fca4f28a755d37fbe5dcf6d8c3ef50fe394c1a7850bc7e2b71ee78303c4c");
 		ItemMeta chocolateCakeMeta = chocolateCake.getItemMeta();
@@ -749,7 +977,10 @@ public class FoodHeadsMenu extends Gui {
 		chocolateCakeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.chocolate-cake.lores")));
 		chocolateCake.setItemMeta(chocolateCakeMeta);
 		
-		addItem(chocolateCake, new Action());
+		addItem(chocolateCake, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack honeyPot = SkullItem.getSkull("http://textures.minecraft.net/texture/18c2cddeed624a538f349d8c7035fef918e6d7a1781631eac51ec182712a54da");
 		ItemMeta honeyPotMeta = honeyPot.getItemMeta();
@@ -757,7 +988,10 @@ public class FoodHeadsMenu extends Gui {
 		honeyPotMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.honey-pot.lores")));
 		honeyPot.setItemMeta(honeyPotMeta);
 
-		addItem(honeyPot, new Action());
+		addItem(honeyPot, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack pepsi = SkullItem.getSkull("http://textures.minecraft.net/texture/2bbae6df99dc82beaf49d064df74a1bbc15e8e376533276912c8c8fe59cb4f4");
 		ItemMeta pepsiMeta = pepsi.getItemMeta();
@@ -765,7 +999,10 @@ public class FoodHeadsMenu extends Gui {
 		pepsiMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.pepsi.lores")));
 		pepsi.setItemMeta(pepsiMeta);
 
-		addItem(pepsi, new Action());
+		addItem(pepsi, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cocaCola = SkullItem.getSkull("http://textures.minecraft.net/texture/93b01fb2f6ba47c9d7638491f37cd8582a937731186df4d1eccd59b65bf37");
 		ItemMeta cocaColaMeta = cocaCola.getItemMeta();
@@ -773,7 +1010,10 @@ public class FoodHeadsMenu extends Gui {
 		cocaColaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.coca-cola.lores")));
 		cocaCola.setItemMeta(cocaColaMeta);
 
-		addItem(cocaCola, new Action());
+		addItem(cocaCola, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sprite = SkullItem.getSkull("http://textures.minecraft.net/texture/b8a34d86a7bb13d45afdc50d3dce5eed95e1844fbdee0cca753c6d3346e339e");
 		ItemMeta spriteMeta = sprite.getItemMeta();
@@ -781,7 +1021,10 @@ public class FoodHeadsMenu extends Gui {
 		spriteMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sprite.lores")));
 		sprite.setItemMeta(spriteMeta);
 
-		addItem(sprite, new Action());
+		addItem(sprite, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack melloYello = SkullItem.getSkull("http://textures.minecraft.net/texture/f86b51fb30b5138a4344cc3e6397da28df396241341be92121d5baeef997fb4");
 		ItemMeta melloYelloMeta = melloYello.getItemMeta();
@@ -789,7 +1032,10 @@ public class FoodHeadsMenu extends Gui {
 		melloYelloMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.mello-yello.lores")));
 		melloYello.setItemMeta(melloYelloMeta);
 
-		addItem(melloYello, new Action());
+		addItem(melloYello, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack fanta = SkullItem.getSkull("http://textures.minecraft.net/texture/2be9505a38a14d1512c7892fc44d3d7ce6338b1bf0f9123721b121a14b095a3");
 		ItemMeta fantaMeta = fanta.getItemMeta();
@@ -797,7 +1043,10 @@ public class FoodHeadsMenu extends Gui {
 		fantaMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.fanta.lores")));
 		fanta.setItemMeta(fantaMeta);
 		
-		addItem(fanta, new Action());
+		addItem(fanta, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		//previous page
 		ItemStack previous2 = new ItemStack (Material.SUGAR_CANE);
@@ -806,17 +1055,10 @@ public class FoodHeadsMenu extends Gui {
 		previous2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.previous-page.lores")));
 		previous2.setItemMeta(previous2Meta);
 		
-		setItem(previous2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked());
-				return true;
-			}
+		setItem(previous2, event -> {
+            open((Player) event.getWhoClicked());
+
+            event.setCancelled(true);
 		}, 101);
 		
 		//close
@@ -826,19 +1068,13 @@ public class FoodHeadsMenu extends Gui {
 		close2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.close.lores")));
 		close2.setItemMeta(close2Meta);
 		
-		setItem(close2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				player.closeInventory();
-				removePlayer(player);
-				return true;
-			}
+		setItem(close2, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            player.closeInventory();
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 103);
 		
 		//next page
@@ -848,17 +1084,10 @@ public class FoodHeadsMenu extends Gui {
 		next2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.next-page.lores")));
 		next2.setItemMeta(next2Meta);
 		
-		setItem(next2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked(), 3);
-				return true;
-			}
+		setItem(next2, event -> {
+            open((Player) event.getWhoClicked(), 3);
+
+            event.setCancelled(true);
 		}, 105);
 		
 		setStartingPoint(108);
@@ -870,7 +1099,10 @@ public class FoodHeadsMenu extends Gui {
 		mountainDewMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.mountain-dew.lores")));
 		mountainDew.setItemMeta(mountainDewMeta);
 		
-		addItem(mountainDew, new Action());
+		addItem(mountainDew, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack tomato2 = SkullItem.getSkull("http://textures.minecraft.net/texture/d186863fdf3f3e2979ec6d978a088d8a4f8664c50b5b6d29ad4a7ac264a017");
 		ItemMeta tomato2Meta = tomato2.getItemMeta();
@@ -878,7 +1110,10 @@ public class FoodHeadsMenu extends Gui {
 		tomato2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.tomato-2.lores")));
 		tomato2.setItemMeta(tomato2Meta);
 		
-		addItem(tomato2, new Action());
+		addItem(tomato2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack ripeTomato = SkullItem.getSkull("http://textures.minecraft.net/texture/69147172072f072483529767fe47554a95a0e0fd9b6cc531b25958a399ef3");
 		ItemMeta ripeTomatoMeta = ripeTomato.getItemMeta();
@@ -886,7 +1121,10 @@ public class FoodHeadsMenu extends Gui {
 		ripeTomatoMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.ripe-tomato.lores")));
 		ripeTomato.setItemMeta(ripeTomatoMeta);
 		
-		addItem(ripeTomato, new Action());
+		addItem(ripeTomato, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack raspberry = SkullItem.getSkull("http://textures.minecraft.net/texture/487bde7cb6618be1c1c903f6875ea976e5733544248fd505f516a18f29235");
 		ItemMeta raspberryMeta = raspberry.getItemMeta();
@@ -894,7 +1132,10 @@ public class FoodHeadsMenu extends Gui {
 		raspberryMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.raspberry.lores")));
 		raspberry.setItemMeta(raspberryMeta);
 		
-		addItem(raspberry, new Action());
+		addItem(raspberry, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack raspberry2 = SkullItem.getSkull("http://textures.minecraft.net/texture/b12ef1b486e97e4cb124aa7629aceb91edc51d63338c91a012885493c5d9c");
 		ItemMeta raspberry2Meta = raspberry2.getItemMeta();
@@ -902,7 +1143,10 @@ public class FoodHeadsMenu extends Gui {
 		raspberry2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.raspberry-2.lores")));
 		raspberry2.setItemMeta(raspberry2Meta);
 		
-		addItem(raspberry2, new Action());
+		addItem(raspberry2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack apple2 = SkullItem.getSkull("http://textures.minecraft.net/texture/cc9eba63a9d12cb6fde63badbe289d888f57219f4122c2820ea654fbe6350a5");
 		ItemMeta apple2Meta = apple2.getItemMeta();
@@ -910,7 +1154,10 @@ public class FoodHeadsMenu extends Gui {
 		apple2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.apple-2.lores")));
 		apple2.setItemMeta(apple2Meta);
 		
-		addItem(apple2, new Action());
+		addItem(apple2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack apple3 = SkullItem.getSkull("http://textures.minecraft.net/texture/8564797cd62664448ed028e487acd95d57075dce49a356fcc65655b2b525ddb");
 		ItemMeta apple3Meta = apple3.getItemMeta();
@@ -918,7 +1165,10 @@ public class FoodHeadsMenu extends Gui {
 		apple3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.apple-3.lores")));
 		apple3.setItemMeta(apple3Meta);
 		
-		addItem(apple3, new Action());
+		addItem(apple3, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack apple4 = SkullItem.getSkull("http://textures.minecraft.net/texture/63e8659478dd28b1ade6ebe7d3e1d6758e219f438db784a5addeda86ed1a38a");
 		ItemMeta apple4Meta = apple4.getItemMeta();
@@ -926,7 +1176,10 @@ public class FoodHeadsMenu extends Gui {
 		apple4Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.apple-4.lores")));
 		apple4.setItemMeta(apple4Meta);
 		
-		addItem(apple4, new Action());
+		addItem(apple4, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack apple5 = SkullItem.getSkull("http://textures.minecraft.net/texture/2fb0e221fd81b98b8b569b3522d5231cf8b367732f37b381e7acea29a6e84");
 		ItemMeta apple5Meta = apple5.getItemMeta();
@@ -934,7 +1187,10 @@ public class FoodHeadsMenu extends Gui {
 		apple5Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.apple-5.lores")));
 		apple5.setItemMeta(apple5Meta);
 		
-		addItem(apple5, new Action());
+		addItem(apple5, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack apple6 = SkullItem.getSkull("http://textures.minecraft.net/texture/e2b35bda5ebdf135f4e71ce49726fbec5739f0adedf01c519e2aea7f51951ea2");
 		ItemMeta apple6Meta = apple6.getItemMeta();
@@ -942,7 +1198,10 @@ public class FoodHeadsMenu extends Gui {
 		apple6Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.apple-6.lores")));
 		apple6.setItemMeta(apple6Meta);
 		
-		addItem(apple6, new Action());
+		addItem(apple6, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack cookedShrimp = SkullItem.getSkull("http://textures.minecraft.net/texture/336a9add25645bfcc377c25ef0c2e9901d19493c3e981ebc6ba7a1a1b6466ce4");
 		ItemMeta cookedShrimpMeta = cookedShrimp.getItemMeta();
@@ -950,7 +1209,10 @@ public class FoodHeadsMenu extends Gui {
 		cookedShrimpMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.cooked-shrimp.lores")));
 		cookedShrimp.setItemMeta(cookedShrimpMeta);
 		
-		addItem(cookedShrimp, new Action());
+		addItem(cookedShrimp, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sushiSalmon2 = SkullItem.getSkull("http://textures.minecraft.net/texture/ae9d22d9ada63e281420ae33691880869fa1a14bfdf87d8e538e998a8f29595b");
 		ItemMeta sushiSalmon2Meta = sushiSalmon2.getItemMeta();
@@ -958,7 +1220,10 @@ public class FoodHeadsMenu extends Gui {
 		sushiSalmon2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sushi-salmon-2.name")));
 		sushiSalmon2.setItemMeta(sushiSalmon2Meta);
 		
-		addItem(sushiSalmon, new Action());
+		addItem(sushiSalmon, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sushi = SkullItem.getSkull("http://textures.minecraft.net/texture/cb82d3c9eedc718c07519254f7921a59ff3a6f245939665c9cb017112ce670");
 		ItemMeta sushiMeta = sushi.getItemMeta();
@@ -966,7 +1231,10 @@ public class FoodHeadsMenu extends Gui {
 		sushiMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sushi.lores")));
 		sushi.setItemMeta(sushiMeta);
 		
-		addItem(sushi, new Action());
+		addItem(sushi, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack sushi2 = SkullItem.getSkull("http://textures.minecraft.net/texture/23ca3f926e7a9ab9555fecb69a802743c122d9efc565a2fe5545118fa91d1");
 		ItemMeta sushi2Meta = sushi2.getItemMeta();
@@ -974,7 +1242,10 @@ public class FoodHeadsMenu extends Gui {
 		sushi2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.sushi-2.lores")));
 		sushi2.setItemMeta(sushi2Meta);
 		
-		addItem(sushi2, new Action());
+		addItem(sushi2, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		ItemStack plasticCup = SkullItem.getSkull("http://textures.minecraft.net/texture/9179ce4849723434e84747ec85fbbfb1121456c8aeb2e9171fb8328921d45");
 		ItemMeta plasticCupMeta = plasticCup.getItemMeta();
@@ -982,7 +1253,10 @@ public class FoodHeadsMenu extends Gui {
 		plasticCupMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.plastic-cup.lores")));
 		plasticCup.setItemMeta(plasticCupMeta);
 		
-		addItem(plasticCup, new Action());
+		addItem(plasticCup, event -> {
+            event.setCursor(event.getCurrentItem());
+            event.setCancelled(true);
+        });
 		
 		//previous page
 		ItemStack previous3 = new ItemStack (Material.SUGAR_CANE);
@@ -991,17 +1265,10 @@ public class FoodHeadsMenu extends Gui {
 		previous3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.previous-page.lores")));
 		previous3.setItemMeta(previous3Meta);
 		
-		setItem(previous3, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				
-				open((Player) event.getWhoClicked(), 2);
-				return true;
-			}
+		setItem(previous3, event -> {
+            open((Player) event.getWhoClicked(), 2);
+
+            event.setCancelled(true);
 		}, 155);
 		
 		//close
@@ -1011,43 +1278,13 @@ public class FoodHeadsMenu extends Gui {
 		close3Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.food.close.lores")));
 		close3.setItemMeta(close3Meta);
 		
-		setItem(close3, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				player.closeInventory();
-				removePlayer(player);
-				return true;
-			}
+		setItem(close3, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            player.closeInventory();
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 157);
-	}
-
-    /**
-     * The action that belongs to the heads
-     *
-     * @since 4.0.0
-     */
-	public class Action extends GuiAction {
-
-        /**
-         * Called whenever a player clicks on an item in the menu
-         *
-         * @since 4.0.0
-         */
-		@SuppressWarnings("deprecation")
-		@Override
-		public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-			if (type != GuiActionType.CLICK)
-				return false;
-			
-			InventoryClickEvent event = (InventoryClickEvent) e;
-			event.setCursor(event.getCurrentItem());
-			return true;
-		}
 	}
 }

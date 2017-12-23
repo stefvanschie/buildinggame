@@ -5,7 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,20 +27,10 @@ public class CreeperMenu extends RemoveMenu {
         poweredMeta.setDisplayName(ChatColor.GREEN + "Change whether this creeper is charged");
         powered.setItemMeta(poweredMeta);
 
-        insertItem(powered, new GuiAction() {
+        insertItem(powered, event -> {
+            creeper.setPowered(!creeper.isPowered());
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                creeper.setPowered(!creeper.isPowered());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

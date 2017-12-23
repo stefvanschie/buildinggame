@@ -6,8 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Llama;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -30,19 +28,10 @@ public class LlamaMenu extends ChestMenu {
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color");
         color.setItemMeta(colorMeta);
 
-        insertItem(color, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        insertItem(color, event -> {
+            new LlamaColorSelectionMenu(llama).open((Player) event.getWhoClicked());
 
-                new LlamaColorSelectionMenu(llama).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

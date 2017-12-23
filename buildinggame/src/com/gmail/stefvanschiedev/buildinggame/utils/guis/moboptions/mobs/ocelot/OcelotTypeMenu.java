@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Ocelot;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
@@ -31,20 +30,10 @@ class OcelotTypeMenu extends Gui {
         wildOcelotMeta.setDisplayName(ChatColor.GREEN + "Wild ocelot");
         wildOcelot.setItemMeta(wildOcelotMeta);
 
-        addItem(wildOcelot, new GuiAction() {
+        addItem(wildOcelot, event -> {
+            ocelot.setCatType(Ocelot.Type.WILD_OCELOT);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                ocelot.setCatType(Ocelot.Type.WILD_OCELOT);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //black cat
@@ -53,20 +42,10 @@ class OcelotTypeMenu extends Gui {
         blackCatMeta.setDisplayName(ChatColor.GREEN + "Black cat");
         blackCat.setItemMeta(blackCatMeta);
 
-        addItem(blackCat, new GuiAction() {
+        addItem(blackCat, event -> {
+            ocelot.setCatType(Ocelot.Type.BLACK_CAT);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                ocelot.setCatType(Ocelot.Type.BLACK_CAT);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         setStartingPoint(5);
@@ -77,20 +56,10 @@ class OcelotTypeMenu extends Gui {
         redCatMeta.setDisplayName(ChatColor.GREEN + "Red cat");
         redCat.setItemMeta(redCatMeta);
 
-        addItem(redCat, new GuiAction() {
+        addItem(redCat, event -> {
+            ocelot.setCatType(Ocelot.Type.RED_CAT);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                ocelot.setCatType(Ocelot.Type.RED_CAT);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //siamese cat
@@ -99,20 +68,10 @@ class OcelotTypeMenu extends Gui {
         siameseCatMeta.setDisplayName(ChatColor.GREEN + "Siamese cat");
         siameseCat.setItemMeta(siameseCatMeta);
 
-        addItem(siameseCat, new GuiAction() {
+        addItem(siameseCat, event -> {
+            ocelot.setCatType(Ocelot.Type.SIAMESE_CAT);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                ocelot.setCatType(Ocelot.Type.SIAMESE_CAT);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

@@ -5,7 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Snowman;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,20 +26,10 @@ public class SnowGolemMenu extends RemoveMenu {
         pumpkinMeta.setDisplayName(ChatColor.GREEN + "Change whether this snow golem has a pumpkin");
         pumpkin.setItemMeta(pumpkinMeta);
 
-        insertItem(pumpkin, new GuiAction() {
+        insertItem(pumpkin, event -> {
+            snowman.setDerp(!snowman.isDerp());
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                snowman.setDerp(!snowman.isDerp());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

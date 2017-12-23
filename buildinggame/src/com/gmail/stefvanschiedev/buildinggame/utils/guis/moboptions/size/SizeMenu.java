@@ -6,8 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -30,20 +28,10 @@ public class SizeMenu extends RemoveMenu {
         sizeMeta.setDisplayName(ChatColor.GREEN + "Change size");
         size.setItemMeta(sizeMeta);
 
-        insertItem(size, new GuiAction() {
+        insertItem(size, event -> {
+            new SizeSelectionMenu(slime).open((Player) event.getWhoClicked());
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                new SizeSelectionMenu(slime).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }
