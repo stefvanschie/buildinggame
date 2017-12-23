@@ -5,7 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Sheep;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,19 +27,10 @@ public class SheepMenu extends ColorMenu {
         shearsMeta.setDisplayName(ChatColor.GREEN + "Change whether this sheep is sheared");
         shears.setItemMeta(shearsMeta);
 
-        insertItem(shears, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        insertItem(shears, event -> {
+            sheep.setSheared(!sheep.isSheared());
 
-                sheep.setSheared(!sheep.isSheared());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

@@ -1,19 +1,16 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.Time;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * The gui for changing the time
@@ -31,7 +28,8 @@ class TimeMenu extends Gui {
      * Constructs a new TimeMenu
      */
 	TimeMenu() {
-		super(null, 18, MessageManager.translate(MESSAGES.getString("gui.time.title")), 1);
+		super(null, 18, MessageManager.translate(MESSAGES.getString("gui.time.title")),
+                1);
 		
 		//midnight
 		ItemStack midnight = new ItemStack(Material.WATCH, 1);
@@ -40,22 +38,16 @@ class TimeMenu extends Gui {
 		midnightMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.midnight.lores")));
 		midnight.setItemMeta(midnightMeta);
 		
-		setItem(midnight, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.MIDNIGHT);
-				return true;
-			}
+		setItem(midnight, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.MIDNIGHT);
+
+            event.setCancelled(true);
 		}, 0);
 		
 		//2 AM
@@ -65,22 +57,16 @@ class TimeMenu extends Gui {
 		am2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.2am.lores")));
 		am2.setItemMeta(am2Meta);
 		
-		setItem(am2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.AM2);
-				return true;
-			}
+		setItem(am2, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.AM2);
+
+            event.setCancelled(true);
 		}, 1);
 		
 		//4 AM
@@ -90,22 +76,16 @@ class TimeMenu extends Gui {
 		am4Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.4am.lores")));
 		am4.setItemMeta(am4Meta);
 		
-		setItem(am4, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.AM4);
-				return true;
-			}
+		setItem(am4, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.AM4);
+
+            event.setCancelled(true);
 		}, 2);
 		
 		//6 AM
@@ -115,22 +95,16 @@ class TimeMenu extends Gui {
 		am6Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.6am.lores")));
 		am6.setItemMeta(am6Meta);
 		
-		setItem(am6, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.AM6);
-				return true;
-			}
+		setItem(am6, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.AM6);
+
+            event.setCancelled(true);
 		}, 3);
 		
 		//8 AM
@@ -140,22 +114,16 @@ class TimeMenu extends Gui {
 		am8Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.8am.lores")));
 		am8.setItemMeta(am8Meta);
 		
-		setItem(am8, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.AM8);
-				return true;
-			}
+		setItem(am8, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.AM8);
+
+            event.setCancelled(true);
 		}, 4);
 		
 		//10 AM
@@ -165,22 +133,16 @@ class TimeMenu extends Gui {
 		am10Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.10am.lores")));
 		am10.setItemMeta(am10Meta);
 		
-		setItem(am10, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.AM10);
-				return true;
-			}
+		setItem(am10, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.AM10);
+
+            event.setCancelled(true);
 		}, 5);
 		
 		//Midday
@@ -190,22 +152,16 @@ class TimeMenu extends Gui {
 		middayMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.midday.lores")));
 		midday.setItemMeta(middayMeta);
 		
-		setItem(midday, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.MIDDAY);
-				return true;
-			}
+		setItem(midday, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.MIDDAY);
+
+            event.setCancelled(true);
 		}, 6);
 		
 		//2 PM
@@ -215,22 +171,16 @@ class TimeMenu extends Gui {
 		pm2Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.2pm.lores")));
 		pm2.setItemMeta(pm2Meta);
 		
-		setItem(pm2, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.PM2);
-				return true;
-			}
+		setItem(pm2, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.PM2);
+
+            event.setCancelled(true);
 		}, 7);
 		
 		//4 PM
@@ -240,22 +190,16 @@ class TimeMenu extends Gui {
 		pm4Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.4pm.lores")));
 		pm4.setItemMeta(pm4Meta);
 		
-		setItem(pm4, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.PM4);
-				return true;
-			}
+		setItem(pm4, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.PM4);
+
+            event.setCancelled(true);
 		}, 8);
 		
 		//6 PM
@@ -265,22 +209,16 @@ class TimeMenu extends Gui {
 		pm6Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.6pm.lores")));
 		pm6.setItemMeta(pm6Meta);
 		
-		setItem(pm6, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.PM6);
-				return true;
-			}
+		setItem(pm6, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.PM6);
+
+            event.setCancelled(true);
 		}, 9);
 		
 		//8 PM
@@ -290,22 +228,16 @@ class TimeMenu extends Gui {
 		pm8Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.8pm.lores")));
 		pm8.setItemMeta(pm8Meta);
 		
-		setItem(pm8, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.PM8);
-				return true;
-			}
+		setItem(pm8, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.PM8);
+
+            event.setCancelled(true);
 		}, 10);
 		
 		//10 PM
@@ -315,22 +247,16 @@ class TimeMenu extends Gui {
 		pm10Meta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.10pm.lores")));
 		pm10.setItemMeta(pm10Meta);
 		
-		setItem(pm10, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				Arena arena = ArenaManager.getInstance().getArena(player);
-				
-				if (arena == null)
-					return false;
-				
-				arena.getPlot(player).setTime(Time.PM10);
-				return true;
-			}
+		setItem(pm10, event -> {
+            Player player = (Player) event.getWhoClicked();
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null)
+                return;
+
+            arena.getPlot(player).setTime(Time.PM10);
+
+            event.setCancelled(true);
 		}, 11);
 		
 		//back
@@ -340,19 +266,13 @@ class TimeMenu extends Gui {
 		backMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.back.lores")));
 		back.setItemMeta(backMeta);
 		
-		setItem(back, new GuiAction() {
-			@Override
-			public boolean actionPerformed(GuiActionType type, InventoryEvent e) {
-				if (type != GuiActionType.CLICK)
-					return false;
-				
-				InventoryClickEvent event = (InventoryClickEvent) e;
-				Player player = (Player) event.getWhoClicked();
-				
-				ArenaManager.getInstance().getArena(player).getPlot(player).getBuildMenu().open(player);
-				removePlayer(player);
-				return true;
-			}
+		setItem(back, event -> {
+            Player player = (Player) event.getWhoClicked();
+
+            ArenaManager.getInstance().getArena(player).getPlot(player).getBuildMenu().open(player);
+            removePlayer(player);
+
+            event.setCancelled(true);
 		}, 17);
 	}
 }

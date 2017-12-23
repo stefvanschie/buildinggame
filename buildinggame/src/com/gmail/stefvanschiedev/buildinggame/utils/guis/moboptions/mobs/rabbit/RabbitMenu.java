@@ -6,8 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Rabbit;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,19 +26,10 @@ public class RabbitMenu extends BabyMenu {
         typeMeta.setDisplayName(ChatColor.GREEN + "Change type");
         type.setItemMeta(typeMeta);
 
-        insertItem(type, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        insertItem(type, event -> {
+            new RabbitTypeMenu(rabbit).open((Player) event.getWhoClicked());
 
-                new RabbitTypeMenu(rabbit).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

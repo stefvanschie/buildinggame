@@ -7,8 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Shulker;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -31,20 +29,10 @@ public class ShulkerMenu extends RemoveMenu {
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color of the entity");
         color.setItemMeta(colorMeta);
 
-        insertItem(color, new GuiAction() {
+        insertItem(color, event -> {
+            new ColorSelectionMenu(shulker).open((Player) event.getWhoClicked());
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                new ColorSelectionMenu(shulker).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return super.actionPerformed(type, event);
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

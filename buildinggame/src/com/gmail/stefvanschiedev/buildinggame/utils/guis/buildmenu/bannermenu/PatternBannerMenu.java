@@ -10,9 +10,6 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
@@ -45,23 +42,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.base.lore")));
         baseBanner.setItemMeta(baseBannerMeta);
 
-        addItem(baseBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(baseBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //chief pattern
@@ -74,27 +62,19 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.chief.lore")));
         chiefBanner.setItemMeta(chiefBannerMeta);
 
-        addItem(chiefBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(chiefBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //pale dexter pattern
-        ItemStack paleDexterBanner = new ItemStack(Material.BANNER, 1, dyeColor == DyeColor.WHITE ? 0 : (short) 15);
+        ItemStack paleDexterBanner = new ItemStack(Material.BANNER, 1, dyeColor == DyeColor.WHITE ? 0 :
+                (short) 15);
         BannerMeta paleDexterBannerMeta = (BannerMeta) paleDexterBanner.getItemMeta();
         paleDexterBannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
         paleDexterBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
@@ -103,23 +83,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.pale-dexter.lore")));
         paleDexterBanner.setItemMeta(paleDexterBannerMeta);
 
-        addItem(paleDexterBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(paleDexterBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //pale sinister pattern
@@ -133,23 +104,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.pale-sinister.lore")));
         paleSinisterBanner.setItemMeta(paleSinisterBannerMeta);
 
-        addItem(paleSinisterBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(paleSinisterBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //pale pattern
@@ -162,23 +124,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.pale.lore")));
         paleBanner.setItemMeta(paleBannerMeta);
 
-        addItem(paleBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(paleBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_CENTER));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_CENTER));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //fess pattern
@@ -191,23 +144,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.fess.lore")));
         fessBanner.setItemMeta(fessBannerMeta);
 
-        addItem(fessBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(fessBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //bend pattern
@@ -220,23 +164,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.bend.lore")));
         bendBanner.setItemMeta(bendBannerMeta);
 
-        addItem(bendBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(bendBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //bend sinister pattern
@@ -250,23 +185,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.bend-sinister.lore")));
         bendSinisterBanner.setItemMeta(bendSinisterBannerMeta);
 
-        addItem(bendSinisterBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(bendSinisterBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //paly pattern
@@ -279,23 +205,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.paly.lore")));
         palyBanner.setItemMeta(palyBannerMeta);
 
-        addItem(palyBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(palyBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_SMALL));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_SMALL));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //saltire pattern
@@ -309,23 +226,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.saltire.lore")));
         saltireBanner.setItemMeta(saltireBannerMeta);
 
-        addItem(saltireBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(saltireBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //cross pattern
@@ -338,23 +246,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.cross.lore")));
         crossBanner.setItemMeta(crossBannerMeta);
 
-        addItem(crossBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(crossBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRAIGHT_CROSS));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRAIGHT_CROSS));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per bend sinister pattern
@@ -368,23 +267,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-bend-sinister.lore")));
         perBendSinisterBanner.setItemMeta(perBendSinisterBannerMeta);
 
-        addItem(perBendSinisterBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perBendSinisterBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_LEFT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_LEFT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per bend pattern
@@ -398,23 +288,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-bend.lore")));
         perBendBanner.setItemMeta(perBendBannerMeta);
 
-        addItem(perBendBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perBendBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_RIGHT_MIRROR));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_RIGHT_MIRROR));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per bend inverted pattern
@@ -428,23 +309,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-bend-inverted.lore")));
         perBendInvertedBanner.setItemMeta(perBendInvertedBannerMeta);
 
-        addItem(perBendInvertedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perBendInvertedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_LEFT_MIRROR));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_LEFT_MIRROR));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per bend sinister inverted pattern
@@ -458,23 +330,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-bend-sinister-inverted.lore")));
         perBendSinisterInvertedBanner.setItemMeta(perBendSinisterInvertedBannerMeta);
 
-        addItem(perBendSinisterInvertedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perBendSinisterInvertedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_RIGHT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_RIGHT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per pale pattern
@@ -488,23 +351,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-pale.lore")));
         perPaleBanner.setItemMeta(perPaleBannerMeta);
 
-        addItem(perPaleBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perPaleBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_VERTICAL));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_VERTICAL));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per pale inverted pattern
@@ -518,23 +372,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-pale-inverted.lore")));
         perPaleInvertedBanner.setItemMeta(perPaleInvertedBannerMeta);
 
-        addItem(perPaleInvertedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perPaleInvertedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_VERTICAL_MIRROR));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_VERTICAL_MIRROR));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per fess pattern
@@ -548,23 +393,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-fess.lore")));
         perFessBanner.setItemMeta(perFessBannerMeta);
 
-        addItem(perFessBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perFessBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //per fess inverted pattern
@@ -578,23 +414,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.per-fess-inverted.lore")));
         perFessInvertedBanner.setItemMeta(perFessInvertedBannerMeta);
 
-        addItem(perFessInvertedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(perFessInvertedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL_MIRROR));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL_MIRROR));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //base dexter canton pattern
@@ -608,23 +435,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.base-dexter-canton.lore")));
         baseDexterCantonBanner.setItemMeta(baseDexterCantonBannerMeta);
 
-        addItem(baseDexterCantonBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(baseDexterCantonBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //base sinister canton pattern
@@ -638,23 +456,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.base-sinister-canton.lore")));
         baseSinisterCantonBanner.setItemMeta(baseSinisterCantonBannerMeta);
 
-        addItem(baseSinisterCantonBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(baseSinisterCantonBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_RIGHT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_RIGHT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //chief dexter canton pattern
@@ -668,23 +477,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.chief-dexter-canton.lore")));
         chiefDexterCantonBanner.setItemMeta(chiefDexterCantonBannerMeta);
 
-        addItem(chiefDexterCantonBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(chiefDexterCantonBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_TOP_LEFT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_TOP_LEFT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //chief sinister canton pattern
@@ -698,23 +498,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.chief-sinister-canton.lore")));
         chiefSinisterCantonBanner.setItemMeta(chiefSinisterCantonBannerMeta);
 
-        addItem(chiefSinisterCantonBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(chiefSinisterCantonBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_TOP_RIGHT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_TOP_RIGHT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //chevron pattern
@@ -728,23 +519,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.chevron.lore")));
         chevronBanner.setItemMeta(chevronBannerMeta);
 
-        addItem(chevronBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(chevronBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_BOTTOM));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_BOTTOM));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //inverted chevron pattern
@@ -758,23 +540,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.inverted-chevron.lore")));
         invertedChevronBanner.setItemMeta(invertedChevronBannerMeta);
 
-        addItem(invertedChevronBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(invertedChevronBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_TOP));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_TOP));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //base indented pattern
@@ -788,23 +561,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.base-indented.lore")));
         baseIndentedBanner.setItemMeta(baseIndentedBannerMeta);
 
-        addItem(baseIndentedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(baseIndentedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLES_BOTTOM));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLES_BOTTOM));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //chief indented pattern
@@ -818,23 +582,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.chief-indented.lore")));
         chiefIndentedBanner.setItemMeta(chiefIndentedBannerMeta);
 
-        addItem(chiefIndentedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(chiefIndentedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLES_TOP));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLES_TOP));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //roundel pattern
@@ -848,23 +603,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.roundel.lore")));
         roundelBanner.setItemMeta(roundelBannerMeta);
 
-        addItem(roundelBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(roundelBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CIRCLE_MIDDLE));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CIRCLE_MIDDLE));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //lozenge pattern
@@ -878,23 +624,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.lozenge.lore")));
         lozengeBanner.setItemMeta(lozengeBannerMeta);
 
-        addItem(lozengeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(lozengeBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.RHOMBUS_MIDDLE));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.RHOMBUS_MIDDLE));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //bordure pattern
@@ -908,23 +645,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.bordure.lore")));
         bordureBanner.setItemMeta(bordureBannerMeta);
 
-        addItem(bordureBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(bordureBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.BORDER));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.BORDER));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //bordure indented pattern
@@ -938,23 +666,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.dyed-bordure-indented.lore")));
         dyedBordureIndentedBanner.setItemMeta(dyedBordureIndentedBannerMeta);
 
-        addItem(dyedBordureIndentedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(dyedBordureIndentedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CURLY_BORDER));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CURLY_BORDER));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //dyed field masoned pattern
@@ -968,23 +687,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.dyed-field-masoned.lore")));
         dyedFieldMasonedBanner.setItemMeta(dyedFiledMasonedBannerMeta);
 
-        addItem(dyedFieldMasonedBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(dyedFieldMasonedBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.BRICKS));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.BRICKS));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //gradient pattern
@@ -998,23 +708,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.gradient.lore")));
         gradientBanner.setItemMeta(gradientBannerMeta);
 
-        addItem(gradientBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(gradientBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.GRADIENT));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.GRADIENT));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //base gradient pattern
@@ -1028,23 +729,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.base-gradient.lore")));
         baseGradientBanner.setItemMeta(baseGradientBannerMeta);
 
-        addItem(baseGradientBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(baseGradientBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.GRADIENT_UP));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.GRADIENT_UP));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //dyed creeper charge pattern
@@ -1058,23 +750,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.dyed-creeper-charge.lore")));
         dyedCreeperChargeBanner.setItemMeta(dyedCreeperChargeBannerMeta);
 
-        addItem(dyedCreeperChargeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(dyedCreeperChargeBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CREEPER));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CREEPER));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //dyed skull charge pattern
@@ -1088,23 +771,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.dyed-skull-charge.lore")));
         dyedSkullChargeBanner.setItemMeta(dyedSkullChargeBannerMeta);
 
-        addItem(dyedSkullChargeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(dyedSkullChargeBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SKULL));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SKULL));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //dyed flower charge pattern
@@ -1118,23 +792,14 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.dyed-flower-charge.lore")));
         dyedFlowerChargeBanner.setItemMeta(dyedFlowerChargeBannerMeta);
 
-        setItem(dyedFlowerChargeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        setItem(dyedFlowerChargeBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.FLOWER));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.FLOWER));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 39);
 
         //dyed thing pattern
@@ -1148,42 +813,24 @@ class PatternBannerMenu extends Gui {
                 .getStringList("gui.banners.pattern.dyed-thing.lore")));
         dyedThingBanner.setItemMeta(dyedThingBannerMeta);
 
-        setItem(dyedThingBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        setItem(dyedThingBanner, event -> {
+            BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.MOJANG));
+            banner.setItemMeta(bannerMeta);
 
-                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.MOJANG));
-                banner.setItemMeta(bannerMeta);
+            new ColorBannerMenu(banner).open((Player) event.getWhoClicked());
 
-                new ColorBannerMenu(banner).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 41);
 
         //preview
-        setItem(banner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (!(event instanceof InventoryClickEvent))
-                    return false;
+        setItem(banner, event -> {
+            HumanEntity player = event.getWhoClicked();
 
-                HumanEntity player = ((InventoryInteractEvent) event).getWhoClicked();
+            player.getInventory().addItem(banner);
+            player.closeInventory();
 
-                player.getInventory().addItem(banner);
-                player.closeInventory();
-
-                return true;
-            }
+            event.setCancelled(true);
         },49);
     }
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
@@ -12,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -102,7 +102,7 @@ public class Gui implements Listener {
      * @param action the action that'll be called whenever a player clicks on the item
      * @since 4.0.0
      */
-	protected void addItem(ItemStack itemStack, GuiAction action) {
+	protected void addItem(ItemStack itemStack, Consumer<InventoryClickEvent> action) {
 		int firstNotNull = getFirstEmptySlot(startingPoint);
 		
 		if (firstNotNull == -1)
@@ -169,7 +169,7 @@ public class Gui implements Listener {
      * @param action the action assigned to the item
      * @param position the position to insert this item
      */
-    protected void insertItem(@NotNull ItemStack item, GuiAction action, int position) {
+    protected void insertItem(@NotNull ItemStack item, Consumer<InventoryClickEvent> action, int position) {
         if (items[position] != null)
             System.arraycopy(items, position, items, position + 1, (int) Stream.of(items).skip(position)
                     .filter(Objects::nonNull).count());
@@ -237,13 +237,13 @@ public class Gui implements Listener {
      * @param position the position to put the item in
      * @since 4.0.0
      */
-	protected void setItem(ItemStack itemStack, GuiAction action, int position) {
+	protected void setItem(ItemStack itemStack, Consumer<InventoryClickEvent> action, int position) {
 		items[position] = new GuiItem(itemStack, action);
 	}
 
     /**
      * Sets the starting point for the gui. This is the position that new items via {@link #addItem(ItemStack)} and
-     * {@link #addItem(ItemStack, GuiAction)} will be added.
+     * {@link #addItem(ItemStack, Consumer)} will be added.
      *
      * @param startingPoint the new starting point
      * @since 4.0.0
@@ -303,8 +303,7 @@ public class Gui implements Listener {
 		if (items[slot] == null)
 			return;
 		
-		if (items[slot].getGuiAction().actionPerformed(GuiActionType.CLICK, e))
-			e.setCancelled(true);
+		items[slot].getGuiAction().accept(e);
 	}
 
 	/**
@@ -323,21 +322,6 @@ public class Gui implements Listener {
 		playerPages.remove(e.getPlayer());
 	}
 
-	/**
-     * The different actions for the GuiAction
-     *
-     * @since 4.0.0
-     */
-	public enum GuiActionType {
-
-	    /**
-         * A click action type
-         *
-         * @since 4.0.0
-         */
-		CLICK
-    }
-
     /**
      * A class containing an item and an action assigned to that item
      *
@@ -353,7 +337,7 @@ public class Gui implements Listener {
 		/**
          * The action assigned to the item
          */
-		private final GuiAction guiAction;
+		private final Consumer<InventoryClickEvent> guiAction;
 
 		/**
          * Constructs a new GuiItem
@@ -361,7 +345,7 @@ public class Gui implements Listener {
          * @param itemStack the item to display
          */
 		GuiItem(ItemStack itemStack) {
-			this(itemStack, new GuiAction());
+			this(itemStack, inventoryClickEvent -> {});
 		}
 
         /**
@@ -370,7 +354,7 @@ public class Gui implements Listener {
          * @param itemStack the item to display
          * @param guiAction the action assigned to the item
          */
-		GuiItem(ItemStack itemStack, GuiAction guiAction) {
+		GuiItem(ItemStack itemStack, Consumer<InventoryClickEvent> guiAction) {
 			this.itemStack = itemStack;
 			this.guiAction = guiAction;
 		}
@@ -395,28 +379,8 @@ public class Gui implements Listener {
          */
         @NotNull
 		@Contract(pure = true)
-		GuiAction getGuiAction() {
+        Consumer<InventoryClickEvent> getGuiAction() {
 			return guiAction;
-		}
-	}
-
-	/**
-     * A class for an action happening in the gui
-     *
-     * @since 4.0.0
-     */
-	public class GuiAction {
-
-	    /**
-         * Called whenever an action is performed on an item
-         *
-         * @param type the action type
-         * @param event the inventory event linked to this action
-         * @return true if this event should be cancelled, false if not
-         * @since 4.0.0
-         */
-		public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-			return false;
 		}
 	}
 }

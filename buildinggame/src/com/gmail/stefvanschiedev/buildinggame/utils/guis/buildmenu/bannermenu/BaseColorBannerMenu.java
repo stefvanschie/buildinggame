@@ -6,8 +6,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -38,21 +36,11 @@ public class BaseColorBannerMenu extends Gui {
         blackBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.black.lore")));
 
-        addItem(blackBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(blackBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER)).open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //red banner
@@ -63,21 +51,12 @@ public class BaseColorBannerMenu extends Gui {
         redBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.red.lore")));
 
-        addItem(redBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(redBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 1))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 1))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //green banner
@@ -88,21 +67,12 @@ public class BaseColorBannerMenu extends Gui {
         greenBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.green.lore")));
 
-        addItem(greenBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(greenBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 2))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 2))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //brown banner
@@ -113,21 +83,12 @@ public class BaseColorBannerMenu extends Gui {
         brownBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.brown.lore")));
 
-        addItem(brownBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(brownBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 3))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 3))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //blue banner
@@ -138,21 +99,12 @@ public class BaseColorBannerMenu extends Gui {
         blueBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.blue.lore")));
 
-        addItem(blueBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(blueBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 4))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 4))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //purple banner
@@ -163,21 +115,12 @@ public class BaseColorBannerMenu extends Gui {
         purpleBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.purple.lore")));
 
-        addItem(purpleBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
+        addItem(purpleBanner, event -> {
                 //create new instance of the item, because it will otherwise keep any patterns added to it previously
                 new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 5))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
+                        .open((Player) event.getWhoClicked());
 
-                return true;
-            }
+                event.setCancelled(true);
         });
 
         //cyan banner
@@ -188,21 +131,12 @@ public class BaseColorBannerMenu extends Gui {
         cyanBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.cyan.lore")));
 
-        addItem(cyanBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(cyanBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 6))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 6))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //light gray banner
@@ -213,21 +147,12 @@ public class BaseColorBannerMenu extends Gui {
         lightGrayBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.light-gray.lore")));
 
-        addItem(lightGrayBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(lightGrayBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 7))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 7))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //gray banner
@@ -238,21 +163,12 @@ public class BaseColorBannerMenu extends Gui {
         grayBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.gray.lore")));
 
-        addItem(grayBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(grayBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 8))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 8))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         setStartingPoint(10);
@@ -265,21 +181,12 @@ public class BaseColorBannerMenu extends Gui {
         pinkBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.pink.lore")));
 
-        addItem(pinkBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(pinkBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 9))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 9))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //lime banner
@@ -290,21 +197,12 @@ public class BaseColorBannerMenu extends Gui {
         limeBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.lime.lore")));
 
-        addItem(limeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(limeBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 10))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 10))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //yellow banner
@@ -315,21 +213,12 @@ public class BaseColorBannerMenu extends Gui {
         yellowBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.yellow.lore")));
 
-        addItem(yellowBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(yellowBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 11))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 11))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //light blue banner
@@ -340,21 +229,12 @@ public class BaseColorBannerMenu extends Gui {
         lightBlueBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.light-blue.lore")));
 
-        addItem(lightBlueBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(lightBlueBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 12))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 12))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //magenta banner
@@ -365,21 +245,12 @@ public class BaseColorBannerMenu extends Gui {
         magentaBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.magenta.lore")));
 
-        addItem(magentaBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(magentaBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 13))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 13))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //orange banner
@@ -390,21 +261,12 @@ public class BaseColorBannerMenu extends Gui {
         orangeBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.orange.lore")));
 
-        addItem(orangeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(orangeBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 14))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 14))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //white banner
@@ -415,21 +277,12 @@ public class BaseColorBannerMenu extends Gui {
         whiteBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.base-color.white.lore")));
 
-        addItem(whiteBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(whiteBanner, event -> {
+            //create new instance of the item, because it will otherwise keep any patterns added to it previously
+            new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 15))
+                    .open((Player) event.getWhoClicked());
 
-                //create new instance of the item, because it will otherwise keep any patterns added to it previously
-                new ColorBannerMenu(new ItemStack(Material.BANNER, 1, (short) 15))
-                        .open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

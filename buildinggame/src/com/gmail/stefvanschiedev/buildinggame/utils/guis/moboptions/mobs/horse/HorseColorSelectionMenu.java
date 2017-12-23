@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
@@ -31,20 +30,10 @@ class HorseColorSelectionMenu extends Gui {
         blackMeta.setDisplayName(ChatColor.GREEN + "Black");
         black.setItemMeta(blackMeta);
 
-        addItem(black, new GuiAction() {
+        addItem(black, event -> {
+            horse.setColor(Horse.Color.BLACK);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                horse.setColor(Horse.Color.BLACK);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //brown
@@ -53,20 +42,10 @@ class HorseColorSelectionMenu extends Gui {
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
 
-        addItem(brown, new GuiAction() {
+        addItem(brown, event -> {
+            horse.setColor(Horse.Color.BROWN);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                horse.setColor(Horse.Color.BROWN);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //chestnut
@@ -75,20 +54,10 @@ class HorseColorSelectionMenu extends Gui {
         chestnutMeta.setDisplayName(ChatColor.GREEN + "Chestnut");
         chestnut.setItemMeta(chestnutMeta);
 
-        addItem(chestnut, new GuiAction() {
+        addItem(chestnut, event -> {
+            horse.setColor(Horse.Color.CHESTNUT);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                horse.setColor(Horse.Color.CHESTNUT);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //creamy
@@ -97,20 +66,10 @@ class HorseColorSelectionMenu extends Gui {
         creamyMeta.setDisplayName(ChatColor.GREEN + "Creamy");
         creamy.setItemMeta(creamyMeta);
 
-        addItem(creamy, new GuiAction() {
+        addItem(creamy, event -> {
+            horse.setColor(Horse.Color.CREAMY);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                horse.setColor(Horse.Color.CREAMY);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //dark brown
@@ -119,20 +78,10 @@ class HorseColorSelectionMenu extends Gui {
         darkBrownMeta.setDisplayName(ChatColor.GREEN + "Dark brown");
         darkBrown.setItemMeta(darkBrownMeta);
 
-        addItem(darkBrown, new GuiAction() {
+        addItem(darkBrown, event -> {
+            horse.setColor(Horse.Color.DARK_BROWN);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                horse.setColor(Horse.Color.DARK_BROWN);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //gray
@@ -141,20 +90,10 @@ class HorseColorSelectionMenu extends Gui {
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
 
-        addItem(gray, new GuiAction() {
+        addItem(gray, event -> {
+            horse.setColor(Horse.Color.GRAY);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                horse.setColor(Horse.Color.GRAY);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //white
@@ -163,20 +102,10 @@ class HorseColorSelectionMenu extends Gui {
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
 
-        addItem(white, new GuiAction() {
+        addItem(white, event -> {
+            horse.setColor(Horse.Color.WHITE);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                horse.setColor(Horse.Color.WHITE);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

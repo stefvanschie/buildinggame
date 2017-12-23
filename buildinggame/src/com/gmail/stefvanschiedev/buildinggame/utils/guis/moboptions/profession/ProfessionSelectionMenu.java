@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.ZombieVillager;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -31,24 +30,14 @@ class ProfessionSelectionMenu extends Gui {
         blacksmithMeta.setDisplayName(ChatColor.GREEN + "Blacksmith");
         blacksmith.setItemMeta(blacksmithMeta);
 
-        addItem(blacksmith, new GuiAction() {
+        addItem(blacksmith, event -> {
+            if (creature instanceof Villager)
+                ((Villager) creature).setProfession(Villager.Profession.BLACKSMITH);
+            else if (creature instanceof ZombieVillager)
+                //noinspection OverlyStrongTypeCast
+                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BLACKSMITH);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                if (creature instanceof Villager)
-                    ((Villager) creature).setProfession(Villager.Profession.BLACKSMITH);
-                else if (creature instanceof ZombieVillager)
-                    //noinspection OverlyStrongTypeCast
-                    ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BLACKSMITH);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //butcher
@@ -57,24 +46,14 @@ class ProfessionSelectionMenu extends Gui {
         butcherMeta.setDisplayName(ChatColor.GREEN + "Butcher");
         butcher.setItemMeta(butcherMeta);
 
-        addItem(butcher, new GuiAction() {
+        addItem(butcher, event -> {
+            if (creature instanceof Villager)
+                ((Villager) creature).setProfession(Villager.Profession.BUTCHER);
+            else if (creature instanceof ZombieVillager)
+                //noinspection OverlyStrongTypeCast
+                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BUTCHER);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                if (creature instanceof Villager)
-                    ((Villager) creature).setProfession(Villager.Profession.BUTCHER);
-                else if (creature instanceof ZombieVillager)
-                    //noinspection OverlyStrongTypeCast
-                    ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BUTCHER);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //farmer
@@ -83,24 +62,14 @@ class ProfessionSelectionMenu extends Gui {
         farmerMeta.setDisplayName(ChatColor.GREEN + "Farmer");
         farmer.setItemMeta(farmerMeta);
 
-        addItem(farmer, new GuiAction() {
+        addItem(farmer, event -> {
+            if (creature instanceof Villager)
+                ((Villager) creature).setProfession(Villager.Profession.FARMER);
+            else if (creature instanceof ZombieVillager)
+                //noinspection OverlyStrongTypeCast
+                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.FARMER);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                if (creature instanceof Villager)
-                    ((Villager) creature).setProfession(Villager.Profession.FARMER);
-                else if (creature instanceof ZombieVillager)
-                    //noinspection OverlyStrongTypeCast
-                    ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.FARMER);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         setStartingPoint(5);
@@ -111,24 +80,14 @@ class ProfessionSelectionMenu extends Gui {
         librarianMeta.setDisplayName(ChatColor.GREEN + "Librarian");
         librarian.setItemMeta(librarianMeta);
 
-        addItem(librarian, new GuiAction() {
+        addItem(librarian, event -> {
+            if (creature instanceof Villager)
+                ((Villager) creature).setProfession(Villager.Profession.LIBRARIAN);
+            else if (creature instanceof ZombieVillager)
+                //noinspection OverlyStrongTypeCast
+                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.LIBRARIAN);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                if (creature instanceof Villager)
-                    ((Villager) creature).setProfession(Villager.Profession.LIBRARIAN);
-                else if (creature instanceof ZombieVillager)
-                    //noinspection OverlyStrongTypeCast
-                    ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.LIBRARIAN);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //nitwit
@@ -137,24 +96,14 @@ class ProfessionSelectionMenu extends Gui {
         nitwitMeta.setDisplayName(ChatColor.GREEN + "Nitwit");
         nitwit.setItemMeta(nitwitMeta);
 
-        addItem(nitwit, new GuiAction() {
+        addItem(nitwit, event -> {
+            if (creature instanceof Villager)
+                ((Villager) creature).setProfession(Villager.Profession.NITWIT);
+            else if (creature instanceof ZombieVillager)
+                //noinspection OverlyStrongTypeCast
+                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.NITWIT);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                if (creature instanceof Villager)
-                    ((Villager) creature).setProfession(Villager.Profession.NITWIT);
-                else if (creature instanceof ZombieVillager)
-                    //noinspection OverlyStrongTypeCast
-                    ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.NITWIT);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //priest
@@ -163,24 +112,14 @@ class ProfessionSelectionMenu extends Gui {
         priestMeta.setDisplayName(ChatColor.GREEN + "Priest");
         priest.setItemMeta(priestMeta);
 
-        addItem(priest, new GuiAction() {
+        addItem(priest, event -> {
+            if (creature instanceof Villager)
+                ((Villager) creature).setProfession(Villager.Profession.PRIEST);
+            else if (creature instanceof ZombieVillager)
+                //noinspection OverlyStrongTypeCast
+                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.PRIEST);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                if (creature instanceof Villager)
-                    ((Villager) creature).setProfession(Villager.Profession.PRIEST);
-                else if (creature instanceof ZombieVillager)
-                    //noinspection OverlyStrongTypeCast
-                    ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.PRIEST);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

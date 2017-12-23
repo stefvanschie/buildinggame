@@ -8,9 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -41,20 +38,10 @@ class ColorBannerMenu extends Gui {
         blackBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.black.lore")));
 
-        addItem(blackBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(blackBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.BLACK).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.BLACK).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //red banner
@@ -65,20 +52,10 @@ class ColorBannerMenu extends Gui {
         redBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.red.lore")));
 
-        addItem(redBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(redBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.RED).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.RED).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //green banner
@@ -89,20 +66,10 @@ class ColorBannerMenu extends Gui {
         greenBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.green.lore")));
 
-        addItem(greenBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(greenBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.GREEN).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.GREEN).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //brown banner
@@ -113,20 +80,10 @@ class ColorBannerMenu extends Gui {
         brownBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.brown.lore")));
 
-        addItem(brownBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(brownBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.BROWN).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.BROWN).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //blue banner
@@ -137,20 +94,10 @@ class ColorBannerMenu extends Gui {
         blueBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.blue.lore")));
 
-        addItem(blueBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(blueBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.BLUE).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.BLUE).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //purple banner
@@ -161,20 +108,10 @@ class ColorBannerMenu extends Gui {
         purpleBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.purple.lore")));
 
-        addItem(purpleBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(purpleBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.PURPLE).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.PURPLE).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //cyan banner
@@ -185,20 +122,10 @@ class ColorBannerMenu extends Gui {
         cyanBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.cyan.lore")));
 
-        addItem(cyanBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(cyanBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.CYAN).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.CYAN).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //light gray banner
@@ -209,20 +136,10 @@ class ColorBannerMenu extends Gui {
         lightGrayBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.light-gray.lore")));
 
-        addItem(lightGrayBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(lightGrayBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.SILVER).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.SILVER).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //gray banner
@@ -233,20 +150,10 @@ class ColorBannerMenu extends Gui {
         grayBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.gray.lore")));
 
-        addItem(grayBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(grayBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.GRAY).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.GRAY).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         setStartingPoint(10);
@@ -259,20 +166,10 @@ class ColorBannerMenu extends Gui {
         pinkBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.pink.lore")));
 
-        addItem(pinkBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(pinkBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.PINK).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.PINK).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //lime banner
@@ -283,20 +180,10 @@ class ColorBannerMenu extends Gui {
         limeBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.lime.lore")));
 
-        addItem(limeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(limeBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.LIME).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.LIME).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //yellow banner
@@ -307,20 +194,10 @@ class ColorBannerMenu extends Gui {
         yellowBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.yellow.lore")));
 
-        addItem(yellowBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(yellowBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.YELLOW).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.YELLOW).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //light blue banner
@@ -331,20 +208,10 @@ class ColorBannerMenu extends Gui {
         lightBlueBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.light-blue.lore")));
 
-        addItem(lightBlueBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(lightBlueBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.LIGHT_BLUE).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.LIGHT_BLUE).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //magenta banner
@@ -355,20 +222,10 @@ class ColorBannerMenu extends Gui {
         magentaBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.magenta.lore")));
 
-        addItem(magentaBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(magentaBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.MAGENTA).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.MAGENTA).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //orange banner
@@ -379,20 +236,10 @@ class ColorBannerMenu extends Gui {
         orangeBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.orange.lore")));
 
-        addItem(orangeBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(orangeBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.ORANGE).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.ORANGE).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //white banner
@@ -403,39 +250,20 @@ class ColorBannerMenu extends Gui {
         whiteBannerMeta.setLore(MessageManager.translate(MESSAGES
                 .getStringList("gui.banners.color.white.lore")));
 
-        addItem(whiteBanner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        addItem(whiteBanner, event -> {
+            new PatternBannerMenu(banner, DyeColor.WHITE).open((Player) event.getWhoClicked());
 
-                new PatternBannerMenu(banner, DyeColor.WHITE).open((Player) ((InventoryInteractEvent) event)
-                        .getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //finish
-        setItem(banner, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (!(event instanceof InventoryClickEvent))
-                    return false;
+        setItem(banner, event -> {
+            HumanEntity player = event.getWhoClicked();
 
-                HumanEntity player = ((InventoryInteractEvent) event).getWhoClicked();
+            player.getInventory().addItem(banner);
+            player.closeInventory();
 
-                player.getInventory().addItem(banner);
-                player.closeInventory();
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 22);
     }
 }

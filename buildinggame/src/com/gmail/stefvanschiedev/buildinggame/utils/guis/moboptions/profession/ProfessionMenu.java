@@ -6,8 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -30,20 +28,10 @@ public class ProfessionMenu extends BabyMenu {
         professionMeta.setDisplayName(ChatColor.GREEN + "Change the profession");
         profession.setItemMeta(professionMeta);
 
-        insertItem(profession, new GuiAction() {
+        insertItem(profession, event -> {
+            new ProfessionSelectionMenu(creature).open((Player) event.getWhoClicked());
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                new ProfessionSelectionMenu(creature).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return super.actionPerformed(type, event);
-            }
+            event.setCancelled(true);
         }, 0);
     }
 }

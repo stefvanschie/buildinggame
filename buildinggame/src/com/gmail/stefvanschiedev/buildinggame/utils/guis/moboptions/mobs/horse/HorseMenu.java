@@ -6,8 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -30,19 +28,10 @@ public class HorseMenu extends BabyMenu {
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color");
         color.setItemMeta(colorMeta);
 
-        insertItem(color, new GuiAction() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
+        insertItem(color, event -> {
+            new HorseColorSelectionMenu(horse).open((Player) event.getWhoClicked());
 
-                new HorseColorSelectionMenu(horse).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 0);
 
         //style
@@ -51,20 +40,10 @@ public class HorseMenu extends BabyMenu {
         styleMeta.setDisplayName(ChatColor.GREEN + "Change the style");
         style.setItemMeta(styleMeta);
 
-        insertItem(style, new GuiAction() {
+        insertItem(style, event -> {
+            new HorseStyleSelectionMenu(horse).open((Player) event.getWhoClicked());
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                new HorseStyleSelectionMenu(horse).open((Player) ((InventoryInteractEvent) event).getWhoClicked());
-
-                return true;
-            }
+            event.setCancelled(true);
         }, 1);
     }
 }

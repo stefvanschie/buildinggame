@@ -4,7 +4,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Rabbit;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,20 +26,10 @@ class RabbitTypeMenu extends Gui {
         blackMeta.setDisplayName(ChatColor.GREEN + "Black");
         black.setItemMeta(blackMeta);
 
-        addItem(black, new GuiAction() {
+        addItem(black, event -> {
+            rabbit.setRabbitType(Rabbit.Type.BLACK);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                rabbit.setRabbitType(Rabbit.Type.BLACK);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //black and white type
@@ -49,20 +38,10 @@ class RabbitTypeMenu extends Gui {
         blackAndWhiteMeta.setDisplayName(ChatColor.GREEN + "Black and white");
         blackAndWhite.setItemMeta(blackAndWhiteMeta);
 
-        addItem(blackAndWhite, new GuiAction() {
+        addItem(blackAndWhite, event -> {
+            rabbit.setRabbitType(Rabbit.Type.BLACK_AND_WHITE);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                rabbit.setRabbitType(Rabbit.Type.BLACK_AND_WHITE);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //brown type
@@ -71,20 +50,10 @@ class RabbitTypeMenu extends Gui {
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
 
-        addItem(brown, new GuiAction() {
+        addItem(brown, event -> {
+            rabbit.setRabbitType(Rabbit.Type.BROWN);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                rabbit.setRabbitType(Rabbit.Type.BROWN);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //gold type
@@ -93,20 +62,10 @@ class RabbitTypeMenu extends Gui {
         goldMeta.setDisplayName(ChatColor.GREEN + "Gold");
         gold.setItemMeta(goldMeta);
 
-        addItem(gold, new GuiAction() {
+        addItem(gold, event -> {
+            rabbit.setRabbitType(Rabbit.Type.GOLD);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                rabbit.setRabbitType(Rabbit.Type.GOLD);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //salt and pepper type
@@ -115,20 +74,10 @@ class RabbitTypeMenu extends Gui {
         saltAndPepperMeta.setDisplayName(ChatColor.GREEN + "Salt and pepper");
         saltAndPepper.setItemMeta(saltAndPepperMeta);
 
-        addItem(saltAndPepper, new GuiAction() {
+        addItem(saltAndPepper, event -> {
+            rabbit.setRabbitType(Rabbit.Type.SALT_AND_PEPPER);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                rabbit.setRabbitType(Rabbit.Type.SALT_AND_PEPPER);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //the killer bunny type
@@ -137,20 +86,10 @@ class RabbitTypeMenu extends Gui {
         theKillerBunnyMeta.setDisplayName(ChatColor.GREEN + "The killer bunny");
         theKillerBunny.setItemMeta(theKillerBunnyMeta);
 
-        addItem(theKillerBunny, new GuiAction() {
+        addItem(theKillerBunny, event -> {
+            rabbit.setRabbitType(Rabbit.Type.THE_KILLER_BUNNY);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                rabbit.setRabbitType(Rabbit.Type.THE_KILLER_BUNNY);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //white type
@@ -159,20 +98,10 @@ class RabbitTypeMenu extends Gui {
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
 
-        addItem(white, new GuiAction() {
+        addItem(white, event -> {
+            rabbit.setRabbitType(Rabbit.Type.WHITE);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                rabbit.setRabbitType(Rabbit.Type.WHITE);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }

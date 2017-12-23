@@ -4,7 +4,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Slime;
-import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -29,20 +28,10 @@ class SizeSelectionMenu extends Gui {
         goldNuggetMeta.setDisplayName(ChatColor.GREEN + "Small");
         goldNugget.setItemMeta(goldNuggetMeta);
 
-        addItem(goldNugget, new GuiAction() {
+        addItem(goldNugget, event -> {
+            slime.setSize(1);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                slime.setSize(1);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //medium
@@ -51,20 +40,10 @@ class SizeSelectionMenu extends Gui {
         goldIngotMeta.setDisplayName(ChatColor.GREEN + "Medium");
         goldIngot.setItemMeta(goldIngotMeta);
 
-        addItem(goldIngot, new GuiAction() {
+        addItem(goldIngot, event -> {
+            slime.setSize(2);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                slime.setSize(2);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
 
         //large
@@ -73,20 +52,10 @@ class SizeSelectionMenu extends Gui {
         goldBlockMeta.setDisplayName(ChatColor.GREEN + "Large");
         goldBlock.setItemMeta(goldBlockMeta);
 
-        addItem(goldBlock, new GuiAction() {
+        addItem(goldBlock, event -> {
+            slime.setSize(4);
 
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean actionPerformed(GuiActionType type, InventoryEvent event) {
-                if (type != GuiActionType.CLICK)
-                    return false;
-
-                slime.setSize(4);
-
-                return true;
-            }
+            event.setCancelled(true);
         });
     }
 }
