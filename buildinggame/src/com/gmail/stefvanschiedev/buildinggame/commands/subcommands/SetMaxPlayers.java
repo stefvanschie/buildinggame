@@ -57,6 +57,12 @@ public class SetMaxPlayers extends ConsoleCommand {
 			return CommandResult.ERROR;
 		}
 
+		if (arena.getPlots().isEmpty()) {
+		    MessageManager.getInstance().send(sender,
+                    ChatColor.RED + "You first need to create plots before setting the max players");
+		    return CommandResult.ERROR;
+        }
+
 		int maxPlayers;
 
 		try {
