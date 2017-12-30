@@ -1,7 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.commands.subcommands;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
-import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResult;
@@ -31,23 +33,27 @@ public class Stats extends PlayerCommand {
 	@NotNull
     @Override
 	public CommandResult onCommand(Player player, String[] args) {
-        StatManager instance = StatManager.getInstance();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+        StatManager statManager = StatManager.getInstance();
 
-        Stat playStat = instance.getStat(player, StatType.PLAYS);
-        Stat firstStat = instance.getStat(player, StatType.FIRST);
-        Stat secondStat = instance.getStat(player, StatType.SECOND);
-        Stat thirdStat = instance.getStat(player, StatType.THIRD);
-        Stat placedStat = instance.getStat(player, StatType.PLACED);
-        Stat brokenStat = instance.getStat(player, StatType.BROKEN);
-        Stat walkedStat = instance.getStat(player, StatType.WALKED);
+        Stat playsStat = statManager.getStat(player, StatType.PLAYS);
+        Stat firstStat = statManager.getStat(player, StatType.FIRST);
+        Stat secondStat = statManager.getStat(player, StatType.SECOND);
+        Stat thirdStat = statManager.getStat(player, StatType.THIRD);
+        Stat placedStat = statManager.getStat(player, StatType.PLACED);
+        Stat brokenStat = statManager.getStat(player, StatType.BROKEN);
+        Stat walkedStat = statManager.getStat(player, StatType.WALKED);
 
-        player.sendMessage(ChatColor.GREEN + "Games played: " + (playStat == null ? 0 : playStat.getValue()));
-		player.sendMessage(ChatColor.GREEN + "First places: " + (firstStat == null ? 0 : firstStat.getValue()));
-		player.sendMessage(ChatColor.GREEN + "Second places: " + (secondStat == null ? 0 : secondStat.getValue()));
-		player.sendMessage(ChatColor.GREEN + "Third places: " + (thirdStat == null ? 0 : thirdStat.getValue()));
-		player.sendMessage(ChatColor.GREEN + "Blocks placed: " + (placedStat == null ? 0 : placedStat.getValue()));
-		player.sendMessage(ChatColor.GREEN + "Blocks broken: " + (brokenStat == null ? 0 : brokenStat.getValue()));
-		player.sendMessage(ChatColor.GREEN + "Distance walked: " + (walkedStat == null ? 0 : walkedStat.getValue()));
+        for (String line : MessageManager.translate(messages.getStringList("commands.stats.success"))) {
+            MessageManager.getInstance().send(player, line
+                    .replace("%stat_plays%", playsStat == null ? "0" : String.valueOf(playsStat.getValue()))
+                    .replace("%stat_first%", firstStat == null ? "0" : String.valueOf(firstStat.getValue()))
+                    .replace("%stat_second%", secondStat == null ? "0" : String.valueOf(secondStat.getValue()))
+                    .replace("%stat_third%", thirdStat == null ? "0" : String.valueOf(thirdStat.getValue()))
+                    .replace("%stat_placed%", placedStat == null ? "0" : String.valueOf(placedStat.getValue()))
+                    .replace("%stat_broken%", brokenStat == null ? "0" : String.valueOf(brokenStat.getValue()))
+                    .replace("%stat_walked%", walkedStat == null ? "0" : String.valueOf(walkedStat.getValue())));
+        }
 
 		return CommandResult.SUCCESS;
 	}
