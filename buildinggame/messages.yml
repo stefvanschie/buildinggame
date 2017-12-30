@@ -32,6 +32,15 @@ commands:
   forcetheme:
     success:
     - "&aForced '%theme%' to be the theme"
+  stats:
+    success:
+    - "&aGames played: %stat_plays%"
+    - "&aFirst places: %stat_first%"
+    - "&aSecond places: %stat_second%"
+    - "&aThird places: %stat_third%"
+    - "&aBlocks placed: %stat_placed%"
+    - "&aBlocks broken: %stat_broken%"
+    - "&aDistance walked: %stat_walked%"
 leave:
   message:
   - "&6You have left the game!"
