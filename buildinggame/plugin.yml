@@ -1,5 +1,5 @@
 main: com.gmail.stefvanschiedev.buildinggame.Main
-version: 5.4.1
+version: 5.4.2
 name: BuildingGame
 author: stefvanschie
 softdepend: [Vault, Socket4MC, LeaderHeads, PerWorldInventory, PlaceholderAPI]
