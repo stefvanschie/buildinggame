@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -220,6 +221,9 @@ public class VoteTimer extends Timer {
 
                             if (player.hasPermission("bg.rewards.money.double"))
                                 money *= 2;
+
+							//booster multiplier
+                            money *= Booster.getMultiplier(player);
 
                             if (SDVault.getEconomy().depositPlayer(player, money).transactionSuccess()) {
                                 for (String message : messages.getStringList("vault.message")) {

@@ -37,6 +37,7 @@ public class CommandManager implements CommandExecutor {
      */
 	public void setup() {
 		subCommands.clear();
+		subCommands.add(new BoosterCommand());
 		subCommands.add(new CreateArena());
 		subCommands.add(new DeleteArena());
 		subCommands.add(new DeleteSpawn());
