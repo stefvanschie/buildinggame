@@ -92,12 +92,12 @@ public final class MainSpawnManager {
 	}
 
 	/**
-     * Returns the server the main spawn is located
+     * Returns the server the main spawn is located, will return null if the server name hasn't been set
      *
      * @return the server of the main spawn
      * @since 2.1.0
      */
-	@NotNull
+	@Nullable
 	@Contract(pure = true)
     public String getServer() {
 		return server;
