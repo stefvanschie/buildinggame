@@ -86,6 +86,12 @@ public final class StatManager {
 					this.stats.add(new Stat(StatType.PLACED, player, stats.getInt(uuid + '.' + stat)));
 				else if (stat.equalsIgnoreCase("walked") && config.getBoolean("stats.enable.walked"))
 					this.stats.add(new Stat(StatType.WALKED, player, stats.getInt(uuid + '.' + stat)));
+				else if (stat.equalsIgnoreCase("points_given") &&
+                        config.getBoolean("stats.enable.points-given"))
+				    this.stats.add(new Stat(StatType.POINTS_GIVEN, player, stats.getInt(uuid + '.' + stat)));
+				else if (stat.equalsIgnoreCase("points_received") &&
+                        config.getBoolean("stats.enable.points_received"))
+				    this.stats.add(new Stat(StatType.POINTS_RECEIVED, player, stats.getInt(uuid + '.' + stat)));
 			}
 		}
 	}

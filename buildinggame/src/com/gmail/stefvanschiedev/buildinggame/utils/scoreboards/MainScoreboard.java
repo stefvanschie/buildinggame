@@ -127,6 +127,11 @@ public class MainScoreboard {
                             .getStat(player, StatType.PLACED).getValue() + "")
 					.replace("%stat_walked%", manager.getStat(player, StatType.WALKED) == null ? "0" : manager
                             .getStat(player, StatType.WALKED).getValue() + "")
+                    .replace("%stat_points_received%",
+                            manager.getStat(player, StatType.POINTS_RECEIVED) == null ? "0" :
+                                    manager.getStat(player, StatType.POINTS_RECEIVED).getValue() + "")
+                    .replace("%stat_points_given%", manager.getStat(player, StatType.POINTS_GIVEN) == null ?
+                            "0" : manager.getStat(player, StatType.POINTS_GIVEN).getValue() + "")
                     .replace("%date_day_of_month%", localDateTime.getDayOfMonth() + "")
                     .replace("%date_day_of_week%", localDateTime.getDayOfWeek() + "")
                     .replace("%date_day_of_year%", localDateTime.getDayOfYear() + "")

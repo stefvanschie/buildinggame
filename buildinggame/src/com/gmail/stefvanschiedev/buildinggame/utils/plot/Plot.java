@@ -2,7 +2,11 @@ package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.*;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -223,27 +227,29 @@ public class Plot {
 		if (arena.getState() != GameState.VOTING)
 			return;
 
-		//check if player votes on his/her own plot
+        Player sender = vote.getSender();
+
+        //check if player votes on his/her own plot
 		for (GamePlayer gamePlayer : getGamePlayers()) {
-            if (gamePlayer.getPlayer().equals(vote.getSender())) {
-                MessageManager.getInstance().send(vote.getSender(), messages.getStringList("vote.own-plot"));
+            if (gamePlayer.getPlayer().equals(sender)) {
+                MessageManager.getInstance().send(sender, messages.getStringList("vote.own-plot"));
                 return;
             }
 		}
 
 		//check how many times voted
-		if (getTimesVoted(vote.getSender()) == config.getInt("max-vote-change")) {
+		if (getTimesVoted(sender) == config.getInt("max-vote-change")) {
 			for (String message : messages.getStringList("vote.maximum-votes"))
-				MessageManager.getInstance().send(vote.getSender(), message
+				MessageManager.getInstance().send(sender, message
 						.replace("%max_votes%", config.getInt("max-votes-change") + ""));
 
 			return;
 		}
 
-		getTimesVoted().put(vote.getSender(), getTimesVoted(vote.getSender()) + 1);
+		getTimesVoted().put(sender, getTimesVoted(sender) + 1);
 		
 		for (String message : messages.getStringList("vote.message"))
-			MessageManager.getInstance().send(vote.getSender(), message
+			MessageManager.getInstance().send(sender, message
 					.replace("%playerplot%", arena.getVotingPlot().getPlayerFormat())
 					.replace("%points%", vote.getPoints() + ""));
 		
@@ -251,20 +257,20 @@ public class Plot {
 			for (GamePlayer player : arena.getVotingPlot().getGamePlayers())
 				MessageManager.getInstance().send(player.getPlayer(), message
 						.replace("%points%", vote.getPoints() + "")
-						.replace("%sender%", vote.getSender().getName()));
+						.replace("%sender%", sender.getName()));
 		}
 
-		Arena senderArena = ArenaManager.getInstance().getArena(vote.getSender());
+		Arena senderArena = ArenaManager.getInstance().getArena(sender);
 
 		if (senderArena != null) {
-            for (GamePlayer player : senderArena.getPlot(vote.getSender()).getGamePlayers())
+            for (GamePlayer player : senderArena.getPlot(sender).getGamePlayers())
                 player.addTitleAndSubtitle(messages.getString("vote.title")
                         .replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")
                         .replace("%points%", vote.getPoints() + ""));
         }
 
-		if (hasVoted(vote.getSender()))
-			getVotes().remove(getVote(vote.getSender()));
+		if (hasVoted(sender))
+			getVotes().remove(getVote(sender));
 
 		votes.add(vote);
 		
@@ -279,6 +285,24 @@ public class Plot {
 				}
 			}
 		}
+
+		//track stats
+        StatManager statManager = StatManager.getInstance();
+
+        for (GamePlayer gamePlayer : getGamePlayers()) {
+            Player player = gamePlayer.getPlayer();
+            Stat stat = statManager.getStat(player, StatType.POINTS_RECEIVED);
+
+            statManager.registerStat(player, StatType.POINTS_RECEIVED,
+                    (stat == null ? 0 : stat.getValue()) + vote.getPoints());
+        }
+
+        Stat stat = statManager.getStat(sender, StatType.POINTS_GIVEN);
+
+        statManager.registerStat(sender, StatType.POINTS_GIVEN,
+                (stat == null ? 0 : stat.getValue()) + vote.getPoints());
+
+        SignManager.getInstance().updateStatSigns();
 	}
 
 	/**

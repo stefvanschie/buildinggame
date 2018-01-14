@@ -66,6 +66,8 @@ public class MySQLDatabase {
                     "  `broken` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `placed` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `walked` int(11) NOT NULL DEFAULT '0'\n" +
+                    "  `points_received` int(11) NOT NULL DEFAULT '0'\n" +
+                    "  `points_given` int(11) NOT NULL DEFAULT '0'\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
         } catch (SQLException e) {
         	plugin.getLogger().info("Failed to create table in database! Returning to file stats.");

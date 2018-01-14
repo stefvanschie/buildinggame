@@ -43,6 +43,8 @@ public class Stats extends PlayerCommand {
         Stat placedStat = statManager.getStat(player, StatType.PLACED);
         Stat brokenStat = statManager.getStat(player, StatType.BROKEN);
         Stat walkedStat = statManager.getStat(player, StatType.WALKED);
+        Stat pointsGivenStat = statManager.getStat(player, StatType.POINTS_GIVEN);
+        Stat pointsReceivedStat = statManager.getStat(player, StatType.POINTS_RECEIVED);
 
         for (String line : MessageManager.translate(messages.getStringList("commands.stats.success"))) {
             MessageManager.getInstance().send(player, line
@@ -52,7 +54,11 @@ public class Stats extends PlayerCommand {
                     .replace("%stat_third%", thirdStat == null ? "0" : String.valueOf(thirdStat.getValue()))
                     .replace("%stat_placed%", placedStat == null ? "0" : String.valueOf(placedStat.getValue()))
                     .replace("%stat_broken%", brokenStat == null ? "0" : String.valueOf(brokenStat.getValue()))
-                    .replace("%stat_walked%", walkedStat == null ? "0" : String.valueOf(walkedStat.getValue())));
+                    .replace("%stat_walked%", walkedStat == null ? "0" : String.valueOf(walkedStat.getValue()))
+                    .replace("%stat_points_given%", pointsGivenStat == null ? "0" :
+                            String.valueOf(pointsGivenStat.getValue()))
+                    .replace("%stat_points_received%", pointsReceivedStat == null ? "0" :
+                            String.valueOf(pointsReceivedStat.getValue())));
         }
 
 		return CommandResult.SUCCESS;
