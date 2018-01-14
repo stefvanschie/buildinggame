@@ -54,6 +54,20 @@ public enum StatType {
      *
      * @since 2.2.0
      */
-	WALKED
+	WALKED,
+
+    /**
+     * Keeps track of the amount of points received
+     *
+     * @since 5.4.3
+     */
+    POINTS_RECEIVED,
+
+    /**
+     * Keeps track of the amount of points given
+     *
+     * @since 5.4.3
+     */
+    POINTS_GIVEN
 	
 }

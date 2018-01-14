@@ -300,7 +300,8 @@ public final class SignManager {
 		for (StatSign sign : statSigns) {
 			Sign s = sign.getSign();
 
-			if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault()))) {
+			if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault())
+                    .replace("_", "-"))) {
 				Map<OfflinePlayer, Integer> stats = new HashMap<>();
 
 				for (Stat stat : StatManager.getInstance().getStats(sign.getType()))
@@ -323,9 +324,9 @@ public final class SignManager {
 				}
 
 				for (int i = 0; i < 4; i++)
-                    s.setLine(i, replace(MessageManager.translate(messages.getString("signs.stat." + sign
-                            .getType().toString().toLowerCase(Locale.getDefault()) + ".line-" + (i + 1))), sign, player,
-                            value));
+                    s.setLine(i, replace(MessageManager.translate(messages.getString("signs.stat." + sign.getType()
+                            .toString().toLowerCase(Locale.getDefault()).replace("_", "-") + ".line-" + (i + 1))),
+                            sign, player, value));
 			} else {
 				s.setLine(0, "");
 				s.setLine(1, ChatColor.RED + "Stat type");

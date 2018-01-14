@@ -174,14 +174,8 @@ public class Main extends JavaPlugin {
 			SDVault.getInstance().setup();
 
 		if (Bukkit.getPluginManager().isPluginEnabled("LeaderHeads")) {
-		    new LeaderHeadsStatistic(StatType.PLAYS);
-		    new LeaderHeadsStatistic(StatType.FIRST);
-		    new LeaderHeadsStatistic(StatType.SECOND);
-		    new LeaderHeadsStatistic(StatType.THIRD);
-		    new LeaderHeadsStatistic(StatType.BROKEN);
-		    new LeaderHeadsStatistic(StatType.PLACED);
-		    new LeaderHeadsStatistic(StatType.BROKEN);
-		    new LeaderHeadsStatistic(StatType.WALKED);
+            for (StatType statType : StatType.values())
+                new LeaderHeadsStatistic(statType);
         }
 		
 		getLogger().info("Loading commands");

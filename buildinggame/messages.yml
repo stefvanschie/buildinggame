@@ -41,6 +41,8 @@ commands:
     - "&aBlocks placed: %stat_placed%"
     - "&aBlocks broken: %stat_broken%"
     - "&aDistance walked: %stat_walked%"
+    - "&aPoints given: %stat_points_given%"
+    - "&aPoints received: %stat_points_received%"
 leave:
   message:
   - "&6You have left the game!"
@@ -188,6 +190,16 @@ signs:
       line-2: "&l&e#%number% %player%"
       line-3: "&1Blocks walked"
       line-4: "&6%amount%"
+    points-given:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Points given"
+      line-4: "&6%amount%"
+    points-received:
+      line-1: "&lBuilding Game"
+      line-2: "&l&e#%number% %player%"
+      line-3: "&1Points received"
+      line-4: "&6%amount%"
 
 leader-heads:
   plays:
@@ -238,6 +250,20 @@ leader-heads:
       line-1: "&c&m------------"
       line-2: "&a{name}"
       line-3: "&e{amount} walked blocks"
+      line-4: "&c&m------------"
+  points-given:
+    title: "&4Top points given"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} points given"
+      line-4: "&c&m------------"
+  points-received:
+    title: "&4Top points received"
+    lines:
+      line-1: "&c&m------------"
+      line-2: "&a{name}"
+      line-3: "&e{amount} points received"
       line-4: "&c&m------------"
 
 subject-gui:
