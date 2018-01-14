@@ -260,7 +260,6 @@ public final class SettingsManager {
 	private void generateSettings(boolean save) {
 		int settings = 0;
 		int addedSettings = 0;
-		int removedSettings = 0;
 		
 		InputStream defConfigStream = Main.getInstance().getResource("config.yml");
 
@@ -278,17 +277,6 @@ public final class SettingsManager {
 				if (config.getBoolean("debug") && !config.isConfigurationSection(string))
 				    settings++;
 			}
-
-			if (config.getBoolean("clean-files")) {
-				for (String string : config.getKeys(true)) {
-					if (!defConfig.contains(string)) {
-						if (config.getBoolean("debug") && !config.isConfigurationSection(string))
-							removedSettings++;
-
-						config.set(string, null);
-					}
-				}
-			}
         }
 
         if (config.getBoolean("debug")) {
@@ -296,7 +284,6 @@ public final class SettingsManager {
 
             logger.info("Found " + settings + " settings");
         	logger.info("Added " + addedSettings + " new settings");
-        	logger.info("Removed " + removedSettings + " old settings");
         }
         
         if (save)
@@ -313,7 +300,6 @@ public final class SettingsManager {
 	private void generateMessages(boolean save) {
 		int settings = 0;
 		int addedSettings = 0;
-		int removedSettings = 0;
 		
 		InputStream defMessagesStream = Main.getInstance().getResource("messages.yml");
 
@@ -337,17 +323,6 @@ public final class SettingsManager {
 				if (config.getBoolean("debug") && !config.isConfigurationSection(string))
                     settings++;
 			}
-			
-			if (config.getBoolean("clean-files")) {
-				for (String string : messages.getKeys(true)) {
-					if (!defMessages.contains(string)) {
-						if (config.getBoolean("debug") && !messages.isConfigurationSection(string))
-							removedSettings++;
-
-						messages.set(string, null);
-					}
-				}
-			}
         }
 
         if (config.getBoolean("debug")) {
@@ -355,7 +330,6 @@ public final class SettingsManager {
 
             logger.info("Found " + settings + " settings");
         	logger.info("Added " + addedSettings + " new settings");
-        	logger.info("Removed " + removedSettings + " old settings");
         }
         
         if (save)

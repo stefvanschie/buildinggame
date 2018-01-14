@@ -244,5 +244,5 @@ signs:
     building: RED
     voting: ORANGE
     reseting: ORANGE
+
 debug: false
-clean-files: false
