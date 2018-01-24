@@ -65,8 +65,8 @@ public class MySQLDatabase {
                     "  `third` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `broken` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `placed` int(11) NOT NULL DEFAULT '0',\n" +
-                    "  `walked` int(11) NOT NULL DEFAULT '0'\n" +
-                    "  `points_received` int(11) NOT NULL DEFAULT '0'\n" +
+                    "  `walked` int(11) NOT NULL DEFAULT '0',\n" +
+                    "  `points_received` int(11) NOT NULL DEFAULT '0',\n" +
                     "  `points_given` int(11) NOT NULL DEFAULT '0'\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
         } catch (SQLException e) {
