@@ -796,13 +796,13 @@ public class Arena {
 		if (config.getBoolean("tab-list.adjust")) {
 			for (Player pl : Bukkit.getOnlinePlayers()) {
 				if (!contains(pl))
-					player.hidePlayer(pl);
+					player.hidePlayer(Main.getInstance(), pl);
 			}
 		}
 		//show current joined player to others
 		for (Plot plot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : plot.getGamePlayers())
-				gamePlayer.getPlayer().showPlayer(player);
+				gamePlayer.getPlayer().showPlayer(Main.getInstance(), player);
 		}
 		
 		if (getPlayers() >= minPlayers && !waitTimer.isActive())
@@ -909,7 +909,7 @@ public class Arena {
 		
 		//show all players again
 		for (Player pl : Bukkit.getOnlinePlayers())
-			player.showPlayer(pl);
+			player.showPlayer(Main.getInstance(), pl);
 		
 		for (Plot usedPlot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
@@ -1359,7 +1359,7 @@ public class Arena {
 				//show all players again
 				if (config.getBoolean("tab-list.adjust")) {
 					for (Player pl : Bukkit.getOnlinePlayers())
-						player.showPlayer(pl);
+						player.showPlayer(Main.getInstance(), pl);
 				}
 			}
 		}

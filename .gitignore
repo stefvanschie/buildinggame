@@ -1,4 +1,7 @@
 *.iml
+*.bat
 \.idea
 \libs
 \output
+\out
+\target
