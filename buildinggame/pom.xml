@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.gmail.stefvanschiedev</groupId>
+    <artifactId>buildinggame</artifactId>
+    <version>5.4.3</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--Needs to be created manually-->
+        <dependency>
+            <groupId>fr.rhaz</groupId>
+            <artifactId>socketapi</artifactId>
+            <version>1.6.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--Needs to be created manually-->
+        <dependency>
+            <groupId>me.robin</groupId>
+            <artifactId>leaderheads</artifactId>
+            <version>3.1.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--Needs to be created manually-->
+        <dependency>
+            <groupId>me.gnat008</groupId>
+            <artifactId>perworldinventory</artifactId>
+            <version>1.11.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.8.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.7.6</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

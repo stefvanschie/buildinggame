@@ -6,7 +6,6 @@ import fr.rhaz.socket4mc.Bungee.BungeeSocketHandshakeEvent;
 import fr.rhaz.socket4mc.Bungee.BungeeSocketJSONEvent;
 import fr.rhaz.socketapi.SocketAPI;
 import fr.rhaz.socketapi.SocketAPI.Server.SocketMessenger;
-import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
@@ -41,7 +40,7 @@ public class Main extends Plugin implements Listener {
      */
 	@Override
 	public void onEnable() {
-		BungeeCord.getInstance().getPluginManager().registerListener(this, this);
+	    getProxy().getPluginManager().registerListener(this, this);
 
 		socketMessengers = new HashSet<>();
 		pendingConnections = new HashMap<>();

@@ -187,7 +187,7 @@ public class Plot {
 		getAllGamePlayers().add(gamePlayer);
 		
 		for (GamePlayer player : getAllGamePlayers())
-			player.getPlayer().hidePlayer(spectator);
+			player.getPlayer().hidePlayer(Main.getInstance(), spectator);
 
         ItemBuilder spectatorLeaveItem = IDDecompiler.getInstance().decompile(spectator,
                 config.getString("leave-item.id")).setDisplayName(MessageManager.translate(SettingsManager
@@ -700,7 +700,7 @@ public class Plot {
 		getAllGamePlayers().remove(spectator);
 		
 		for (GamePlayer player : getAllGamePlayers())
-			player.getPlayer().showPlayer(spectator.getPlayer());
+			player.getPlayer().showPlayer(Main.getInstance(), spectator.getPlayer());
 		
 		Player spPlayer = spectator.getPlayer();
 		spectator.restore();
