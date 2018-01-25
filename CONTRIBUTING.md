@@ -37,6 +37,12 @@ You just have to add the settings to either the default config.yml or messages.y
 
 ## Getting started with pull requests
 
+When you want to fix an issue, make sure no one is assigned to that issue as of yet. If someone is assigned, (s)he will fix it. Also when you're more experienced with this projefct, please leave issues tagged with "good first issue" for people with less experience, unless there are no other issues available.
+
+Note that issues tagged with "good first issue" don't necessarily mean this has to be your first issue. You can still fix those issues if you feel like you don't have that much experience with this project or aren't very comfortable with it.
+
+When you want to fix an issue, please leave a comment stating that you're going to fix this issue so we can assign you to it. This ensures that people aren't wasting their time by fixing the same issue.
+
 If your pull request is bigger than a few lines (say 10 max.) make a fork of the project and add the changes there first. Changes
 that are smaller (documentation changes, spelling/grammer fixes, adding comments, constant values errors, additional logging messages,
 etc.) can be done direclty without the need for a new fork.
