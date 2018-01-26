@@ -156,6 +156,84 @@ public class Region {
     }
 
     /**
+     * Returns the world this region is in
+     *
+     * @return the world
+     * @since 5.5.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public World getWorld() {
+        return world;
+    }
+
+    /**
+     * Returns the lowest x coordinate
+     *
+     * @return the lowest x coordinate
+     * @since 5.5.0
+     */
+    @Contract(pure = true)
+    public int getLowX() {
+        return lowX;
+    }
+
+    /**
+     * Returns the lowest y coordinate
+     *
+     * @return the lowest y coordinate
+     * @since 5.5.0
+     */
+    @Contract(pure = true)
+    public int getLowY() {
+        return lowY;
+    }
+
+    /**
+     * Returns the lowest z coordinate
+     *
+     * @return the lowest z coordinate
+     * @since 5.5.0
+     */
+    @Contract(pure = true)
+    public int getLowZ() {
+        return lowZ;
+    }
+
+    /**
+     * Returns the highest x coordinate
+     *
+     * @return the highest x coordinate
+     * @since 5.5.0
+     */
+    @Contract(pure = true)
+    public int getHighX() {
+        return highX;
+    }
+
+    /**
+     * Returns the highest y coordinate
+     *
+     * @return the highest y coordinate
+     * @since 5.5.0
+     */
+    @Contract(pure = true)
+    public int getHighY() {
+        return highY;
+    }
+
+    /**
+     * Returns the highest z coordinate
+     *
+     * @return the highest z coordinate
+     * @since 5.5.0
+     */
+    @Contract(pure = true)
+    public int getHighZ() {
+        return highZ;
+    }
+
+    /**
      * Returns whether the location is inside the region or not
      *
      * @param location the location to test for

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -93,6 +94,12 @@ public final class SettingsManager {
      */
 	private File statsFile;
 
+    /**
+     * The schematics folder, may not yet be created when schematics.enable is false or the
+     * {@link #setup(Plugin, boolean)} hasn't been called yet
+     */
+	private File schematicsFolder;
+
 	/**
      * Loads/Reloads all files and YAML configurations
      *
@@ -110,12 +117,14 @@ public final class SettingsManager {
                 logger.warning("Unable to create data folder");
         }
 
+        schematicsFolder = new File(dataFolder, "schematics");
+
 		arenasFile = new File(dataFolder, "arenas.yml");
 		configFile = new File(dataFolder, "config.yml");
 		messagesFile = new File(dataFolder, "messages.yml");
 		signsFile = new File(dataFolder, "signs.yml");
 		statsFile = new File(dataFolder, "stats.yml");
-		
+
 		arenas = YamlConfiguration.loadConfiguration(arenasFile);
 		config = YamlConfiguration.loadConfiguration(configFile);
 		messages = YamlConfiguration.loadConfiguration(messagesFile);
@@ -169,6 +178,10 @@ public final class SettingsManager {
 				e.printStackTrace();
 			}
 		}
+
+		if (!schematicsFolder.exists() && config.getBoolean("schematics.enable") &&
+            Bukkit.getPluginManager().isPluginEnabled("WorldEdit") && !schematicsFolder.mkdirs())
+		    logger.warning("Unable to create schematics folder");
 
 		generateSettings(save);
 		generateMessages(save);
@@ -233,6 +246,19 @@ public final class SettingsManager {
     public YamlConfiguration getStats() {
 		return stats;
 	}
+
+    /**
+     * Returns the schematic folder. The folder may not exist when either {@link #setup(Plugin, boolean)} hasn't been
+     * run yet or when schematics.enable is false in the config.yml.
+     *
+     * @return the schematics folder
+     * @since 5.5.0
+     */
+	@NotNull
+    @Contract(pure = true)
+    public File getSchematicsFolder() {
+	    return schematicsFolder;
+    }
 
 	/**
      * Saves all files

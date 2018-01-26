@@ -153,6 +153,9 @@ win-commands:
 - 'execute %winner% ~-2 ~ ~3 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:2,Colors:[I;14495340,12909992,8969028,7924605],FadeColors:[I;10438567,12267580,2724499,9942861]}]}}}}'
 - 'execute %winner% ~-4 ~ ~1 summon fireworks_rocket ~ ~5 ~ {FireworksItem:{id:fireworks,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[I;2540754],FadeColors:[I;14655338,2417053,631931,4555299,15572482,3482736,693669]}]}}}}'
 
+schematics:
+  enable: true
+
 hotbar:
   default:
     slot-1: air
