@@ -22,7 +22,7 @@ Before you make a contribution, please make sure it follows these ground rules:
 please consider maintaining a fork of the project or using the [API](https://github.com/stefvanschie/buildinggame/wiki/API).
 * Make sure you're pull request hasn't already been made.
 * If you're making a pull request regarding an issue, please link that issue as well.
-* Follow the [K&R Java](https://en.wikipedia.org/wiki/Indent_style#Variant:_Java) code style.
+* Follow the conventions notated in the style_guide file in this repository.
 * Check and fix any warnings/errors that your IDE has given you, before submitting the pull request.
 
 ## First timers
