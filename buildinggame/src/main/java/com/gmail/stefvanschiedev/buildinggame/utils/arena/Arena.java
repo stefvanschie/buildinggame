@@ -916,8 +916,12 @@ public class Arena {
 				Player pl = gamePlayer.getPlayer();
 				if (pl.equals(player)) {
 					usedPlot.leave(gamePlayer);
-					
-					MessageManager.getInstance().send(player, messages.getStringList("leave.message"));
+
+					if (state == GameState.WAITING)
+					    MessageManager.getInstance().send(player, messages.getStringList("leave.message.lobby"));
+					else
+                        MessageManager.getInstance().send(player, messages.getStringList("leave.message.in-game"));
+
 					break;
 				}
 			}

@@ -45,7 +45,10 @@ commands:
     - "&aPoints received: %stat_points_received%"
 leave:
   message:
-  - "&6You have left the game!"
+    lobby:
+    - "&6You have left the game!"
+    in-game:
+    - "&6You have left the game!"
   otherPlayers:
   - "&6%player% has left the arena!"
 vote:
