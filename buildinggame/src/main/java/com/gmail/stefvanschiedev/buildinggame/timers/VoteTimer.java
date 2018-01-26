@@ -1,6 +1,12 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
+import com.gmail.stefvanschiedev.buildinggame.utils.*;
+import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.data.DataException;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.schematic.SchematicFormat;
+import com.sk89q.worldedit.world.World;
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,15 +19,18 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
-import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder;
-import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This handles the voting time for this arena
@@ -126,7 +135,43 @@ public class VoteTimer extends Timer {
 				arena.setFirstPlot(first);
 				arena.setSecondPlot(second);
 				arena.setThirdPlot(third);
-				
+
+				//create a schematic of the first plot
+                if (config.getBoolean("schematics.enable") &&
+                    Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+                    new BukkitRunnable() {
+                        /**
+                         * {@inheritDoc}
+                         */
+                        @SuppressWarnings("deprecation")
+                        @Override
+                        public void run() {
+                            Region region = arena.getFirstPlot().getBoundary();
+                            World weWorld = new BukkitWorld(region.getWorld());
+                            com.sk89q.worldedit.regions.Region cuboidRegion = new CuboidRegion(weWorld,
+                                new Vector(region.getLowX(), region.getLowY(), region.getLowZ()),
+                                new Vector(region.getHighX(), region.getHighY(), region.getHighZ()));
+                            CuboidClipboard clipboard = new CuboidClipboard(cuboidRegion.getMaximumPoint()
+                                .subtract(cuboidRegion.getMinimumPoint()).add(1, 1, 1), cuboidRegion
+                                .getMinimumPoint());
+                            clipboard.copy(WorldEdit.getInstance().getEditSessionFactory().getEditSession(weWorld,
+                                -1));
+
+                            try {
+                                SchematicFormat.MCEDIT.save(clipboard,
+                                    new File(SettingsManager.getInstance().getSchematicsFolder(),
+                                        LocalDateTime.now().format(DateTimeFormatter
+                                            .ofPattern("yyy-MM-dd_HH-mm-ss")) +
+                                            arena.getFirstPlot().getGamePlayers().stream()
+                                                .map(gp -> '-' + gp.getPlayer().getName())
+                                                .reduce("", String::concat) + ".schematic"));
+                            } catch (IOException | DataException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.runTaskAsynchronously(Main.getInstance());
+                }
+
 				for (Plot plot : arena.getUsedPlots()) {
 					for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
 						Player player = gamePlayer.getPlayer();
