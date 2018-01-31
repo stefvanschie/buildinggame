@@ -1,6 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.math.MathElement;
+import com.gmail.stefvanschiedev.buildinggame.utils.math.util.MathElementFactory;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.data.DataException;
@@ -212,10 +214,10 @@ public class VoteTimer extends Timer {
 					
 						if (SDVault.getInstance().isEnabled() &&
                                 gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
-							double money;
+							String moneyString;
 
 							if (first.equals(plot)) {
-								money = config.getDouble("money.first");
+								moneyString = config.getString("money.first");
 					
 								for (String message : messages.getStringList("winner.first"))
 									MessageManager.getInstance().send(player, message
@@ -228,7 +230,7 @@ public class VoteTimer extends Timer {
 										player.performCommand(command.replace("%player%", player.getName()));
 								}
 							} else if (second.equals(plot)) {
-								money = config.getDouble("money.second");
+								moneyString = config.getString("money.second");
 								
 								for (String message : messages.getStringList("winner.second"))
 									MessageManager.getInstance().send(player, message
@@ -241,7 +243,7 @@ public class VoteTimer extends Timer {
 										player.performCommand(command.replace("%player%", player.getName()));
 								}
 							} else if (third.equals(plot)) {
-								money = config.getDouble("money.third");
+								moneyString = config.getString("money.third");
 					
 								for (String message : messages.getStringList("winner.third"))
 									MessageManager.getInstance().send(player, message
@@ -254,7 +256,7 @@ public class VoteTimer extends Timer {
 										player.performCommand(command.replace("%player%", player.getName()));
 								}
 							} else {
-								money = config.getDouble("money.others");
+								moneyString = config.getString("money.others");
 							
 								for (String command : config.getStringList("commands.others")) {
 									String cmd = execute(command.replace("%player%", player.getName()));
@@ -264,16 +266,28 @@ public class VoteTimer extends Timer {
 								}
 							}
 
-                            if (player.hasPermission("bg.rewards.money.double"))
-                                money *= 2;
+							//compute money
+                            MathElement element = MathElementFactory.parseText(moneyString.replace("%points%",
+                                String.valueOf(arena.getPlot(player).getVotes().stream().mapToInt(Vote::getPoints)
+                                    .sum())));
 
-							//booster multiplier
-                            money *= Booster.getMultiplier(player);
+                            double money = element == null ? Double.NaN : element.compute();
 
-                            if (SDVault.getEconomy().depositPlayer(player, money).transactionSuccess()) {
-                                for (String message : messages.getStringList("vault.message")) {
-                                    MessageManager.getInstance().send(player, message
+                            if (Double.isNaN(money))
+                                Main.getInstance().getLogger().warning("Unable to parse mathematical equation");
+
+                            if (!Double.isNaN(money)) {
+                                if (player.hasPermission("bg.rewards.money.double"))
+                                    money *= 2;
+
+                                //booster multiplier
+                                money *= Booster.getMultiplier(player);
+
+                                if (SDVault.getEconomy().depositPlayer(player, money).transactionSuccess()) {
+                                    for (String message : messages.getStringList("vault.message")) {
+                                        MessageManager.getInstance().send(player, message
                                             .replace("%money%", money + ""));
+                                    }
                                 }
                             }
 						}
