@@ -284,9 +284,17 @@ public class VoteTimer extends Timer {
                                 money *= Booster.getMultiplier(player);
 
                                 if (SDVault.getEconomy().depositPlayer(player, money).transactionSuccess()) {
-                                    for (String message : messages.getStringList("vault.message")) {
-                                        MessageManager.getInstance().send(player, message
-                                            .replace("%money%", money + ""));
+                                    if (Booster.hasBooster(player)) {
+                                        for (String message : messages.getStringList("vault.message.booster")) {
+                                            MessageManager.getInstance().send(player, message
+                                                .replace("%money%", money + ""));
+                                        }
+                                    } else {
+                                        for (String message :
+                                            messages.getStringList("vault.message.no-booster")) {
+                                            MessageManager.getInstance().send(player, message
+                                                .replace("%money%", money + ""));
+                                        }
                                     }
                                 }
                             }
