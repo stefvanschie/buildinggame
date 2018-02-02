@@ -135,7 +135,10 @@ winner:
   subtitle: ""
 vault:
   message:
-  - "&aYou received %money% money!"
+    no-booster:
+    - "&aYou received %money% money!"
+    booster:
+    - "&aYou received %money% money!"
   
 particle:
   max-particles:

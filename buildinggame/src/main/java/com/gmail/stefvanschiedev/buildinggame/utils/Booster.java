@@ -48,6 +48,7 @@ public class Booster {
      * Returns the multiplier of this booster
      *
      * @return the multiplier
+     * @since 5.4.3
      */
     @Contract(pure = true)
     private float getMultiplier() {
@@ -58,6 +59,7 @@ public class Booster {
      * Returns the player this booster belongs to or null if the booster is global
      *
      * @return the player
+     * @since 5.4.3
      */
     @Nullable
     @Contract(pure = true)
@@ -69,6 +71,7 @@ public class Booster {
      * Starts the booster
      *
      * @param time the time this booster is active in seconds
+     * @since 5.4.3
      */
     public void start(int time) {
         Booster booster = this;
@@ -88,11 +91,23 @@ public class Booster {
      *
      * @param player the player
      * @return the multiplier
+     * @since 5.4.3
      */
     @Contract(pure = true)
     public static float getMultiplier(@NotNull Player player) {
         return (float) BOOSTERS.stream()
                 .filter(booster -> player.equals(booster.getPlayer()) || booster.getPlayer() == null)
                 .mapToDouble(booster -> booster.getMultiplier()).reduce(1, (a, b) -> a * b);
+    }
+
+    /**
+     * Returns true if the player has an active booster, false otherwise
+     *
+     * @param player the player to check for
+     * @return whether a player has a booster
+     * @since 5.5.1
+     */
+    public static boolean hasBooster(Player player) {
+        return BOOSTERS.stream().anyMatch(booster -> player.equals(booster.getPlayer()) || booster.getPlayer() == null);
     }
 }
