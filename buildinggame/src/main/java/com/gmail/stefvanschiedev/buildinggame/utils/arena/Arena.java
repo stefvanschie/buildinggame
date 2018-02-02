@@ -185,6 +185,11 @@ public class Arena {
     private VoteTimer voteTimer;
 
     /**
+     * Whether money is enabled or not
+     */
+    private boolean moneyEnabled;
+
+    /**
      * Constructs a new arena with the given name as identifier
      *
      * @param name the name of the arena
@@ -634,6 +639,17 @@ public class Arena {
 		return winTimer;
 	}
 
+    /**
+     * Returns true if this money has money enabled, false otherwise
+     *
+     * @return whether money is enabled
+     * @since 5.5.1
+     */
+	@Contract(pure = true)
+	public boolean hasMoneyEnabled() {
+	    return moneyEnabled;
+    }
+
 	/**
      * Returns whether tis arena is empty; no players are present
      *
@@ -1042,6 +1058,16 @@ public class Arena {
 	public void setMode(ArenaMode mode) {
 		this.mode = mode;
 	}
+
+    /**
+     * Enables/Disables money for this arena
+     *
+     * @param enabled whether money is enabled/disabled
+     * @since 5.5.1
+     */
+	public void setMoneyEnabled(boolean enabled) {
+	    this.moneyEnabled = enabled;
+    }
 
 	/**
      * Sets the plot that became second after voting

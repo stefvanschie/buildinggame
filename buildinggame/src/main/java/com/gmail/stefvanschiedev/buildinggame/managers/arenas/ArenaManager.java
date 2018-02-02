@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -56,11 +57,16 @@ public final class ArenaManager {
      */
 	public void setup() {
 		arenas.clear();
-		Set<String> arenas = SettingsManager.getInstance().getArenas().getKeys(false);
+        YamlConfiguration arenasYaml = SettingsManager.getInstance().getArenas();
+        Set<String> arenas = arenasYaml.getKeys(false);
 
 		for (String arena : arenas) {
 			if (!arena.equals("main-spawn")) {
-				this.arenas.add(new Arena(arena));
+			    Arena a = new Arena(arena);
+
+			    a.setMoneyEnabled(arenasYaml.getBoolean(arena + ".enable-money", true));
+
+				this.arenas.add(a);
 
 				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
 					Main.getInstance().getLogger().info("Loaded arena " + arena);
