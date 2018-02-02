@@ -41,6 +41,7 @@ public class CommandManager implements CommandExecutor {
 		subCommands.add(new CreateArena());
 		subCommands.add(new DeleteArena());
 		subCommands.add(new DeleteSpawn());
+		subCommands.add(new EnableMoney());
 		subCommands.add(new ForceStart());
 		subCommands.add(new ForceTheme());
 		subCommands.add(new Join());

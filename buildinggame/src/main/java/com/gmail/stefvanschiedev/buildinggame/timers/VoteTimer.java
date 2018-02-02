@@ -276,7 +276,7 @@ public class VoteTimer extends Timer {
                             if (Double.isNaN(money))
                                 Main.getInstance().getLogger().warning("Unable to parse mathematical equation");
 
-                            if (!Double.isNaN(money)) {
+                            if (!Double.isNaN(money) && arena.hasMoneyEnabled()) {
                                 if (player.hasPermission("bg.rewards.money.double"))
                                     money *= 2;
 
