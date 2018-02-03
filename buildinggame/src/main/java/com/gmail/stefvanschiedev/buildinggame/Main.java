@@ -7,6 +7,7 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateSign;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
+import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.Bukkit;
@@ -168,14 +169,21 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("Loading main spawn");
 		MainSpawnManager.getInstance().setup();
-		
+
+        PluginManager pm = Bukkit.getPluginManager();
+
 		getLogger().info("Loading soft dependencies");
-		if (Bukkit.getPluginManager().isPluginEnabled("Vault"))
+		if (pm.isPluginEnabled("Vault"))
 			SDVault.getInstance().setup();
 
-		if (Bukkit.getPluginManager().isPluginEnabled("LeaderHeads")) {
+		if (pm.isPluginEnabled("LeaderHeads")) {
             for (StatType statType : StatType.values())
                 new LeaderHeadsStatistic(statType);
+        }
+
+        if (pm.isPluginEnabled("PlaceholderAPI")) {
+            if (!new PlaceholderAPIPlaceholders().hook())
+                getLogger().warning("Unable to register placeholders for PlaceholderAPI");
         }
 		
 		getLogger().info("Loading commands");
@@ -187,8 +195,6 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("Loading listeners");
 		if (!loadedListeners) {
-			PluginManager pm = Bukkit.getPluginManager();
-			
 			pm.registerEvents(new BlockBreak(), this);
 			pm.registerEvents(new BlockDispenseItem(), this);
 			pm.registerEvents(new BlockPlace(), this);
