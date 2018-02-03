@@ -946,10 +946,16 @@ public class Arena {
 		for (Plot usedPlot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
-				
-				for (String message : messages.getStringList("leave.otherPlayers"))
-					MessageManager.getInstance().send(pl, message
-							.replace("%player%", player.getName()));
+
+				if (state == GameState.WAITING) {
+                    for (String message : messages.getStringList("leave.other-players.lobby"))
+                        MessageManager.getInstance().send(pl, message
+                            .replace("%player%", player.getName()));
+                } else {
+                    for (String message : messages.getStringList("leave.other-players.in-game"))
+                        MessageManager.getInstance().send(pl, message
+                            .replace("%player%", player.getName()));
+                }
 				
 				if (config.getBoolean("scoreboards.lobby.enable"))
 					lobbyScoreboard.show(pl);
