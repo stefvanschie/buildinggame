@@ -49,8 +49,11 @@ leave:
     - "&6You have left the game!"
     in-game:
     - "&6You have left the game!"
-  otherPlayers:
-  - "&6%player% has left the arena!"
+  other-players:
+    lobby:
+    - "&6%player% has left the arena!"
+    in-game:
+    - "&6%player% has left the arena!"
 vote:
   message:
   - "&6You gave %playerplot%'s build a %points%"
