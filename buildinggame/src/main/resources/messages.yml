@@ -275,6 +275,12 @@ leader-heads:
       line-3: "&e{amount} points received"
       line-4: "&c&m------------"
 
+placeholder-api:
+  has-booster:
+    result:
+      true: "true"
+      false: "false"
+
 subject-gui:
   title: "&aVote for a subject"
   item:
