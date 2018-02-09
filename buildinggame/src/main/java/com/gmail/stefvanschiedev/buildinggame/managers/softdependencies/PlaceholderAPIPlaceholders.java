@@ -2,12 +2,14 @@ package com.gmail.stefvanschiedev.buildinggame.managers.softdependencies;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import me.clip.placeholderapi.external.EZPlaceholderHook;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.Locale;
@@ -18,6 +20,11 @@ import java.util.Locale;
  * @since 5.5.1
  */
 public class PlaceholderAPIPlaceholders extends EZPlaceholderHook {
+
+    /**
+     * YAML configuration for messages.yml
+     */
+    private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
     /**
      * Creates a new placeholder api class
@@ -55,7 +62,8 @@ public class PlaceholderAPIPlaceholders extends EZPlaceholderHook {
         }
 
         if (identifier.equalsIgnoreCase("has_booster"))
-            return Booster.hasBooster(player) ? "true" : "false";
+            return Booster.hasBooster(player) ? messages.getString("placeholder-api.has-booster.result.true") :
+                messages.getString("placeholder-api.has-booster.result.false");
 
         return null;
     }
