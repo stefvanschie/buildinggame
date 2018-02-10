@@ -4,6 +4,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
+import com.gmail.stefvanschiedev.buildinggame.utils.Conditional;
 import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -47,9 +48,11 @@ public abstract class ArenaScoreboard {
     final Objective objective = scoreboard.registerNewObjective("bg-build", "dummy");
 
     /**
-     * A list of the text to display on the scoreboard after the basic placeholders have been parsed
+     * A list of the text to display on the scoreboard after the basic placeholders have been parsed and a conditional
+     * to determine if the line should be displayed altogether. The conditional may be null if there is no conditional
+     * assigned to this line.
      */
-    private final List<String> strings = new ArrayList<>();
+    private final List<Map.Entry<String, Conditional>> strings = new ArrayList<>();
 
     /**
      * A list of teams that's used to hold the text
@@ -62,11 +65,18 @@ public abstract class ArenaScoreboard {
     private final Map<String, Function<Player, String>> replacements = new HashMap<>();
 
     /**
+     * The arena this scoreboard belongs to
+     */
+    private final Arena arena;
+
+    /**
      * Constructs a new arena scoreboard
      *
      * @param arena the arena this scoreboard belongs to
      */
     ArenaScoreboard(Arena arena) {
+        this.arena = arena;
+
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName(getHeader());
 
@@ -78,7 +88,21 @@ public abstract class ArenaScoreboard {
             team.setDisplayName("");
 
             teams.add(team);
-            this.strings.add(MessageManager.translate(strings.get(i)));
+
+            //parse conditional
+            String text = MessageManager.translate(strings.get(i));
+            Conditional conditional = null;
+
+            if (!text.isEmpty() && text.charAt(0) == '$') {
+                String conditionalText = text.split(" ")[0];
+
+                conditional = Conditional.parse(conditionalText);
+
+                //add one because of the extra space after the conditional
+                text = text.substring(conditionalText.length() + 1);
+            }
+
+            this.strings.add(new AbstractMap.SimpleEntry<>(text, conditional));
         }
 
         //initialize replacements
@@ -195,11 +219,19 @@ public abstract class ArenaScoreboard {
      */
     @Contract("null -> fail")
     public void show(Player player) {
+        //keep track of the line count cause lines may not be displayed at all
+        int lineCount = 0;
+
         for (int i = 0; i < strings.size(); i++) {
-            String text = replace(strings.get(i), player);
+            Conditional conditional = strings.get(i).getValue();
+
+            if (conditional != null && !conditional.evaluate(arena))
+                continue;
+
+            String text = replace(strings.get(i).getKey(), player);
 
             int length = text.length();
-            Team team = teams.get(i);
+            Team team = teams.get(lineCount);
 
             team.setPrefix(text.substring(0, length > 16 ? 16 : length));
 
@@ -207,7 +239,9 @@ public abstract class ArenaScoreboard {
                 team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 :
                         length));
 
-            objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
+            objective.getScore(ChatColor.values()[lineCount].toString()).setScore(strings.size() - lineCount);
+
+            lineCount++;
         }
 
         player.setScoreboard(scoreboard);
