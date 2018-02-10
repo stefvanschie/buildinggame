@@ -62,7 +62,7 @@ public class BoosterCommand extends ConsoleCommand {
             }
         }
 
-        new Booster(multiplier, player).start(duration);
+        new Booster(sender, multiplier, duration, player).start();
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Activated " +
                 (player == null ? "global booster" : "booster for " + player.getName()) + " for " + duration +
