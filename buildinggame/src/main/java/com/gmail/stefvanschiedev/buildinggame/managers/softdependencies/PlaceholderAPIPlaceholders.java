@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.Locale;
-import java.util.stream.Stream;
 
 /**
  * Registers placeholder for PlaceholderAPI

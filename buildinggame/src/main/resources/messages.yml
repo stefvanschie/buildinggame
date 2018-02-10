@@ -43,6 +43,8 @@ commands:
     - "&aDistance walked: %stat_walked%"
     - "&aPoints given: %stat_points_given%"
     - "&aPoints received: %stat_points_received%"
+  invalid:
+  - "&c%argument% is not valid."
 leave:
   message:
     lobby:
