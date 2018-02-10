@@ -15,6 +15,7 @@ import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.CommandResul
 import com.gmail.stefvanschiedev.buildinggame.commands.commandutils.SubCommand;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
@@ -81,6 +82,8 @@ public class CommandManager implements CommandExecutor {
 	@Contract("null, _, _, _ -> fail; _, null, _, _ -> fail; _, _, _, null -> fail")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         String name = cmd.getName();
 
         if (name.equalsIgnoreCase("bg") || name.equalsIgnoreCase("buildinggame")) {
@@ -96,12 +99,14 @@ public class CommandManager implements CommandExecutor {
 			SubCommand target = getSubCommand(args[0]);
 			
 			if (target == null) {
-				MessageManager.getInstance().send(sender, ChatColor.RED + args[0] + " is not valid.");
+                for (String message : messages.getStringList("commands.invalid"))
+                    MessageManager.getInstance().send(sender, message.replace("%argument%", args[0]));
+
 				return false;
 			}
 			
 			if (!sender.hasPermission(target.getPermission())) {
-				MessageManager.getInstance().send(sender, SettingsManager.getInstance().getMessages().getStringList("global.permissionNode"));
+				MessageManager.getInstance().send(sender, messages.getStringList("global.permissionNode"));
 				return false;
 			}
 			
