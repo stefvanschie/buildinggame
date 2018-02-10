@@ -12,7 +12,9 @@ import me.clip.placeholderapi.external.EZPlaceholderHook;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 /**
  * Registers placeholder for PlaceholderAPI
@@ -64,6 +66,26 @@ public class PlaceholderAPIPlaceholders extends EZPlaceholderHook {
         if (identifier.equalsIgnoreCase("has_booster"))
             return Booster.hasBooster(player) ? messages.getString("placeholder-api.has-booster.result.true") :
                 messages.getString("placeholder-api.has-booster.result.false");
+
+        Collection<Booster> boosters = Booster.getBoosters(player);
+        if (identifier.equalsIgnoreCase("booster_time_left"))
+            return String.valueOf(boosters.stream().mapToInt(Booster::getRemainingTime).max()
+                .orElse(0));
+
+        if (identifier.equalsIgnoreCase("booster_activator")) {
+            if (boosters.isEmpty())
+                return "";
+
+            StringBuilder activators = new StringBuilder();
+            boosters.stream().map(booster -> booster.getActivator().getName()).distinct().forEach(name -> activators
+                .append(name).append(", "));
+
+            if (boosters.stream().map(booster -> booster.getActivator().getName()).distinct().count() == 1)
+                return activators.substring(0, activators.length() - 2);
+
+            return activators.replace(activators.length() - 2, activators.length(), "").replace(activators
+                .lastIndexOf(", "), activators.lastIndexOf(", ") + 2, " and ").toString();
+        }
 
         return null;
     }
