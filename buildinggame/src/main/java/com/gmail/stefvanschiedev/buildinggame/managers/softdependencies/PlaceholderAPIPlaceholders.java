@@ -66,6 +66,9 @@ public class PlaceholderAPIPlaceholders extends EZPlaceholderHook {
             return Booster.hasBooster(player) ? messages.getString("placeholder-api.has-booster.result.true") :
                 messages.getString("placeholder-api.has-booster.result.false");
 
+        if (identifier.equalsIgnoreCase("booster_multiplier"))
+            return String.valueOf(Booster.getMultiplier(player));
+
         Collection<Booster> boosters = Booster.getBoosters(player);
         if (identifier.equalsIgnoreCase("booster_time_left"))
             return String.valueOf(boosters.stream().mapToInt(Booster::getRemainingTime).max()
