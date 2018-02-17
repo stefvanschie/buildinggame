@@ -10,6 +10,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.logging.Logger;
+
 /**
  * This class handles the main spawn
  *
@@ -68,11 +70,16 @@ public final class MainSpawnManager {
 					arenas.getInt("main-spawn.z"),
                     (float) arenas.getDouble("main-spawn.yaw", 0),
                     (float) arenas.getDouble("main-spawn.pitch", 0)));
-			
 			setServer(arenas.getString("main-spawn.server"));
 
-			if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-				Main.getInstance().getLogger().info("Loaded main spawn");
+			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+                Logger logger = Main.getInstance().getLogger();
+
+                if (mainSpawn.getWorld() == null)
+			        logger.warning("Unable to find world for main spawn");
+
+                logger.info("Loaded main spawn");
+            }
 		} catch (NullPointerException | IllegalArgumentException e) {
 			setMainSpawn(null);
 		}

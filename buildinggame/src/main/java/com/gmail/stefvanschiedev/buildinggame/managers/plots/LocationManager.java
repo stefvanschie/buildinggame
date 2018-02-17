@@ -12,6 +12,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Logger;
+
 /**
  * This class handles the locations
  *
@@ -61,9 +63,14 @@ public final class LocationManager {
                             (float) arenas.getDouble(arena.getName() + '.' + plot.getID() + ".yaw", 0),
                             (float) arenas.getDouble(arena.getName() + '.' + plot.getID() + ".pitch", 0)));
 					
-					if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-						Main.getInstance().getLogger().info("Loaded spawn for plot " + plot.getID() +
-                                " in arena " + arena.getName());
+					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+                        Logger logger = Main.getInstance().getLogger();
+
+                        if (plot.getLocation().getWorld() == null)
+					        logger.warning("Unable to load world for plot spawn");
+
+                        logger.info("Loaded spawn for plot " + plot.getID() + " in arena " + arena.getName());
+                    }
 				} catch (NullPointerException | IllegalArgumentException npe) {
 					plot.setLocation(null);
 				}

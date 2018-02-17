@@ -12,6 +12,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Logger;
+
 /**
  * This class handles all floors
  *
@@ -62,9 +64,15 @@ public final class FloorManager {
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.low.y"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.low.z")));
 
-					if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-						Main.getInstance().getLogger().info("Loaded floor for plot " + plot.getID() +
-                                " in arena " + arena.getName());
+					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+                        Logger logger = Main.getInstance().getLogger();
+
+                        if (plot.getFloor().getWorld() == null)
+                            logger.warning("Unable to load world for plot floor");
+
+                        logger.info("Loaded floor for plot " + plot.getID() +
+                            " in arena " + arena.getName());
+                    }
 				} catch (NullPointerException | IllegalArgumentException npe) {
 					plot.setFloor(null);
 				}

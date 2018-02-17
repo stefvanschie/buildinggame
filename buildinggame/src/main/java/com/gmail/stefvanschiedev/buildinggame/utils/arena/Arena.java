@@ -323,6 +323,19 @@ public class Arena {
 		return first;
 	}
 
+    /**
+     * Returns the lobby for this arena, may return null when the lobby hasn't been set or hasn't been loaded yet
+     *
+     * @return the lobby
+     * @see Lobby
+     * @since 5.5.3
+     */
+	@Nullable
+	@Contract(pure = true)
+	public Lobby getLobby() {
+	    return lobby;
+    }
+
 	/**
      * Returns the lobby scoreboard or null if it doesn't exist
      *
