@@ -11,6 +11,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Logger;
+
 /**
  * This class handles all lobbies
  *
@@ -62,8 +64,14 @@ public final class LobbyManager {
                     (float) arenas.getDouble(name + ".lobby.yaw", 0),
                     (float) arenas.getDouble(name + ".lobby.pitch", 0))));
 
-			if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-				Main.getInstance().getLogger().info("Loaded lobby for " + name);
+			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+                Logger logger = Main.getInstance().getLogger();
+
+                if (arena.getLobby().getLocation().getWorld() == null)
+			        logger.warning("Unable to load world for lobby");
+
+                logger.info("Loaded lobby for " + name);
+            }
 		}
 	}
 }

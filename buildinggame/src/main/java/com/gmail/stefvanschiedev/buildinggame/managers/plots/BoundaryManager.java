@@ -12,6 +12,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Logger;
+
 /**
  * This class handles the boundaries
  *
@@ -62,9 +64,15 @@ public final class BoundaryManager {
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".low.y"),
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".low.z")));
 
-					if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-						Main.getInstance().getLogger().info("Loaded boundary for plot " + plot.getID() +
-                                " in arena " + arena.getName());
+					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+                        Logger logger = Main.getInstance().getLogger();
+
+                        if (plot.getBoundary().getWorld() == null)
+                            logger.warning("Unable to load world for plot boundary");
+
+                        logger.info("Loaded boundary for plot " + plot.getID() +
+                            " in arena " + arena.getName());
+                    }
 				} catch (NullPointerException | IllegalArgumentException e) {
 					plot.setBoundary(null);
 				}
