@@ -33,6 +33,8 @@ stats:
     user: '<user>'
     password: '<password>'
     maximum-pool-size: 10
+    connection-timeout: 30000
+    max-lifetime: 1800000
 
 particles:
   amount: 100
