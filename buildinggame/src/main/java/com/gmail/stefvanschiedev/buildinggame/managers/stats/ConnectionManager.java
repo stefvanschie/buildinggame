@@ -55,6 +55,8 @@ class ConnectionManager {
             hikariConfig.setUsername(config.getString("stats.database.user"));
             hikariConfig.setPassword(config.getString("stats.database.password"));
             hikariConfig.setMaximumPoolSize(config.getInt("stats.database.maximum-pool-size"));
+            hikariConfig.setConnectionTimeout(config.getLong("stats.database.connection-timeout"));
+            hikariConfig.setMaxLifetime(config.getLong("stats.database.max-lifetime"));
 
             plugin.getLogger().info("Setting up MySQL Connection pool...");
             connectionPool = new HikariPool(hikariConfig); // setup the connection pool
