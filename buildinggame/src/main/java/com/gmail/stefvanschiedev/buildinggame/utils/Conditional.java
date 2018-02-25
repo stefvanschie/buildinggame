@@ -122,7 +122,7 @@ public final class Conditional {
         Conditional conditional = new Conditional();
 
         //remove dollar sign in front of text
-        input = input.substring(1, input.length());
+        input = input.substring(1);
 
         //check for left side argument
         for (Map.Entry<String, Function<Arena, Integer>> entry : FUNCTIONS.entrySet()) {
