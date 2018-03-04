@@ -7,7 +7,6 @@ import java.util.List;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
-import net.minecraft.server.v1_12_R1.WorldServer;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
