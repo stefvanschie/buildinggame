@@ -263,10 +263,13 @@ public class Plot {
 		Arena senderArena = ArenaManager.getInstance().getArena(sender);
 
 		if (senderArena != null) {
-            for (GamePlayer player : senderArena.getPlot(sender).getGamePlayers())
+            for (GamePlayer player : senderArena.getPlot(sender).getGamePlayers()) {
                 player.addTitleAndSubtitle(messages.getString("vote.title")
-                        .replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")
-                        .replace("%points%", vote.getPoints() + ""));
+                    .replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")
+                    .replace("%points%", vote.getPoints() + ""));
+                player.sendActionbar(messages.getString("vote.actionbar")
+                    .replace("%points%", String.valueOf(vote.getPoints())));
+            }
         }
 
 		if (hasVoted(sender))

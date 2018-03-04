@@ -91,6 +91,7 @@ public class BuildTimer extends Timer {
 					
 					gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.time-up.title"),
 							messages.getString("buildingCountdown.time-up.subtitle"));
+					gamePlayer.sendActionbar(messages.getString("buildingCountdown.time-up.actionbar"));
 
                     if (bossBar.getPlayers().contains(player))
 						bossBar.removePlayer(player);
@@ -124,6 +125,11 @@ public class BuildTimer extends Timer {
 							.replace("%minutes%", getMinutes() + "")
 							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
 							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
+					gamePlayer.sendActionbar(messages.getString("buildingCountdown.actionbar")
+                        .replace("%seconds%", String.valueOf(seconds))
+                        .replace("%minutes%", String.valueOf(getMinutes()))
+                        .replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
+                        .replace("%seconds_from_minutes%", String.valueOf(getSecondsFromMinute())));
 				}
 			}
 		}

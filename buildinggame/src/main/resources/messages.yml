@@ -67,6 +67,7 @@ vote:
   - "&cYou can only change your vote %max_votes% times"
   title: ""
   subtitle: ""
+  actionbar: ""
 join:
   message:
   - "&6You have joined the game!"
@@ -93,6 +94,7 @@ gameStarts:
   - "&6The subject is %subject%"
   title: "&aBuild theme: %subject%"
   subtitle: ""
+  actionbar: ""
 in-game:
   build-out-bounds:
   - "&cYou can't build here"
@@ -105,16 +107,19 @@ buildingCountdown:
   - "&6You have %seconds% seconds left!"
   title: ""
   subtitle: ""
+  actionbar: ""
   time-up:
     message:
     - ""
     title: "&cTime is up!"
     subtitle: ""
+    actionbar: ""
 voting:
   message:
   - "&6%playerplot%'s plot!"
   title: "&a%playerplot%'s build"
-  subtitle: "" 
+  subtitle: ""
+  actionbar: ""
   second-slot-block: "&4Very Bad"
   third-slot-block: "&cBad"
   fourth-slot-block: "&aMwoah"
@@ -138,6 +143,7 @@ winner:
   - "&aYou went third with %points%!"
   title: "&6%first% won the game with %first_points%!"
   subtitle: ""
+  actionbar: ""
 vault:
   message:
     no-booster:

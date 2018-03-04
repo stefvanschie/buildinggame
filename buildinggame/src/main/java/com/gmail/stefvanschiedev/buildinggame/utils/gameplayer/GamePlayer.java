@@ -7,6 +7,7 @@ import java.util.List;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
+import net.minecraft.server.v1_12_R1.WorldServer;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -370,6 +371,29 @@ public class GamePlayer {
 		player.setLevel(levels);
 		player.setScoreboard(scoreboard);
 	}
+
+    /**
+     * Sends an actionbar to the player
+     *
+     * @param text the text to send
+     * @since 5.6.0
+     */
+    @Contract("null -> fail")
+	public void sendActionbar(String text) {
+        try {
+            Class<?> iChatBaseComponent = getNMSClass("IChatBaseComponent");
+            Class<?> chatMessageType = getNMSClass("ChatMessageType");
+
+            sendPacket(getNMSClass("PacketPlayOutChat").getConstructor(iChatBaseComponent, chatMessageType)
+                .newInstance(iChatBaseComponent.getDeclaredClasses()[0].getMethod("a", String.class)
+                    .invoke(null, ChatColor.translateAlternateColorCodes('&',
+                        "{\"text\":\"" + MessageManager.translate(text, player) + "\"}")), chatMessageType
+                    .getField("GAME_INFO").get(null)));
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException |
+            NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
 
 	/**
      * Sends a subtitle to the player
