@@ -1189,6 +1189,8 @@ public class Arena {
 							.replace("%playerplot%", votingPlot.getPlayerFormat()),
                             messages.getString("voting.subtitle")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()));
+					gamePlayer.sendActionbar(messages.getString("voting.actionbar")
+                        .replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
 
 				if (safeLocation == null)
@@ -1273,6 +1275,8 @@ public class Arena {
 				gamePlayer.addTitleAndSubtitle(messages.getString("gameStarts.title")
 						.replace("%subject%", getSubject()), messages.getString("gameStarts.subtitle")
 						.replace("%subject%", getSubject()));
+				gamePlayer.sendActionbar(messages.getString("gameStarts.actionbar")
+                    .replace("%subject%", subject));
 				
 				final Player player = gamePlayer.getPlayer();
 				player.getInventory().clear();

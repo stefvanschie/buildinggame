@@ -211,6 +211,14 @@ public class VoteTimer extends Timer {
 								.replace("%first_points%", first.getPoints() + "")
 								.replace("%second_points%", second == null ? "0" : second.getPoints() + "")
 								.replace("%third_points%", third == null ? "0" : second.getPoints() + ""));
+						gamePlayer.sendActionbar(messages.getString("winner.actionbar")
+                            .replace("%first%", first.getPlayerFormat())
+                            .replace("%second%", second == null ? "" : second.getPlayerFormat())
+                            .replace("%third%", third == null ? "" : third.getPlayerFormat())
+                            .replace("%first_points%", String.valueOf(first.getPoints()))
+                            .replace("%second_points%", second == null ? "0" : String.valueOf(second
+                                .getPoints()))
+                            .replace("third_points", third == null ? "0" : String.valueOf(third.getPoints())));
 					
 						if (SDVault.getInstance().isEnabled() &&
                                 gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
@@ -402,6 +410,8 @@ public class VoteTimer extends Timer {
                                 .replace("%playerplot%", this.plot.getPlayerFormat()),
                                 messages.getString("voting.subtitle")
                                 .replace("%playerplot%", this.plot.getPlayerFormat()));
+                        player.sendActionbar(messages.getString("voting.actionbar")
+                            .replace("%playerplot%", this.plot.getPlayerFormat()));
                     }
 
                     if (!this.plot.hasVoted(player.getPlayer()))
