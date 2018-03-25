@@ -2,12 +2,15 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
@@ -111,51 +114,74 @@ class FloorMenu extends Gui {
      * @see Plot
      */
 	FloorMenu(final Plot plot) {
-		super(null, 54, MessageManager.translate(MESSAGES.getString("gui.floor.title")),
-                (int) Math.ceil(getBlocks().size() / 45) + 1);
-		
-		for (int page = 0; page < pages; page++) {
-			setStartingPoint(54 * page);
-			
-			for (int i = 0; i < 45; i++) {
-				if (i + (45 * page) == getBlocks().size())
-					break;
-				
-				final Material material = getBlocks().get(i + (45 * page));
-				
-				addItem(new ItemStack(material), event -> {
+		super(6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
+
+        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 5,
+            (int) Math.ceil(getBlocks().size() / 45) + 1);
+
+        for (int page = 0; page < paginatedPane.getPages(); page++) {
+            OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 5);
+
+            for (int i = 0; i < 45; i++) {
+                if (i + (45 * page) == getBlocks().size())
+                    break;
+
+                Material material = getBlocks().get(i + (45 * page));
+
+                outlinePane.addItem(new GuiItem(new ItemStack(material), event -> {
                     for (Block b : plot.getFloor().getAllBlocks())
                         b.setType(material);
 
                     event.setCancelled(true);
-				});
-			}
-			
-			final int currentPage = page;
-			
-			if (page != 0)
-				setItem(PREVIOUS_PAGE, event -> {
-                    open((Player) event.getWhoClicked(), currentPage);
+                }));
+            }
 
-                    event.setCancelled(true);
-				}, 47 + (54 * page));
-			
-			setItem(CLOSE_MENU, event -> {
-                Player player = (Player) event.getWhoClicked();
+            paginatedPane.setPane(page, outlinePane);
+        }
 
-                player.closeInventory();
-                removePlayer(player);
+        OutlinePane previous = new OutlinePane(new GuiLocation(2, 5), 1, 1);
+        OutlinePane back = new OutlinePane(new GuiLocation(4, 5), 1, 1);
+        OutlinePane next = new OutlinePane(new GuiLocation(6, 5), 1, 1);
 
-                event.setCancelled(true);
-			}, 49 + (54 * page));
-			
-			if (page != Math.ceil(getBlocks().size() / 45))
-				setItem(NEXT_PAGE, event -> {
-                    open((Player) event.getWhoClicked(), currentPage + 2);
+        previous.addItem(new GuiItem(PREVIOUS_PAGE, event -> {
+            paginatedPane.setPage(paginatedPane.getPage() - 1);
 
-                    event.setCancelled(true);
-				}, 51 + (54 * page));
-		}
+            if (paginatedPane.getPage() == 0)
+                previous.setVisible(false);
+
+            next.setVisible(true);
+
+            update();
+
+            event.setCancelled(true);
+        }));
+
+        previous.setVisible(false);
+
+        back.addItem(new GuiItem(CLOSE_MENU, event -> {
+            event.getWhoClicked().closeInventory();
+
+            event.setCancelled(true);
+        }));
+
+        next.addItem(new GuiItem(NEXT_PAGE, event -> {
+            paginatedPane.setPage(paginatedPane.getPage() + 1);
+
+            if (paginatedPane.getPage() == paginatedPane.getPages() - 1)
+                next.setVisible(false);
+
+            previous.setVisible(true);
+
+            update();
+
+            event.setCancelled(true);
+        }));
+
+        addPane(paginatedPane);
+
+        addPane(previous);
+        addPane(back);
+        addPane(next);
 	}
 
 	/**

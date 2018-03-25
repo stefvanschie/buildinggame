@@ -22,7 +22,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.block.PistonBlockMove;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.ChickenSpawnByEgg;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityExplode;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntitySpawn;
-import com.gmail.stefvanschiedev.buildinggame.events.player.gui.subjectmenu.CloseSubjectMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickLeaveSign;
 import com.gmail.stefvanschiedev.buildinggame.events.player.voting.Interact;
@@ -257,9 +256,6 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new EntityExplode(), this);
 			pm.registerEvents(new EntityOptionsMenu(), this);
 			pm.registerEvents(new EntitySpawn(), this);
-		
-			//subjectmenu
-			pm.registerEvents(new CloseSubjectMenu(), this);
 
 			//scoreboards
 			pm.registerEvents(new MainScoreboardJoinShow(), this);

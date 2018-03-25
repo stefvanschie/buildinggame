@@ -202,7 +202,7 @@ public class Plot {
 
         ItemBuilder itemBuilder = new ItemBuilder(spectator, Material.EMERALD).setDisplayName(ChatColor.GREEN +
                 "Spectator menu").setClickEvent(event -> {
-            new SpectatorMenu().open(spectator);
+            new SpectatorMenu().show(spectator);
             return true;
         });
         ItemBuilder.register(itemBuilder);

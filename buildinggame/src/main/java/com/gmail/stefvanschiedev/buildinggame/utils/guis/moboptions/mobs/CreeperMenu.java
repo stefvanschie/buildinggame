@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,10 +28,10 @@ public class CreeperMenu extends RemoveMenu {
         poweredMeta.setDisplayName(ChatColor.GREEN + "Change whether this creeper is charged");
         powered.setItemMeta(poweredMeta);
 
-        insertItem(powered, event -> {
+        pane.insertItem(new GuiItem(powered, event -> {
             creeper.setPowered(!creeper.isPowered());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

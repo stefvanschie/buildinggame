@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Animals;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,10 +27,10 @@ public class ColorMenu extends BabyMenu {
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color of the entity");
         color.setItemMeta(colorMeta);
 
-        insertItem(color, event -> {
-            new ColorSelectionMenu(entity).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(color, event -> {
+            new ColorSelectionMenu(entity).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

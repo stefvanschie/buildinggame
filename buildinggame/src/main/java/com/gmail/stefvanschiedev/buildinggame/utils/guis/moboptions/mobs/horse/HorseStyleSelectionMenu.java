@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -20,9 +23,9 @@ class HorseStyleSelectionMenu extends Gui {
      * {@inheritDoc}
      */
     HorseStyleSelectionMenu(Horse horse) {
-        super(null, 9, ChatColor.GREEN + "Change the horse style", 1);
+        super(1, ChatColor.GREEN + "Change the horse style");
 
-        setStartingPoint(2);
+        OutlinePane pane = new OutlinePane(new GuiLocation(2, 0), 7, 1);
 
         //black dots
         ItemStack blackDots = new ItemStack(Material.MELON_SEEDS);
@@ -30,11 +33,11 @@ class HorseStyleSelectionMenu extends Gui {
         blackDotsMeta.setDisplayName(ChatColor.GREEN + "Black dots");
         blackDots.setItemMeta(blackDotsMeta);
 
-        addItem(blackDots, event -> {
+        pane.addItem(new GuiItem(blackDots, event -> {
             horse.setStyle(Horse.Style.BLACK_DOTS);
 
             event.setCancelled(true);
-        });
+        }));
 
         //none
         ItemStack none = new ItemStack(Material.BARRIER);
@@ -42,11 +45,11 @@ class HorseStyleSelectionMenu extends Gui {
         noneMeta.setDisplayName(ChatColor.GREEN + "None");
         none.setItemMeta(noneMeta);
 
-        addItem(none, event -> {
+        pane.addItem(new GuiItem(none, event -> {
             horse.setStyle(Horse.Style.NONE);
 
             event.setCancelled(true);
-        });
+        }));
 
         //white
         ItemStack white = new Wool(DyeColor.WHITE).toItemStack(1);
@@ -54,11 +57,11 @@ class HorseStyleSelectionMenu extends Gui {
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
 
-        addItem(white, event -> {
+        pane.addItem(new GuiItem(white, event -> {
             horse.setStyle(Horse.Style.WHITE);
 
             event.setCancelled(true);
-        });
+        }));
 
         //white dots
         ItemStack whiteDots = new ItemStack(Material.PUMPKIN_SEEDS);
@@ -66,11 +69,11 @@ class HorseStyleSelectionMenu extends Gui {
         whiteDotsMeta.setDisplayName(ChatColor.GREEN + "White dots");
         whiteDots.setItemMeta(whiteDotsMeta);
 
-        addItem(whiteDots, event -> {
+        pane.addItem(new GuiItem(whiteDots, event -> {
             horse.setStyle(Horse.Style.WHITE_DOTS);
 
             event.setCancelled(true);
-        });
+        }));
 
         //whitefield
         ItemStack whitefield = new ItemStack(Material.BOOK);
@@ -78,10 +81,12 @@ class HorseStyleSelectionMenu extends Gui {
         whitefieldMeta.setDisplayName(ChatColor.GREEN + "Whitefield");
         whitefield.setItemMeta(whitefieldMeta);
 
-        addItem(whitefield, event -> {
+        pane.addItem(new GuiItem(whitefield, event -> {
             horse.setStyle(Horse.Style.WHITEFIELD);
 
             event.setCancelled(true);
-        });
+        }));
+
+        addPane(pane);
     }
 }

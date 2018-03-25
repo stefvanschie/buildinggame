@@ -1,10 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -28,10 +28,10 @@ public class SizeMenu extends RemoveMenu {
         sizeMeta.setDisplayName(ChatColor.GREEN + "Change size");
         size.setItemMeta(sizeMeta);
 
-        insertItem(size, event -> {
-            new SizeSelectionMenu(slime).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(size, event -> {
+            new SizeSelectionMenu(slime).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

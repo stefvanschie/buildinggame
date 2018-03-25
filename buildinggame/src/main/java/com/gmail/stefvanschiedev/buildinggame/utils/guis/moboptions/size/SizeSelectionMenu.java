@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Slime;
@@ -18,9 +21,9 @@ class SizeSelectionMenu extends Gui {
      * {@inheritDoc}
      */
     SizeSelectionMenu(Slime slime) {
-        super(null, 9, ChatColor.GREEN + "Change size", 1);
+        super(1, ChatColor.GREEN + "Change size");
 
-        setStartingPoint(3);
+        OutlinePane pane = new OutlinePane(new GuiLocation(3, 0), 6, 1);
 
         //small
         ItemStack goldNugget = new ItemStack(Material.GOLD_NUGGET);
@@ -28,11 +31,11 @@ class SizeSelectionMenu extends Gui {
         goldNuggetMeta.setDisplayName(ChatColor.GREEN + "Small");
         goldNugget.setItemMeta(goldNuggetMeta);
 
-        addItem(goldNugget, event -> {
+        pane.addItem(new GuiItem(goldNugget, event -> {
             slime.setSize(1);
 
             event.setCancelled(true);
-        });
+        }));
 
         //medium
         ItemStack goldIngot = new ItemStack(Material.GOLD_INGOT);
@@ -40,11 +43,11 @@ class SizeSelectionMenu extends Gui {
         goldIngotMeta.setDisplayName(ChatColor.GREEN + "Medium");
         goldIngot.setItemMeta(goldIngotMeta);
 
-        addItem(goldIngot, event -> {
+        pane.addItem(new GuiItem(goldIngot, event -> {
             slime.setSize(2);
 
             event.setCancelled(true);
-        });
+        }));
 
         //large
         ItemStack goldBlock = new ItemStack(Material.GOLD_BLOCK);
@@ -52,10 +55,12 @@ class SizeSelectionMenu extends Gui {
         goldBlockMeta.setDisplayName(ChatColor.GREEN + "Large");
         goldBlock.setItemMeta(goldBlockMeta);
 
-        addItem(goldBlock, event -> {
+        pane.addItem(new GuiItem(goldBlock, event -> {
             slime.setSize(4);
 
             event.setCancelled(true);
-        });
+        }));
+
+        addPane(pane);
     }
 }

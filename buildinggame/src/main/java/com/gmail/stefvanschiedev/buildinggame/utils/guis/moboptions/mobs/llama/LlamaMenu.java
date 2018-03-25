@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Llama;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,10 +28,10 @@ public class LlamaMenu extends ChestMenu {
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color");
         color.setItemMeta(colorMeta);
 
-        insertItem(color, event -> {
-            new LlamaColorSelectionMenu(llama).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(color, event -> {
+            new LlamaColorSelectionMenu(llama).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

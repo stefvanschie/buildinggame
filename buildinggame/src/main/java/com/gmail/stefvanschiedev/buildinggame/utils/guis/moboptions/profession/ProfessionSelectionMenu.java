@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.profession;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Creature;
@@ -20,9 +23,9 @@ class ProfessionSelectionMenu extends Gui {
      * {@inheritDoc}
      */
     ProfessionSelectionMenu(Creature creature) {
-        super(null, 9, ChatColor.GREEN + "Select profession", 1);
+        super(1, ChatColor.GREEN + "Select profession");
 
-        setStartingPoint(1);
+        OutlinePane pane = new OutlinePane(new GuiLocation(1, 0), 8, 1);
 
         //blacksmith
         ItemStack blacksmith = new ItemStack(Material.ANVIL);
@@ -30,7 +33,7 @@ class ProfessionSelectionMenu extends Gui {
         blacksmithMeta.setDisplayName(ChatColor.GREEN + "Blacksmith");
         blacksmith.setItemMeta(blacksmithMeta);
 
-        addItem(blacksmith, event -> {
+        pane.addItem(new GuiItem(blacksmith, event -> {
             if (creature instanceof Villager)
                 ((Villager) creature).setProfession(Villager.Profession.BLACKSMITH);
             else if (creature instanceof ZombieVillager)
@@ -38,7 +41,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BLACKSMITH);
 
             event.setCancelled(true);
-        });
+        }));
 
         //butcher
         ItemStack butcher = new ItemStack(Material.RAW_BEEF);
@@ -46,7 +49,7 @@ class ProfessionSelectionMenu extends Gui {
         butcherMeta.setDisplayName(ChatColor.GREEN + "Butcher");
         butcher.setItemMeta(butcherMeta);
 
-        addItem(butcher, event -> {
+        pane.addItem(new GuiItem(butcher, event -> {
             if (creature instanceof Villager)
                 ((Villager) creature).setProfession(Villager.Profession.BUTCHER);
             else if (creature instanceof ZombieVillager)
@@ -54,7 +57,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BUTCHER);
 
             event.setCancelled(true);
-        });
+        }));
 
         //farmer
         ItemStack farmer = new ItemStack(Material.WHEAT);
@@ -62,7 +65,7 @@ class ProfessionSelectionMenu extends Gui {
         farmerMeta.setDisplayName(ChatColor.GREEN + "Farmer");
         farmer.setItemMeta(farmerMeta);
 
-        addItem(farmer, event -> {
+        pane.addItem(new GuiItem(farmer, event -> {
             if (creature instanceof Villager)
                 ((Villager) creature).setProfession(Villager.Profession.FARMER);
             else if (creature instanceof ZombieVillager)
@@ -70,9 +73,9 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.FARMER);
 
             event.setCancelled(true);
-        });
+        }));
 
-        setStartingPoint(5);
+        pane.addItem(new GuiItem(new ItemStack(Material.AIR)));
 
         //librarian
         ItemStack librarian = new ItemStack(Material.BOOK);
@@ -80,7 +83,7 @@ class ProfessionSelectionMenu extends Gui {
         librarianMeta.setDisplayName(ChatColor.GREEN + "Librarian");
         librarian.setItemMeta(librarianMeta);
 
-        addItem(librarian, event -> {
+        pane.addItem(new GuiItem(librarian, event -> {
             if (creature instanceof Villager)
                 ((Villager) creature).setProfession(Villager.Profession.LIBRARIAN);
             else if (creature instanceof ZombieVillager)
@@ -88,7 +91,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.LIBRARIAN);
 
             event.setCancelled(true);
-        });
+        }));
 
         //nitwit
         ItemStack nitwit = new ItemStack(Material.DIAMOND_HOE);
@@ -96,7 +99,7 @@ class ProfessionSelectionMenu extends Gui {
         nitwitMeta.setDisplayName(ChatColor.GREEN + "Nitwit");
         nitwit.setItemMeta(nitwitMeta);
 
-        addItem(nitwit, event -> {
+        pane.addItem(new GuiItem(nitwit, event -> {
             if (creature instanceof Villager)
                 ((Villager) creature).setProfession(Villager.Profession.NITWIT);
             else if (creature instanceof ZombieVillager)
@@ -104,7 +107,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.NITWIT);
 
             event.setCancelled(true);
-        });
+        }));
 
         //priest
         ItemStack priest = new ItemStack(Material.EYE_OF_ENDER);
@@ -112,7 +115,7 @@ class ProfessionSelectionMenu extends Gui {
         priestMeta.setDisplayName(ChatColor.GREEN + "Priest");
         priest.setItemMeta(priestMeta);
 
-        addItem(priest, event -> {
+        pane.addItem(new GuiItem(priest, event -> {
             if (creature instanceof Villager)
                 ((Villager) creature).setProfession(Villager.Profession.PRIEST);
             else if (creature instanceof ZombieVillager)
@@ -120,6 +123,8 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.PRIEST);
 
             event.setCancelled(true);
-        });
+        }));
+
+        addPane(pane);
     }
 }

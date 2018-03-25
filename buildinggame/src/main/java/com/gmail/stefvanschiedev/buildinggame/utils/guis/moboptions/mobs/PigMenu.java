@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,10 +28,10 @@ public class PigMenu extends BabyMenu {
         saddleMeta.setDisplayName(ChatColor.GREEN + "Change whether this pig has a saddle");
         saddle.setItemMeta(saddleMeta);
 
-        insertItem(saddle, event -> {
+        pane.insertItem(new GuiItem(saddle, event -> {
             pig.setSaddle(!pig.hasSaddle());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

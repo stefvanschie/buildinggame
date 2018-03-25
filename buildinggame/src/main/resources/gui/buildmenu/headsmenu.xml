@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.heads.title" rows="5">
+    <staticpane x="0" y="0" length="9" height="5">
+        <skull id="edf410fdf212964a5606ca0a1b47730922775ca7f9763e5aea9a3ab449b6ec" x="1" y="1"
+               displayName="*gui.heads.food.name" lores="*gui.heads.food.lores" tag="food" onClick="foodClick" />
+        <skull id="15c292a24f54a7a43785266552dba7a184f9c50e0d94b337d8d3e76e9e9cce7" x="3" y="1"
+               displayName="*gui.heads.devices.name" lores="*gui.heads.devices.lores" tag="devices"
+               onClick="devicesClick" />
+        <skull id="86793bac4a1f974142ef8916642710949d7e38f87aebd380742ccc374f1de1" x="5" y="1"
+               displayName="*gui.heads.misc.name" lores="*gui.heads.misc.lores" tag="misc" onClick="miscClick" />
+        <skull id="acb419d984d8796373c9646233c7a02664bd2ce3a1d3476dd9b1c5463b14ebe" x="7" y="1"
+               displayName="*gui.heads.alphabet.name" lores="*gui.heads.alphabet.lores" tag="alphabet"
+               onClick="alphabetClick" />
+        <skull id="7acc61666adf1e4cd7cf57af3e1e17ba17310b2fcd8e3ed27cf88b7d0d88518" x="2" y="2"
+               displayName="*gui.heads.interior.name" lores="*gui.heads.interior.lores" tag="interior"
+               onClick="interiorClick" />
+        <skull id="d45b44fd19d72fb3d6e189c4978b1ca687dbd6580b18ddd8aa710edffa5" x="4" y="2"
+               displayName="*gui.heads.colors.name" lores="*gui.heads.colors.lores" tag="colors"
+               onClick="colorsClick" />
+        <skull id="c60b2f9145215a3a5065dca2d89bb8b4ca44b9222dd22060b51c38d9bf587" x="6" y="2"
+               displayName="*gui.heads.blocks.name" lores="*gui.heads.blocks.lores" tag="blocks"
+               onClick="blocksClick" />
+        <skull id="621668ef7cb79dd9c22ce3d1f3f4cb6e2559893b6df4a469514e667c16aa4" x="1" y="3"
+               displayName="*gui.heads.mobs.name" lores="*gui.heads.mobs.lores" tag="mobs" onClick="mobsClick" />
+        <skull id="6c82e21a9320953d78daee85477de3bb82d5dfa6b19494d37733265d2d030a8" x="3" y="3"
+               displayName="*gui.heads.games.name" lores="*gui.heads.games.lores" tag="games" onClick="gamesClick" />
+        <skull id="71be29750ddec80994bda79653e21ed70d5b2eb793da51d5a87b89bf67dcb96" x="5" y="3"
+               displayName="*gui.heads.characters.name" lores="*gui.heads.characters.lores" tag="characters"
+               onClick="charactersClick" />
+        <skull id="222bc95af0557a5940462025f253e9494cfcc56c5ff405e18805d133a87efd2" x="7" y="3"
+               displayName="*gui.heads.pokemon.name" lores="*gui.heads.pokemon.lores" tag="pokemon"
+               onClick="pokemonClick" />
+    </staticpane>
+</gui>

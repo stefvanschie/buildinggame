@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -20,9 +23,9 @@ class LlamaColorSelectionMenu extends Gui {
      * {@inheritDoc}
      */
     LlamaColorSelectionMenu(Llama llama) {
-        super(null, 9, ChatColor.GREEN + "Change the llama color", 1);
+        super(1, ChatColor.GREEN + "Change the llama color");
 
-        setStartingPoint(2);
+        OutlinePane pane = new OutlinePane(new GuiLocation(2, 0), 7, 1);
 
         //brown
         ItemStack brown = new Wool(DyeColor.BROWN).toItemStack(1);
@@ -30,11 +33,11 @@ class LlamaColorSelectionMenu extends Gui {
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
 
-        addItem(brown, event -> {
+        pane.addItem(new GuiItem(brown, event -> {
             llama.setColor(Llama.Color.BROWN);
 
             event.setCancelled(true);
-        });
+        }));
 
         //creamy
         ItemStack creamy = new ItemStack(Material.SANDSTONE);
@@ -42,13 +45,13 @@ class LlamaColorSelectionMenu extends Gui {
         creamyMeta.setDisplayName(ChatColor.GREEN + "Creamy");
         creamy.setItemMeta(creamyMeta);
 
-        addItem(creamy, event -> {
+        pane.addItem(new GuiItem(creamy, event -> {
             llama.setColor(Llama.Color.CREAMY);
 
             event.setCancelled(true);
-        });
+        }));
 
-        setStartingPoint(5);
+        pane.addItem(new GuiItem(new ItemStack(Material.AIR)));
 
         //gray
         ItemStack gray = new Wool(DyeColor.GRAY).toItemStack(1);
@@ -56,11 +59,11 @@ class LlamaColorSelectionMenu extends Gui {
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
 
-        addItem(gray, event -> {
+        pane.addItem(new GuiItem(gray, event -> {
             llama.setColor(Llama.Color.GRAY);
 
             event.setCancelled(true);
-        });
+        }));
 
         //white
         ItemStack white = new Wool(DyeColor.WHITE).toItemStack(1);
@@ -68,10 +71,12 @@ class LlamaColorSelectionMenu extends Gui {
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
 
-        addItem(white, event -> {
+        pane.addItem(new GuiItem(white, event -> {
             llama.setColor(Llama.Color.WHITE);
 
             event.setCancelled(true);
-        });
+        }));
+
+        addPane(pane);
     }
 }

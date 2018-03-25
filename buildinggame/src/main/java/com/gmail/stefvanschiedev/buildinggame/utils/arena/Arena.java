@@ -850,7 +850,7 @@ public class Arena {
                             .getString("team-selection.item.id")).setDisplayName(MessageManager
                             .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
                             .translate(messages.getStringList("team-gui.item.lores"), player)).setClickEvent(event -> {
-                        getTeamSelection().open(player);
+                        getTeamSelection().show(player);
                         return true;
                     });
                     ItemBuilder.register(itemBuilder);
@@ -864,7 +864,7 @@ public class Arena {
                             .getString("subject-gui.item.name"), player)).setLore(MessageManager
                             .translate(messages.getStringList("subject-gui.item.lores"), player))
                             .setClickEvent(event -> {
-                        getSubjectMenu().open(player);
+                        getSubjectMenu().show(player);
                         return false;
                     });
                     ItemBuilder.register(itemBuilder);
@@ -1298,7 +1298,7 @@ public class Arena {
                             .translate(messages.getString("gui.options-emerald"), player)).setLore(MessageManager
                             .translate(messages.getStringList("gui.options-lores"), player)).moveable(false)
                             .setClickEvent(e -> {
-                        getPlot(player).getBuildMenu().open(player);
+                        getPlot(player).getBuildMenu().show(player);
                         return true;
                     });
                     ItemBuilder.register(itemBuilder);

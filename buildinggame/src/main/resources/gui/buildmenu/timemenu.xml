@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.time.title" rows="2">
+    <outlinepane x="0" y="0" length="9" height="2">
+        <item id="watch" displayName="*gui.time.midnight.name" lores="*gui.time.midnight.lores" onClick="timeClick">
+            <attribute type="time">MIDNIGHT</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.2am.name" lores="*gui.time.2am.lores" onClick="timeClick">
+            <attribute type="time">AM2</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.4am.name" lores="*gui.time.4am.lores" onClick="timeClick">
+            <attribute type="time">AM4</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.6am.name" lores="*gui.time.6am.lores" onClick="timeClick">
+            <attribute type="time">AM6</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.8am.name" lores="*gui.time.8am.lores" onClick="timeClick">
+            <attribute type="time">AM8</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.10am.name" lores="*gui.time.10am.lores" onClick="timeClick">
+            <attribute type="time">AM10</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.midday.name" lores="*gui.time.midday.lores" onClick="timeClick">
+            <attribute type="time">MIDDAY</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.2pm.name" lores="*gui.time.2pm.lores" onClick="timeClick">
+            <attribute type="time">PM2</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.4pm.name" lores="*gui.time.4pm.lores" onClick="timeClick">
+            <attribute type="time">PM4</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.6pm.name" lores="*gui.time.6pm.lores" onClick="timeClick">
+            <attribute type="time">PM6</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.8pm.name" lores="*gui.time.8pm.lores" onClick="timeClick">
+            <attribute type="time">PM8</attribute>
+        </item>
+        <item id="watch" displayName="*gui.time.10pm.name" lores="*gui.time.10pm.lores" onClick="timeClick">
+            <attribute type="time">PM10</attribute>
+        </item>
+    </outlinepane>
+    <outlinepane x="8" y="1" length="1" height="1">
+        <item id="book" displayName="*gui.time.back.name" lores="*gui.time.lores" onClick="backClick" />
+    </outlinepane>
+</gui>

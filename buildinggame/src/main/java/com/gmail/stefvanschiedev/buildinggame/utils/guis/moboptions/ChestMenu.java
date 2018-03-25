@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,10 +27,10 @@ public class ChestMenu extends BabyMenu {
         chestMeta.setDisplayName(ChatColor.GREEN + "Set/Remove chest");
         chest.setItemMeta(chestMeta);
 
-        insertItem(chest, event -> {
+        pane.insertItem(new GuiItem(chest, event -> {
             chestedHorse.setCarryingChest(!chestedHorse.isCarryingChest());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

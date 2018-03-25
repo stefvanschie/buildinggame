@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -20,9 +23,9 @@ class HorseColorSelectionMenu extends Gui {
      * {@inheritDoc}
      */
     HorseColorSelectionMenu(Horse horse) {
-        super(null, 9, ChatColor.GREEN + "Change the horse color", 1);
+        super(1, ChatColor.GREEN + "Change the horse color");
 
-        setStartingPoint(1);
+        OutlinePane pane = new OutlinePane(new GuiLocation(1, 0), 8, 1);
 
         //black
         ItemStack black = new Wool(DyeColor.BLACK).toItemStack(1);
@@ -30,11 +33,11 @@ class HorseColorSelectionMenu extends Gui {
         blackMeta.setDisplayName(ChatColor.GREEN + "Black");
         black.setItemMeta(blackMeta);
 
-        addItem(black, event -> {
+        pane.addItem(new GuiItem(black, event -> {
             horse.setColor(Horse.Color.BLACK);
 
             event.setCancelled(true);
-        });
+        }));
 
         //brown
         ItemStack brown = new Wool(DyeColor.BROWN).toItemStack(1);
@@ -42,11 +45,11 @@ class HorseColorSelectionMenu extends Gui {
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
 
-        addItem(brown, event -> {
+        pane.addItem(new GuiItem(brown, event -> {
             horse.setColor(Horse.Color.BROWN);
 
             event.setCancelled(true);
-        });
+        }));
 
         //chestnut
         ItemStack chestnut = new ItemStack(Material.RED_NETHER_BRICK);
@@ -54,11 +57,11 @@ class HorseColorSelectionMenu extends Gui {
         chestnutMeta.setDisplayName(ChatColor.GREEN + "Chestnut");
         chestnut.setItemMeta(chestnutMeta);
 
-        addItem(chestnut, event -> {
+        pane.addItem(new GuiItem(chestnut, event -> {
             horse.setColor(Horse.Color.CHESTNUT);
 
             event.setCancelled(true);
-        });
+        }));
 
         //creamy
         ItemStack creamy = new ItemStack(Material.SANDSTONE);
@@ -66,11 +69,11 @@ class HorseColorSelectionMenu extends Gui {
         creamyMeta.setDisplayName(ChatColor.GREEN + "Creamy");
         creamy.setItemMeta(creamyMeta);
 
-        addItem(creamy, event -> {
+        pane.addItem(new GuiItem(creamy, event -> {
             horse.setColor(Horse.Color.CREAMY);
 
             event.setCancelled(true);
-        });
+        }));
 
         //dark brown
         ItemStack darkBrown = new ItemStack(Material.NETHER_BRICK);
@@ -78,11 +81,11 @@ class HorseColorSelectionMenu extends Gui {
         darkBrownMeta.setDisplayName(ChatColor.GREEN + "Dark brown");
         darkBrown.setItemMeta(darkBrownMeta);
 
-        addItem(darkBrown, event -> {
+        pane.addItem(new GuiItem(darkBrown, event -> {
             horse.setColor(Horse.Color.DARK_BROWN);
 
             event.setCancelled(true);
-        });
+        }));
 
         //gray
         ItemStack gray = new Wool(DyeColor.GRAY).toItemStack(1);
@@ -90,11 +93,11 @@ class HorseColorSelectionMenu extends Gui {
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
 
-        addItem(gray, event -> {
+        pane.addItem(new GuiItem(gray, event -> {
             horse.setColor(Horse.Color.GRAY);
 
             event.setCancelled(true);
-        });
+        }));
 
         //white
         ItemStack white = new Wool(DyeColor.WHITE).toItemStack(1);
@@ -102,10 +105,12 @@ class HorseColorSelectionMenu extends Gui {
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
 
-        addItem(white, event -> {
+        pane.addItem(new GuiItem(white, event -> {
             horse.setColor(Horse.Color.WHITE);
 
             event.setCancelled(true);
-        });
+        }));
+
+        addPane(pane);
     }
 }

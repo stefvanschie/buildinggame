@@ -3,10 +3,14 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.PaginatedPane;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,6 +19,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.SubjectVote;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -23,11 +28,6 @@ import org.jetbrains.annotations.Nullable;
  * @since 2.1.0
  */
 public class SubjectMenu extends Gui {
-
-    /**
-     * A list of all subjects
-     */
-	private final List<String> subjects = new ArrayList<>();
 
 	/**
      * The subject that is forced to be chosen
@@ -53,13 +53,11 @@ public class SubjectMenu extends Gui {
      * Constructs a new SubjectMenu
      */
 	public SubjectMenu() {
-		super(null, 36, MessageManager.translate(MESSAGES.getString("subject-gui.title")),
-                CONFIG.getInt("subject-gui.subject-amount") == -1 ?
-                        (int) Math.ceil(CONFIG.getStringList("subjects").size() / 27.0) :
-                        (int) Math.ceil(CONFIG.getInt("subject-gui.subject-amount") / 27.0));
-	
+		super(4, MessageManager.translate(MESSAGES.getString("subject-gui.title")));
+
 		int amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
-		
+		List<String> subjects = new ArrayList<>();
+
 		if (amountOfSubjects == -1)
 			subjects.addAll(CONFIG.getStringList("subjects"));
 		else {
@@ -70,120 +68,129 @@ public class SubjectMenu extends Gui {
 		
 		for (String s : subjects)
 			votes.add(new SubjectVote(s, 0));
-	}
 
-	/**
-     * Called whenever a player wants or is forced to open the gui
-     *
-     * @param player the player to show the gui for
-     * @param page the page this gui should open at
-     * @since 4.0.0
-     */
-	@Override
-	public void open(Player player, int page) {
-		clear();
-		
-		setStartingPoint((page - 1) * 36);
-		
-		for (int index = 0; index < 27; index++) {
-			if (subjects.size() - 1 < index + ((page - 1) * 27))
-				break;
-			
-			final String subject = ChatColor.stripColor(subjects.get(index + ((page - 1) * 27)));
-			
-			if (getSubjectVote(subject) == null)
-				votes.add(new SubjectVote(subject, 0));
-			
-			ItemStack item = new ItemStack(Material.PAPER);
-			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.subject.name")
-					.replace("%subject%", subject), player));
-			List<String> lores = new ArrayList<>();
-				
-			for (String lore : MESSAGES.getStringList("subject-gui.subject.lores"))
-				lores.add(MessageManager.translate(lore
-					.replace("%votes%", getSubjectVote(subject).getVotes() + ""), player));
-				
-			meta.setLore(lores);
-			item.setItemMeta(meta);
-			
-			addItem(item, event ->  {
-                addVote((Player) event.getWhoClicked(), subject);
-                update();
+		//gui
+        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 3,
+            CONFIG.getInt("subject-gui.subject-amount") == -1 ?
+                (int) Math.ceil(CONFIG.getStringList("subjects").size() / 27.0) :
+                (int) Math.ceil(CONFIG.getInt("subject-gui.subject-amount") / 27.0));
 
-                event.setCancelled(true);
-			});
-		}
-			
-		if (page - 1 > 0) {
-			//previous page
-			ItemStack prevItem = new ItemStack(Material.SUGAR_CANE);
-			ItemMeta prevMeta = prevItem.getItemMeta();
-			prevMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name"),
-                    player));
-			List<String> prevLores = new ArrayList<>();
-			
-			for (String lore : MESSAGES.getStringList("subject-gui.previous-page.lores"))
-				prevLores.add(MessageManager.translate(lore, player));
-			
-			prevMeta.setLore(prevLores);
-			prevItem.setItemMeta(prevMeta);
-				
-			setItem(prevItem, event -> {
-                Player p = (Player) event.getWhoClicked();
+        initializePages(paginatedPane, subjects);
 
-                open(p, getPage(p) - 1 == 0 ? 1 : getPage(p) - 1);
+        addPane(paginatedPane);
 
-                event.setCancelled(true);
-			}, 29 + ((page - 1) * 36));
-		}
-			
-		ItemStack closeItem = new ItemStack(Material.BOOK);
-		ItemMeta closeMeta = closeItem.getItemMeta();
-		closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name"),
-                player));
-		List<String> closeLores = new ArrayList<>();
-			
-		for (String lore : MESSAGES.getStringList("subject-gui.close-menu.lores"))
-			closeLores.add(MessageManager.translate(lore, player));
-			
-		closeMeta.setLore(closeLores);
-		closeItem.setItemMeta(closeMeta);
-			
-		setItem(closeItem, event -> {
-            HumanEntity humanEntity = event.getWhoClicked();
+        OutlinePane previousPane = new OutlinePane(new GuiLocation(2, 3), 1, 1);
+        OutlinePane closePane = new OutlinePane(new GuiLocation(4, 3), 1, 1);
+        OutlinePane nextPane = new OutlinePane(new GuiLocation(6, 3), 1, 1);
 
-            humanEntity.closeInventory();
-            removePlayer((Player) humanEntity);
+        //previous page
+        ItemStack prevItem = new ItemStack(Material.SUGAR_CANE);
+        ItemMeta prevMeta = prevItem.getItemMeta();
+        prevMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name")));
+        prevMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.previous-page.lores")));
+        prevItem.setItemMeta(prevMeta);
+
+        previousPane.addItem(new GuiItem(prevItem, event -> {
+            paginatedPane.setPage(paginatedPane.getPage() - 1);
+
+            if (paginatedPane.getPage() == 0)
+                previousPane.setVisible(false);
+
+            nextPane.setVisible(true);
+
+            update();
 
             event.setCancelled(true);
-		}, 31 + ((page - 1) * 36));
-			
-		if (subjects.size() > 27 * page) {
-			//next page
-			ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
-			ItemMeta nextMeta = nextItem.getItemMeta();
-			nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name"),
-                    player));
-			List<String> nextLores = new ArrayList<>();
-			
-			for (String lore : MESSAGES.getStringList("subject-gui.next-page.lores"))
-				nextLores.add(MessageManager.translate(lore, player));
-			
-			nextMeta.setLore(nextLores);
-			nextItem.setItemMeta(nextMeta);
-				
-			setItem(nextItem, event -> {
-                Player p = (Player) event.getWhoClicked();
+        }));
 
-                open(p, getPage(p) + 1);
+        previousPane.setVisible(false);
 
-                event.setCancelled(true);
-			}, 33 + ((page - 1) * 36));
-		}
-		
-		super.open(player, page);
-	}
+        ItemStack closeItem = new ItemStack(Material.BOOK);
+        ItemMeta closeMeta = closeItem.getItemMeta();
+        closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name")));
+        closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.close-menu.lores")));
+        closeItem.setItemMeta(closeMeta);
+
+        closePane.addItem(new GuiItem(closeItem, event -> {
+            event.getWhoClicked().closeInventory();
+            event.setCancelled(true);
+        }));
+
+        //next page
+        ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
+        ItemMeta nextMeta = nextItem.getItemMeta();
+        nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name")));
+        nextMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.next-page.lores")));
+        nextItem.setItemMeta(nextMeta);
+
+        nextPane.addItem(new GuiItem(nextItem, event -> {
+            paginatedPane.setPage(paginatedPane.getPage() + 1);
+
+            if (paginatedPane.getPage() == paginatedPane.getPages() - 1)
+                nextPane.setVisible(false);
+
+            previousPane.setVisible(true);
+
+            update();
+
+            event.setCancelled(true);
+        }));
+
+        addPane(previousPane);
+        addPane(closePane);
+        addPane(nextPane);
+    }
+
+    /**
+     * Initializes the pages for this gui
+     *
+     * @param paginatedPane the paginated pane
+     * @param subjects the subjects
+     * @since 5.6.0
+     */
+    @Contract("null, _ -> fail")
+    private void initializePages(@NotNull PaginatedPane paginatedPane, List<String> subjects) {
+        for (int page = 0; page < paginatedPane.getPages(); page++) {
+            OutlinePane pane =
+                new OutlinePane(new GuiLocation(0, 0), paginatedPane.getLength(), paginatedPane.getHeight());
+
+            for (int index = 0; index < paginatedPane.getLength() * paginatedPane.getHeight(); index++) {
+                if (subjects.size() - 1 < index + (page * paginatedPane.getLength() * paginatedPane.getHeight()))
+                    break;
+
+                final String subject = ChatColor
+                    .stripColor(subjects.get(index + (page * paginatedPane.getLength() * paginatedPane.getHeight())));
+
+                if (getSubjectVote(subject) == null)
+                    votes.add(new SubjectVote(subject, 0));
+
+                ItemStack item = new ItemStack(Material.PAPER);
+                ItemMeta meta = item.getItemMeta();
+                meta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.subject.name")
+                    .replace("%subject%", subject)));
+                List<String> lores = new ArrayList<>();
+
+                for (String lore : MESSAGES.getStringList("subject-gui.subject.lores"))
+                    lores.add(MessageManager.translate(lore
+                        .replace("%votes%", getSubjectVote(subject).getVotes() + "")));
+
+                meta.setLore(lores);
+                item.setItemMeta(meta);
+
+                pane.addItem(new GuiItem(item, event -> {
+                    addVote((Player) event.getWhoClicked(), subject);
+
+                    initializePages(paginatedPane, subjects);
+
+                    update();
+
+                    event.setCancelled(true);
+                }));
+            }
+
+            paginatedPane.setPane(page, pane);
+        }
+    }
 
 	/**
      * Adds a vote for the specified theme

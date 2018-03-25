@@ -47,7 +47,7 @@ public class Join extends PlayerCommand {
 				return CommandResult.ERROR;
 			}
 			
-			new ArenaSelection().open(player);
+			new ArenaSelection().show(player);
 		} else {
 			Arena arena = ArenaManager.getInstance().getArena(args[0]);
 			

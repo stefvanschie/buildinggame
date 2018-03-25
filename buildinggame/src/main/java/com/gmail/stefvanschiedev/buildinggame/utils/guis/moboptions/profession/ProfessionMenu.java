@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.profession;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,10 +28,10 @@ public class ProfessionMenu extends BabyMenu {
         professionMeta.setDisplayName(ChatColor.GREEN + "Change the profession");
         profession.setItemMeta(professionMeta);
 
-        insertItem(profession, event -> {
-            new ProfessionSelectionMenu(creature).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(profession, event -> {
+            new ProfessionSelectionMenu(creature).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

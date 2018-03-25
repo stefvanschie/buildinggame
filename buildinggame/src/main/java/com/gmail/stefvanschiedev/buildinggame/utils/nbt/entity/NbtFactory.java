@@ -20,6 +20,7 @@ import com.google.common.primitives.Primitives;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("ALL")
 public final class NbtFactory {
     // Convert between NBT id and the equivalent class in java
     private static final BiMap<Integer, Class<?>> NBT_CLASS = HashBiMap.create();
