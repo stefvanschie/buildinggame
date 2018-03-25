@@ -157,6 +157,7 @@ public class BuildMenu {
             floorMenu.show(player);
             floorChange = System.currentTimeMillis();
             event.setCancelled(true);
+            return;
         }
 
         for (String material : CONFIG.getStringList("blocks.blocked")) {
