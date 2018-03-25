@@ -59,7 +59,7 @@ public class TeamSelection extends Gui {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         int iteration = 0;
 
-        OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0),9,
+        OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9,
             round(arena.getPlots().size()));
 
         for (final Plot plot : arena.getPlots()) {
