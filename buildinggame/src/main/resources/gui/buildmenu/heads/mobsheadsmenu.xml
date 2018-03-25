@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.heads.mobs.title" rows="6">
+    <paginatedpane x="0" y="0" length="9" height="5" tag="paginatedpane">
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <skull id="67e7ae12195c8c97a7706efc7bfc2851666c9f1d53b6ce075569922b4263bd"
+                       displayName="*gui.heads.mobs.blaze.name" lores="*gui.heads.mobs.blaze.lores"
+                       onClick="headClick" />
+                <skull id="41645dfd77d09923107b3496e94eeb5c30329f97efc96ed76e226e98224"
+                       displayName="*gui.heads.mobs.cave-spider.name" lores="*gui.heads.mobs.cave-spider.lores"
+                       onClick="headClick" />
+                <skull id="8b6a72138d69fbbd2fea3fa251cabd87152e4f1c97e5f986bf685571db3cc0"
+                       displayName="*gui.heads.mobs.ghast.name" lores="*gui.heads.mobs.ghast.lores"
+                       onClick="headClick" />
+                <skull id="74e9c6e98582ffd8ff8feb3322cd1849c43fb16b158abb11ca7b42eda7743eb"
+                       displayName="*gui.heads.mobs.pigzombie.name" lores="*gui.heads.mobs.pigzombie.lores"
+                       onClick="headClick" />
+                <skull id="7a59bb0a7a32965b3d90d8eafa899d1835f424509eadd4e6b709ada50b9cf"
+                       displayName="*gui.heads.mobs.enderman.name" lores="*gui.heads.mobs.enderman.lores"
+                       onClick="headClick" />
+                <skull id="b396fbf43413c0168697349953ec6daeffb7816e9acbbeaaf77c1ff3137f2ba3"
+                       displayName="*gui.heads.mobs.lava-slime.name" lores="*gui.heads.mobs.lava-slime.lores"
+                       onClick="headClick" />
+                <skull id="cb38f01fb5fd75b7c2674a74c70f83cf8ccf96b799d605711b638d556c"
+                       displayName="*gui.heads.mobs.slime.name" lores="*gui.heads.mobs.slime.lores"
+                       onClick="headClick" />
+                <skull id="cd541541daaff50896cd258bdbdd4cf80c3ba816735726078bfe393927e57f1"
+                       displayName="*gui.heads.mobs.spider.name" lores="*gui.heads.mobs.spider.lores"
+                       onClick="headClick" />
+                <skull id="1638469a599ceef7207537603248a9ab11ff591fd378bea4735b346a7fae893"
+                       displayName="*gui.heads.mobs.chicken.name" lores="*gui.heads.mobs.chicken.lores"
+                       onClick="headClick" />
+                <skull id="621668ef7cb79dd9c22ce3d1f3f4cb6e2559893b6df4a469514e667c16aa4"
+                       displayName="*gui.heads.mobs.pig.name" lores="*gui.heads.mobs.pig.lores" onClick="headClick" />
+                <skull id="f31f9ccc6b3e32ecf13b8a11ac29cd33d18c95fc73db8a66c5d657ccb8be70"
+                       displayName="*gui.heads.mobs.sheep.name" lores="*gui.heads.mobs.sheep.lores"
+                       onClick="headClick" />
+                <skull id="5d6c6eda942f7f5f71c3161c7306f4aed307d82895f9d2b07ab4525718edc5"
+                       displayName="*gui.heads.mobs.cow.name" lores="*gui.heads.mobs.cow.lores" onClick="headClick" />
+                <skull id="01433be242366af126da434b8735df1eb5b3cb2cede39145974e9c483607bac"
+                       displayName="*gui.heads.mobs.squid.name" lores="*gui.heads.mobs.squid.lores"
+                       onClick="headClick" />
+                <skull id="822d8e751c8f2fd4c8942c44bdb2f5ca4d8ae8e575ed3eb34c18a86e93b"
+                       displayName="*gui.heads.mobs.villager.name" lores="*gui.heads.mobs.villager.lores"
+                       onClick="headClick" />
+                <skull id="89091d79ea0f59ef7ef94d7bba6e5f17f2f7d4572c44f90f76c4819a714"
+                       displayName="*gui.heads.mobs.golem.name" lores="*gui.heads.mobs.golem.lores"
+                       onClick="headClick" />
+                <skull id="98b7ca3c7d314a61abed8fc18d797fc30b6efc8445425c4e250997e52e6cb"
+                       displayName="*gui.heads.mobs.herobrine.name" lores="*gui.heads.mobs.herobrine.lores"
+                       onClick="headClick" />
+                <skull id="d0bc61b9757a7b83e03cd2507a2157913c2cf016e7c096a4d6cf1fe1b8db"
+                       displayName="*gui.heads.mobs.mushroom-cow.name" lores="*gui.heads.mobs.mushroom-cow.lores"
+                       onClick="headClick" />
+                <skull id="5657cd5c2989ff97570fec4ddcdc6926a68a3393250c1be1f0b114a1db1"
+                       displayName="*gui.heads.mobs.ocelot.name" lores="*gui.heads.mobs.ocelot.lores"
+                       onClick="headClick" />
+                <skull id="e1a62ddc5c7ef643fb264df7ededea3769eeb6484e35b906e99f1fbdc33"
+                       displayName="*gui.heads.mobs.horse-head.name" lores="*gui.heads.mobs.horse-head.lores"
+                       onClick="headClick" />
+                <skull id="932c24524c82ab3b3e57c2052c533f13dd8c0beb8bdd06369bb2554da86c123"
+                       displayName="*gui.heads.mobs.guardian.name" lores="*gui.heads.mobs.guardian.lores"
+                       onClick="headClick" />
+                <skull id="e9f2dcbcde8a227cd3d285799a3b2d4bffe3b4db20203c90bea1afcf24176bd"
+                       displayName="*gui.heads.mobs.monkey.name" lores="*gui.heads.mobs.monkey.lores"
+                       onClick="headClick" />
+                <skull id="d46d23f04846369fa2a3702c10f759101af7bfe8419966429533cd81a11d2b"
+                       displayName="*gui.heads.mobs.polar-bear.name" lores="*gui.heads.mobs.polar-bear.lores"
+                       onClick="headClick" />
+                <skull id="d3c57facbb3a4db7fd55b5c0dc7d19c19cb0813c748ccc9710c714727551f5b9"
+                       displayName="*gui.heads.mobs.penguin.name" lores="*gui.heads.mobs.penguin.lores"
+                       onClick="headClick" />
+                <skull id="d7baedaf9ad95474eb1be58924445dfc77bbdc252cc1c81644cf7154c441"
+                       displayName="*gui.heads.mobs.walrus.name" lores="*gui.heads.mobs.walrus.lores"
+                       onClick="headClick" />
+                <skull id="b6b96bbc8ad9bae0e254d35fdfb1db48e822ed97cf5f739d3e9545dd6ce"
+                       displayName="*gui.heads.mobs.tiger.name" lores="*gui.heads.mobs.tiger.lores"
+                       onClick="headClick" />
+                <skull id="d188c980aacfa94cf33088512b1b9517ba826b154d4cafc262aff6977be8a"
+                       displayName="*gui.heads.mobs.panda.name" lores="*gui.heads.mobs.panda.lores"
+                       onClick="headClick" />
+                <skull id="4469bcc3a6d4e44b704349b3f0a416e1e1f9eeb3991e945a99184e09a66b"
+                       displayName="*gui.heads.mobs.cat.name" lores="*gui.heads.mobs.cat.lores" onClick="headClick" />
+                <skull id="e95cbb4f75ea87617f2f713c6d49dac3209ba1bd4b9369654b1459ea15317"
+                       displayName="*gui.heads.mobs.angry-wolf.name" lores="*gui.heads.mobs.angry-wolf.lores"
+                       onClick="headClick" />
+                <skull id="dc7a317ec5c1ed7788f89e7f1a6af3d2eeb92d1e9879c05343c57f9d863de130"
+                       displayName="*gui.heads.mobs.rabbit.name" lores="*gui.heads.mobs.rabbit.lores"
+                       onClick="headClick" />
+                <skull id="ca35eb10b94e888427fb23c783082658ceb81f3cf5d0aad25d7d41a194b26"
+                       displayName="*gui.heads.mobs.koala.name" lores="*gui.heads.mobs.koala.lores"
+                       onClick="headClick" />
+                <skull id="91641d038eb3862b1e022c5e0588d96366da1c944ee5e6ee13e0f5dd7b427b"
+                       displayName="*gui.heads.mobs.chinese-dragon.name" lores="*gui.heads.mobs.chinese-dragon.lores"
+                       onClick="headClick" />
+                <skull id="c7e575cff11014a5acadf33ee488568cc89e43193511ca74efc83eebb76f4"
+                       displayName="*gui.heads.mobs.villager-head.name" lores="*gui.heads.mobs.villager-head.lores"
+                       onClick="headClick" />
+                <skull id="a9559388993fe782f67bd58d98c4df56bcd430edcb2f66ef5777a73c27de3"
+                       displayName="*gui.heads.mobs.pufferfish.name" lores="*gui.heads.mobs.pufferfish.lores"
+                       onClick="headClick" />
+                <skull id="cdf74e323ed41436965f5c57ddf2815d5332fe999e68fbb9d6cf5c8bd4139f"
+                       displayName="*gui.heads.mobs.wither-boss.name" lores="*gui.heads.mobs.wither-boss.lores"
+                       onClick="headClick" />
+                <skull id="1fdfd1f7538c040258be7a91446da89ed845cc5ef728eb5e690543378fcf4"
+                       displayName="*gui.heads.mobs.snowhead.name" lores="*gui.heads.mobs.snowhead.lores"
+                       onClick="headClick" />
+                <skull id="a528df1653962e4e995dfd064a72b2cbff9b7197912880143f941a37db46c"
+                       displayName="*gui.heads.mobs.snowhead-2.name" lores="*gui.heads.mobs.snowhead-2.lores"
+                       onClick="headClick" />
+                <skull id="36d149e4d499929672e2768949e6477959c21e65254613b327b538df1e4df"
+                       displayName="*gui.heads.mobs.clownfish.name" lores="*gui.heads.mobs.clownfish.lores"
+                       onClick="headClick" />
+                <skull id="b9627370fedbd0bae7bae6d6f8583555763789c1bd93fa639cfa3dfd48e34850"
+                       displayName="*gui.heads.mobs.bird.name" lores="*gui.heads.mobs.bird.lores" onClick="headClick" />
+                <skull id="947322f831e3c168cfbd3e28fe925144b261e79eb39c771349fac55a8126473"
+                       displayName="*gui.heads.mobs.bee.name" lores="*gui.heads.mobs.bee.lores" onClick="headClick" />
+                <skull id="74ecc040785e54663e855ef0486da72154d69bb4b7424b7381ccf95b095a"
+                       displayName="*gui.heads.mobs.enderdragon.name" lores="*gui.heads.mobs.enderdragon.lores"
+                       onClick="headClick" />
+                <skull id="185e6834a4bf26a6526f7cac4f6eaa9f7fa77db8c14353a81582b5f699"
+                       displayName="*gui.heads.mobs.hermit-crab.name" lores="*gui.heads.mobs.hermit-crab.lores"
+                       onClick="headClick" />
+                <skull id="6f99b580d45a784e7a964e7d3b1f97cece74911173bd21c1d7c56acdc385ed5"
+                       displayName="*gui.heads.mobs.regular-fish.name" lores="*gui.heads.mobs.regular-fish.lores"
+                       onClick="headClick" />
+                <skull id="adfc57d09059e4799fa92c15e28512bcfaa1315577fe3a27aed389e4f752289a"
+                       displayName="*gui.heads.mobs.salmon-fish.name" lores="*gui.heads.mobs.salmon-fish.lores"
+                       onClick="headClick" />
+                <skull id="12e548408ab75d7df8e6d5d2446d90b6ec62aa4f7feb7930d1ee71eefddf6189"
+                       displayName="*gui.heads.mobs.tortoise.name" lores="*gui.heads.mobs.tortoise.lores"
+                       onClick="headClick" />
+                <skull id="c3bde43111f69a7fda6ec6faf2263c827961f390d7c6163ed1231035d1b0b9"
+                       displayName="*gui.heads.mobs.seagull.name" lores="*gui.heads.mobs.seagull.lores"
+                       onClick="headClick" />
+            </outlinepane>
+        </page>
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <skull id="236edf7de9adca72308a94d1c38c358acc82918fe8fced25d474820f4cb784"
+                       displayName="*gui.heads.mobs.ferret.name" lores="*gui.heads.mobs.ferret.lores"
+                       onClick="headClick" />
+                <skull id="7071a76f669db5ed6d32b48bb2dba55d5317d7f45225cb3267ec435cfa514"
+                       displayName="*gui.heads.mobs.elephant.name" lores="*gui.heads.mobs.elephant.lores"
+                       onClick="headClick" />
+                <skull id="7bff527562889e16a544f2f996fba3d9541d0aacf81462bffc9fb5cad8aedd5"
+                       displayName="*gui.heads.mobs.furby.name" lores="*gui.heads.mobs.furby.lores"
+                       onClick="headClick" />
+            </outlinepane>
+        </page>
+    </paginatedpane>
+    <outlinepane x="2" y="5" length="1" height="1" tag="previous" visible="false">
+        <item id="sugar_cane" displayName="*gui.heads.mobs.previous-page.name"
+              lores="*gui.heads.mobs.previous-page.lores" onClick="previousPageClick"/>
+    </outlinepane>
+    <outlinepane x="4" y="5" length="1" height="1">
+        <item id="book" displayName="*gui.heads.mobs.close.name" lores="*gui.heads.mobs.close.lores"
+              onClick="closeClick"/>
+    </outlinepane>
+    <outlinepane x="6" y="5" length="1" height="1" tag="next">
+        <item id="sugar_cane" displayName="*gui.heads.mobs.next-page.name" lores="*gui.heads.mobs.next-page.lores"
+              onClick="nextPageClick"/>
+    </outlinepane>
+</gui>

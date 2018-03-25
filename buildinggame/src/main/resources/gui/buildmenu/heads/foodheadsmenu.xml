@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.heads.food.title" rows="6">
+    <paginatedpane x="0" y="0" length="9" height="5" tag="paginatedpane">
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <skull id="515dcb2da02cf734829e1e273e3025617d8071516f953251b52545da8d3e8db8"
+                       displayName="*gui.heads.food.nutella.name" lores="*gui.heads.food.nutella.lores"
+                       onClick="headClick" />
+                <skull id="ae8890874a3066f426e66e37438f45ab29a5bf2582db73cb4cff6954a578ef"
+                       displayName="*gui.heads.food.vegemite.name" lores="*gui.heads.food.vegemite.lores"
+                       onClick="headClick" />
+                <skull id="f3487d457f9062d787a3e6ce1c4664bf7402ec67dd111256f19b38ce4f670"
+                       displayName="*gui.heads.food.bread.name" lores="*gui.heads.food.bread.lores"
+                       onClick="headClick" />
+                <skull id="955d611a878e821231749b2965708cad942650672db09e26847a88e2fac2946"
+                       displayName="*gui.heads.food.cheese.name" lores="*gui.heads.food.cheese.lores"
+                       onClick="headClick" />
+                <skull id="c0b8b5889ee1c6388dc6c2c5dbd70b6984aefe54319a095e64db7638097b821"
+                       displayName="*gui.heads.food.strawberry-jam.name" lores="*gui.heads.food.strawberry-jam.lores"
+                       onClick="headClick" />
+                <skull id="347f4f5a74c6691280cd80e7148b49b2ce17dcf64fd55368627f5d92a976a6a8"
+                       displayName="*gui.heads.food.pancakes.name" lores="*gui.heads.food.pancakes.lores"
+                       onClick="headClick" />
+                <skull id="f9136514f342e7c5208a1422506a866158ef84d2b249220139e8bf6032e193"
+                       displayName="*gui.heads.food.cake.name" lores="*gui.heads.food.cake.lores"
+                       onClick="headClick" />
+                <skull id="4561ded8d8385b913a091aef4783fccbfd3d38edd90b2e89b723b5a57434bf4"
+                       displayName="*gui.heads.food.cake-2.name" lores="*gui.heads.food.cake-2.lores"
+                       onClick="headClick" />
+                <skull id="fc91f9507b48b6f719714fbaba77cf68534aa5b728371b11866d55ff833a7f"
+                       displayName="*gui.heads.food.can-of-soup.name" lores="*gui.heads.food.can-of-soup.lores"
+                       onClick="headClick" />
+                <skull id="d7ab62fb77189352541dd95a8ee7e3631f7c1658f463f661680c283493d8a"
+                       displayName="*gui.heads.food.cup-of-milk.name" lores="*gui.heads.food.cup-of-milk.lores"
+                       onClick="headClick" />
+                <skull id="83794c736fc76e45706830325b95969466d86f8d7b28fce8edb2c75e2ab25c"
+                       displayName="*gui.heads.food.chocolate-muffin.name"
+                       lores="*gui.heads.food.chocolate-muffin.lores" onClick="headClick" />
+                <skull id="343216b3ad2f4757a23c3a24cdaf8ce87bc421d4b6e8bc2ce642aa4803e99"
+                       displayName="*gui.heads.food.muffin.name" lores="*gui.heads.food.muffin.lores"
+                       onClick="headClick" />
+                <skull id="dfd71e20fc50abf0de2ef7decfc01ce27ad51955759e072ceaab96355f594f0"
+                       displayName="*gui.heads.food.oreo-sandwich.name" lores="*gui.heads.food.oreo-sandwich.lores"
+                       onClick="headClick" />
+                <skull id="b592cf9f42a5a8c995968493fdd1b11e0b69aad6473ff45384abe58b7fc7c7"
+                       displayName="*gui.heads.food.cookie.name" lores="*gui.heads.food.cookie.lores"
+                       onClick="headClick" />
+                <skull id="4cc3f781c923a2887f14c1eea11050166966f2602578401f1451e6097b979df"
+                       displayName="*gui.heads.food.candy-cane.name" lores="*gui.heads.food.candy-cane.lores"
+                       onClick="headClick" />
+                <skull id="819f948d17718adace5dd6e050c586229653fef645d7113ab94d17b639cc466"
+                       displayName="*gui.heads.food.chocolatebar.name" lores="*gui.heads.food.chocolatebar.lores"
+                       onClick="headClick" />
+                <skull id="1ed55260dccc8da59338c75e41d544a2e1e7dbef31a69fe42c01b3298bf2d"
+                       displayName="*gui.heads.food.chocolatebar-2.name" lores="*gui.heads.food.chocolatebar-2.lores"
+                       onClick="headClick" />
+                <skull id="edf410fdf212964a5606ca0a1b47730922775ca7f9763e5aea9a3ab449b6ec"
+                       displayName="*gui.heads.food.sliced-lemon-citrus-fruit.name"
+                       lores="*gui.heads.food.sliced-lemon-citrus-fruit.lores" onClick="headClick" />
+                <skull id="d525707696bcd15a173056fa39296e80ff41168bb0add552f4523e2558a3119"
+                       displayName="*gui.heads.food.cherry.name" lores="*gui.heads.food.cherry.lores"
+                       onClick="headClick" />
+                <skull id="cbb311f3ba1c07c3d1147cd210d81fe11fd8ae9e3db212a0fa748946c3633"
+                       displayName="*gui.heads.food.apple.name" lores="*gui.heads.food.apple.lores"
+                       onClick="headClick" />
+                <skull id="c3fed514c3e238ca7ac1c94b897ff6711b1dbe50174afc235c8f80d029"
+                       displayName="*gui.heads.food.melon.name" lores="*gui.heads.food.melon.lores"
+                       onClick="headClick" />
+                <skull id="7e96cedc8b5683bea01673936b6ea96fe948a2b6cb444dc29e1fcff4d2e2cf4"
+                       displayName="*gui.heads.food.melon-2.name" lores="*gui.heads.food.melon-2.lores"
+                       onClick="headClick" />
+                <skull id="241412b8c6fd57e4e162166ddfd74b148a596f9eb1d1593c0469638c8d714"
+                       displayName="*gui.heads.food.melon-3.name" lores="*gui.heads.food.melon-3.lores"
+                       onClick="headClick" />
+                <skull id="f3903066ccc4695e113fee314c96a544eb919622eee7daa1d1966374f3fe848"
+                       displayName="*gui.heads.food.melon-4.name" lores="*gui.heads.food.melon-4.lores"
+                       onClick="headClick" />
+                <skull id="fec415d702f3292a82f1471c8794cf63122d449d28ab886d4dc58fafd66"
+                       displayName="*gui.heads.food.carved-pumpkin.name" lores="*gui.heads.food.carved-pumpkin.lores"
+                       onClick="headClick" />
+                <skull id="d7d7ad2dcb57dfa9f023dbb99b698fc53075c3e9d654506139a647ac907fddc5"
+                       displayName="*gui.heads.food.pumpkin.name" lores="*gui.heads.food.pumpkin.lores"
+                       onClick="headClick" />
+                <skull id="cbc826aaafb8dbf67881e68944414f13985064a3f8f044d8edfb4443e76ba"
+                       displayName="*gui.heads.food.strawberry.name" lores="*gui.heads.food.strawberry.lores"
+                       onClick="headClick" />
+                <skull id="e9b0e969cf3fcced36b712350ffb46d8ed761fe5efb10e3b6a9795e6656da97"
+                       displayName="*gui.heads.food.coconut.name" lores="*gui.heads.food.coconut.lores"
+                       onClick="headClick" />
+                <skull id="3063513ecb1a91bbb3481fabd1dc3ac4f131d1c74f61c226df4194812cf3c312"
+                       displayName="*gui.heads.food.carrot.name" lores="*gui.heads.food.carrot.lores"
+                       onClick="headClick" />
+                <skull id="33ca9d8b1d5f2c26547644034a55a4a2463e166f60feb0c7c5af3f724bae"
+                       displayName="*gui.heads.food.sugarcane.name" lores="*gui.heads.food.sugarcane.lores"
+                       onClick="headClick" />
+                <skull id="411511bdd55bcb82803c8039f1c155fd43062636e23d4d46c4d761c04d22c2"
+                       displayName="*gui.heads.food.hot-chocolate.name" lores="*gui.heads.food.hot-chocolate.lores"
+                       onClick="headClick" />
+                <skull id="d8e94ddd769a5bea748376b4ec7383fd36d267894d7c3bee011e8e4f5fcd7"
+                       displayName="*gui.heads.food.cup-of-tea.name" lores="*gui.heads.food.cup-of-tea.lores"
+                       onClick="headClick" />
+                <skull id="98ced74a22021a535f6bce21c8c632b273dc2d9552b71a38d57269b3538cf"
+                       displayName="*gui.heads.food.taco.name" lores="*gui.heads.food.taco.lores" onClick="headClick" />
+                <skull id="ea1f3585f54849b41da5d326a943956a25494364bb961d2458c430be9a6b27"
+                       displayName="*gui.heads.food.taco-2.name" lores="*gui.heads.food.taco-2.lores"
+                       onClick="headClick" />
+                <skull id="6f312a243aa4e69a5edc67e54e44f76eb84f66ec824089557a64bea71f6dc"
+                       displayName="*gui.heads.food.baked-potatoe.name" lores="*gui.heads.food.baked-poatatoe.lores"
+                       onClick="headClick" />
+                <skull id="e7ba22d5df21e821a6de4b8c9d373a3aa187d8ae74f288a82d2b61f272e5"
+                       displayName="*gui.heads.food.bacon.name" lores="*gui.heads.food.bacon.lores"
+                       onClick="headClick" />
+                <skull id="a0eacac41a9eaf051376ef2f959701e1bbe1bf4aa6715adc34b6dc29a13ea9"
+                       displayName="*gui.heads.food.fries.name" lores="*gui.heads.food.fries.lores"
+                       onClick="headClick" />
+                <skull id="a6ef1c25f516f2e7d6f7667420e33adcf3cdf938cb37f9a41a8b35869f569b"
+                       displayName="*gui.heads.food.hamburger.name" lores="*gui.heads.food.hamburger.lores"
+                       onClick="headClick" />
+                <skull id="b0e38c176dbf7df9b0632c256eeb6c5aaca99e1c8c1a530656eaff0417aed22"
+                       displayName="*gui.heads.food.hamburger-2.name" lores="*gui.heads.food.hamburger-2.lores"
+                       onClick="headClick" />
+                <skull id="cdadf1744433e1c79d1d59d2777d939de159a24cf57e8a61c82bc4fe3777553c"
+                       displayName="*gui.heads.food.hamburger-3.name" lores="*gui.heads.food.hamburger-3.lores"
+                       onClick="headClick" />
+                <skull id="1497b147cfae52205597f72e3c4ef52512e9677020e4b4fa7512c3c6acdd8c1"
+                       displayName="*gui.heads.food.popcorn.name" lores="*gui.heads.food.popcorn.lores"
+                       onClick="headClick" />
+                <skull id="e9b41e9fe543f2375d0a97dd5922e4d65b8a523baf2265d42398d64c364ef95"
+                       displayName="*gui.heads.food.glass-of-coca-cola.name"
+                       lores="*gui.heads.food.glass-of-coca-cola.lores" onClick="headClick" />
+                <skull id="846d3172e7d6ad6df6a2189755ce0b2dc85a1f9ccd109dc932985867ba6"
+                       displayName="*gui.heads.food.sushi-mackerel.name" lores="*gui.heads.food.sushi-mackerel.lores"
+                       onClick="headClick" />
+                <skull id="23bf8fca2af3592c5574b13e3bcf61e2fae829788535f0ddeaa7a2e45b6ba4"
+                       displayName="*gui.heads.food.sushi-salmon.name" lores="*gui.heads.food.sushi-salmon.lores"
+                       onClick="headClick" />
+                <skull id="2e12f267953e76ae66a8dd025a3286aecbc64b4ad98eeb10b3c67a69aae15"
+                       displayName="*gui.heads.food.sushi-roll.name" lores="*gui.heads.food.sushi-roll.lores"
+                       onClick="headClick" />
+            </outlinepane>
+        </page>
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <skull id="69c2ddf2bd74a4655e8f0153a7453e67db2a21dbfac6756789481adbec483a"
+                       displayName="*gui.heads.food.riceball.name" lores="*gui.heads.food.riceball.lores"
+                       onClick="headClick" />
+                <skull id="99dfac171e3c2029676ecf8d3a0fd9b7bb2857b95efdefc59e0f252576b5c68"
+                       displayName="*gui.heads.food.corn-block.name" lores="*gui.heads.food.corn-block.lores"
+                       onClick="headClick" />
+                <skull id="baee84d19c85aff796c88abda21ec4c92c655e2d67b72e5e77b5aa5e99ed"
+                       displayName="*gui.heads.food.ham-cheese-sandwich.name"
+                       lores="*gui.heads.food.ham-cheese-sandwich.lores" onClick="headClick" />
+                <skull id="4053e26867bb57538e9789137dbbb53774e18eda6fef51cb2edf426b37264"
+                       displayName="*gui.heads.food.glass-of-beer.name" lores="*gui.heads.food.glass-of-beer.lores"
+                       onClick="headClick" />
+                <skull id="229603d82963056be13522cfb7d4520c76ba687f396a0dab125e63b5dacea8"
+                       displayName="*gui.heads.food.medieval-beer.name" lores="*gui.heads.food.medieval-beer.lores"
+                       onClick="headClick" />
+                <skull id="26336f5bb9975bf57e14db6615c1896c5c4b9c39aad17b17e4ee20b231cf6"
+                       displayName="*gui.heads.food.ham.name" lores="*gui.heads.food.ham.lores"
+                       onClick="headClick" />
+                <skull id="cc14144f61c4e66b3c443660debc73cb2125d0140c51b5522c8a68b789414"
+                       displayName="*gui.heads.food.mushroom-stew.name" lores="*gui.heads.food.mushroom-stew.lores"
+                       onClick="headClick" />
+                <skull id="ec6eb8f15ba0d7993bf8708fa1dd86c1e8fde741a7dde9195f22891e02153"
+                       displayName="*gui.heads.food.sweet-roll.name" lores="*gui.heads.food.sweet-roll.lores"
+                       onClick="headClick" />
+                <skull id="d8e3b53bc8fab19c6fd0f8abf13bf2303581d81691141f15973b4777e039f73"
+                       displayName="*gui.heads.food.ice-cream.name" lores="*gui.heads.food.ice-cream.lores"
+                       onClick="headClick" />
+                <skull id="957fd56ca15978779324df519354b6639a8d9bc1192c7c3de925a329baef6c"
+                       displayName="*gui.heads.food.lemon.name" lores="*gui.heads.food.lemon.lores"
+                       onClick="headClick" />
+                <skull id="5cc016f568d1433860d82fa3379d784cbbd52e56b55f78be7291f8618da38c8"
+                       displayName="*gui.heads.food.plum.name" lores="*gui.heads.food.plum.lores" onClick="headClick" />
+                <skull id="1fe92e11a67b56935446a214caa3723d29e6db56c55fa8d43179a8a3176c6c1"
+                       displayName="*gui.heads.food.salad.name" lores="*gui.heads.food.salad.lores"
+                       onClick="headClick" />
+                <skull id="d07b8c51acec2a508bb2fa652fb6e4a08b19485159a099f5982ccb88df1fe27e"
+                       displayName="*gui.heads.food.white-frosted-donut.name"
+                       lores="*gui.heads.food.white-frosted-donut.lores" onClick="headClick" />
+                <skull id="837c9b82b186656e9f6363a2a1c6a4b5b93cfa9ef4dad6f16b94ebb5e362678"
+                       displayName="*gui.heads.food.pink-frosted-donut.name"
+                       lores="*gui.heads.food.pink-frosted-donut.lores" onClick="headClick" />
+                <skull id="59da54ff366e738e31de92919986abb4d50ca944fa9926af63758b7448f18"
+                       displayName="*gui.heads.food.chocolate-frosted-donut.name"
+                       lores="*gui.heads.food.chocolate-frosted-donut.lores" onClick="headClick" />
+                <skull id="f06555706b641fdaf436c07663f923afc5ee72146f90195fb337b9de766588d"
+                       displayName="*gui.heads.food.turkey.name" lores="*gui.heads.food.turkey.lores"
+                       onClick="headClick" />
+                <skull id="fe3052c535e14597a413ec32b32aafdd28686fdab6eed73030e1b94f7c38ff"
+                       displayName="*gui.heads.food.bento-box.name" lores="*gui.heads.food.bento-box.lores"
+                       onClick="headClick" />
+                <skull id="32c62fd8e474d09940604f82712a44abb249d63aff87f998374ca849ab17412"
+                       displayName="*gui.heads.food.coconut-2.name" lores="*gui.heads.food.coconut-2.lores"
+                       onClick="headClick" />
+                <skull id="bf61259a7ed75dfc15f4328f69fa5d549ef1ba9c7aa85c53b8c76173fac3c69"
+                       displayName="*gui.heads.food.coconut-3.name" lores="*gui.heads.food.coconut-3.lores"
+                       onClick="headClick" />
+                <skull id="6368a69c94b45dd0a435de217c29cdbd433c7b447391faa33c241dc08271"
+                       displayName="*gui.heads.food.plate-of-cookies.name"
+                       lores="*gui.heads.food.plate-of-cookies.lores" onClick="headClick" />
+                <skull id="b7855166984a725becfac1eab5cfbdcbee7e426466ddc3bee4c71cfd72cb5888"
+                       displayName="*gui.heads.food.marshmallow.name" lores="*gui.heads.food.marshmallow.lores"
+                       onClick="headClick" />
+                <skull id="c5e27988a6538010efc0e24756bc3e3eea24d7536b20932c17e0404e5cc55f"
+                       displayName="*gui.heads.food.hamburger-4.name" lores="*gui.heads.food.hamburger-4.lores"
+                       onClick="headClick" />
+                <skull id="c377e3d6c379fe34a2e6afabba32e7aecf77bcd31a1c3836ec354a935a7e9"
+                       displayName="*gui.heads.food.bowl-of-rice.name" lores="*gui.heads.food.bowl-of-rice.lores"
+                       onClick="headClick" />
+                <skull id="50405181d39e76197a262be4cc6541e8e3ed24633384c873adb91dfe3901c"
+                       displayName="*gui.heads.food.sushi-roll-2.name" lores="*gui.heads.food.sushi-roll-2.lores"
+                       onClick="headClick" />
+                <skull id="347fe65eb745468e86873a1bda48a5a489fef91cc522d85e0364b55d53f867e"
+                       displayName="*gui.heads.food.bowl-of-spaghetti.name"
+                       lores="*gui.heads.food.bowl-of-spaghetti.lores" onClick="headClick" />
+                <skull id="26834b5b25426de63538ec82ca8fbecfcbb3e682d8063643d2e67a7621bd"
+                       displayName="*gui.heads.food.bowl-of-noodles.name" lores="*gui.heads.food.bowl-of-noodles.lores"
+                       onClick="headClick" />
+                <skull id="e9485663e65264a3dc30472e6a6931446bed32c2e899905facf18b2919689c1"
+                       displayName="*gui.heads.food.bowl-of-noodles-2.name"
+                       lores="*gui.heads.food.bowl-of-noodles-2.lores" onClick="headClick" />
+                <skull id="6e42286da33a238e4f27fe703fc8a087201b6940fc23744df9663fb985da024"
+                       displayName="*gui.heads.food.chinese-take-out-box.name"
+                       lores="*gui.heads.food.chinese-take-out-box.lores" onClick="headClick" />
+                <skull id="99172226d276070dc21b75ba25cc2aa5649da5cac745ba977695b59aebd"
+                       displayName="*gui.heads.food.tomato.name" lores="*gui.heads.food.tomato.lores"
+                       onClick="headClick" />
+                <skull id="87b3d291d3b99bcd4c37a1839dc160d885ecd4e237b3aea1baf0adbb1775cd64"
+                       displayName="*gui.heads.food.orange.name" lores="*gui.heads.food.orange.lores"
+                       onClick="headClick" />
+                <skull id="c4c05dd5d7a92889d8d22d4df0f1a1fe2bee3eddf192f78fc44e02e14dbf629"
+                       displayName="*gui.heads.food.green-apple.name" lores="*gui.heads.food.green-apple.lores"
+                       onClick="headClick" />
+                <skull id="477dd842c975d8fb03b1add66db8377a18ba987052161f22591e6a4ede7f5"
+                       displayName="*gui.heads.food.lettuce.name" lores="*gui.heads.food.lettuce.lores"
+                       onClick="headClick" />
+                <skull id="ee5935863c53a996f5334e90f55de538e83ffc5f6b0b8e83a4dc4f6e6b1208"
+                       displayName="*gui.heads.food.purple-grapes.name" lores="*gui.heads.food.purple-grapes.lores"
+                       onClick="headClick" />
+                <skull id="8cdcf38a8438ed3a547f8d5b47e0801559c595f0e26c45656a76b5bf8a56f"
+                       displayName="*gui.heads.food.green-grapes.name" lores="*gui.heads.food.green-grapes.lores"
+                       onClick="headClick" />
+                <skull id="d511a5ee4d17682a25f7e8a5da6ff7cd9ad9c4844c258a6de23e7f84f27f9b4"
+                       displayName="*gui.heads.food.red-grapes.name" lores="*gui.heads.food.red-grapes.lores"
+                       onClick="headClick" />
+                <skull id="9496589fb5c1f69387b7fb17d92312058ff6e8ebeb3eb89e4f73e78196113b"
+                       displayName="*gui.heads.food.sandwich.name" lores="*gui.heads.food.sandwich.lores"
+                       onClick="headClick" />
+                <skull id="d53c1e87e537f1ab2774ddafb83439b336f4a777b47ad82bcb30d5fcbdf9bc"
+                       displayName="*gui.heads.food.cherry-pie.name" lores="*gui.heads.food.cherry-pie.lores"
+                       onClick="headClick" />
+                <skull id="6483912fb2a30d73361c03844611775b1c33218b3a56bded6ae792c2e439881"
+                       displayName="*gui.heads.food.pie.name" lores="*gui.heads.food.pie.lores" onClick="headClick" />
+                <skull id="9119fca4f28a755d37fbe5dcf6d8c3ef50fe394c1a7850bc7e2b71ee78303c4c"
+                       displayName="*gui.heads.food.chocolate-cake.name" lores="*gui.heads.food.chocolate-cake.lores"
+                       onClick="headClick" />
+                <skull id="18c2cddeed624a538f349d8c7035fef918e6d7a1781631eac51ec182712a54da"
+                       displayName="*gui.heads.food.honey-pot.name" lores="*gui.heads.food.honey-pot.lores"
+                       onClick="headClick" />
+                <skull id="2bbae6df99dc82beaf49d064df74a1bbc15e8e376533276912c8c8fe59cb4f4"
+                       displayName="*gui.heads.food.pepsi.name" lores="*gui.heads.food.pespi.lores"
+                       onClick="headClick" />
+                <skull id="93b01fb2f6ba47c9d7638491f37cd8582a937731186df4d1eccd59b65bf37"
+                       displayName="*gui.heads.food.coca-cola.name" lores="*gui.heads.food.coca-cola.lores"
+                       onClick="headClick" />
+                <skull id="b8a34d86a7bb13d45afdc50d3dce5eed95e1844fbdee0cca753c6d3346e339e"
+                       displayName="*gui.heads.food.sprite.name" lores="*gui.heads.food.sprite.lores"
+                       onClick="headClick" />
+                <skull id="f86b51fb30b5138a4344cc3e6397da28df396241341be92121d5baeef997fb4"
+                       displayName="*gui.heads.food.mello-yello.name" lores="*gui.heads.food.mello-yello.lores"
+                       onClick="headClick" />
+                <skull id="2be9505a38a14d1512c7892fc44d3d7ce6338b1bf0f9123721b121a14b095a3"
+                       displayName="*gui.heads.food.fanta.name" lores="*gui.heads.food.fanta.lores"
+                       onClick="headClick" />
+            </outlinepane>
+        </page>
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <skull id="86e5bf657ab897ad5e54867a4c3c2e71b2da24e7518b2f834488da76f62f5216"
+                       displayName="*gui.heads.food.mountain-dew.name" lores="*gui.heads.food.mountain-dew.lores"
+                       onClick="headClick" />
+                <skull id="d186863fdf3f3e2979ec6d978a088d8a4f8664c50b5b6d29ad4a7ac264a017"
+                       displayName="*gui.heads.food.tomato-2.name" lores="*gui.heads.food.tomato-2.lores"
+                       onClick="headClick" />
+                <skull id="69147172072f072483529767fe47554a95a0e0fd9b6cc531b25958a399ef3"
+                       displayName="*gui.heads.food.ripe-tomato.name" lores="*gui.heads.food.ripe-tomato.lores"
+                       onClick="headClick" />
+                <skull id="487bde7cb6618be1c1c903f6875ea976e5733544248fd505f516a18f29235"
+                       displayName="*gui.heads.food.raspberry.name" lores="*gui.heads.food.raspberry.lores"
+                       onClick="headClick" />
+                <skull id="b12ef1b486e97e4cb124aa7629aceb91edc51d63338c91a012885493c5d9c"
+                       displayName="*gui.heads.food.raspberry-2.name" lores="*gui.heads.food.raspberry-2.lores"
+                       onClick="headClick" />
+                <skull id="cc9eba63a9d12cb6fde63badbe289d888f57219f4122c2820ea654fbe6350a5"
+                       displayName="*gui.heads.food.apple-2.name" lores="*gui.heads.food.apple-2.lores"
+                       onClick="headClick" />
+                <skull id="8564797cd62664448ed028e487acd95d57075dce49a356fcc65655b2b525ddb"
+                       displayName="*gui.heads.food.apple-3.name" lores="*gui.heads.food.apple-3.lores"
+                       onClick="headClick" />
+                <skull id="63e8659478dd28b1ade6ebe7d3e1d6758e219f438db784a5addeda86ed1a38a"
+                       displayName="*gui.heads.food.apple-4.name" lores="*gui.heads.food.apple-4.lores"
+                       onClick="headClick" />
+                <skull id="2fb0e221fd81b98b8b569b3522d5231cf8b367732f37b381e7acea29a6e84"
+                       displayName="*gui.heads.food.apple-5.name" lores="*gui.heads.food.apple-5.lores"
+                       onClick="headClick" />
+                <skull id="e2b35bda5ebdf135f4e71ce49726fbec5739f0adedf01c519e2aea7f51951ea2"
+                       displayName="*gui.heads.food.apple-6.name" lores="*gui.heads.food.apple-6.lores"
+                       onClick="headClick" />
+                <skull id="336a9add25645bfcc377c25ef0c2e9901d19493c3e981ebc6ba7a1a1b6466ce4"
+                       displayName="*gui.heads.food.cooked-shrimp.name" lores="*gui.heads.food.cooked-shrimp.lores"
+                       onClick="headClick" />
+                <skull id="ae9d22d9ada63e281420ae33691880869fa1a14bfdf87d8e538e998a8f29595b"
+                       displayName="*gui.heads.food.sushi-salmon-2.name" lores="*gui.heads.food.sushi-salmon-2.lores"
+                       onClick="headClick" />
+                <skull id="cb82d3c9eedc718c07519254f7921a59ff3a6f245939665c9cb017112ce670"
+                       displayName="*gui.heads.food.sushi.name" lores="*gui.heads.food.sushi.lores"
+                       onClick="headClick" />
+                <skull id="23ca3f926e7a9ab9555fecb69a802743c122d9efc565a2fe5545118fa91d1"
+                       displayName="*gui.heads.food.sushi-2.name" lores="*gui.heads.food.sushi-2.lores"
+                       onClick="headClick" />
+                <skull id="9179ce4849723434e84747ec85fbbfb1121456c8aeb2e9171fb8328921d45"
+                       displayName="*gui.heads.food.plastic-cup.name" lores="*gui.heads.food.plastic-cup.lores"
+                       onClick="headClick" />
+            </outlinepane>
+        </page>
+    </paginatedpane>
+    <outlinepane x="2" y="5" length="1" height="1" tag="previous" visible="false">
+        <item id="sugar_cane" displayName="*gui.heads.food.previous-page.name"
+              lores="*gui.heads.food.previous-page.lores" onClick="previousPageClick"/>
+    </outlinepane>
+    <outlinepane x="4" y="5" length="1" height="1">
+        <item id="book" displayName="*gui.heads.food.close.name" lores="*gui.heads.food.close.lores"
+              onClick="closeClick"/>
+    </outlinepane>
+    <outlinepane x="6" y="5" length="1" height="1" tag="next">
+        <item id="sugar_cane" displayName="*gui.heads.food.next-page.name" lores="*gui.heads.food.next-page.lores"
+              onClick="nextPageClick"/>
+    </outlinepane>
+</gui>

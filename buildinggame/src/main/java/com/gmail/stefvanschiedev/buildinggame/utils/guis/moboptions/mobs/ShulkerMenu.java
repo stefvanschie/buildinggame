@@ -2,10 +2,10 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorSelectionMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Shulker;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -29,10 +29,10 @@ public class ShulkerMenu extends RemoveMenu {
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color of the entity");
         color.setItemMeta(colorMeta);
 
-        insertItem(color, event -> {
-            new ColorSelectionMenu(shulker).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(color, event -> {
+            new ColorSelectionMenu(shulker).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

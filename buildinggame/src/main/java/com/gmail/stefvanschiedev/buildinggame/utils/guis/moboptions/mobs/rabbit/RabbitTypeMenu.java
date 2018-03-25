@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Rabbit;
@@ -16,9 +19,9 @@ class RabbitTypeMenu extends Gui {
      * Constructs a new rabbit type menu
      */
     RabbitTypeMenu(Rabbit rabbit) {
-        super(null, 9, ChatColor.GREEN + "Set rabbit type", 1);
+        super(1, ChatColor.GREEN + "Set rabbit type");
 
-        setStartingPoint(1);
+        OutlinePane pane = new OutlinePane(new GuiLocation(1, 0), 8, 1);
 
         //black type
         ItemStack black = new ItemStack(Material.WOOL, 1, (short) 15);
@@ -26,11 +29,11 @@ class RabbitTypeMenu extends Gui {
         blackMeta.setDisplayName(ChatColor.GREEN + "Black");
         black.setItemMeta(blackMeta);
 
-        addItem(black, event -> {
+        pane.addItem(new GuiItem(black, event -> {
             rabbit.setRabbitType(Rabbit.Type.BLACK);
 
             event.setCancelled(true);
-        });
+        }));
 
         //black and white type
         ItemStack blackAndWhite = new ItemStack(Material.RECORD_9);
@@ -38,11 +41,11 @@ class RabbitTypeMenu extends Gui {
         blackAndWhiteMeta.setDisplayName(ChatColor.GREEN + "Black and white");
         blackAndWhite.setItemMeta(blackAndWhiteMeta);
 
-        addItem(blackAndWhite, event -> {
+        pane.addItem(new GuiItem(blackAndWhite, event -> {
             rabbit.setRabbitType(Rabbit.Type.BLACK_AND_WHITE);
 
             event.setCancelled(true);
-        });
+        }));
 
         //brown type
         ItemStack brown = new ItemStack(Material.WOOL, 1, (short) 12);
@@ -50,11 +53,11 @@ class RabbitTypeMenu extends Gui {
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
 
-        addItem(brown, event -> {
+        pane.addItem(new GuiItem(brown, event -> {
             rabbit.setRabbitType(Rabbit.Type.BROWN);
 
             event.setCancelled(true);
-        });
+        }));
 
         //gold type
         ItemStack gold = new ItemStack(Material.GOLD_INGOT);
@@ -62,11 +65,11 @@ class RabbitTypeMenu extends Gui {
         goldMeta.setDisplayName(ChatColor.GREEN + "Gold");
         gold.setItemMeta(goldMeta);
 
-        addItem(gold, event -> {
+        pane.addItem(new GuiItem(gold, event -> {
             rabbit.setRabbitType(Rabbit.Type.GOLD);
 
             event.setCancelled(true);
-        });
+        }));
 
         //salt and pepper type
         ItemStack saltAndPepper = new ItemStack(Material.COOKIE);
@@ -74,11 +77,11 @@ class RabbitTypeMenu extends Gui {
         saltAndPepperMeta.setDisplayName(ChatColor.GREEN + "Salt and pepper");
         saltAndPepper.setItemMeta(saltAndPepperMeta);
 
-        addItem(saltAndPepper, event -> {
+        pane.addItem(new GuiItem(saltAndPepper, event -> {
             rabbit.setRabbitType(Rabbit.Type.SALT_AND_PEPPER);
 
             event.setCancelled(true);
-        });
+        }));
 
         //the killer bunny type
         ItemStack theKillerBunny = new ItemStack(Material.IRON_SWORD);
@@ -86,11 +89,11 @@ class RabbitTypeMenu extends Gui {
         theKillerBunnyMeta.setDisplayName(ChatColor.GREEN + "The killer bunny");
         theKillerBunny.setItemMeta(theKillerBunnyMeta);
 
-        addItem(theKillerBunny, event -> {
+        pane.addItem(new GuiItem(theKillerBunny, event -> {
             rabbit.setRabbitType(Rabbit.Type.THE_KILLER_BUNNY);
 
             event.setCancelled(true);
-        });
+        }));
 
         //white type
         ItemStack white = new ItemStack(Material.BONE);
@@ -98,10 +101,12 @@ class RabbitTypeMenu extends Gui {
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
 
-        addItem(white, event -> {
+        pane.addItem(new GuiItem(white, event -> {
             rabbit.setRabbitType(Rabbit.Type.WHITE);
 
             event.setCancelled(true);
-        });
+        }));
+
+        addPane(pane);
     }
 }

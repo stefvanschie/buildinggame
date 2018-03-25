@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.fly-speed.title" rows="2">
+    <outlinepane x="2" y="0" length="5" height="1">
+        <item id="feather" displayName="*gui.fly-speed.speed-1.name" lores="*gui.fly-speed.speed-1.lores"
+              onClick="speedClick">
+            <attribute type="float">0.1</attribute>
+        </item>
+        <item id="feather" displayName="*gui.fly-speed.speed-2.name" lores="*gui.fly-speed.speed-2.lores"
+              onClick="speedClick">
+            <attribute type="float">0.2</attribute>
+        </item>
+        <item id="feather" displayName="*gui.fly-speed.speed-3.name" lores="*gui.fly-speed.speed-3.lores"
+              onClick="speedClick">
+            <attribute type="float">0.3</attribute>
+        </item>
+        <item id="feather" displayName="*gui.fly-speed.speed-4.name" lores="*gui.fly-speed.speed-4.lores"
+              onClick="speedClick">
+            <attribute type="float">0.4</attribute>
+        </item>
+        <item id="feather" displayName="*gui.fly-speed.speed-5.name" lores="*gui.fly-speed.speed-5.lores"
+              onClick="speedClick">
+            <attribute type="float">0.5</attribute>
+        </item>
+    </outlinepane>
+    <outlinepane x="8" y="1" length="1" height="1">
+        <item id="book" displayName="*gui.fly-speed.back.name" lores="*gui.fly-speed.back.lores" onClick="backClick" />
+    </outlinepane>
+</gui>

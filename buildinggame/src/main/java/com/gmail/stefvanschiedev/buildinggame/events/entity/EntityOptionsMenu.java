@@ -64,55 +64,55 @@ public class EntityOptionsMenu implements Listener {
             case PIG_ZOMBIE:
             case HUSK:
             case ZOMBIE:
-                new BabyMenu(plot, entity).open(player);
+                new BabyMenu(plot, entity).show(player);
                 break;
             case DONKEY:
             case MULE:
-                new ChestMenu(plot, (ChestedHorse) entity).open(player);
+                new ChestMenu(plot, (ChestedHorse) entity).show(player);
                 break;
             case VILLAGER:
             case ZOMBIE_VILLAGER:
-                new ProfessionMenu(plot, (Creature) entity).open(player);
+                new ProfessionMenu(plot, (Creature) entity).show(player);
                 break;
             case MAGMA_CUBE:
             case SLIME:
-                new SizeMenu(plot, (Slime) entity).open(player);
+                new SizeMenu(plot, (Slime) entity).show(player);
                 break;
             case PIG:
-                new PigMenu(plot, (Pig) entity).open(player);
+                new PigMenu(plot, (Pig) entity).show(player);
                 break;
             case RABBIT:
-                new RabbitMenu(plot, (Rabbit) entity).open(player);
+                new RabbitMenu(plot, (Rabbit) entity).show(player);
                 break;
             case SHEEP:
-                new SheepMenu(plot, (Sheep) entity).open(player);
+                new SheepMenu(plot, (Sheep) entity).show(player);
                 break;
             case CREEPER:
-                new CreeperMenu(plot, (Creeper) entity).open(player);
+                new CreeperMenu(plot, (Creeper) entity).show(player);
                 break;
             case SHULKER:
-                new ShulkerMenu(plot, (Shulker) entity).open(player);
+                new ShulkerMenu(plot, (Shulker) entity).show(player);
                 break;
             case HORSE:
-                new HorseMenu(plot, (Horse) entity).open(player);
+                new HorseMenu(plot, (Horse) entity).show(player);
                 break;
             case LLAMA:
-                new LlamaMenu(plot, (Llama) entity).open(player);
+                new LlamaMenu(plot, (Llama) entity).show(player);
                 break;
             case OCELOT:
-                new OcelotMenu(plot, (Ocelot) entity).open(player);
+                new OcelotMenu(plot, (Ocelot) entity).show(player);
                 break;
             case PARROT:
-                new ParrotMenu(plot, (Parrot) entity).open(player);
+                new ParrotMenu(plot, (Parrot) entity).show(player);
                 break;
             case WOLF:
-                new ColorMenu(plot, (Animals) entity).open(player);
+                new ColorMenu(plot, (Animals) entity).show(player);
                 break;
             case SNOWMAN:
-                new SnowGolemMenu(plot, (Snowman) entity).open(player);
+                new SnowGolemMenu(plot, (Snowman) entity).show(player);
                 break;
             default:
-                new RemoveMenu(plot, entity).open(player);
+                new RemoveMenu(plot, entity).show(player);
                 break;
         }
 

@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,11 +28,11 @@ public class HorseMenu extends BabyMenu {
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color");
         color.setItemMeta(colorMeta);
 
-        insertItem(color, event -> {
-            new HorseColorSelectionMenu(horse).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(color, event -> {
+            new HorseColorSelectionMenu(horse).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
 
         //style
         ItemStack style = new ItemStack(Material.SNOW_BALL);
@@ -40,10 +40,10 @@ public class HorseMenu extends BabyMenu {
         styleMeta.setDisplayName(ChatColor.GREEN + "Change the style");
         style.setItemMeta(styleMeta);
 
-        insertItem(style, event -> {
-            new HorseStyleSelectionMenu(horse).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(style, event -> {
+            new HorseStyleSelectionMenu(horse).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 1);
+        }), 1);
     }
 }

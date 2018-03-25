@@ -1,10 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Rabbit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,10 +26,10 @@ public class RabbitMenu extends BabyMenu {
         typeMeta.setDisplayName(ChatColor.GREEN + "Change type");
         type.setItemMeta(typeMeta);
 
-        insertItem(type, event -> {
-            new RabbitTypeMenu(rabbit).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(type, event -> {
+            new RabbitTypeMenu(rabbit).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

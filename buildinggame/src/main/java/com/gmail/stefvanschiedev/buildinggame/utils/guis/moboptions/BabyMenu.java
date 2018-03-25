@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,7 +28,7 @@ public class BabyMenu extends RemoveMenu {
         babyMeta.setDisplayName(ChatColor.GREEN + "Change to baby/adult");
         baby.setItemMeta(babyMeta);
 
-        insertItem(baby, event -> {
+        pane.insertItem(new GuiItem(baby, event -> {
             if (entity instanceof Ageable) {
                 Ageable ageable = (Ageable) entity;
                 if (ageable.isAdult())
@@ -40,6 +41,6 @@ public class BabyMenu extends RemoveMenu {
             }
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

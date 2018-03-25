@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*spectator-gui.title" rows="4">
+    <staticpane x="0" y="0" length="9" height="4">
+        <item id="feather" x="4" y="1" displayName="*spectator-gui.fly-speed.name"
+              lores="*spectator-gui.fly-speed.lores" onClick="flySpeedClick" />
+        <item id="book" x="4" y="2" displayName="*spectator-gui.close-menu.name" lores="*spectator-gui.close-menu.lores"
+              onClick="closeClick" />
+    </staticpane>
+</gui>

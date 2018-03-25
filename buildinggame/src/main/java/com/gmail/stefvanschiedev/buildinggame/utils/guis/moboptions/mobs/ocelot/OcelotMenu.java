@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.ocelot;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Ocelot;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,10 +28,10 @@ public class OcelotMenu extends BabyMenu {
         typeMeta.setDisplayName(ChatColor.GREEN + "Change type");
         type.setItemMeta(typeMeta);
 
-        insertItem(type, event -> {
-            new OcelotTypeMenu(ocelot).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(type, event -> {
+            new OcelotTypeMenu(ocelot).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

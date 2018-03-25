@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,10 +28,10 @@ public class SheepMenu extends ColorMenu {
         shearsMeta.setDisplayName(ChatColor.GREEN + "Change whether this sheep is sheared");
         shears.setItemMeta(shearsMeta);
 
-        insertItem(shears, event -> {
+        pane.insertItem(new GuiItem(shears, event -> {
             sheep.setSheared(!sheep.isSheared());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

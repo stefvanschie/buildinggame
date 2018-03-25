@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,10 +27,10 @@ public class SnowGolemMenu extends RemoveMenu {
         pumpkinMeta.setDisplayName(ChatColor.GREEN + "Change whether this snow golem has a pumpkin");
         pumpkin.setItemMeta(pumpkinMeta);
 
-        insertItem(pumpkin, event -> {
+        pane.insertItem(new GuiItem(pumpkin, event -> {
             snowman.setDerp(!snowman.isDerp());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }

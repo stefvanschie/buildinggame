@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Parrot;
@@ -19,9 +22,9 @@ class ParrotTypeMenu extends Gui {
      * {@inheritDoc}
      */
     ParrotTypeMenu(Parrot parrot) {
-        super(null, 9, ChatColor.GREEN + "Select the parrot type", 1);
+        super(1, ChatColor.GREEN + "Select the parrot type");
 
-        setStartingPoint(2);
+        OutlinePane pane = new OutlinePane(new GuiLocation(2, 0), 7, 1);
 
         //blue
         ItemStack blue = new Wool(DyeColor.BLUE).toItemStack(1);
@@ -29,11 +32,11 @@ class ParrotTypeMenu extends Gui {
         blueMeta.setDisplayName(ChatColor.GREEN + "Blue");
         blue.setItemMeta(blueMeta);
 
-        addItem(blue, event -> {
+        pane.addItem(new GuiItem(blue, event -> {
             parrot.setVariant(Parrot.Variant.BLUE);
 
             event.setCancelled(true);
-        });
+        }));
 
         //cyan
         ItemStack cyan = new Wool(DyeColor.CYAN).toItemStack(1);
@@ -41,11 +44,11 @@ class ParrotTypeMenu extends Gui {
         cyanMeta.setDisplayName(ChatColor.GREEN + "Cyan");
         cyan.setItemMeta(cyanMeta);
 
-        addItem(cyan, event -> {
+        pane.addItem(new GuiItem(cyan, event -> {
             parrot.setVariant(Parrot.Variant.CYAN);
 
             event.setCancelled(true);
-        });
+        }));
 
         //gray
         ItemStack gray = new Wool(DyeColor.GRAY).toItemStack(1);
@@ -53,11 +56,11 @@ class ParrotTypeMenu extends Gui {
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
 
-        addItem(gray, event -> {
+        pane.addItem(new GuiItem(gray, event -> {
             parrot.setVariant(Parrot.Variant.GRAY);
 
             event.setCancelled(true);
-        });
+        }));
 
         //green
         ItemStack green = new Wool(DyeColor.GREEN).toItemStack(1);
@@ -65,11 +68,11 @@ class ParrotTypeMenu extends Gui {
         greenMeta.setDisplayName(ChatColor.GREEN + "Green");
         green.setItemMeta(greenMeta);
 
-        addItem(green, event -> {
+        pane.addItem(new GuiItem(green, event -> {
             parrot.setVariant(Parrot.Variant.GREEN);
 
             event.setCancelled(true);
-        });
+        }));
 
         //red
         ItemStack red = new Wool(DyeColor.RED).toItemStack(1);
@@ -77,10 +80,12 @@ class ParrotTypeMenu extends Gui {
         redMeta.setDisplayName(ChatColor.GREEN + "Red");
         red.setItemMeta(redMeta);
 
-        addItem(red, event -> {
+        pane.addItem(new GuiItem(red, event -> {
             parrot.setVariant(Parrot.Variant.RED);
 
             event.setCancelled(true);
-        });
+        }));
+
+        addPane(pane);
     }
 }

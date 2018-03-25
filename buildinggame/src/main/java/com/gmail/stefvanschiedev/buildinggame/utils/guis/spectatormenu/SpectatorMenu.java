@@ -1,62 +1,60 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.spectatormenu;
 
-import java.util.List;
-
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.Gui;
+import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  * Represents a gui to change the fly speed for spectators
  *
  * @since 3.0.0
  */
-public class SpectatorMenu extends Gui {
+public class SpectatorMenu {
 
     /**
-     * YAML Configuration for the messages.yml
+     * The gui
      */
-	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
+    private final Gui gui;
 
     /**
-     * Constructs a new SpectatorMenu
+     * Constructs a new SpeedMenu
      */
-	public SpectatorMenu() {
-		super(null, 36, MessageManager.translate(MESSAGES.getString("spectator-gui.title")),
-                1);
-		
-		ItemStack speed = new ItemStack(Material.FEATHER);
-		ItemMeta speedMeta = speed.getItemMeta();
-		speedMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("spectator-gui.fly-speed.name")));
-		List<String> speedLores = MessageManager.translate(MESSAGES
-                .getStringList("spectator-gui.fly-speed.lores"));
-		speedMeta.setLore(speedLores);
-		speed.setItemMeta(speedMeta);
-		
-		ItemStack close = new ItemStack(Material.BOOK);
-		ItemMeta closeMeta = close.getItemMeta();
-		closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("spectator-gui.close-menu.name")));
-		List<String> closeLores = MessageManager.translate(MESSAGES
-                .getStringList("spectator-gui.close-menu.lores"));
-		closeMeta.setLore(closeLores);
-		close.setItemMeta(closeMeta);
-		
-		setItem(speed, event -> {
-            new SpeedMenu().open((Player) event.getWhoClicked());
+    public SpectatorMenu() {
+        this.gui = Gui.load(this, Main.getInstance().getResource(
+            "gui/spectatormenu/spectatormenu.xml"
+        ));
+    }
 
-            event.setCancelled(true);
-		}, 13);
-		
-		setItem(close, event -> {
-            event.getWhoClicked().closeInventory();
+    /**
+     * {@link Gui#show(HumanEntity)}
+     *
+     * @since 5.6.0
+     */
+    public void show(HumanEntity humanEntity) {
+        gui.show(humanEntity);
+    }
 
-            event.setCancelled(true);
-		}, 22);
-	}
+    /**
+     * Called whenever a user clicks on a speed item
+     *
+     * @param event the event called when clicking
+     * @since 5.6.0
+     */
+    public void flySpeedClick(InventoryClickEvent event) {
+        new SpeedMenu().show(event.getWhoClicked());
+
+        event.setCancelled(true);
+    }
+
+    /**
+     * Called whenever a user clicks on the back item
+     *
+     * @param event the event called when clicking
+     * @since 5.6.0
+     */
+    public void closeClick(InventoryClickEvent event) {
+        event.getWhoClicked().closeInventory();
+        event.setCancelled(true);
+    }
 }

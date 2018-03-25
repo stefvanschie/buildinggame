@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Parrot;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,10 +28,10 @@ public class ParrotMenu extends RemoveMenu {
         typeMeta.setDisplayName(ChatColor.GREEN + "Change type");
         type.setItemMeta(typeMeta);
 
-        insertItem(type, event -> {
-            new ParrotTypeMenu(parrot).open((Player) event.getWhoClicked());
+        pane.insertItem(new GuiItem(type, event -> {
+            new ParrotTypeMenu(parrot).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }, 0);
+        }), 0);
     }
 }
