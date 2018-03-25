@@ -181,7 +181,7 @@ public class Main extends JavaPlugin {
         }
 
         if (pm.isPluginEnabled("PlaceholderAPI")) {
-            if (!new PlaceholderAPIPlaceholders().hook())
+            if (!new PlaceholderAPIPlaceholders().register())
                 getLogger().warning("Unable to register placeholders for PlaceholderAPI");
         }
 		
