@@ -957,10 +957,10 @@ public class Arena {
 		}
 		
 		for (Plot usedPlot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
-				Player pl = gamePlayer.getPlayer();
+            for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
+                Player pl = gamePlayer.getPlayer();
 
-				if (state == GameState.WAITING) {
+                if (state == GameState.WAITING) {
                     for (String message : messages.getStringList("leave.other-players.lobby"))
                         MessageManager.getInstance().send(pl, message
                             .replace("%player%", player.getName()));
@@ -969,12 +969,18 @@ public class Arena {
                         MessageManager.getInstance().send(pl, message
                             .replace("%player%", player.getName()));
                 }
-				
-				if (config.getBoolean("scoreboards.lobby.enable"))
-					lobbyScoreboard.show(pl);
-			}
-		}
-		
+
+                if (config.getBoolean("scoreboards.lobby.enable"))
+                    lobbyScoreboard.show(pl);
+            }
+        }
+
+        //cancel wait timer when user amount drops below minimum
+        if (getPlayers() < minPlayers && waitTimer.isActive()) {
+            waitTimer.cancel();
+            setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), this));
+        }
+
 		if (getPlayers() <= 1) {
 			if (getWaitTimer().isActive()) {
 				waitTimer.cancel();
