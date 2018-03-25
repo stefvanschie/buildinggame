@@ -19,7 +19,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
-import org.jetbrains.annotations.Contract;
 
 /**
  * A menu for selecting a team
@@ -44,7 +43,8 @@ public class TeamSelection extends Gui {
      * @param arena the arena this team selection menu is for
      */
 	public TeamSelection(Arena arena) {
-		super(round(arena.getPlots().size()), MessageManager.translate(MESSAGES.getString("team-gui.title")));
+		super((int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6),
+            MessageManager.translate(MESSAGES.getString("team-gui.title")));
 
 		this.arena = arena;
 	}
@@ -60,7 +60,7 @@ public class TeamSelection extends Gui {
         int iteration = 0;
 
         OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9,
-            round(arena.getPlots().size()));
+            (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
 
         for (final Plot plot : arena.getPlots()) {
             ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.team." +
@@ -101,20 +101,8 @@ public class TeamSelection extends Gui {
             iteration++;
         }
 
+        addPane(outlinePane);
+
 	    super.show(humanEntity);
     }
-
-	/**
-     * Rounds a value up to the next multiple of nine (excluding zero)
-     *
-     * @param i the value to be rounded
-     * @return the rounded number
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-    private static int round(int i) {
-		while (i % 9 != 0 || i == 0)
-			i++;
-		return i;
-	}
 }
