@@ -8,7 +8,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -22,19 +22,12 @@ import java.util.*;
  *
  * @since 5.5.1
  */
-public class PlaceholderAPIPlaceholders extends EZPlaceholderHook {
+public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
 
     /**
      * YAML configuration for messages.yml
      */
     private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-    /**
-     * Creates a new placeholder api class
-     */
-    public PlaceholderAPIPlaceholders() {
-        super(Main.getInstance(), "buildinggame");
-    }
 
     /**
      * {@inheritDoc}
@@ -219,5 +212,45 @@ public class PlaceholderAPIPlaceholders extends EZPlaceholderHook {
             value = values.get(number - 1);
 
         return String.valueOf(value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getAuthor() {
+        return String.join(", ", Main.getInstance().getDescription().getAuthors());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getPlugin() {
+        return Main.getInstance().getDescription().getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getVersion() {
+        return Main.getInstance().getDescription().getVersion();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getIdentifier() {
+        return "buildinggame";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean persist() {
+        return true;
     }
 }
