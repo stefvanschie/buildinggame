@@ -10,6 +10,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHe
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -53,7 +54,6 @@ import com.gmail.stefvanschiedev.buildinggame.timers.ParticleRender;
 import com.gmail.stefvanschiedev.buildinggame.timers.ScoreboardUpdater;
 import com.gmail.stefvanschiedev.buildinggame.timers.StatSaveTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.metrics.Metrics;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -104,7 +104,7 @@ public class Main extends JavaPlugin {
 
 		//loading metrics
 		getLogger().info("Loading metrics");
-        new Metrics(this);
+        new MetricsLite(this);
 		
 		if (SettingsManager.getInstance().getConfig().getBoolean("loading.load-after-plugins")) {
 			getLogger().info("Waiting until other plugins are loaded");
