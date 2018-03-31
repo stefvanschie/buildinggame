@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Logger;
@@ -13,8 +14,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class handles all settings in all files
@@ -99,6 +102,11 @@ public final class SettingsManager {
      * {@link #setup(Plugin, boolean)} hasn't been called yet
      */
 	private File schematicsFolder;
+
+    /**
+     * The runnable that listens for file changes
+     */
+	private BukkitRunnable runnable;
 
 	/**
      * Loads/Reloads all files and YAML configurations
@@ -185,7 +193,54 @@ public final class SettingsManager {
 
 		generateSettings(save);
 		generateMessages(save);
-	}
+
+		//watch config.yml and messages.yml files
+        if (runnable != null)
+            return;
+
+        try {
+            WatchService watchService = FileSystems.getDefault().newWatchService();
+
+            dataFolder.toPath().register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+            runnable = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    try {
+                        WatchKey key;
+                        while ((key = watchService.take()) != null) {
+                            for (WatchEvent<?> event : key.pollEvents()) {
+                                Path context = (Path) event.context();
+                                boolean debug = config.getBoolean("debug");
+
+                                if (context.endsWith("config.yml")) {
+                                    if (debug)
+                                        p.getLogger().info("Detected changes in the config.yml");
+
+                                    config = YamlConfiguration.loadConfiguration(configFile);
+                                    generateSettings(false);
+                                } else if (context.endsWith("messages.yml")) {
+                                    if (debug)
+                                        p.getLogger().info("Detected changes in the messages.yml");
+
+                                    messages = YamlConfiguration.loadConfiguration(messagesFile);
+                                    generateMessages(false);
+                                }
+                            }
+
+                            key.reset();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            runnable.runTaskAsynchronously(p);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	/**
      * Returns the arenas.yml YAML configuration
@@ -284,6 +339,10 @@ public final class SettingsManager {
      * @since 2.1.0
      */
 	private void generateSettings(boolean save) {
+        //yes this can happen
+        if (Main.getInstance() == null)
+            return;
+
 		int settings = 0;
 		int addedSettings = 0;
 		
@@ -324,6 +383,10 @@ public final class SettingsManager {
      * @since 2.1.0
      */
 	private void generateMessages(boolean save) {
+	    //yes this can happen
+	    if (Main.getInstance() == null)
+	        return;
+
 		int settings = 0;
 		int addedSettings = 0;
 		
@@ -361,4 +424,16 @@ public final class SettingsManager {
         if (save)
         	save();
 	}
+
+    /**
+     * Return the watch service that listens for file changes
+     *
+     * @return the watch service
+     * @since 5.6.1
+     */
+    @Nullable
+    @Contract(pure = true)
+	public BukkitRunnable getRunnable() {
+	    return runnable;
+    }
 }
