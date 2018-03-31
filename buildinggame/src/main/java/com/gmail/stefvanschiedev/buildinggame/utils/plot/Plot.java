@@ -18,6 +18,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -32,9 +33,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.BuildMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.spectatormenu.SpectatorMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory;
-import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NmsClasses;
-import com.gmail.stefvanschiedev.buildinggame.utils.nbt.entity.NbtFactory.NbtCompound;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -145,11 +143,8 @@ public class Plot {
                 .contains(entity.getType().toString().toLowerCase(Locale.getDefault())))
 			return false;
 		
-		if (config.getBoolean("mobs.enable-noai")) {
-			NbtCompound nbt = NbtFactory.createCompound();
-			nbt.put("NoAI", 1);
-			NmsClasses.setTag(entity, nbt.getHandle());
-		}
+		if (config.getBoolean("mobs.enable-noai") && entity instanceof LivingEntity)
+            ((LivingEntity) entity).setAI(false);
 		
 		entities.put(entity, entity.getLocation());
 		return true;
@@ -189,24 +184,22 @@ public class Plot {
 		for (GamePlayer player : getAllGamePlayers())
 			player.getPlayer().hidePlayer(Main.getInstance(), spectator);
 
-        ItemBuilder spectatorLeaveItem = IDDecompiler.getInstance().decompile(spectator,
-                config.getString("leave-item.id")).setDisplayName(MessageManager.translate(SettingsManager
-                .getInstance().getMessages().getString("leave-item.name"), spectator)).setClickEvent(event -> {
-            gamePlayer.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
-            removeSpectator(gamePlayer);
-            MessageManager.getInstance().send(spectator, ChatColor.GREEN + "Stopped spectating");
-            return true;
-        });
-        ItemBuilder.register(spectatorLeaveItem);
-        spectator.getInventory().setItem(config.getInt("leave-item.slot"), spectatorLeaveItem);
+        spectator.getInventory().setItem(config.getInt("leave-item.slot"),
+            IDDecompiler.getInstance().decompile(spectator, config.getString("leave-item.id"))
+                .setDisplayName(MessageManager.translate(SettingsManager.getInstance().getMessages()
+                    .getString("leave-item.name"), spectator)).setClickEvent(event -> {
+                        gamePlayer.connect(MainSpawnManager.getInstance().getServer(),
+                            MainSpawnManager.getInstance().getMainSpawn());
+                        removeSpectator(gamePlayer);
+                        MessageManager.getInstance().send(spectator, ChatColor.GREEN + "Stopped spectating");
+                        event.setCancelled(true);
+                    }).build());
 
-        ItemBuilder itemBuilder = new ItemBuilder(spectator, Material.EMERALD).setDisplayName(ChatColor.GREEN +
-                "Spectator menu").setClickEvent(event -> {
-            new SpectatorMenu().show(spectator);
-            return true;
-        });
-        ItemBuilder.register(itemBuilder);
-        spectator.getInventory().setItem(8, itemBuilder);
+        spectator.getInventory().setItem(8, new ItemBuilder(spectator, Material.EMERALD)
+            .setDisplayName(ChatColor.GREEN + "Spectator menu").setClickEvent(event -> {
+                new SpectatorMenu().show(spectator);
+                event.setCancelled(true);
+            }).build());
 		
 		spectator.teleport(spectates.getPlayer().getLocation());
 		spectator.setGameMode(GameMode.CREATIVE);
