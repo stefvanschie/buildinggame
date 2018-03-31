@@ -130,10 +130,12 @@ public class Main extends JavaPlugin {
 			StatManager.getInstance().saveToFile();
 		else
 			StatManager.getInstance().saveToDatabase();
-		
-		getLogger().info("BuildingGame has been disabled");
-		
-		instance = null;
+
+		SettingsManager.getInstance().getRunnable().cancel();
+
+        getLogger().info("BuildingGame has been disabled");
+
+        instance = null;
 	}
 
     /**
