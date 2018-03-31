@@ -846,39 +846,34 @@ public class Arena {
 			public void run() {
 				//give team selection
 				if (getMode() == ArenaMode.TEAM) {
-                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
-                            .getString("team-selection.item.id")).setDisplayName(MessageManager
-                            .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
-                            .translate(messages.getStringList("team-gui.item.lores"), player)).setClickEvent(event -> {
-                        getTeamSelection().show(player);
-                        return true;
-                    });
-                    ItemBuilder.register(itemBuilder);
-                    player.getInventory().setItem(0, itemBuilder);
+                    player.getInventory().setItem(0, IDDecompiler.getInstance().decompile(player, config
+                        .getString("team-selection.item.id")).setDisplayName(MessageManager
+                        .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
+                        .translate(messages.getStringList("team-gui.item.lores"), player))
+                        .setClickEvent(event -> {
+                            getTeamSelection().show(player);
+                            event.setCancelled(true);
+                        }).build());
                 }
 				
 				//give paper for subject
-				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting")) {
-                    ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
-                            .getString("subject-gui.item.id")).setDisplayName(MessageManager.translate(messages
-                            .getString("subject-gui.item.name"), player)).setLore(MessageManager
-                            .translate(messages.getStringList("subject-gui.item.lores"), player))
-                            .setClickEvent(event -> {
-                        getSubjectMenu().show(player);
-                        return false;
-                    });
-                    ItemBuilder.register(itemBuilder);
-                    player.getInventory().setItem(config.getInt("subject-gui.slot"), itemBuilder);
-                }
+				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting"))
+                    player.getInventory().setItem(config.getInt("subject-gui.slot"),
+                        IDDecompiler.getInstance().decompile(player, config.getString("subject-gui.item.id"))
+                            .setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"),
+                                player)).setLore(MessageManager.translate(messages
+                            .getStringList("subject-gui.item.lores"), player)).setClickEvent(event -> {
+                                getSubjectMenu().show(player);
+                                event.setCancelled(true);
+                            }).build());
 
-                ItemBuilder itemBuilder = IDDecompiler.getInstance().decompile(player, config
-                        .getString("leave-item.id")).setDisplayName(MessageManager.translate(messages
-                        .getString("leave-item.name"), player)).setClickEvent(event -> {
-                    leave(player);
-                    return true;
-                });
-				ItemBuilder.register(itemBuilder);
-                player.getInventory().setItem(config.getInt("leave-item.slot"), itemBuilder);
+                player.getInventory().setItem(config.getInt("leave-item.slot"),
+                    IDDecompiler.getInstance().decompile(player, config.getString("leave-item.id"))
+                        .setDisplayName(MessageManager.translate(messages.getString("leave-item.name"), player))
+                        .setClickEvent(event -> {
+                            leave(player);
+                            event.setCancelled(true);
+                        }).build());
                 player.updateInventory();
 			}
 		};
@@ -1299,17 +1294,14 @@ public class Arena {
 				//bossbar
 				getBossBar().setVisible(true);
 
-				if (config.getBoolean("gui.enable")) {
-                    ItemBuilder itemBuilder = new ItemBuilder(player, Material.EMERALD).setDisplayName(MessageManager
-                            .translate(messages.getString("gui.options-emerald"), player)).setLore(MessageManager
-                            .translate(messages.getStringList("gui.options-lores"), player)).moveable(false)
-                            .setClickEvent(e -> {
-                        getPlot(player).getBuildMenu().show(player);
-                        return true;
-                    });
-                    ItemBuilder.register(itemBuilder);
-                    player.getInventory().setItem(config.getInt("gui.slot"), itemBuilder);
-                }
+				if (config.getBoolean("gui.enable"))
+                    player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player,
+                        Material.EMERALD).setDisplayName(MessageManager.translate(messages
+                        .getString("gui.options-emerald"), player)).setLore(MessageManager.translate(messages
+                        .getStringList("gui.options-lores"), player)).movable(false).setClickEvent(e -> {
+                            getPlot(player).getBuildMenu().show(player);
+                            e.setCancelled(true);
+                        }).build());
 			}
 		}
 		

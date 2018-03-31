@@ -1,11 +1,15 @@
 package com.gmail.stefvanschiedev.buildinggame.utils;
 
 import java.util.*;
+import java.util.function.Consumer;
 
+import me.ialistannen.mininbt.ItemNBTUtil;
+import me.ialistannen.mininbt.NBTWrappers;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -23,22 +27,28 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 4.0.6
  */
-public class ItemBuilder extends ItemStack implements Listener {
+public class ItemBuilder implements Listener {
 
     /**
      * The click event assigned to this item
      */
-	private ClickEvent event;
+	private Consumer<PlayerInteractEvent> event;
 
     /**
      * Whether you can move the item around
      */
-	private boolean moveable;
+	private boolean movable;
 
     /**
      * The player this item belongs to
      */
+    @NotNull
 	private final Player player;
+
+    /**
+     * The item we're making
+     */
+    private ItemStack item;
 
     /**
      * A map containing all players with their registered items
@@ -51,7 +61,7 @@ public class ItemBuilder extends ItemStack implements Listener {
      * @param player the player for whom the item is meant
      * @param material the item's material
      */
-	public ItemBuilder(Player player, Material material) {
+	public ItemBuilder(@NotNull Player player, Material material) {
 		this(player, material, 1, (short) 0);
 	}
 
@@ -63,15 +73,34 @@ public class ItemBuilder extends ItemStack implements Listener {
      * @param amount the amount of items there should be
      * @param damage the damage value of the item
      */
-	public ItemBuilder(Player player, Material material, int amount, short damage) {
-		setType(material);
-		setAmount(amount);
-		setDurability(damage);
-
+	public ItemBuilder(@NotNull Player player, Material material, int amount, short damage) {
+	    this.item = new ItemStack(material, amount, damage);
 		this.player = player;
 
 		Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
 	}
+
+    /**
+     * Builds the item stack
+     *
+     * @return the itemstack
+     * @since 5.6.1
+     */
+    public ItemStack build() {
+        NBTWrappers.NBTTagCompound nbtTagCompound = new NBTWrappers.NBTTagCompound();
+
+        nbtTagCompound.setBoolean("movable", movable);
+        nbtTagCompound.setString("player", player.getUniqueId().toString());
+
+        this.item = ItemNBTUtil.setNBTTag(nbtTagCompound, item);
+
+        if (!REGISTERED_ITEMS.containsKey(player))
+            REGISTERED_ITEMS.put(player, new HashSet<>());
+
+        REGISTERED_ITEMS.get(player).add(this);
+
+        return item;
+    }
 
     /**
      * Returns the player who belongs to this instance
@@ -87,12 +116,12 @@ public class ItemBuilder extends ItemStack implements Listener {
     /**
      * Sets whether this item should be able to be moved
      *
-     * @param moveable the new movable state
+     * @param movable the new movable state
      * @return this instance
      * @since 4.0.6
      */
-	public ItemBuilder moveable(boolean moveable) {
-		this.moveable = moveable;
+	public ItemBuilder movable(boolean movable) {
+		this.movable = movable;
 		return this;
 	}
 
@@ -103,7 +132,7 @@ public class ItemBuilder extends ItemStack implements Listener {
      * @return this instance
      * @since 4.0.6
      */
-	public ItemBuilder setClickEvent(ClickEvent event) {
+	public ItemBuilder setClickEvent(Consumer<PlayerInteractEvent> event) {
 		this.event = event;
 		return this;
 	}
@@ -116,9 +145,9 @@ public class ItemBuilder extends ItemStack implements Listener {
      * @since 4.0.6
      */
 	public ItemBuilder setDisplayName(String name) {
-		ItemMeta meta = getItemMeta();
+		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(name);
-		setItemMeta(meta);
+		item.setItemMeta(meta);
 		return this;
 	}
 
@@ -130,23 +159,20 @@ public class ItemBuilder extends ItemStack implements Listener {
      * @since 4.0.6
      */
 	public ItemBuilder setLore(List<String> lores) {
-		ItemMeta meta = getItemMeta();
+		ItemMeta meta = item.getItemMeta();
 		meta.setLore(lores);
-		setItemMeta(meta);
+		item.setItemMeta(meta);
 		return this;
 	}
 
     /**
-     * Registers this instance
+     * Returns the item that belongs to this builder
      *
-     * @since 5.0.0
+     * @return the item
+     * @since 5.6.1
      */
-	public static void register(ItemBuilder builder) {
-	    Player player = builder.getPlayer();
-
-        if (!REGISTERED_ITEMS.containsKey(player))
-            REGISTERED_ITEMS.put(player, new HashSet<>());
-	    REGISTERED_ITEMS.get(player).add(builder);
+    private ItemStack getItem() {
+        return item;
     }
 
     /**
@@ -164,7 +190,7 @@ public class ItemBuilder extends ItemStack implements Listener {
 		for (Iterator<ItemBuilder> iterator = builders.iterator(); iterator.hasNext();) {
 		    ItemBuilder builder = iterator.next();
 
-            if (!player.getInventory().contains(builder)) {
+            if (!player.getInventory().contains(builder.getItem())) {
                 HandlerList.unregisterAll(builder);
                 iterator.remove();
             }
@@ -180,11 +206,11 @@ public class ItemBuilder extends ItemStack implements Listener {
 	@Contract("null -> fail")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (e.getItem() == null || !this.isSimilar(e.getItem()) || event == null || !e.getPlayer().equals(player))
+		if (e.getItem() == null || !this.item.isSimilar(e.getItem()) || event == null || !e.getPlayer().equals(player))
 			return;
 
 		if (e.getHand() == EquipmentSlot.HAND)
-			e.setCancelled(this.event.onClick(e));
+			this.event.accept(e);
 	}
 
     /**
@@ -194,13 +220,16 @@ public class ItemBuilder extends ItemStack implements Listener {
      * @since 4.0.6
      */
 	@Contract("null -> fail")
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (e.getCurrentItem() == null || !e.getCurrentItem().equals(this))
+		if (e.getCurrentItem() == null)
 			return;
-		
-		if (!moveable)
-			e.setCancelled(true);
+
+        NBTWrappers.NBTTagCompound tag = ItemNBTUtil.getTag(e.getCurrentItem());
+
+        if (tag != null && e.getWhoClicked().getUniqueId().equals(UUID.fromString(tag.getString("player"))) &&
+            !tag.getBoolean("movable"))
+            e.setCancelled(true);
 	}
 
     /**
@@ -214,28 +243,9 @@ public class ItemBuilder extends ItemStack implements Listener {
     /**
      * {@inheritDoc}
      */
+    @Contract(pure = true, value = "null -> false")
     @Override
     public boolean equals(Object obj) {
 	    return super.equals(obj) && obj instanceof ItemBuilder && player.equals(((ItemBuilder) obj).getPlayer());
     }
-
-    /**
-     * Used to represent click events
-     *
-     * @since 4.0.6
-     */
-	@FunctionalInterface
-    public interface ClickEvent {
-
-	    /**
-         * Called whenever the item is being clicked on
-         *
-         * @param event the event that occurs
-         * @return tue if the event should be cancelled, false if not
-         * @since 4.0.6
-         */
-		@SuppressWarnings("MissingEventHandlerAnnotation")
-        boolean onClick(PlayerInteractEvent event);
-		
-	}
 }

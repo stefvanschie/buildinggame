@@ -113,7 +113,7 @@ public class CommandManager implements CommandExecutor {
 			List<String> arguments = new ArrayList<>(Arrays.asList(args));
             arguments.remove(0);
 
-			return target.onCommand(sender, arguments.toArray(new String[arguments.size()])) == CommandResult.SUCCESS;
+			return target.onCommand(sender, arguments.toArray(new String[0])) == CommandResult.SUCCESS;
 		}
 
 		return false;

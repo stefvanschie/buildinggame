@@ -68,9 +68,7 @@ public class ForceStart extends ConsoleCommand {
 			}
 		
 			arena.getWaitTimer().setSeconds(0);
-		
-			return CommandResult.SUCCESS;
-		} else {
+        } else {
 			if (args.length < 1) {
 				MessageManager.getInstance().send(sender, ChatColor.RED + "Please specify an arena");
 				return CommandResult.ARGUMENT_EXCEPTION;
@@ -97,10 +95,11 @@ public class ForceStart extends ConsoleCommand {
 			}
 			
 			arena.getWaitTimer().setSeconds(0);
-			
-			return CommandResult.SUCCESS;
-		}
-	}
+
+        }
+
+        return CommandResult.SUCCESS;
+    }
 
     /**
      * Returns the name of this subcommand

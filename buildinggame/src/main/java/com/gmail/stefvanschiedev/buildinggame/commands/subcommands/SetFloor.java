@@ -15,12 +15,13 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.FloorManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder;
-import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder.ClickEvent;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Consumer;
 
 /**
  * Represents a command to set the floor of a plot
@@ -69,84 +70,82 @@ public class SetFloor extends PlayerCommand {
 			return CommandResult.ERROR;
 		}
 
-        ItemBuilder itemBuilder = new ItemBuilder(player, Material.STICK)
-                .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new ClickEvent() {
-            private Location previousLocation;
+        player.getInventory().setItemInMainHand(new ItemBuilder(player, Material.STICK)
+            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new Consumer<PlayerInteractEvent>() {
+                private Location previousLocation;
 
-            @Override
-            public boolean onClick(PlayerInteractEvent e) {
-                YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+                @Override
+                public void accept(PlayerInteractEvent event) {
+                    YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
-                Player player = e.getPlayer();
-                Action action = e.getAction();
+                    Player player = event.getPlayer();
+                    Action action = event.getAction();
 
-                if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
-                    return false;
+                    if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
+                        return;
 
-                if (previousLocation == null) {
-                    previousLocation = e.getClickedBlock().getLocation();
+                    if (previousLocation == null) {
+                        previousLocation = event.getClickedBlock().getLocation();
 
-                    MessageManager.getInstance().send(player,
-                            ChatColor.GREEN + "Now click on the other corner");
-                    return true;
-                } else {
-                    //second time
-                    Location location = e.getClickedBlock().getLocation();
-                    String name = arena.getName();
-                    int plotID = plot.getID();
-
-                    if (previousLocation.getWorld().equals(location.getWorld())) {
-                        arenas.set(name + '.' + plotID + ".floor.high.world", location.getWorld().getName());
-                        arenas.set(name + '.' + plotID + ".floor.low.world", previousLocation.getWorld().getName());
-                    } else {
                         MessageManager.getInstance().send(player,
+                            ChatColor.GREEN + "Now click on the other corner");
+                    } else {
+                        //second time
+                        Location location = event.getClickedBlock().getLocation();
+                        String name = arena.getName();
+                        int plotID = plot.getID();
+
+                        if (previousLocation.getWorld().equals(location.getWorld())) {
+                            arenas.set(name + '.' + plotID + ".floor.high.world", location.getWorld().getName());
+                            arenas.set(name + '.' + plotID + ".floor.low.world", previousLocation.getWorld().getName());
+                        } else {
+                            MessageManager.getInstance().send(player,
                                 ChatColor.RED + "The world has to be the same");
-                        return true;
+                            event.setCancelled(true);
+                            return;
+                        }
+
+                        //x
+                        if (previousLocation.getBlockX() < location.getBlockX()) {
+                            arenas.set(name + '.' + plotID + ".floor.high.x", location.getBlockX());
+                            arenas.set(name + '.' + plotID + ".floor.low.x", previousLocation.getBlockX());
+                        } else {
+                            arenas.set(name + '.' + plotID + ".floor.low.x", location.getBlockX());
+                            arenas.set(name + '.' + plotID + ".floor.high.x", previousLocation.getBlockX());
+                        }
+
+                        //y
+                        if (previousLocation.getBlockY() < location.getBlockY()) {
+                            arenas.set(name + '.' + plotID + ".floor.high.y", location.getBlockY());
+                            arenas.set(name + '.' + plotID + ".floor.low.y", previousLocation.getBlockY());
+                        } else {
+                            arenas.set(name + '.' + plotID + ".floor.low.y", location.getBlockY());
+                            arenas.set(name + '.' + plotID + ".floor.high.y", previousLocation.getBlockY());
+                        }
+
+                        //z
+                        if (previousLocation.getBlockZ() < location.getBlockZ()) {
+                            arenas.set(name + '.' + plotID + ".floor.high.z", location.getBlockZ());
+                            arenas.set(name + '.' + plotID + ".floor.low.z", previousLocation.getBlockZ());
+                        } else {
+                            arenas.set(name + '.' + plotID + ".floor.low.z", location.getBlockZ());
+                            arenas.set(name + '.' + plotID + ".floor.high.z", previousLocation.getBlockZ());
+                        }
+
+                        SettingsManager.getInstance().save();
+                        FloorManager.getInstance().setup();
+
+                        MessageManager.getInstance().send(player, ChatColor.GREEN + "Floor set!");
+
+                        previousLocation = null;
+
+                        player.getInventory().setItemInMainHand(null);
+                        ItemBuilder.check(player);
                     }
 
-                    //x
-                    if (previousLocation.getBlockX() < location.getBlockX()) {
-                        arenas.set(name + '.' + plotID + ".floor.high.x", location.getBlockX());
-                        arenas.set(name + '.' + plotID + ".floor.low.x", previousLocation.getBlockX());
-                    } else {
-                        arenas.set(name + '.' + plotID + ".floor.low.x", location.getBlockX());
-                        arenas.set(name + '.' + plotID + ".floor.high.x", previousLocation.getBlockX());
-                    }
-
-                    //y
-                    if (previousLocation.getBlockY() < location.getBlockY()) {
-                        arenas.set(name + '.' + plotID + ".floor.high.y", location.getBlockY());
-                        arenas.set(name + '.' + plotID + ".floor.low.y", previousLocation.getBlockY());
-                    } else {
-                        arenas.set(name + '.' + plotID + ".floor.low.y", location.getBlockY());
-                        arenas.set(name + '.' + plotID + ".floor.high.y", previousLocation.getBlockY());
-                    }
-
-                    //z
-                    if (previousLocation.getBlockZ() < location.getBlockZ()) {
-                        arenas.set(name + '.' + plotID + ".floor.high.z", location.getBlockZ());
-                        arenas.set(name + '.' + plotID + ".floor.low.z", previousLocation.getBlockZ());
-                    } else {
-                        arenas.set(name + '.' + plotID + ".floor.low.z", location.getBlockZ());
-                        arenas.set(name + '.' + plotID + ".floor.high.z", previousLocation.getBlockZ());
-                    }
-
-                    SettingsManager.getInstance().save();
-                    FloorManager.getInstance().setup();
-
-                    MessageManager.getInstance().send(player, ChatColor.GREEN + "Floor set!");
-
-                    previousLocation = null;
-
-                    player.getInventory().setItemInMainHand(null);
-                    ItemBuilder.check(player);
-
-                    return true;
+                    event.setCancelled(true);
                 }
-            }
-        });
-		ItemBuilder.register(itemBuilder);
-        player.getInventory().setItemInMainHand(itemBuilder);
+            }).build());
 		
 		MessageManager.getInstance().send(player, ChatColor.GREEN + "Please click on one corner");
 		
