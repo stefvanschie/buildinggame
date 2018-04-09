@@ -7,15 +7,12 @@ import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.WeatherType;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -265,6 +262,8 @@ public class Plot {
             }
         }
 
+        int previousPoints = getPoints();
+
 		if (hasVoted(sender))
 			getVotes().remove(getVote(sender));
 
@@ -282,7 +281,37 @@ public class Plot {
 			}
 		}
 
-		//track stats
+		//point actions
+        ConfigurationSection configurationSection = config.getConfigurationSection("voting.point-actions");
+		for (String key : configurationSection.getKeys(false)) {
+		    int points;
+
+		    try {
+		        points = Integer.parseInt(key);
+            } catch (NumberFormatException e) {
+		        if (config.getBoolean("debug"))
+		            Main.getInstance().getLogger()
+                        .warning("Unsupported value found in config.yml in voting > point-actions > " + key);
+
+		        continue;
+            }
+
+            //ensure the amount of points is higher and that this is the first time we get this (e.g. the added amount
+            //of points made the amount go over the minimum, it shouldn't already have been higher than the minimum)
+            if (getPoints() < points || previousPoints >= points)
+                continue;
+
+            configurationSection.getStringList(key).forEach(command -> {
+                if (!command.isEmpty() && command.charAt(0) == '@') {
+                    String targetText = command.split(" ")[0];
+
+                    Target.parse(targetText).execute(command.substring(targetText.length() + 1));
+                } else
+                    getGamePlayers().forEach(gamePlayer -> Bukkit.dispatchCommand(gamePlayer.getPlayer(), command));
+            });
+        }
+
+        //track stats
         StatManager statManager = StatManager.getInstance();
 
         for (GamePlayer gamePlayer : getGamePlayers()) {

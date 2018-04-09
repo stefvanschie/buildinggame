@@ -124,6 +124,7 @@ voting:
   eighth-slot:
     id: 'emerald_block'
     points: 8
+  point-actions: {}
 
 command-whitelist:
 - give
