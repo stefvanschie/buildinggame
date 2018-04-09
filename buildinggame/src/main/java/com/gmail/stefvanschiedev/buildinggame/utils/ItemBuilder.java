@@ -227,7 +227,8 @@ public class ItemBuilder implements Listener {
 
         NBTWrappers.NBTTagCompound tag = ItemNBTUtil.getTag(e.getCurrentItem());
 
-        if (tag != null && e.getWhoClicked().getUniqueId().equals(UUID.fromString(tag.getString("player"))) &&
+        if (tag != null && tag.getString("player") != null &&
+            e.getWhoClicked().getUniqueId().equals(UUID.fromString(tag.getString("player"))) &&
             !tag.getBoolean("movable"))
             e.setCancelled(true);
 	}
