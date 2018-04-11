@@ -57,6 +57,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.BrokenBarrierException;
+
 /**
  * The main class of this plugin
  *
@@ -131,7 +133,11 @@ public class Main extends JavaPlugin {
 		else
 			StatManager.getInstance().saveToDatabase();
 
-		SettingsManager.getInstance().getRunnable().cancel();
+        try {
+            SettingsManager.getInstance().getCyclicBarrier().await();
+        } catch (InterruptedException | BrokenBarrierException e) {
+            e.printStackTrace();
+        }
 
         getLogger().info("BuildingGame has been disabled");
 

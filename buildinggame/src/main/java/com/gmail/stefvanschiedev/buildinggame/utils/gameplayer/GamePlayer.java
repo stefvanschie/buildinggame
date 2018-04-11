@@ -145,8 +145,8 @@ public class GamePlayer {
 			//start new countdown	
 			sendSubtitle(subtitle);	
 			setSubtitleCountdown(new SubtitleCountdown(this));
-			getSubtitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") +
-                    config.getInt("title.stay") + config.getInt("title.fade_out"));
+			getSubtitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade-in") +
+                    config.getInt("title.stay") + config.getInt("title.fade-out"));
 		}
 	}
 
@@ -166,8 +166,8 @@ public class GamePlayer {
 			
 			sendTitle(title);	
 			setTitleCountdown(new TitleCountdown(this));
-			getTitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade_in") +
-                    config.getInt("title.stay") + config.getInt("title.fade_out"));
+			getTitleCountdown().runTaskLater(Main.getInstance(), config.getInt("title.fade-in") +
+                    config.getInt("title.stay") + config.getInt("title.fade-out"));
 		}
 	}
 
@@ -182,7 +182,7 @@ public class GamePlayer {
 		if (title.isEmpty() && subtitle.isEmpty())
 			return;
 		
-		if (!SettingsManager.getInstance().getConfig().getBoolean("title.syncronize")) {
+		if (!SettingsManager.getInstance().getConfig().getBoolean("title.synchronize")) {
 			addTitle(title);
 			addSubtitle(subtitle);
 		} else
@@ -405,8 +405,8 @@ public class GamePlayer {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		try {
-			setTimes(config.getInt("title.fade_in"), config.getInt("title.stay"),
-                    config.getInt("title.fade_out"));
+			setTimes(config.getInt("title.fade-in"), config.getInt("title.stay"),
+                    config.getInt("title.fade-out"));
 
 			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
                     .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"))
@@ -431,8 +431,8 @@ public class GamePlayer {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		try {
-			setTimes(config.getInt("title.fade_in"), config.getInt("title.stay"),
-                    config.getInt("title.fade_out"));
+			setTimes(config.getInt("title.fade-in"), config.getInt("title.stay"),
+                    config.getInt("title.fade-out"));
 
 			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
                     .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"))

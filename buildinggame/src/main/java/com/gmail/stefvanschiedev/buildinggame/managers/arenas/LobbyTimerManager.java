@@ -29,7 +29,7 @@ public final class LobbyTimerManager {
             String name = arena.getName();
 
             if (!arenas.contains(name + ".lobby-timer"))
-				arenas.set(name + ".lobby-timer", config.getInt("waittimer"));
+				arenas.set(name + ".lobby-timer", config.getInt("timers.lobby"));
 			
 			arena.setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), arena));
 		}

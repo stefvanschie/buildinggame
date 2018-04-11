@@ -29,7 +29,7 @@ public final class VoteTimerManager {
             String name = arena.getName();
 
             if (!arenas.contains(name + ".vote-timer"))
-				arenas.set(name + ".vote-timer", config.getInt("votetimer"));
+				arenas.set(name + ".vote-timer", config.getInt("timers.vote"));
 			
 			arena.setVoteTimer(new VoteTimer(arenas.getInt(name + ".vote-timer"), arena));
 		}
