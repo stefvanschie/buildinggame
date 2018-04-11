@@ -220,8 +220,23 @@ public final class SettingsManager {
                 @Override
                 public void run() {
                     try {
-                        WatchKey key;
-                        while ((key = watchService.take()) != null) {
+                        while (true) {
+                            WatchKey key = watchService.poll();
+
+                            if (key == null) {
+                                if (cyclicBarrier.getNumberWaiting() == 1) {
+                                    //this will cause the cyclic barrier to trip
+                                    cyclicBarrier.await();
+
+                                    cancel();
+
+                                    //completely step out of the method, just to be sure
+                                    return;
+                                }
+
+                                continue;
+                            }
+
                             for (WatchEvent<?> event : key.pollEvents()) {
                                 Path context = (Path) event.context();
                                 boolean debug = config.getBoolean("debug");
@@ -242,16 +257,6 @@ public final class SettingsManager {
                             }
 
                             key.reset();
-
-                            if (cyclicBarrier.getNumberWaiting() == 1) {
-                                //this will cause the cyclic barrier to trip
-                                cyclicBarrier.await();
-
-                                cancel();
-
-                                //completely step out of the method, just to be sure
-                                return;
-                            }
                         }
                     } catch (InterruptedException | BrokenBarrierException e) {
                         e.printStackTrace();
