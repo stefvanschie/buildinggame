@@ -29,7 +29,7 @@ public final class BuildTimerManager {
             String name = arena.getName();
 
             if (!arenas.contains(name + ".timer"))
-				arenas.set(name + ".timer", config.getInt("timer"));
+				arenas.set(name + ".timer", config.getInt("timers.build"));
 			
 			arena.setBuildTimer(new BuildTimer(arenas.getInt(name + ".timer"), arena));
 		}

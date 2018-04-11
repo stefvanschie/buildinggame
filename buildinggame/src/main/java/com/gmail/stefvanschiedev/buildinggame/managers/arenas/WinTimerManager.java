@@ -29,7 +29,7 @@ public final class WinTimerManager {
             String name = arena.getName();
 
             if (!arenas.contains(name + ".win-timer"))
-				arenas.set(name + ".win-timer", config.getInt("wintimer"));
+				arenas.set(name + ".win-timer", config.getInt("timers.win"));
 			
 			arena.setWinTimer(new WinTimer(arenas.getInt(name + ".win-timer"), arena));
 		}

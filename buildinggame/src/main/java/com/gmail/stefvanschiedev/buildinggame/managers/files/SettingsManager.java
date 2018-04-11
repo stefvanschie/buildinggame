@@ -7,6 +7,10 @@ import java.io.InputStreamReader;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -104,9 +108,19 @@ public final class SettingsManager {
 	private File schematicsFolder;
 
     /**
-     * The runnable that listens for file changes
+     * The cyclic barrier used to ensure the task has been finished before telling the main thread to continue
+     */
+	private final CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
+
+    /**
+     * The runnable used for managing the watchservice
      */
 	private BukkitRunnable runnable;
+
+    /**
+     * A map containing the previous location of a key/value pair in the config.yml and the new location
+     */
+	private static final Map<String, String> RELOCATED_SETTINGS_LOCATIONS = new HashMap<>();
 
 	/**
      * Loads/Reloads all files and YAML configurations
@@ -194,9 +208,8 @@ public final class SettingsManager {
 		generateSettings(save);
 		generateMessages(save);
 
-		//watch config.yml and messages.yml files
-        if (runnable != null)
-            return;
+		if (runnable != null)
+		    return;
 
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
@@ -229,8 +242,18 @@ public final class SettingsManager {
                             }
 
                             key.reset();
+
+                            if (cyclicBarrier.getNumberWaiting() == 1) {
+                                //this will cause the cyclic barrier to trip
+                                cyclicBarrier.await();
+
+                                cancel();
+
+                                //completely step out of the method, just to be sure
+                                return;
+                            }
                         }
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException | BrokenBarrierException e) {
                         e.printStackTrace();
                     }
                 }
@@ -339,9 +362,12 @@ public final class SettingsManager {
      * @since 2.1.0
      */
 	private void generateSettings(boolean save) {
-        //yes this can happen
-        if (Main.getInstance() == null)
-            return;
+
+        //relocate settings
+        RELOCATED_SETTINGS_LOCATIONS.forEach((originalKey, newKey) -> {
+            config.set(newKey, config.get(originalKey));
+            config.set(originalKey, null);
+        });
 
 		int settings = 0;
 		int addedSettings = 0;
@@ -383,10 +409,6 @@ public final class SettingsManager {
      * @since 2.1.0
      */
 	private void generateMessages(boolean save) {
-	    //yes this can happen
-	    if (Main.getInstance() == null)
-	        return;
-
 		int settings = 0;
 		int addedSettings = 0;
 		
@@ -426,14 +448,25 @@ public final class SettingsManager {
 	}
 
     /**
-     * Return the watch service that listens for file changes
+     * Return the cyclic barrier that ensures the watch service thread is stopped before the main thread continues
+     * execution
      *
-     * @return the watch service
-     * @since 5.6.1
+     * @return the cyclic barrier
+     * @since 5.7.0
      */
     @Nullable
     @Contract(pure = true)
-	public BukkitRunnable getRunnable() {
-	    return runnable;
+	public CyclicBarrier getCyclicBarrier() {
+	    return cyclicBarrier;
+    }
+
+    static {
+        RELOCATED_SETTINGS_LOCATIONS.put("timer", "timers.build");
+        RELOCATED_SETTINGS_LOCATIONS.put("waittimer", "timers.lobby");
+        RELOCATED_SETTINGS_LOCATIONS.put("votetimer", "timers.vote");
+        RELOCATED_SETTINGS_LOCATIONS.put("wintimer", "timers.win");
+        RELOCATED_SETTINGS_LOCATIONS.put("title.fade_in", "title.fade-in");
+        RELOCATED_SETTINGS_LOCATIONS.put("title.fade_out", "title.fade-out");
+        RELOCATED_SETTINGS_LOCATIONS.put("title.syncronize", "title.synchronize");
     }
 }

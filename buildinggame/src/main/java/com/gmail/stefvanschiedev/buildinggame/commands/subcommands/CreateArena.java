@@ -48,10 +48,10 @@ public class CreateArena extends ConsoleCommand {
 		
 		arenas.createSection(args[0]);
 		arenas.set(args[0] + ".mode", "SOLO");
-		arenas.set(args[0] + ".timer", config.getInt("timer"));
-		arenas.set(args[0] + ".lobby-timer", config.getInt("waittimer"));
-		arenas.set(args[0] + ".vote-timer", config.getInt("votetimer"));
-		arenas.set(args[0] + ".win-timer", config.getInt("wintimer"));
+		arenas.set(args[0] + ".timer", config.getInt("timers.build"));
+		arenas.set(args[0] + ".lobby-timer", config.getInt("timers.lobby"));
+		arenas.set(args[0] + ".vote-timer", config.getInt("timers.vote"));
+		arenas.set(args[0] + ".win-timer", config.getInt("timers.win"));
 		SettingsManager.getInstance().save();
 		
 		ArenaManager.getInstance().setup();

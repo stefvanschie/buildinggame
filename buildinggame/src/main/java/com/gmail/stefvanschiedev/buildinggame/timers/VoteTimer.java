@@ -420,7 +420,7 @@ public class VoteTimer extends Timer {
                 }
             }
 
-			seconds = config.getInt("votetimer");
+			seconds = config.getInt("timers.vote");
 		}
 	}
 

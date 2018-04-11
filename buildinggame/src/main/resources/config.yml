@@ -1,7 +1,8 @@
-timer: 300
-votetimer: 15
-waittimer: 60
-wintimer: 10
+timers:
+  build: 300
+  vote: 15
+  lobby: 60
+  win: 10
 
 loading:
   load-after-plugins: false
@@ -93,10 +94,10 @@ chat:
   adjust: true
 
 title:
-  fade_in: 0
+  fade-in: 0
   stay: 20
-  fade_out: 20
-  syncronize: false
+  fade-out: 20
+  synchronize: false
 
 tab-list:
   adjust: true

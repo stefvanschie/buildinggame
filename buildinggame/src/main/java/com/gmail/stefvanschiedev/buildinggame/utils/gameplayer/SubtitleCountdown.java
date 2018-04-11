@@ -41,8 +41,8 @@ class SubtitleCountdown extends BukkitRunnable {
 			gamePlayer.sendSubtitle(gamePlayer.getSubtitles().get(0));	
 			gamePlayer.setSubtitleCountdown(new SubtitleCountdown(gamePlayer));
 			gamePlayer.getSubtitleCountdown().runTaskLater(Main.getInstance(),
-                    config.getInt("title.fade_in") + config.getInt("title.stay") +
-                            config.getInt("title.fade_out"));
+                    config.getInt("title.fade-in") + config.getInt("title.stay") +
+                            config.getInt("title.fade-out"));
 		} else
 			gamePlayer.setSubtitleCountdown(null);
 		
