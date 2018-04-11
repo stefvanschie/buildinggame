@@ -301,7 +301,7 @@ public class Main extends JavaPlugin {
                 .getLong("scoreboard-update-delay"));
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig()
                 .getLong("stats.save-delay"));
-		new EntityTimer().runTaskTimerAsynchronously(this, 0L, 20L);
+		new EntityTimer().runTaskTimer(this, 0L, 20L);
 		
 		if (!loadedCommands) {
 			getCommand("bg").setExecutor(command);
