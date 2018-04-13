@@ -367,9 +367,12 @@ public final class SettingsManager {
      * @since 2.1.0
      */
 	private void generateSettings(boolean save) {
-
         //relocate settings
         RELOCATED_SETTINGS_LOCATIONS.forEach((originalKey, newKey) -> {
+            //ignore already adjusted settings
+            if (config.contains(newKey))
+                return;
+
             config.set(newKey, config.get(originalKey));
             config.set(originalKey, null);
         });
