@@ -1,5 +1,5 @@
 # buildinggame
-The Building Game plugin http://dev.bukkit.org/bukkit-plugins/buildinggame or 
+The Building Game plugin http://dev.bukkit.org/bukkit-plugins/buildinggame or https://www.spigotmc.org/resources/building-game.10547/.
 
 Navigating the files:
   The main plugin is in the buildinggame folder.
