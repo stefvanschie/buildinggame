@@ -117,28 +117,31 @@ public class SubjectMenu extends Gui {
         }));
 
         //next page
-        ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
-        ItemMeta nextMeta = nextItem.getItemMeta();
-        nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name")));
-        nextMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.next-page.lores")));
-        nextItem.setItemMeta(nextMeta);
+        if (paginatedPane.getPages() != 1) {
+            ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
+            ItemMeta nextMeta = nextItem.getItemMeta();
+            nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name")));
+            nextMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.next-page.lores")));
+            nextItem.setItemMeta(nextMeta);
 
-        nextPane.addItem(new GuiItem(nextItem, event -> {
-            paginatedPane.setPage(paginatedPane.getPage() + 1);
+            nextPane.addItem(new GuiItem(nextItem, event -> {
+                paginatedPane.setPage(paginatedPane.getPage() + 1);
 
-            if (paginatedPane.getPage() == paginatedPane.getPages() - 1)
-                nextPane.setVisible(false);
+                if (paginatedPane.getPage() == paginatedPane.getPages() - 1)
+                    nextPane.setVisible(false);
 
-            previousPane.setVisible(true);
+                previousPane.setVisible(true);
 
-            update();
+                update();
 
-            event.setCancelled(true);
-        }));
+                event.setCancelled(true);
+            }));
+
+            addPane(nextPane);
+        }
 
         addPane(previousPane);
         addPane(closePane);
-        addPane(nextPane);
     }
 
     /**
