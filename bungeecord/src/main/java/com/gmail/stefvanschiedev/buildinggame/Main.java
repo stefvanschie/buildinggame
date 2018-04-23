@@ -2,16 +2,15 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.util.*;
 
-import fr.rhaz.socket4mc.Bungee.BungeeSocketHandshakeEvent;
-import fr.rhaz.socket4mc.Bungee.BungeeSocketJSONEvent;
-import fr.rhaz.socketapi.SocketAPI;
-import fr.rhaz.socketapi.SocketAPI.Server.SocketMessenger;
+import fr.rhaz.socketapi.server.SocketMessenger;
+import fr.rhaz.sockets.socket4mc.Socket4Bungee;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Main class for this plugin
@@ -66,7 +65,7 @@ public class Main extends Plugin implements Listener {
      */
 	@SuppressWarnings("unused")
     @EventHandler
-	public void onBungeeSocketHandshake(BungeeSocketHandshakeEvent e) {
+	public void onServerSocketHandshake(Socket4Bungee.Server.ServerSocketHandshakeEvent e) {
         socketMessengers.add(e.getMessenger());
 	}
 
@@ -84,7 +83,7 @@ public class Main extends Plugin implements Listener {
         if (!pendingConnections.containsKey(proxiedPlayer))
             return;
 
-        Map.Entry<SocketAPI.Server.SocketMessenger, String> entry = pendingConnections.get(proxiedPlayer);
+        Map.Entry<SocketMessenger, String> entry = pendingConnections.get(proxiedPlayer);
 
         entry.getKey().writeJSON(CHANNEL, entry.getValue());
         pendingConnections.remove(proxiedPlayer);
@@ -98,7 +97,7 @@ public class Main extends Plugin implements Listener {
      */
 	@SuppressWarnings("unused")
     @EventHandler
-	public void onBungeeSocketJSON(BungeeSocketJSONEvent e) {
+	public void onBungeeSocketJSON(Socket4Bungee.Server.ServerSocketJSONEvent e) {
 		//send the information through
 		if (!e.getChannel().equals("BuildingGame"))
 			return;
@@ -132,7 +131,7 @@ public class Main extends Plugin implements Listener {
      * @param uuid the uuid of the callable on the sending server
      * @since 4.0.6
      */
-	private void connect(String response, SocketMessenger messenger, String uuid) {
+	private void connect(@NotNull String response, SocketMessenger messenger, String uuid) {
         String[] data = response.replace("connect:", "").trim().split(", ");
 
         ProxiedPlayer proxiedPlayer = getProxy().getPlayer(data[0]);

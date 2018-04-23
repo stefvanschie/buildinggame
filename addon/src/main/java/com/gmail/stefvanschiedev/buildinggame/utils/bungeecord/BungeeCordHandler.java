@@ -1,8 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.bungeecord;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
-import fr.rhaz.socket4mc.Bukkit;
-import fr.rhaz.socket4mc.Socket4MC;
+import fr.rhaz.sockets.socket4mc.Socket4Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
@@ -69,7 +68,8 @@ public final class BungeeCordHandler implements Listener {
     private void send(String message, IdentifiedCallable callable) {
         if (callable != null)
             callables.add(callable);
-        Socket4MC.bukkit().getSocketClient().writeJSON(CHANNEL, message + (callable == null ? "" : ";uuid:" +
+
+        Socket4Bukkit.getClient().writeJSON(CHANNEL, message + (callable == null ? "" : ";uuid:" +
                 callable.getUuid()));
     }
 
@@ -82,7 +82,7 @@ public final class BungeeCordHandler implements Listener {
      * @param callable the callable that should be called after this is successful
      * @since 4.0.6
      */
-    public void connect(String receiver, AnimalTamer player, String server, IdentifiedCallable callable) {
+    public void connect(String receiver, @NotNull AnimalTamer player, String server, IdentifiedCallable callable) {
         send("connect:" + player.getName() + ", " + server + ";receiver:" + receiver, callable);
     }
 
@@ -131,7 +131,7 @@ public final class BungeeCordHandler implements Listener {
      */
     @Contract("null -> fail")
     @EventHandler
-    public void onBukkitSocketJSON(Bukkit.BukkitSocketJSONEvent e) {
+    public void onServerSocketJSON(@NotNull Socket4Bukkit.Server.ServerSocketJSONEvent e) {
         if (!e.getChannel().equals("BuildingGame"))
             return;
 
@@ -143,7 +143,8 @@ public final class BungeeCordHandler implements Listener {
         else if (data[0].startsWith("teleport"))
             send(teleport(data[0].split(":")[1]) + ';' + (data.length > 2 ? data[2] : ""), null);
         else if (data[0].startsWith("sign"))
-            send(sign(data[0].split("[^\\\\]:")[1]) + ';' + (data.length > 2 ? data[2] : ""), null);
+            send(sign(data[0].split("[^\\\\]:")[1]) + ';' + (data.length > 2 ? data[2] : ""),
+                null);
     }
 
     /**
@@ -155,7 +156,7 @@ public final class BungeeCordHandler implements Listener {
      */
     @NotNull
     @Contract("null -> fail")
-    private String teleport(String input) {
+    private String teleport(@NotNull String input) {
         String[] data = input.split(", ");
 
         Player player = org.bukkit.Bukkit.getPlayer(data[0]);
@@ -188,7 +189,7 @@ public final class BungeeCordHandler implements Listener {
      */
     @NotNull
     @Contract("null -> fail")
-    private String sign(String input) {
+    private String sign(@NotNull String input) {
         //undo escaping of special ':' character
         String[] data = input.replace("\\:", ":").split(", ");
 
@@ -244,6 +245,7 @@ public final class BungeeCordHandler implements Listener {
     public static BungeeCordHandler getInstance() {
         if (INSTANCE == null)
             INSTANCE = new BungeeCordHandler();
+
         return INSTANCE;
     }
 }
