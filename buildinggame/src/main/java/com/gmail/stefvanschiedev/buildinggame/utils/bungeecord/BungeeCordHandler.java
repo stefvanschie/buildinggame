@@ -4,14 +4,14 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import fr.rhaz.socket4mc.Bukkit;
-import fr.rhaz.socket4mc.Socket4MC;
+import fr.rhaz.sockets.socket4mc.Socket4Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,8 +57,8 @@ public final class BungeeCordHandler implements Listener {
         if (callable != null)
             callables.add(callable);
 
-        Socket4MC.bukkit().getSocketClient().writeJSON(CHANNEL, message + (callable == null ? "" : ";uuid:" +
-                callable.getUuid()));
+        Socket4Bukkit.getClient().writeJSON(CHANNEL, message + (callable == null ? "" : ";uuid:" + callable
+            .getUuid()));
     }
 
     /**
@@ -70,7 +70,7 @@ public final class BungeeCordHandler implements Listener {
      * @param callable the callable that should be called once there is a response
      * @since 4.0.6
      */
-    public void connect(String receiver, AnimalTamer player, String server, IdentifiedCallable callable) {
+    public void connect(String receiver, @NotNull AnimalTamer player, String server, IdentifiedCallable callable) {
         send("connect:" + player.getName() + ", " + server + ";receiver:" + receiver, callable);
     }
 
@@ -104,8 +104,8 @@ public final class BungeeCordHandler implements Listener {
      * @param callable the callable that should be called once there is a response
      * @since 4.0.6
      */
-    public void sign(String receiver, Arena arena, String line1, String line2, String line3, String line4,
-                     IdentifiedCallable callable) {
+    public void sign(String receiver, @NotNull Arena arena, @NotNull String line1, @NotNull String line2,
+                     @NotNull String line3, @NotNull String line4, IdentifiedCallable callable) {
         //escape the special ':' character
         send("sign:" + arena.getName() + ", " + line1.replace(":", "\\:") + ", " + line2
                 .replace(":", "\\:") + ", " + line3.replace(":", "\\:") + ", " +
@@ -119,7 +119,7 @@ public final class BungeeCordHandler implements Listener {
      * @since 4.0.6
      */
     @EventHandler
-    public void onBukkitSocketJSON(Bukkit.BukkitSocketJSONEvent e) {
+    public void onServerSocketJSON(@NotNull Socket4Bukkit.Server.ServerSocketJSONEvent e) {
         if (!e.getChannel().equals("BuildingGame"))
             return;
 
@@ -144,7 +144,7 @@ public final class BungeeCordHandler implements Listener {
      * @since 4.0.6
      */
     @NotNull
-    private String write(String input) {
+    private String write(@NotNull String input) {
         String[] data = input.split(", ");
         YamlConfiguration file;
 
@@ -192,7 +192,7 @@ public final class BungeeCordHandler implements Listener {
      * @since 4.0.6
      */
     @NotNull
-    private String join(String input) {
+    private String join(@NotNull String input) {
         String[] data = input.split(", ");
 
         Player player = org.bukkit.Bukkit.getPlayer(data[0].trim());
@@ -220,6 +220,7 @@ public final class BungeeCordHandler implements Listener {
      * @since 4.0.6
      */
     @Nullable
+    @Contract(pure = true)
     private IdentifiedCallable getCallable(UUID uuid) {
         for (IdentifiedCallable callable : callables) {
             if (callable.getUuid().equals(uuid))
