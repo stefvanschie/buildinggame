@@ -47,9 +47,9 @@
         </dependency>
         <!--Needs to be created manually-->
         <dependency>
-            <groupId>fr.rhaz</groupId>
+            <groupId>fr.rhaz.sockets</groupId>
             <artifactId>socket4mc</artifactId>
-            <version>2.1.7</version>
+            <version>3.1</version>
             <scope>provided</scope>
         </dependency>
         <!--Needs to be created manually-->
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>me.gnat008</groupId>
             <artifactId>perworldinventory</artifactId>
-            <version>1.11.2</version>
+            <version>1.11.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
