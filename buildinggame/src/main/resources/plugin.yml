@@ -3,9 +3,3 @@ version: 5.7.3
 name: BuildingGame
 author: stefvanschie
 softdepend: [Vault, Socket4MC, LeaderHeads, PerWorldInventory, PlaceholderAPI, WorldEdit]
-
-commands:
-  bg:
-    description: Main buildinggame command
-  buildinggame:
-    description: Main buildinggame command

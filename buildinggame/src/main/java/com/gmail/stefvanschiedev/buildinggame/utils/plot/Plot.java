@@ -547,7 +547,7 @@ public class Plot {
      */
 	@NotNull
 	@Contract(pure = true)
-	public Iterable<GamePlayer> getSpectators() {
+	public Collection<GamePlayer> getSpectators() {
 		Collection<GamePlayer> spectators = new ArrayList<>();
 		
 		for (GamePlayer gamePlayer : getAllGamePlayers()) {

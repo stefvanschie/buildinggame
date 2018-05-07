@@ -1,15 +1,21 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import co.aikar.commands.BukkitCommandManager;
+import co.aikar.commands.ConditionFailedException;
+import co.aikar.commands.InvalidCommandArgument;
 import com.gmail.stefvanschiedev.buildinggame.events.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.*;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateSign;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
+import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
+import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import com.google.common.collect.ImmutableList;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -39,7 +45,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.SecondStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.ThirdStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved.UnsavedStatsPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.structure.TreeGrow;
-import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.BoundaryManager;
@@ -57,7 +62,10 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
 import java.util.concurrent.BrokenBarrierException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * The main class of this plugin
@@ -194,8 +202,47 @@ public class Main extends JavaPlugin {
         }
 		
 		getLogger().info("Loading commands");
-		CommandManager command = new CommandManager();
-		command.setup();
+		if (!loadedCommands) {
+            BukkitCommandManager manager = new BukkitCommandManager(this);
+
+            //register contexts
+            manager.getCommandContexts().registerContext(Arena.class, context -> {
+                Arena arena = ArenaManager.getInstance().getArena(context.popFirstArg());
+
+                if (arena == null)
+                    throw new InvalidCommandArgument("This arena doesn't exist");
+
+                return arena;
+            });
+            manager.getCommandContexts().registerContext(ArenaMode.class, context -> {
+                ArenaMode mode = ArenaMode.valueOf(context.popFirstArg().toUpperCase(Locale.getDefault()));
+
+                if (mode == null)
+                    throw new InvalidCommandArgument("This game mode doesn't exist");
+
+                return mode;
+            });
+
+            //register completions
+            manager.getCommandCompletions().registerCompletion("arenas", context ->
+                ArenaManager.getInstance().getArenas().stream()
+                    .map(Arena::getName)
+                    .collect(Collectors.toList()));
+            manager.getCommandCompletions().registerCompletion("arenamodes", context ->
+                Stream.of(ArenaMode.values())
+                    .map(mode -> mode.toString().toUpperCase(Locale.getDefault()))
+                    .collect(Collectors.toList()));
+
+            //register conditions
+            manager.getCommandConditions().addCondition(String.class, "arenanotexist",
+                (context, executionContext, string) -> {
+                    if (ArenaManager.getInstance().getArena(string) != null || string.equals("main-spawn"))
+                        throw new ConditionFailedException("Arena already exists");
+                });
+            manager.registerCommand(new CommandManager());
+
+            loadedCommands = true;
+        }
 		
 		getLogger().info("Loading stats");
 		StatManager.getInstance().setup();
@@ -302,13 +349,6 @@ public class Main extends JavaPlugin {
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig()
                 .getLong("stats.save-delay"));
 		new EntityTimer().runTaskTimer(this, 0L, 20L);
-		
-		if (!loadedCommands) {
-			getCommand("bg").setExecutor(command);
-			getCommand("buildinggame").setExecutor(command);
-			
-			loadedCommands = true;
-		}
 		
 		long end = System.currentTimeMillis();
 		
