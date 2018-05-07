@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import co.aikar.commands.BukkitCommandManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.Bukkit;
@@ -7,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.gmail.stefvanschiedev.buildinggame.commands.BuildingGameCommand;
+import com.gmail.stefvanschiedev.buildinggame.command.BuildingGameCommand;
 import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.JoinSignCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickJoinSign;
@@ -35,11 +36,8 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		
-		CommandExecutor cmd = new BuildingGameCommand();
-		
-		getCommand("bg").setExecutor(cmd);
-		getCommand("buildinggame").setExecutor(cmd);
+
+        new BukkitCommandManager(this).registerCommand(new BuildingGameCommand());
 		
 		Bukkit.getPluginManager().registerEvents(new JoinSignBreak(), this);
 		Bukkit.getPluginManager().registerEvents(new JoinSignCreate(), this);
