@@ -3,11 +3,12 @@ package com.gmail.stefvanschiedev.buildinggame;
 import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.InvalidCommandArgument;
-import com.gmail.stefvanschiedev.buildinggame.events.PerWorldInventoryCancel;
+import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.*;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
 import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateSign;
+import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.WorldEditBoundaryAssertion;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
@@ -15,7 +16,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.Placehol
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
-import com.google.common.collect.ImmutableList;
+import com.sk89q.worldedit.WorldEdit;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -289,6 +290,9 @@ public class Main extends JavaPlugin {
                     e.printStackTrace();
                 }
             }
+
+            if (pm.isPluginEnabled("WorldEdit"))
+                WorldEdit.getInstance().getEventBus().register(new WorldEditBoundaryAssertion());
 
 			pm.registerEvents(new ClickJoinSign(), this);
 			pm.registerEvents(new ClickLeaveSign(), this);
