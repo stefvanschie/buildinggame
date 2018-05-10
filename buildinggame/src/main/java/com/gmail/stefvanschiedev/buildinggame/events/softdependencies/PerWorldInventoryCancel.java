@@ -1,4 +1,4 @@
-package com.gmail.stefvanschiedev.buildinggame.events;
+package com.gmail.stefvanschiedev.buildinggame.events.softdependencies;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import me.gnat008.perworldinventory.events.InventoryLoadEvent;
