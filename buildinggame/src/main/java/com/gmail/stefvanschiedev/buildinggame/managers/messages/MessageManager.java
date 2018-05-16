@@ -90,25 +90,6 @@ public final class MessageManager {
 	}
 
 	/**
-     * Sends a message to the player with edited message variables
-     *
-     * @param sender the sender to send the message to
-     * @param message the message to send
-     * @since 2.1.0
-     */
-	@Contract("_, null -> fail; null, !null -> fail")
-	@SuppressWarnings("MethodMayBeStatic")
-    public void sendWithoutPrefix(CommandSender sender, String message) {
-		if (message.isEmpty())
-			return;
-
-		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && sender instanceof Player)
-            sender.sendMessage(translate(message, (Player) sender));
-		else
-		    sender.sendMessage(translate(message));
-	}
-
-	/**
      * Returns the string provided with all variables edited to their values
      *
      * @param s the string to edit the variables in

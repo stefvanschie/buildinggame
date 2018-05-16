@@ -40,6 +40,6 @@ public class SecondStat implements Listener {
             instance.registerStat(player, StatType.SECOND, stat == null ? 1 : stat.getValue() + 1);
         }
 
-		SignManager.getInstance().updateStatSigns();
+		SignManager.getInstance().updateStatSigns(StatType.SECOND);
 	}
 }

@@ -327,7 +327,7 @@ public class Plot {
         statManager.registerStat(sender, StatType.POINTS_GIVEN,
                 (stat == null ? 0 : stat.getValue()) + vote.getPoints());
 
-        SignManager.getInstance().updateStatSigns();
+        SignManager.getInstance().updateStatSigns(StatType.POINTS_RECEIVED, StatType.POINTS_GIVEN);
 	}
 
 	/**

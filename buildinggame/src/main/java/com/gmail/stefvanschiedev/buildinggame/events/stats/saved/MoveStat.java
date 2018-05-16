@@ -26,24 +26,20 @@ public class MoveStat implements Listener {
      * @see PlayerMoveEvent
      * @since 2.2.0
      */
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void onPlayerMove(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
-
-		if (ArenaManager.getInstance().getArena(player) == null)
-		    return;
-
         Location from = e.getFrom();
         Location to = e.getTo();
-		     
-		if (Math.abs(from.getBlockX() - to.getBlockX()) == 0 && Math.abs(from.getBlockY() - to.getBlockY()) == 0 &&
-                Math.abs(from.getBlockZ() - to.getBlockZ()) == 0)
-			return;
+
+		if ((Math.abs(from.getBlockX() - to.getBlockX()) == 0 && Math.abs(from.getBlockY() - to.getBlockY()) == 0 &&
+            Math.abs(from.getBlockZ() - to.getBlockZ()) == 0) || ArenaManager.getInstance().getArena(player) == null)
+		    return;
 
         StatManager instance = StatManager.getInstance();
         Stat stat = instance.getStat(player, StatType.WALKED);
 
         instance.registerStat(player, StatType.WALKED, stat == null ? 1 : stat.getValue() + 1);
-		SignManager.getInstance().updateStatSigns();
+		SignManager.getInstance().updateStatSigns(StatType.WALKED);
 	}
 }

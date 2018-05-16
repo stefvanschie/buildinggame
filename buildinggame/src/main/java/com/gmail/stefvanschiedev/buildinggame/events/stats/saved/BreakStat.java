@@ -36,6 +36,6 @@ public class BreakStat implements Listener {
         Stat stat = instance.getStat(player, StatType.BROKEN);
 
         instance.registerStat(player, StatType.BROKEN, stat == null ? 1 : stat.getValue() + 1);
-		SignManager.getInstance().updateStatSigns();
+		SignManager.getInstance().updateStatSigns(StatType.BROKEN);
 	}
 }

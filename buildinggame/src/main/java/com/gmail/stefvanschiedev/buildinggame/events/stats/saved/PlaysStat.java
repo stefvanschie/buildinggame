@@ -39,6 +39,6 @@ public class PlaysStat implements Listener {
             }
         }
 		
-		SignManager.getInstance().updateStatSigns();
+		SignManager.getInstance().updateStatSigns(StatType.PLAYS);
 	}
 }
