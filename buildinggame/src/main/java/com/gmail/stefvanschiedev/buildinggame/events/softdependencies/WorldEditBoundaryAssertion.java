@@ -35,7 +35,7 @@ public class WorldEditBoundaryAssertion {
      */
     @Subscribe
     public void onEditSession(EditSessionEvent event) {
-        if (!event.getActor().isPlayer())
+        if (event.getActor() == null || !event.getActor().isPlayer())
             return;
 
         Player player = Bukkit.getPlayer(event.getActor().getUniqueId());
