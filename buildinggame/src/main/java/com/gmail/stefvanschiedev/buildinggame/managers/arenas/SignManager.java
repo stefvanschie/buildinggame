@@ -19,7 +19,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.material.Attachable;
@@ -288,54 +287,75 @@ public final class SignManager {
 		}
 	}
 
+    /**
+     * Updates the specified statistic sign
+     *
+     * @param sign the sign to update
+     * @since 5.8.1
+     */
+    @Contract("null -> fail")
+	private void updateStatSign(@NotNull StatSign sign) {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        Sign s = sign.getSign();
+
+        if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault())
+            .replace("_", "-"))) {
+            Map<OfflinePlayer, Integer> stats = new HashMap<>();
+
+            StatManager.getInstance().getStats(sign.getType()).forEach(stat ->
+                stats.put(stat.getPlayer(), stat.getValue()));
+
+            List<Integer> values = new ArrayList<>(stats.values());
+            Collections.sort(values);
+            Collections.reverse(values);
+
+            int value = -1;
+
+            if (values.size() >= sign.getNumber())
+                value = values.get(sign.getNumber() - 1);
+
+            OfflinePlayer player = null;
+
+            for (OfflinePlayer op : stats.keySet()) {
+                if (stats.get(op) == value)
+                    player = op;
+            }
+
+            for (int i = 0; i < 4; i++)
+                s.setLine(i, replace(MessageManager.translate(messages.getString("signs.stat." + sign.getType()
+                    .toString().toLowerCase(Locale.getDefault()).replace("_", "-") + ".line-" +
+                    (i + 1))), sign, player, value));
+        } else {
+            s.setLine(0, "");
+            s.setLine(1, ChatColor.RED + "Stat type");
+            s.setLine(2, ChatColor.RED + "is disabled");
+            s.setLine(3, "");
+        }
+
+        s.update();
+    }
+
+    /**
+     * Update all statistic signs with the specified types
+     *
+     * @param statTypes the types of stat signs to update
+     * @since 5.8.1
+     */
+    public void updateStatSigns(StatType... statTypes) {
+        List<StatType> statTypesList = Arrays.asList(statTypes);
+
+        statSigns.stream().filter(sign -> statTypesList.contains(sign.getType())).forEach(this::updateStatSign);
+    }
+
 	/**
      * Updates all statistic signs
      *
      * @since 3.1.0
      */
-	public void updateStatSigns() {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-		for (StatSign sign : statSigns) {
-			Sign s = sign.getSign();
-
-			if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault())
-                    .replace("_", "-"))) {
-				Map<OfflinePlayer, Integer> stats = new HashMap<>();
-
-				for (Stat stat : StatManager.getInstance().getStats(sign.getType()))
-                    stats.put(stat.getPlayer(), stat.getValue());
-
-				List<Integer> values = new ArrayList<>(stats.values());
-				Collections.sort(values);
-				Collections.reverse(values);
-
-				int value = -1;
-
-				if (values.size() >= sign.getNumber())
-                    value = values.get(sign.getNumber() - 1);
-
-				OfflinePlayer player = null;
-
-				for (OfflinePlayer op : stats.keySet()) {
-					if (stats.get(op) == value)
-                        player = op;
-				}
-
-				for (int i = 0; i < 4; i++)
-                    s.setLine(i, replace(MessageManager.translate(messages.getString("signs.stat." + sign.getType()
-                            .toString().toLowerCase(Locale.getDefault()).replace("_", "-") + ".line-" + (i + 1))),
-                            sign, player, value));
-			} else {
-				s.setLine(0, "");
-				s.setLine(1, ChatColor.RED + "Stat type");
-				s.setLine(2, ChatColor.RED + "is disabled");
-				s.setLine(3, "");
-			}
-
-			s.update();
-		}
+    private void updateStatSigns() {
+		statSigns.forEach(this::updateStatSign);
 	}
 
     /**

@@ -40,6 +40,6 @@ public class ThirdStat implements Listener {
             instance.registerStat(player, StatType.THIRD, stat == null ? 1 : stat.getValue() + 1);
         }
 
-		SignManager.getInstance().updateStatSigns();
+		SignManager.getInstance().updateStatSigns(StatType.THIRD);
 	}
 }

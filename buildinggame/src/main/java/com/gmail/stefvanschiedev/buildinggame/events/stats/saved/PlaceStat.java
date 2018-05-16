@@ -36,6 +36,6 @@ public class PlaceStat implements Listener {
         Stat stat = instance.getStat(player, StatType.PLACED);
 
         instance.registerStat(player, StatType.PLACED, stat == null ? 1 : stat.getValue() + 1);
-		SignManager.getInstance().updateStatSigns();
+		SignManager.getInstance().updateStatSigns(StatType.PLACED);
 	}
 }

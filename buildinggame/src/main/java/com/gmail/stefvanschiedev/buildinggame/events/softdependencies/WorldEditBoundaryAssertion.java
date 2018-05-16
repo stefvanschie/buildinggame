@@ -1,22 +1,15 @@
 package com.gmail.stefvanschiedev.buildinggame.events.softdependencies;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.blocks.BaseBlock;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.event.extent.EditSessionEvent;
-import com.sk89q.worldedit.event.platform.BlockInteractEvent;
 import com.sk89q.worldedit.extent.AbstractDelegateExtent;
-import com.sk89q.worldedit.extent.Extent;
-import com.sk89q.worldedit.extent.NullExtent;
 import com.sk89q.worldedit.util.eventbus.Subscribe;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 /**

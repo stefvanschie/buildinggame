@@ -40,6 +40,6 @@ public class FirstStat implements Listener {
             instance.registerStat(player, StatType.FIRST, stat == null ? 1 : stat.getValue() + 1);
         }
 	
-		SignManager.getInstance().updateStatSigns();
+		SignManager.getInstance().updateStatSigns(StatType.FIRST);
 	}
 }
