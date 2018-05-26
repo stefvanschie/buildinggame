@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -31,9 +31,10 @@ public final class StatManager {
 	private MySQLDatabase database;
 
 	/**
-     * All statistics from all players
+     * All statistics from all players. The statistics inside the list are sorted in descending order (the element at
+     * index zero has the highest value).
      */
-	private final List<Stat> stats = Collections.synchronizedList(new ArrayList<>());
+	private final Map<StatType, List<Stat>> stats = new ConcurrentHashMap<>();
 
 	/**
      * Constructs a new StatManager. This shouldn't be called to keep this class a singleton.
@@ -54,12 +55,12 @@ public final class StatManager {
 			
 			if (database.setup()) {
 				Set<UUID> uuids = database.getAllPlayers();
-				
-				for (UUID uuid : uuids) {
-					for (StatType statType : StatType.values())
-						this.stats.add(new Stat(statType, Bukkit.getOfflinePlayer(uuid), database.getStat(uuid
-                                .toString(), statType.toString().toLowerCase(Locale.getDefault()))));
-				}
+
+				uuids.forEach(uuid -> {
+				    for (StatType statType : StatType.values())
+				        registerStat(Bukkit.getOfflinePlayer(uuid), statType, database.getStat(uuid.toString(), statType
+                            .toString().toLowerCase(Locale.getDefault())));
+                });
 				
 				return;
 			}
@@ -68,32 +69,32 @@ public final class StatManager {
 			Main.getInstance().getLogger().warning("Database usage failed; returning to flat-file storage");
 		}
 		
-		for (String uuid : stats.getKeys(false)) {
+		stats.getKeys(false).forEach(uuid -> {
 			OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
 			
-			for (String stat : stats.getConfigurationSection(uuid).getKeys(false)) {
+			stats.getConfigurationSection(uuid).getKeys(false).forEach(stat -> {
 				if (stat.equalsIgnoreCase("plays") && config.getBoolean("stats.enable.plays"))
-					this.stats.add(new Stat(StatType.PLAYS, player, stats.getInt(uuid + '.' + stat)));
+				    registerStat(player, StatType.PLAYS, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("first") && config.getBoolean("stats.enable.first"))
-					this.stats.add(new Stat(StatType.FIRST, player, stats.getInt(uuid + '.' + stat)));
+                    registerStat(player, StatType.FIRST, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("second") && config.getBoolean("stats.enable.second"))
-					this.stats.add(new Stat(StatType.SECOND, player, stats.getInt(uuid + '.' + stat)));
+                    registerStat(player, StatType.SECOND, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("third") && config.getBoolean("stats.enable.third"))
-					this.stats.add(new Stat(StatType.THIRD, player, stats.getInt(uuid + '.' + stat)));
+                    registerStat(player, StatType.THIRD, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("broken") && config.getBoolean("stats.enable.broken"))
-					this.stats.add(new Stat(StatType.BROKEN, player, stats.getInt(uuid + '.' + stat)));
+                    registerStat(player, StatType.BROKEN, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("placed") && config.getBoolean("stats.enable.placed"))
-					this.stats.add(new Stat(StatType.PLACED, player, stats.getInt(uuid + '.' + stat)));
+                    registerStat(player, StatType.PLACED, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("walked") && config.getBoolean("stats.enable.walked"))
-					this.stats.add(new Stat(StatType.WALKED, player, stats.getInt(uuid + '.' + stat)));
+                    registerStat(player, StatType.WALKED, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("points_given") &&
                         config.getBoolean("stats.enable.points-given"))
-				    this.stats.add(new Stat(StatType.POINTS_GIVEN, player, stats.getInt(uuid + '.' + stat)));
+                    registerStat(player, StatType.POINTS_GIVEN, stats.getInt(uuid + '.' + stat));
 				else if (stat.equalsIgnoreCase("points_received") &&
                         config.getBoolean("stats.enable.points_received"))
-				    this.stats.add(new Stat(StatType.POINTS_RECEIVED, player, stats.getInt(uuid + '.' + stat)));
-			}
-		}
+                    registerStat(player, StatType.POINTS_RECEIVED, stats.getInt(uuid + '.' + stat));
+			});
+		});
 	}
 
 	/**
@@ -105,12 +106,9 @@ public final class StatManager {
      */
 	@Contract("null -> false")
 	public boolean containsUUID(UUID uuid) {
-		for (Stat stat : stats) {
-			if (stat.getPlayer().getUniqueId().equals(uuid))
-				return true;
-		}
-		
-		return false;
+	    return stats.entrySet().stream().anyMatch(entry -> entry.getValue().stream().anyMatch(stat ->
+            stat.getPlayer().getUniqueId().equals(uuid)
+        ));
 	}
 
 	/**
@@ -125,7 +123,12 @@ public final class StatManager {
 	@Nullable
     @Contract("_, null -> null")
     public Stat getStat(OfflinePlayer player, StatType type) {
-		for (Stat stat : getStats(type)) {
+        Iterable<Stat> stats = getStats(type);
+
+        if (stats == null)
+            return null;
+
+        for (Stat stat : stats) {
 			if (player.equals(stat.getPlayer().getPlayer()))
 				return stat;
 		}
@@ -140,16 +143,9 @@ public final class StatManager {
      * @return an iterable of all stats with the given type
      * @since 3.1.0
      */
-	@NotNull
-	public Iterable<Stat> getStats(StatType type) {
-		Collection<Stat> stats = new ArrayList<>();
-		
-		for (Stat stat : this.stats) {
-			if (stat.getType() == type)
-				stats.add(stat);
-		}
-		
-		return stats;
+	@Nullable
+	public List<Stat> getStats(StatType type) {
+        return this.stats.get(type);
 	}
 
 	/**
@@ -161,16 +157,34 @@ public final class StatManager {
      * @since 2.2.0
      */
 	@Contract("_, null, _ -> fail")
-	public void registerStat(Player player, StatType type, int value) {
+	public void registerStat(OfflinePlayer player, @NotNull StatType type, int value) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		if (!config.getBoolean("stats.enable." + type.toString().toLowerCase(Locale.getDefault())))
 			return;
-		
-		if (getStat(player, type) != null)
-			stats.remove(getStat(player, type));
-		
-		stats.add(new Stat(type, player, value));
+
+        Stat stat = getStat(player, type);
+
+        if (stat != null)
+			stats.get(type).remove(stat);
+
+        if (!stats.containsKey(type))
+            stats.put(type, new ArrayList<>());
+
+        List<Stat> statsByType = stats.get(type);
+        int size = statsByType.size();
+
+        int index = 0;
+
+        for (; index <= size; index++) {
+            if (index == size)
+                break;
+
+            if (statsByType.get(index).getValue() < value)
+                break;
+        }
+
+        statsByType.add(index, new Stat(player, value));
 	}
 
     /**
@@ -182,14 +196,12 @@ public final class StatManager {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
 
-		synchronized (this.stats) {
-            for (Stat stat : this.stats) {
-                String type = stat.getType().toString().toLowerCase(Locale.getDefault());
+        this.stats.forEach((statType, statList) -> statList.forEach(stat -> {
+            String type = statType.toString().toLowerCase(Locale.getDefault());
 
-                if (config.getBoolean("stats.enable." + type))
-                    stats.set(stat.getPlayer().getUniqueId() + "." + type, stat.getValue());
-            }
-        }
+            if (config.getBoolean("stats.enable." + type))
+                stats.set(stat.getPlayer().getUniqueId() + "." + type, stat.getValue());
+        }));
 		
 		SettingsManager.getInstance().save();
 	}
@@ -202,14 +214,12 @@ public final class StatManager {
 	public synchronized void saveToDatabase() {
 	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
-	    synchronized (stats) {
-            for (Stat stat : stats) {
-                String type = stat.getType().toString().toLowerCase(Locale.getDefault());
+        this.stats.forEach((statType, statList) -> statList.forEach(stat -> {
+            String type = statType.toString().toLowerCase(Locale.getDefault());
 
-                if (config.getBoolean("stats.enable." + type))
-                    getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), type, stat.getValue());
-            }
-        }
+            if (config.getBoolean("stats.enable." + type))
+                getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), type, stat.getValue());
+        }));
 	}
 
 	/**

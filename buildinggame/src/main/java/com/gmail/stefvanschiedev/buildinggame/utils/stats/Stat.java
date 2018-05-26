@@ -11,11 +11,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Stat {
 
-    /**
-     * The type of statistic this is
-     */
-	private final StatType type;
-
 	/**
      * The player who has this statistic
      */
@@ -29,25 +24,12 @@ public class Stat {
 	/**
      * Constructs a new statistic for the given type, player and value
      *
-     * @param type the type of statistic this is
      * @param player the player who has this statistic
      * @param value the statistic value
      */
-	public Stat(StatType type, OfflinePlayer player, int value) {
-		this.type = type;
+	public Stat(OfflinePlayer player, int value) {
 		this.player = player;
 		this.value = value;
-	}
-
-	/**
-     * Returns the statistic type
-     *
-     * @return the stat type
-     */
-	@NotNull
-	@Contract(pure = true)
-	public StatType getType() {
-		return type;
 	}
 
 	/**

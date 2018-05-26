@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.google.common.primitives.Chars;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -302,31 +303,12 @@ public final class SignManager {
 
         if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault())
             .replace("_", "-"))) {
-            Map<OfflinePlayer, Integer> stats = new HashMap<>();
-
-            StatManager.getInstance().getStats(sign.getType()).forEach(stat ->
-                stats.put(stat.getPlayer(), stat.getValue()));
-
-            List<Integer> values = new ArrayList<>(stats.values());
-            Collections.sort(values);
-            Collections.reverse(values);
-
-            int value = -1;
-
-            if (values.size() >= sign.getNumber())
-                value = values.get(sign.getNumber() - 1);
-
-            OfflinePlayer player = null;
-
-            for (OfflinePlayer op : stats.keySet()) {
-                if (stats.get(op) == value)
-                    player = op;
-            }
+            Stat stat = StatManager.getInstance().getStats(sign.getType()).get(sign.getNumber() - 1);
 
             for (int i = 0; i < 4; i++)
                 s.setLine(i, replace(MessageManager.translate(messages.getString("signs.stat." + sign.getType()
                     .toString().toLowerCase(Locale.getDefault()).replace("_", "-") + ".line-" +
-                    (i + 1))), sign, player, value));
+                    (i + 1))), sign, stat.getPlayer(), stat.getValue()));
         } else {
             s.setLine(0, "");
             s.setLine(1, ChatColor.RED + "Stat type");
