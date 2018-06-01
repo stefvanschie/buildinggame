@@ -105,7 +105,7 @@ public final class StatManager {
      * @since 4.0.0
      */
 	@Contract("null -> false")
-	public boolean containsUUID(UUID uuid) {
+	public synchronized boolean containsUUID(UUID uuid) {
 	    return stats.entrySet().stream().anyMatch(entry -> entry.getValue().stream().anyMatch(stat ->
             stat.getPlayer().getUniqueId().equals(uuid)
         ));
@@ -122,7 +122,7 @@ public final class StatManager {
      */
 	@Nullable
     @Contract("_, null -> null")
-    public Stat getStat(OfflinePlayer player, StatType type) {
+    public synchronized Stat getStat(OfflinePlayer player, StatType type) {
         Iterable<Stat> stats = getStats(type);
 
         if (stats == null)
@@ -157,7 +157,7 @@ public final class StatManager {
      * @since 2.2.0
      */
 	@Contract("_, null, _ -> fail")
-	public void registerStat(OfflinePlayer player, @NotNull StatType type, int value) {
+	public synchronized void registerStat(OfflinePlayer player, @NotNull StatType type, int value) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
 		if (!config.getBoolean("stats.enable." + type.toString().toLowerCase(Locale.getDefault())))
@@ -169,7 +169,7 @@ public final class StatManager {
 			stats.get(type).remove(stat);
 
         if (!stats.containsKey(type))
-            stats.put(type, new ArrayList<>());
+            stats.put(type, Collections.synchronizedList(new ArrayList<>()));
 
         List<Stat> statsByType = stats.get(type);
         int size = statsByType.size();
