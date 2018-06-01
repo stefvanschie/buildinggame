@@ -7,7 +7,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 /**
  * Loads/Reloads all scoreboards
@@ -25,7 +24,7 @@ public class ScoreboardUpdater extends BukkitRunnable {
 	public void run() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+		ArenaManager.getInstance().getArenas().forEach(arena -> {
 			if ((arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) &&
                     config.getBoolean("scoreboards.lobby.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
@@ -45,7 +44,7 @@ public class ScoreboardUpdater extends BukkitRunnable {
                     config.getBoolean("scoreboards.vote.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
                         arena.getVoteScoreboard().show(gamePlayer.getPlayer())));
-		}
+		});
 		
 		if (config.getBoolean("scoreboards.main.enable"))
 			MainScoreboardManager.getInstance().update();

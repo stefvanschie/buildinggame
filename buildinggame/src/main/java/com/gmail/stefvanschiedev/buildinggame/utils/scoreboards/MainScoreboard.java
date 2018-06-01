@@ -2,10 +2,13 @@ package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
+import com.google.common.primitives.Chars;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,7 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -31,14 +33,9 @@ import org.jetbrains.annotations.NotNull;
 public class MainScoreboard {
 
     /**
-     * The global scoreboard manager
-     */
-	private final ScoreboardManager manager = Bukkit.getScoreboardManager();
-
-    /**
      * The scoreboard this class is a wrapper for
      */
-	private final Scoreboard scoreboard = manager.getNewScoreboard();
+	private final Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
     /**
      * The objective used for this scoreboard
@@ -59,6 +56,16 @@ public class MainScoreboard {
      * The player that this scoreboard is meant for
      */
     private final Player player;
+
+    /**
+     * A map of replacements for placeholders
+     */
+    private final Map<String, Supplier<String>> replacements = new HashMap<>();
+
+    /**
+     * The pattern that will be used when matching {@link #replacements}
+     */
+    private static final Pattern PATTERN = Pattern.compile("%([^%]+)%");
 
     /**
      * Constructs a new MainScoreboard
@@ -83,6 +90,62 @@ public class MainScoreboard {
 			teams.add(team);
 			this.strings.add(MessageManager.translate(strings.get(i), player));
 		}
+
+		replacements.put("stat_plays", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.PLAYS);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+		});
+		replacements.put("stat_first", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.FIRST);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+		replacements.put("stat_second", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.SECOND);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+        replacements.put("stat_third", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.THIRD);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+        replacements.put("stat_broken", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.BROKEN);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+        replacements.put("stat_placed", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.PLACED);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+        replacements.put("stat_walked", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.WALKED);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+        replacements.put("stat_points_received", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.POINTS_RECEIVED);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+        replacements.put("stat_points_given", () -> {
+            Stat stat = StatManager.getInstance().getStat(player, StatType.POINTS_GIVEN);
+
+            return stat == null ? "0" : String.valueOf(stat.getValue());
+        });
+        replacements.put("date_day_of_month", () -> String.valueOf(LocalDateTime.now().getDayOfMonth()));
+        replacements.put("date_day_of_week", () -> String.valueOf(LocalDateTime.now().getDayOfWeek()));
+        replacements.put("date_day_of_year", () -> String.valueOf(LocalDateTime.now().getDayOfYear()));
+        replacements.put("date_hour", () -> String.valueOf(LocalDateTime.now().getHour()));
+        replacements.put("date_minute", () -> String.valueOf(LocalDateTime.now().getMinute()));
+        replacements.put("date_month", () -> LocalDateTime.now().getMonth().getDisplayName(TextStyle.FULL, Locale
+            .getDefault()));
+        replacements.put("date_month_numeric", () -> String.valueOf(LocalDateTime.now().getMonthValue()));
+        replacements.put("date_second", () -> String.valueOf(LocalDateTime.now().getSecond()));
+        replacements.put("date_year", () -> String.valueOf(LocalDateTime.now().getYear()));
 	}
 
     /**
@@ -108,41 +171,7 @@ public class MainScoreboard {
 
 		for (int i = 0; i < strings.size(); i++) {
 			Team team = teams.get(i);
-			
-			StatManager manager = StatManager.getInstance();
-			LocalDateTime localDateTime = LocalDateTime.now();
-			
-			String text = strings.get(i)
-					.replace("%stat_plays%", manager.getStat(player, StatType.PLAYS) == null ? "0" :manager
-                            .getStat(player, StatType.PLAYS).getValue() + "")
-					.replace("%stat_first%", manager.getStat(player, StatType.FIRST) == null ? "0" : manager
-                            .getStat(player, StatType.FIRST).getValue() + "")
-					.replace("%stat_second%", manager.getStat(player, StatType.SECOND) == null ? "0" : manager
-                            .getStat(player, StatType.SECOND).getValue() + "")
-					.replace("%stat_third%", manager.getStat(player, StatType.THIRD) == null ? "0" : manager
-                            .getStat(player, StatType.THIRD).getValue() + "")
-					.replace("%stat_broken%", manager.getStat(player, StatType.BROKEN) == null ? "0" : manager
-                            .getStat(player, StatType.BROKEN).getValue() + "")
-					.replace("%stat_placed%", manager.getStat(player, StatType.PLACED) == null ? "0" : manager
-                            .getStat(player, StatType.PLACED).getValue() + "")
-					.replace("%stat_walked%", manager.getStat(player, StatType.WALKED) == null ? "0" : manager
-                            .getStat(player, StatType.WALKED).getValue() + "")
-                    .replace("%stat_points_received%",
-                            manager.getStat(player, StatType.POINTS_RECEIVED) == null ? "0" :
-                                    manager.getStat(player, StatType.POINTS_RECEIVED).getValue() + "")
-                    .replace("%stat_points_given%", manager.getStat(player, StatType.POINTS_GIVEN) == null ?
-                            "0" : manager.getStat(player, StatType.POINTS_GIVEN).getValue() + "")
-                    .replace("%date_day_of_month%", localDateTime.getDayOfMonth() + "")
-                    .replace("%date_day_of_week%", localDateTime.getDayOfWeek() + "")
-                    .replace("%date_day_of_year%", localDateTime.getDayOfYear() + "")
-                    .replace("%date_hour%", localDateTime.getHour() + "")
-                    .replace("%date_minute%", localDateTime.getMinute() + "")
-                    .replace("%date_month%", localDateTime.getMonth().getDisplayName(TextStyle.FULL,
-                            Locale.getDefault()))
-                    .replace("%date_month_numeric%", String.valueOf(localDateTime.getMonthValue()))
-                    .replace("%date_second%", localDateTime.getSecond() + "")
-                    .replace("%date_year%", localDateTime.getYear() + "");
-			
+			String text = replace(strings.get(i));
 			int length = text.length();
 			
 			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
@@ -156,4 +185,45 @@ public class MainScoreboard {
 
 		player.setScoreboard(scoreboard);
 	}
+
+    /**
+     * Replaces all values in the input with the corresponding values from the {@link #replacements}
+     *
+     * @param input the input string
+     * @return the new string
+     * @since 5.3.0
+     */
+    @NotNull
+    @Contract(value = "null -> fail", pure = true)
+    private String replace(@NotNull String input) {
+        List<Character> list = new ArrayList<>(Chars.asList(input.toCharArray()));
+        Matcher matcher = PATTERN.matcher(input);
+
+        while (matcher.find()) {
+            for (int i = matcher.start(); i < matcher.end(); i++)
+                list.remove(matcher.start());
+
+            Supplier<String> supplier = replacements.get(matcher.group(1));
+
+            if (supplier == null)
+                continue;
+
+            char[] replacement = supplier.get().toCharArray();
+
+            int length = replacement.length;
+            for (int i = 0; i < length; i++)
+                list.add(matcher.start() + i, replacement[i]);
+
+            StringBuilder builder = new StringBuilder();
+
+            for (char c : list)
+                builder.append(c);
+
+            input = builder.toString();
+
+            matcher.reset(input);
+        }
+
+        return input;
+    }
 }
