@@ -33,14 +33,9 @@ import java.util.regex.Pattern;
 public abstract class ArenaScoreboard {
 
     /**
-     * The global scoreboard manager
-     */
-    private final ScoreboardManager manager = Bukkit.getScoreboardManager();
-
-    /**
      * The scoreboard this class is a wrapper for
      */
-    final Scoreboard scoreboard = manager.getNewScoreboard();
+    final Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
     /**
      * The objective used for this scoreboard
@@ -223,12 +218,13 @@ public abstract class ArenaScoreboard {
         int lineCount = 0;
 
         for (int i = 0; i < strings.size(); i++) {
-            Conditional conditional = strings.get(i).getValue();
+            Map.Entry<String, Conditional> line = strings.get(i);
+            Conditional conditional = line.getValue();
 
             if (conditional != null && !conditional.evaluate(arena))
                 continue;
 
-            String text = replace(strings.get(i).getKey(), player);
+            String text = replace(line.getKey(), player);
 
             int length = text.length();
             Team team = teams.get(lineCount);
