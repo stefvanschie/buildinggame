@@ -6,7 +6,7 @@
 
     <groupId>com.gmail.stefvanschiedev</groupId>
     <artifactId>buildinggame-addon</artifactId>
-    <version>5.8.2</version>
+    <version>5.8.3</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
