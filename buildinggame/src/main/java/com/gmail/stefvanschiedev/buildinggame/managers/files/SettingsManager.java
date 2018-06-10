@@ -4,21 +4,18 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Logger;
 
+import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -108,14 +105,9 @@ public final class SettingsManager {
 	private File schematicsFolder;
 
     /**
-     * The cyclic barrier used to ensure the task has been finished before telling the main thread to continue
+     * The runnable used for managing the watch service
      */
-	private final CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
-
-    /**
-     * The runnable used for managing the watchservice
-     */
-	private BukkitRunnable runnable;
+	private FileCheckerTimer runnable;
 
     /**
      * A map containing the previous location of a key/value pair in the config.yml and the new location
@@ -211,63 +203,23 @@ public final class SettingsManager {
 		if (runnable != null)
 		    return;
 
-        try {
-            WatchService watchService = FileSystems.getDefault().newWatchService();
+        runnable = new FileCheckerTimer();
+        runnable.runTaskTimerAsynchronously(p, 20L, 20L);
+    }
 
-            dataFolder.toPath().register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+    /**
+     * Refreshes the config.yml file
+     *
+     * @since 5.8.4
+     */
+    public void refreshConfig() {
+        config = YamlConfiguration.loadConfiguration(configFile);
+        generateSettings(false);
+    }
 
-            runnable = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    try {
-                        while (true) {
-                            WatchKey key = watchService.poll();
-
-                            if (key == null) {
-                                if (cyclicBarrier.getNumberWaiting() == 1) {
-                                    //this will cause the cyclic barrier to trip
-                                    cyclicBarrier.await();
-
-                                    cancel();
-
-                                    //completely step out of the method, just to be sure
-                                    return;
-                                }
-
-                                continue;
-                            }
-
-                            for (WatchEvent<?> event : key.pollEvents()) {
-                                Path context = (Path) event.context();
-                                boolean debug = config.getBoolean("debug");
-
-                                if (context.endsWith("config.yml")) {
-                                    if (debug)
-                                        p.getLogger().info("Detected changes in the config.yml");
-
-                                    config = YamlConfiguration.loadConfiguration(configFile);
-                                    generateSettings(false);
-                                } else if (context.endsWith("messages.yml")) {
-                                    if (debug)
-                                        p.getLogger().info("Detected changes in the messages.yml");
-
-                                    messages = YamlConfiguration.loadConfiguration(messagesFile);
-                                    generateMessages(false);
-                                }
-                            }
-
-                            key.reset();
-                        }
-                    } catch (InterruptedException | BrokenBarrierException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            runnable.runTaskAsynchronously(p);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void refreshMessages() {
+        messages = YamlConfiguration.loadConfiguration(messagesFile);
+        generateMessages(false);
     }
 
 	/**
@@ -341,6 +293,18 @@ public final class SettingsManager {
     @Contract(pure = true)
     public File getSchematicsFolder() {
 	    return schematicsFolder;
+    }
+
+    /**
+     * Returns the runnable which is currently listening for file changes
+     *
+     * @return the runnable
+     * @since 5.8.4
+     */
+    @Nullable
+    @Contract(pure = true)
+    public FileCheckerTimer getRunnable() {
+	    return runnable;
     }
 
 	/**
@@ -454,20 +418,6 @@ public final class SettingsManager {
         if (save)
         	save();
 	}
-
-    /**
-     * Return the cyclic barrier that ensures the watch service thread is stopped before the main thread continues
-     * execution
-     *
-     * @return the cyclic barrier
-     * @since 5.7.0
-     */
-    @Nullable
-    @Contract(pure = true)
-	public CyclicBarrier getCyclicBarrier() {
-	    return cyclicBarrier;
-    }
-
     static {
         RELOCATED_SETTINGS_LOCATIONS.put("timer", "timers.build");
         RELOCATED_SETTINGS_LOCATIONS.put("waittimer", "timers.lobby");

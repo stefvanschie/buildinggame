@@ -35,7 +35,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -345,18 +344,7 @@ public class CommandManager extends BaseCommand {
     @Description("Reload the plugin")
     @CommandPermission("bg.reload")
     public void onReload(CommandSender sender) {
-        ArenaManager.getInstance().getArenas().stream().filter(arena -> arena.getPlayers() > 0).forEach(Arena::stop);
-
-        if (StatManager.getInstance().getMySQLDatabase() == null)
-            StatManager.getInstance().saveToFile();
-        else
-            StatManager.getInstance().saveToDatabase();
-
-        try {
-            SettingsManager.getInstance().getCyclicBarrier().await();
-        } catch (InterruptedException | BrokenBarrierException e) {
-            e.printStackTrace();
-        }
+        Main.getInstance().onDisable();
 
         Main.getInstance().loadPlugin();
 

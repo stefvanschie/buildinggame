@@ -64,7 +64,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -142,11 +141,8 @@ public class Main extends JavaPlugin {
 		else
 			StatManager.getInstance().saveToDatabase();
 
-        try {
-            SettingsManager.getInstance().getCyclicBarrier().await();
-        } catch (InterruptedException | BrokenBarrierException e) {
-            e.printStackTrace();
-        }
+        if (!SettingsManager.getInstance().getRunnable().isCancelled())
+            SettingsManager.getInstance().getRunnable().cancel();
 
         getLogger().info("BuildingGame has been disabled");
 
