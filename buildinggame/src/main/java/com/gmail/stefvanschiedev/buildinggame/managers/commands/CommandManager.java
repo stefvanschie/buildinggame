@@ -12,6 +12,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.plots.FloorManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.LocationManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
+import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder;
@@ -344,7 +345,19 @@ public class CommandManager extends BaseCommand {
     @Description("Reload the plugin")
     @CommandPermission("bg.reload")
     public void onReload(CommandSender sender) {
-        Main.getInstance().onDisable();
+        ArenaManager.getInstance().getArenas().stream().filter(arena -> arena.getPlayers() > 0).forEach(Arena::stop);
+
+        StatManager instance = StatManager.getInstance();
+
+        if (instance.getMySQLDatabase() == null)
+            instance.saveToFile();
+        else
+            instance.saveToDatabase();
+
+        FileCheckerTimer runnable = SettingsManager.getInstance().getRunnable();
+
+        if (!runnable.isCancelled())
+            runnable.cancel();
 
         Main.getInstance().loadPlugin();
 
