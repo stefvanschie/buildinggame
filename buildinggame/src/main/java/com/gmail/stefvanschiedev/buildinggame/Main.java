@@ -13,6 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
+import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
@@ -54,11 +55,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.plots.LocationManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
-import com.gmail.stefvanschiedev.buildinggame.timers.EntityTimer;
-import com.gmail.stefvanschiedev.buildinggame.timers.LoadCooldown;
-import com.gmail.stefvanschiedev.buildinggame.timers.ParticleRender;
-import com.gmail.stefvanschiedev.buildinggame.timers.ScoreboardUpdater;
-import com.gmail.stefvanschiedev.buildinggame.timers.StatSaveTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -349,6 +345,7 @@ public class Main extends JavaPlugin {
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig()
                 .getLong("stats.save-delay"));
 		new EntityTimer().runTaskTimer(this, 0L, 20L);
+		new StatSignUpdater().runTaskTimerAsynchronously(this, 0L, 1L);
 		
 		long end = System.currentTimeMillis();
 		

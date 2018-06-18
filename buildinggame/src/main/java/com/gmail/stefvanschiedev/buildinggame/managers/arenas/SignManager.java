@@ -1,14 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
-import com.google.common.primitives.Chars;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -18,7 +13,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
@@ -77,11 +71,6 @@ public final class SignManager {
      * A map of all spectate signs
      */
 	private final Map<Sign, OfflinePlayer> spectateSigns = new HashMap<>();
-
-    /**
-     * A map of all replacements and their values
-     */
-    private static final Map<String, BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String>> REPLACEMENTS;
 
 	/**
      * Loads/Reloads all signs
@@ -181,7 +170,6 @@ public final class SignManager {
      */
 	private void updateSigns() {
 	    updateSpectateSigns();
-		updateStatSigns();
 		updateLeaveSigns();
 		updateRandomJoinSigns();
 		updateJoinSigns();
@@ -289,58 +277,6 @@ public final class SignManager {
 	}
 
     /**
-     * Updates the specified statistic sign
-     *
-     * @param sign the sign to update
-     * @since 5.8.1
-     */
-    @Contract("null -> fail")
-	private void updateStatSign(@NotNull StatSign sign) {
-        YamlConfiguration config = SettingsManager.getInstance().getConfig();
-        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-        Sign s = sign.getSign();
-
-        if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault())
-            .replace("_", "-"))) {
-            Stat stat = StatManager.getInstance().getStats(sign.getType()).get(sign.getNumber() - 1);
-
-            for (int i = 0; i < 4; i++)
-                s.setLine(i, replace(MessageManager.translate(messages.getString("signs.stat." + sign.getType()
-                    .toString().toLowerCase(Locale.getDefault()).replace("_", "-") + ".line-" +
-                    (i + 1))), sign, stat.getPlayer(), stat.getValue()));
-        } else {
-            s.setLine(0, "");
-            s.setLine(1, ChatColor.RED + "Stat type");
-            s.setLine(2, ChatColor.RED + "is disabled");
-            s.setLine(3, "");
-        }
-
-        s.update();
-    }
-
-    /**
-     * Update all statistic signs with the specified types
-     *
-     * @param statTypes the types of stat signs to update
-     * @since 5.8.1
-     */
-    public void updateStatSigns(StatType... statTypes) {
-        List<StatType> statTypesList = Arrays.asList(statTypes);
-
-        statSigns.stream().filter(sign -> statTypesList.contains(sign.getType())).forEach(this::updateStatSign);
-    }
-
-	/**
-     * Updates all statistic signs
-     *
-     * @since 3.1.0
-     */
-    private void updateStatSigns() {
-		statSigns.forEach(this::updateStatSign);
-	}
-
-    /**
      * Updates all spectator signs
      *
      * @since 5.4.0
@@ -356,51 +292,6 @@ public final class SignManager {
 
             sign.update();
         }
-    }
-
-    /**
-     * Replaces all values in the input with the corresponding values from the {@link SignManager#REPLACEMENTS}
-     *
-     * @param input the input string
-     * @param sign the sign to modify
-     * @param player the offline player to use
-     * @param value the value that belongs to the player
-     * @return the new string
-     * @since 5.3.0
-     */
-    @NotNull
-    @Contract(value = "null, _, _, _ -> fail", pure = true)
-    private String replace(String input, StatSign sign, OfflinePlayer player, int value) {
-        List<Character> list = new ArrayList<>(Chars.asList(input.toCharArray()));
-        Matcher matcher = Pattern.compile("%([^%]+)%").matcher(input);
-
-        while (matcher.find()) {
-            for (int i = matcher.start(); i < matcher.end(); i++)
-                list.remove(matcher.start());
-
-            BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String> function = REPLACEMENTS
-                    .get(matcher.group(1));
-
-            if (function == null)
-                continue;
-
-            char[] replacement = function.apply(sign, new AbstractMap.SimpleEntry<>(player, value)).toCharArray();
-
-            int length = replacement.length;
-            for (int i = 0; i < length; i++)
-                list.add(matcher.start() + i, replacement[i]);
-
-            StringBuilder builder = new StringBuilder();
-
-            for (char c : list)
-                builder.append(c);
-
-            input = builder.toString();
-
-            matcher.reset(input);
-        }
-
-        return input;
     }
 
 	/**
@@ -440,6 +331,18 @@ public final class SignManager {
     }
 
     /**
+     * Returns a collection of all statistic signs
+     *
+     * @return all stat signs
+     * @since 5.8.5
+     */
+    @NotNull
+    @Contract(pure = true)
+    public Collection<StatSign> getStatSigns() {
+        return statSigns;
+    }
+
+    /**
      * Updates the blocks behind the signs according to the values given in the configuration.
      * @param arena The arena wherefrom the signs need to be updated.
      */
@@ -464,21 +367,5 @@ public final class SignManager {
                             arena.getState().toString().toLowerCase(Locale.getDefault()));
             }
         }
-    }
-
-    static {
-        REPLACEMENTS = new HashMap<>();
-        REPLACEMENTS.put("number", (sign, entry) -> String.valueOf(sign.getNumber()));
-        REPLACEMENTS.put("player", (sign, entry) -> {
-            OfflinePlayer player = entry.getKey();
-
-            if (player == null)
-                return "missingno";
-
-            String name = player.getName();
-
-            return player == null || name == null ? "missingno" : name;
-        });
-        REPLACEMENTS.put("amount", (sign, entry) -> String.valueOf(entry.getValue()));
     }
 }
