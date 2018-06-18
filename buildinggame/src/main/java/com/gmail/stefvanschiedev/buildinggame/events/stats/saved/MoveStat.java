@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 
@@ -40,6 +39,5 @@ public class MoveStat implements Listener {
         Stat stat = instance.getStat(player, StatType.WALKED);
 
         instance.registerStat(player, StatType.WALKED, stat == null ? 1 : stat.getValue() + 1);
-		SignManager.getInstance().updateStatSigns(StatType.WALKED);
 	}
 }

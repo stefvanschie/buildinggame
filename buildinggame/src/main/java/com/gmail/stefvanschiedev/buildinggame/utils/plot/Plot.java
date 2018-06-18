@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.*;
 
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
@@ -326,8 +325,6 @@ public class Plot {
 
         statManager.registerStat(sender, StatType.POINTS_GIVEN,
                 (stat == null ? 0 : stat.getValue()) + vote.getPoints());
-
-        SignManager.getInstance().updateStatSigns(StatType.POINTS_RECEIVED, StatType.POINTS_GIVEN);
 	}
 
 	/**
