@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.api.events;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.event.Event;
@@ -69,15 +70,15 @@ public class PlayerWinEvent extends Event {
 	}
 
 	/**
-     * Gets an iterable of all winning players, represented as gameplayers.
+     * Gets a collection of all winning players, represented as gameplayers.
      *
      * @return an iterable of gameplayers which won
-     * @see Iterable
+     * @see Collection
      * @since 2.2.0
      */
 	@NotNull
     @Contract(pure = true)
-	public Iterable<GamePlayer> getPlayers() {
+	public Collection<GamePlayer> getPlayers() {
 		return players;
 	}
 

@@ -1,13 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.saved;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import com.gmail.stefvanschiedev.buildinggame.api.Win;
 import com.gmail.stefvanschiedev.buildinggame.api.events.PlayerWinEvent;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
@@ -33,13 +31,10 @@ public class ThirdStat implements Listener {
 
         StatManager instance = StatManager.getInstance();
 
-        for (GamePlayer gamePlayer : e.getPlayers()) {
-            Player player = gamePlayer.getPlayer();
+        e.getPlayers().stream().map(GamePlayer::getPlayer).forEach(player -> {
             Stat stat = instance.getStat(player, StatType.THIRD);
 
             instance.registerStat(player, StatType.THIRD, stat == null ? 1 : stat.getValue() + 1);
-        }
-
-		SignManager.getInstance().updateStatSigns(StatType.THIRD);
+        });
 	}
 }
