@@ -14,6 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -34,8 +35,10 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
      *
      * @since 5.5.1
      */
+    @Nullable
+    @Contract(pure = true, value = "_, null -> fail")
     @Override
-    public String onPlaceholderRequest(Player player, String identifier) {
+    public String onRequest(OfflinePlayer player, String identifier) {
         if (identifier.equalsIgnoreCase("players"))
             return players();
 
@@ -77,16 +80,17 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
         }
 
         if (identifier.equalsIgnoreCase("has_booster"))
-            return hasBooster(player);
+            return player instanceof Player ? hasBooster((Player) player) :
+                messages.getString("placeholder-api.has-booster.result.false");
 
         if (identifier.equalsIgnoreCase("booster_multiplier"))
-            return boosterMultiplier(player);
+            return player instanceof Player ? boosterMultiplier((Player) player) : "0.0";
 
         if (identifier.equalsIgnoreCase("booster_time_left"))
-            return boosterTimeLeft(player);
+            return player instanceof Player ? boosterTimeLeft((Player) player) : "0";
 
         if (identifier.equalsIgnoreCase("booster_activator"))
-            return boosterActivator(player);
+            return player instanceof Player ? boosterActivator((Player) player) : "";
 
         return null;
     }
@@ -220,14 +224,6 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
     @Override
     public String getAuthor() {
         return String.join(", ", Main.getInstance().getDescription().getAuthors());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getPlugin() {
-        return Main.getInstance().getDescription().getName();
     }
 
     /**

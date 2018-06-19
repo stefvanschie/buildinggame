@@ -6,6 +6,7 @@ import java.util.List;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -152,7 +153,7 @@ public final class MessageManager {
     @Contract(value = "null, _ -> fail", pure = true)
 	public static String translate(String s, Player player) {
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ?
-                PlaceholderAPI.setPlaceholders(player, translate(s)) : translate(s);
+                PlaceholderAPI.setPlaceholders((OfflinePlayer) player, translate(s)) : translate(s);
     }
 
 	/**
@@ -186,6 +187,6 @@ public final class MessageManager {
     @Contract(pure = true)
     public static List<String> translate(Iterable<String> s, Player player) {
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ?
-                PlaceholderAPI.setPlaceholders(player, translate(s)) : translate(s);
+                PlaceholderAPI.setPlaceholders((OfflinePlayer) player, translate(s)) : translate(s);
     }
 }
