@@ -190,8 +190,29 @@ public class Main extends JavaPlugin {
         }
 
         if (pm.isPluginEnabled("PlaceholderAPI")) {
-            if (!new PlaceholderAPIPlaceholders().register())
-                getLogger().warning("Unable to register placeholders for PlaceholderAPI");
+            try {
+                String version = pm.getPlugin("PlaceholderAPI").getDescription().getVersion();
+                int number = Integer.parseInt(version.replace(".", ""));
+
+                //Make sure every version has at least three parts (e.g. 2.9.0 instead of 2.9).
+                //This ensures the versions don't get mixed up (e.g. 2.7.5 being bigger than 2.9).
+                for (int i = version.split("\\.").length; i < 3; i++)
+                    number *= 10;
+
+                //290 is the first version with offline player support
+                if (number >= 290) {
+                    if (!new PlaceholderAPIPlaceholders().register())
+                        getLogger().warning("Unable to register placeholders for PlaceholderAPI");
+                } else
+                    getLogger().warning(
+                        "PlaceholderAPI is outdated, update to a later version to keep BuildingGame compatible with PlaceholderAPI."
+                    );
+            } catch (NumberFormatException e) {
+                getLogger().warning(
+                    "Unable to get PlaceholderAPI version, contact the plugin author about this."
+                );
+                e.printStackTrace();
+            }
         }
 		
 		getLogger().info("Loading commands");
