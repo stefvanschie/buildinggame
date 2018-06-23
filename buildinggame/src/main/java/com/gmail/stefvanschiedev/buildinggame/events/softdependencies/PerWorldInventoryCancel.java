@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.softdependencies;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import me.gnat008.perworldinventory.events.InventoryLoadEvent;
+import me.ebonjaeger.perworldinventory.event.InventoryLoadEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -19,7 +19,6 @@ public class PerWorldInventoryCancel implements Listener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onInventoryLoad(InventoryLoadEvent e) {
-        if (ArenaManager.getInstance().getArena(e.getPlayer()) != null)
-            e.setCancelled(true);
+        e.setCancelled(ArenaManager.getInstance().getArena(e.getPlayer()) != null);
     }
 }
