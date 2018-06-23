@@ -289,8 +289,8 @@ public class Main extends JavaPlugin {
                     for (int i = version.split("\\.").length; i < 3; i++)
                         number *= 10;
 
-                    //1110 is the first version with InventoryLoadEvent control
-                    if (number >= 1110)
+                    //200 is the first version with the new package name
+                    if (number >= 200)
                         pm.registerEvents(new PerWorldInventoryCancel(), this);
                     else
                         getLogger().warning(
