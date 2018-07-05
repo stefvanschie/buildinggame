@@ -87,12 +87,15 @@ public class ItemBuilder implements Listener {
      * @since 5.6.1
      */
     public ItemStack build() {
-        NBTWrappers.NBTTagCompound nbtTagCompound = new NBTWrappers.NBTTagCompound();
+        NBTWrappers.NBTTagCompound tag = ItemNBTUtil.getTag(item);
 
-        nbtTagCompound.setBoolean("movable", movable);
-        nbtTagCompound.setString("player", player.getUniqueId().toString());
+        if (tag == null)
+            tag = new NBTWrappers.NBTTagCompound();
 
-        this.item = ItemNBTUtil.setNBTTag(nbtTagCompound, item);
+        tag.setBoolean("movable", movable);
+        tag.setString("player", player.getUniqueId().toString());
+
+        this.item = ItemNBTUtil.setNBTTag(tag, item);
 
         if (!REGISTERED_ITEMS.containsKey(player))
             REGISTERED_ITEMS.put(player, new HashSet<>());
