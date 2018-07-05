@@ -104,27 +104,35 @@ tab-list:
 
 voting:
   default-vote-points: 5
-  second-slot:
-    id: 'coal_block'
-    points: 2
-  third-slot:
-    id: 'iron_block'
-    points: 3
-  fourth-slot:
-    id: 'lapis_block'
-    points: 4
-  fifth-slot:
-    id: 'redstone_block'
-    points: 5
-  sixth-slot:
-    id: 'gold_block'
-    points: 6
-  seventh-slot:
-    id: 'diamond_block'
-    points: 7
-  eighth-slot:
-    id: 'emerald_block'
-    points: 8
+  items:
+    second-slot:
+      id: 'coal_block'
+      points: 2
+      slot: 2
+    third-slot:
+      id: 'iron_block'
+      points: 3
+      slot: 3
+    fourth-slot:
+      id: 'lapis_block'
+      points: 4
+      slot: 4
+    fifth-slot:
+      id: 'redstone_block'
+      points: 5
+      slot: 5
+    sixth-slot:
+      id: 'gold_block'
+      points: 6
+      slot: 6
+    seventh-slot:
+      id: 'diamond_block'
+      points: 7
+      slot: 7
+    eighth-slot:
+      id: 'emerald_block'
+      points: 8
+      slot: 8
   point-actions: {}
 
 command-whitelist:

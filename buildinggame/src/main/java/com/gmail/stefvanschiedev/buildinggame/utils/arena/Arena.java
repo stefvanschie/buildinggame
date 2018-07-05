@@ -1206,7 +1206,40 @@ public class Arena {
 				ItemBuilder.check(player);
 				
 				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER)
-					new VoteBlocks().give(player);
+				    config.getConfigurationSection("voting.items").getKeys(false).forEach(identifier -> {
+				        boolean save = false;
+
+				        if (!messages.contains("voting.items." + identifier + ".name")) {
+                            messages.set("voting.items." + identifier + ".name", "Type: Null");
+                            save = true;
+                        }
+
+				        if (!messages.contains("voting.items." + identifier + ".lore")) {
+                            messages.set("voting.items." + identifier + ".lore", new ArrayList<String>(0));
+                            save = true;
+                        }
+
+                        if (save)
+                            SettingsManager.getInstance().save();
+
+				        player.getInventory().setItem(
+				            config.getInt("voting.items." + identifier + ".slot") - 1,
+                            IDDecompiler.getInstance()
+                                .decompile(player, config.getString("voting.items." + identifier + ".id"))
+                                .setDisplayName(MessageManager.translate(
+                                    messages.getString("voting.items." + identifier + ".name")
+                                ))
+                                .setLore(MessageManager.translate(
+                                    messages.getStringList("voting.items." + identifier + ".lore")
+                                ))
+                                .movable(false)
+                                .setClickEvent(event -> {
+                                    plot.addVote(new Vote(config.getInt("voting.items." + identifier + ".points"),
+                                        player));
+                                    event.setCancelled(true);
+                                }).build()
+                        );
+                    });
 				
 				//update scoreboard and update time and weather
 				if (config.getBoolean("scoreboards.vote.enable"))
