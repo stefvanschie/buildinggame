@@ -120,13 +120,36 @@ voting:
   title: "&a%playerplot%'s build"
   subtitle: ""
   actionbar: ""
-  second-slot-block: "&4Very Bad"
-  third-slot-block: "&cBad"
-  fourth-slot-block: "&aMwoah"
-  fifth-slot-block: "&2Good"
-  sixth-slot-block: "&eVery Good"
-  seventh-slot-block: "&dAwesome"
-  eighth-slot-block: "&5Excellent"
+  items:
+    second-slot:
+      name: "&4Very Bad"
+      lore:
+      -
+    third-slot:
+      name: "&cBad"
+      lore:
+      -
+    fourth-slot:
+      name: "&aMeh"
+      lore:
+      -
+    fifth-slot:
+      name: "&2Good"
+      lore:
+      -
+    sixth-slot:
+      name: "&eVery Good"
+      lore:
+      -
+    seventh-slot:
+      name: "&dAwesome"
+      lore:
+      -
+    eighth-slot:
+      name: "&5Excellent"
+      lore:
+      -
+
 game-ends:
   message:
   - "&6The game ended!"
