@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame;
 import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.InvalidCommandArgument;
+import com.github.stefvanschie.inventoryframework.Gui;
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.*;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
@@ -16,10 +17,13 @@ import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.Placehol
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
+import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import com.sk89q.worldedit.WorldEdit;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
+import org.bukkit.block.Biome;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -152,6 +156,11 @@ public class Main extends JavaPlugin {
      */
 	public void loadPlugin() {
 		long start = System.currentTimeMillis();
+
+		//this has to be done quite early
+        Gui.registerProperty("particle-type", ParticleType::valueOf);
+        Gui.registerProperty("biome", Biome::valueOf);
+        Gui.registerProperty("dye-color", DyeColor::valueOf);
 		
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, false);
@@ -214,7 +223,7 @@ public class Main extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-		
+
 		getLogger().info("Loading commands");
 		if (!loadedCommands) {
             BukkitCommandManager manager = new BukkitCommandManager(this);

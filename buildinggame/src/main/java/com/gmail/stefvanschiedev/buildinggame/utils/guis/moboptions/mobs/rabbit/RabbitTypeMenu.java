@@ -1,9 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Rabbit;
@@ -19,7 +20,7 @@ class RabbitTypeMenu extends Gui {
      * Constructs a new rabbit type menu
      */
     RabbitTypeMenu(Rabbit rabbit) {
-        super(1, ChatColor.GREEN + "Set rabbit type");
+        super(Main.getInstance(), 1, ChatColor.GREEN + "Set rabbit type");
 
         OutlinePane pane = new OutlinePane(new GuiLocation(1, 0), 8, 1);
 

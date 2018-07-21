@@ -356,7 +356,7 @@ public class VoteTimer extends Timer {
 					if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable"))
 						arena.getVoteScoreboard().show(player);
 					
-					player.setPlayerTime(this.plot.getTime().decode(), false);
+					player.setPlayerTime(this.plot.getTime(), false);
 					player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 				}
 			}

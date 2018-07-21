@@ -1,9 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.ocelot;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -23,9 +25,9 @@ class OcelotTypeMenu extends Gui {
      * {@inheritDoc}
      */
     OcelotTypeMenu(Ocelot ocelot) {
-        super(1, ChatColor.GREEN + "Select the ocelot type");
+        super(Main.getInstance(), 1, ChatColor.GREEN + "Select the ocelot type");
 
-        OutlinePane pane = new OutlinePane(new GuiLocation(2, 0), 7, 1);
+        StaticPane pane = new StaticPane(new GuiLocation(2, 0), 5, 1);
 
         //wild ocelot
         ItemStack wildOcelot = new ItemStack(Material.RAW_FISH);
@@ -37,7 +39,7 @@ class OcelotTypeMenu extends Gui {
             ocelot.setCatType(Ocelot.Type.WILD_OCELOT);
 
             event.setCancelled(true);
-        }));
+        }), new GuiLocation(0, 0));
 
         //black cat
         ItemStack blackCat = new Wool(DyeColor.BLACK).toItemStack(1);
@@ -49,9 +51,7 @@ class OcelotTypeMenu extends Gui {
             ocelot.setCatType(Ocelot.Type.BLACK_CAT);
 
             event.setCancelled(true);
-        }));
-
-        pane.addItem(new GuiItem(new ItemStack(Material.AIR)));
+        }), new GuiLocation(1, 0));
 
         //red cat
         ItemStack redCat = new Wool(DyeColor.RED).toItemStack(1);
@@ -63,7 +63,7 @@ class OcelotTypeMenu extends Gui {
             ocelot.setCatType(Ocelot.Type.RED_CAT);
 
             event.setCancelled(true);
-        }));
+        }), new GuiLocation(3, 0));
 
         //siamese cat
         ItemStack siameseCat = new Wool(DyeColor.SILVER).toItemStack(1);
@@ -75,7 +75,7 @@ class OcelotTypeMenu extends Gui {
             ocelot.setCatType(Ocelot.Type.SIAMESE_CAT);
 
             event.setCancelled(true);
-        }));
+        }), new GuiLocation(4, 0));
 
         addPane(pane);
     }

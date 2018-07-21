@@ -104,7 +104,7 @@ public class Plot {
 	/**
      * The time its on the plot right now
      */
-	private Time time = Time.AM6;
+	private long time;
 
 	/**
      * The build menu assigned to this plot
@@ -561,9 +561,8 @@ public class Plot {
      * @return the time
      * @since 2.1.0
      */
-	@NotNull
 	@Contract(pure = true)
-	public Time getTime() {
+	public long getTime() {
 		return time;
 	}
 
@@ -756,7 +755,7 @@ public class Plot {
                 gamePlayers.forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
 		
 		setRaining(false);
-		setTime(Time.AM6);
+		setTime(0);
 		
 		getParticles().clear();
 	}
@@ -841,11 +840,11 @@ public class Plot {
      * @param time the new time
      * @since 2.1.0
      */
-	public void setTime(Time time) {
+	public void setTime(long time) {
 		this.time = time;
 
 		for (GamePlayer gamePlayer : getGamePlayers())
-			gamePlayer.getPlayer().setPlayerTime(time.decode(), false);
+			gamePlayer.getPlayer().setPlayerTime(time, false);
 	}
 
     /**
