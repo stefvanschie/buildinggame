@@ -1,9 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -23,7 +24,7 @@ class HorseStyleSelectionMenu extends Gui {
      * {@inheritDoc}
      */
     HorseStyleSelectionMenu(Horse horse) {
-        super(1, ChatColor.GREEN + "Change the horse style");
+        super(Main.getInstance(), 1, ChatColor.GREEN + "Change the horse style");
 
         OutlinePane pane = new OutlinePane(new GuiLocation(2, 0), 7, 1);
 

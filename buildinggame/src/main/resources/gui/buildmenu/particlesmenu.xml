@@ -1,83 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.particles.title" rows="3">
     <outlinepane x="0" y="0" length="9" height="2">
-        <item id="flint_and_steel" displayName="*gui.particles.flames.name" lores="*gui.particles.flames.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">FLAMES</attribute>
+        <item id="flint_and_steel" onLocalClick="particleClick">
+            <displayname>*gui.particles.flames.name</displayname>
+            <lore>
+                <line>*gui.particles.flames.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FLAMES</property>
+            </properties>
         </item>
-        <item id="diamond_sword" displayName="*gui.particles.magic-crit.name" lores="*gui.particles.magic-crit.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">MAGIC_CRIT</attribute>
+        <item id="diamond_sword" onLocalClick="particleClick">
+            <displayname>*gui.particles.magic-crit.name</displayname>
+            <lore>
+                <line>*gui.particles.magic-crit.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">MAGIC_CRIT</property>
+            </properties>
         </item>
-        <item id="lava_bucket" displayName="*gui.particles.lava-drip.name" lores="*gui.particles.lava-drip.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">LAVA_DRIP</attribute>
+        <item id="lava_bucket" onLocalClick="particleClick">
+            <displayname>*gui.particles.lava-drip.name</displayname>
+            <lore>
+                <line>*gui.particles.lava-drip.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">LAVA_DRIP</property>
+            </properties>
         </item>
-        <item id="water_bucket" displayName="*gui.particles.water-drip.name" lores="*gui.particles.water-drip.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">WATER_DRIP</attribute>
+        <item id="water_bucket" onLocalClick="particleClick">
+            <displayname>*gui.particles.water-drip.name</displayname>
+            <lore>
+                <line>*gui.particles.water-drip.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">WATER_DRIP</property>
+            </properties>
         </item>
-        <item id="enchantment_table" displayName="*gui.particles.enchantment.name"
-              lores="*gui.particles.enchantment.lores" onClick="particleClick">
-            <attribute type="particle-type">ENCHANTMENT</attribute>
+        <item id="enchantment_table" onLocalClick="particleClick">
+            <displayname>*gui.particles.enchantment.name</displayname>
+            <lore>
+                <line>*gui.particles.enchantment.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">ENCHANTMENT</property>
+            </properties>
         </item>
-        <item id="red_rose" displayName="*gui.particles.hearts.name" lores="*gui.particles.hearts.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">HEARTS</attribute>
+        <item id="red_rose" onLocalClick="particleClick">
+            <displayname>*gui.particles.hearts.name</displayname>
+            <lore>
+                <line>*gui.particles.hearts.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">HEARTS</property>
+            </properties>
         </item>
-        <item id="clay" displayName="*gui.particles.angry-villager.name" lores="*gui.particles.angry-villager.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">ANGRY_VILLAGER</attribute>
+        <item id="clay" onLocalClick="particleClick">
+            <displayname>*gui.particles.angry-villager.name</displayname>
+            <lore>
+                <line>*gui.particles.angry-villager.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">ANGRY_VILLAGER</property>
+            </properties>
         </item>
-        <item id="emerald" displayName="*gui.particles.happy-villager.name" lores="*gui.particles.happy-villager.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">HAPPY_VILLAGER</attribute>
+        <item id="emerald" onLocalClick="particleClick">
+            <displayname>*gui.particles.happy-villager.name</displayname>
+            <lore>
+                <line>*gui.particles.happy-villager.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">HAPPY_VILLAGER</property>
+            </properties>
         </item>
-        <item id="redstone" displayName="*gui.particles.redstone-magic.name" lores="*gui.particles.redstone-magic.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">REDSTONE_MAGIC</attribute>
+        <item id="redstone" onLocalClick="particleClick">
+            <displayname>*gui.particles.redstone-magic.name</displayname>
+            <lore>
+                <line>*gui.particles.redstone-magic.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">REDSTONE_MAGIC</property>
+            </properties>
         </item>
-        <item id="potion" displayName="*gui.particles.spell.name" lores="*gui.particles.spell.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">SPELL</attribute>
+        <item id="potion" onLocalClick="particleClick">
+            <displayname>*gui.particles.spell.name</displayname>
+            <lore>
+                <line>*gui.particles.spell.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SPELL</property>
+            </properties>
         </item>
-        <item id="snow_ball" displayName="*gui.particles.snowball-poof.name" lores="*gui.particles.snowball-poof.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">SNOWBALL_POOF</attribute>
+        <item id="snow_ball" onLocalClick="particleClick">
+            <displayname>*gui.particles.snowball-poof.name</displayname>
+            <lore>
+                <line>*gui.particles.snowball-poof.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SNOWBALL_POOF</property>
+            </properties>
         </item>
-        <item id="furnace" displayName="*gui.particles.smoke.name" lores="*gui.particles.smoke.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">SMOKE</attribute>
+        <item id="furnace" onLocalClick="particleClick">
+            <displayname>*gui.particles.smoke.name</displayname>
+            <lore>
+                <line>*gui.particles.smoke.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SMOKE</property>
+            </properties>
         </item>
-        <item id="anvil" damage="2" displayName="*gui.particles.damage-indicator.name"
-              lores="*gui.particles.damage-indicator.lores" onClick="particleClick">
-            <attribute type="particle-type">DAMAGE_INDICATOR</attribute>
+        <item id="anvil" damage="2" onLocalClick="particleClick">
+            <displayname>*gui.particles.damage-indicator.name</displayname>
+            <lore>
+                <line>*gui.particles.damage-indicator.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DAMAGE_INDICATOR</property>
+            </properties>
         </item>
-        <item id="fireball" displayName="*gui.particles.dragon-breath.name" lores="*gui.particles.dragon-breath.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">DRAGON_BREATH</attribute>
+        <item id="fireball" onLocalClick="particleClick">
+            <displayname>*gui.particles.dragon-breath.name</displayname>
+            <lore>
+                <line>*gui.particles.dragon-breath.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DRAGON_BREATH</property>
+            </properties>
         </item>
-        <item id="end_rod" displayName="*gui.particles.end-rod.name" lores="*gui.particles.end-rod.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">END_ROD</attribute>
+        <item id="end_rod" onLocalClick="particleClick">
+            <displayname>*gui.particles.end-rod.name</displayname>
+            <lore>
+                <line>*gui.particles.end-rod.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">END_ROD</property>
+            </properties>
         </item>
-        <item id="shield" displayName="*gui.particles.sweep-attack.name" lores="*gui.particles.sweep-attack.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">SWEEP_ATTACK</attribute>
+        <item id="shield" onLocalClick="particleClick">
+            <displayname>*gui.particles.sweep-attack.name</displayname>
+            <lore>
+                <line>*gui.particles.sweep-attack.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SWEEP_ATTACK</property>
+            </properties>
         </item>
         <item id="sand" displayName="*gui.particles.falling-dust.name" lores="*gui.particles.falling-dust.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">FALLING_DUST</attribute>
+              onLocalClick="particleClick">
+            <displayname>*gui.particles.falling-dust.name</displayname>
+            <lore>
+                <line>*gui.particles.falling-dust.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FALLING_DUST</property>
+            </properties>
         </item>
-        <item id="totem" displayName="*gui.particles.totem.name" lores="*gui.particles.totem.lores"
-              onClick="particleClick">
-            <attribute type="particle-type">TOTEM</attribute>
+        <item id="totem" onLocalClick="particleClick">
+            <displayname>*gui.particles.totem.name</displayname>
+            <lore>
+                <line>*gui.particles.totem.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">TOTEM</property>
+            </properties>
         </item>
     </outlinepane>
     <!--Clearing all particles and closing menu-->
     <outlinepane x="7" y="2" length="2" height="1">
-        <item id="barrier" displayName="*gui.particles.clear-particles.name"
-              lores="*gui.particles.clear-particles.lores" onClick="clearParticlesClick" />
-        <item id="book" displayName="*gui.particles.back.name" lores="*gui.particles.back.lores" onClick="backClick" />
+        <item id="barrier" onLocalClick="clearParticlesClick">
+            <displayname>*gui.particles.clear-particles.name</displayname>
+            <lore>
+                <line>*gui.particles.clear-particles.lores</line>
+            </lore>
+        </item>
+        <item id="book" onLocalClick="backClick">
+            <displayname>*gui.particles.back.name</displayname>
+            <lore>
+                <line>*gui.particles.back.lores</line>
+            </lore>
+        </item>
     </outlinepane>
 </gui>

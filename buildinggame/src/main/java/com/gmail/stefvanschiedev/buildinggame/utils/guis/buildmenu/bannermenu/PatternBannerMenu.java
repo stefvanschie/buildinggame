@@ -1,12 +1,13 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu;
 
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.StaticPane;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -32,7 +33,7 @@ class PatternBannerMenu extends Gui {
      * {@inheritDoc}
      */
     PatternBannerMenu(ItemStack banner, DyeColor dyeColor) {
-        super(6, MessageManager.translate(MESSAGES.getString("gui.banners.pattern.title")));
+        super(Main.getInstance(), 6, MessageManager.translate(MESSAGES.getString("gui.banners.pattern.title")));
 
         OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 6);
 

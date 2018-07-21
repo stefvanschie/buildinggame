@@ -1,10 +1,15 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.*;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * The gui to get heads
@@ -12,6 +17,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  * @since 2.1.0
  */
 class HeadsMenu {
+
+    /**
+     * YAML Configuration for the messages.yml
+     */
+    private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
 
 	/**
      * The food category
@@ -74,11 +84,42 @@ class HeadsMenu {
      */
     private final Gui gui;
 
+    /**
+     * The items inside this pane
+     */
+    @SuppressWarnings("WeakerAccess")
+    public GuiItem food, devices, misc, alphabet, interior, colors, blocks, mobs, games, characters, pokemon;
+
 	/**
      * Constructs a new HeadsMenu
      */
 	HeadsMenu() {
-		this.gui = Gui.load(this, Main.getInstance().getResource("gui/buildmenu/headsmenu.xml"));
+		this.gui = Gui.load(Main.getInstance(), this,
+            Main.getInstance().getResource("gui/buildmenu/headsmenu.xml"));
+
+        String title = gui.getTitle();
+
+        if (!title.isEmpty() && title.charAt(0) == '*')
+            gui.setTitle(MessageManager.translate(MESSAGES.getString(title.substring(1))));
+
+        gui.getItems().forEach(item -> {
+            ItemMeta itemMeta = item.getItem().getItemMeta();
+
+            if (itemMeta == null)
+                return;
+
+            String displayName = itemMeta.getDisplayName();
+
+            if (!displayName.isEmpty() && displayName.charAt(0) == '*')
+                itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString(displayName.substring(1))));
+
+            String lore = itemMeta.getLore().get(0);
+
+            if (!lore.isEmpty() && lore.charAt(0) == '*')
+                itemMeta.setLore(MessageManager.translate(MESSAGES.getStringList(lore.substring(1))));
+
+            item.getItem().setItemMeta(itemMeta);
+        });
 
 		foodMenu = new PaginatedHeadsMenu("gui/buildmenu/heads/foodheadsmenu.xml");
 		devicesMenu = new PaginatedHeadsMenu("gui/buildmenu/heads/devicesheadsmenu.xml");
@@ -103,17 +144,17 @@ class HeadsMenu {
      * @since 5.6.0
      */
     public void show(HumanEntity humanEntity) {
-        gui.getItem("food").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.food"));
-        gui.getItem("devices").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.devices"));
-        gui.getItem("misc").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.misc"));
-        gui.getItem("alphabet").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.alphabet"));
-        gui.getItem("interior").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.interior"));
-        gui.getItem("colors").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.colors"));
-        gui.getItem("blocks").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.blocks"));
-        gui.getItem("mobs").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.mobs"));
-        gui.getItem("games").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.games"));
-        gui.getItem("characters").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.characters"));
-        gui.getItem("pokemon").setVisible(humanEntity.hasPermission("bg.buildmenu.heads.pokemon"));
+        food.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.food"));
+        devices.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.devices"));
+        misc.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.misc"));
+        alphabet.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.alphabet"));
+        interior.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.interior"));
+        colors.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.colors"));
+        blocks.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.blocks"));
+        mobs.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.mobs"));
+        games.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.games"));
+        characters.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.characters"));
+        pokemon.setVisible(humanEntity.hasPermission("bg.buildmenu.heads.pokemon"));
 
         gui.show(humanEntity);
     }

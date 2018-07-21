@@ -201,7 +201,7 @@ public class BuildTimer extends Timer {
      */
 	@Contract(pure = true)
 	@Override
-	public int getSeconds() {
+    public int getSeconds() {
 		return seconds;
 	}
 

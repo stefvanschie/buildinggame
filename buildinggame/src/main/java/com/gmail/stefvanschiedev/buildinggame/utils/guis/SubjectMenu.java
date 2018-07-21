@@ -3,11 +3,12 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.PaginatedPane;
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.SubjectVote;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +55,7 @@ public class SubjectMenu extends Gui {
      * Constructs a new SubjectMenu
      */
 	public SubjectMenu() {
-		super(4, MessageManager.translate(MESSAGES.getString("subject-gui.title")));
+		super(Main.getInstance(), 4, MessageManager.translate(MESSAGES.getString("subject-gui.title")));
 
 		int amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
 		List<String> subjects = new ArrayList<>();
@@ -70,10 +72,7 @@ public class SubjectMenu extends Gui {
 			votes.add(new SubjectVote(s, 0));
 
 		//gui
-        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 3,
-            CONFIG.getInt("subject-gui.subject-amount") == -1 ?
-                (int) Math.ceil(CONFIG.getStringList("subjects").size() / 27.0) :
-                (int) Math.ceil(CONFIG.getInt("subject-gui.subject-amount") / 27.0));
+        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 3);
 
         initializePages(paginatedPane, subjects);
 
@@ -153,7 +152,7 @@ public class SubjectMenu extends Gui {
      */
     @Contract("null, _ -> fail")
     private void initializePages(@NotNull PaginatedPane paginatedPane, List<String> subjects) {
-        for (int page = 0; page < paginatedPane.getPages(); page++) {
+        for (int page = 0; page < Math.ceil(subjects.size() / 27.0); page++) {
             OutlinePane pane =
                 new OutlinePane(new GuiLocation(0, 0), paginatedPane.getLength(), paginatedPane.getHeight());
 
@@ -183,15 +182,20 @@ public class SubjectMenu extends Gui {
                 pane.addItem(new GuiItem(item, event -> {
                     addVote((Player) event.getWhoClicked(), subject);
 
-                    initializePages(paginatedPane, subjects);
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            initializePages(paginatedPane, subjects);
 
-                    update();
+                            update();
+                        }
+                    }.runTaskLater(Main.getInstance(), 1L);
 
                     event.setCancelled(true);
                 }));
             }
 
-            paginatedPane.setPane(page, pane);
+            paginatedPane.addPane(page, pane);
         }
     }
 
@@ -266,11 +270,9 @@ public class SubjectMenu extends Gui {
 	@Nullable
     @Contract(pure = true)
 	private SubjectVote getSubjectVote(String subject) {
-	    for (SubjectVote subjectVote : votes) {
-	        if (subjectVote.getSubject().equals(subject))
-	            return subjectVote;
-        }
-
-        return null;
+	    return votes.stream()
+            .filter(subjectVote -> subjectVote.getSubject().equals(subject))
+            .findAny()
+            .orElse(null);
     }
 }

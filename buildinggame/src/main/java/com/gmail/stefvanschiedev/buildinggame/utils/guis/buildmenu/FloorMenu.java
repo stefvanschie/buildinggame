@@ -1,12 +1,13 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -114,12 +115,11 @@ class FloorMenu extends Gui {
      * @see Plot
      */
 	FloorMenu(final Plot plot) {
-		super(6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
+		super(Main.getInstance(), 6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
 
-        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 5,
-            (int) Math.ceil(getBlocks().size() / 45) + 1);
+        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 5);
 
-        for (int page = 0; page < paginatedPane.getPages(); page++) {
+        for (int page = 0; page < Math.ceil(getBlocks().size() / 45.0); page++) {
             OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 5);
 
             for (int i = 0; i < 45; i++) {
@@ -136,7 +136,7 @@ class FloorMenu extends Gui {
                 }));
             }
 
-            paginatedPane.setPane(page, outlinePane);
+            paginatedPane.addPane(page, outlinePane);
         }
 
         OutlinePane previous = new OutlinePane(new GuiLocation(2, 5), 1, 1);

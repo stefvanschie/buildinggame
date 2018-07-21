@@ -1,128 +1,307 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.heads.games.title" rows="6">
     <outlinepane x="0" y="0" length="9" height="5">
-        <skull id="5a5ab05ea254c32e3c48f3fdcf9fd9d77d3cba04e6b5ec2e68b3cbdcfac3fd"
-               displayName="*gui.heads.games.beachball.name" lores="*gui.heads.games.beachball.lores"
-               onClick="headClick" />
-        <skull id="8e4a70b7bbcd7a8c322d522520491a27ea6b83d60ecf961d2b4efbbf9f605d"
-               displayName="*gui.heads.games.soccerball.name" lores="*gui.heads.games.soccerball.lores"
-               onClick="headClick" />
-        <skull id="6c82e21a9320953d78daee85477de3bb82d5dfa6b19494d37733265d2d030a8"
-               displayName="*gui.heads.games.bowlingball.name" lores="*gui.heads.games.bowlingball.lores"
-               onClick="headClick" />
-        <skull id="9cc861c52486bfc19d28be0644a85b4c712bf71c7b26365ae1b54b9a7173cd0"
-               displayName="*gui.heads.games.bowlingball-2.name" lores="*gui.heads.games.bowlingball-2.lores"
-               onClick="headClick" />
-        <skull id="c4455d18bc2a6b5a83b69a7290406194fd152c89d9619c08fd88763f136"
-               displayName="*gui.heads.games.bowlingball-3.name" lores="*gui.heads.games.bowlingball-3.lores"
-               onClick="headClick" />
-        <skull id="f870a65992c2dd8ad738b98d6d3596e45a2dd14efbace4b21122aeaff777f5"
-               displayName="*gui.heads.games.checkerboard.name" lores="*gui.heads.games.checkerboard.lores"
-               onClick="headClick" />
-        <skull id="d43d4b7ac24a1d650ddf73bd140f49fc12d2736fc14a8dc25c0f3f29d85f8f"
-               displayName="*gui.heads.games.poke-ball.name" lores="*gui.heads.games.poke-ball.lores"
-               onClick="headClick" />
-        <skull id="a5bec76d65a868a5be5173d3b9e1775b54046f62035c1552440ede9973a90e1"
-               displayName="*gui.heads.games.glados.name" lores="*gui.heads.games.glados.lores" onClick="headClick" />
-        <skull id="fa2c3e79d5f35a9dcab19e43c3e3a6519e426b64a61213cd2f1d28b57036f6"
-               displayName="*gui.heads.games.turret.name" lores="*gui.heads.games.turret.lores" onClick="headClick" />
-        <skull id="5175bdf47aea1a4bf1d349be6b7fa4ab37f479672f4c43aca57511b427ab4"
-               displayName="*gui.heads.games.companion-cube.name" lores="*gui.heads.games.companion-cube.lores"
-               onClick="headClick" />
-        <skull id="52baeb4a35da8a85d14bdccf7184f5545088f954da55144f235c2983fdb8e05b"
-               displayName="*gui.heads.games.weighted-cube.name" lores="*gui.heads.games.weighted-cube.lores"
-               onClick="headClick" />
-        <skull id="797955462e4e576664499ac4a1c572f6143f19ad2d6194776198f8d136fdb2"
-               displayName="*gui.heads.games.white-dice.name" lores="*gui.heads.games.white-dice.lores"
-               onClick="headClick" />
-        <skull id="5131de8e951fdd7b9a3d239d7cc3aa3e8655a336b999b9edbb4fb329cbd87"
-               displayName="*gui.heads.games.red-dice.name" lores="*gui.heads.games.red-dice.lores"
-               onClick="headClick" />
-        <skull id="915f7c313bca9c2f958e68ab14ab393867d67503affff8f20cb13fbe917fd31"
-               displayName="*gui.heads.games.black-dice.name" lores="*gui.heads.games.black-dice.lores"
-               onClick="headClick" />
-        <skull id="6684f4a6ed142865db0938e487676849a54d64378e2e9e7f713b9b1e9d041"
-               displayName="*gui.heads.games.portal-core-wheatley.name"
-               lores="*gui.heads.games.portal-core-wheatley.lores" onClick="headClick" />
-        <skull id="ecfaf610275f433a34e5317573ce1f9a0f667ce10cdf1d06c9eba5d9cb57047"
-               displayName="*gui.heads.games.great-ball.name" lores="*gui.heads.games.great-ball.lores"
-               onClick="headClick" />
-        <skull id="3d85c96efaefef11a1a35b117ca2f231c696e4e693b73a1bae77221607011e"
-               displayName="*gui.heads.games.ultra-ball.name" lores="*gui.heads.games.ultra-ball.lores"
-               onClick="headClick" />
-        <skull id="1879e64fd2e2d15d1b7e47ae40fa528fc72086a312d6a6ed3f7e552af9d5"
-               displayName="*gui.heads.games.master-ball.name" lores="*gui.heads.games.master-ball.lores"
-               onClick="headClick" />
-        <skull id="edf84715a64dc45586f7a6079f8e49a9477c0fe96589b4cfd71cba32254ac8"
-               displayName="*gui.heads.games.basketball.name" lores="*gui.heads.games.basketball.lores"
-               onClick="headClick" />
-        <skull id="b775a17c2941ae6a2a5f1840509b9ab0c0d96859a9bc249798b86f1952b0832e"
-               displayName="*gui.heads.games.masterchief-halo.name" lores="*gui.heads.games.masterchief-halo.lores"
-               onClick="headClick" />
-        <skull id="671ebc11bdd151410da70d931259c4e969528e6f5889e9c4bb2dd763b9eafd"
-               displayName="*gui.heads.games.yoshi.name" lores="*gui.heads.games.yoshi.lores" onClick="headClick" />
-        <skull id="f256f71735ef458581c9dacf394185eed9b33cb6ec5cd594a57153a8b566560"
-               displayName="*gui.heads.games.batman.name" lores="*gui.heads.games.batman.lores" onClick="headClick" />
-        <skull id="ff1533871e49ddab8f1ca82edb1153a5e2ed3764fd1ce029bf829f4b3caac3"
-               displayName="*gui.heads.games.luigi.name" lores="*gui.heads.games.luigi.lores" onClick="headClick" />
-        <skull id="dba8d8e53d8a5a75770b62cce73db6bab701cc3de4a9b654d213d54af9615"
-               displayName="*gui.heads.games.mario.name" lores="*gui.heads.games.mario.lores" onClick="headClick" />
-        <skull id="8f1a277beb9e4faa6e7e356c74786e966155736a6858bf5bb5ad29df5bab61a1"
-               displayName="*gui.heads.games.solved-rubiks-cube.name" lores="*gui.heads.games.solved-rubiks-cube.lores"
-               onClick="headClick" />
-        <skull id="5d86e7bd28c146f71514c782cac055860d1f372b4a9be3fe65cfe1104733ba"
-               displayName="*gui.heads.games.scrambled-rubiks-cube.name"
-               lores="*gui.heads.games.scrambled-rubiks-cube.lores" onClick="headClick" />
-        <skull id="94094effee4ba2ab1c2fc6c8ed1c4690fba19c86617e9227db1f58d8dd5d"
-               displayName="*gui.heads.games.chess-board.name" lores="*gui.heads.games.chess-board.lores"
-               onClick="headClick" />
-        <skull id="72eac5f499e312165364f1af152660cd3f18d94e2ed55b27dafe8cf842a794f1"
-               displayName="*gui.heads.games.safari-ball.name" lores="*gui.heads.games.safari-ball.lores"
-               onClick="headClick" />
-        <skull id="db5c8d73fc7a143baca4a18bdcc705176762fa010e313b14d81f8b5ebdc4c47"
-               displayName="*gui.heads.games.premier-ball.name" lores="*gui.heads.games.premier-ball.lores"
-               onClick="headClick" />
-        <skull id="61954456197fdec22f480ac53e71c6a68a1a8627c6080df57db83dfc3466f"
-               displayName="*gui.heads.games.warp-pipe.name" lores="*gui.heads.games.warp-pipe.lores"
-               onClick="headClick" />
-        <skull id="de6217128c9878390e53c96b8137012249a7ca6896c303c5fb782ace59d9e4a"
-               displayName="*gui.heads.games.goomba.name" lores="*gui.heads.games.goomba.lores" onClick="headClick" />
-        <skull id="85c4effba4d99f437314c8a8755856713fd85dcd15b3690c749ce1e44474"
-               displayName="*gui.heads.games.orange-core.name" lores="*gui.heads.games.orange-core.lores"
-               onClick="headClick" />
-        <skull id="335a21d95e8597759fb259c951ea68e1ad3374ca41e56ef126ffabfe03c1e0"
-               displayName="*gui.heads.games.green-core.name" lores="*gui.heads.games.green-core.lores"
-               onClick="headClick" />
-        <skull id="cc2c59fcd92625ec4d578159a5fd5bd4247e382d4947284cf50f999c84116c0"
-               displayName="*gui.heads.games.illusion-block.name" lores="*gui.heads.games.illusion-block.lores"
-               onClick="headClick" />
-        <skull id="b462ddfa553ce78683be477b8d8654f3dfc3aa2969808478c987ab88c376a0"
-               displayName="*gui.heads.games.illusion-block-2.name" lores="*gui.heads.games.illusion-block-2.lores"
-               onClick="headClick" />
-        <skull id="49299dc02c35f1bc1a6895d7fc28de77ca890d0663cec5dcd6ea8460af1121"
-               displayName="*gui.heads.games.dragon-ball-1.name" lores="*gui.heads.games.dragon-ball-1.lores"
-               onClick="headClick" />
-        <skull id="806ac82e3c7427bbcf15821e882d73aeb80eebcc6b455828328aeb70d71a"
-               displayName="*gui.heads.games.dragon-ball-2.name" lores="*gui.heads.games.dragon-ball-2.lores"
-               onClick="headClick" />
-        <skull id="3999254a7ca8d8ba1faddcbab9da323749a1a0f65c89a016f682342768495"
-               displayName="*gui.heads.games.dragon-ball-3.name" lores="*gui.heads.games.dragon-ball-3.lores"
-               onClick="headClick" />
-        <skull id="6a431a5ee3be79b8eb57ab95c8c96d7d751932d6dbd92727f6e372e7c5f"
-               displayName="*gui.heads.games.dragon-ball-4.name" lores="*gui.heads.games.dragon-ball-4.lores"
-               onClick="headClick" />
-        <skull id="4b73257e9bc47bccbafaa54373ca11b875e5ac35c9d5973b581054cc9bba88"
-               displayName="*gui.heads.games.dragon-ball-5.name" lores="*gui.heads.games.dragon-ball-5.lores"
-               onClick="headClick" />
-        <skull id="b7fb6a5ada47056c8bf97566498f5ea4173339fa7819cbce97009e9050de"
-               displayName="*gui.heads.games.dragon-ball-6.name" lores="*gui.heads.games.dragon-ball-6.lores"
-               onClick="headClick" />
-        <skull id="5c1a7e193f37c2c54e358f22a8a2d0289793dd3b2d6c799e8424b926a3951"
-               displayName="*gui.heads.games.dragon-ball-7.name" lores="*gui.heads.games.dragon-ball-7.lores"
-               onClick="headClick" />
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="5a5ab05ea254c32e3c48f3fdcf9fd9d77d3cba04e6b5ec2e68b3cbdcfac3fd"/>
+            <displayname>*gui.heads.games.beachball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.beachball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="8e4a70b7bbcd7a8c322d522520491a27ea6b83d60ecf961d2b4efbbf9f605d"/>
+            <displayname>*gui.heads.games.soccerball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.soccerball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="6c82e21a9320953d78daee85477de3bb82d5dfa6b19494d37733265d2d030a8"/>
+            <displayname>*gui.heads.games.bowlingball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.bowlingball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="9cc861c52486bfc19d28be0644a85b4c712bf71c7b26365ae1b54b9a7173cd0"/>
+            <displayname>*gui.heads.games.bowlingball-2.name</displayname>
+            <lore>
+                <line>*gui.heads.games.bowlingball-2.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="c4455d18bc2a6b5a83b69a7290406194fd152c89d9619c08fd88763f136"/>
+            <displayname>*gui.heads.games.bowlingball-3.name</displayname>
+            <lore>
+                <line>*gui.heads.games.bowlingball-3.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="f870a65992c2dd8ad738b98d6d3596e45a2dd14efbace4b21122aeaff777f5"/>
+            <displayname>*gui.heads.games.checkerboard.name</displayname>
+            <lore>
+                <line>*gui.heads.games.checkerboard.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="d43d4b7ac24a1d650ddf73bd140f49fc12d2736fc14a8dc25c0f3f29d85f8f"/>
+            <displayname>*gui.heads.games.poke-ball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.poke-ball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="a5bec76d65a868a5be5173d3b9e1775b54046f62035c1552440ede9973a90e1"/>
+            <displayname>*gui.heads.games.glados.name</displayname>
+            <lore>
+                <line>*gui.heads.games.glados.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="fa2c3e79d5f35a9dcab19e43c3e3a6519e426b64a61213cd2f1d28b57036f6"/>
+            <displayname>*gui.heads.games.turret.name</displayname>
+            <lore>
+                <line>*gui.heads.games.turret.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="5175bdf47aea1a4bf1d349be6b7fa4ab37f479672f4c43aca57511b427ab4"/>
+            <displayname>*gui.heads.games.companion-cube.name</displayname>
+            <lore>
+                <line>*gui.heads.games.companion-cube.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="52baeb4a35da8a85d14bdccf7184f5545088f954da55144f235c2983fdb8e05b"/>
+            <displayname>*gui.heads.games.weighted-cube.name</displayname>
+            <lore>
+                <line>*gui.heads.games.weighted-cube.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="797955462e4e576664499ac4a1c572f6143f19ad2d6194776198f8d136fdb2"/>
+            <displayname>*gui.heads.games.white-dice.name</displayname>
+            <lore>
+                <line>*gui.heads.games.white-dice.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="5131de8e951fdd7b9a3d239d7cc3aa3e8655a336b999b9edbb4fb329cbd87"/>
+            <displayname>*gui.heads.games.red-dice.name</displayname>
+            <lore>
+                <line>*gui.heads.games.red-dice.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="915f7c313bca9c2f958e68ab14ab393867d67503affff8f20cb13fbe917fd31"/>
+            <displayname>*gui.heads.games.black-dice.name</displayname>
+            <lore>
+                <line>*gui.heads.games.black-dice.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="6684f4a6ed142865db0938e487676849a54d64378e2e9e7f713b9b1e9d041"/>
+            <displayname>*gui.heads.games.portal-core-wheatley.name</displayname>
+            <lore>
+                <line>*gui.heads.games.portal-core-wheatley.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="ecfaf610275f433a34e5317573ce1f9a0f667ce10cdf1d06c9eba5d9cb57047"/>
+            <displayname>*gui.heads.games.great-ball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.great-ball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="3d85c96efaefef11a1a35b117ca2f231c696e4e693b73a1bae77221607011e"/>
+            <displayname>*gui.heads.games.ultra-ball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.ultra-ball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="1879e64fd2e2d15d1b7e47ae40fa528fc72086a312d6a6ed3f7e552af9d5"/>
+            <displayname>*gui.heads.games.master-ball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.master-ball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="edf84715a64dc45586f7a6079f8e49a9477c0fe96589b4cfd71cba32254ac8"/>
+            <displayname>*gui.heads.games.basketball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.basketball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="b775a17c2941ae6a2a5f1840509b9ab0c0d96859a9bc249798b86f1952b0832e"/>
+            <displayname>*gui.heads.games.masterchief-halo.name</displayname>
+            <lore>
+                <line>*gui.heads.games.masterchief-halo.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="671ebc11bdd151410da70d931259c4e969528e6f5889e9c4bb2dd763b9eafd"/>
+            <displayname>*gui.heads.games.yoshi.name</displayname>
+            <lore>
+                <line>*gui.heads.games.yoshi.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="f256f71735ef458581c9dacf394185eed9b33cb6ec5cd594a57153a8b566560"/>
+            <displayname>*gui.heads.games.batman.name</displayname>
+            <lore>
+                <line>*gui.heads.games.batman.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="ff1533871e49ddab8f1ca82edb1153a5e2ed3764fd1ce029bf829f4b3caac3"/>
+            <displayname>*gui.heads.games.luigi.name</displayname>
+            <lore>
+                <line>*gui.heads.games.luigi.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="dba8d8e53d8a5a75770b62cce73db6bab701cc3de4a9b654d213d54af9615"/>
+            <displayname>*gui.heads.games.mario.name</displayname>
+            <lore>
+                <line>*gui.heads.games.mario.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="8f1a277beb9e4faa6e7e356c74786e966155736a6858bf5bb5ad29df5bab61a1"/>
+            <displayname>*gui.heads.games.solved-rubiks-cube.name</displayname>
+            <lore>
+                <line>*gui.heads.games.solved-rubiks-cube.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="5d86e7bd28c146f71514c782cac055860d1f372b4a9be3fe65cfe1104733ba"/>
+            <displayname>*gui.heads.games.scrambled-rubiks-cube.name</displayname>
+            <lore>
+                <line>*gui.heads.games.scrambled-rubiks-cube.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="94094effee4ba2ab1c2fc6c8ed1c4690fba19c86617e9227db1f58d8dd5d"/>
+            <displayname>*gui.heads.games.chess-board.name</displayname>
+            <lore>
+                <line>*gui.heads.games.chess-board.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="72eac5f499e312165364f1af152660cd3f18d94e2ed55b27dafe8cf842a794f1"/>
+            <displayname>*gui.heads.games.safari-ball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.safari-ball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="db5c8d73fc7a143baca4a18bdcc705176762fa010e313b14d81f8b5ebdc4c47"/>
+            <displayname>*gui.heads.games.premier-ball.name</displayname>
+            <lore>
+                <line>*gui.heads.games.premier-ball.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="61954456197fdec22f480ac53e71c6a68a1a8627c6080df57db83dfc3466f"/>
+            <displayname>*gui.heads.games.warp-pipe.name</displayname>
+            <lore>
+                <line>*gui.heads.games.warp-pipe.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="de6217128c9878390e53c96b8137012249a7ca6896c303c5fb782ace59d9e4a"/>
+            <displayname>*gui.heads.games.goomba.name</displayname>
+            <lore>
+                <line>*gui.heads.games.goomba.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="85c4effba4d99f437314c8a8755856713fd85dcd15b3690c749ce1e44474"/>
+            <displayname>*gui.heads.games.orange-core.name</displayname>
+            <lore>
+                <line>*gui.heads.games.orange-core.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="335a21d95e8597759fb259c951ea68e1ad3374ca41e56ef126ffabfe03c1e0"/>
+            <displayname>*gui.heads.games.green-core.name</displayname>
+            <lore>
+                <line>*gui.heads.games.green-core.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="cc2c59fcd92625ec4d578159a5fd5bd4247e382d4947284cf50f999c84116c0"/>
+            <displayname>*gui.heads.games.illusion-block.name</displayname>
+            <lore>
+                <line>*gui.heads.games.illusion-block.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="b462ddfa553ce78683be477b8d8654f3dfc3aa2969808478c987ab88c376a0"/>
+            <displayname>*gui.heads.games.illusion-block-2.name</displayname>
+            <lore>
+                <line>*gui.heads.games.illusion-block-2.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="49299dc02c35f1bc1a6895d7fc28de77ca890d0663cec5dcd6ea8460af1121"/>
+            <displayname>*gui.heads.games.dragon-ball-1.name</displayname>
+            <lore>
+                <line>*gui.heads.games.dragon-ball-1.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="806ac82e3c7427bbcf15821e882d73aeb80eebcc6b455828328aeb70d71a"/>
+            <displayname>*gui.heads.games.dragon-ball-2.name</displayname>
+            <lore>
+                <line>*gui.heads.games.dragon-ball-2.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="3999254a7ca8d8ba1faddcbab9da323749a1a0f65c89a016f682342768495"/>
+            <displayname>*gui.heads.games.dragon-ball-3.name</displayname>
+            <lore>
+                <line>*gui.heads.games.dragon-ball-3.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="6a431a5ee3be79b8eb57ab95c8c96d7d751932d6dbd92727f6e372e7c5f"/>
+            <displayname>*gui.heads.games.dragon-ball-4.name</displayname>
+            <lore>
+                <line>*gui.heads.games.dragon-ball-4.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="4b73257e9bc47bccbafaa54373ca11b875e5ac35c9d5973b581054cc9bba88"/>
+            <displayname>*gui.heads.games.dragon-ball-5.name</displayname>
+            <lore>
+                <line>*gui.heads.games.dragon-ball-5.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="b7fb6a5ada47056c8bf97566498f5ea4173339fa7819cbce97009e9050de"/>
+            <displayname>*gui.heads.games.dragon-ball-6.name</displayname>
+            <lore>
+                <line>*gui.heads.games.dragon-ball-6.lores</line>
+            </lore>
+        </item>
+        <item id="skull_item" damage="3" onLocalClick="headClick">
+            <skull id="5c1a7e193f37c2c54e358f22a8a2d0289793dd3b2d6c799e8424b926a3951"/>
+            <displayname>*gui.heads.games.dragon-ball-7.name</displayname>
+            <lore>
+                <line>*gui.heads.games.dragon-ball-7.lores</line>
+            </lore>
+        </item>
     </outlinepane>
     <outlinepane x="4" y="5" length="1" height="1">
-        <item id="book" displayName="*gui.heads.games.close.name" lores="*gui.heads.games.close.lores"
-              onClick="closeClick"/>
+        <item id="book" onLocalClick="closeClick">
+            <displayname>*gui.heads.games.close.name</displayname>
+            <lore>
+                <line>*gui.heads.games.close.lores</line>
+            </lore>
+        </item>
     </outlinepane>
 </gui>
