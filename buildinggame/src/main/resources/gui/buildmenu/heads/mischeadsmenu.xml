@@ -1,247 +1,568 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.heads.misc.title" rows="6">
-    <paginatedpane x="0" y="0" length="9" height="5" tag="paginatedpane">
+    <paginatedpane x="0" y="0" length="9" height="5" field="paginatedPane">
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
-                <skull id="aa976f6dfcf188995a327e55ce34c60e6dcd1ff63e68dd1fc3ad75d2d1bf"
-                       displayName="*gui.heads.misc.gold-pot.name" lores="*gui.heads.misc.gold-pot.lores"
-                       onClick="headClick" />
-                <skull id="8d5427a83540a08a3fa2e655c2964a07243514584a71ec35d6b9e184dfbe318"
-                       displayName="*gui.heads.misc.lava-bucket.name" lores="*gui.heads.misc.lava-bucket.lores"
-                       onClick="headClick" />
-                <skull id="f58c975661c3e94fc35115648158e3ee9f80df74a4399e4d31ca5dbbcaf29b6"
-                       displayName="*gui.heads.misc.milk-bucket.name" lores="*gui.heads.misc.milk-bucket.lores"
-                       onClick="headClick" />
-                <skull id="21ea825150b06e65e2ceb593afe342dca56dda12bf6c9696fb82f90dcd423ab"
-                       displayName="*gui.heads.misc.empty-bucket.name" lores="*gui.heads.misc.empty-bucket.lores"
-                       onClick="headClick" />
-                <skull id="49f1f07e2b1c32bb64a128e529f3af1e5286e518544edf8cbaa6c4065b476b"
-                       displayName="*gui.heads.misc.water-bucket.name" lores="*gui.heads.misc.water-bucket.lores"
-                       onClick="headClick" />
-                <skull id="4c7f684d3ac3a59a9c766233423b46451bff7b9642bb589a7edc5aef457e7"
-                       displayName="*gui.heads.misc.mailbox.name" lores="*gui.heads.misc.mailbox.lores"
-                       onClick="headClick" />
-                <skull id="3e8aad673157c92317a88b1f86f5271f1cd7397d7fc8ec3281f733f751634"
-                       displayName="*gui.heads.misc.space-helmet.name" lores="*gui.heads.misc.space-helmet.lores"
-                       onClick="headClick" />
-                <skull id="302e22f6503c363df69bf9e9448fe89d2f05bae30534b8bb19d268f0989b96"
-                       displayName="*gui.heads.misc.space-helmet-2.name" lores="*gui.heads.misc.space-helmet-2.lores"
-                       onClick="headClick" />
-                <skull id="4d7b62aca28445b8e11ea1750eeacd97932fa37ba744768573e8dc58a6af1"
-                       displayName="*gui.heads.misc.football-helmet.name" lores="*gui.heads.misc.football-helmet.lores"
-                       onClick="headClick" />
-                <skull id="2cef87772afd85b468f4c7fb9571e31435ef765ad413fe460262150423e2021"
-                       displayName="*gui.heads.misc.eye.name" lores="*gui.heads.misc.eye.lores" onClick="headClick" />
-                <skull id="732dbd6612e9d3f42947b5ca8785bfb334258f3ceb83ad69a5cdeebea4cd65"
-                       displayName="*gui.heads.misc.red-mushroom.name" lores="*gui.heads.misc.red-mushroom.lores"
-                       onClick="headClick" />
-                <skull id="1988ec65c51a85772c8d86d74ea8e0e572523bf8edc8cba5ad11952fbebe660"
-                       displayName="*gui.heads.misc.pine-cone.name" lores="*gui.heads.misc.pine-cone.lores"
-                       onClick="headClick" />
-                <skull id="22523e15e9986355a1f851f43f750ee3f23c89ae123631da241f872ba7a781"
-                       displayName="*gui.heads.misc.cannonball.name" lores="*gui.heads.misc.cannonball.lores"
-                       onClick="headClick" />
-                <skull id="996754d330435345aae3a9f063cfca42afb28b7c5c4bb9f294ed2527d961"
-                       displayName="*gui.heads.misc.cannonball-2.name" lores="*gui.heads.misc.cannonball-2.lores"
-                       onClick="headClick" />
-                <skull id="86fcaefa19669d8be02cf5ba9a7f2cf6d27e636410496ffcfa62b03dceb9d378"
-                       displayName="*gui.heads.misc.target.name" lores="*gui.heads.misc.target.lores"
-                       onClick="headClick" />
-                <skull id="38c9a730269ce1de3e9fa064afb370cbcd0766d729f3e29e4f320a433b098b5"
-                       displayName="*gui.heads.misc.cactus.name" lores="*gui.heads.misc.cactus.lores"
-                       onClick="headClick" />
-                <skull id="deb46126904463f07ecfc972aaa37373a22359b5ba271821b689cd5367f75762"
-                       displayName="*gui.heads.misc.facebook.name" lores="*gui.heads.misc.facebook.lores"
-                       onClick="headClick" />
-                <skull id="3685a0be743e9067de95cd8c6d1ba21ab21d37371b3d597211bb75e43279"
-                       displayName="*gui.heads.misc.twitter.name" lores="*gui.heads.misc.twitter.lores"
-                       onClick="headClick" />
-                <skull id="b4353fd0f86314353876586075b9bdf0c484aab0331b872df11bd564fcb029ed"
-                       displayName="*gui.heads.misc.youtube.name" lores="*gui.heads.misc.youtube.lores"
-                       onClick="headClick" />
-                <skull id="9c2e9d8395cacd9922869c15373cf7cb16da0a5ce5f3c632b19ceb3929c9a11"
-                       displayName="*gui.heads.misc.firecharge.name" lores="*gui.heads.misc.firecharge.lores"
-                       onClick="headClick" />
-                <skull id="318e35ec4b4b4c1591c5177386de18797454298b7455982e3ae83bacced0f1a2"
-                       displayName="*gui.heads.misc.portable-grill.name" lores="*gui.heads.misc.portable-grill.lores"
-                       onClick="headClick" />
-                <skull id="e98d4fe5176a3accdebb1c3fb0b26cf3a181fffc160ea52a028cb41f34cfe1"
-                       displayName="*gui.heads.misc.wilson-castaway.name" lores="*gui.heads.misc.wilson-castaway.lores"
-                       onClick="headClick" />
-                <skull id="dacbbca567372a9b2b36c8f68154851bda5ee1d53e2bc208a1152d9a18d2cb"
-                       displayName="*gui.heads.misc.mailbox-2.name" lores="*gui.heads.misc.mailbox-2.lores"
-                       onClick="headClick" />
-                <skull id="1ae3855f952cd4a03c148a946e3f812a5955ad35cbcb52627ea4acd47d3081"
-                       displayName="*gui.heads.misc.skull.name" lores="*gui.heads.misc.skull.lores"
-                       onClick="headClick" />
-                <skull id="e9eb9da26cf2d3341397a7f4913ba3d37d1ad10eae30ab25fa39ceb84bc"
-                       displayName="*gui.heads.misc.missing-texture.name" lores="*gui.heads.misc.missing-texture.lores"
-                       onClick="headClick" />
-                <skull id="58c206e29924b9916d4d24dfbbc38f28b44d6d3cfa23adec9ed3a8fce1b7b2"
-                       displayName="*gui.heads.misc.green-ore.name" lores="*gui.heads.misc.green-ore.lores"
-                       onClick="headClick" />
-                <skull id="904f1a55943c594e7119e884c5da2a2bca8e7e6516a0649aa7e55658e0e9"
-                       displayName="*gui.heads.misc.cactusflower.name" lores="*gui.heads.misc.cactusflower.lores"
-                       onClick="headClick" />
-                <skull id="5bb28bb0bf1ad217d2a81191effcc69fe174714a432fd71fa60aa50f3712b97"
-                       displayName="*gui.heads.misc.molten-core.name" lores="*gui.heads.misc.molten-core.lores"
-                       onClick="headClick" />
-                <skull id="4d9bd4b2fa8da8247a82c3d1fa246715f9b6d98c778374da6efc10c89cd64"
-                       displayName="*gui.heads.misc.reddit.name" lores="*gui.heads.misc.reddit.lores"
-                       onClick="headClick" />
-                <skull id="10b8eb333622ae7de9b53b3602f41f63db9c2528b5be231ac96516611fb1a"
-                       displayName="*gui.heads.misc.diamond-steve-head.name"
-                       lores="*gui.heads.misc.diamond-steve-head.lores" onClick="headClick" />
-                <skull id="f937e1c45bb8da29b2c564dd9a7da780dd2fe54468a5dfb4113b4ff658f043e1"
-                       displayName="*gui.heads.misc.gold-steve-head.name" lores="*gui.heads.misc.gold-steve-head.lores"
-                       onClick="headClick" />
-                <skull id="f55fa642d5ebcba2c5246fe6499b1c4f6803c10f14f5299c8e59819d5dc"
-                       displayName="*gui.heads.misc.mushroom-stem.name" lores="*gui.heads.misc.mushroom-stem.lores"
-                       onClick="headClick" />
-                <skull id="fa49eca0369d1e158e539d78149acb1572949b88ba921d9ee694fea4c726b3"
-                       displayName="*gui.heads.misc.brown-mushroom.name" lores="*gui.heads.misc.brown-mushroom.lores"
-                       onClick="headClick" />
-                <skull id="5083ec2b01dc0fee79aa32188d9429acc68ecf71408dca04aaab53ad8bea0"
-                       displayName="*gui.heads.misc.cocoa-bean.name" lores="*gui.heads.misc.cocoa-bean.lores"
-                       onClick="headClick" />
-                <skull id="3fa39ccf4788d9179a8795e6b72382d49297b39217146eda68ae78384355b13"
-                       displayName="*gui.heads.misc.light-brown-mushroom.name"
-                       lores="*gui.heads.misc.light-brown-mushroom.lores" onClick="headClick" />
-                <skull id="dc6bacd36ed60f533138e759c425946222b78eda6b616216f6dcc08e90d33e"
-                       displayName="*gui.heads.misc.green-ore-2.name" lores="*gui.heads.misc.green-ore-2.lores"
-                       onClick="headClick" />
-                <skull id="86793bac4a1f974142ef8916642710949d7e38f87aebd380742ccc374f1de1"
-                       displayName="*gui.heads.misc.bundle-of-burnt-torches.name"
-                       lores="*gui.heads.misc.bundle-of-burnt-torches.lores" onClick="headClick" />
-                <skull id="2ec182da7d3c0a8acc3be9b77c29be47e08c20b050b13fd4c4c7d71f66273"
-                       displayName="*gui.heads.misc.skype.name" lores="*gui.heads.misc.skype.lores"
-                       onClick="headClick" />
-                <skull id="c4d7fc8e3a959ade7d9cf663f1e82db7975543e288ab8d11eb2541888213526"
-                       displayName="*gui.heads.misc.tnt-minecart.name" lores="*gui.heads.misc.tnt-minecart.lores"
-                       onClick="headClick" />
-                <skull id="e079abbafb981c795a9a2f82bab3fbd9f166b8c0dbf9a1751d769beac667b6"
-                       displayName="*gui.heads.misc.furnace-minecart.name"
-                       lores="*gui.heads.misc.furnace-minecart.lores" onClick="headClick" />
-                <skull id="4ced34211fed4010a8c85724a27fa5fb205d67684b3da517b6821279c6b65d3f"
-                       displayName="*gui.heads.misc.chest-minecart.name" lores="*gui.heads.misc.chest-minecart.lores"
-                       onClick="headClick" />
-                <skull id="ba9053d2163d0f561145d33a513145d4ac1f8a458baa796be383e7525a05f45"
-                       displayName="*gui.heads.misc.command-block-minecart.name"
-                       lores="*gui.heads.misc.command-block-minecart.lores" onClick="headClick" />
-                <skull id="636e26c44659e8148ed58aa79e4d60db595f426442116f81b5415c2446ed8"
-                       displayName="*gui.heads.misc.scared.name" lores="*gui.heads.misc.scared.lores"
-                       onClick="headClick" />
-                <skull id="3e1debc73231f8ed4b69d5c3ac1b1f18f3656a8988e23f2e1bdbc4e85f6d46a"
-                       displayName="*gui.heads.misc.angel.name" lores="*gui.heads.misc.angel.lores"
-                       onClick="headClick" />
-                <skull id="f720df911c052377065408db78a25c678f791eb944c063935ae86dbe51c71b"
-                       displayName="*gui.heads.misc.embarrased.name" lores="*gui.heads.misc.embarrased.lores"
-                       onClick="headClick" />
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="aa976f6dfcf188995a327e55ce34c60e6dcd1ff63e68dd1fc3ad75d2d1bf"/>
+                    <displayname>*gui.heads.misc.gold-pot.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.gold-pot.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="8d5427a83540a08a3fa2e655c2964a07243514584a71ec35d6b9e184dfbe318"/>
+                    <displayname>*gui.heads.misc.lava-bucket.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.lava-bucket.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="f58c975661c3e94fc35115648158e3ee9f80df74a4399e4d31ca5dbbcaf29b6"/>
+                    <displayname>*gui.heads.misc.milk-bucket.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.milk-bucket.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="21ea825150b06e65e2ceb593afe342dca56dda12bf6c9696fb82f90dcd423ab"/>
+                    <displayname>*gui.heads.misc.empty-bucket.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.empty-bucket.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="49f1f07e2b1c32bb64a128e529f3af1e5286e518544edf8cbaa6c4065b476b"/>
+                    <displayname>*gui.heads.misc.water-bucket.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.water-bucket.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="4c7f684d3ac3a59a9c766233423b46451bff7b9642bb589a7edc5aef457e7"/>
+                    <displayname>*gui.heads.misc.mailbox.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.mailbox.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="3e8aad673157c92317a88b1f86f5271f1cd7397d7fc8ec3281f733f751634"/>
+                    <displayname>*gui.heads.misc.space-helmet.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.space-helmet.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="302e22f6503c363df69bf9e9448fe89d2f05bae30534b8bb19d268f0989b96"/>
+                    <displayname>*gui.heads.misc.space-helmet-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.space-helmet-2.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="4d7b62aca28445b8e11ea1750eeacd97932fa37ba744768573e8dc58a6af1"/>
+                    <displayname>*gui.heads.misc.football-helmet.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.football-helmet.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="2cef87772afd85b468f4c7fb9571e31435ef765ad413fe460262150423e2021"/>
+                    <displayname>*gui.heads.misc.eye.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.eye.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="732dbd6612e9d3f42947b5ca8785bfb334258f3ceb83ad69a5cdeebea4cd65"/>
+                    <displayname>*gui.heads.misc.red-mushroom.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.red-mushroom.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="1988ec65c51a85772c8d86d74ea8e0e572523bf8edc8cba5ad11952fbebe660"/>
+                    <displayname>*gui.heads.misc.pine-cone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.pine-cone.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="22523e15e9986355a1f851f43f750ee3f23c89ae123631da241f872ba7a781"/>
+                    <displayname>*gui.heads.misc.cannonball.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.cannonball.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="996754d330435345aae3a9f063cfca42afb28b7c5c4bb9f294ed2527d961"/>
+                    <displayname>*gui.heads.misc.cannonball-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.cannonball-2.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="86fcaefa19669d8be02cf5ba9a7f2cf6d27e636410496ffcfa62b03dceb9d378"/>
+                    <displayname>*gui.heads.misc.target.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.target.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">/>
+                    <displayname>*gui.heads.misc.cactus.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.cactus.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="deb46126904463f07ecfc972aaa37373a22359b5ba271821b689cd5367f75762"/>
+                    <displayname>*gui.heads.misc.facebook.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.facebook.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="3685a0be743e9067de95cd8c6d1ba21ab21d37371b3d597211bb75e43279"/>
+                    <displayname>*gui.heads.misc.twitter.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.twitter.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="b4353fd0f86314353876586075b9bdf0c484aab0331b872df11bd564fcb029ed"/>
+                    <displayname>*gui.heads.misc.youtube.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.youtube.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="9c2e9d8395cacd9922869c15373cf7cb16da0a5ce5f3c632b19ceb3929c9a11"/>
+                    <displayname>*gui.heads.misc.firecharge.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.firecharge.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="318e35ec4b4b4c1591c5177386de18797454298b7455982e3ae83bacced0f1a2"/>
+                    <displayname>*gui.heads.misc.portable-grill.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.portable-grill.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="e98d4fe5176a3accdebb1c3fb0b26cf3a181fffc160ea52a028cb41f34cfe1"/>
+                    <displayname>*gui.heads.misc.wilson-castaway.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.wilson-castaway.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="dacbbca567372a9b2b36c8f68154851bda5ee1d53e2bc208a1152d9a18d2cb"/>
+                    <displayname>*gui.heads.misc.mailbox-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.mailbox-2.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="1ae3855f952cd4a03c148a946e3f812a5955ad35cbcb52627ea4acd47d3081"/>
+                    <displayname>*gui.heads.misc.skull.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.skull.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="e9eb9da26cf2d3341397a7f4913ba3d37d1ad10eae30ab25fa39ceb84bc"/>
+                    <displayname>*gui.heads.misc.missing-texture.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.missing-texture.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="58c206e29924b9916d4d24dfbbc38f28b44d6d3cfa23adec9ed3a8fce1b7b2"/>
+                    <displayname>*gui.heads.misc.green-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.green-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="904f1a55943c594e7119e884c5da2a2bca8e7e6516a0649aa7e55658e0e9"/>
+                    <displayname>*gui.heads.misc.cactusflower.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.cactusflower.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="5bb28bb0bf1ad217d2a81191effcc69fe174714a432fd71fa60aa50f3712b97"/>
+                    <displayname>*gui.heads.misc.molten-core.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.molten-core.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="4d9bd4b2fa8da8247a82c3d1fa246715f9b6d98c778374da6efc10c89cd64"/>
+                    <displayname>*gui.heads.misc.reddit.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.reddit.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="10b8eb333622ae7de9b53b3602f41f63db9c2528b5be231ac96516611fb1a"/>
+                    <displayname>*gui.heads.misc.diamond-steve-head.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.diamond-steve-head.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="f937e1c45bb8da29b2c564dd9a7da780dd2fe54468a5dfb4113b4ff658f043e1"/>
+                    <displayname>*gui.heads.misc.gold-steve-head.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.gold-steve-head.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="f55fa642d5ebcba2c5246fe6499b1c4f6803c10f14f5299c8e59819d5dc"/>
+                    <displayname>*gui.heads.misc.mushroom-stem.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.mushroom-stem.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="fa49eca0369d1e158e539d78149acb1572949b88ba921d9ee694fea4c726b3"/>
+                    <displayname>*gui.heads.misc.brown-mushroom.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.brown-mushroom.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="5083ec2b01dc0fee79aa32188d9429acc68ecf71408dca04aaab53ad8bea0"/>
+                    <displayname>*gui.heads.misc.cocoa-bean.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.cocoa-bean.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="3fa39ccf4788d9179a8795e6b72382d49297b39217146eda68ae78384355b13"/>
+                    <displayname>*gui.heads.misc.light-brown-mushroom.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.light-brown-mushroom.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="dc6bacd36ed60f533138e759c425946222b78eda6b616216f6dcc08e90d33e"/>
+                    <displayname>*gui.heads.misc.green-ore-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.green-ore-2.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="86793bac4a1f974142ef8916642710949d7e38f87aebd380742ccc374f1de1"/>
+                    <displayname>*gui.heads.misc.bundle-of-burnt-torches.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.bundle-of-burnt-torches.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="2ec182da7d3c0a8acc3be9b77c29be47e08c20b050b13fd4c4c7d71f66273"/>
+                    <displayname>*gui.heads.misc.skype.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.skype.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="c4d7fc8e3a959ade7d9cf663f1e82db7975543e288ab8d11eb2541888213526"/>
+                    <displayname>*gui.heads.misc.tnt-minecart.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.tnt-minecart.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="e079abbafb981c795a9a2f82bab3fbd9f166b8c0dbf9a1751d769beac667b6"/>
+                    <displayname>*gui.heads.misc.furnace-minecart.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.furnace-minecart.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="4ced34211fed4010a8c85724a27fa5fb205d67684b3da517b6821279c6b65d3f"/>
+                    <displayname>*gui.heads.misc.chest-minecart.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.chest-minecart.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="ba9053d2163d0f561145d33a513145d4ac1f8a458baa796be383e7525a05f45"/>
+                    <displayname>*gui.heads.misc.command-block-minecart.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.command-block-minecart.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="636e26c44659e8148ed58aa79e4d60db595f426442116f81b5415c2446ed8"/>
+                    <displayname>*gui.heads.misc.scared.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.scared.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="3e1debc73231f8ed4b69d5c3ac1b1f18f3656a8988e23f2e1bdbc4e85f6d46a"/>
+                    <displayname>*gui.heads.misc.angel.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.angel.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="f720df911c052377065408db78a25c678f791eb944c063935ae86dbe51c71b"/>
+                    <displayname>*gui.heads.misc.embarrased.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.embarrased.lores</line>
+                    </lore>
+                </item>
             </outlinepane>
         </page>
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
-                <skull id="545bd18a2aaf469fad72e52cde6cfb02bfbaa5bfed2a8151277f779ebcdcec1"
-                       displayName="*gui.heads.misc.kissy.name" lores="*gui.heads.misc.kissy.lores"
-                       onClick="headClick" />
-                <skull id="14968ac5af3146826fa2b0d4dd114fda197f8b28f4750553f3f88836a21fac9"
-                       displayName="*gui.heads.misc.sad.name" lores="*gui.heads.misc.sad.lores" onClick="headClick" />
-                <skull id="868f4cef949f32e33ec5ae845f9c56983cbe13375a4dec46e5bbfb7dcb6"
-                       displayName="*gui.heads.misc.cool.name" lores="*gui.heads.misc.cool.lores" onClick="headClick" />
-                <skull id="bc2b9b9ae622bd68adff7180f8206ec4494abbfa130e94a584ec692e8984ab2"
-                       displayName="*gui.heads.misc.surprised.name" lores="*gui.heads.misc.surprised.lores"
-                       onClick="headClick" />
-                <skull id="b371e4e1cf6a1a36fdae27137fd9b8748e6169299925f9af2be301e54298c73"
-                       displayName="*gui.heads.misc.dead.name" lores="*gui.heads.misc.dead.lores" onClick="headClick" />
-                <skull id="1f1b875de49c587e3b4023ce24d472ff27583a1f054f37e73a1154b5b5498"
-                       displayName="*gui.heads.misc.forever-crying.name" lores="*gui.heads.misc.forever-crying.lores"
-                       onClick="headClick" />
-                <skull id="5059d59eb4e59c31eecf9ece2f9cf3934e45c0ec476fc86bfaef8ea913ea710"
-                       displayName="*gui.heads.misc.big-grin.name" lores="*gui.heads.misc.big-grin.lores"
-                       onClick="headClick" />
-                <skull id="f4ea2d6f939fefeff5d122e63dd26fa8a427df90b2928bc1fa89a8252a7e"
-                       displayName="*gui.heads.misc.wink.name" lores="*gui.heads.misc.wink.lores" onClick="headClick" />
-                <skull id="3baabe724eae59c5d13f442c7dc5d2b1c6b70c2f83364a488ce5973ae80b4c3"
-                       displayName="*gui.heads.misc.derp.name" lores="*gui.heads.misc.derp.lores" onClick="headClick" />
-                <skull id="3636f2724aa6aa4de7ac46c19f3c845fb14847a518c8f7e03d792c82effb1"
-                       displayName="*gui.heads.misc.mustache.name" lores="*gui.heads.misc.mustache.lores"
-                       onClick="headClick" />
-                <skull id="7ffaccf17879b17891fc5ef66472cc066a85bfa31b6d786c32afee4796068d"
-                       displayName="*gui.heads.misc.big-smile.name" lores="*gui.heads.misc.big-smile.lores"
-                       onClick="headClick" />
-                <skull id="52e98165deef4ed621953921c1ef817dc638af71c1934a4287b69d7a31f6b8"
-                       displayName="*gui.heads.misc.smile.name" lores="*gui.heads.misc.smile.lores"
-                       onClick="headClick" />
-                <skull id="20342dc9c2ad886acfe3ca2e987b7e28a87c774ca5f3d8cb2bfabe131cafe8"
-                       displayName="*gui.heads.misc.beehive.name" lores="*gui.heads.misc.beehive.lores"
-                       onClick="headClick" />
-                <skull id="c23cf210edea396f2f5dfbced69848434f93404eefeabf54b23c073b090adf"
-                       displayName="*gui.heads.misc.netherlands.name" lores="*gui.heads.misc.netherlands.lores"
-                       onClick="headClick" />
-                <skull id="e0596e165ec3f389b59cfdda93dd6e363e97d9c6456e7c2e123973fa6c5fda"
-                       displayName="*gui.heads.misc.norway.name" lores="*gui.heads.misc.norway.lores"
-                       onClick="headClick" />
-                <skull id="e910904bff9c86f6ed47688e9429c26e8d9c5d5743bd3ebb8e6f5040be192998"
-                       displayName="*gui.heads.misc.sweden.name" lores="*gui.heads.misc.sweden.lores"
-                       onClick="headClick" />
-                <skull id="826e742b32f0f8db59c07b1bcdde6f8a93f85c929e598c7e9273b9211f2ce78"
-                       displayName="*gui.heads.misc.egypt.name" lores="*gui.heads.misc.egypt.lores"
-                       onClick="headClick" />
-                <skull id="ed1dddc665614c9f6487ba9c666da7579561589a494ef744aaf8f4f88a16"
-                       displayName="*gui.heads.misc.chile.name" lores="*gui.heads.misc.chile.lores"
-                       onClick="headClick" />
-                <skull id="5db2678ccaba7934412cb97ee16d416463a392574c5906352f18dea42895ee"
-                       displayName="*gui.heads.misc.monaco.name" lores="*gui.heads.misc.monaco.lores"
-                       onClick="headClick" />
-                <skull id="f241a697f6dfb1c57cda327baa6732a7828c398be4ebfdbd166c232bcae2b"
-                       displayName="*gui.heads.misc.canada.name" lores="*gui.heads.misc.canada.lores"
-                       onClick="headClick" />
-                <skull id="7d15d566202ac0e76cd897759df5d01c11f991bd46c5c9a04357ea89ee75"
-                       displayName="*gui.heads.misc.united-states-of-america.name"
-                       lores="*gui.heads.misc.united-states-of-america.lores" onClick="headClick" />
-                <skull id="5c78aae42ef9ee9faa67b64bb974cea275ce702655d35f841b6017416ee1c393"
-                       displayName="*gui.heads.misc.belgium.name" lores="*gui.heads.misc.belgium.lores"
-                       onClick="headClick" />
-                <skull id="a56c5cc17319a6c9ec847252e4d274552d97da95e1085072dba49d117cf3"
-                       displayName="*gui.heads.misc.italy.name" lores="*gui.heads.misc.italy.lores"
-                       onClick="headClick" />
-                <skull id="bee5c850afbb7d8843265a146211ac9c615f733dcc5a8e2190e5c247dea32"
-                       displayName="*gui.heads.misc.england.name" lores="*gui.heads.misc.england.lores"
-                       onClick="headClick" />
-                <skull id="84d380aa9d66a2a966eb1cfc17608f28fbfe3a75f6a18a8be544682586c41c4"
-                       displayName="*gui.heads.misc.romania.name" lores="*gui.heads.misc.romania.lores"
-                       onClick="headClick" />
-                <skull id="5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f"
-                       displayName="*gui.heads.misc.germany.name" lores="*gui.heads.misc.germany.lores"
-                       onClick="headClick" />
-                <skull id="8b5ed11f797f3fc61eaf8dafb6bf3234d31b96ab7596bd2df722d2ef3473c27"
-                       displayName="*gui.heads.misc.singapore.name" lores="*gui.heads.misc.singapore.lores"
-                       onClick="headClick" />
-                <skull id="1969d12662faebfaca6f4b0442fcb251fd60b61a9fcdceea2bdc21e025eb21"
-                       displayName="*gui.heads.misc.north-korea.name" lores="*gui.heads.misc.north-korea.lores"
-                       onClick="headClick" />
-                <skull id="ba25287d1140fb1741d4b6f7e65672f9e64fffe80ea7371c7f3ec5a6f04039"
-                       displayName="*gui.heads.misc.france.name" lores="*gui.heads.misc.france.lores"
-                       onClick="headClick" />
-                <skull id="c2baf0c589a6b583511d83c268240842d3364774ec9f566d1fd4d349cf42fb"
-                       displayName="*gui.heads.misc.crown.name" lores="*gui.heads.misc.crown.lores"
-                       onClick="headClick" />
-                <skull id="b5b656da666d2759e8195642142e119e6585852c6619e2ad79ae2ad181465"
-                       displayName="*gui.heads.misc.emerald-steve-head.name"
-                       lores="*gui.heads.misc.emerald-steve-head.lores" onClick="headClick" />
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="545bd18a2aaf469fad72e52cde6cfb02bfbaa5bfed2a8151277f779ebcdcec1"/>
+                    <displayname>*gui.heads.misc.kissy.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.kissy.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="14968ac5af3146826fa2b0d4dd114fda197f8b28f4750553f3f88836a21fac9"/>
+                    <displayname>*gui.heads.misc.sad.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.sad.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="868f4cef949f32e33ec5ae845f9c56983cbe13375a4dec46e5bbfb7dcb6"/>
+                    <displayname>*gui.heads.misc.cool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.cool.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="bc2b9b9ae622bd68adff7180f8206ec4494abbfa130e94a584ec692e8984ab2"/>
+                    <displayname>*gui.heads.misc.surprised.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.surprised.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="b371e4e1cf6a1a36fdae27137fd9b8748e6169299925f9af2be301e54298c73"/>
+                    <displayname>*gui.heads.misc.dead.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.dead.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="1f1b875de49c587e3b4023ce24d472ff27583a1f054f37e73a1154b5b5498"/>
+                    <displayname>*gui.heads.misc.forever-crying.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.forever-crying.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="5059d59eb4e59c31eecf9ece2f9cf3934e45c0ec476fc86bfaef8ea913ea710"/>
+                    <displayname>*gui.heads.misc.big-grin.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.big-grin.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="f4ea2d6f939fefeff5d122e63dd26fa8a427df90b2928bc1fa89a8252a7e"/>
+                    <displayname>*gui.heads.misc.wink.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.wink.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="3baabe724eae59c5d13f442c7dc5d2b1c6b70c2f83364a488ce5973ae80b4c3"/>
+                    <displayname>*gui.heads.misc.derp.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.derp.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="3636f2724aa6aa4de7ac46c19f3c845fb14847a518c8f7e03d792c82effb1"/>
+                    <displayname>*gui.heads.misc.mustache.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.mustache.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="7ffaccf17879b17891fc5ef66472cc066a85bfa31b6d786c32afee4796068d"/>
+                    <displayname>*gui.heads.misc.big-smile.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.big-smile.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="52e98165deef4ed621953921c1ef817dc638af71c1934a4287b69d7a31f6b8"/>
+                    <displayname>*gui.heads.misc.smile.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.smile.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="20342dc9c2ad886acfe3ca2e987b7e28a87c774ca5f3d8cb2bfabe131cafe8"/>
+                    <displayname>*gui.heads.misc.beehive.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.beehive.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="c23cf210edea396f2f5dfbced69848434f93404eefeabf54b23c073b090adf"/>
+                    <displayname>*gui.heads.misc.netherlands.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.netherlands.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="e0596e165ec3f389b59cfdda93dd6e363e97d9c6456e7c2e123973fa6c5fda"/>
+                    <displayname>*gui.heads.misc.norway.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.norway.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="e910904bff9c86f6ed47688e9429c26e8d9c5d5743bd3ebb8e6f5040be192998"/>
+                    <displayname>*gui.heads.misc.sweden.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.sweden.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="826e742b32f0f8db59c07b1bcdde6f8a93f85c929e598c7e9273b9211f2ce78"/>
+                    <displayname>*gui.heads.misc.egypt.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.egypt.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="ed1dddc665614c9f6487ba9c666da7579561589a494ef744aaf8f4f88a16"/>
+                    <displayname>*gui.heads.misc.chile.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.chile.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="5db2678ccaba7934412cb97ee16d416463a392574c5906352f18dea42895ee"/>
+                    <displayname>*gui.heads.misc.monaco.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.monaco.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="f241a697f6dfb1c57cda327baa6732a7828c398be4ebfdbd166c232bcae2b"/>
+                    <displayname>*gui.heads.misc.canada.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.canada.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="7d15d566202ac0e76cd897759df5d01c11f991bd46c5c9a04357ea89ee75"/>
+                    <displayname>*gui.heads.misc.united-states-of-america.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.united-states-of-america.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="5c78aae42ef9ee9faa67b64bb974cea275ce702655d35f841b6017416ee1c393"/>
+                    <displayname>*gui.heads.misc.belgium.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.belgium.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="a56c5cc17319a6c9ec847252e4d274552d97da95e1085072dba49d117cf3"/>
+                    <displayname>*gui.heads.misc.italy.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.italy.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="bee5c850afbb7d8843265a146211ac9c615f733dcc5a8e2190e5c247dea32"/>
+                    <displayname>*gui.heads.misc.england.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.england.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="84d380aa9d66a2a966eb1cfc17608f28fbfe3a75f6a18a8be544682586c41c4"/>
+                    <displayname>*gui.heads.misc.romania.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.romania.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f"/>
+                    <displayname>*gui.heads.misc.germany.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.germany.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="8b5ed11f797f3fc61eaf8dafb6bf3234d31b96ab7596bd2df722d2ef3473c27"/>
+                    <displayname>*gui.heads.misc.singapore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.singapore.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="1969d12662faebfaca6f4b0442fcb251fd60b61a9fcdceea2bdc21e025eb21"/>
+                    <displayname>*gui.heads.misc.north-korea.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.north-korea.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="ba25287d1140fb1741d4b6f7e65672f9e64fffe80ea7371c7f3ec5a6f04039"/>
+                    <displayname>*gui.heads.misc.france.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.france.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="c2baf0c589a6b583511d83c268240842d3364774ec9f566d1fd4d349cf42fb"/>
+                    <displayname>*gui.heads.misc.crown.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.crown.lores</line>
+                    </lore>
+                </item>
+                <item id="skull_item" damage="3" onLocalClick="headClick">
+                    <skull id="b5b656da666d2759e8195642142e119e6585852c6619e2ad79ae2ad181465"/>
+                    <displayname>*gui.heads.misc.emerald-steve-head.name</displayname>
+                    <lore>
+                        <line>*gui.heads.misc.emerald-steve-head.lores</line>
+                    </lore>
+                </item>
             </outlinepane>
         </page>
     </paginatedpane>
-    <outlinepane x="2" y="5" length="1" height="1" tag="previous" visible="false">
-        <item id="sugar_cane" displayName="*gui.heads.misc.previous-page.name"
-              lores="*gui.heads.misc.previous-page.lores" onClick="previousPageClick"/>
+    <outlinepane x="2" y="5" length="1" height="1" field="previous" visible="false">
+        <item id="sugar_cane" onLocalClick="previousPageClick">
+            <displayname>*gui.heads.misc.previous-page.name</displayname>
+            <lore>
+                <line>*gui.heads.misc.previous-page.lores</line>
+            </lore>
+        </item>
     </outlinepane>
     <outlinepane x="4" y="5" length="1" height="1">
-        <item id="book" displayName="*gui.heads.misc.close.name" lores="*gui.heads.misc.close.lores"
-              onClick="closeClick"/>
+        <item id="book" onLocalClick="closeClick">
+            <displayname>*gui.heads.misc.close.name</displayname>
+            <lore>
+                <line>*gui.heads.misc.close.lores</line>
+            </lore>
+        </item>
     </outlinepane>
-    <outlinepane x="6" y="5" length="1" height="1" tag="next">
-        <item id="sugar_cane" displayName="*gui.heads.misc.next-page.name" lores="*gui.heads.misc.next-page.lores"
-              onClick="nextPageClick"/>
+    <outlinepane x="6" y="5" length="1" height="1" field="next">
+        <item id="sugar_cane" onLocalClick="nextPageClick">
+            <displayname>*gui.heads.misc.next-page.name</displayname>
+            <lore>
+                <line>*gui.heads.misc.next-page.lores</line>
+            </lore>
+        </item>
     </outlinepane>
 </gui>

@@ -1,9 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiItem;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.GuiLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Slime;
@@ -21,7 +22,7 @@ class SizeSelectionMenu extends Gui {
      * {@inheritDoc}
      */
     SizeSelectionMenu(Slime slime) {
-        super(1, ChatColor.GREEN + "Change size");
+        super(Main.getInstance(), 1, ChatColor.GREEN + "Change size");
 
         OutlinePane pane = new OutlinePane(new GuiLocation(3, 0), 6, 1);
 

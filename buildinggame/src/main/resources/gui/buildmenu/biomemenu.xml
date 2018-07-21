@@ -1,62 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.options-title" rows="2">
     <outlinepane x="0" y="0" length="9" height="2">
-        <item id="ice" displayName="*gui.biome.ice-plains.name" lores="*gui.biome.ice-plains.lores"
-              onClick="biomeClick">
-            <attribute type="biome">ICE_FLATS</attribute>
+        <item id="ice" onLocalClick="biomeClick">
+            <displayname>*gui.biome.ice-plains.name</displayname>
+            <lore>
+                <line>*gui.biome.ice-plains.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">ICE_FLATS</property>
+            </properties>
         </item>
-        <item id="log" damage="1" displayName="*gui.biome.taiga.name" lores="*gui.biome.taiga.lores"
-              onClick="biomeClick">
-            <attribute type="biome">TAIGA</attribute>
+        <item id="log" damage="1" onLocalClick="biomeClick">
+            <displayname>*gui.biome.taiga.name</displayname>
+            <lore>
+                <line>*gui.biome.taiga.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">TAIGA</property>
+            </properties>
         </item>
-        <item id="stone" displayName="*gui.biome.extreme-hills.name" lores="*gui.biome.extreme-hills.lores"
-              onClick="biomeClick">
-            <attribute type="biome">EXTREME_HILLS</attribute>
+        <item id="stone" onLocalClick="biomeClick">
+            <displayname>*gui.biome.extreme-hills.name</displayname>
+            <lore>
+                <line>*gui.biome.extreme-hills.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">EXTREME_HILLS</property>
+            </properties>
         </item>
-        <item id="grass" displayName="*gui.biome.plains.name" lores="*gui.biome.plains.lores" onClick="biomeClick">
-            <attribute type="biome">PLAINS</attribute>
+        <item id="grass" onLocalClick="biomeClick">
+            <displayname>*gui.biome.plains.name</displayname>
+            <lore>
+                <line>*gui.biome.plains.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">PLAINS</property>
+            </properties>
         </item>
-        <item id="log" displayName="*gui.biome.forest.name" lores="*gui.biome.forest.lores" onClick="biomeClick">
-            <attribute type="biome">FOREST</attribute>
+        <item id="log" onLocalClick="biomeClick">
+            <displayname>*gui.biome.forest.name</displayname>
+            <lore>
+                <line>*gui.biome.forest.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">FOREST</property>
+            </properties>
         </item>
-        <item id="log_2" damage="1" displayName="*gui.biome.roofed-forest.name" lores="*gui.biome.roofed-forest.lores"
-              onClick="biomeClick">
-            <attribute type="biome">ROOFED_FOREST</attribute>
+        <item id="log_2" damage="1" onLocalClick="biomeClick">
+            <displayname>*gui.biome.roofed-forest.name</displayname>
+            <lore>
+                <line>*gui.biome.roofed-forest.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">ROOFED_FOREST</property>
+            </properties>
         </item>
-        <item id="water_lily" displayName="*gui.biome.swampland.name" lores="*gui.biome.swampland.lores"
-              onClick="biomeClick">
-            <attribute type="biome">SWAMPLAND</attribute>
+        <item id="water_lily" onLocalClick="biomeClick">
+            <displayname>*gui.biome.swampland.name</displayname>
+            <lore>
+                <line>*gui.biome.swampland.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">SWAMPLAND</property>
+            </properties>
         </item>
-        <item id="vine" displayName="*gui.biome.jungle.name" lores="*gui.biome.jungle.lores" onClick="biomeClick">
-            <attribute type="biome">JUNGLE</attribute>
+        <item id="vine" onLocalClick="biomeClick">
+            <displayname>*gui.biome.jungle.name</displayname>
+            <lore>
+                <line>*gui.biome.jungle.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">JUNGLE</property>
+            </properties>
         </item>
-        <item id="mycel" displayName="*gui.biome.mushroom-island.name" lores="*gui.biome.mushroom-island.lores"
-              onClick="biomeClick">
-            <attribute type="biome">MUSHROOM_ISLAND</attribute>
+        <item id="mycel" onLocalClick="biomeClick">
+            <displayname>*gui.biome.mushroom-island.name</displayname>
+            <lore>
+                <line>*gui.biome.mushroom-island.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">MUSHROOM_ISLAND</property>
+            </properties>
         </item>
         <item id="ender_stone" displayName="*gui.biome.the-end.name" lores="*gui.biome.the-end.lores"
-              onClick="biomeClick">
-            <attribute type="biome">SKY</attribute>
+              onLocalClick="biomeClick">
+            <displayname>*gui.biome.the-end.name</displayname>
+            <lore>
+                <line>*gui.biome.the-end.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">SKY</property>
+            </properties>
         </item>
-        <item id="sand" displayName="*gui.biome.desert.name" lores="*gui.biome.desert.lores" onClick="biomeClick">
-            <attribute type="biome">DESERT</attribute>
+        <item id="sand" onLocalClick="biomeClick">
+            <displayname>*gui.biome.desert.name</displayname>
+            <lore>
+                <line>*gui.biome.desert.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">DESERT</property>
+            </properties>
         </item>
-        <item id="log_2" displayName="*gui.biome.savanna.name" lores="*gui.biome.savanna.lores" onClick="biomeClick">
-            <attribute type="biome">SAVANNA</attribute>
+        <item id="log_2" onLocalClick="biomeClick">
+            <displayname>*gui.biome.savanna.name</displayname>
+            <lore>
+                <line>*gui.biome.savanna.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">SAVANNA</property>
+            </properties>
         </item>
-        <item id="hard_clay" displayName="*gui.biome.mesa.name" lores="*gui.biome.mesa.lores" onClick="biomeClick">
-            <attribute type="biome">MESA</attribute>
+        <item id="hard_clay" onLocalClick="biomeClick">
+            <displayname>*gui.biome.mesa.name</displayname>
+            <lore>
+                <line>*gui.biome.mesa.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">MESA</property>
+            </properties>
         </item>
-        <item id="netherrack" displayName="*gui.biome.the-nether.name" lores="*gui.biome.the-nether.lores"
-              onClick="biomeClick">
-            <attribute type="biome">HELL</attribute>
+        <item id="netherrack" onLocalClick="biomeClick">
+            <displayname>*gui.biome.the-nether.name</displayname>
+            <lore>
+                <line>*gui.biome.the-nether.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">HELL</property>
+            </properties>
         </item>
-        <item id="water_bucket" displayName="*gui.biome.ocean.name" lores="*gui.biome.ocean.lores" onClick="biomeClick">
-            <attribute type="biome">OCEAN</attribute>
+        <item id="water_bucket" onLocalClick="biomeClick">
+            <displayname>*gui.biome.ocean.name</displayname>
+            <lore>
+                <line>*gui.biome.ocean.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">OCEAN</property>
+            </properties>
         </item>
-        <item id="barrier" displayName="*gui.biome.the-void.name" lores="*gui.biome.the-void.lores"
-              onClick="biomeClick">
-            <attribute type="biome">VOID</attribute>
+        <item id="barrier" onLocalClick="biomeClick">
+            <displayname>*gui.biome.the-void.name</displayname>
+            <lore>
+                <line>*gui.biome.the-void.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">VOID</property>
+            </properties>
         </item>
     </outlinepane>
 </gui>

@@ -1,9 +1,14 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu;
 
+import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.pane.PaginatedPane;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Cancellable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A heads menu with multiple pages
@@ -13,12 +18,53 @@ import org.bukkit.event.Cancellable;
 public class PaginatedHeadsMenu extends HeadsMenu {
 
     /**
+     * YAML Configuration for the messages.yml
+     */
+    private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
+
+    /**
+     * The paginated pane
+     */
+    @SuppressWarnings("WeakerAccess")
+    public PaginatedPane paginatedPane;
+
+    /**
+     * The panes for going to the previous and next pages
+     */
+    @SuppressWarnings("WeakerAccess")
+    public OutlinePane previous, next;
+
+    /**
      * {@inheritDoc}
      *
      * @since 5.6.0
      */
     public PaginatedHeadsMenu(String location) {
-        this.gui = Gui.load(this, Main.getInstance().getResource(location));
+        this.gui = Gui.load(Main.getInstance(), this, Main.getInstance().getResource(location));
+
+        String title = gui.getTitle();
+
+        if (!title.isEmpty() && title.charAt(0) == '*')
+            gui.setTitle(MessageManager.translate(MESSAGES.getString(title.substring(1))));
+
+        gui.getItems().forEach(item -> {
+            ItemMeta itemMeta = item.getItem().getItemMeta();
+
+            if (itemMeta == null)
+                return;
+
+            String displayName = itemMeta.getDisplayName();
+
+            if (!displayName.isEmpty() && displayName.charAt(0) == '*')
+                itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString(displayName.substring(1))));
+
+            String lore = itemMeta.getLore().get(0);
+
+            if (!lore.isEmpty() && lore.charAt(0) == '*')
+                itemMeta.setLore(MessageManager.translate(MESSAGES.getStringList(lore.substring(1))));
+
+            item.getItem().setItemMeta(itemMeta);
+        });
     }
 
     /**
@@ -28,14 +74,12 @@ public class PaginatedHeadsMenu extends HeadsMenu {
      * @since 5.6.0
      */
     public void previousPageClick(Cancellable cancellable) {
-        PaginatedPane paginatedPane = (PaginatedPane) gui.getPane("paginatedpane");
-
         paginatedPane.setPage(paginatedPane.getPage() - 1);
 
         if (paginatedPane.getPage() == 0)
-            gui.getPane("previous").setVisible(false);
+            previous.setVisible(false);
 
-        gui.getPane("next").setVisible(true);
+        next.setVisible(true);
 
         gui.update();
 
@@ -48,14 +92,12 @@ public class PaginatedHeadsMenu extends HeadsMenu {
      * @since 5.6.0
      */
     public void nextPageClick(Cancellable cancellable) {
-        PaginatedPane paginatedPane = (PaginatedPane) gui.getPane("paginatedpane");
-
         paginatedPane.setPage(paginatedPane.getPage() + 1);
 
         if (paginatedPane.getPage() == paginatedPane.getPages() - 1)
-            gui.getPane("next").setVisible(false);
+            next.setVisible(false);
 
-        gui.getPane("previous").setVisible(true);
+        previous.setVisible(true);
 
         gui.update();
 

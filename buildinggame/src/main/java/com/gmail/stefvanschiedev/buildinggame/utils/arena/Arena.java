@@ -1245,7 +1245,7 @@ public class Arena {
 				if (config.getBoolean("scoreboards.vote.enable"))
 					getVoteScoreboard().show(player);
 				
-				player.setPlayerTime(plot.getTime().decode(), false);
+				player.setPlayerTime(plot.getTime(), false);
 				player.setPlayerWeather(plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
 			}
 		}
@@ -1315,7 +1315,7 @@ public class Arena {
 				final Player player = gamePlayer.getPlayer();
 				player.getInventory().clear();
 				player.setGameMode(GameMode.CREATIVE);
-				player.setPlayerTime(plot.getTime().decode(), false);
+				player.setPlayerTime(plot.getTime(), false);
 				
 				ItemBuilder.check(player);
 				

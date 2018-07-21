@@ -1,70 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.banners.base-color.title" rows="2">
     <outlinepane x="0" y="0" length="9" height="2">
-        <item id="banner" displayName="*gui.banners.base-color.black.name" lores="*gui.banners.base-color.black.lore"
-              onClick="bannerClick">
-            <attribute type="short">0</attribute>
+        <item id="banner" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.black.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.black.lore</line>
+            </lore>
+            <properties>
+                <property type="short">0</property>
+            </properties>
         </item>
-        <item id="banner" damage="1" displayName="*gui.banners.base-color.red.name"
-              lores="*gui.banners.base-color.red.lore" onClick="bannerClick">
-            <attribute type="short">1</attribute>
+        <item id="banner" damage="1" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.red.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.red.lore</line>
+            </lore>
+            <properties>
+                <property type="short">1</property>
+            </properties>
         </item>
-        <item id="banner" damage="2" displayName="*gui.banners.base-color.green.name"
-              lores="*gui.banners.base-color.green.lore" onClick="bannerClick">
-            <attribute type="short">2</attribute>
+        <item id="banner" damage="2" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.green.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.green.lore</line>
+            </lore>
+            <properties>
+                <property type="short">2</property>
+            </properties>
         </item>
-        <item id="banner" damage="3" displayName="*gui.banners.base-color.brown.name"
-              lores="*gui.banners.base-color.brown.lore" onClick="bannerClick">
-            <attribute type="short">3</attribute>
+        <item id="banner" damage="3" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.brown.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.brown.lore</line>
+            </lore>
+            <properties>
+                <property type="short">3</property>
+            </properties>
         </item>
-        <item id="banner" damage="4" displayName="*gui.banners.base-color.blue.name"
-              lores="*gui.banners.base-color.blue.lore" onClick="bannerClick">
-            <attribute type="short">4</attribute>
+        <item id="banner" damage="4" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.blue.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.blue.lore</line>
+            </lore>
+            <properties>
+                <property type="short">4</property>
+            </properties>
         </item>
-        <item id="banner" damage="5" displayName="*gui.banners.base-color.purple.name"
-              lores="*gui.banners.base-color.purple.lore" onClick="bannerClick">
-            <attribute type="short">5</attribute>
+        <item id="banner" damage="5" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.purple.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.purple.lore</line>
+            </lore>
+            <properties>
+                <property type="short">5</property>
+            </properties>
         </item>
-        <item id="banner" damage="6" displayName="*gui.banners.base-color.cyan.name"
-              lores="*gui.banners.base-color.cyan.lore" onClick="bannerClick">
-            <attribute type="short">6</attribute>
+        <item id="banner" damage="6" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.cyan.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.cyan.lore</line>
+            </lore>
+            <properties>
+                <property type="short">6</property>
+            </properties>
         </item>
-        <item id="banner" damage="7" displayName="*gui.banners.base-color.light-gray.name"
-              lores="*gui.banners.base-color.light-gray.lore" onClick="bannerClick">
-            <attribute type="short">7</attribute>
+        <item id="banner" damage="7" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.light-gray.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.light-gray.lore</line>
+            </lore>
+            <properties>
+                <property type="short">7</property>
+            </properties>
         </item>
-        <item id="banner" damage="8" displayName="*gui.banners.base-color.gray.name"
-              lores="*gui.banners.base-color.gray.lore" onClick="bannerClick">
-            <attribute type="short">8</attribute>
+        <item id="banner" damage="8" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.gray.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.gray.lore</line>
+            </lore>
+            <properties>
+                <property type="short">8</property>
+            </properties>
         </item>
         <empty />
-        <item id="banner" damage="9" displayName="*gui.banners.base-color.pink.name"
-              lores="*gui.banners.base-color.pink.lore" onClick="bannerClick">
-            <attribute type="short">9</attribute>
+        <item id="banner" damage="9" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.pink.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.pink.lore</line>
+            </lore>
+            <properties>
+                <property type="short">9</property>
+            </properties>
         </item>
-        <item id="banner" damage="10" displayName="*gui.banners.base-color.lime.name"
-              lores="*gui.banners.base-color.lime.lore" onClick="bannerClick">
-            <attribute type="short">10</attribute>
+        <item id="banner" damage="10" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.lime.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.lime.lore</line>
+            </lore>
+            <properties>
+                <property type="short">10</property>
+            </properties>
         </item>
-        <item id="banner" damage="11" displayName="*gui.banners.base-color.yellow.name"
-              lores="*gui.banners.base-color.yellow.lore" onClick="bannerClick">
-            <attribute type="short">11</attribute>
+        <item id="banner" damage="11" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.yellow.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.yellow.lore</line>
+            </lore>
+            <properties>
+                <property type="short">11</property>
+            </properties>
         </item>
-        <item id="banner" damage="12" displayName="*gui.banners.base-color.light-blue.name"
-              lores="*gui.banners.base-color.light-blue.lore" onClick="bannerClick">
-            <attribute type="short">12</attribute>
+        <item id="banner" damage="12" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.light-blue.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.light-blue.lore</line>
+            </lore>
+            <properties>
+                <property type="short">12</property>
+            </properties>
         </item>
-        <item id="banner" damage="13" displayName="*gui.banners.base-color.magenta.name"
-              lores="*gui.banners.base-color.magenta.lore" onClick="bannerClick">
-            <attribute type="short">13</attribute>
+        <item id="banner" damage="13" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.magenta.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.magenta.lore</line>
+            </lore>
+            <properties>
+                <property type="short">13</property>
+            </properties>
         </item>
-        <item id="banner" damage="14" displayName="*gui.banners.base-color.orange.name"
-              lores="*gui.banners.base-color.orange.lore" onClick="bannerClick">
-            <attribute type="short">14</attribute>
+        <item id="banner" damage="14" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.orange.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.orange.lore</line>
+            </lore>
+            <properties>
+                <property type="short">14</property>
+            </properties>
         </item>
-        <item id="banner" damage="15" displayName="*gui.banners.base-color.white.name"
-              lores="*gui.banners.base-color.white.lore" onClick="bannerClick">
-            <attribute type="short">15</attribute>
+        <item id="banner" damage="15" onLocalClick="bannerClick">
+            <displayname>*gui.banners.base-color.white.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.white.lore</line>
+            </lore>
+            <properties>
+                <property type="short">15</property>
+            </properties>
         </item>
     </outlinepane>
 </gui>

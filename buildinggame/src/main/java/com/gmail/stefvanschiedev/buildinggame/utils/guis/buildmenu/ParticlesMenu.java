@@ -1,14 +1,18 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
+import com.github.stefvanschie.inventoryframework.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * The gui for particles
@@ -16,6 +20,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  * @since 2.1.0
  */
 class ParticlesMenu {
+
+    /**
+     * YAML Configuration for the messages.yml
+     */
+    private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
 
     /**
      * The gui
@@ -26,7 +35,32 @@ class ParticlesMenu {
      * Constructs a new Particles menu
      */
 	ParticlesMenu() {
-		this.gui = Gui.load(this, Main.getInstance().getResource("gui/buildmenu/particlesmenu.xml"));
+		this.gui = Gui.load(Main.getInstance(), this,
+            Main.getInstance().getResource("gui/buildmenu/particlesmenu.xml"));
+
+        String title = gui.getTitle();
+
+        if (!title.isEmpty() && title.charAt(0) == '*')
+		    gui.setTitle(MessageManager.translate(MESSAGES.getString(title.substring(1))));
+
+		gui.getItems().forEach(item -> {
+            ItemMeta itemMeta = item.getItem().getItemMeta();
+
+            if (itemMeta == null)
+                return;
+
+            String displayName = itemMeta.getDisplayName();
+
+            if (!displayName.isEmpty() && displayName.charAt(0) == '*')
+		        itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString(displayName.substring(1))));
+
+            String lore = itemMeta.getLore().get(0);
+
+            if (!lore.isEmpty() && lore.charAt(0) == '*')
+                itemMeta.setLore(MessageManager.translate(MESSAGES.getStringList(lore.substring(1))));
+
+            item.getItem().setItemMeta(itemMeta);
+        });
 	}
 
     /**
