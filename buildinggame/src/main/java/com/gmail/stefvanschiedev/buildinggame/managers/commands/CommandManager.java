@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.commands;
 
 import co.aikar.commands.BaseCommand;
+import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
@@ -1096,5 +1097,17 @@ public class CommandManager extends BaseCommand {
         MessageManager.getInstance().send(player, MESSAGES.getString("vote.message")
             .replace("%playerplot%", plot.getPlayerFormat())
             .replace("%points%", points + ""));
+    }
+
+    /**
+     * Shows an automatically generated help display to the sender
+     *
+     * @param sender the sender which should see the help menu
+     * @param help the command supplied for the help system
+     * @since 5.9.0
+     */
+    @HelpCommand
+    public void doHelp(CommandSender sender, CommandHelp help) {
+        help.showHelp();
     }
 }

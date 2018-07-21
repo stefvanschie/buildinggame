@@ -228,6 +228,9 @@ public class Main extends JavaPlugin {
 		if (!loadedCommands) {
             BukkitCommandManager manager = new BukkitCommandManager(this);
 
+            //noinspection deprecation
+            manager.enableUnstableAPI("help");
+
             //register contexts
             manager.getCommandContexts().registerContext(Arena.class, context -> {
                 Arena arena = ArenaManager.getInstance().getArena(context.popFirstArg());
