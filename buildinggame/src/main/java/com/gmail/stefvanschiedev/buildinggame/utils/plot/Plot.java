@@ -111,7 +111,6 @@ public class Plot {
      */
 	private final BuildMenu buildMenu;
 
-
 	/**
      * Constructs a new Plot
      *
@@ -269,13 +268,13 @@ public class Plot {
 		votes.add(vote);
 		
 		if (!config.getBoolean("scoreboards.vote.text"))
-			arena.getVoteScoreboard().setScore(getPlayerFormat(), getPoints());
+			arena.getVoteScoreboard(this).setScore(getPlayerFormat(), getPoints());
 		
 		if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable")) {
 			for (Plot p : arena.getPlots()) {
 				if (!p.getGamePlayers().isEmpty()) {
 					for (GamePlayer player : getGamePlayers())
-						arena.getVoteScoreboard().show(player.getPlayer());
+						arena.getVoteScoreboard(this).show(player.getPlayer());
 				}
 			}
 		}
@@ -670,15 +669,22 @@ public class Plot {
      */
 	public boolean join(GamePlayer gamePlayer) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
-		if (arena.getMode() == ArenaMode.TEAM) {
+
+        String name = gamePlayer.getPlayer().getName();
+
+        if (arena.getMode() == ArenaMode.TEAM) {
 			if (!isFull()) {
 				gamePlayers.add(gamePlayer);
 				
 				for (String s : MessageManager.translate(messages.getStringList("join.plot.message")))
 					MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%",
                             getID() + ""));
-				
+
+                arena.getLobbyScoreboard(this).getGreenTeam().addEntry(name);
+                arena.getBuildScoreboard(this).getGreenTeam().addEntry(name);
+                arena.getVoteScoreboard(this).getGreenTeam().addEntry(name);
+                arena.getWinScoreboard(this).getGreenTeam().addEntry(name);
+
 				return true;
 			} else {
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), MessageManager.translate(messages
@@ -686,16 +692,20 @@ public class Plot {
 				return false;
 			}
 		} else {
-			if (gamePlayers.size() == 1) {
-				gamePlayers.remove(0);
-				gamePlayers.add(gamePlayer);
-			} else
-				gamePlayers.add(gamePlayer);
+			if (gamePlayers.size() == 1)
+				gamePlayers.remove(0).getPlayer().getName();
+
+            gamePlayers.add(gamePlayer);
 			
 			for (String s : MessageManager.translate(messages.getStringList("join.plot.message")))
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%",
                         getID() + ""));
-			
+
+            arena.getLobbyScoreboard(this).getGreenTeam().addEntry(name);
+            arena.getBuildScoreboard(this).getGreenTeam().addEntry(name);
+            arena.getVoteScoreboard(this).getGreenTeam().addEntry(name);
+            arena.getWinScoreboard(this).getGreenTeam().addEntry(name);
+
 			return true;
 		}
 	}

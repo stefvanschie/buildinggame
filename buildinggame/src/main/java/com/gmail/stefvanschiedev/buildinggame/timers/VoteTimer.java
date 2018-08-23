@@ -354,7 +354,7 @@ public class VoteTimer extends Timer {
 					Player player = gamePlayer.getPlayer();
 					
 					if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable"))
-						arena.getVoteScoreboard().show(player);
+						arena.getVoteScoreboard(plot).show(player);
 					
 					player.setPlayerTime(this.plot.getTime(), false);
 					player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);

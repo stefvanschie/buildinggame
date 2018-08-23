@@ -28,22 +28,22 @@ public class ScoreboardUpdater extends BukkitRunnable {
 			if ((arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) &&
                     config.getBoolean("scoreboards.lobby.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getLobbyScoreboard().show(gamePlayer.getPlayer())));
+                        arena.getLobbyScoreboard(plot).show(gamePlayer.getPlayer())));
 			else if (arena.getState() == GameState.BUILDING && config.getBoolean("scoreboards.build.enable"))
 				arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getBuildScoreboard().show(gamePlayer.getPlayer())));
+                        arena.getBuildScoreboard(plot).show(gamePlayer.getPlayer())));
 			else if (arena.getState() == GameState.VOTING && !config.getBoolean("names-after-voting") &&
                     config.getBoolean("scoreboards.vote.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getVoteScoreboard().show(gamePlayer.getPlayer())));
+                        arena.getVoteScoreboard(plot).show(gamePlayer.getPlayer())));
 			else if (arena.getState() == GameState.RESETING && !config.getBoolean("names-after-voting") &&
                     config.getBoolean("scoreboards.win.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getWinScoreboard().show(gamePlayer.getPlayer())));
+                        arena.getWinScoreboard(plot).show(gamePlayer.getPlayer())));
 			else if (arena.getState() == GameState.RESETING && config.getBoolean("names-after-voting") &&
                     config.getBoolean("scoreboards.vote.enable"))
                 arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
-                        arena.getVoteScoreboard().show(gamePlayer.getPlayer())));
+                        arena.getVoteScoreboard(plot).show(gamePlayer.getPlayer())));
 		});
 		
 		if (config.getBoolean("scoreboards.main.enable"))
