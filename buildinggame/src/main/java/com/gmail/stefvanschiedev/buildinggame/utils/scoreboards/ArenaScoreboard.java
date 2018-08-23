@@ -17,10 +17,12 @@ import org.bukkit.scoreboard.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,6 +57,11 @@ public abstract class ArenaScoreboard {
     private final List<Team> teams = new ArrayList<>();
 
     /**
+     * The red and green team
+     */
+    private final Team redTeam, greenTeam;
+
+    /**
      * A map of replacements for placeholders
      */
     private final Map<String, Function<Player, String>> replacements = new HashMap<>();
@@ -74,6 +81,12 @@ public abstract class ArenaScoreboard {
 
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName(getHeader());
+
+        redTeam = scoreboard.registerNewTeam("bg-red");
+        greenTeam = scoreboard.registerNewTeam("bg-green");
+
+        redTeam.setPrefix(ChatColor.RED.toString());
+        greenTeam.setPrefix(ChatColor.GREEN.toString());
 
         List<String> strings = getLines();
 
@@ -283,6 +296,30 @@ public abstract class ArenaScoreboard {
         }
 
         return input;
+    }
+
+    /**
+     * Gets the green team
+     *
+     * @return the green team
+     * @since 5.9.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public Team getGreenTeam() {
+        return greenTeam;
+    }
+
+    /**
+     * Gets the red team
+     *
+     * @return the red team
+     * @since 5.9.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public Team getRedTeam() {
+        return redTeam;
     }
 
     /**

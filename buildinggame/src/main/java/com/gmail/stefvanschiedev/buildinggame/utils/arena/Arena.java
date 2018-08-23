@@ -107,22 +107,22 @@ public class Arena {
 	/**
      * The build scoreboard
      */
-	private final ArenaScoreboard buildScoreboard = new BuildScoreboard(this);
+	private final Map<Plot, ArenaScoreboard> buildScoreboards = new HashMap<>();
 
 	/**
      * The lobby scoreboard
      */
-	private final ArenaScoreboard lobbyScoreboard = new LobbyScoreboard(this);
+	private final Map<Plot, ArenaScoreboard> lobbyScoreboards = new HashMap<>();
 
 	/**
      * The vote scoreboard
      */
-	private VoteScoreboard voteScoreboard = new VoteScoreboard(this);
+	private final Map<Plot, VoteScoreboard> voteScoreboards = new HashMap<>();
 
 	/**
      * The win scoreboard
      */
-	private final ArenaScoreboard winScoreboard = new WinScoreboard(this);
+	private final Map<Plot, ArenaScoreboard> winScoreboards = new HashMap<>();
 
 	/**
      * The subject
@@ -220,6 +220,11 @@ public class Arena {
      */
 	public void addPlot(Plot plot) {
 		plots.add(plot);
+
+		lobbyScoreboards.put(plot, new LobbyScoreboard(this));
+        buildScoreboards.put(plot, new BuildScoreboard(this));
+        voteScoreboards.put(plot, new VoteScoreboard(this));
+        winScoreboards.put(plot, new WinScoreboard(this));
 	}
 
 	/**
@@ -298,16 +303,17 @@ public class Arena {
 	}
 
 	/**
-     * Returns the build scoreboard
+     * Returns the build scoreboard for a specific plot
      *
+     * @param plot the plot this build scoreboard belongs to
      * @return the build scoreboard
      * @see BuildScoreboard
-     * @since 2.1.0
+     * @since 5.9.0
      */
 	@NotNull
     @Contract(pure = true)
-	public ArenaScoreboard getBuildScoreboard() {
-		return buildScoreboard;
+	public ArenaScoreboard getBuildScoreboard(@NotNull Plot plot) {
+		return buildScoreboards.get(plot);
 	}
 
 	/**
@@ -339,14 +345,15 @@ public class Arena {
 	/**
      * Returns the lobby scoreboard or null if it doesn't exist
      *
+     * @param plot the plot this lobby scoreboard belongs to
      * @return the lobby scoreboard
      * @see LobbyScoreboard
      * @since 2.3.0
      */
 	@Nullable
     @Contract(pure = true)
-	public ArenaScoreboard getLobbyScoreboard() {
-		return lobbyScoreboard;
+	public ArenaScoreboard getLobbyScoreboard(@NotNull Plot plot) {
+		return lobbyScoreboards.get(plot);
 	}
 
 	/**
@@ -577,14 +584,15 @@ public class Arena {
 	/**
      * Returns the vote scoreboard or null if it doesn't exist
      *
+     * @param plot the plot this scoreboard is indexed by
      * @return the vote scoreboard
      * @see VoteScoreboard
-     * @since 2.3.0
+     * @since 5.9.0
      */
 	@Nullable
     @Contract(pure = true)
-	public VoteScoreboard getVoteScoreboard() {
-		return voteScoreboard;
+	public VoteScoreboard getVoteScoreboard(@NotNull Plot plot) {
+		return voteScoreboards.get(plot);
 	}
 
 	/**
@@ -635,8 +643,8 @@ public class Arena {
      */
 	@Nullable
     @Contract(pure = true)
-	public ArenaScoreboard getWinScoreboard() {
-		return winScoreboard;
+	public ArenaScoreboard getWinScoreboard(@NotNull Plot plot) {
+		return winScoreboards.get(plot);
 	}
 
 	/**
@@ -765,10 +773,13 @@ public class Arena {
 			return;
 		
 		GamePlayer p = new GamePlayer(player, GamePlayerType.PLAYER);
-		
-		for (Plot plot : getPlots()) {
-			if (!plot.isFull()) {
-				plot.join(p);
+		Plot plot = null;
+
+		for (Plot pl : getPlots()) {
+			if (!pl.isFull()) {
+			    plot = pl;
+
+				pl.join(p);
 				break;
 			}
 		}
@@ -777,20 +788,30 @@ public class Arena {
 			MainScoreboardManager.getInstance().remove(player);
 		
 		if (config.getBoolean("scoreboards.lobby.enable"))
-			lobbyScoreboard.show(player);
-		
+			getLobbyScoreboard(plot).show(player);
+
+        String name = player.getName();
+
+        //add player to red scoreboard of others
+        getPlots().stream().filter(pl -> !pl.getGamePlayers().contains(p)).forEach(pl -> {
+            getLobbyScoreboard(pl).getRedTeam().addEntry(name);
+            getBuildScoreboard(pl).getRedTeam().addEntry(name);
+            getVoteScoreboard(pl).getRedTeam().addEntry(name);
+            getWinScoreboard(pl).getRedTeam().addEntry(name);
+        });
+
 		for (String message : messages.getStringList("join.message"))
 			MessageManager.getInstance().send(player, message
 					.replace("%players%", getPlayers() + "")
 					.replace("%max_players%", getMaxPlayers() + ""));
 		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				Player pl = gamePlayer.getPlayer();
+		for (Plot pl : getUsedPlots()) {
+			for (GamePlayer gamePlayer : pl.getGamePlayers()) {
+				Player pla = gamePlayer.getPlayer();
 				
 				for (String message : messages.getStringList("join.otherPlayers"))
-					MessageManager.getInstance().send(pl, message
-                            .replace("%player%", player.getName())
+					MessageManager.getInstance().send(pla, message
+                            .replace("%player%", name)
 							.replace("%players%", getPlayers() + "")
 							.replace("%max_players%", getMaxPlayers() + ""));
 			}
@@ -801,9 +822,9 @@ public class Arena {
 			player.teleport(lobby.getLocation());
 		
 		if (config.getBoolean("scoreboards.lobby.enable")) {
-			for (Plot plot : getUsedPlots()) {
-				for (GamePlayer gamePlayer : plot.getGamePlayers())
-					lobbyScoreboard.show(gamePlayer.getPlayer());
+			for (Plot pl : getUsedPlots()) {
+				for (GamePlayer gamePlayer : pl.getGamePlayers())
+					lobbyScoreboards.get(pl).show(gamePlayer.getPlayer());
 			}
 		}
 		
@@ -829,8 +850,8 @@ public class Arena {
 			}
 		}
 		//show current joined player to others
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers())
+		for (Plot pl : getUsedPlots()) {
+			for (GamePlayer gamePlayer : pl.getGamePlayers())
 				gamePlayer.getPlayer().showPlayer(Main.getInstance(), player);
 		}
 		
@@ -934,7 +955,15 @@ public class Arena {
 		//show all players again
 		for (Player pl : Bukkit.getOnlinePlayers())
 			player.showPlayer(Main.getInstance(), pl);
-		
+
+        //reset player display name of removed player
+        getPlots().forEach(pl -> {
+            getLobbyScoreboard(pl).getRedTeam().removeEntry(player.getName());
+            getBuildScoreboard(pl).getRedTeam().removeEntry(player.getName());
+            getVoteScoreboard(pl).getRedTeam().removeEntry(player.getName());
+            getWinScoreboard(pl).getRedTeam().removeEntry(player.getName());
+        });
+
 		for (Plot usedPlot : getUsedPlots()) {
 			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
@@ -966,7 +995,7 @@ public class Arena {
                 }
 
                 if (config.getBoolean("scoreboards.lobby.enable"))
-                    lobbyScoreboard.show(pl);
+                    getLobbyScoreboard(usedPlot).show(pl);
             }
         }
 
@@ -1243,7 +1272,7 @@ public class Arena {
 				
 				//update scoreboard and update time and weather
 				if (config.getBoolean("scoreboards.vote.enable"))
-					getVoteScoreboard().show(player);
+					getVoteScoreboard(plot).show(player);
 				
 				player.setPlayerTime(plot.getTime(), false);
 				player.setPlayerWeather(plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
@@ -1365,7 +1394,7 @@ public class Arena {
         this.buildTimer = new BuildTimer(arenas.getInt(name + ".timer"), this);
         this.voteTimer = new VoteTimer(arenas.getInt(name + ".vote-timer"), this);
         this.winTimer = new WinTimer(arenas.getInt(name + ".win-timer"), this);
-        this.voteScoreboard = new VoteScoreboard(this);
+        voteScoreboards.replaceAll((plot, voteScoreboard) -> new VoteScoreboard(this));
         subject = null;
 
         setFirstPlot(null);
@@ -1445,9 +1474,14 @@ public class Arena {
 					for (Player pl : Bukkit.getOnlinePlayers())
 						player.showPlayer(Main.getInstance(), pl);
 				}
+
+                //reset scoreboard
+                getUsedPlots().stream()
+                    .flatMap(p -> p.getGamePlayers().stream())
+                    .forEach(gp -> gp.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard()));
 			}
 		}
-		
+
 		for (Plot plot : getPlots())
 			plot.getAllGamePlayers().clear();
 

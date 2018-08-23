@@ -1,9 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.gameplayer;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
