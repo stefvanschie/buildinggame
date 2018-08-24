@@ -3,8 +3,11 @@ package com.gmail.stefvanschiedev.buildinggame.utils.gameplayer;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -86,6 +89,11 @@ public class GamePlayer {
 	private final Scoreboard scoreboard;
 
     /**
+     * The previous amount of centimeters walked in order to determine the amount of block walked during the game
+     */
+	private final int walkOnceCM;
+
+    /**
      * A list of titles that still need to be send
      */
 	private final List<String> titles;
@@ -122,6 +130,8 @@ public class GamePlayer {
 		inventory = player.getInventory().getContents();
 		armor = player.getInventory().getArmorContents();
 		scoreboard = player.getScoreboard();
+
+		walkOnceCM = player.getStatistic(Statistic.WALK_ONE_CM);
 		
 		titles = new ArrayList<>();
 		subtitles = new ArrayList<>();
@@ -353,7 +363,7 @@ public class GamePlayer {
     }
 
 	/**
-     * This restores the player to before it joined an arena
+     * This restores the player to before it joined an arena and applies any necessary statistic updates
      *
      * @since 2.1.0
      */
@@ -367,6 +377,17 @@ public class GamePlayer {
 		player.getInventory().setContents(inventory);
 		player.setLevel(levels);
 		player.setScoreboard(scoreboard);
+
+		//apply walked statistic
+        StatManager instance = StatManager.getInstance();
+
+        Stat stat = instance.getStat(player, StatType.WALKED);
+
+        instance.registerStat(
+            player,
+            StatType.WALKED,
+            (stat == null ? 0 : stat.getValue()) + (player.getStatistic(Statistic.WALK_ONE_CM) - walkOnceCM) / 100
+        );
 	}
 
     /**
