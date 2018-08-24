@@ -400,9 +400,11 @@ public class VoteTimer extends Timer {
 		if (seconds <= 0) {
             for (Plot plot : arena.getUsedPlots()) {
                 for (GamePlayer player : plot.getGamePlayers()) {
+                    Player pl = player.getPlayer();
+
                     if (config.getBoolean("names-after-voting")) {
                         for (String message : messages.getStringList("voting.message")) {
-                            MessageManager.getInstance().send(player.getPlayer(), message
+                            MessageManager.getInstance().send(pl, message
                                     .replace("%playerplot%", this.plot.getPlayerFormat()));
                         }
 
@@ -414,9 +416,9 @@ public class VoteTimer extends Timer {
                             .replace("%playerplot%", this.plot.getPlayerFormat()));
                     }
 
-                    if (!this.plot.hasVoted(player.getPlayer()))
+                    if (!this.plot.hasVoted(pl) && !this.plot.getGamePlayers().contains(player))
                         this.plot.addVote(new Vote(config.getInt("voting.default-vote-points"),
-                                player.getPlayer()));
+                            pl));
                 }
             }
 
