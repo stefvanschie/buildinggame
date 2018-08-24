@@ -17,12 +17,10 @@ import org.bukkit.scoreboard.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -271,8 +269,7 @@ public abstract class ArenaScoreboard {
         Matcher matcher = Pattern.compile("%([^%]+)%").matcher(input);
 
         while (matcher.find()) {
-            for (int i = matcher.start(); i < matcher.end(); i++)
-                list.remove(matcher.start());
+            list.subList(matcher.start(), matcher.end()).clear();
 
             Function<Player, String> function = replacements.get(matcher.group(1));
 

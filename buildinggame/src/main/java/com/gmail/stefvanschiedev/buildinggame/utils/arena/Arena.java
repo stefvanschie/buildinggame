@@ -523,21 +523,6 @@ public class Arena {
 	}
 
 	/**
-     * Returns the team selection and creates one if it doesn't exist yet
-     *
-     * @return the team selection
-     * @see TeamSelection
-     * @since 2.1.0
-     */
-	@NotNull
-	private TeamSelection getTeamSelection() {
-		if (teamSelection == null)
-			this.teamSelection = new TeamSelection(this);
-		
-		return teamSelection;
-	}
-
-	/**
      * Returns the plot that became third or null if voting isn't over yet
      *
      * @return the plot that became third
@@ -860,7 +845,9 @@ public class Arena {
 		
 		if (getPlayers() >= getMaxPlayers())
 			waitTimer.setSeconds(0);
-		
+
+		Arena arena = this;
+
 		//bukkit runnable because of instant leaving and instant subject opening
 		BukkitRunnable runnable = new BukkitRunnable () {
 			@Override
@@ -897,6 +884,21 @@ public class Arena {
                         }).build());
                 player.updateInventory();
 			}
+
+            /**
+             * Returns the team selection and creates one if it doesn't exist yet
+             *
+             * @return the team selection
+             * @see TeamSelection
+             * @since 2.1.0
+             */
+            @NotNull
+            private TeamSelection getTeamSelection() {
+                if (teamSelection == null)
+                    teamSelection = new TeamSelection(arena);
+
+                return teamSelection;
+            }
 		};
 		
 		runnable.runTaskLater(Main.getInstance(), 1L);
