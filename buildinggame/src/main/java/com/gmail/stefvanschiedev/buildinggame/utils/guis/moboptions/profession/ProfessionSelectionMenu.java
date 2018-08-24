@@ -3,7 +3,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.profession;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.GuiLocation;
-import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
