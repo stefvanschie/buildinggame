@@ -104,8 +104,7 @@ public class StatSignUpdater extends BukkitRunnable {
         Matcher matcher = Pattern.compile("%([^%]+)%").matcher(input);
 
         while (matcher.find()) {
-            for (int i = matcher.start(); i < matcher.end(); i++)
-                list.remove(matcher.start());
+            list.subList(matcher.start(), matcher.end()).clear();
 
             BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String> function = REPLACEMENTS
                 .get(matcher.group(1));
