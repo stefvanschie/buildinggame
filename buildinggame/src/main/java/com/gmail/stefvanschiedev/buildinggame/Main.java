@@ -44,7 +44,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.stats.database.JoinPlayerSt
 import com.gmail.stefvanschiedev.buildinggame.events.stats.database.QuitPlayerStats;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.BreakStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.FirstStat;
-import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.MoveStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.PlaceStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.PlaysStat;
 import com.gmail.stefvanschiedev.buildinggame.events.stats.saved.SecondStat;
@@ -349,7 +348,6 @@ public class Main extends JavaPlugin {
 			//saved
 			pm.registerEvents(new BreakStat(), this);
 			pm.registerEvents(new FirstStat(), this);
-			pm.registerEvents(new MoveStat(), this);
 			pm.registerEvents(new PlaceStat(), this);
 			pm.registerEvents(new PlaysStat(), this);
 			pm.registerEvents(new SecondStat(), this);
