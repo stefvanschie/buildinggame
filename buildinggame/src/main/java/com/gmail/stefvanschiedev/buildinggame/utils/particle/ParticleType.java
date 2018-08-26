@@ -131,5 +131,19 @@ public enum ParticleType {
      *
      * @since 4.0.0
      */
-	TOTEM
+	TOTEM,
+
+    /**
+     * The squid ink particle effect
+     *
+     * @since 6.0.0
+     */
+    SQUID_INK,
+
+    /**
+     * The nautilus particle effect
+     *
+     * @since 6.0.0
+     */
+    NAUTILUS,
 }

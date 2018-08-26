@@ -429,6 +429,14 @@ gui:
       name: "&aTotem"
       lores:
       - "&7Place a totem particle effect"
+    squid-ink:
+      name: "&aSquid Ink"
+      lore:
+      - "&7Place a squid ink particle effect"
+    nautilus:
+      name: "&aNautilus"
+      lore:
+      - "&7Place a nautilus particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:
