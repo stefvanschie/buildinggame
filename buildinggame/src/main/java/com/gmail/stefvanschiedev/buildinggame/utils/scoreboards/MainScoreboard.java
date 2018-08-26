@@ -40,7 +40,7 @@ public class MainScoreboard {
     /**
      * The objective used for this scoreboard
      */
-    private final Objective objective = scoreboard.registerNewObjective("bg-main", "dummy");
+    private final Objective objective = scoreboard.registerNewObjective("bg-main", "dummy", "");
 
     /**
      * A list of the text to display on the scoreboard after the basic placeholders have been parsed

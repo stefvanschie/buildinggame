@@ -37,7 +37,7 @@
                 <property type="particle-type">WATER_DRIP</property>
             </properties>
         </item>
-        <item id="enchantment_table" onLocalClick="particleClick">
+        <item id="enchanting_table" onLocalClick="particleClick">
             <displayname>*gui.particles.enchantment.name</displayname>
             <lore>
                 <line>*gui.particles.enchantment.lores</line>
@@ -46,7 +46,7 @@
                 <property type="particle-type">ENCHANTMENT</property>
             </properties>
         </item>
-        <item id="red_rose" onLocalClick="particleClick">
+        <item id="poppy" onLocalClick="particleClick">
             <displayname>*gui.particles.hearts.name</displayname>
             <lore>
                 <line>*gui.particles.hearts.lores</line>
@@ -91,7 +91,7 @@
                 <property type="particle-type">SPELL</property>
             </properties>
         </item>
-        <item id="snow_ball" onLocalClick="particleClick">
+        <item id="snowball" onLocalClick="particleClick">
             <displayname>*gui.particles.snowball-poof.name</displayname>
             <lore>
                 <line>*gui.particles.snowball-poof.lores</line>
@@ -109,7 +109,7 @@
                 <property type="particle-type">SMOKE</property>
             </properties>
         </item>
-        <item id="anvil" damage="2" onLocalClick="particleClick">
+        <item id="damaged_anvil" onLocalClick="particleClick">
             <displayname>*gui.particles.damage-indicator.name</displayname>
             <lore>
                 <line>*gui.particles.damage-indicator.lores</line>
@@ -118,7 +118,7 @@
                 <property type="particle-type">DAMAGE_INDICATOR</property>
             </properties>
         </item>
-        <item id="fireball" onLocalClick="particleClick">
+        <item id="fire_charge" onLocalClick="particleClick">
             <displayname>*gui.particles.dragon-breath.name</displayname>
             <lore>
                 <line>*gui.particles.dragon-breath.lores</line>
@@ -145,8 +145,7 @@
                 <property type="particle-type">SWEEP_ATTACK</property>
             </properties>
         </item>
-        <item id="sand" displayName="*gui.particles.falling-dust.name" lores="*gui.particles.falling-dust.lores"
-              onLocalClick="particleClick">
+        <item id="sand" onLocalClick="particleClick">
             <displayname>*gui.particles.falling-dust.name</displayname>
             <lore>
                 <line>*gui.particles.falling-dust.lores</line>
@@ -155,7 +154,7 @@
                 <property type="particle-type">FALLING_DUST</property>
             </properties>
         </item>
-        <item id="totem" onLocalClick="particleClick">
+        <item id="totem_of_undying" onLocalClick="particleClick">
             <displayname>*gui.particles.totem.name</displayname>
             <lore>
                 <line>*gui.particles.totem.lores</line>

@@ -1,8 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.particle;
 
+import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.material.MaterialData;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 
@@ -24,7 +25,7 @@ public class Particle {
 	/**
      * The particle data in case needed
      */
-	private MaterialData data;
+	private BlockData data;
 
 	/**
      * Constructs a new Particle
@@ -44,7 +45,7 @@ public class Particle {
      * @param type the type of this particle
      * @param data the data of this particle
      */
-	public Particle(Location location, ParticleType type, MaterialData data) {
+	public Particle(Location location, ParticleType type, BlockData data) {
 		this(location, type);
 		this.data = data;
 	}
@@ -113,7 +114,7 @@ public class Particle {
                 break;
             case REDSTONE_MAGIC:
                 location.getWorld().spawnParticle(org.bukkit.Particle.REDSTONE, location, amount, offsetX, offsetY,
-                        offsetZ);
+                        offsetZ, new org.bukkit.Particle.DustOptions(Color.RED, 1f));
                 break;
             case SMOKE:
                 location.getWorld().spawnParticle(org.bukkit.Particle.SMOKE_NORMAL, location, amount, offsetX, offsetY,

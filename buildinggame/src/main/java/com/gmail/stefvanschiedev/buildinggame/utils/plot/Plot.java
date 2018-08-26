@@ -20,7 +20,6 @@ import org.bukkit.entity.Player;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
@@ -180,7 +179,7 @@ public class Plot {
 			player.getPlayer().hidePlayer(Main.getInstance(), spectator);
 
         spectator.getInventory().setItem(config.getInt("leave-item.slot"),
-            IDDecompiler.getInstance().decompile(spectator, config.getString("leave-item.id"))
+            new ItemBuilder(spectator, Material.matchMaterial(config.getString("leave-item.id")))
                 .setDisplayName(MessageManager.translate(SettingsManager.getInstance().getMessages()
                     .getString("leave-item.name"), spectator)).setClickEvent(event -> {
                         gamePlayer.connect(MainSpawnManager.getInstance().getServer(),
@@ -746,7 +745,6 @@ public class Plot {
      *
      * @since 2.1.0
      */
-	@SuppressWarnings("deprecation")
 	public void restore() {
 		if (!SettingsManager.getInstance().getConfig().getBoolean("restore-plots"))
 			return;
@@ -755,7 +753,6 @@ public class Plot {
             BlockState blockState = entry.getKey();
 
             blockState.getLocation().getBlock().setType(blockState.getType());
-            blockState.getLocation().getBlock().setData(blockState.getRawData());
 
             blockState.getLocation().getBlock().setBiome(entry.getValue());
 		}

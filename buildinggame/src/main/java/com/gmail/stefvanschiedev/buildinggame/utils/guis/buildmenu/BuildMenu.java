@@ -7,7 +7,6 @@ import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu.BaseColorBannerMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -102,7 +101,7 @@ public class BuildMenu extends Gui {
         StaticPane pane = new StaticPane(new GuiLocation(0, 0), 9, 5);
 
         //particles
-        ItemStack particles = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.particles.id"));
+        ItemStack particles = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.particles.id")));
         ItemMeta particlesMeta = particles.getItemMeta();
         particlesMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.particles.name")));
         particlesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.particles.lores")));
@@ -115,7 +114,7 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(1, 1));
 
         //floor
-        ItemStack floor = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.floor.id"));
+        ItemStack floor = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.floor.id")));
         ItemMeta floorMeta = floor.getItemMeta();
         floorMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.name")));
         floorMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.lores")));
@@ -144,13 +143,13 @@ public class BuildMenu extends Gui {
             }
 
             for (String material : CONFIG.getStringList("blocks.blocked")) {
-                if (IDDecompiler.getInstance().matches(material, event.getCursor())) {
-                    for (String message :
-                        MessageManager.translate(MESSAGES.getStringList("plots.floor.blocked")))
-                        player.sendMessage(message);
+                if (Material.matchMaterial(material) != event.getCursor().getType())
+                    continue;
 
-                    event.setCancelled(true);
-                }
+                for (String message : MessageManager.translate(MESSAGES.getStringList("plots.floor.blocked")))
+                    player.sendMessage(message);
+
+                event.setCancelled(true);
             }
 
 
@@ -181,14 +180,10 @@ public class BuildMenu extends Gui {
             }
 
             for (Block block : plot.getFloor().getAllBlocks()) {
-                //noinspection deprecation
-                if (block.getType() == event.getCursor().getType() &&
-                    block.getData() == event.getCursor().getData().getData())
+                if (block.getType() == event.getCursor().getType())
                     continue;
 
                 block.setType(event.getCursor().getType());
-                //noinspection deprecation
-                block.setData(event.getCursor().getData().getData());
             }
 
             floorChange = System.currentTimeMillis();
@@ -197,7 +192,7 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(3, 1));
 
         //time
-        ItemStack time = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.time.id"));
+        ItemStack time = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.time.id")));
         ItemMeta timeMeta = time.getItemMeta();
         timeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.time.name")));
         timeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.lores")));
@@ -210,7 +205,7 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(5, 1));
 
         //rain
-        ItemStack rain = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.rain.id"));
+        ItemStack rain = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.rain.id")));
         ItemMeta rainMeta = rain.getItemMeta();
         rainMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.rain.name")));
         rainMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.rain.lores")));
@@ -223,7 +218,7 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(7, 1));
 
         //fly speed
-        ItemStack flySpeed = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.fly-speed.id"));
+        ItemStack flySpeed = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.fly-speed.id")));
         ItemMeta flySpeedMeta = flySpeed.getItemMeta();
         flySpeedMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.fly-speed.name")));
         flySpeedMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.lores")));
@@ -236,7 +231,7 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(1, 2));
 
         //heads
-        ItemStack heads = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.heads.id"));
+        ItemStack heads = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.heads.id")));
         ItemMeta headsMeta = heads.getItemMeta();
         headsMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.heads.name")));
         headsMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.lores")));
@@ -249,7 +244,7 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(3, 2));
 
         //banners
-        ItemStack banners = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.banners.id"));
+        ItemStack banners = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.banners.id")));
         ItemMeta bannersMeta = banners.getItemMeta();
         bannersMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.name")));
         bannersMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.lores")));
@@ -262,7 +257,7 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(5, 2));
 
         //biome
-        ItemStack biome = IDDecompiler.getInstance().decompile(CONFIG.getString("gui.biome.id"));
+        ItemStack biome = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.biome.id")));
         ItemMeta biomeMeta = biome.getItemMeta();
         biomeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.biome.name")));
         biomeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.lores")));

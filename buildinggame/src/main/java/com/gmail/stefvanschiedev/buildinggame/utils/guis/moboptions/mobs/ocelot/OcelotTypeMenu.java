@@ -29,7 +29,7 @@ class OcelotTypeMenu extends Gui {
         StaticPane pane = new StaticPane(new GuiLocation(2, 0), 5, 1);
 
         //wild ocelot
-        ItemStack wildOcelot = new ItemStack(Material.RAW_FISH);
+        ItemStack wildOcelot = new ItemStack(Material.COD);
         ItemMeta wildOcelotMeta = wildOcelot.getItemMeta();
         wildOcelotMeta.setDisplayName(ChatColor.GREEN + "Wild ocelot");
         wildOcelot.setItemMeta(wildOcelotMeta);
@@ -65,7 +65,7 @@ class OcelotTypeMenu extends Gui {
         }), new GuiLocation(3, 0));
 
         //siamese cat
-        ItemStack siameseCat = new Wool(DyeColor.SILVER).toItemStack(1);
+        ItemStack siameseCat = new Wool(DyeColor.LIGHT_GRAY).toItemStack(1);
         ItemMeta siameseCatMeta = siameseCat.getItemMeta();
         siameseCatMeta.setDisplayName(ChatColor.GREEN + "Siamese cat");
         siameseCat.setItemMeta(siameseCatMeta);

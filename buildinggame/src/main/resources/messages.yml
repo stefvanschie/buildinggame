@@ -4376,18 +4376,18 @@ gui:
     lores:
     - "&7Change the biome of your plot"
     title: "&aBiomes"
-    ice-plains:
-      name: "&aIce Plains"
+    snowy-tundra:
+      name: "&aSnowy Tundra"
       lores:
-      - "&7Change the biome to Ice Plains"
+      - "&7Change the biome to Snowy Tundra"
     taiga:
       name: "&aTaiga"
       lores:
       - "&7Change the biome to Taiga"
-    extreme-hills:
-      name: "&aExtreme Hills"
+    mountains:
+      name: "&aMountains"
       lores:
-      - "&7Change the biome to Extreme Hills"
+      - "&7Change the biome to Mountains"
     plains:
       name: "&aPlains"
       lores:
@@ -4396,22 +4396,22 @@ gui:
       name: "&aForest"
       lores:
       - "&7Change the biome to Forest"
-    roofed-forest:
-      name: "&aRoofed Forest"
+    dark-forest:
+      name: "&aDark Forest"
       lores:
-      - "&7Change the biome to Roofed Forest"
-    swampland:
-      name: "&aSwampland"
+      - "&7Change the biome to Dark Forest"
+    swamp:
+      name: "&aSwamp"
       lores:
-      - "&7Change the biome to Swampland"
+      - "&7Change the biome to Swamp"
     jungle:
       name: "&aJungle"
       lores:
       - "&7Change the biome to Jungle"
-    mushroom-island:
-      name: "&aMushroom Island"
+    mushroom-fields:
+      name: "&aMushroom Fields"
       lores:
-      - "&7Change the biome to Mushroom Island"
+      - "&7Change the biome to Mushroom Fields"
     the-end:
       name: "&aThe End"
       lores:
@@ -4424,14 +4424,14 @@ gui:
       name: "&aSavanna"
       lores:
       - "&7Change the biome to Savanna"
-    mesa:
-      name: "&aMesa"
+    badlands:
+      name: "&aBadlands"
       lores:
-      - "&7Change the biome to Mesa"
-    the-nether:
-      name: "&aThe Nether"
+      - "&7Change the biome to Badlands"
+    nether:
+      name: "&aNether"
       lores:
-      - "&7Change the biome to The Nether"
+      - "&7Change the biome to Nether"
     ocean:
       name: "&aOcean"
       lores:

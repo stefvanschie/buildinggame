@@ -25,7 +25,7 @@ class RabbitTypeMenu extends Gui {
         OutlinePane pane = new OutlinePane(new GuiLocation(1, 0), 8, 1);
 
         //black type
-        ItemStack black = new ItemStack(Material.WOOL, 1, (short) 15);
+        ItemStack black = new ItemStack(Material.BLACK_WOOL, 1);
         ItemMeta blackMeta = black.getItemMeta();
         blackMeta.setDisplayName(ChatColor.GREEN + "Black");
         black.setItemMeta(blackMeta);
@@ -37,7 +37,7 @@ class RabbitTypeMenu extends Gui {
         }));
 
         //black and white type
-        ItemStack blackAndWhite = new ItemStack(Material.RECORD_9);
+        ItemStack blackAndWhite = new ItemStack(Material.MUSIC_DISC_STRAD);
         ItemMeta blackAndWhiteMeta = blackAndWhite.getItemMeta();
         blackAndWhiteMeta.setDisplayName(ChatColor.GREEN + "Black and white");
         blackAndWhite.setItemMeta(blackAndWhiteMeta);
@@ -49,7 +49,7 @@ class RabbitTypeMenu extends Gui {
         }));
 
         //brown type
-        ItemStack brown = new ItemStack(Material.WOOL, 1, (short) 12);
+        ItemStack brown = new ItemStack(Material.BROWN_WOOL, 1);
         ItemMeta brownMeta = brown.getItemMeta();
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);

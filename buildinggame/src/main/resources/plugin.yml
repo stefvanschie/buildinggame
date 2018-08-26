@@ -3,3 +3,5 @@ version: 5.9.0
 name: BuildingGame
 author: stefvanschie
 softdepend: [Vault, Socket4MC, LeaderHeads, PerWorldInventory, PlaceholderAPI, WorldEdit]
+
+api-version: 1.13

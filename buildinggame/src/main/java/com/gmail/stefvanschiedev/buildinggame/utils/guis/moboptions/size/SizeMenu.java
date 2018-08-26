@@ -5,7 +5,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Slime;
+import org.bukkit.entity.Mob;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -19,8 +19,8 @@ public class SizeMenu extends RemoveMenu {
     /**
      * {@inheritDoc}
      */
-    public SizeMenu(Plot plot, Slime slime) {
-        super(plot, slime);
+    public SizeMenu(Plot plot, Mob mob) {
+        super(plot, mob);
 
         //size
         ItemStack size = new ItemStack(Material.RED_MUSHROOM);
@@ -29,7 +29,7 @@ public class SizeMenu extends RemoveMenu {
         size.setItemMeta(sizeMeta);
 
         pane.insertItem(new GuiItem(size, event -> {
-            new SizeSelectionMenu(slime).show(event.getWhoClicked());
+            new SizeSelectionMenu(mob).show(event.getWhoClicked());
 
             event.setCancelled(true);
         }), 0);

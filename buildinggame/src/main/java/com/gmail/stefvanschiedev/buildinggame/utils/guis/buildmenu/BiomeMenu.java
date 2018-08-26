@@ -5,6 +5,7 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
@@ -48,7 +49,7 @@ class BiomeMenu {
         String title = gui.getTitle();
 
         if (!title.isEmpty() && title.charAt(0) == '*')
-            gui.setTitle(MessageManager.translate(MESSAGES.getString(title.substring(1))));
+            gui.setTitle(MessageManager.translate(MESSAGES.getString(ChatColor.stripColor(title.substring(1)))));
 
         gui.getItems().forEach(item -> {
             ItemMeta itemMeta = item.getItem().getItemMeta();

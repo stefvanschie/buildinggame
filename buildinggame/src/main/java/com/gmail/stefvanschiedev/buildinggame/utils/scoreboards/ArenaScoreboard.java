@@ -40,7 +40,7 @@ public abstract class ArenaScoreboard {
     /**
      * The objective used for this scoreboard
      */
-    final Objective objective = scoreboard.registerNewObjective("bg-build", "dummy");
+    final Objective objective = scoreboard.registerNewObjective("bg-build", "dummy", getHeader());
 
     /**
      * A list of the text to display on the scoreboard after the basic placeholders have been parsed and a conditional
@@ -78,7 +78,6 @@ public abstract class ArenaScoreboard {
         this.arena = arena;
 
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.setDisplayName(getHeader());
 
         redTeam = scoreboard.registerNewTeam("bg-red");
         greenTeam = scoreboard.registerNewTeam("bg-green");
