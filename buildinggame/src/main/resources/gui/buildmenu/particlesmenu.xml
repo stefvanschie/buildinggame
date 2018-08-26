@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.particles.title" rows="3">
-    <outlinepane x="0" y="0" length="9" height="2">
+    <outlinepane x="0" y="0" length="9" height="3">
         <item id="flint_and_steel" onLocalClick="particleClick">
             <displayname>*gui.particles.flames.name</displayname>
             <lore>
@@ -161,6 +161,24 @@
             </lore>
             <properties>
                 <property type="particle-type">TOTEM</property>
+            </properties>
+        </item>
+        <item id="ink_sac" onLocalClick="particleClick">
+            <displayname>*gui.particles.squid-ink.name</displayname>
+            <lore>
+                <line>*gui.particles.squid-ink.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SQUID_INK</property>
+            </properties>
+        </item>
+        <item id="nautilus_shell" onLocalClick="particleClick">
+            <displayname>*gui.particles.nautilus.name</displayname>
+            <lore>
+                <line>*gui.particles.nautilus.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">NAUTILUS</property>
             </properties>
         </item>
     </outlinepane>
