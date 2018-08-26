@@ -2,15 +2,15 @@
 <gui title="*gui.options-title" rows="2">
     <outlinepane x="0" y="0" length="9" height="2">
         <item id="ice" onLocalClick="biomeClick">
-            <displayname>*gui.biome.ice-plains.name</displayname>
+            <displayname>*gui.biome.snowy-tundra.name</displayname>
             <lore>
-                <line>*gui.biome.ice-plains.lores</line>
+                <line>*gui.biome.snowy-tundra.lores</line>
             </lore>
             <properties>
-                <property type="biome">ICE_FLATS</property>
+                <property type="biome">SNOWY_TUNDRA</property>
             </properties>
         </item>
-        <item id="log" damage="1" onLocalClick="biomeClick">
+        <item id="spruce_log" onLocalClick="biomeClick">
             <displayname>*gui.biome.taiga.name</displayname>
             <lore>
                 <line>*gui.biome.taiga.lores</line>
@@ -20,12 +20,12 @@
             </properties>
         </item>
         <item id="stone" onLocalClick="biomeClick">
-            <displayname>*gui.biome.extreme-hills.name</displayname>
+            <displayname>*gui.biome.mountains.name</displayname>
             <lore>
-                <line>*gui.biome.extreme-hills.lores</line>
+                <line>*gui.biome.mountains.lores</line>
             </lore>
             <properties>
-                <property type="biome">EXTREME_HILLS</property>
+                <property type="biome">MOUNTAINS</property>
             </properties>
         </item>
         <item id="grass" onLocalClick="biomeClick">
@@ -37,7 +37,7 @@
                 <property type="biome">PLAINS</property>
             </properties>
         </item>
-        <item id="log" onLocalClick="biomeClick">
+        <item id="oak_log" onLocalClick="biomeClick">
             <displayname>*gui.biome.forest.name</displayname>
             <lore>
                 <line>*gui.biome.forest.lores</line>
@@ -46,22 +46,22 @@
                 <property type="biome">FOREST</property>
             </properties>
         </item>
-        <item id="log_2" damage="1" onLocalClick="biomeClick">
-            <displayname>*gui.biome.roofed-forest.name</displayname>
+        <item id="dark_oak_log" onLocalClick="biomeClick">
+            <displayname>*gui.biome.dark-forest.name</displayname>
             <lore>
-                <line>*gui.biome.roofed-forest.lores</line>
+                <line>*gui.biome.dark-forest.lores</line>
             </lore>
             <properties>
-                <property type="biome">ROOFED_FOREST</property>
+                <property type="biome">DARK_FOREST</property>
             </properties>
         </item>
-        <item id="water_lily" onLocalClick="biomeClick">
-            <displayname>*gui.biome.swampland.name</displayname>
+        <item id="lily_pad" onLocalClick="biomeClick">
+            <displayname>*gui.biome.swamp.name</displayname>
             <lore>
-                <line>*gui.biome.swampland.lores</line>
+                <line>*gui.biome.swamp.lores</line>
             </lore>
             <properties>
-                <property type="biome">SWAMPLAND</property>
+                <property type="biome">SWAMP</property>
             </properties>
         </item>
         <item id="vine" onLocalClick="biomeClick">
@@ -73,23 +73,22 @@
                 <property type="biome">JUNGLE</property>
             </properties>
         </item>
-        <item id="mycel" onLocalClick="biomeClick">
-            <displayname>*gui.biome.mushroom-island.name</displayname>
+        <item id="mycelium" onLocalClick="biomeClick">
+            <displayname>*gui.biome.mushroom-fields.name</displayname>
             <lore>
-                <line>*gui.biome.mushroom-island.lores</line>
+                <line>*gui.biome.mushroom-fields.lores</line>
             </lore>
             <properties>
-                <property type="biome">MUSHROOM_ISLAND</property>
+                <property type="biome">MUSHROOM_FIELDS</property>
             </properties>
         </item>
-        <item id="ender_stone" displayName="*gui.biome.the-end.name" lores="*gui.biome.the-end.lores"
-              onLocalClick="biomeClick">
+        <item id="end_stone" onLocalClick="biomeClick">
             <displayname>*gui.biome.the-end.name</displayname>
             <lore>
                 <line>*gui.biome.the-end.lores</line>
             </lore>
             <properties>
-                <property type="biome">SKY</property>
+                <property type="biome">THE_END</property>
             </properties>
         </item>
         <item id="sand" onLocalClick="biomeClick">
@@ -101,7 +100,7 @@
                 <property type="biome">DESERT</property>
             </properties>
         </item>
-        <item id="log_2" onLocalClick="biomeClick">
+        <item id="acacia_log" onLocalClick="biomeClick">
             <displayname>*gui.biome.savanna.name</displayname>
             <lore>
                 <line>*gui.biome.savanna.lores</line>
@@ -110,22 +109,22 @@
                 <property type="biome">SAVANNA</property>
             </properties>
         </item>
-        <item id="hard_clay" onLocalClick="biomeClick">
-            <displayname>*gui.biome.mesa.name</displayname>
+        <item id="terracotta" onLocalClick="biomeClick">
+            <displayname>*gui.biome.badlands.name</displayname>
             <lore>
-                <line>*gui.biome.mesa.lores</line>
+                <line>*gui.biome.badlands.lores</line>
             </lore>
             <properties>
-                <property type="biome">MESA</property>
+                <property type="biome">BADLANDS</property>
             </properties>
         </item>
         <item id="netherrack" onLocalClick="biomeClick">
-            <displayname>*gui.biome.the-nether.name</displayname>
+            <displayname>*gui.biome.nether.name</displayname>
             <lore>
-                <line>*gui.biome.the-nether.lores</line>
+                <line>*gui.biome.nether.lores</line>
             </lore>
             <properties>
-                <property type="biome">HELL</property>
+                <property type="biome">NETHER</property>
             </properties>
         </item>
         <item id="water_bucket" onLocalClick="biomeClick">
@@ -143,7 +142,7 @@
                 <line>*gui.biome.the-void.lores</line>
             </lore>
             <properties>
-                <property type="biome">VOID</property>
+                <property type="biome">THE_VOID</property>
             </properties>
         </item>
     </outlinepane>

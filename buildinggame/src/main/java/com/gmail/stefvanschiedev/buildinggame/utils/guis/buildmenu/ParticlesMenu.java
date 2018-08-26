@@ -8,6 +8,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -41,7 +43,7 @@ class ParticlesMenu {
         String title = gui.getTitle();
 
         if (!title.isEmpty() && title.charAt(0) == '*')
-		    gui.setTitle(MessageManager.translate(MESSAGES.getString(title.substring(1))));
+		    gui.setTitle(MessageManager.translate(MESSAGES.getString(ChatColor.stripColor(title.substring(1)))));
 
 		gui.getItems().forEach(item -> {
             ItemMeta itemMeta = item.getItem().getItemMeta();
@@ -87,7 +89,8 @@ class ParticlesMenu {
 
         if (particleType == ParticleType.FALLING_DUST)
             arena.getPlot(player).addParticle(event.getCursor() != null ?
-                new Particle(player.getLocation(), ParticleType.FALLING_DUST, event.getCursor().getData()) :
+                new Particle(player.getLocation(), ParticleType.FALLING_DUST,
+                    Bukkit.createBlockData(event.getCursor().getType())) :
                 new Particle(player.getLocation(), ParticleType.FALLING_DUST), player);
         else
             arena.getPlot(player).addParticle(new Particle(player.getLocation(), particleType), player);

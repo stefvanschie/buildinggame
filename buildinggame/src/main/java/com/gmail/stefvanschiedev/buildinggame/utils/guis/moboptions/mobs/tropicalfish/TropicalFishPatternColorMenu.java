@@ -1,4 +1,4 @@
-package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color;
+package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropicalfish;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
@@ -7,41 +7,29 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.MappedMaterialUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
-import org.bukkit.entity.Creature;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.TropicalFish;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Colorable;
 
 /**
- * A menu for selecting the color of a creature
+ * A menu for selecting the pattern color of a tropical fish
  *
- * @since 5.3.0
+ * @since 6.0.0
  */
-public class ColorSelectionMenu extends Gui {
+class TropicalFishPatternColorMenu extends Gui {
 
     /**
-     * Constructs a new Gui
+     * Constructs a new tropical fish pattern color menu
      *
-     * @param entity the entity to change the color of
+     * @param tropicalFish the tropical fish to change the pattern color of
      */
-    public ColorSelectionMenu(Creature entity) {
+    TropicalFishPatternColorMenu(TropicalFish tropicalFish) {
         super(Main.getInstance(), 2, ChatColor.GREEN + "Select a color");
 
         OutlinePane pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
 
         MappedMaterialUtil.WOOL_DYE_COLOR_ITEMS.forEach(entry ->
             pane.addItem(new GuiItem(new ItemStack(entry.getKey()), event -> {
-                DyeColor dyeColor = entry.getValue();
-
-                if (entity instanceof Colorable)
-                    ((Colorable) entity).setColor(dyeColor);
-                else if (entity instanceof Wolf) {
-                    Wolf wolf = (Wolf) entity;
-
-                    wolf.setTamed(true);
-                    wolf.setCollarColor(dyeColor);
-                }
+                tropicalFish.setPatternColor(entry.getValue());
 
                 event.setCancelled(true);
             }))

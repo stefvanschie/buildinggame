@@ -45,7 +45,7 @@ class ProfessionSelectionMenu extends Gui {
         }), new GuiLocation(0, 0));
 
         //butcher
-        ItemStack butcher = new ItemStack(Material.RAW_BEEF);
+        ItemStack butcher = new ItemStack(Material.BEEF);
         ItemMeta butcherMeta = butcher.getItemMeta();
         butcherMeta.setDisplayName(ChatColor.GREEN + "Butcher");
         butcher.setItemMeta(butcherMeta);
@@ -109,7 +109,7 @@ class ProfessionSelectionMenu extends Gui {
         }), new GuiLocation(5, 0));
 
         //priest
-        ItemStack priest = new ItemStack(Material.EYE_OF_ENDER);
+        ItemStack priest = new ItemStack(Material.ENDER_EYE);
         ItemMeta priestMeta = priest.getItemMeta();
         priestMeta.setDisplayName(ChatColor.GREEN + "Priest");
         priest.setItemMeta(priestMeta);

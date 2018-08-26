@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
@@ -39,7 +40,7 @@ public class BaseColorBannerMenu {
         String title = gui.getTitle();
 
         if (!title.isEmpty() && title.charAt(0) == '*')
-            gui.setTitle(MessageManager.translate(MESSAGES.getString(title.substring(1))));
+            gui.setTitle(MessageManager.translate(MESSAGES.getString(ChatColor.stripColor(title.substring(1)))));
 
         gui.getItems().forEach(item -> {
             ItemMeta itemMeta = item.getItem().getItemMeta();
@@ -74,11 +75,11 @@ public class BaseColorBannerMenu {
      * Called whenever a user clicks on the floor item
      *
      * @param event the event called when clicking
-     * @param damage the damage value assigned in the XML file
-     * @since 5.6.0
+     * @param material the material value assigned in the XML file
+     * @since 6.0.0
      */
-    public void bannerClick(InventoryClickEvent event, short damage) {
-        new ColorBannerMenu(new ItemStack(Material.BANNER, 1, damage)).show(event.getWhoClicked());
+    public void bannerClick(InventoryClickEvent event, Material material) {
+        new ColorBannerMenu(new ItemStack(material)).show(event.getWhoClicked());
 
         event.setCancelled(true);
     }

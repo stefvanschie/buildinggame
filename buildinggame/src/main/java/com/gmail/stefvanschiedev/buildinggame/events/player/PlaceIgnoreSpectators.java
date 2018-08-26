@@ -25,7 +25,6 @@ public class PlaceIgnoreSpectators implements Listener {
      *
      * @param e the event used for this algorithm
      */
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
@@ -63,7 +62,5 @@ public class PlaceIgnoreSpectators implements Listener {
         //set block
         relativeBlock.setType((e.getHand() == EquipmentSlot.HAND ? inventory.getItemInMainHand() :
                 inventory.getItemInOffHand()).getType());
-        relativeBlock.setData((byte) (e.getHand() == EquipmentSlot.HAND ? inventory.getItemInMainHand() :
-                inventory.getItemInOffHand()).getDurability());
     }
 }

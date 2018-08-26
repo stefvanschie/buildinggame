@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,7 +10,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
@@ -62,10 +62,11 @@ public class BlockPlace implements Listener {
 		}
 		
 		for (String material : SettingsManager.getInstance().getConfig().getStringList("blocks.blocked")) {
-			if (IDDecompiler.getInstance().matches(material, block)) {
-				e.setCancelled(true);
-				break;
-			}
+			if (Material.matchMaterial(material) != block.getType())
+			    continue;
+
+            e.setCancelled(true);
+            break;
 		}
 	}
 }

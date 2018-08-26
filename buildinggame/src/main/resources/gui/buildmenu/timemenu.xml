@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.time.title" rows="2">
     <outlinepane x="0" y="0" length="9" height="2">
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.midnight.name</displayname>
             <lore>
                 <line>*gui.time.midnight.lores</line>
@@ -10,7 +10,7 @@
                 <property type="long">18000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.2am.name</displayname>
             <lore>
                 <line>*gui.time.2am.lores</line>
@@ -19,7 +19,7 @@
                 <property type="long">20000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.4am.name</displayname>
             <lore>
                 <line>*gui.time.4am.lores</line>
@@ -28,7 +28,7 @@
                 <property type="long">22000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.6am.name</displayname>
             <lore>
                 <line>*gui.time.6am.lores</line>
@@ -37,7 +37,7 @@
                 <property type="long">0</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.8am.name</displayname>
             <lore>
                 <line>*gui.time.8am.lores</line>
@@ -46,7 +46,7 @@
                 <property type="long">2000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.10am.name</displayname>
             <lore>
                 <line>*gui.time.10am.lores</line>
@@ -55,7 +55,7 @@
                 <property type="long">4000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.midday.name</displayname>
             <lore>
                 <line>*gui.time.midday.lores</line>
@@ -64,7 +64,7 @@
                 <property type="long">6000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.2pm.name</displayname>
             <lore>
                 <line>*gui.time.2pm.lores</line>
@@ -73,7 +73,7 @@
                 <property type="long">8000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.4pm.name</displayname>
             <lore>
                 <line>*gui.time.4pm.lores</line>
@@ -82,7 +82,7 @@
                 <property type="long">10000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.6pm.name</displayname>
             <lore>
                 <line>*gui.time.6pm.lores</line>
@@ -91,7 +91,7 @@
                 <property type="long">12000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.8pm.name</displayname>
             <lore>
                 <line>*gui.time.8pm.lores</line>
@@ -100,7 +100,7 @@
                 <property type="long">14000</property>
             </properties>
         </item>
-        <item id="watch" onLocalClick="timeClick">
+        <item id="clock" onLocalClick="timeClick">
             <displayname>*gui.time.10pm.name</displayname>
             <lore>
                 <line>*gui.time.10pm.lores</line>

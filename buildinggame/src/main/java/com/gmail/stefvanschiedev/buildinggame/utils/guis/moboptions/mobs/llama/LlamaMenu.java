@@ -23,7 +23,7 @@ public class LlamaMenu extends ChestMenu {
         super(plot, llama);
 
         //color
-        ItemStack color = new ItemStack(Material.CONCRETE_POWDER, 1, (short) 1);
+        ItemStack color = new ItemStack(Material.ORANGE_CONCRETE_POWDER);
         ItemMeta colorMeta = color.getItemMeta();
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color");
         color.setItemMeta(colorMeta);

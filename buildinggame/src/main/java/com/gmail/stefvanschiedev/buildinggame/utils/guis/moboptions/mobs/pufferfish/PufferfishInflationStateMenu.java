@@ -1,4 +1,4 @@
-package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size;
+package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
@@ -7,68 +7,57 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Phantom;
-import org.bukkit.entity.Slime;
+import org.bukkit.entity.PufferFish;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 /**
- * A menu for selecting the size of a slime
+ * A selection menu for the inflation state of a pufferfish
  *
- * @since 5.3.0
+ * @since 6.0.0
  */
-class SizeSelectionMenu extends Gui {
+class PufferfishInflationStateMenu extends Gui {
 
     /**
-     * {@inheritDoc}
+     * Constructs a new pufferfish inflation state menu
      */
-    SizeSelectionMenu(Mob mob) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Change size");
+    PufferfishInflationStateMenu(PufferFish pufferfish) {
+        super(Main.getInstance(), 1, ChatColor.GREEN + "Set pufferfish inflation state");
 
-        OutlinePane pane = new OutlinePane(new GuiLocation(3, 0), 6, 1);
+        OutlinePane pane = new OutlinePane(new GuiLocation(3, 0), 3, 1);
 
-        //small
+        //deflated
         ItemStack goldNugget = new ItemStack(Material.GOLD_NUGGET);
         ItemMeta goldNuggetMeta = goldNugget.getItemMeta();
-        goldNuggetMeta.setDisplayName(ChatColor.GREEN + "Small");
+        goldNuggetMeta.setDisplayName(ChatColor.GREEN + "Deflated");
         goldNugget.setItemMeta(goldNuggetMeta);
 
         pane.addItem(new GuiItem(goldNugget, event -> {
-            if (mob instanceof Slime)
-                ((Slime) mob).setSize(1);
-            else if (mob instanceof Phantom)
-                ((Phantom) mob).setSize(1);
+            pufferfish.setPuffState(0);
 
             event.setCancelled(true);
         }));
 
-        //medium
+        //half inflated
         ItemStack goldIngot = new ItemStack(Material.GOLD_INGOT);
         ItemMeta goldIngotMeta = goldIngot.getItemMeta();
-        goldIngotMeta.setDisplayName(ChatColor.GREEN + "Medium");
+        goldIngotMeta.setDisplayName(ChatColor.GREEN + "Half inflated");
         goldIngot.setItemMeta(goldIngotMeta);
 
         pane.addItem(new GuiItem(goldIngot, event -> {
-            if (mob instanceof Slime)
-                ((Slime) mob).setSize(2);
-            else if (mob instanceof Phantom)
-                ((Phantom) mob).setSize(2);
+            pufferfish.setPuffState(1);
 
             event.setCancelled(true);
         }));
 
-        //large
+        //fully inflated
         ItemStack goldBlock = new ItemStack(Material.GOLD_BLOCK);
         ItemMeta goldBlockMeta = goldBlock.getItemMeta();
-        goldBlockMeta.setDisplayName(ChatColor.GREEN + "Large");
+        goldBlockMeta.setDisplayName(ChatColor.GREEN + "Fully inflated");
         goldBlock.setItemMeta(goldBlockMeta);
 
         pane.addItem(new GuiItem(goldBlock, event -> {
-            if (mob instanceof Slime)
-                ((Slime) mob).setSize(4);
-            else if (mob instanceof Phantom)
-                ((Phantom) mob).setSize(4);
+            pufferfish.setPuffState(2);
 
             event.setCancelled(true);
         }));

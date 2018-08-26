@@ -62,7 +62,7 @@ public class ItemBuilder implements Listener {
      * @param material the item's material
      */
 	public ItemBuilder(@NotNull Player player, Material material) {
-		this(player, material, 1, (short) 0);
+		this(player, material, 1);
 	}
 
     /**
@@ -71,10 +71,9 @@ public class ItemBuilder implements Listener {
      * @param player the player for whom the item is meant
      * @param material the item's material
      * @param amount the amount of items there should be
-     * @param damage the damage value of the item
      */
-	public ItemBuilder(@NotNull Player player, Material material, int amount, short damage) {
-	    this.item = new ItemStack(material, amount, damage);
+	public ItemBuilder(@NotNull Player player, Material material, int amount) {
+	    this.item = new ItemStack(material, amount);
 		this.player = player;
 
 		Bukkit.getPluginManager().registerEvents(this, Main.getInstance());

@@ -24,7 +24,7 @@ public class ShulkerMenu extends RemoveMenu {
         super(plot, shulker);
 
         //color
-        ItemStack color = new ItemStack(Material.CONCRETE_POWDER, 1, (short) 1);
+        ItemStack color = new ItemStack(Material.ORANGE_CONCRETE_POWDER);
         ItemMeta colorMeta = color.getItemMeta();
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color of the entity");
         color.setItemMeta(colorMeta);
