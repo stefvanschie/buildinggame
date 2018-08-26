@@ -347,7 +347,7 @@ public final class SignManager {
      * @param arena The arena wherefrom the signs need to be updated.
      */
     @SuppressWarnings("deprecation")
-    private void updateBlockBehindJoinSigns(Arena arena){
+    private void updateBlockBehindJoinSigns(@NotNull Arena arena){
         for (Sign sign : arena.getSigns()) {
             MaterialData signMaterialData = sign.getBlock().getState().getData();
 
@@ -355,14 +355,11 @@ public final class SignManager {
                 Block attachedBlock = sign.getBlock().getRelative(((Attachable) signMaterialData).getAttachedFace());
                 DyeColor dyeColor = gameStatesColor.get(arena.getState());
 
-                attachedBlock.setType(Material.STAINED_GLASS);
+                attachedBlock.setType(Material.valueOf(dyeColor.name() + "_STAINED_GLASS"));
 
-                if (dyeColor != null) {
-                    //((Colorable) attachedBlock.getState()).setColor((gameStatesColor.get(arena.getState())));
-                    //No other viable method found for setting the color of stained glass. Above method does not work but who knows, in the future.
-                    attachedBlock.setData((byte) dyeColor.ordinal());
+                if (dyeColor != null)
                     attachedBlock.getState().update();
-                } else
+                else
                     Main.getInstance().getLogger().warning("Wrong input at config.yml at signs.glass-colors." +
                             arena.getState().toString().toLowerCase(Locale.getDefault()));
             }

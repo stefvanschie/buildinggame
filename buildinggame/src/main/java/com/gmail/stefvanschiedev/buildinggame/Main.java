@@ -23,6 +23,7 @@ import com.sk89q.worldedit.WorldEdit;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -106,7 +107,7 @@ public class Main extends JavaPlugin {
 		SettingsManager.getInstance().setup(this, true);
 
         String version = Bukkit.getBukkitVersion().split("\\.")[1];
-        if (!version.substring(0, version.length() < 2 ? version.length() : 2).equals("12")) {
+        if (!version.substring(0, version.length() < 2 ? version.length() : 2).equals("13")) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
@@ -160,6 +161,7 @@ public class Main extends JavaPlugin {
         Gui.registerProperty("particle-type", ParticleType::valueOf);
         Gui.registerProperty("biome", Biome::valueOf);
         Gui.registerProperty("dye-color", DyeColor::valueOf);
+        Gui.registerProperty("material", Material::valueOf);
 		
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, false);
@@ -370,7 +372,7 @@ public class Main extends JavaPlugin {
 		SignManager.getInstance().setup();
 		
 		getLogger().info("Loading timer");
-		new ParticleRender().runTaskTimerAsynchronously(this, 0L, 10L);
+		new ParticleRender().runTaskTimer(this, 0L, 10L);
 		new ScoreboardUpdater().runTaskTimer(this, 0L, SettingsManager.getInstance().getConfig()
                 .getLong("scoreboard-update-delay"));
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig()

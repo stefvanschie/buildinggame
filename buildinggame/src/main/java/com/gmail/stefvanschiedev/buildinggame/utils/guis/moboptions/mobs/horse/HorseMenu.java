@@ -23,7 +23,7 @@ public class HorseMenu extends BabyMenu {
         super(plot, horse);
 
         //color
-        ItemStack color = new ItemStack(Material.CONCRETE_POWDER, 1, (short) 1);
+        ItemStack color = new ItemStack(Material.ORANGE_CONCRETE_POWDER, 1);
         ItemMeta colorMeta = color.getItemMeta();
         colorMeta.setDisplayName(ChatColor.GREEN + "Change the color");
         color.setItemMeta(colorMeta);
@@ -35,7 +35,7 @@ public class HorseMenu extends BabyMenu {
         }), 0);
 
         //style
-        ItemStack style = new ItemStack(Material.SNOW_BALL);
+        ItemStack style = new ItemStack(Material.SNOWBALL);
         ItemMeta styleMeta = style.getItemMeta();
         styleMeta.setDisplayName(ChatColor.GREEN + "Change the style");
         style.setItemMeta(styleMeta);

@@ -418,6 +418,7 @@ public final class SettingsManager {
         if (save)
         	save();
 	}
+
     static {
         RELOCATED_SETTINGS_LOCATIONS.put("timer", "timers.build");
         RELOCATED_SETTINGS_LOCATIONS.put("waittimer", "timers.lobby");

@@ -99,7 +99,8 @@ public class EntitySpawn implements Listener {
 
         Material type = item.getType();
 
-        if (arena == null || (type != Material.MONSTER_EGG && type != Material.ARMOR_STAND) ||
+        //there are no tags existent for grouping spawn eggs, so we will use this name check instead
+        if (arena == null || (!type.name().contains("_SPAWN_EGG") && type != Material.ARMOR_STAND) ||
                 e.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
 

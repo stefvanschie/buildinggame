@@ -8,6 +8,7 @@ import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -15,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
@@ -64,8 +64,8 @@ public class TeamSelection extends Gui {
             (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
 
         for (final Plot plot : arena.getPlots()) {
-            ItemStack item = IDDecompiler.getInstance().decompile(config.getString("team-selection.team." +
-                    (iteration + 1) + ".id"));
+            ItemStack item = new ItemStack(Material.matchMaterial(config.getString("team-selection.team." +
+                (iteration + 1) + ".id")));
             ItemMeta itemMeta = item.getItemMeta();
             itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
                     .replace("%plot%", plot.getID() + "")

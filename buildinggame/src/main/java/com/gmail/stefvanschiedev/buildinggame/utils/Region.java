@@ -145,8 +145,7 @@ public class Region {
                     Location newLoc = loc.clone().subtract(xOffset, yOffset, zOffset);
                     Block newBlock = newLoc.getBlock();
 
-                    if (newBlock.getType().isTransparent() &&
-                            newBlock.getRelative(BlockFace.UP).getType().isTransparent())
+                    if (!newBlock.getType().isSolid() && !newBlock.getRelative(BlockFace.UP).getType().isSolid())
                         return newLoc;
                 }
             }

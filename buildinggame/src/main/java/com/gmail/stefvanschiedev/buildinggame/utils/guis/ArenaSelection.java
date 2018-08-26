@@ -43,7 +43,7 @@ public class ArenaSelection extends Gui {
             .filter(arena ->
                 (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) && !arena.isFull())
             .forEach(arena -> {
-                ItemStack item = new ItemStack(Material.WOOL, 1, (short) 5);
+                ItemStack item = new ItemStack(Material.LIME_WOOL);
                 ItemMeta itemMeta = item.getItemMeta();
                 itemMeta.setDisplayName(ChatColor.GREEN + arena.getName());
                 item.setItemMeta(itemMeta);

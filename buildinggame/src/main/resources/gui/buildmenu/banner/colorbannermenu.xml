@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.banners.color.title" rows="3">
     <outlinepane x="0" y="0" length="9" height="2">
-        <item id="ink_sack" onLocalClick="bannerClick">
+        <item id="ink_sac" onLocalClick="bannerClick">
             <displayname>*gui.banners.color.black.name</displayname>
             <lore>
                 <line>*gui.banners.color.black.lore</line>
@@ -10,7 +10,7 @@
                 <property type="dye-color">BLACK</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="1" onLocalClick="dyeClick">
+        <item id="rose_red" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.red.name</displayname>
             <lore>
                 <line>*gui.banners.color.red.lore</line>
@@ -19,7 +19,7 @@
                 <property type="dye-color">RED</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="2" onLocalClick="dyeClick">
+        <item id="cactus_green" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.green.name</displayname>
             <lore>
                 <line>*gui.banners.color.green.lore</line>
@@ -28,7 +28,7 @@
                 <property type="dye-color">GREEN</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="3" onLocalClick="dyeClick">
+        <item id="cocoa_beans" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.brown.name</displayname>
             <lore>
                 <line>*gui.banners.color.brown.lore</line>
@@ -37,7 +37,7 @@
                 <property type="dye-color">BROWN</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="4" onLocalClick="dyeClick">
+        <item id="lapis_lazuli" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.blue.name</displayname>
             <lore>
                 <line>*gui.banners.color.blue.lore</line>
@@ -46,7 +46,7 @@
                 <property type="dye-color">BLUE</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="5" onLocalClick="dyeClick">
+        <item id="purple_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.purple.name</displayname>
             <lore>
                 <line>*gui.banners.color.purple.lore</line>
@@ -55,7 +55,7 @@
                 <property type="dye-color">PURPLE</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="6" onLocalClick="dyeClick">
+        <item id="cyan_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.cyan.name</displayname>
             <lore>
                 <line>*gui.banners.color.cyan.lore</line>
@@ -64,16 +64,16 @@
                 <property type="dye-color">CYAN</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="7" onLocalClick="dyeClick">
+        <item id="light_gray_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.light-gray.name</displayname>
             <lore>
                 <line>*gui.banners.color.light-gray.lore</line>
             </lore>
             <properties>
-                <property type="dye-color">SILVER</property>
+                <property type="dye-color">LIGHT_GRAY</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="8" onLocalClick="dyeClick">
+        <item id="gray_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.gray.name</displayname>
             <lore>
                 <line>*gui.banners.color.gray.lore</line>
@@ -83,7 +83,7 @@
             </properties>
         </item>
         <empty />
-        <item id="ink_sack" damage="9" onLocalClick="dyeClick">
+        <item id="pink_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.pink.name</displayname>
             <lore>
                 <line>*gui.banners.color.pink.lore</line>
@@ -92,7 +92,7 @@
                 <property type="dye-color">PINK</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="10" onLocalClick="dyeClick">
+        <item id="lime_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.lime.name</displayname>
             <lore>
                 <line>*gui.banners.color.lime.lore</line>
@@ -101,7 +101,7 @@
                 <property type="dye-color">LIME</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="11" onLocalClick="dyeClick">
+        <item id="dandelion_yellow" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.yellow.name</displayname>
             <lore>
                 <line>*gui.banners.color.yellow.lore</line>
@@ -110,7 +110,7 @@
                 <property type="dye-color">YELLOW</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="12" onLocalClick="dyeClick">
+        <item id="light_blue_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.light-blue.name</displayname>
             <lore>
                 <line>*gui.banners.color.light-blue.lore</line>
@@ -119,7 +119,7 @@
                 <property type="dye-color">LIGHT_BLUE</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="13" onLocalClick="dyeClick">
+        <item id="magenta_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.magenta.name</displayname>
             <lore>
                 <line>*gui.banners.color.magenta.lore</line>
@@ -128,7 +128,7 @@
                 <property type="dye-color">MAGENTA</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="14" onLocalClick="dyeClick">
+        <item id="orange_dye" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.orange.name</displayname>
             <lore>
                 <line>*gui.banners.color.orange.lore</line>
@@ -137,8 +137,7 @@
                 <property type="dye-color">ORANGE</property>
             </properties>
         </item>
-        <item id="ink_sack" damage="15" displayName="*gui.banners.color.white.name"
-              lores="*gui.banners.color.white.lore" onLocalClick="dyeClick">
+        <item id="bone_meal" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.white.name</displayname>
             <lore>
                 <line>*gui.banners.color.white.lore</line>

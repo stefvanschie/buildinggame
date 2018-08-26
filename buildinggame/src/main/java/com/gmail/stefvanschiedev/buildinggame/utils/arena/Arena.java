@@ -14,6 +14,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -24,7 +25,6 @@ import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaStopEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.id.IDDecompiler;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
@@ -854,8 +854,8 @@ public class Arena {
 			public void run() {
 				//give team selection
 				if (getMode() == ArenaMode.TEAM) {
-                    player.getInventory().setItem(0, IDDecompiler.getInstance().decompile(player, config
-                        .getString("team-selection.item.id")).setDisplayName(MessageManager
+                    player.getInventory().setItem(0, new ItemBuilder(player, Material.matchMaterial(config
+                        .getString("team-selection.item.id"))).setDisplayName(MessageManager
                         .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
                         .translate(messages.getStringList("team-gui.item.lores"), player))
                         .setClickEvent(event -> {
@@ -867,7 +867,7 @@ public class Arena {
 				//give paper for subject
 				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting"))
                     player.getInventory().setItem(config.getInt("subject-gui.slot"),
-                        IDDecompiler.getInstance().decompile(player, config.getString("subject-gui.item.id"))
+                        new ItemBuilder(player, Material.matchMaterial(config.getString("subject-gui.item.id")))
                             .setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"),
                                 player)).setLore(MessageManager.translate(messages
                             .getStringList("subject-gui.item.lores"), player)).setClickEvent(event -> {
@@ -876,7 +876,7 @@ public class Arena {
                             }).build());
 
                 player.getInventory().setItem(config.getInt("leave-item.slot"),
-                    IDDecompiler.getInstance().decompile(player, config.getString("leave-item.id"))
+                    new ItemBuilder(player, Material.matchMaterial(config.getString("leave-item.id")))
                         .setDisplayName(MessageManager.translate(messages.getString("leave-item.name"), player))
                         .setClickEvent(event -> {
                             leave(player);
@@ -1255,8 +1255,8 @@ public class Arena {
 
 				        player.getInventory().setItem(
 				            config.getInt("voting.items." + identifier + ".slot") - 1,
-                            IDDecompiler.getInstance()
-                                .decompile(player, config.getString("voting.items." + identifier + ".id"))
+                            new ItemBuilder(player,
+                                Material.matchMaterial(config.getString("voting.items." + identifier + ".id")))
                                 .setDisplayName(MessageManager.translate(
                                     messages.getString("voting.items." + identifier + ".name")
                                 ))
@@ -1352,8 +1352,9 @@ public class Arena {
 				
 				//hotbar
 				for (int i = 0; i < 9; i++)
-					player.getInventory().setItem(i, IDDecompiler.getInstance().decompile(config
-                            .getString("hotbar.default.slot-" + (i + 1))));
+					player.getInventory().setItem(i, new ItemStack(
+					    Material.matchMaterial(config.getString("hotbar.default.slot-" + (i + 1)))
+                    ));
 				
 				//bossbar
 				getBossBar().setVisible(true);

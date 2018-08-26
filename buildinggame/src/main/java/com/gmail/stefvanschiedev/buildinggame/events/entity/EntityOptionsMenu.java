@@ -11,7 +11,9 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.H
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.LlamaMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.ocelot.OcelotMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot.ParrotMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish.PufferfishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropicalfish.TropicalFishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.profession.ProfessionMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size.SizeMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -64,6 +66,7 @@ public class EntityOptionsMenu implements Listener {
             case PIG_ZOMBIE:
             case HUSK:
             case ZOMBIE:
+            case TURTLE:
                 new BabyMenu(plot, entity).show(player);
                 break;
             case DONKEY:
@@ -74,9 +77,10 @@ public class EntityOptionsMenu implements Listener {
             case ZOMBIE_VILLAGER:
                 new ProfessionMenu(plot, (Creature) entity).show(player);
                 break;
+            case PHANTOM:
             case MAGMA_CUBE:
             case SLIME:
-                new SizeMenu(plot, (Slime) entity).show(player);
+                new SizeMenu(plot, (Mob) entity).show(player);
                 break;
             case PIG:
                 new PigMenu(plot, (Pig) entity).show(player);
@@ -110,6 +114,12 @@ public class EntityOptionsMenu implements Listener {
                 break;
             case SNOWMAN:
                 new SnowGolemMenu(plot, (Snowman) entity).show(player);
+                break;
+            case PUFFERFISH:
+                new PufferfishMenu(plot, (PufferFish) entity).show(player);
+                break;
+            case TROPICAL_FISH:
+                new TropicalFishMenu(plot, (TropicalFish) entity).show(player);
                 break;
             default:
                 new RemoveMenu(plot, entity).show(player);

@@ -53,7 +53,7 @@ class HorseColorSelectionMenu extends Gui {
         }));
 
         //chestnut
-        ItemStack chestnut = new ItemStack(Material.RED_NETHER_BRICK);
+        ItemStack chestnut = new ItemStack(Material.RED_NETHER_BRICKS);
         ItemMeta chestnutMeta = chestnut.getItemMeta();
         chestnutMeta.setDisplayName(ChatColor.GREEN + "Chestnut");
         chestnut.setItemMeta(chestnutMeta);
