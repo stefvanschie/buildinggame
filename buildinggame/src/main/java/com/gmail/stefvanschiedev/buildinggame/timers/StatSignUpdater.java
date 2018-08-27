@@ -71,6 +71,9 @@ public class StatSignUpdater extends BukkitRunnable {
             signTexts.put(sign, lines);
         });
 
+        if (!Main.getInstance().isEnabled())
+            return;
+
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -142,7 +145,7 @@ public class StatSignUpdater extends BukkitRunnable {
 
             String name = player.getName();
 
-            return player == null || name == null ? "missingno" : name;
+            return name == null ? "missingno" : name;
         });
         REPLACEMENTS.put("amount", (sign, entry) -> String.valueOf(entry.getValue()));
     }
