@@ -1,5 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame;
 
+import be.maximvdw.placeholderapi.PlaceholderAPI;
+import be.maximvdw.placeholderapi.internal.PlaceholderPack;
+import be.maximvdw.placeholderapi.internal.PlaceholderPlugin;
 import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.InvalidCommandArgument;
@@ -15,16 +18,21 @@ import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import com.sk89q.worldedit.WorldEdit;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Biome;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -63,7 +71,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
+import java.lang.reflect.Field;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -222,6 +231,84 @@ public class Main extends JavaPlugin {
                     "Unable to get PlaceholderAPI version, contact the plugin author about this."
                 );
                 e.printStackTrace();
+            }
+        }
+
+        if (pm.isPluginEnabled("MVdWPlaceholderAPI")) {
+            PlaceholderAPI.registerPlaceholder(this, "buildinggame_players", event ->
+                String.valueOf(ArenaManager.getInstance().getArenas().stream().mapToInt(Arena::getPlayers).sum()));
+
+            PlaceholderAPI.registerPlaceholder(this, "buildinggame_has_booster", event -> {
+                YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+                Player player = event.getPlayer();
+                String falseMessage = messages.getString("placeholder-api.has-booster.result.false");
+
+                if (player == null)
+                    return falseMessage;
+
+                return Booster.hasBooster(player) ?
+                    messages.getString("placeholder-api.has-booster.result.true") : falseMessage;
+            });
+
+            PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_multiplier", event -> {
+                Player player = event.getPlayer();
+
+                if (player == null)
+                    return "0.0";
+
+                return String.valueOf(Booster.getMultiplier(player));
+            });
+
+            PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_time_left", event -> {
+                Player player = event.getPlayer();
+
+                if (player == null)
+                    return "0";
+
+                return String.valueOf(Booster.getBoosters(player).stream().mapToInt(Booster::getRemainingTime).max()
+                    .orElse(0));
+            });
+
+            PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_activator", event -> {
+                Player player = event.getPlayer();
+
+                if (player == null)
+                    return "";
+
+                Collection<Booster> boosters = Booster.getBoosters(player);
+
+                if (boosters.isEmpty())
+                    return "";
+
+                StringBuilder activators = new StringBuilder();
+                boosters.stream().map(booster -> booster.getActivator().getName()).distinct().forEach(name -> activators
+                    .append(name).append(", "));
+
+                if (boosters.stream().map(booster -> booster.getActivator().getName()).distinct().count() == 1)
+                    return activators.substring(0, activators.length() - 2);
+
+                return activators.replace(activators.length() - 2, activators.length(), "").replace(activators
+                    .lastIndexOf(", "), activators.lastIndexOf(", ") + 2, " and ").toString();
+            });
+
+            for (StatType statType : StatType.values()) {
+                String name = statType.toString().toLowerCase(Locale.getDefault());
+
+                PlaceholderAPI.registerPlaceholder(this, "buildinggame_stat_" + name, event -> {
+                    Stat stat = StatManager.getInstance().getStat(event.getOfflinePlayer(), statType);
+
+                    return stat == null ? "0" : String.valueOf(stat.getValue());
+                });
+
+                PlaceholderAPI.registerPlaceholder(this, "buildinggame_stat_" + name + "_top", event -> {
+                    List<Stat> stats = StatManager.getInstance().getStats(statType);
+
+                    if (stats == null)
+                        return "-1";
+
+                    return String.valueOf(stats.get(0).getValue());
+                });
             }
         }
 
