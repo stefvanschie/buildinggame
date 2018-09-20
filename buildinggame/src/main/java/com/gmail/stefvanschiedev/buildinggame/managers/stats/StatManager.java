@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -185,6 +186,8 @@ public final class StatManager {
         }
 
         statsByType.add(index, new Stat(player, value));
+
+        TopStatHologram.update(type);
 	}
 
     /**
