@@ -14,10 +14,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.plots.LocationManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
-import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
-import com.gmail.stefvanschiedev.buildinggame.utils.ItemBuilder;
-import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
+import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
@@ -1097,6 +1094,71 @@ public class CommandManager extends BaseCommand {
         MessageManager.getInstance().send(player, MESSAGES.getString("vote.message")
             .replace("%playerplot%", plot.getPlayerFormat())
             .replace("%points%", points + ""));
+    }
+
+    /**
+     * Contains methods for commands regarding holograms
+     *
+     * @since 6.2.0
+     */
+    @Subcommand("hologram")
+    public class HologramCommand extends BaseCommand {
+
+        /**
+         * Creates and registers a new hologram at the position of the player
+         *
+         * @param player the player who executed the command
+         * @param name the name of the hologram to create, see {@link TopStatHologram#name}
+         * @param type the type of statistic to track, see {@link TopStatHologram#type}
+         * @param values the amount of values to display on the hologram, see {@link TopStatHologram#values}
+         * @since 6.2.0
+         */
+        @Subcommand("create")
+        @Description("Create a new top statistics hologram")
+        @CommandPermission("bg.hologram.create")
+        @CommandCompletion("@nothing @stattypes @nothing")
+        @Conditions("hdenabled")
+        //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
+        @SuppressWarnings("TypeMayBeWeakened")
+        public void onCreate(Player player, String name, StatType type, int values) {
+            if (TopStatHologram.getHolograms().stream()
+                .anyMatch(hologram -> hologram.getName().equalsIgnoreCase(name))) {
+                player.sendMessage(ChatColor.RED + "A hologram with the name '" + name + "' already exists.");
+                return;
+            }
+
+            new TopStatHologram(name, type, values, player.getLocation()).register();
+            SettingsManager.getInstance().save();
+            player.sendMessage(ChatColor.GREEN + "A hologram named '" + name + "' has been created.");
+        }
+
+        /**
+         * Deletes an already existing hologram
+         *
+         * @param sender the sender which executed the command
+         * @param name the name of the hologram to delete, see {@link TopStatHologram#name}
+         * @since 6.2.0
+         */
+        @Subcommand("delete")
+        @Description("Delete a top statistics hologram")
+        @CommandPermission("bg.hologram.delete")
+        @CommandCompletion("@holograms")
+        @Conditions("hdenabled")
+        public void onDelete(CommandSender sender, String name) {
+            TopStatHologram hologram = TopStatHologram.getHolograms().stream()
+                .filter(h -> h.getName().equalsIgnoreCase(name))
+                .findAny()
+                .orElse(null);
+
+            if (hologram == null) {
+                sender.sendMessage(ChatColor.RED + "No hologram with the name '" + name + "' exists.");
+                return;
+            }
+
+            hologram.delete();
+            SettingsManager.getInstance().save();
+            sender.sendMessage(ChatColor.GREEN + "The hologram named '" + name + "' has been deleted.");
+        }
     }
 
     /**

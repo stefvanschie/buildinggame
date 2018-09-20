@@ -17,6 +17,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHe
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
+import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
@@ -332,6 +333,14 @@ public class Main extends JavaPlugin {
 
                 return mode;
             });
+            manager.getCommandContexts().registerContext(StatType.class, context -> {
+                StatType type = StatType.valueOf(context.popFirstArg().toUpperCase(Locale.getDefault()));
+
+                if (type == null)
+                    throw new InvalidCommandArgument("This statistic type doesn't exist");
+
+                return type;
+            });
 
             //register completions
             manager.getCommandCompletions().registerCompletion("arenas", context ->
@@ -342,6 +351,10 @@ public class Main extends JavaPlugin {
                 Stream.of(ArenaMode.values())
                     .map(mode -> mode.toString().toUpperCase(Locale.getDefault()))
                     .collect(Collectors.toList()));
+            manager.getCommandCompletions().registerCompletion("stattypes", context ->
+                Stream.of(StatType.values()).map(Enum::toString).collect(Collectors.toList()));
+            manager.getCommandCompletions().registerCompletion("holograms", context ->
+                TopStatHologram.getHolograms().stream().map(TopStatHologram::getName).collect(Collectors.toList()));
 
             //register conditions
             manager.getCommandConditions().addCondition(String.class, "arenanotexist",
@@ -349,6 +362,9 @@ public class Main extends JavaPlugin {
                     if (ArenaManager.getInstance().getArena(string) != null || string.equals("main-spawn"))
                         throw new ConditionFailedException("Arena already exists");
                 });
+            //hd stands for Holographic Displays, but it's shorten to hd since the full name is a bit long
+            manager.getCommandConditions().addCondition("hdenabled", context ->
+                pm.isPluginEnabled("HolographicDisplays"));
             manager.registerCommand(new CommandManager());
 
             loadedCommands = true;
