@@ -386,9 +386,9 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new LiquidFlow(), this);
 			pm.registerEvents(new PistonBlockMove(), this);
 			
-			//bungeecord
-			if (pm.isPluginEnabled("Socket4MC"))
-				pm.registerEvents(BungeeCordHandler.getInstance(), this);
+			//starts the connection to bungeecord
+            if (SettingsManager.getInstance().getConfig().getBoolean("bungeecord.enable"))
+			    BungeeCordHandler.getInstance();
 
 			//per world inventory compatibility fix
             if (pm.isPluginEnabled("PerWorldInventory")) {

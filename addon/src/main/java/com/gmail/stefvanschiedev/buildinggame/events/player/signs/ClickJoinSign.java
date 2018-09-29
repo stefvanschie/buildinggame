@@ -45,12 +45,16 @@ public class ClickJoinSign implements Listener {
 			Player player = e.getPlayer();
 			String playerName = player.getName();
 
-            BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player, SettingsManager.getInstance().getConfig().getString("main-plugin.server-name"), new IdentifiedCallable() {
-                @Override
-                public void call(String response) {
-                    BungeeCordHandler.getInstance().join(BungeeCordHandler.Receiver.MAIN, playerName, joinSign.getArenaName(), null);
+            BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player,
+                SettingsManager.getInstance().getConfig().getString("arena-server.name"),
+                new IdentifiedCallable() {
+                    @Override
+                    public void call(String response) {
+                        BungeeCordHandler.getInstance()
+                            .join(BungeeCordHandler.Receiver.MAIN, playerName, joinSign.getArenaName(), null);
+                    }
                 }
-            });
+            );
 		}
 	}
 }

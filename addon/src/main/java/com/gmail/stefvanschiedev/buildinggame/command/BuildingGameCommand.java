@@ -5,8 +5,10 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 /**
@@ -23,8 +25,10 @@ public class BuildingGameCommand extends BaseCommand {
     //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
     @SuppressWarnings("TypeMayBeWeakened")
     public void onSetMainSpawn(Player player) {
+        ConfigurationSection config = SettingsManager.getInstance().getConfig();
+
         BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml",
-            "main-spawn.server", player.getServer().getServerName(), null);
+            "main-spawn.server", config.getString("this-server.name"), null);
         BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml",
             "main-spawn.world", player.getWorld().getName(), null);
         BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.x",
