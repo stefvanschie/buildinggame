@@ -57,12 +57,10 @@
             <version>1.6</version>
             <scope>provided</scope>
         </dependency>
-        <!--Needs to be created manually-->
         <dependency>
-            <groupId>fr.rhaz.sockets</groupId>
-            <artifactId>socket4mc</artifactId>
-            <version>3.1</version>
-            <scope>provided</scope>
+            <groupId>com.github.jhg023</groupId>
+            <artifactId>SimpleNet</artifactId>
+            <version>1.2.0</version>
         </dependency>
         <!--Needs to be created manually-->
         <dependency>

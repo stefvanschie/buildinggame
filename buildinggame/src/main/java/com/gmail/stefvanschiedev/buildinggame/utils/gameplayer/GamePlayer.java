@@ -207,18 +207,17 @@ public class GamePlayer {
 	public void connect(String server, final Location location) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		if (Bukkit.getPluginManager().isPluginEnabled("Socket4MC") && config.getBoolean("bungeecord.enable")) {
-			if (!player.getServer().getServerName().equals(server))
-                BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player, server,
-                        new IdentifiedCallable() {
-                    @Override
-                    public void call(String response) {
-                        BungeeCordHandler.getInstance().teleport(BungeeCordHandler.Receiver.SUB_SERVER,
-                                player.getName(), location.getWorld().getName(), location.getBlockX(),
-                                location.getBlockY(), location.getBlockZ(), null);
-                    }
-                });
-		} else if (location != null)
+		if (config.getBoolean("bungeecord.enable"))
+            BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player, server,
+                    new IdentifiedCallable() {
+                @Override
+                public void call(String response) {
+                    BungeeCordHandler.getInstance().teleport(BungeeCordHandler.Receiver.SUB_SERVER,
+                            player.getName(), location.getWorld().getName(), location.getBlockX(),
+                            location.getBlockY(), location.getBlockZ(), null);
+                }
+            });
+		else if (location != null)
 			getPlayer().teleport(location);
     }
 
