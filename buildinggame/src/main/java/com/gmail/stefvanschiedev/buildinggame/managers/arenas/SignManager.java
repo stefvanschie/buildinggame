@@ -226,7 +226,7 @@ public final class SignManager {
                 .replace("%status%", messages.getString("variables.join-sign.status." + arena.getState()
                         .toString().toLowerCase(Locale.getDefault()))));
 
-        if (config.getBoolean("bungeecord.enable") && Bukkit.getPluginManager().isPluginEnabled("Socket4MC"))
+        if (config.getBoolean("bungeecord.enable"))
             BungeeCordHandler.getInstance().sign(BungeeCordHandler.Receiver.SUB_SERVER, arena, line1, line2, line3,
                     line4, null);
 

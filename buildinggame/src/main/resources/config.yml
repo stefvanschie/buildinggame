@@ -206,6 +206,9 @@ subject-gui:
   slot: 8
 
 bungeecord:
+  server:
+    address: 'localhost'
+    port: 25565
   enable: false
   
 team-selection:

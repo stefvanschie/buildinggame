@@ -37,6 +37,9 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 
+        SettingsManager.getInstance().setup(this);
+        JoinSign.load();
+
         new BukkitCommandManager(this).registerCommand(new BuildingGameCommand());
 		
 		Bukkit.getPluginManager().registerEvents(new JoinSignBreak(), this);
@@ -44,11 +47,9 @@ public class Main extends JavaPlugin {
 		
 		Bukkit.getPluginManager().registerEvents(new ClickJoinSign(), this);
 
-        Bukkit.getPluginManager().registerEvents(BungeeCordHandler.getInstance(), this);
-	
-		SettingsManager.getInstance().setup(this);
-        JoinSign.load();
-		
+		//connects the client to the server
+		BungeeCordHandler.getInstance();
+
 		getLogger().info("BuildingGame - BungeeCord Addon has been enabled");
 	}
 
