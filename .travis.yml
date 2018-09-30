@@ -1,0 +1,9 @@
+language: java
+jdk: openjdk8
+
+install:
+  - ./scripts/install-dependencies.sh
+
+script:
+  - cd buildinggame
+  - mvn clean install
