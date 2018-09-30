@@ -1,6 +1,9 @@
 language: java
 jdk: openjdk8
 
+before_install:
+  - chmod +x ./scripts/install-dependencies.sh
+
 install:
   - ./scripts/install-dependencies.sh
 
