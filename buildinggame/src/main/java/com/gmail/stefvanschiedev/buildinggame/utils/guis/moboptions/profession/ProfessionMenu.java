@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Creature;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A menu for changing the profession of a creature
@@ -23,8 +22,8 @@ public class ProfessionMenu extends BabyMenu {
         super(plot, creature);
 
         //profession
-        ItemStack profession = new ItemStack(Material.EMERALD);
-        ItemMeta professionMeta = profession.getItemMeta();
+        var profession = new ItemStack(Material.EMERALD);
+        var professionMeta = profession.getItemMeta();
         professionMeta.setDisplayName(ChatColor.GREEN + "Change the profession");
         profession.setItemMeta(professionMeta);
 

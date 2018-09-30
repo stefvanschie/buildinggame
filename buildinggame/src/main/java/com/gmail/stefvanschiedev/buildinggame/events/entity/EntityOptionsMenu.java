@@ -1,7 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
@@ -39,11 +38,11 @@ public class EntityOptionsMenu implements Listener {
         if (e.getHand() != EquipmentSlot.HAND)
             return;
 
-        Entity entity = e.getRightClicked();
+        var entity = e.getRightClicked();
         Plot plot = null;
 
-    loop:
-        for (Arena arena : ArenaManager.getInstance().getArenas()) {
+        loop:
+        for (var arena : ArenaManager.getInstance().getArenas()) {
             for (Plot p : arena.getUsedPlots()) {
                 if (p.getEntities().containsKey(entity)) {
                     plot = p;
@@ -55,7 +54,7 @@ public class EntityOptionsMenu implements Listener {
         if (plot == null)
             return;
 
-        Player player = e.getPlayer();
+        var player = e.getPlayer();
 
         switch (entity.getType()) {
             case CHICKEN:

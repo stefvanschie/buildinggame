@@ -5,9 +5,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
@@ -32,7 +30,7 @@ public class SpectateSignCreate implements Listener {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		Player player = e.getPlayer();
+		var player = e.getPlayer();
 		
 		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
 			return;
@@ -62,7 +60,7 @@ public class SpectateSignCreate implements Listener {
 		
 		number++;
 
-        Location location = e.getBlock().getLocation();
+        var location = e.getBlock().getLocation();
 
         signs.set(number + ".player", Bukkit.getOfflinePlayer(line).getUniqueId().toString());
 		signs.set(number + ".type", "spectate");

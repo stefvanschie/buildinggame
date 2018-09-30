@@ -58,10 +58,10 @@ public class Particle {
 	public void render() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		int amount = config.getInt("particles.amount");
-		double offsetX = config.getDouble("particles.offset.x");
-		double offsetY = config.getDouble("particles.offset.y");
-		double offsetZ = config.getDouble("particles.offset.z");
+		var amount = config.getInt("particles.amount");
+		var offsetX = config.getDouble("particles.offset.x");
+		var offsetY = config.getDouble("particles.offset.y");
+		var offsetZ = config.getDouble("particles.offset.z");
 
         switch (type) {
             case ANGRY_VILLAGER:

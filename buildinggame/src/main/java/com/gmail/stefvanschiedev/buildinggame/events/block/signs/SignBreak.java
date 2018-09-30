@@ -1,7 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
-import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -29,12 +27,12 @@ public class SignBreak implements Listener {
 	public static void onBlockBreak(BlockBreakEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		Block block = e.getBlock();
+		var block = e.getBlock();
 		
 		if (!(block.getState() instanceof Sign))
 			return;
 
-		Location location = block.getLocation();
+		var location = block.getLocation();
 
         for (String line : signs.getKeys(false)) {
             if (!signs.getString(line + ".world").equals(location.getWorld().getName()))

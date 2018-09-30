@@ -58,10 +58,8 @@ public final class SettingsManager {
      */
     @Contract("null -> fail")
 	public void setup(Plugin p) {
-		if (!p.getDataFolder().exists()) {
-			if (!p.getDataFolder().mkdir())
-				p.getLogger().warning("Unable to create data folder");
-		}
+		if (!p.getDataFolder().exists() && !p.getDataFolder().mkdir())
+		    p.getLogger().warning("Unable to create data folder");
 		
 		configFile = new File(p.getDataFolder(), "config.yml");
 		signsFile = new File(p.getDataFolder(), "signs.yml");
@@ -134,13 +132,12 @@ public final class SettingsManager {
      */
 	private void loadConfig() {
 		InputStream defConfigStream = Main.getInstance().getResource("config.yml");
+
 		if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
-			
-			for (String key : defConfig.getKeys(true)) {
-				if (!config.contains(key))
-					config.set(key, defConfig.get(key));
-			}
+			var defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
+
+            defConfig.getKeys(true).stream().filter(key -> !config.contains(key)).forEach(key ->
+                config.set(key, defConfig.get(key)));
 			
 			save();
 		}

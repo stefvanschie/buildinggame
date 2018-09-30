@@ -30,11 +30,11 @@ class TropicalFishPatternMenu extends Gui {
     TropicalFishPatternMenu(TropicalFish tropicalFish) {
         super(Main.getInstance(), 2, ChatColor.GREEN + "Select a pattern");
 
-        OutlinePane pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
+        var pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
 
-        for (TropicalFish.Pattern pattern : TropicalFish.Pattern.values()) {
-            ItemStack bucket = new ItemStack(Material.TROPICAL_FISH_BUCKET);
-            TropicalFishBucketMeta bucketMeta = (TropicalFishBucketMeta) bucket.getItemMeta();
+        for (var pattern : TropicalFish.Pattern.values()) {
+            var bucket = new ItemStack(Material.TROPICAL_FISH_BUCKET);
+            var bucketMeta = (TropicalFishBucketMeta) bucket.getItemMeta();
             bucketMeta.setBodyColor(DyeColor.BLUE);
             bucketMeta.setPatternColor(DyeColor.LIME);
             bucketMeta.setPattern(pattern);

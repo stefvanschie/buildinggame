@@ -4,7 +4,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.VoteTimer;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,14 +24,14 @@ public final class VoteTimerManager {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+		ArenaManager.getInstance().getArenas().forEach(arena -> {
             String name = arena.getName();
 
             if (!arenas.contains(name + ".vote-timer"))
 				arenas.set(name + ".vote-timer", config.getInt("timers.vote"));
 			
 			arena.setVoteTimer(new VoteTimer(arenas.getInt(name + ".vote-timer"), arena));
-		}
+		});
 	}
 
 	/**

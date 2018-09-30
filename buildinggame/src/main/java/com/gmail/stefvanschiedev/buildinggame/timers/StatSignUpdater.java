@@ -10,7 +10,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.google.common.primitives.Chars;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -45,11 +43,10 @@ public class StatSignUpdater extends BukkitRunnable {
 
         SignManager.getInstance().getStatSigns().forEach(sign -> {
             String[] lines = new String[4];
-            Sign s = sign.getSign();
 
             if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault())
                 .replace("_", "-"))) {
-                List<Stat> stats = StatManager.getInstance().getStats(sign.getType());
+                var stats = StatManager.getInstance().getStats(sign.getType());
 
                 if (stats == null)
                     return;
@@ -78,10 +75,10 @@ public class StatSignUpdater extends BukkitRunnable {
             @Override
             public void run() {
                 signTexts.forEach((statSign, lines) -> {
-                    Sign sign = statSign.getSign();
-                    int length = lines.length;
+                    var sign = statSign.getSign();
+                    var length = lines.length;
 
-                    for (int i = 0; i < length; i++)
+                    for (var i = 0; i < length; i++)
                         sign.setLine(i, lines[i]);
 
                     sign.update();
@@ -103,22 +100,21 @@ public class StatSignUpdater extends BukkitRunnable {
     @NotNull
     @Contract(value = "null, _, _, _ -> fail", pure = true)
     private String replace(String input, StatSign sign, OfflinePlayer player, int value) {
-        List<Character> list = new ArrayList<>(Chars.asList(input.toCharArray()));
-        Matcher matcher = Pattern.compile("%([^%]+)%").matcher(input);
+        var list = new ArrayList<>(Chars.asList(input.toCharArray()));
+        var matcher = Pattern.compile("%([^%]+)%").matcher(input);
 
         while (matcher.find()) {
             list.subList(matcher.start(), matcher.end()).clear();
 
-            BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String> function = REPLACEMENTS
-                .get(matcher.group(1));
+            var function = REPLACEMENTS.get(matcher.group(1));
 
             if (function == null)
                 continue;
 
             char[] replacement = function.apply(sign, new AbstractMap.SimpleEntry<>(player, value)).toCharArray();
 
-            int length = replacement.length;
-            for (int i = 0; i < length; i++)
+            var length = replacement.length;
+            for (var i = 0; i < length; i++)
                 list.add(matcher.start() + i, replacement[i]);
 
             StringBuilder builder = new StringBuilder();
@@ -143,7 +139,7 @@ public class StatSignUpdater extends BukkitRunnable {
             if (player == null)
                 return "missingno";
 
-            String name = player.getName();
+            var name = player.getName();
 
             return name == null ? "missingno" : name;
         });

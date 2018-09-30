@@ -10,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
@@ -37,14 +36,14 @@ public class ArenaSelection extends Gui {
      */
 	@Override
 	public void show(@NotNull HumanEntity humanEntity) {
-		OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 6);
+		var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 6);
 
         ArenaManager.getInstance().getArenas().stream()
             .filter(arena ->
                 (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) && !arena.isFull())
             .forEach(arena -> {
-                ItemStack item = new ItemStack(Material.LIME_WOOL);
-                ItemMeta itemMeta = item.getItemMeta();
+                var item = new ItemStack(Material.LIME_WOOL);
+                var itemMeta = item.getItemMeta();
                 itemMeta.setDisplayName(ChatColor.GREEN + arena.getName());
                 item.setItemMeta(itemMeta);
 

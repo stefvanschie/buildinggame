@@ -6,7 +6,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -43,7 +42,7 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
             return players();
 
         if (identifier.toLowerCase(Locale.getDefault()).startsWith("stat_")) {
-            for (StatType statType : StatType.values()) {
+            for (var statType : StatType.values()) {
                 String type = statType.toString().toLowerCase(Locale.getDefault());
 
                 if (!identifier.startsWith("stat_" + type + "_top_"))
@@ -68,7 +67,7 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
             return null;
 
         if (identifier.toLowerCase(Locale.getDefault()).startsWith("stat_")) {
-            for (StatType statType : StatType.values()) {
+            for (var statType : StatType.values()) {
                 if (!identifier.equalsIgnoreCase("stat_" + statType.toString().toLowerCase(Locale
                     .getDefault())))
                     continue;
@@ -118,7 +117,7 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
     @NotNull
     @Contract(pure = true)
     private String stat(OfflinePlayer player, StatType statType) {
-        Stat stat = StatManager.getInstance().getStat(player, statType);
+        var stat = StatManager.getInstance().getStat(player, statType);
 
         return stat == null ? "0" : String.valueOf(stat.getValue());
     }
@@ -174,7 +173,7 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
     @NotNull
     @Contract(pure = true)
     private String boosterActivator(Player player) {
-        Collection<Booster> boosters = Booster.getBoosters(player);
+        var boosters = Booster.getBoosters(player);
 
         if (boosters.isEmpty())
             return "";
@@ -203,8 +202,7 @@ public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
     private String statTop(StatType type, int number) {
         Map<OfflinePlayer, Integer> stats = new HashMap<>();
 
-        for (Stat stat : StatManager.getInstance().getStats(type))
-            stats.put(stat.getPlayer(), stat.getValue());
+        StatManager.getInstance().getStats(type).forEach(stat -> stats.put(stat.getPlayer(), stat.getValue()));
 
         List<Integer> values = new ArrayList<>(stats.values());
         Collections.sort(values);

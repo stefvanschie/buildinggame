@@ -30,20 +30,14 @@ public class ClickJoinSign implements Listener {
     @Contract("null -> fail")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
-			return;
-
-		if (!(e.getClickedBlock().getState() instanceof Sign))
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(e.getClickedBlock().getState() instanceof Sign))
 			return;
 
 		BlockState sign = e.getClickedBlock().getState();
 		
-		for (JoinSign joinSign : JoinSign.getSigns()) {
-			if (!joinSign.getSign().equals(sign))
-			    continue;
-
-			Player player = e.getPlayer();
-			String playerName = player.getName();
+		JoinSign.getSigns().stream().filter(joinSign -> joinSign.getSign().equals(sign)).forEach(joinSign -> {
+			var player = e.getPlayer();
+			var playerName = player.getName();
 
             BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player,
                 SettingsManager.getInstance().getConfig().getString("arena-server.name"),
@@ -55,6 +49,6 @@ public class ClickJoinSign implements Listener {
                     }
                 }
             );
-		}
+		});
 	}
 }

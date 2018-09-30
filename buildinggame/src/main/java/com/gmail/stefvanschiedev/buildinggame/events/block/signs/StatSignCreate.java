@@ -1,9 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
@@ -42,7 +40,7 @@ public class StatSignCreate implements Listener {
 		if (!lineOne.equalsIgnoreCase("stat") && !lineOne.equalsIgnoreCase("statistic"))
 			return;
 
-        Player player = e.getPlayer();
+        var player = e.getPlayer();
 		String lineTwo = e.getLine(2);
 		StatType type;
 
@@ -71,7 +69,7 @@ public class StatSignCreate implements Listener {
 		
 		int i = 0;
 		
-		for (String string : signs.getKeys(false)) {
+		for (var string : signs.getKeys(false)) {
 			try {
 				i = Integer.parseInt(string);
 			} catch (NumberFormatException ignore) {}
@@ -79,7 +77,7 @@ public class StatSignCreate implements Listener {
 		
 		i++;
 
-        Location location = e.getBlock().getLocation();
+        var location = e.getBlock().getLocation();
 
         signs.set(i + ".number", number);
 		signs.set(i + ".stat", type.toString());

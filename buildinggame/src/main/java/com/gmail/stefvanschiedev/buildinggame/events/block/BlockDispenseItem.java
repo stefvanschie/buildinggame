@@ -1,14 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.Region;
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDispenseEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 /**
  * Handles blocks dispensing items
@@ -26,10 +23,10 @@ public class BlockDispenseItem implements Listener  {
      */
 	@EventHandler(ignoreCancelled = true)
 	public void onBlockDispense(BlockDispenseEvent e) {
-        Location location = e.getBlock().getLocation();
+        var location = e.getBlock().getLocation();
 
-        for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Plot plot : arena.getPlots()) {
+        for (var arena : ArenaManager.getInstance().getArenas()) {
+			for (var plot : arena.getPlots()) {
                 Region boundary = plot.getBoundary();
 
                 if (boundary == null)

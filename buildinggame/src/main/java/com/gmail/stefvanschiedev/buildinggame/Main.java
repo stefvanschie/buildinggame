@@ -30,7 +30,6 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -137,7 +136,7 @@ public class Main extends JavaPlugin {
      */
 	@Override
 	public void onDisable() {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+		for (var arena : ArenaManager.getInstance().getArenas()) {
 			if (arena.getPlayers() > 0)
 				arena.stop();
 		}
@@ -201,18 +200,18 @@ public class Main extends JavaPlugin {
 			SDVault.getInstance().setup();
 
 		if (pm.isPluginEnabled("LeaderHeads")) {
-            for (StatType statType : StatType.values())
+            for (var statType : StatType.values())
                 new LeaderHeadsStatistic(statType);
         }
 
         if (pm.isPluginEnabled("PlaceholderAPI")) {
             try {
                 String version = pm.getPlugin("PlaceholderAPI").getDescription().getVersion();
-                int number = Integer.parseInt(version.replace(".", ""));
+                var number = Integer.parseInt(version.replace(".", ""));
 
                 //Make sure every version has at least three parts (e.g. 2.9.0 instead of 2.9).
                 //This ensures the versions don't get mixed up (e.g. 2.7.5 being bigger than 2.9).
-                for (int i = version.split("\\.").length; i < 3; i++)
+                for (var i = version.split("\\.").length; i < 3; i++)
                     number *= 10;
 
                 //290 is the first version with offline player support
@@ -238,8 +237,8 @@ public class Main extends JavaPlugin {
             PlaceholderAPI.registerPlaceholder(this, "buildinggame_has_booster", event -> {
                 YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-                Player player = event.getPlayer();
-                String falseMessage = messages.getString("placeholder-api.has-booster.result.false");
+                var player = event.getPlayer();
+                var falseMessage = messages.getString("placeholder-api.has-booster.result.false");
 
                 if (player == null)
                     return falseMessage;
@@ -249,7 +248,7 @@ public class Main extends JavaPlugin {
             });
 
             PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_multiplier", event -> {
-                Player player = event.getPlayer();
+                var player = event.getPlayer();
 
                 if (player == null)
                     return "0.0";
@@ -258,7 +257,7 @@ public class Main extends JavaPlugin {
             });
 
             PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_time_left", event -> {
-                Player player = event.getPlayer();
+                var player = event.getPlayer();
 
                 if (player == null)
                     return "0";
@@ -268,12 +267,12 @@ public class Main extends JavaPlugin {
             });
 
             PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_activator", event -> {
-                Player player = event.getPlayer();
+                var player = event.getPlayer();
 
                 if (player == null)
                     return "";
 
-                Collection<Booster> boosters = Booster.getBoosters(player);
+                var boosters = Booster.getBoosters(player);
 
                 if (boosters.isEmpty())
                     return "";
@@ -289,8 +288,8 @@ public class Main extends JavaPlugin {
                     .lastIndexOf(", "), activators.lastIndexOf(", ") + 2, " and ").toString();
             });
 
-            for (StatType statType : StatType.values()) {
-                String name = statType.toString().toLowerCase(Locale.getDefault());
+            for (var statType : StatType.values()) {
+                var name = statType.toString().toLowerCase(Locale.getDefault());
 
                 PlaceholderAPI.registerPlaceholder(this, "buildinggame_stat_" + name, event -> {
                     Stat stat = StatManager.getInstance().getStat(event.getOfflinePlayer(), statType);
@@ -298,27 +297,29 @@ public class Main extends JavaPlugin {
                     return stat == null ? "0" : String.valueOf(stat.getValue());
                 });
 
-                PlaceholderAPI.registerPlaceholder(this, "buildinggame_stat_" + name + "_top", event -> {
-                    List<Stat> stats = StatManager.getInstance().getStats(statType);
+                PlaceholderAPI.registerPlaceholder(this, "buildinggame_stat_" + name + "_top",
+                    event -> {
+                        List<Stat> stats = StatManager.getInstance().getStats(statType);
 
-                    if (stats == null)
-                        return "-1";
+                        if (stats == null)
+                            return "-1";
 
-                    return String.valueOf(stats.get(0).getValue());
-                });
+                        return String.valueOf(stats.get(0).getValue());
+                    }
+                );
             }
         }
 
 		getLogger().info("Loading commands");
 		if (!loadedCommands) {
-            BukkitCommandManager manager = new BukkitCommandManager(this);
+            var manager = new BukkitCommandManager(this);
 
             //noinspection deprecation
             manager.enableUnstableAPI("help");
 
             //register contexts
             manager.getCommandContexts().registerContext(Arena.class, context -> {
-                Arena arena = ArenaManager.getInstance().getArena(context.popFirstArg());
+                var arena = ArenaManager.getInstance().getArena(context.popFirstArg());
 
                 if (arena == null)
                     throw new InvalidCommandArgument("This arena doesn't exist");
@@ -326,7 +327,7 @@ public class Main extends JavaPlugin {
                 return arena;
             });
             manager.getCommandContexts().registerContext(ArenaMode.class, context -> {
-                ArenaMode mode = ArenaMode.valueOf(context.popFirstArg().toUpperCase(Locale.getDefault()));
+                var mode = ArenaMode.valueOf(context.popFirstArg().toUpperCase(Locale.getDefault()));
 
                 if (mode == null)
                     throw new InvalidCommandArgument("This game mode doesn't exist");
@@ -334,7 +335,7 @@ public class Main extends JavaPlugin {
                 return mode;
             });
             manager.getCommandContexts().registerContext(StatType.class, context -> {
-                StatType type = StatType.valueOf(context.popFirstArg().toUpperCase(Locale.getDefault()));
+                var type = StatType.valueOf(context.popFirstArg().toUpperCase(Locale.getDefault()));
 
                 if (type == null)
                     throw new InvalidCommandArgument("This statistic type doesn't exist");
@@ -394,11 +395,11 @@ public class Main extends JavaPlugin {
             if (pm.isPluginEnabled("PerWorldInventory")) {
                 try {
                     String version = pm.getPlugin("PerWorldInventory").getDescription().getVersion();
-                    int number = Integer.parseInt(version.replace(".", ""));
+                    var number = Integer.parseInt(version.replace(".", ""));
 
                     //Make sure every version has at least three parts (e.g. 1.11.0 instead of 1.11).
                     //This ensures the versions don't get mixed up (e.g. 1.7.5 being bigger than 1.11).
-                    for (int i = version.split("\\.").length; i < 3; i++)
+                    for (var i = version.split("\\.").length; i < 3; i++)
                         number *= 10;
 
                     //200 is the first version with the new package name

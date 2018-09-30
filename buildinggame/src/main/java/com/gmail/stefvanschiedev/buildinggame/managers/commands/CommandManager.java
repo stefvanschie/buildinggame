@@ -21,7 +21,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -150,7 +149,7 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.deletespawn")
     @CommandCompletion("@arenas @nothing")
     public void onDeleteSpawn(CommandSender sender, Arena arena, int spawn) {
-        Plot plot = arena.getPlot(spawn);
+        var plot = arena.getPlot(spawn);
 
         if (plot == null) {
             MessageManager.getInstance().send(sender,
@@ -158,9 +157,9 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        int maxPlayers = ARENAS.getInt(arena.getName() + ".maxplayers");
+        var maxPlayers = ARENAS.getInt(arena.getName() + ".maxplayers");
 
-        for (int i = plot.getID(); i < maxPlayers; i++)
+        for (var i = plot.getID(); i < maxPlayers; i++)
             ARENAS.set(arena.getName() + '.' + i, ARENAS.getConfigurationSection(arena.getName() + '.' + i + 1));
 
         ARENAS.set(arena.getName() + '.' + maxPlayers, null);
@@ -214,8 +213,8 @@ public class CommandManager extends BaseCommand {
     @CommandCompletion("@arenas")
     public void onForceStart(CommandSender sender, @Optional Arena arena) {
         if (sender instanceof Player) {
-            Player player = (Player) sender;
-            Arena playerArena = ArenaManager.getInstance().getArena(player);
+            var player = (Player) sender;
+            var playerArena = ArenaManager.getInstance().getArena(player);
 
             if (playerArena != null && arena == null) {
                 playerArena.getWaitTimer().setSeconds(0);
@@ -256,7 +255,7 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.forcetheme")
     @CommandCompletion("@arenas @nothing")
     public void onForceTheme(Player player, String theme) {
-        Arena arena = ArenaManager.getInstance().getArena(player);
+        var arena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null) {
             MessageManager.getInstance().send(player, ChatColor.RED + "You aren't in an arena");
@@ -308,7 +307,7 @@ public class CommandManager extends BaseCommand {
     @Description("Leave the arena you're in")
     @CommandPermission("bg.leave")
     public void onLeave(Player player) {
-        Arena arena = ArenaManager.getInstance().getArena(player);
+        var arena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null) {
             MessageManager.getInstance().send(player, ChatColor.RED + "You're not in an arena");
@@ -375,7 +374,7 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setbounds")
     @CommandCompletion("@arenas @nothing")
     public void onSetBounds(Player player, Arena arena, int id) {
-        final Plot plot = arena.getPlot(id);
+        final var plot = arena.getPlot(id);
 
         if (plot == null) {
             MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid plot");
@@ -383,7 +382,7 @@ public class CommandManager extends BaseCommand {
         }
 
         player.getInventory().setItemInMainHand(new ItemBuilder(player, Material.STICK)
-            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new Consumer<PlayerInteractEvent>() {
+            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new Consumer<>() {
                 private Location previousLocation;
 
                 @Override
@@ -391,8 +390,8 @@ public class CommandManager extends BaseCommand {
                     YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
                     YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-                    Player player = event.getPlayer();
-                    Action action = event.getAction();
+                    var player = event.getPlayer();
+                    var action = event.getAction();
 
                     if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
                         return;
@@ -404,7 +403,7 @@ public class CommandManager extends BaseCommand {
                             ChatColor.GREEN + "Now click on the other corner");
                     } else {
                         //second time
-                        Location location = event.getClickedBlock().getLocation();
+                        var location = event.getClickedBlock().getLocation();
                         String name = arena.getName();
                         int plotID = plot.getID();
 
@@ -448,10 +447,11 @@ public class CommandManager extends BaseCommand {
                         SettingsManager.getInstance().save();
                         BoundaryManager.getInstance().setup();
 
-                        for (String message : messages.getStringList("commands.setbounds.success"))
+                        messages.getStringList("commands.setbounds.success").forEach(message ->
                             MessageManager.getInstance().send(player, message
                                 .replace("%place%", plotID + "")
-                                .replace("%arena%", name));
+                                .replace("%arena%", name))
+                        );
 
                         previousLocation = null;
 
@@ -479,7 +479,7 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setfloor")
     @CommandCompletion("@arenas @nothing")
     public void onSetFloor(Player player, Arena arena, int id) {
-        final Plot plot = arena.getPlot(id);
+        final var plot = arena.getPlot(id);
 
         if (plot == null) {
             MessageManager.getInstance().send(player, ChatColor.RED + "That's not a valid plot");
@@ -487,15 +487,15 @@ public class CommandManager extends BaseCommand {
         }
 
         player.getInventory().setItemInMainHand(new ItemBuilder(player, Material.STICK)
-            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new Consumer<PlayerInteractEvent>() {
+            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new Consumer<>() {
                 private Location previousLocation;
 
                 @Override
                 public void accept(PlayerInteractEvent event) {
                     YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
-                    Player player = event.getPlayer();
-                    Action action = event.getAction();
+                    var player = event.getPlayer();
+                    var action = event.getAction();
 
                     if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
                         return;
@@ -507,7 +507,7 @@ public class CommandManager extends BaseCommand {
                             ChatColor.GREEN + "Now click on the other corner");
                     } else {
                         //second time
-                        Location location = event.getClickedBlock().getLocation();
+                        var location = event.getClickedBlock().getLocation();
                         String name = arena.getName();
                         int plotID = plot.getID();
 
@@ -959,7 +959,7 @@ public class CommandManager extends BaseCommand {
     @Description("Spectate a player")
     @CommandPermission("bg.spectate")
     public void onSpectate(Player player, Player toSpectate) {
-        Arena arena = ArenaManager.getInstance().getArena(toSpectate);
+        var arena = ArenaManager.getInstance().getArena(toSpectate);
 
         if (arena == null) {
             MessageManager.getInstance().send(player, ChatColor.RED + "Arena not found");
@@ -1029,15 +1029,15 @@ public class CommandManager extends BaseCommand {
     public void onStats(Player player) {
         StatManager statManager = StatManager.getInstance();
 
-        Stat playsStat = statManager.getStat(player, StatType.PLAYS);
-        Stat firstStat = statManager.getStat(player, StatType.FIRST);
-        Stat secondStat = statManager.getStat(player, StatType.SECOND);
-        Stat thirdStat = statManager.getStat(player, StatType.THIRD);
-        Stat placedStat = statManager.getStat(player, StatType.PLACED);
-        Stat brokenStat = statManager.getStat(player, StatType.BROKEN);
-        Stat walkedStat = statManager.getStat(player, StatType.WALKED);
-        Stat pointsGivenStat = statManager.getStat(player, StatType.POINTS_GIVEN);
-        Stat pointsReceivedStat = statManager.getStat(player, StatType.POINTS_RECEIVED);
+        var playsStat = statManager.getStat(player, StatType.PLAYS);
+        var firstStat = statManager.getStat(player, StatType.FIRST);
+        var secondStat = statManager.getStat(player, StatType.SECOND);
+        var thirdStat = statManager.getStat(player, StatType.THIRD);
+        var placedStat = statManager.getStat(player, StatType.PLACED);
+        var brokenStat = statManager.getStat(player, StatType.BROKEN);
+        var walkedStat = statManager.getStat(player, StatType.WALKED);
+        var pointsGivenStat = statManager.getStat(player, StatType.POINTS_GIVEN);
+        var pointsReceivedStat = statManager.getStat(player, StatType.POINTS_RECEIVED);
 
         MessageManager.translate(MESSAGES.getStringList("commands.stats.success")).forEach(message ->
             MessageManager.getInstance().send(player, message
@@ -1071,7 +1071,7 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        Arena arena = ArenaManager.getInstance().getArena(player);
+        var arena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null) {
             MessageManager.getInstance().send(player, ChatColor.RED + "You're not in an arena");
@@ -1088,7 +1088,7 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        Plot plot = arena.getVotingPlot();
+        var plot = arena.getVotingPlot();
         plot.addVote(new Vote(points, player));
 
         MessageManager.getInstance().send(player, MESSAGES.getString("vote.message")

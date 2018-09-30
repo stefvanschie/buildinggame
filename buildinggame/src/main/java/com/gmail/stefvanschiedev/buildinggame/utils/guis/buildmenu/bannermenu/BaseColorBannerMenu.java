@@ -10,7 +10,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A gui for selecting the base color of your banner
@@ -37,18 +36,18 @@ public class BaseColorBannerMenu {
             "gui/buildmenu/banner/basecolorbannermenu.xml"
         ));
 
-        String title = gui.getTitle();
+        var title = gui.getTitle();
 
         if (!title.isEmpty() && title.charAt(0) == '*')
             gui.setTitle(MessageManager.translate(MESSAGES.getString(ChatColor.stripColor(title.substring(1)))));
 
         gui.getItems().forEach(item -> {
-            ItemMeta itemMeta = item.getItem().getItemMeta();
+            var itemMeta = item.getItem().getItemMeta();
 
             if (itemMeta == null)
                 return;
 
-            String displayName = itemMeta.getDisplayName();
+            var displayName = itemMeta.getDisplayName();
 
             if (!displayName.isEmpty() && displayName.charAt(0) == '*')
                 itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString(displayName.substring(1))));

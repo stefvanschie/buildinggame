@@ -7,12 +7,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.logging.Logger;
 
 /**
  * This class handles the boundaries
@@ -52,8 +48,8 @@ public final class BoundaryManager {
     public void setup() {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Plot plot : arena.getPlots()) {
+		ArenaManager.getInstance().getArenas().forEach(arena ->
+			arena.getPlots().forEach(plot -> {
 				try {
 					plot.setBoundary(new Region(Bukkit.getWorld(
 					        arenas.getString(arena.getName() + '.' + plot.getID() + ".high.world")),
@@ -65,7 +61,7 @@ public final class BoundaryManager {
 							arenas.getInt(arena.getName() + '.' + plot.getID() + ".low.z")));
 
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-                        Logger logger = Main.getInstance().getLogger();
+                        var logger = Main.getInstance().getLogger();
 
                         if (plot.getBoundary().getWorld() == null)
                             logger.warning("Unable to load world for plot boundary");
@@ -76,7 +72,7 @@ public final class BoundaryManager {
 				} catch (NullPointerException | IllegalArgumentException e) {
 					plot.setBoundary(null);
 				}
-			}
-		}
+			})
+		);
 	}
 }

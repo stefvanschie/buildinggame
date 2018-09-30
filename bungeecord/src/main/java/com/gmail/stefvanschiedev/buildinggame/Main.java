@@ -85,7 +85,7 @@ public class Main extends Plugin implements Listener {
         if (!pendingConnections.containsKey(uuid))
             return;
 
-        Map.Entry<Client, String> entry = pendingConnections.get(uuid);
+        var entry = pendingConnections.get(uuid);
 
         Packet.builder().putString(entry.getValue()).writeAndFlush(entry.getKey());
         pendingConnections.remove(uuid);
@@ -104,20 +104,17 @@ public class Main extends Plugin implements Listener {
 
         if (data[0].startsWith("response")) {
             //bungee doesn't send stuff by itself
-            for (Client c : clients)
-                Packet.builder().putString(message).writeAndFlush(c);
+            clients.forEach(c -> Packet.builder().putString(message).writeAndFlush(c));
 
             return;
         }
 
-        if (data[1].split(":")[1].equals(Receiver.BUNGEE)) {
+        if (data[1].split(":")[1].equals(Receiver.BUNGEE))
             //has to be a connect statement
             connect(data[0].split(":")[1], client, data.length > 2 ? data[2] : null);
-        } else {
+        else
             //send to other servers
-            for (Client c : clients)
-                Packet.builder().putString(message).writeAndFlush(c);
-        }
+            clients.forEach(c -> Packet.builder().putString(message).writeAndFlush(c));
 	}
 
     /**
@@ -131,13 +128,13 @@ public class Main extends Plugin implements Listener {
 	private void connect(@NotNull String response, Client client, String uuid) {
         String[] data = response.replace("connect:", "").trim().split(", ");
 
-        ProxiedPlayer proxiedPlayer = getProxy().getPlayer(data[0]);
-        ServerInfo serverInfo = getProxy().getServerInfo(data[1]);
+        var proxiedPlayer = getProxy().getPlayer(data[0]);
+        var serverInfo = getProxy().getServerInfo(data[1]);
 
         if (proxiedPlayer != null && serverInfo != null) {
             proxiedPlayer.connect(serverInfo);
-            pendingConnections.put(proxiedPlayer.getUniqueId(), new AbstractMap.SimpleEntry<>(client, "response:success" +
-                    (uuid != null ? ';' + uuid : "")));
+            pendingConnections.put(proxiedPlayer.getUniqueId(), new AbstractMap.SimpleEntry<>(client,
+                "response:success" + (uuid != null ? ';' + uuid : "")));
 
             return;
         }

@@ -4,8 +4,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,11 +46,11 @@ public final class MaxPlayersManager {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-            String name = arena.getName();
+		for (var arena : ArenaManager.getInstance().getArenas()) {
+            var name = arena.getName();
             arena.setMaxPlayers(arenas.getInt(name + ".maxplayers", 0));
 
-            for (Plot plot : arena.getPlots()) {
+            for (var plot : arena.getPlots()) {
                 int id = plot.getID();
 
                 if (!config.contains("team-selection.team." + id))

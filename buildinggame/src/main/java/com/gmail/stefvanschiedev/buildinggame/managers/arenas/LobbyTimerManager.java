@@ -4,7 +4,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.WaitTimer;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,8 +24,8 @@ public final class LobbyTimerManager {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-            String name = arena.getName();
+		for (var arena : ArenaManager.getInstance().getArenas()) {
+            var name = arena.getName();
 
             if (!arenas.contains(name + ".lobby-timer"))
 				arenas.set(name + ".lobby-timer", config.getInt("timers.lobby"));

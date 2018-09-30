@@ -10,7 +10,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -156,20 +155,19 @@ class FloorMenu extends Gui {
 	FloorMenu(final Plot plot) {
 		super(Main.getInstance(), 6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
 
-        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 5);
+        var paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 5);
 
-        for (int page = 0; page < Math.ceil(getBlocks().size() / 45.0); page++) {
-            OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 5);
+        for (var page = 0; page < Math.ceil(getBlocks().size() / 45.0); page++) {
+            var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 5);
 
-            for (int i = 0; i < 45; i++) {
+            for (var i = 0; i < 45; i++) {
                 if (i + (45 * page) == getBlocks().size())
                     break;
 
                 Material material = getBlocks().get(i + (45 * page));
 
                 outlinePane.addItem(new GuiItem(new ItemStack(material), event -> {
-                    for (Block b : plot.getFloor().getAllBlocks())
-                        b.setType(material);
+                    plot.getFloor().getAllBlocks().forEach(b -> b.setType(material));
 
                     event.setCancelled(true);
                 }));
@@ -178,9 +176,9 @@ class FloorMenu extends Gui {
             paginatedPane.addPane(page, outlinePane);
         }
 
-        OutlinePane previous = new OutlinePane(new GuiLocation(2, 5), 1, 1);
-        OutlinePane back = new OutlinePane(new GuiLocation(4, 5), 1, 1);
-        OutlinePane next = new OutlinePane(new GuiLocation(6, 5), 1, 1);
+        var previous = new OutlinePane(new GuiLocation(2, 5), 1, 1);
+        var back = new OutlinePane(new GuiLocation(4, 5), 1, 1);
+        var next = new OutlinePane(new GuiLocation(6, 5), 1, 1);
 
         previous.addItem(new GuiItem(PREVIOUS_PAGE, event -> {
             paginatedPane.setPage(paginatedPane.getPage() - 1);
@@ -234,7 +232,7 @@ class FloorMenu extends Gui {
 	@Contract(pure = true)
 	private static List<Material> getBlocks() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		List<Material> blocks = new ArrayList<>();
+		var blocks = new ArrayList<Material>();
 		
 		for (Material material : Material.values()) {
             //noinspection deprecation

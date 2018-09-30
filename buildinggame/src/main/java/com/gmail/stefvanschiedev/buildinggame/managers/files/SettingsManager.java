@@ -1,24 +1,18 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.files;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.*;
-import java.util.logging.Logger;
 
 import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.JsonReaderUtil;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.InstanceCreator;
 import com.google.gson.TypeAdapter;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -137,7 +131,7 @@ public final class SettingsManager {
 	@Contract("null, _ -> fail")
 	public void setup(Plugin p, boolean save) {
         File dataFolder = p.getDataFolder();
-        Logger logger = p.getLogger();
+        var logger = p.getLogger();
 
         if (!dataFolder.exists()) {
             if (!dataFolder.mkdir())
@@ -209,7 +203,7 @@ public final class SettingsManager {
 
 		if (hologramsFile.exists()) {
             try {
-                JsonReader jsonReader = new Gson().newJsonReader(new InputStreamReader(new FileInputStream(hologramsFile)));
+                var jsonReader = new Gson().newJsonReader(new InputStreamReader(new FileInputStream(hologramsFile)));
 
                 jsonReader.beginArray();
 
@@ -368,7 +362,7 @@ public final class SettingsManager {
                 e.printStackTrace();
             }
 
-            try (JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(hologramsFile)))) {
+            try (var writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(hologramsFile)))) {
                 writer.beginArray();
 
                 TopStatHologram.getHolograms().forEach(hologram -> {
@@ -445,7 +439,7 @@ public final class SettingsManager {
         }
 
         if (config.getBoolean("debug")) {
-            Logger logger = Main.getInstance().getLogger();
+            var logger = Main.getInstance().getLogger();
 
             logger.info("Found " + settings + " settings");
         	logger.info("Added " + addedSettings + " new settings");
@@ -491,7 +485,7 @@ public final class SettingsManager {
         }
 
         if (config.getBoolean("debug")) {
-            Logger logger = Main.getInstance().getLogger();
+            var logger = Main.getInstance().getLogger();
 
             logger.info("Found " + settings + " settings");
         	logger.info("Added " + addedSettings + " new settings");

@@ -8,7 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -17,10 +16,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,17 +38,17 @@ public class Move implements Listener {
 	public void onPlayerMove(PlayerMoveEvent e) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		Player player = e.getPlayer();
+		var player = e.getPlayer();
 		Location to = e.getTo();
 		Location from = e.getFrom();
 		
 		if (ArenaManager.getInstance().getArena(player) == null) {
 			//check if player wants to go inside (except spectators of course)
-			for (Arena arena : ArenaManager.getInstance().getArenas()) {
+			for (var arena : ArenaManager.getInstance().getArenas()) {
 				if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING)
 					continue;
 				
-				for (Plot plot : arena.getPlots()) {
+				for (var plot : arena.getPlots()) {
 					if (plot.getBoundary().isInside(to) && !plot.getBoundary().isInside(from)) {
 						//teleport this intruder back
 						player.teleport(from);
@@ -71,12 +67,12 @@ public class Move implements Listener {
 		if (SettingsManager.getInstance().getConfig().getBoolean("allow-fly-out-bounds"))
 			return;
 		
-		Arena arena = ArenaManager.getInstance().getArena(player);
-		Plot plot = arena.getPlot(player);
+		var arena = ArenaManager.getInstance().getArena(player);
+		var plot = arena.getPlot(player);
         Region boundary = plot.getBoundary();
 
         if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
-			GamePlayer gamePlayer = plot.getGamePlayer(player);
+			var gamePlayer = plot.getGamePlayer(player);
 			
 			if (!boundary.isInside(to)) {
 				player.teleport(gamePlayer.getSpectates().getPlayer());
@@ -87,7 +83,7 @@ public class Move implements Listener {
 		}
 		
 		if (arena.getState() == GameState.VOTING) {
-            Plot votingPlot = arena.getVotingPlot();
+            var votingPlot = arena.getVotingPlot();
 
             if (votingPlot == null)
 				return;
@@ -109,7 +105,7 @@ public class Move implements Listener {
 		}
 		
 		if (arena.getState() == GameState.RESETING) {
-            Plot firstPlot = arena.getFirstPlot();
+            var firstPlot = arena.getFirstPlot();
 
             if (firstPlot == null)
 				return;
@@ -161,19 +157,19 @@ public class Move implements Listener {
 
 		outerLoop:
             //radius is for a cube not a sphere as the name suggests
-            for (int radius = 1; closest == null; radius++) {
+            for (var radius = 1; closest == null; radius++) {
                 //loop through cube starting at a positive corner going to a negative one
-                for (int x = radius; x >= -radius; x--) {
-                    for (int y = radius; y >= -radius; y--) {
-                        for (int z = radius; z >= -radius; z--) {
+                for (var x = radius; x >= -radius; x--) {
+                    for (var y = radius; y >= -radius; y--) {
+                        for (var z = radius; z >= -radius; z--) {
                             Location loc = start.clone().add(x, y, z);
 
                             //loop through all plots
-                            for (Arena arena : ArenaManager.getInstance().getArenas()) {
+                            for (var arena : ArenaManager.getInstance().getArenas()) {
                                 if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING)
                                     continue;
 
-                                for (Plot plot : arena.getPlots()) {
+                                for (var plot : arena.getPlots()) {
                                     if (!plot.getBoundary().isInside(loc)) {
                                         closest = loc;
                                         break outerLoop;
