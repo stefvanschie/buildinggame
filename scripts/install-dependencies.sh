@@ -6,8 +6,11 @@ wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifac
 
 wget https://www.robindebaets.be/LeaderHeadsAPI.jar && mvn install:install-file -Dfile=LeaderHeadsAPI.jar -DgroupId=me.robin -DartifactId=leaderheads -Dversion=3.1.6 -Dpackaging=jar
 
-git clone https://github.com/Gnat008/perworldinventory-kt.git && cd perworldinventory-kt && mvn clean install
+jdk_switcher use openjdk8
 
+git clone https://github.com/Gnat008/perworldinventory-kt.git && cd perworldinventory-kt && mvn clean install
 cd ../
+
+jdk_switcher use openjdk11
 
 git clone https://github.com/I-Al-Istannen/MiniNBT.git && cd MiniNBT && mvn clean install
