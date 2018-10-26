@@ -15,7 +15,8 @@ install:
   - cd perworldinventory-kt
   - mvn clean install
   - cd ../
-  - jdk_switcher use openjdk11
+  - export JAVA_HOME=$HOME/openjdk11
+  - $TRAVIS_BUILD_DIR/install-jdk.sh --install openjdk11 --target $JAVA_HOME
   - git clone https://github.com/I-Al-Istannen/MiniNBT.git
   - cd MiniNBT
   - mvn clean install
