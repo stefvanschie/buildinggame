@@ -16,7 +16,7 @@ install:
   - mvn clean install
   - cd ../
   - export JAVA_HOME=$HOME/openjdk11
-  - $TRAVIS_BUILD_DIR/install-jdk.sh --install openjdk11 --target $JAVA_HOME
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh && . ./install-jdk.sh -F 11 -L GPL
   - git clone https://github.com/I-Al-Istannen/MiniNBT.git
   - cd MiniNBT
   - mvn clean install
