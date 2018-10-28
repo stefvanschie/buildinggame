@@ -8,6 +8,7 @@ import co.aikar.commands.annotation.Subcommand;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -27,18 +28,21 @@ public class BuildingGameCommand extends BaseCommand {
     public void onSetMainSpawn(Player player) {
         ConfigurationSection config = SettingsManager.getInstance().getConfig();
 
-        BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml",
-            "main-spawn.server", config.getString("this-server.name"), null);
-        BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml",
-            "main-spawn.world", player.getWorld().getName(), null);
-        BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.x",
-            "(int)" + player.getLocation().getBlockX(), null);
-        BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.y",
-            "(int)" + player.getLocation().getBlockY(), null);
-        BungeeCordHandler.getInstance().write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.z",
-            "(int)" + player.getLocation().getBlockZ(), null);
+        BungeeCordHandler instance = BungeeCordHandler.getInstance();
+        var location = player.getLocation();
 
-        BungeeCordHandler.getInstance().save(BungeeCordHandler.Receiver.MAIN, null);
+        instance.write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.server",
+            config.getString("this-server.name"), null);
+        instance.write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.world",
+            player.getWorld().getName(), null);
+        instance.write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.x",
+            "(int)" + location.getBlockX(), null);
+        instance.write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.y",
+            "(int)" + location.getBlockY(), null);
+        instance.write(BungeeCordHandler.Receiver.MAIN, "arenas.yml", "main-spawn.z",
+            "(int)" + location.getBlockZ(), null);
+
+        instance.save(BungeeCordHandler.Receiver.MAIN, null);
 
         player.sendMessage(ChatColor.GREEN + "Main spawn set!");
     }
