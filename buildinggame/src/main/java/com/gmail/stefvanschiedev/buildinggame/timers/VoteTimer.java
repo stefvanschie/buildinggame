@@ -5,10 +5,10 @@ import com.gmail.stefvanschiedev.buildinggame.utils.math.MathElement;
 import com.gmail.stefvanschiedev.buildinggame.utils.math.util.MathElementFactory;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.data.DataException;
+import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
+import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
 import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.schematic.SchematicFormat;
-import com.sk89q.worldedit.world.World;
+import com.sk89q.worldedit.util.io.Closer;
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,7 +28,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -144,29 +146,32 @@ public class VoteTimer extends Timer {
                         /**
                          * {@inheritDoc}
                          */
-                        @SuppressWarnings("deprecation")
                         @Override
                         public void run() {
                             Region region = arena.getFirstPlot().getBoundary();
-                            World weWorld = new BukkitWorld(region.getWorld());
-                            com.sk89q.worldedit.regions.Region cuboidRegion = new CuboidRegion(weWorld,
-                                new Vector(region.getLowX(), region.getLowY(), region.getLowZ()),
-                                new Vector(region.getHighX(), region.getHighY(), region.getHighZ()));
-                            CuboidClipboard clipboard = new CuboidClipboard(cuboidRegion.getMaximumPoint()
-                                .subtract(cuboidRegion.getMinimumPoint()).add(1, 1, 1), cuboidRegion
-                                .getMinimumPoint());
-                            clipboard.copy(WorldEdit.getInstance().getEditSessionFactory().getEditSession(weWorld,
-                                -1));
 
-                            try {
-                                SchematicFormat.MCEDIT.save(clipboard,
-                                    new File(SettingsManager.getInstance().getSchematicsFolder(),
-                                        LocalDateTime.now().format(DateTimeFormatter
-                                            .ofPattern("yyy-MM-dd_HH-mm-ss")) +
-                                            arena.getFirstPlot().getGamePlayers().stream()
-                                                .map(gp -> '-' + gp.getPlayer().getName())
-                                                .reduce("", String::concat) + ".schematic"));
-                            } catch (IOException | DataException e) {
+                            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd_HH-mm-ss");
+                            String players = arena.getFirstPlot().getGamePlayers().stream()
+                                .map(gp -> '-' + gp.getPlayer().getName())
+                                .reduce("", String::concat);
+                            var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schematic";
+                            var file = new File(SettingsManager.getInstance().getSchematicsFolder(), fileName);
+
+                            try (var closer = Closer.create()) {
+                                var fileOutputStream = closer.register(new FileOutputStream(file));
+                                var bufferedOutputStream = closer.register(new BufferedOutputStream(fileOutputStream));
+                                var builtInClipboardFormat = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
+                                var clipboardWriter = builtInClipboardFormat.getWriter(bufferedOutputStream);
+
+                                var lowVector = new Vector(region.getLowX(), region.getLowY(), region.getLowZ());
+                                var highVector = new Vector(region.getHighX(), region.getHighY(), region.getHighZ());
+                                var bukkitWorld = new BukkitWorld(region.getWorld());
+
+                                var cuboidRegion = new CuboidRegion(bukkitWorld, lowVector, highVector);
+                                var blockArrayClipboard = new BlockArrayClipboard(cuboidRegion);
+
+                                closer.register(clipboardWriter).write(blockArrayClipboard);
+                            } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
