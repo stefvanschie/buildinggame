@@ -3,7 +3,6 @@ package com.gmail.stefvanschiedev.buildinggame.managers.plots;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -39,27 +38,27 @@ public final class PlotManager {
      */
 	@SuppressWarnings("MethodMayBeStatic")
     public void setup() {
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			arena.getPlots().clear();
+        ArenaManager.getInstance().getArenas().forEach(arena -> {
+            arena.getPlots().clear();
 
-			for (String plot : SettingsManager.getInstance().getArenas().getConfigurationSection(arena.getName())
-                    .getKeys(false)) {
-				int id;
+            SettingsManager.getInstance().getArenas().getConfigurationSection(arena.getName()).getKeys(false)
+                .forEach(plot -> {
+                    int id;
 
-				try {
-					id = Integer.parseInt(plot);
-				} catch (NumberFormatException e) {
-					continue;
-				}
+                    try {
+                        id = Integer.parseInt(plot);
+                    } catch (NumberFormatException e) {
+                        return;
+                    }
 
-				Plot p = new Plot(id);
-                p.setArena(arena);
-				arena.addPlot(p);
+                    Plot p = new Plot(id);
+                    p.setArena(arena);
+                    arena.addPlot(p);
 
-				if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-					Main.getInstance().getLogger().info("Loaded plot " + p.getID() + " in arena " +
+                    if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
+                        Main.getInstance().getLogger().info("Loaded plot " + p.getID() + " in arena " +
                             arena.getName());
-			}
-		}
+                });
+        });
 	}
 }

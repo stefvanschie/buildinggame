@@ -10,9 +10,6 @@ import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Cancellable;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.List;
 
 /**
  * The gui to change the biome of your plot
@@ -46,23 +43,23 @@ class BiomeMenu {
         this.gui = Gui.load(Main.getInstance(), this,
             Main.getInstance().getResource("gui/buildmenu/biomemenu.xml"));
 
-        String title = gui.getTitle();
+        var title = gui.getTitle();
 
         if (!title.isEmpty() && title.charAt(0) == '*')
             gui.setTitle(MessageManager.translate(MESSAGES.getString(ChatColor.stripColor(title.substring(1)))));
 
         gui.getItems().forEach(item -> {
-            ItemMeta itemMeta = item.getItem().getItemMeta();
+            var itemMeta = item.getItem().getItemMeta();
 
             if (itemMeta == null)
                 return;
 
-            String displayName = itemMeta.getDisplayName();
+            var displayName = itemMeta.getDisplayName();
 
             if (displayName != null && !displayName.isEmpty() && displayName.charAt(0) == '*')
                 itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString(displayName.substring(1))));
 
-            List<String> lore = itemMeta.getLore();
+            var lore = itemMeta.getLore();
 
             if (lore != null) {
                 String line = lore.get(0);

@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -45,8 +44,8 @@ public final class MatchesManager {
     public void setup() {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
-        for (Arena arena : ArenaManager.getInstance().getArenas()) {
-            String name = arena.getName();
+        for (var arena : ArenaManager.getInstance().getArenas()) {
+            var name = arena.getName();
 
             arena.setMaxMatches(arenas.getInt(name + ".matches", 1));
 

@@ -1,8 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
@@ -30,7 +28,7 @@ public class LeaveSignCreate implements Listener {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		Player player = e.getPlayer();
+		var player = e.getPlayer();
 		
 		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]") ||
                 !e.getLine(1).equalsIgnoreCase("leave"))
@@ -48,7 +46,7 @@ public class LeaveSignCreate implements Listener {
 		
 		int number = 0;
 		
-		for (String string : signs.getKeys(false)) {
+		for (var string : signs.getKeys(false)) {
 			try {
 				number = Integer.parseInt(string);
 			} catch (NumberFormatException ignore) {}
@@ -56,7 +54,7 @@ public class LeaveSignCreate implements Listener {
 		
 		number++;
 
-        Location location = e.getBlock().getLocation();
+        var location = e.getBlock().getLocation();
 
         signs.set(number + ".type", "leave");
 		signs.set(number + ".world", location.getWorld().getName());

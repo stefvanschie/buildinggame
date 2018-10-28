@@ -5,7 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.math.util.MathFactory;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -82,13 +81,13 @@ public final class MathDoubleStatement implements MathElement {
         @Nullable
         @Override
         public MathDoubleStatement instantiate(String input) {
-            Matcher matcher = PATTERN.matcher(input);
+            var matcher = PATTERN.matcher(input);
 
             if (!matcher.matches())
                 return null;
 
             Operator operator;
-            String operatorString = matcher.group(2);
+            var operatorString = matcher.group(2);
 
             switch (operatorString) {
                 case "+":
@@ -126,13 +125,13 @@ public final class MathDoubleStatement implements MathElement {
         @Nullable
         @Override
         public MathDoubleStatement instantiate(String input) {
-            Matcher matcher = PATTERN.matcher(input);
+            var matcher = PATTERN.matcher(input);
 
             if (!matcher.matches())
                 return null;
 
             Operator operator;
-            String operatorString = matcher.group(2);
+            var operatorString = matcher.group(2);
 
             switch (operatorString) {
                 case "*":

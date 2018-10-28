@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -25,14 +24,14 @@ public class CommandBlocker implements Listener {
      */
 	@EventHandler
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
-		Player player = e.getPlayer();
+		var player = e.getPlayer();
         String message = e.getMessage();
 
         if (ArenaManager.getInstance().getArena(player) == null || message.startsWith("/bg") ||
                 message.startsWith("/buildinggame"))
 			return;
 		
-		for (String string : SettingsManager.getInstance().getConfig().getStringList("command-whitelist")) {
+		for (var string : SettingsManager.getInstance().getConfig().getStringList("command-whitelist")) {
 			if (string.charAt(0) != '/')
 				string = '/' + string;
 

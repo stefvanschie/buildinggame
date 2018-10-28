@@ -3,11 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
-import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.Conditional;
-import com.gmail.stefvanschiedev.buildinggame.utils.Vote;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.google.common.primitives.Chars;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.*;
 import java.util.function.Function;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -88,18 +84,18 @@ public abstract class ArenaScoreboard {
         List<String> strings = getLines();
 
         for (int i = 0; i < strings.size(); i++) {
-            Team team = scoreboard.registerNewTeam(i + "");
+            var team = scoreboard.registerNewTeam(i + "");
             team.addEntry(ChatColor.values()[i].toString());
             team.setDisplayName("");
 
             teams.add(team);
 
             //parse conditional
-            String text = MessageManager.translate(strings.get(i));
+            var text = MessageManager.translate(strings.get(i));
             Conditional conditional = null;
 
             if (!text.isEmpty() && text.charAt(0) == '$') {
-                String conditionalText = text.split(" ")[0];
+                var conditionalText = text.split(" ")[0];
 
                 conditional = Conditional.parse(conditionalText);
 
@@ -116,23 +112,23 @@ public abstract class ArenaScoreboard {
         replacements.put("max_players", player -> String.valueOf(arena.getMaxPlayers()));
         replacements.put("subject", player -> arena.getSubject());
         replacements.put("seconds", player -> {
-            Timer timer = arena.getActiveTimer();
+            var timer = arena.getActiveTimer();
 
             return timer == null ? "0" : String.valueOf(timer.getSeconds());
         });
         replacements.put("minutes", player -> {
-            Timer timer = arena.getActiveTimer();
+            var timer = arena.getActiveTimer();
 
             return timer == null ? "0" : String.valueOf(timer.getMinutes());
         });
         replacements.put("plot", player -> String.valueOf(arena.getPlot(player).getID()));
         replacements.put("time", player -> {
-            Timer timer = arena.getActiveTimer();
+            var timer = arena.getActiveTimer();
 
             return timer == null ? "0" : timer.getMinutes() + ":" + timer.getSecondsFromMinute();
         });
         replacements.put("seconds_from_minute", player -> {
-            Timer timer = arena.getActiveTimer();
+            var timer = arena.getActiveTimer();
 
             return timer == null ? "0" : String.valueOf(timer.getSecondsFromMinute());
         });
@@ -141,13 +137,13 @@ public abstract class ArenaScoreboard {
         replacements.put("money", player ->
                 SDVault.getInstance().isEnabled() ? String.valueOf(SDVault.getEconomy().getBalance(player)) : "0");
         replacements.put("vote", player -> {
-            Plot plot = arena.getVotingPlot();
+            var plot = arena.getVotingPlot();
 
             return plot == null ? "0" : plot.getVote(player) == null ? "0" : plot.getVote(player) + "";
         });
         replacements.put("playerplot", player -> {
-            Plot votingPlot = arena.getVotingPlot();
-            Plot plot = arena.getPlot(player);
+            var votingPlot = arena.getVotingPlot();
+            var plot = arena.getPlot(player);
 
             return votingPlot == null ? plot == null ? "?" : plot.getPlayerFormat() : votingPlot.getPlayerFormat();
         });
@@ -163,12 +159,12 @@ public abstract class ArenaScoreboard {
         replacements.put("date_year", player -> String.valueOf(LocalDateTime.now().getYear()));
         replacements.put("vote_name", player -> {
             YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-            Plot votingPlot = arena.getVotingPlot();
+            var votingPlot = arena.getVotingPlot();
 
             if (votingPlot == null)
                 return "?";
 
-            Vote vote = votingPlot.getVote(player);
+            var vote = votingPlot.getVote(player);
 
             if (vote == null)
                 return "?";
@@ -200,17 +196,17 @@ public abstract class ArenaScoreboard {
             }
         });
         replacements.put("first_players", player -> {
-            Plot firstPlot = arena.getFirstPlot();
+            var firstPlot = arena.getFirstPlot();
 
             return firstPlot == null ? "?" : firstPlot.getPlayerFormat();
         });
         replacements.put("second_players", player -> {
-            Plot secondPlot = arena.getSecondPlot();
+            var secondPlot = arena.getSecondPlot();
 
             return secondPlot == null ? "?" : secondPlot.getPlayerFormat();
         });
         replacements.put("third_players", player -> {
-            Plot thirdPlot = arena.getThirdPlot();
+            var thirdPlot = arena.getThirdPlot();
 
             return thirdPlot == null ? "?" : thirdPlot.getPlayerFormat();
         });
@@ -225,19 +221,19 @@ public abstract class ArenaScoreboard {
     @Contract("null -> fail")
     public void show(Player player) {
         //keep track of the line count cause lines may not be displayed at all
-        int lineCount = 0;
+        var lineCount = 0;
 
-        for (int i = 0; i < strings.size(); i++) {
+        for (var i = 0; i < strings.size(); i++) {
             Map.Entry<String, Conditional> line = strings.get(i);
-            Conditional conditional = line.getValue();
+            var conditional = line.getValue();
 
             if (conditional != null && !conditional.evaluate(arena))
                 continue;
 
-            String text = replace(line.getKey(), player);
+            var text = replace(line.getKey(), player);
 
-            int length = text.length();
-            Team team = teams.get(lineCount);
+            var length = text.length();
+            var team = teams.get(lineCount);
 
             team.setPrefix(text.substring(0, length > 16 ? 16 : length));
 
@@ -264,8 +260,8 @@ public abstract class ArenaScoreboard {
     @NotNull
     @Contract(value = "null, _ -> fail", pure = true)
     private String replace(String input, Player player) {
-        List<Character> list = new ArrayList<>(Chars.asList(input.toCharArray()));
-        Matcher matcher = Pattern.compile("%([^%]+)%").matcher(input);
+        var list = new ArrayList<>(Chars.asList(input.toCharArray()));
+        var matcher = Pattern.compile("%([^%]+)%").matcher(input);
 
         while (matcher.find()) {
             list.subList(matcher.start(), matcher.end()).clear();
@@ -277,8 +273,8 @@ public abstract class ArenaScoreboard {
 
             char[] replacement = function.apply(player).toCharArray();
 
-            int length = replacement.length;
-            for (int i = 0; i < length; i++)
+            var length = replacement.length;
+            for (var i = 0; i < length; i++)
                 list.add(matcher.start() + i, replacement[i]);
 
             StringBuilder builder = new StringBuilder();

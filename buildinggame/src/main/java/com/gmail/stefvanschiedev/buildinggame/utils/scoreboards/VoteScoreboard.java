@@ -3,7 +3,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 import java.util.List;
 
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Score;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -36,8 +35,7 @@ public class VoteScoreboard extends ArenaScoreboard {
      * @since 2.1.0
      */
 	public void setScore(String name, int points) {
-		Score score = objective.getScore(name);
-		score.setScore(points);
+		objective.getScore(name).setScore(points);
 	}
 
     /**

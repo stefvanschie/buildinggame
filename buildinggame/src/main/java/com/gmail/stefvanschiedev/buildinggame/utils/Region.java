@@ -10,9 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A class which marks points for a three dimensional cuboid
@@ -88,11 +87,10 @@ public class Region {
     public List<Block> getAllBlocks() {
         List<Block> blocks = new ArrayList<>();
 
-        for (int x = lowX; x <= highX; x++) {
-            for (int y = lowY; y <= highY; y++) {
-                for (int z = lowZ; z <= highZ; z++) {
+        for (var x = lowX; x <= highX; x++) {
+            for (var y = lowY; y <= highY; y++) {
+                for (var z = lowZ; z <= highZ; z++)
                     blocks.add(world.getBlockAt(x, y, z));
-                }
             }
         }
         return blocks;
@@ -120,11 +118,7 @@ public class Region {
     @NotNull
     @Contract(pure = true)
     public Iterable<Chunk> getChunks() {
-        Collection<Chunk> chunks = new HashSet<>();
-
-        getAllBlocks().forEach(block -> chunks.add(block.getChunk()));
-
-        return chunks;
+        return getAllBlocks().stream().map(Block::getChunk).collect(Collectors.toSet());
     }
 
     /**
@@ -139,11 +133,11 @@ public class Region {
     public Location getSafeLocation() {
         Location loc = new Location(world, highX, highY - 1, highZ);
 
-        for (int xOffset = 0; xOffset < highX - lowX; xOffset++) {
-            for (int yOffset = 0; yOffset < highY - lowY - 1; yOffset++) {
-                for (int zOffset = 0; zOffset < highZ - lowZ; zOffset++) {
+        for (var xOffset = 0; xOffset < highX - lowX; xOffset++) {
+            for (var yOffset = 0; yOffset < highY - lowY - 1; yOffset++) {
+                for (var zOffset = 0; zOffset < highZ - lowZ; zOffset++) {
                     Location newLoc = loc.clone().subtract(xOffset, yOffset, zOffset);
-                    Block newBlock = newLoc.getBlock();
+                    var newBlock = newLoc.getBlock();
 
                     if (!newBlock.getType().isSolid() && !newBlock.getRelative(BlockFace.UP).getType().isSolid())
                         return newLoc;

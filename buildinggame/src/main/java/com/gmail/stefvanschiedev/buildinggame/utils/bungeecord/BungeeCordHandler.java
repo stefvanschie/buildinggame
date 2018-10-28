@@ -4,10 +4,9 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.AnimalTamer;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -193,8 +192,8 @@ public final class BungeeCordHandler {
     private String join(@NotNull String input) {
         String[] data = input.split(", ");
 
-        Player player = org.bukkit.Bukkit.getPlayer(data[0].trim());
-        Arena arena = ArenaManager.getInstance().getArena(data[1].trim());
+        var player = Bukkit.getPlayer(data[0].trim());
+        var arena = ArenaManager.getInstance().getArena(data[1].trim());
 
         if (player == null || arena == null)
             return "response:failed";
@@ -220,12 +219,7 @@ public final class BungeeCordHandler {
     @Nullable
     @Contract(pure = true)
     private IdentifiedCallable getCallable(UUID uuid) {
-        for (IdentifiedCallable callable : callables) {
-            if (callable.getUuid().equals(uuid))
-                return callable;
-        }
-
-        return null;
+        return callables.stream().filter(callable -> callable.getUuid().equals(uuid)).findAny().orElse(null);
     }
 
     /**

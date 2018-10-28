@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Base class for join signs
@@ -81,23 +82,24 @@ public final class JoinSign {
 
         getSigns().clear();
 
-        for (String key : signs.getKeys(false)) {
-            World world = Bukkit.getWorld(signs.getString(key + ".world"));
+        signs.getKeys(false).forEach(key -> {
+            var world = Bukkit.getWorld(signs.getString(key + ".world"));
+
             if (world == null) {
                 signs.set(key, null);
-                continue;
+                return;
             }
 
-            BlockState blockState = new Location(world, signs.getInt(key + ".x"), signs.getInt(key + ".y"),
+            var blockState = new Location(world, signs.getInt(key + ".x"), signs.getInt(key + ".y"),
                     signs.getInt(key + ".z")).getBlock().getState();
 
             if (!(blockState instanceof Sign)) {
                 signs.set(key, null);
-                continue;
+                return;
             }
 
             getSigns().add(new JoinSign(signs.getString(key + ".arena"), (Sign) blockState));
-        }
+        });
     }
 
     /**
@@ -122,13 +124,6 @@ public final class JoinSign {
     @NotNull
     @Contract(pure = true)
     public static Set<JoinSign> getSigns(String arenaName) {
-        Set<JoinSign> joinSigns = new HashSet<>();
-
-        for (JoinSign joinSign : SIGNS) {
-            if (joinSign.getArenaName().equals(arenaName))
-                joinSigns.add(joinSign);
-        }
-
-        return joinSigns;
+        return SIGNS.stream().filter(joinSign -> joinSign.getArenaName().equals(arenaName)).collect(Collectors.toSet());
     }
 }

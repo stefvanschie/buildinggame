@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.arena;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.*;
@@ -245,14 +246,9 @@ public class Arena {
      * @since 2.2.1
      */
 	public boolean contains(Player player) {
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-				if (gamePlayer.getPlayer().equals(player))
-					return true;
-			}
-		}
-
-		return false;
+	    return getUsedPlots().stream()
+            .flatMap(plot -> plot.getGamePlayers().stream())
+            .anyMatch(gamePlayer -> gamePlayer.getPlayer().equals(player));
 	}
 
 	/**
@@ -400,16 +396,11 @@ public class Arena {
      */
 	@Contract(pure = true)
 	public int getPlayers() {
-		int players = 0;
-		
-		for (Plot plot : getUsedPlots())
-			players += plot.getGamePlayers().size();
-		
-		return players;
+	    return getUsedPlots().stream().mapToInt(plot -> plot.getGamePlayers().size()).sum();
 	}
 
 	/**
-     * Returns the plot by the given ID or null if such a plot doesn;t exist
+     * Returns the plot by the given ID or null if such a plot doesn't exist
      *
      * @param ID the ID to look for
      * @return the plot with the given ID
@@ -419,16 +410,11 @@ public class Arena {
 	@Nullable
     @Contract(pure = true)
 	public Plot getPlot(int ID) {
-		for (Plot plot : plots) {
-			if (plot.getID() == ID)
-				return plot;
-		}
-
-		return null;
+	    return plots.stream().filter(plot -> plot.getID() == ID).findAny().orElse(null);
 	}
 
 	/**
-     * Returns the plot which contains the given player or null if such a plot doesn;t exist
+     * Returns the plot which contains the given player or null if such a plot doesn't exist
      *
      * @param player the player to look for
      * @return the plot the given player is in
@@ -544,14 +530,7 @@ public class Arena {
 	@NotNull
     @Contract(pure = true)
 	public Collection<Plot> getUsedPlots() {
-		Collection<Plot> usedPlots = new ArrayList<>();
-		
-		for (Plot plot : getPlots()) {
-			if (!plot.getGamePlayers().isEmpty())
-				usedPlots.add(plot);
-		}
-		
-		return usedPlots;
+		return getPlots().stream().filter(plot -> !plot.getGamePlayers().isEmpty()).collect(Collectors.toSet());
 	}
 
 	/**
@@ -688,12 +667,7 @@ public class Arena {
 		if (lobby == null || MainSpawnManager.getInstance().getMainSpawn() == null)
 			return false;
 
-		for (Plot plot : getPlots()) {
-			if (plot.getBoundary() == null || plot.getFloor() == null)
-				return false;
-		}
-
-		return true;
+		return getPlots().stream().noneMatch(plot -> plot.getBoundary() == null || plot.getFloor() == null);
 	}
 
 	/**
@@ -721,17 +695,13 @@ public class Arena {
 				MessageManager.getInstance().send(player, ChatColor.RED +
                         " - The main spawn (/bg setmainspawn)");
 
-			for (Plot plot : getPlots()) {
-				if (plot.getBoundary() == null)
+			getPlots().stream().filter(plot -> plot.getBoundary() == null).forEach(plot ->
 					MessageManager.getInstance().send(player, ChatColor.RED + " - The boundary of plot " +
-                            plot.getID() + " (/bg setbounds " + getName() + ' ' + plot.getID() + ')');
-			}
+                            plot.getID() + " (/bg setbounds " + getName() + ' ' + plot.getID() + ')'));
 
-			for (Plot plot : getPlots()) {
-				if (plot.getFloor() == null)
+			getPlots().stream().filter(plot -> plot.getFloor() == null).forEach(plot ->
 					MessageManager.getInstance().send(player, ChatColor.RED + " - The floor of plot " +
-                            plot.getID() + " (/bg setfloor " + getName() + ' ' + plot.getID() + ')');
-			}
+                            plot.getID() + " (/bg setfloor " + getName() + ' ' + plot.getID() + ')'));
 
 			return;
 		}
@@ -785,33 +755,27 @@ public class Arena {
             getWinScoreboard(pl).getRedTeam().addEntry(name);
         });
 
-		for (String message : messages.getStringList("join.message"))
-			MessageManager.getInstance().send(player, message
-					.replace("%players%", getPlayers() + "")
-					.replace("%max_players%", getMaxPlayers() + ""));
-		
-		for (Plot pl : getUsedPlots()) {
-			for (GamePlayer gamePlayer : pl.getGamePlayers()) {
-				Player pla = gamePlayer.getPlayer();
-				
-				for (String message : messages.getStringList("join.otherPlayers"))
-					MessageManager.getInstance().send(pla, message
-                            .replace("%player%", name)
-							.replace("%players%", getPlayers() + "")
-							.replace("%max_players%", getMaxPlayers() + ""));
-			}
-		}
-		
+        messages.getStringList("join.message").forEach(message ->
+            MessageManager.getInstance().send(player, message
+                .replace("%players%", getPlayers() + "")
+                .replace("%max_players%", getMaxPlayers() + "")));
+
+        getUsedPlots().stream().flatMap(pl -> pl.getGamePlayers().stream()).forEach(gamePlayer -> {
+            Player pla = gamePlayer.getPlayer();
+
+            messages.getStringList("join.otherPlayers").forEach(message ->
+                MessageManager.getInstance().send(pla, message
+                    .replace("%player%", name)
+                    .replace("%players%", getPlayers() + "")
+                    .replace("%max_players%", getMaxPlayers() + "")));
+        });
 		
 		if (lobby != null)
 			player.teleport(lobby.getLocation());
 		
-		if (config.getBoolean("scoreboards.lobby.enable")) {
-			for (Plot pl : getUsedPlots()) {
-				for (GamePlayer gamePlayer : pl.getGamePlayers())
-					lobbyScoreboards.get(pl).show(gamePlayer.getPlayer());
-			}
-		}
+		if (config.getBoolean("scoreboards.lobby.enable"))
+			getUsedPlots().forEach(pl ->
+                pl.getGamePlayers().forEach(gamePlayer -> lobbyScoreboards.get(pl).show(gamePlayer.getPlayer())));
 		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
@@ -828,17 +792,13 @@ public class Arena {
 		getBossBar().addPlayer(player);
 		
 		//hide players from tab list
-		if (config.getBoolean("tab-list.adjust")) {
-			for (Player pl : Bukkit.getOnlinePlayers()) {
-				if (!contains(pl))
-					player.hidePlayer(Main.getInstance(), pl);
-			}
-		}
+		if (config.getBoolean("tab-list.adjust"))
+            Bukkit.getOnlinePlayers().stream().filter(pl -> !contains(pl)).forEach(pl ->
+                player.hidePlayer(Main.getInstance(), pl));
+
 		//show current joined player to others
-		for (Plot pl : getUsedPlots()) {
-			for (GamePlayer gamePlayer : pl.getGamePlayers())
-				gamePlayer.getPlayer().showPlayer(Main.getInstance(), player);
-		}
+        getUsedPlots().stream().flatMap(pl -> pl.getGamePlayers().stream()).forEach(gamePlayer ->
+            gamePlayer.getPlayer().showPlayer(Main.getInstance(), player));
 		
 		if (getPlayers() >= minPlayers && !waitTimer.isActive())
 			waitTimer.runTaskTimer(Main.getInstance(), 0L, 20L);
@@ -846,14 +806,14 @@ public class Arena {
 		if (getPlayers() >= getMaxPlayers())
 			waitTimer.setSeconds(0);
 
-		Arena arena = this;
+		var arena = this;
 
 		//bukkit runnable because of instant leaving and instant subject opening
-		BukkitRunnable runnable = new BukkitRunnable () {
+		var runnable = new BukkitRunnable () {
 			@Override
 			public void run() {
 				//give team selection
-				if (getMode() == ArenaMode.TEAM) {
+				if (getMode() == ArenaMode.TEAM)
                     player.getInventory().setItem(0, new ItemBuilder(player, Material.matchMaterial(config
                         .getString("team-selection.item.id"))).setDisplayName(MessageManager
                         .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
@@ -862,7 +822,6 @@ public class Arena {
                             getTeamSelection().show(player);
                             event.setCancelled(true);
                         }).build());
-                }
 				
 				//give paper for subject
 				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting"))
@@ -931,7 +890,7 @@ public class Arena {
 		if (event.isCancelled())
 			return;
 
-        Plot plot = getPlot(player);
+        var plot = getPlot(player);
 
         //this shouldn't happen unless you screwed up with the api
         if (plot == null) {
@@ -955,8 +914,7 @@ public class Arena {
 		player.resetPlayerWeather();
 		
 		//show all players again
-		for (Player pl : Bukkit.getOnlinePlayers())
-			player.showPlayer(Main.getInstance(), pl);
+		Bukkit.getOnlinePlayers().forEach(pl -> player.showPlayer(Main.getInstance(), pl));
 
         //reset player display name of removed player
         getPlots().forEach(pl -> {
@@ -966,7 +924,7 @@ public class Arena {
             getWinScoreboard(pl).getRedTeam().removeEntry(player.getName());
         });
 
-		for (Plot usedPlot : getUsedPlots()) {
+		getUsedPlots().forEach(usedPlot -> {
 			for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
 				Player pl = gamePlayer.getPlayer();
 				if (pl.equals(player)) {
@@ -980,26 +938,25 @@ public class Arena {
 					break;
 				}
 			}
-		}
+		});
 		
-		for (Plot usedPlot : getUsedPlots()) {
-            for (GamePlayer gamePlayer : usedPlot.getGamePlayers()) {
+		getUsedPlots().forEach(usedPlot ->
+            usedPlot.getGamePlayers().forEach(gamePlayer -> {
                 Player pl = gamePlayer.getPlayer();
 
-                if (state == GameState.WAITING) {
-                    for (String message : messages.getStringList("leave.other-players.lobby"))
+                if (state == GameState.WAITING)
+                    messages.getStringList("leave.other-players.lobby").forEach(message ->
                         MessageManager.getInstance().send(pl, message
-                            .replace("%player%", player.getName()));
-                } else {
-                    for (String message : messages.getStringList("leave.other-players.in-game"))
+                            .replace("%player%", player.getName())));
+                else
+                    messages.getStringList("leave.other-players.in-game").forEach(message ->
                         MessageManager.getInstance().send(pl, message
-                            .replace("%player%", player.getName()));
-                }
+                            .replace("%player%", player.getName())));
 
                 if (config.getBoolean("scoreboards.lobby.enable"))
                     getLobbyScoreboard(usedPlot).show(pl);
-            }
-        }
+            })
+        );
 
         //cancel wait timer when user amount drops below minimum
         if (getPlayers() < minPlayers && waitTimer.isActive()) {
@@ -1213,9 +1170,9 @@ public class Arena {
 				Player player = gamePlayer.getPlayer();
 			
 				if (!config.getBoolean("names-after-voting")) {
-					for (String message : messages.getStringList("voting.message"))
+					messages.getStringList("voting.message").forEach(message ->
 						MessageManager.getInstance().send(player, message
-								.replace("%playerplot%", votingPlot.getPlayerFormat()));
+								.replace("%playerplot%", votingPlot.getPlayerFormat())));
 
 					gamePlayer.addTitleAndSubtitle(messages.getString("voting.title")
 							.replace("%playerplot%", votingPlot.getPlayerFormat()),
@@ -1327,15 +1284,16 @@ public class Arena {
 		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
 				.replace("%subject%", getSubject())));
 		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getGamePlayers()) {
+		getUsedPlots().forEach(plot ->
+			plot.getGamePlayers().forEach(gamePlayer -> {
 				gamePlayer.getPlayer().teleport(plot.getLocation());
 				
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages
                         .getStringList("gameStarts.message"));
-				for (String message : messages.getStringList("gameStarts.subject"))
-					MessageManager.getInstance().send(gamePlayer.getPlayer(), message
-							.replace("%subject%", getSubject()));
+
+                messages.getStringList("gameStarts.subject").forEach(message ->
+                    MessageManager.getInstance().send(gamePlayer.getPlayer(), message
+                        .replace("%subject%", getSubject())));
 				
 				gamePlayer.addTitleAndSubtitle(messages.getString("gameStarts.title")
 						.replace("%subject%", getSubject()), messages.getString("gameStarts.subtitle")
@@ -1343,7 +1301,7 @@ public class Arena {
 				gamePlayer.sendActionbar(messages.getString("gameStarts.actionbar")
                     .replace("%subject%", subject));
 				
-				final Player player = gamePlayer.getPlayer();
+				final var player = gamePlayer.getPlayer();
 				player.getInventory().clear();
 				player.setGameMode(GameMode.CREATIVE);
 				player.setPlayerTime(plot.getTime(), false);
@@ -1367,14 +1325,13 @@ public class Arena {
                             getPlot(player).getBuildMenu().show(player);
                             e.setCancelled(true);
                         }).build());
-			}
-		}
+			})
+		);
 		
 		setState(GameState.BUILDING);
 		
 		//save blocks
-		for (Plot plot : getPlots())
-			plot.save();
+		getPlots().forEach(Plot::save);
 
         matches++;
 
@@ -1406,26 +1363,26 @@ public class Arena {
 
         getVotedPlots().clear();
 
-        for (Plot plot : getUsedPlots()) {
+        getUsedPlots().forEach(plot -> {
             plot.getTimesVoted().clear();
             plot.getVotes().clear();
 
-            for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-                Player player = gamePlayer.getPlayer();
+            plot.getAllGamePlayers().forEach(gamePlayer -> {
+                var player = gamePlayer.getPlayer();
 
                 player.setPlayerTime(player.getWorld().getFullTime(), true);
                 player.resetPlayerWeather();
-            }
-        }
+            });
+        });
 
-        for (Plot plot : getPlots()) {
+        getPlots().forEach(plot -> {
             plot.restore();
 
-            for (Entity entity : plot.getEntities().keySet())
-                entity.remove();
+            var entities = plot.getEntities();
 
-            plot.getEntities().clear();
-        }
+            entities.keySet().forEach(Entity::remove);
+            entities.clear();
+        });
 
         subjectMenu = new SubjectMenu();
         SignManager.getInstance().updateJoinSigns(this);
@@ -1451,42 +1408,38 @@ public class Arena {
 		Bukkit.getPluginManager().callEvent(event);
 		if (event.isCancelled())
 			return;
-		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getAllGamePlayers())
-				gamePlayer.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
-		}
+
+        getUsedPlots().stream().flatMap(plot -> plot.getAllGamePlayers().stream()).forEach(gamePlayer ->
+            gamePlayer.connect(
+                MainSpawnManager.getInstance().getServer(),
+                MainSpawnManager.getInstance().getMainSpawn()
+            )
+        );
 
 		//update bossbar
 		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
 				.replace("%subject%", "?")));
 		getBossBar().setVisible(false);
 
-		for (Player player : getBossBar().getPlayers())
-			getBossBar().removePlayer(player);
-		
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-				Player player = gamePlayer.getPlayer();
-				
-				gamePlayer.restore();
-				player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-				
-				//show all players again
-				if (config.getBoolean("tab-list.adjust")) {
-					for (Player pl : Bukkit.getOnlinePlayers())
-						player.showPlayer(Main.getInstance(), pl);
-				}
+		getBossBar().getPlayers().forEach(player -> getBossBar().removePlayer(player));
 
-                //reset scoreboard
-                getUsedPlots().stream()
-                    .flatMap(p -> p.getGamePlayers().stream())
-                    .forEach(gp -> gp.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard()));
-			}
-		}
+        getUsedPlots().stream().flatMap(plot -> plot.getAllGamePlayers().stream()).forEach(gamePlayer -> {
+            Player player = gamePlayer.getPlayer();
 
-		for (Plot plot : getPlots())
-			plot.getAllGamePlayers().clear();
+            gamePlayer.restore();
+            player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+
+            //show all players again
+            if (config.getBoolean("tab-list.adjust"))
+                Bukkit.getOnlinePlayers().forEach(pl -> player.showPlayer(Main.getInstance(), pl));
+
+            //reset scoreboard
+            getUsedPlots().stream()
+                .flatMap(p -> p.getGamePlayers().stream())
+                .forEach(gp -> gp.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard()));
+        });
+
+		getPlots().forEach(plot -> plot.getAllGamePlayers().clear());
 
 		this.matches = 0;
 

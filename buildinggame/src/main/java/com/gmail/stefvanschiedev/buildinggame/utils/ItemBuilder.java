@@ -16,7 +16,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.jetbrains.annotations.Contract;
@@ -147,7 +146,7 @@ public class ItemBuilder implements Listener {
      * @since 4.0.6
      */
 	public ItemBuilder setDisplayName(String name) {
-		ItemMeta meta = item.getItemMeta();
+		var meta = item.getItemMeta();
 		meta.setDisplayName(name);
 		item.setItemMeta(meta);
 		return this;
@@ -161,7 +160,7 @@ public class ItemBuilder implements Listener {
      * @since 4.0.6
      */
 	public ItemBuilder setLore(List<String> lores) {
-		ItemMeta meta = item.getItemMeta();
+		var meta = item.getItemMeta();
 		meta.setLore(lores);
 		item.setItemMeta(meta);
 		return this;

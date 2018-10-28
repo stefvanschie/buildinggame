@@ -27,12 +27,11 @@ public class JoinSignCreate implements Listener {
 	public void onSignChange(SignChangeEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
-			return;
-		if (!e.getLine(1).equalsIgnoreCase("join"))
+		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]") ||
+            !e.getLine(1).equalsIgnoreCase("join"))
 			return;
 		
-		int number = signs.getKeys(false).size();
+		var number = signs.getKeys(false).size();
 		
 		signs.set(number + ".arena", e.getLine(2));
 		signs.set(number + ".world", e.getBlock().getLocation().getWorld().getName());

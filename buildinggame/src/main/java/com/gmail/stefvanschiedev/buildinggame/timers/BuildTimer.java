@@ -3,7 +3,6 @@ package com.gmail.stefvanschiedev.buildinggame.timers;
 import com.gmail.stefvanschiedev.buildinggame.utils.Target;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -13,8 +12,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 
 /**
@@ -74,65 +71,61 @@ public class BuildTimer extends Timer {
 	@Override
 	public void run() {
 		running = true;
-        BossBar bossBar = arena.getBossBar();
+        var bossBar = arena.getBossBar();
 
         if (seconds <= 0) {
-			//voten
-			for (Plot plot : arena.getUsedPlots()) {
-				for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-					Player player = gamePlayer.getPlayer();
-					
-					player.setGameMode(GameMode.CREATIVE);
-					player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-				
-					//messages
-					MessageManager.getInstance().send(player,
-                            messages.getStringList("buildingCountdown.time-up.message"));
-					
-					gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.time-up.title"),
-							messages.getString("buildingCountdown.time-up.subtitle"));
-					gamePlayer.sendActionbar(messages.getString("buildingCountdown.time-up.actionbar"));
+			//vote
+            arena.getUsedPlots().stream().flatMap(plot -> plot.getAllGamePlayers().stream()).forEach(gamePlayer -> {
+                var player = gamePlayer.getPlayer();
 
-                    if (bossBar.getPlayers().contains(player))
-						bossBar.removePlayer(player);
-				}
-			}
+                player.setGameMode(GameMode.CREATIVE);
+                player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+
+                //messages
+                MessageManager.getInstance().send(player,
+                    messages.getStringList("buildingCountdown.time-up.message"));
+
+                gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.time-up.title"),
+                    messages.getString("buildingCountdown.time-up.subtitle"));
+                gamePlayer.sendActionbar(messages.getString("buildingCountdown.time-up.actionbar"));
+
+                if (bossBar.getPlayers().contains(player))
+                    bossBar.removePlayer(player);
+            });
 
 			arena.setState(GameState.VOTING);
 			arena.getVoteTimer().runTaskTimer(Main.getInstance(), 20L, 20L);
 			running = false;
 			this.cancel();
 			return;
-		} else if (seconds % 60 == 0 || seconds == 30 || seconds == 15 || (seconds <= 10 && seconds >= 1)) {
-			for (Plot plot : arena.getUsedPlots()) {
-				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-					Player player = gamePlayer.getPlayer();
+		} else if (seconds % 60 == 0 || seconds == 30 || seconds == 15 || (seconds <= 10 && seconds >= 1))
+            arena.getUsedPlots().stream().flatMap(plot -> plot.getGamePlayers().stream()).forEach(gamePlayer -> {
+                Player player = gamePlayer.getPlayer();
 
-					for (String message : messages.getStringList("buildingCountdown.message"))
-						MessageManager.getInstance().send(player, message
-								.replace("%seconds%", getSeconds() + "")
-								.replace("%minutes%", getMinutes() + "")
-								.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
-								.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
-
-					gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.title")
-							.replace("%seconds%", getSeconds() + "")
-							.replace("%minutes%", getMinutes() + "")
-							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
-							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""),
-                            messages.getString("buildingCountdown.subtitle")
-							.replace("%seconds%", getSeconds() + "")
-							.replace("%minutes%", getMinutes() + "")
-							.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
-							.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
-					gamePlayer.sendActionbar(messages.getString("buildingCountdown.actionbar")
-                        .replace("%seconds%", String.valueOf(seconds))
-                        .replace("%minutes%", String.valueOf(getMinutes()))
+                messages.getStringList("buildingCountdown.message").forEach(message ->
+                    MessageManager.getInstance().send(player, message
+                        .replace("%seconds%", getSeconds() + "")
+                        .replace("%minutes%", getMinutes() + "")
                         .replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
-                        .replace("%seconds_from_minutes%", String.valueOf(getSecondsFromMinute())));
-				}
-			}
-		}
+                        .replace("%seconds_from_minute%", getSecondsFromMinute() + ""))
+                );
+
+                gamePlayer.addTitleAndSubtitle(messages.getString("buildingCountdown.title")
+                        .replace("%seconds%", getSeconds() + "")
+                        .replace("%minutes%", getMinutes() + "")
+                        .replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
+                        .replace("%seconds_from_minute%", getSecondsFromMinute() + ""),
+                    messages.getString("buildingCountdown.subtitle")
+                        .replace("%seconds%", getSeconds() + "")
+                        .replace("%minutes%", getMinutes() + "")
+                        .replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
+                        .replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
+                gamePlayer.sendActionbar(messages.getString("buildingCountdown.actionbar")
+                    .replace("%seconds%", String.valueOf(seconds))
+                    .replace("%minutes%", String.valueOf(getMinutes()))
+                    .replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
+                    .replace("%seconds_from_minutes%", String.valueOf(getSecondsFromMinute())));
+            });
 
         arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
                 gamePlayer.getPlayer().setLevel(getSeconds())));
@@ -147,10 +140,9 @@ public class BuildTimer extends Timer {
 		
 		//timings
 		try {
-			for (String key : config.getConfigurationSection("timings.build-timer.at").getKeys(false)) {
-                if (seconds == Integer.parseInt(key)) {
-                    for (String command : config.getStringList("timings.build-timer.at." + Integer
-                        .parseInt(key))) {
+            config.getConfigurationSection("timings.build-timer.at").getKeys(false).forEach(key -> {
+                if (seconds == Integer.parseInt(key))
+                    config.getStringList("timings.build-timer.at." + Integer.parseInt(key)).forEach(command -> {
                         command = command.replace("%arena%", arena.getName());
 
                         if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -159,24 +151,22 @@ public class BuildTimer extends Timer {
                             Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                         } else
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
-			for (String key : config.getConfigurationSection("timings.build-timer.every").getKeys(false)) {
-                if (seconds % Integer.parseInt(key) == 0) {
-                    for (String command : config.getStringList("timings.build-timer.every." + Integer
-                        .parseInt(key))) {
-                        command = command.replace("%arena%", arena.getName());
+                    });
+            });
+            config.getConfigurationSection("timings.build-timer.every").getKeys(false).forEach(key -> {
+                if (seconds % Integer.parseInt(key) == 0)
+                    config.getStringList("timings.build-timer.every." + Integer.parseInt(key)).forEach(
+                        command -> {
+                            command = command.replace("%arena%", arena.getName());
 
-                        if (!command.isEmpty() && command.charAt(0) == '@') {
-                            String targetText = command.split(" ")[0];
+                            if (!command.isEmpty() && command.charAt(0) == '@') {
+                                String targetText = command.split(" ")[0];
 
-                            Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                        } else
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
+                                Target.parse(targetText).execute(command.substring(targetText.length() + 1));
+                            } else
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                        });
+            });
 		} catch (NullPointerException | NumberFormatException ignore) {}
 
 		seconds--;

@@ -9,8 +9,7 @@
     <version>6.1.0</version>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
     </properties>
 
     <repositories>
@@ -47,12 +46,11 @@
     <build>
         <plugins>
             <plugin>
-                <version>3.1</version>
+                <version>3.8.0</version>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <release>11</release>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
@@ -61,7 +59,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <relocations>
                         <relocation>
@@ -78,6 +76,18 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>7.0-beta</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm-commons</artifactId>
+                        <version>7.0-beta</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

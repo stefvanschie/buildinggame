@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.bungeecord;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
@@ -160,15 +161,18 @@ public final class BungeeCordHandler {
     private String teleport(@NotNull String input) {
         String[] data = input.split(", ");
 
-        Player player = org.bukkit.Bukkit.getPlayer(data[0]);
+        var player = Bukkit.getPlayer(data[0]);
+
         if (player == null)
             return "response:failed";
 
-        World world = org.bukkit.Bukkit.getWorld(data[1]);
+        var world = Bukkit.getWorld(data[1]);
+
         if (world == null)
             return "response:failed";
 
         int x, y, z;
+
         try {
             x = Integer.parseInt(data[2]);
             y = Integer.parseInt(data[3]);
@@ -194,16 +198,15 @@ public final class BungeeCordHandler {
         //undo escaping of special ':' character
         String[] data = input.replace("\\:", ":").split(", ");
 
-        Set<JoinSign> joinSigns = JoinSign.getSigns(data[0]);
-        for (JoinSign joinSign : joinSigns) {
-            Sign sign = joinSign.getSign();
+        JoinSign.getSigns(data[0]).forEach(joinSign -> {
+            var sign = joinSign.getSign();
 
             sign.setLine(0, data[1]);
             sign.setLine(1, data[2]);
             sign.setLine(2, data[3]);
             sign.setLine(3, data[4]);
             sign.update();
-        }
+        });
 
         return "response: success";
     }
@@ -218,12 +221,7 @@ public final class BungeeCordHandler {
     @Nullable
     @Contract(pure = true)
     private IdentifiedCallable getCallable(UUID uuid) {
-        for (IdentifiedCallable callable : callables) {
-            if (callable.getUuid().equals(uuid))
-                return callable;
-        }
-
-        return null;
+        return callables.stream().filter(callable -> callable.getUuid().equals(uuid)).findAny().orElse(null);
     }
 
     /**

@@ -4,7 +4,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.WinTimer;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,15 +23,15 @@ public final class WinTimerManager {
     public void setup() {
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+
+		ArenaManager.getInstance().getArenas().forEach(arena -> {
             String name = arena.getName();
 
             if (!arenas.contains(name + ".win-timer"))
 				arenas.set(name + ".win-timer", config.getInt("timers.win"));
 			
 			arena.setWinTimer(new WinTimer(arenas.getInt(name + ".win-timer"), arena));
-		}
+		});
 	}
 
 	/**

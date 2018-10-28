@@ -5,7 +5,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 /**
  * Handles chat events
@@ -23,7 +22,7 @@ public class Chat implements Listener {
      */
 	@EventHandler
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent e) {
-		Arena arena = ArenaManager.getInstance().getArena(e.getPlayer());
+		var arena = ArenaManager.getInstance().getArena(e.getPlayer());
 		
 		if (arena == null)
 			return;

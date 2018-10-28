@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.saved;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -32,7 +31,7 @@ public class ThirdStat implements Listener {
         StatManager instance = StatManager.getInstance();
 
         e.getPlayers().stream().map(GamePlayer::getPlayer).forEach(player -> {
-            Stat stat = instance.getStat(player, StatType.THIRD);
+            var stat = instance.getStat(player, StatType.THIRD);
 
             instance.registerStat(player, StatType.THIRD, stat == null ? 1 : stat.getValue() + 1);
         });

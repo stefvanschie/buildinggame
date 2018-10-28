@@ -81,15 +81,14 @@ public final class SignManager {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		for (Arena arena : ArenaManager.getInstance().getArenas())
-			arena.getSigns().clear();
+		ArenaManager.getInstance().getArenas().forEach(arena -> arena.getSigns().clear());
 
 		randomJoinSigns.clear();
 		leaveSigns.clear();
 		statSigns.clear();
 		spectateSigns.clear();
 		
-		for (String string : signs.getKeys(false)) {
+		for (var string : signs.getKeys(false)) {
             BlockState state = new Location(Bukkit.getWorld(signs.getString(string + ".world")),
                     signs.getInt(string + ".x"),
                     signs.getInt(string + ".y"),
@@ -100,14 +99,14 @@ public final class SignManager {
 				continue;
 			}
 			
-			Sign sign = (Sign) state;
+			var sign = (Sign) state;
 			
 			if (!signs.contains(string + ".type"))
 				signs.set(string + ".type", "join");
 
             switch (signs.getString(string + ".type")) {
                 case "join":
-                    Arena arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
+                    var arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
 
                     if (arena == null) {
                         randomJoinSigns.add(sign);
@@ -143,19 +142,19 @@ public final class SignManager {
 		}
 
         if(config.getBoolean("signs.glass-colors-enabled")) {
-            for (String key : config.getConfigurationSection("signs.glass-colors").getKeys(false)) {
+            config.getConfigurationSection("signs.glass-colors").getKeys(false).forEach(key -> {
                 try {
                     if (config.isInt("signs.glass-colors." + key))
                         gameStatesColor.put(GameState.valueOf(key.toUpperCase(Locale.getDefault())),
-                                DyeColor.values()[config.getInt("signs.glass-colors." + key)]);
+                            DyeColor.values()[config.getInt("signs.glass-colors." + key)]);
                     else
                         gameStatesColor.put(GameState.valueOf(key.toUpperCase(Locale.getDefault())),
-                                DyeColor.valueOf(config.getString("signs.glass-colors." + key)));
+                            DyeColor.valueOf(config.getString("signs.glass-colors." + key)));
                 } catch (IllegalArgumentException e) {
                     //catch IllegalArgumentException for the easy of your clients.
                     Main.getInstance().getLogger().warning("Wrong parameter in config at: sign.glass-colors." + key + '.');
                 }
-            }
+            });
         }
 
 		updateSigns();
@@ -181,8 +180,7 @@ public final class SignManager {
      * @since 2.1.0
      */
 	private void updateJoinSigns() {
-		for (Arena arena : ArenaManager.getInstance().getArenas())
-			updateJoinSigns(arena);
+		ArenaManager.getInstance().getArenas().forEach(this::updateJoinSigns);
 	}
 
 	/**
@@ -230,14 +228,14 @@ public final class SignManager {
             BungeeCordHandler.getInstance().sign(BungeeCordHandler.Receiver.SUB_SERVER, arena, line1, line2, line3,
                     line4, null);
 
-		for (Sign sign : arena.getSigns()) {
+		arena.getSigns().forEach(sign -> {
 			sign.setLine(0, line1);
 			sign.setLine(1, line2);
 			sign.setLine(2, line3);
 			sign.setLine(3, line4);
 
 			sign.update();
-		}
+		});
 	}
 
 	/**
@@ -248,14 +246,14 @@ public final class SignManager {
 	private void updateRandomJoinSigns() {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-        for (Sign sign : randomJoinSigns) {
+        randomJoinSigns.forEach(sign -> {
             sign.setLine(0, MessageManager.translate(messages.getString("signs.join.random.line-1")));
             sign.setLine(1, MessageManager.translate(messages.getString("signs.join.random.line-2")));
             sign.setLine(2, MessageManager.translate(messages.getString("signs.join.random.line-3")));
             sign.setLine(3, MessageManager.translate(messages.getString("signs.join.random.line-4")));
 
             sign.update();
-        }
+        });
     }
 
     /**
@@ -266,14 +264,14 @@ public final class SignManager {
 	private void updateLeaveSigns() {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		for (Sign sign : leaveSigns) {
+		leaveSigns.forEach(sign -> {
 			sign.setLine(0, MessageManager.translate(messages.getString("signs.leave.line-1")));
 			sign.setLine(1, MessageManager.translate(messages.getString("signs.leave.line-2")));
 			sign.setLine(2, MessageManager.translate(messages.getString("signs.leave.line-3")));
 			sign.setLine(3, MessageManager.translate(messages.getString("signs.leave.line-4")));
 
 			sign.update();
-		}
+		});
 	}
 
     /**
@@ -282,16 +280,13 @@ public final class SignManager {
      * @since 5.4.0
      */
 	private void updateSpectateSigns() {
-        for (Map.Entry<Sign, OfflinePlayer> entry : spectateSigns.entrySet()) {
-            Sign sign = entry.getKey();
-            OfflinePlayer offlinePlayer = entry.getValue();
-
+        spectateSigns.forEach((sign, offlinePlayer) -> {
             sign.setLine(0, ChatColor.BOLD + "Building Game");
             sign.setLine(1, "spectate");
             sign.setLine(2, ChatColor.UNDERLINE + offlinePlayer.getName());
 
             sign.update();
-        }
+        });
     }
 
 	/**
@@ -348,7 +343,7 @@ public final class SignManager {
      */
     @SuppressWarnings("deprecation")
     private void updateBlockBehindJoinSigns(@NotNull Arena arena){
-        for (Sign sign : arena.getSigns()) {
+        arena.getSigns().forEach(sign -> {
             MaterialData signMaterialData = sign.getBlock().getState().getData();
 
             if (signMaterialData instanceof Attachable) {
@@ -363,6 +358,6 @@ public final class SignManager {
                     Main.getInstance().getLogger().warning("Wrong input at config.yml at signs.glass-colors." +
                             arena.getState().toString().toLowerCase(Locale.getDefault()));
             }
-        }
+        });
     }
 }

@@ -14,7 +14,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -57,8 +56,8 @@ public class SubjectMenu extends Gui {
 	public SubjectMenu() {
 		super(Main.getInstance(), 4, MessageManager.translate(MESSAGES.getString("subject-gui.title")));
 
-		int amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
-		List<String> subjects = new ArrayList<>();
+		var amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
+		var subjects = new ArrayList<String>();
 
 		if (amountOfSubjects == -1)
 			subjects.addAll(CONFIG.getStringList("subjects"));
@@ -68,23 +67,22 @@ public class SubjectMenu extends Gui {
                         .nextInt(amountOfSubjects)));
 		}
 		
-		for (String s : subjects)
-			votes.add(new SubjectVote(s, 0));
+		subjects.forEach(s -> votes.add(new SubjectVote(s, 0)));
 
 		//gui
-        PaginatedPane paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 3);
+        var paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 3);
 
         initializePages(paginatedPane, subjects);
 
         addPane(paginatedPane);
 
-        OutlinePane previousPane = new OutlinePane(new GuiLocation(2, 3), 1, 1);
-        OutlinePane closePane = new OutlinePane(new GuiLocation(4, 3), 1, 1);
-        OutlinePane nextPane = new OutlinePane(new GuiLocation(6, 3), 1, 1);
+        var previousPane = new OutlinePane(new GuiLocation(2, 3), 1, 1);
+        var closePane = new OutlinePane(new GuiLocation(4, 3), 1, 1);
+        var nextPane = new OutlinePane(new GuiLocation(6, 3), 1, 1);
 
         //previous page
-        ItemStack prevItem = new ItemStack(Material.SUGAR_CANE);
-        ItemMeta prevMeta = prevItem.getItemMeta();
+        var prevItem = new ItemStack(Material.SUGAR_CANE);
+        var prevMeta = prevItem.getItemMeta();
         prevMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name")));
         prevMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.previous-page.lores")));
         prevItem.setItemMeta(prevMeta);
@@ -104,8 +102,8 @@ public class SubjectMenu extends Gui {
 
         previousPane.setVisible(false);
 
-        ItemStack closeItem = new ItemStack(Material.BOOK);
-        ItemMeta closeMeta = closeItem.getItemMeta();
+        var closeItem = new ItemStack(Material.BOOK);
+        var closeMeta = closeItem.getItemMeta();
         closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name")));
         closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.close-menu.lores")));
         closeItem.setItemMeta(closeMeta);
@@ -117,8 +115,8 @@ public class SubjectMenu extends Gui {
 
         //next page
         if (paginatedPane.getPages() != 1) {
-            ItemStack nextItem = new ItemStack(Material.SUGAR_CANE);
-            ItemMeta nextMeta = nextItem.getItemMeta();
+            var nextItem = new ItemStack(Material.SUGAR_CANE);
+            var nextMeta = nextItem.getItemMeta();
             nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name")));
             nextMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.next-page.lores")));
             nextItem.setItemMeta(nextMeta);
@@ -152,11 +150,11 @@ public class SubjectMenu extends Gui {
      */
     @Contract("null, _ -> fail")
     private void initializePages(@NotNull PaginatedPane paginatedPane, List<String> subjects) {
-        for (int page = 0; page < Math.ceil(subjects.size() / 27.0); page++) {
-            OutlinePane pane =
+        for (var page = 0; page < Math.ceil(subjects.size() / 27.0); page++) {
+            var pane =
                 new OutlinePane(new GuiLocation(0, 0), paginatedPane.getLength(), paginatedPane.getHeight());
 
-            for (int index = 0; index < paginatedPane.getLength() * paginatedPane.getHeight(); index++) {
+            for (var index = 0; index < paginatedPane.getLength() * paginatedPane.getHeight(); index++) {
                 if (subjects.size() - 1 < index + (page * paginatedPane.getLength() * paginatedPane.getHeight()))
                     break;
 
@@ -166,15 +164,15 @@ public class SubjectMenu extends Gui {
                 if (getSubjectVote(subject) == null)
                     votes.add(new SubjectVote(subject, 0));
 
-                ItemStack item = new ItemStack(Material.PAPER);
-                ItemMeta meta = item.getItemMeta();
+                var item = new ItemStack(Material.PAPER);
+                var meta = item.getItemMeta();
                 meta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.subject.name")
                     .replace("%subject%", subject)));
-                List<String> lores = new ArrayList<>();
+                var lores = new ArrayList<String>();
 
-                for (String lore : MESSAGES.getStringList("subject-gui.subject.lores"))
+                MESSAGES.getStringList("subject-gui.subject.lores").forEach(lore ->
                     lores.add(MessageManager.translate(lore
-                        .replace("%votes%", getSubjectVote(subject).getVotes() + "")));
+                        .replace("%votes%", getSubjectVote(subject).getVotes() + ""))));
 
                 meta.setLore(lores);
                 item.setItemMeta(meta);
@@ -208,15 +206,13 @@ public class SubjectMenu extends Gui {
      */
 	private void addVote(Player player, String subject) {
 		subject = ChatColor.stripColor(subject);
-		
-		for (SubjectVote subjectVote : votes) {
-			if (subjectVote.getPlayers().contains(player)) {
-                subjectVote.removePlayer(player);
-                subjectVote.setVotes(subjectVote.getVotes() - 1);
-			}
-		}
 
-        SubjectVote subjectVote = getSubjectVote(subject);
+		votes.stream().filter(subjectVote -> subjectVote.getPlayers().contains(player)).forEach(subjectVote -> {
+            subjectVote.removePlayer(player);
+            subjectVote.setVotes(subjectVote.getVotes() - 1);
+        });
+
+        var subjectVote = getSubjectVote(subject);
 
         subjectVote.addPlayer(player);
         subjectVote.setVotes(subjectVote.getVotes() + 1);

@@ -1,7 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.messages;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -57,7 +58,7 @@ public final class MessageManager {
 			return;
 
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && sender instanceof Player) {
-		    Player player = (Player) sender;
+		    var player = (Player) sender;
 
             sender.sendMessage(translate(SettingsManager.getInstance().getMessages()
                     .getString("global.prefix"), player) + translate(message, player));
@@ -165,17 +166,12 @@ public final class MessageManager {
      */
 	@NotNull
     @Contract(pure = true)
-	public static List<String> translate(Iterable<String> s) {
-		List<String> list = new ArrayList<>();
-		
-		for (String text : s)
-			list.add(translate(text));
-		
-		return list;
+	public static List<String> translate(Collection<String> s) {
+		return s.stream().map(MessageManager::translate).collect(Collectors.toList());
 	}
 
     /**
-     * Does the same as {@link #translate(Iterable)}, but it now also replaced PlaceholderAPI placeholders when it's
+     * Does the same as {@link #translate(Collection)}, but it now also replaced PlaceholderAPI placeholders when it's
      * enabled
      *
      * @param s an iterable containing all strings that should bhe modified
@@ -185,7 +181,7 @@ public final class MessageManager {
      */
     @NotNull
     @Contract(pure = true)
-    public static List<String> translate(Iterable<String> s, Player player) {
+    public static List<String> translate(Collection<String> s, Player player) {
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ?
                 PlaceholderAPI.setPlaceholders((OfflinePlayer) player, translate(s)) : translate(s);
     }

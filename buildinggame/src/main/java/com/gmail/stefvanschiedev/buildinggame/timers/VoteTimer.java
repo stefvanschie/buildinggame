@@ -22,7 +22,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -108,7 +107,7 @@ public class VoteTimer extends Timer {
 				Plot second = null;
 				Plot third = null;
 				
-				for (Plot plot : arena.getPlots()) {
+				for (var plot : arena.getPlots()) {
 					if (first == null || first.getPoints() < plot.getPoints()) {
 						third = second;
 						second = first;
@@ -174,9 +173,9 @@ public class VoteTimer extends Timer {
                     }.runTaskAsynchronously(Main.getInstance());
                 }
 
-				for (Plot plot : arena.getUsedPlots()) {
-					for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-						Player player = gamePlayer.getPlayer();
+				for (var plot : arena.getUsedPlots()) {
+					for (var gamePlayer : plot.getAllGamePlayers()) {
+						var player = gamePlayer.getPlayer();
 						
 						player.getInventory().clear();
 
@@ -188,12 +187,11 @@ public class VoteTimer extends Timer {
 						MessageManager.getInstance().send(player, messages.getStringList("game-ends.message"));
 
 						if (second != null && third != null) {
-							for (String message : messages.getStringList("game-ends.winners")) {
+							for (String message : messages.getStringList("game-ends.winners"))
 								MessageManager.getInstance().send(player, message
 										.replace("%first_players%", first.getPlayerFormat())
 										.replace("%second_players%", second.getPlayerFormat())
 										.replace("%third_players%", third.getPlayerFormat()));
-							}
 						}
 
                         //noinspection ConstantConditions
@@ -226,12 +224,12 @@ public class VoteTimer extends Timer {
 
 							if (first.equals(plot)) {
 								moneyString = config.getString("money.first");
-					
-								for (String message : messages.getStringList("winner.first"))
-									MessageManager.getInstance().send(player, message
-                                            .replace("%points%", plot.getPoints() + ""));
+
+                                messages.getStringList("winner.first").forEach(message ->
+                                    MessageManager.getInstance().send(player, message
+                                        .replace("%points%", plot.getPoints() + "")));
 						
-								for (String command : config.getStringList("commands.first")) {
+								config.getStringList("commands.first").forEach(command -> {
 									command = command.replace("%player%", player.getName());
 
                                     if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -240,15 +238,15 @@ public class VoteTimer extends Timer {
                                         Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                                     } else
                                         Bukkit.dispatchCommand(player, command);
-								}
+								});
 							} else if (second.equals(plot)) {
 								moneyString = config.getString("money.second");
-								
-								for (String message : messages.getStringList("winner.second"))
-									MessageManager.getInstance().send(player, message
-                                            .replace("%points%", plot.getPoints() + ""));
-						
-								for (String command : config.getStringList("commands.second")) {
+
+                                messages.getStringList("winner.second").forEach(message ->
+                                    MessageManager.getInstance().send(player, message
+                                        .replace("%points%", plot.getPoints() + "")));
+
+                                config.getStringList("commands.second").forEach(command -> {
                                     command = command.replace("%player%", player.getName());
 
                                     if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -257,15 +255,15 @@ public class VoteTimer extends Timer {
                                         Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                                     } else
                                         Bukkit.dispatchCommand(player, command);
-								}
+                                });
 							} else if (third.equals(plot)) {
 								moneyString = config.getString("money.third");
 					
-								for (String message : messages.getStringList("winner.third"))
+								messages.getStringList("winner.third").forEach(message ->
 									MessageManager.getInstance().send(player, message
-											.replace("%points%", plot.getPoints() + ""));
+											.replace("%points%", plot.getPoints() + "")));
 						
-								for (String command : config.getStringList("commands.third")) {
+								config.getStringList("commands.third").forEach(command -> {
                                     command = command.replace("%player%", player.getName());
 
                                     if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -274,11 +272,11 @@ public class VoteTimer extends Timer {
                                         Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                                     } else
                                         Bukkit.dispatchCommand(player, command);
-								}
+								});
 							} else {
 								moneyString = config.getString("money.others");
 							
-								for (String command : config.getStringList("commands.others")) {
+								config.getStringList("commands.others").forEach(command -> {
                                     command = command.replace("%player%", player.getName());
 
                                     if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -287,7 +285,7 @@ public class VoteTimer extends Timer {
                                         Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                                     } else
                                         Bukkit.dispatchCommand(player, command);
-								}
+								});
 							}
 
 							//compute money
@@ -309,16 +307,14 @@ public class VoteTimer extends Timer {
 
                                 if (SDVault.getEconomy().depositPlayer(player, money).transactionSuccess()) {
                                     if (Booster.hasBooster(player)) {
-                                        for (String message : messages.getStringList("vault.message.booster")) {
+                                        for (String message : messages.getStringList("vault.message.booster"))
                                             MessageManager.getInstance().send(player, message
                                                 .replace("%money%", money + ""));
-                                        }
                                     } else {
                                         for (String message :
-                                            messages.getStringList("vault.message.no-booster")) {
+                                            messages.getStringList("vault.message.no-booster"))
                                             MessageManager.getInstance().send(player, message
                                                 .replace("%money%", money + ""));
-                                        }
                                     }
                                 }
                             }
@@ -327,18 +323,16 @@ public class VoteTimer extends Timer {
 				}
 
 				if (first != null) {
-					for (GamePlayer gamePlayer : first.getGamePlayers()) {
-						for (String command : config.getStringList("win-commands")) {
-							command = command.replace("%winner%", gamePlayer.getPlayer().getName());
+					first.getGamePlayers().forEach(gamePlayer -> config.getStringList("win-commands").forEach(command -> {
+                        command = command.replace("%winner%", gamePlayer.getPlayer().getName());
 
-                            if (!command.isEmpty() && command.charAt(0) == '@') {
-                                String targetText = command.split(" ")[0];
+if (!command.isEmpty() && command.charAt(0) == '@') {
+String targetText = command.split(" ")[0];
 
-                                Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                            } else
-                                Bukkit.dispatchCommand(gamePlayer.getPlayer(), command);
-						}
-					}
+Target.parse(targetText).execute(command.substring(targetText.length() + 1));
+} else
+Bukkit.dispatchCommand(gamePlayer.getPlayer(), command);
+                    }));
 				}
 
 				arena.getWinTimer().runTaskTimer(Main.getInstance(), 20L, 20L);
@@ -349,24 +343,22 @@ public class VoteTimer extends Timer {
 
 			arena.setVotingPlot(plot);
 
-			for (Plot plot : arena.getUsedPlots()) {
-				for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-					Player player = gamePlayer.getPlayer();
-					
-					if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable"))
-						arena.getVoteScoreboard(plot).show(player);
-					
-					player.setPlayerTime(this.plot.getTime(), false);
-					player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
-				}
-			}
+			arena.getUsedPlots().forEach(plot -> plot.getAllGamePlayers().forEach(gamePlayer -> {
+                var player = gamePlayer.getPlayer();
+
+if (!config.getBoolean("names-after-voting") &&
+config.getBoolean("scoreboards.vote.enable"))
+arena.getVoteScoreboard(plot).show(player);
+
+                player.setPlayerTime(this.plot.getTime(), false);
+                player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
+            }));
 		}
 		//timings
 		try {
-			for (String key : config.getConfigurationSection("timings.vote-timer.at").getKeys(false)) {
-                if (seconds == Integer.parseInt(key)) {
-                    for (String command : config.getStringList("timings.vote-timer.at." + Integer
-                        .parseInt(key))) {
+            config.getConfigurationSection("timings.vote-timer.at").getKeys(false).forEach(key -> {
+                if (seconds == Integer.parseInt(key))
+                    config.getStringList("timings.vote-timer.at." + Integer.parseInt(key)).forEach(command -> {
                         command = command.replace("%arena%", arena.getName());
 
                         if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -375,13 +367,11 @@ public class VoteTimer extends Timer {
                             Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                         } else
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
-			for (String key : config.getConfigurationSection("timings.vote-timer.every").getKeys(false)) {
-                if (seconds % Integer.parseInt(key) == 0) {
-                    for (String command : config.getStringList("timings.vote-timer.every." + Integer
-                        .parseInt(key))) {
+                    });
+            });
+            config.getConfigurationSection("timings.vote-timer.every").getKeys(false).forEach(key -> {
+                if (seconds % Integer.parseInt(key) == 0)
+                    config.getStringList("timings.vote-timer.every." + Integer.parseInt(key)).forEach(command -> {
                         command = command.replace("%arena%", arena.getName());
 
                         if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -390,37 +380,33 @@ public class VoteTimer extends Timer {
                             Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                         } else
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
+                    });
+            });
 		} catch (NullPointerException | NumberFormatException ignore) {}
 		
 		seconds--;
 
 		if (seconds <= 0) {
-            for (Plot plot : arena.getUsedPlots()) {
-                for (GamePlayer player : plot.getGamePlayers()) {
-                    Player pl = player.getPlayer();
+            arena.getUsedPlots().stream().flatMap(plot -> plot.getGamePlayers().stream()).forEach(player -> {
+                Player pl = player.getPlayer();
 
-                    if (config.getBoolean("names-after-voting")) {
-                        for (String message : messages.getStringList("voting.message")) {
-                            MessageManager.getInstance().send(pl, message
-                                    .replace("%playerplot%", this.plot.getPlayerFormat()));
-                        }
+                if (config.getBoolean("names-after-voting")) {
+                    messages.getStringList("voting.message").forEach(message ->
+                        MessageManager.getInstance().send(pl, message
+                            .replace("%playerplot%", this.plot.getPlayerFormat())));
 
-                        player.addTitleAndSubtitle(messages.getString("voting.title")
-                                .replace("%playerplot%", this.plot.getPlayerFormat()),
-                                messages.getString("voting.subtitle")
-                                .replace("%playerplot%", this.plot.getPlayerFormat()));
-                        player.sendActionbar(messages.getString("voting.actionbar")
+                    player.addTitleAndSubtitle(messages.getString("voting.title")
+                            .replace("%playerplot%", this.plot.getPlayerFormat()),
+                        messages.getString("voting.subtitle")
                             .replace("%playerplot%", this.plot.getPlayerFormat()));
-                    }
-
-                    if (!this.plot.hasVoted(pl) && !this.plot.getGamePlayers().contains(player))
-                        this.plot.addVote(new Vote(config.getInt("voting.default-vote-points"),
-                            pl));
+                    player.sendActionbar(messages.getString("voting.actionbar")
+                        .replace("%playerplot%", this.plot.getPlayerFormat()));
                 }
-            }
+
+                if (!this.plot.hasVoted(pl) && !this.plot.getGamePlayers().contains(player))
+                    this.plot.addVote(new Vote(config.getInt("voting.default-vote-points"),
+                        pl));
+            });
 
 			seconds = originalSeconds;
 		}
@@ -435,12 +421,10 @@ public class VoteTimer extends Timer {
 	@Nullable
     @Contract(pure = true)
     private Plot getNextPlot() {
-		for (Plot plot : arena.getPlots()) {
-			if (!arena.getVotedPlots().contains(plot) && !plot.getGamePlayers().isEmpty())
-                return plot;
-		}
-
-		return null;
+	    return arena.getPlots().stream()
+            .filter(plot -> !arena.getVotedPlots().contains(plot) && !plot.getGamePlayers().isEmpty())
+            .findAny()
+            .orElse(null);
 	}
 
 	/**

@@ -28,10 +28,8 @@ public final class MainScoreboardManager {
      * @since 3.1.1
      */
 	public void register(Player player) {
-	    for (MainScoreboard scoreboard : scoreboards) {
-            if (scoreboard.getPlayer().equals(player))
-                return;
-        }
+	    if (scoreboards.stream().anyMatch(scoreboard -> scoreboard.getPlayer().equals(player)))
+	        return;
 
         scoreboards.add(new MainScoreboard(player));
 	}
@@ -53,8 +51,7 @@ public final class MainScoreboardManager {
      * @since 3.1.1
      */
 	public void update() {
-	    for (MainScoreboard scoreboard : scoreboards)
-            scoreboard.show();
+	    scoreboards.forEach(MainScoreboard::show);
 	}
 
 	/**

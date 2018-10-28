@@ -64,9 +64,9 @@ public class WinTimer extends Timer {
 		}
 		//timings
 		try {
-			for (String key : config.getConfigurationSection("timings.win-timer.at").getKeys(false)) {
-                if (seconds == Integer.parseInt(key)) {
-                    for (String command : config.getStringList("timings.win-timer.at." + Integer.parseInt(key))) {
+            config.getConfigurationSection("timings.win-timer.at").getKeys(false).forEach(key -> {
+                if (seconds == Integer.parseInt(key))
+                    config.getStringList("timings.win-timer.at." + Integer.parseInt(key)).forEach(command -> {
                         command = command.replace("%arena%", arena.getName());
 
                         if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -75,13 +75,11 @@ public class WinTimer extends Timer {
                             Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                         } else
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
-			for (String key : config.getConfigurationSection("timings.win-timer.every").getKeys(false)) {
-                if (seconds % Integer.parseInt(key) == 0) {
-                    for (String command : config.getStringList("timings.win-timer.every." + Integer
-                        .parseInt(key))) {
+                    });
+            });
+            config.getConfigurationSection("timings.win-timer.every").getKeys(false).forEach(key -> {
+                if (seconds % Integer.parseInt(key) == 0)
+                    config.getStringList("timings.win-timer.every." + Integer.parseInt(key)).forEach(command -> {
                         command = command.replace("%arena%", arena.getName());
 
                         if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -90,9 +88,8 @@ public class WinTimer extends Timer {
                             Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                         } else
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
+                    });
+            });
 		} catch (NullPointerException | NumberFormatException ignore) {}
 		seconds--;
 	}

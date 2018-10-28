@@ -7,8 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,8 +50,8 @@ public final class FloorManager {
     public void setup() {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Plot plot : arena.getPlots()) {
+		ArenaManager.getInstance().getArenas().forEach(arena ->
+			arena.getPlots().forEach(plot -> {
 				try {
 					plot.setFloor(new Region(Bukkit.getWorld(
 					        arenas.getString(arena.getName() + '.' + plot.getID() + ".floor.high.world")),
@@ -76,7 +74,7 @@ public final class FloorManager {
 				} catch (NullPointerException | IllegalArgumentException npe) {
 					plot.setFloor(null);
 				}
-			}
-		}
+			})
+		);
 	}
 }

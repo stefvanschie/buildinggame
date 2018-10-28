@@ -6,7 +6,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.StructureGrowEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 /**
@@ -27,7 +26,7 @@ public class TreeGrow implements Listener {
 	public static void onStructureGrow(StructureGrowEvent e) {
 		Plot plot = null;
 		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
+		for (var arena : ArenaManager.getInstance().getArenas()) {
 			for (Plot p : arena.getPlots()) {
                 Region boundary = p.getBoundary();
 

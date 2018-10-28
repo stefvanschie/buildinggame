@@ -7,8 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 /**
  * Handles liquid flowing
@@ -29,8 +27,8 @@ public class LiquidFlow implements Listener {
 		Location from = e.getBlock().getLocation();
 		Location to = e.getToBlock().getLocation();
 		
-		for (Arena arena : ArenaManager.getInstance().getArenas()) {
-			for (Plot plot : arena.getPlots()) {
+		for (var arena : ArenaManager.getInstance().getArenas()) {
+			for (var plot : arena.getPlots()) {
                 Region boundary = plot.getBoundary();
 
                 if (boundary == null)

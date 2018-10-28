@@ -4,20 +4,16 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import com.google.gson.annotations.Expose;
 import com.google.gson.stream.JsonReader;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -94,15 +90,15 @@ public class TopStatHologram {
      * @since 6.2.0
      */
     public void update() {
-        List<Stat> stats = StatManager.getInstance().getStats(type);
+        var stats = StatManager.getInstance().getStats(type);
 
         if (stats == null)
             return;
 
         hologram.clearLines();
 
-        for (int i = 0; i < Math.min(values, stats.size()); i++) {
-            Stat stat = stats.get(i);
+        for (var i = 0; i < Math.min(values, stats.size()); i++) {
+            var stat = stats.get(i);
 
             hologram.appendTextLine(ChatColor.GOLD + "#" + (i + 1) + ' ' + ChatColor.RED + stat.getPlayer()
                 .getName() + ChatColor.LIGHT_PURPLE + " - " + ChatColor.GREEN + stat.getValue() +
@@ -156,7 +152,7 @@ public class TopStatHologram {
 
         String name = null;
         StatType type = null;
-        int values = 0;
+        var values = 0;
         Location location = null;
 
         while (reader.hasNext()) {

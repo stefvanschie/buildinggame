@@ -4,10 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.google.common.primitives.Chars;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -80,10 +78,10 @@ public class MainScoreboard {
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		objective.setDisplayName(MessageManager.translate(messages.getString("scoreboards.main.header"), player));
 		
-		List<String> strings = messages.getStringList("scoreboards.main.text");
+		var strings = messages.getStringList("scoreboards.main.text");
 		
 		for (int i = 0; i < strings.size(); i++) {
-			Team team = scoreboard.registerNewTeam(i + "");
+			var team = scoreboard.registerNewTeam(i + "");
 			team.addEntry(ChatColor.values()[i].toString());
 			team.setDisplayName("");
 			
@@ -92,47 +90,47 @@ public class MainScoreboard {
 		}
 
 		replacements.put("stat_plays", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.PLAYS);
+            var stat = StatManager.getInstance().getStat(player, StatType.PLAYS);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
 		});
 		replacements.put("stat_first", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.FIRST);
+            var stat = StatManager.getInstance().getStat(player, StatType.FIRST);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
 		replacements.put("stat_second", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.SECOND);
+            var stat = StatManager.getInstance().getStat(player, StatType.SECOND);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
         replacements.put("stat_third", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.THIRD);
+            var stat = StatManager.getInstance().getStat(player, StatType.THIRD);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
         replacements.put("stat_broken", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.BROKEN);
+            var stat = StatManager.getInstance().getStat(player, StatType.BROKEN);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
         replacements.put("stat_placed", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.PLACED);
+            var stat = StatManager.getInstance().getStat(player, StatType.PLACED);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
         replacements.put("stat_walked", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.WALKED);
+            var stat = StatManager.getInstance().getStat(player, StatType.WALKED);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
         replacements.put("stat_points_received", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.POINTS_RECEIVED);
+            var stat = StatManager.getInstance().getStat(player, StatType.POINTS_RECEIVED);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
         replacements.put("stat_points_given", () -> {
-            Stat stat = StatManager.getInstance().getStat(player, StatType.POINTS_GIVEN);
+            var stat = StatManager.getInstance().getStat(player, StatType.POINTS_GIVEN);
 
             return stat == null ? "0" : String.valueOf(stat.getValue());
         });
@@ -169,10 +167,10 @@ public class MainScoreboard {
 		if (!player.isOnline())
 			return;
 
-		for (int i = 0; i < strings.size(); i++) {
-			Team team = teams.get(i);
-			String text = replace(strings.get(i));
-			int length = text.length();
+		for (var i = 0; i < strings.size(); i++) {
+			var team = teams.get(i);
+			var text = replace(strings.get(i));
+			var length = text.length();
 			
 			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
 			
@@ -196,8 +194,8 @@ public class MainScoreboard {
     @NotNull
     @Contract(value = "null -> fail", pure = true)
     private String replace(@NotNull String input) {
-        List<Character> list = new ArrayList<>(Chars.asList(input.toCharArray()));
-        Matcher matcher = PATTERN.matcher(input);
+        var list = new ArrayList<>(Chars.asList(input.toCharArray()));
+        var matcher = PATTERN.matcher(input);
 
         while (matcher.find()) {
             list.subList(matcher.start(), matcher.end()).clear();
@@ -209,8 +207,8 @@ public class MainScoreboard {
 
             char[] replacement = supplier.get().toCharArray();
 
-            int length = replacement.length;
-            for (int i = 0; i < length; i++)
+            var length = replacement.length;
+            for (var i = 0; i < length; i++)
                 list.add(matcher.start() + i, replacement[i]);
 
             StringBuilder builder = new StringBuilder();

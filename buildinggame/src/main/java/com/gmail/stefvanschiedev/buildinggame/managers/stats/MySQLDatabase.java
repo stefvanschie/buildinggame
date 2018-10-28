@@ -217,7 +217,7 @@ public class MySQLDatabase {
      * @return a set of all UUIDs in the database
      */
     Set<UUID> getAllPlayers() {
-    	Set<UUID> uuids = new HashSet<>();
+    	var uuids = new HashSet<UUID>();
         ResultSet set = null;
 
     	try {

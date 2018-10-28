@@ -1,8 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block.signs;
 
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
@@ -11,7 +9,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 /**
  * Handles players creating join signs
@@ -32,7 +29,7 @@ public class JoinSignCreate implements Listener {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		Player player = e.getPlayer();
+		var player = e.getPlayer();
 		
 		if (!e.getLine(0).equalsIgnoreCase("[buildinggame]"))
 			return;
@@ -40,7 +37,7 @@ public class JoinSignCreate implements Listener {
 		if (!e.getLine(1).equalsIgnoreCase("join"))
 			return;
 		
-		Arena arena = ArenaManager.getInstance().getArena(e.getLine(2));
+		var arena = ArenaManager.getInstance().getArena(e.getLine(2));
 		
 		if (!player.hasPermission("bg.sign.create")) {
 			MessageManager.getInstance().send(player, messages.getString("global.permissionNode"));
@@ -49,7 +46,7 @@ public class JoinSignCreate implements Listener {
 		
 		int number = 0;
 		
-		for (String string : signs.getKeys(false)) {
+		for (var string : signs.getKeys(false)) {
 			try {
 				number = Integer.parseInt(string);
 			} catch (NumberFormatException ignore) {}
@@ -57,7 +54,7 @@ public class JoinSignCreate implements Listener {
 		
 		number++;
 
-        Location location = e.getBlock().getLocation();
+        var location = e.getBlock().getLocation();
 
         signs.set(number + ".arena", arena == null ? "" : arena.getName());
 		signs.set(number + ".type", "join");
