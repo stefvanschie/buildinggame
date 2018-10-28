@@ -3,10 +3,10 @@ package com.gmail.stefvanschiedev.buildinggame.events.softdependencies;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.WorldEditException;
-import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.event.extent.EditSessionEvent;
 import com.sk89q.worldedit.extent.AbstractDelegateExtent;
 import com.sk89q.worldedit.util.eventbus.Subscribe;
+import com.sk89q.worldedit.world.block.BlockStateHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -38,16 +38,15 @@ public class WorldEditBoundaryAssertion {
 
         event.setExtent(new AbstractDelegateExtent(event.getExtent()) {
             @Override
-            public boolean setBlock(Vector location, BaseBlock block) throws WorldEditException {
-                if (!arena.getPlot(player).getBoundary().isInside(new Location(
-                    Bukkit.getWorld(event.getWorld().getName()),
-                    location.getX(),
-                    location.getY(),
-                    location.getZ()
-                )))
-                    return false;
+            public boolean setBlock(Vector vector, BlockStateHolder block) throws WorldEditException {
+                var world = Bukkit.getWorld(event.getWorld().getName());
+                var location = new Location(world, vector.getX(), vector.getY(), vector.getZ());
 
-                return super.setBlock(location, block);
+                if (!arena.getPlot(player).getBoundary().isInside(location)) {
+                    return false;
+                }
+
+                return super.setBlock(vector, block);
             }
         });
     }
