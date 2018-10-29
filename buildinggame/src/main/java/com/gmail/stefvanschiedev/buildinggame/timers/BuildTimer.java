@@ -21,25 +21,10 @@ import org.jetbrains.annotations.Contract;
  */
 public class BuildTimer extends Timer {
 
-    /**
-     * Whether this timer is active or not
-     */
-	private boolean running;
-
 	/**
      * The original amount of seconds
      */
 	private final int originalSeconds;
-
-	/**
-     * Amount of seconds this timer has left
-     */
-	private int seconds;
-
-	/**
-     * The arena this timer belongs to
-     */
-	private final Arena arena;
 
 	/**
      * The config.yml YAML configuration
@@ -58,8 +43,9 @@ public class BuildTimer extends Timer {
      * @param arena the arena this timer belongs to
      */
 	public BuildTimer(int seconds, Arena arena) {
+	    super(arena);
+
 		this.seconds = seconds;
-		this.arena = arena;
 		originalSeconds = seconds;
 	}
 
@@ -181,28 +167,5 @@ public class BuildTimer extends Timer {
 	@Contract(pure = true)
     private int getOriginalSeconds() {
 		return originalSeconds;
-	}
-
-	/**
-     * Returns the amount of seconds left
-     *
-     * @return amount of seconds left
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-	@Override
-    public int getSeconds() {
-		return seconds;
-	}
-
-	/**
-     * Returns whether this timer is running or not
-     *
-     * @return true if this timer is running, false otherwise
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-	public boolean isActive() {
-		return running;
 	}
 }
