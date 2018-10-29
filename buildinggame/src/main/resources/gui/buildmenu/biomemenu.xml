@@ -73,6 +73,16 @@
                 <property type="biome">JUNGLE</property>
             </properties>
         </item>
+        <!--TODO: Change this to bamboo-->
+        <item id="" onLocalClick="biomeClick">
+            <displayname>*gui.biome.bamboo-jungle.name</displayname>
+            <lore>
+                <line>*gui.biome.bamboo-jungle.lore</line>
+            </lore>
+            <properties>
+                <property type="biome"><!--TODO: Change this to BAMBOO_JUNGLE--></property>
+            </properties>
+        </item>
         <item id="mycelium" onLocalClick="biomeClick">
             <displayname>*gui.biome.mushroom-fields.name</displayname>
             <lore>

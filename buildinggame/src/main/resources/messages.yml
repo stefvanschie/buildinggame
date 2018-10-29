@@ -4416,6 +4416,10 @@ gui:
       name: "&aJungle"
       lores:
       - "&7Change the biome to Jungle"
+    bamboo-jungle:
+      name: "&aBamboo Jungle"
+      lore:
+        - "&7Change the biome to Bamboo Jungle"
     mushroom-fields:
       name: "&aMushroom Fields"
       lores:
