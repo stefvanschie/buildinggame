@@ -4,32 +4,32 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import fr.rhaz.sockets.socket4mc.Socket4Bukkit;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.AnimalTamer;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import simplenet.Client;
+import simplenet.packet.Packet;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Handles all bungeecord calls
  *
  * @since 4.0.6
  */
-public final class BungeeCordHandler implements Listener {
+public final class BungeeCordHandler {
 
     /**
-     * The channel name, only this plugin should use it. Addons should use their own channel.
+     * The client
      */
-    private static final String CHANNEL = "BuildingGame";
+    private final Client client = new Client();
 
     /**
      * A utility class for the names of people who can receive a message
@@ -57,8 +57,8 @@ public final class BungeeCordHandler implements Listener {
         if (callable != null)
             callables.add(callable);
 
-        Socket4Bukkit.getClient().writeJSON(CHANNEL, message + (callable == null ? "" : ";uuid:" + callable
-            .getUuid()));
+        Packet.builder().putString(message + (callable == null ? "" : ";uuid:" + callable.getUuid()))
+            .writeAndFlush(client);
     }
 
     /**
@@ -115,16 +115,13 @@ public final class BungeeCordHandler implements Listener {
     /**
      * Called whenever a message is received
      *
-     * @param e an event representing an incoming message
-     * @since 4.0.6
+     * @param message the message returned
+     * @since 6.2.0
      */
-    @EventHandler
-    public void onServerSocketJSON(@NotNull Socket4Bukkit.Server.ServerSocketJSONEvent e) {
-        if (!e.getChannel().equals("BuildingGame"))
-            return;
-
+    @Contract("null -> fail")
+    private void onMessageReceived(@NotNull String message) {
         //encode data
-        String[] data = e.getData().split(";");
+        String[] data = message.split(";");
 
         if (data[0].startsWith("response") && data.length > 1)
             getCallable(UUID.fromString(data[1].split(":")[1])).call(data[0].split(":")[1]);
@@ -195,8 +192,8 @@ public final class BungeeCordHandler implements Listener {
     private String join(@NotNull String input) {
         String[] data = input.split(", ");
 
-        Player player = org.bukkit.Bukkit.getPlayer(data[0].trim());
-        Arena arena = ArenaManager.getInstance().getArena(data[1].trim());
+        var player = Bukkit.getPlayer(data[0].trim());
+        var arena = ArenaManager.getInstance().getArena(data[1].trim());
 
         if (player == null || arena == null)
             return "response:failed";
@@ -222,18 +219,45 @@ public final class BungeeCordHandler implements Listener {
     @Nullable
     @Contract(pure = true)
     private IdentifiedCallable getCallable(UUID uuid) {
-        for (IdentifiedCallable callable : callables) {
-            if (callable.getUuid().equals(uuid))
-                return callable;
-        }
-
-        return null;
+        return callables.stream().filter(callable -> callable.getUuid().equals(uuid)).findAny().orElse(null);
     }
 
     /**
      * A private constructor to keep this class a singleton
      */
-    private BungeeCordHandler() {}
+    private BungeeCordHandler() {
+        client.onConnect(() -> {
+            Main.getInstance().getLogger().info("This server has connected to BungeeCord.");
+
+            client.readStringAlways(this::onMessageReceived);
+        });
+
+        client.onDisconnect(() -> {
+            Main.getInstance().getLogger().info("This server has been disconnected from BungeeCord.");
+
+            connectClient();
+        });
+
+        connectClient();
+    }
+
+    /**
+     * Attempts to connect the client. If no connection has been established after 30 seconds, this method will retry
+     * again. This will continue until a connection has been made.
+     *
+     * @since 6.2.0
+     */
+    private void connectClient() {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
+        client.connect(
+            config.getString("bungeecord.server.address"),
+            config.getInt("bungeecord.server.port"),
+            30L,
+            TimeUnit.SECONDS,
+            this::connectClient
+        );
+    }
 
     /**
      * An instance of this class

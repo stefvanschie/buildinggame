@@ -1,7 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.saved;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -28,8 +26,8 @@ public class PlaysStat implements Listener {
         StatManager instance = StatManager.getInstance();
 
         e.getArena().getUsedPlots().stream().flatMap(plot -> plot.getGamePlayers().stream()).forEach(gamePlayer -> {
-            Player player = gamePlayer.getPlayer();
-            Stat stat = instance.getStat(player, StatType.PLAYS);
+            var player = gamePlayer.getPlayer();
+            var stat = instance.getStat(player, StatType.PLAYS);
 
             instance.registerStat(player, StatType.PLAYS, stat == null ? 1 : stat.getValue() + 1);
         });

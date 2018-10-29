@@ -1,34 +1,39 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.bungeecord;
 
+import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
-import fr.rhaz.sockets.socket4mc.Socket4Bukkit;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import simplenet.Client;
+import simplenet.packet.Packet;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Handles all BungeeCord calls
  *
  * @since 4.0.6
  */
-public final class BungeeCordHandler implements Listener {
+public final class BungeeCordHandler {
 
     /**
-     * The channel name
+     * The client
      */
-    private static final String CHANNEL = "BuildingGame";
+    private final Client client = new Client();
 
     /**
      * Utility class for different types of receivers
@@ -69,8 +74,8 @@ public final class BungeeCordHandler implements Listener {
         if (callable != null)
             callables.add(callable);
 
-        Socket4Bukkit.getClient().writeJSON(CHANNEL, message + (callable == null ? "" : ";uuid:" +
-                callable.getUuid()));
+        Packet.builder().putString(message + (callable == null ? "" : ";uuid:" + callable.getUuid()))
+            .writeAndFlush(client);
     }
 
     /**
@@ -127,16 +132,13 @@ public final class BungeeCordHandler implements Listener {
     /**
      * Called whenever a message is received
      *
-     * @param e the event that occurs
+     * @param message the message returned
+     * @since 6.2.0
      */
     @Contract("null -> fail")
-    @EventHandler
-    public void onServerSocketJSON(@NotNull Socket4Bukkit.Server.ServerSocketJSONEvent e) {
-        if (!e.getChannel().equals("BuildingGame"))
-            return;
-
+    private void onMessageReceived(@NotNull String message) {
         //decode data
-        String[] data = e.getData().split(";");
+        String[] data = message.split(";");
 
         if (data[0].startsWith("response") && data.length > 1)
             getCallable(UUID.fromString(data[1].split(":")[1])).call(data[0].split(":")[1]);
@@ -159,15 +161,18 @@ public final class BungeeCordHandler implements Listener {
     private String teleport(@NotNull String input) {
         String[] data = input.split(", ");
 
-        Player player = org.bukkit.Bukkit.getPlayer(data[0]);
+        var player = Bukkit.getPlayer(data[0]);
+
         if (player == null)
             return "response:failed";
 
-        World world = org.bukkit.Bukkit.getWorld(data[1]);
+        var world = Bukkit.getWorld(data[1]);
+
         if (world == null)
             return "response:failed";
 
         int x, y, z;
+
         try {
             x = Integer.parseInt(data[2]);
             y = Integer.parseInt(data[3]);
@@ -193,16 +198,15 @@ public final class BungeeCordHandler implements Listener {
         //undo escaping of special ':' character
         String[] data = input.replace("\\:", ":").split(", ");
 
-        Set<JoinSign> joinSigns = JoinSign.getSigns(data[0]);
-        for (JoinSign joinSign : joinSigns) {
-            Sign sign = joinSign.getSign();
+        JoinSign.getSigns(data[0]).forEach(joinSign -> {
+            var sign = joinSign.getSign();
 
             sign.setLine(0, data[1]);
             sign.setLine(1, data[2]);
             sign.setLine(2, data[3]);
             sign.setLine(3, data[4]);
             sign.update();
-        }
+        });
 
         return "response: success";
     }
@@ -217,18 +221,45 @@ public final class BungeeCordHandler implements Listener {
     @Nullable
     @Contract(pure = true)
     private IdentifiedCallable getCallable(UUID uuid) {
-        for (IdentifiedCallable callable : callables) {
-            if (callable.getUuid().equals(uuid))
-                return callable;
-        }
-
-        return null;
+        return callables.stream().filter(callable -> callable.getUuid().equals(uuid)).findAny().orElse(null);
     }
 
     /**
      * Private constructor to keep this class a singleton
      */
-    private BungeeCordHandler() {}
+    private BungeeCordHandler() {
+        client.onConnect(() -> {
+            Main.getInstance().getLogger().info("This server has connected to BungeeCord.");
+
+            client.readStringAlways(this::onMessageReceived);
+        });
+
+        client.onDisconnect(() -> {
+            Main.getInstance().getLogger().info("This server has been disconnected from BungeeCord.");
+
+            connectClient();
+        });
+
+        connectClient();
+    }
+
+    /**
+     * Attempts to connect the client. If no connection has been established after 30 seconds, this method will retry
+     * again. This will continue until a connection has been made.
+     *
+     * @since 6.2.0
+     */
+    private void connectClient() {
+        ConfigurationSection config = SettingsManager.getInstance().getConfig();
+
+        client.connect(
+            config.getString("bungeecord.server.address"),
+            config.getInt("bungeecord.server.port"),
+            30L,
+            TimeUnit.SECONDS,
+            this::connectClient
+        );
+    }
 
     /**
      * Instance of this class for the singleton pattern

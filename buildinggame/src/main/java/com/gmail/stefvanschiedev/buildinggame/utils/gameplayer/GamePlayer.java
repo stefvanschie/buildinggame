@@ -6,7 +6,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -207,18 +206,17 @@ public class GamePlayer {
 	public void connect(String server, final Location location) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		if (Bukkit.getPluginManager().isPluginEnabled("Socket4MC") && config.getBoolean("bungeecord.enable")) {
-			if (!player.getServer().getServerName().equals(server))
-                BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player, server,
-                        new IdentifiedCallable() {
-                    @Override
-                    public void call(String response) {
-                        BungeeCordHandler.getInstance().teleport(BungeeCordHandler.Receiver.SUB_SERVER,
-                                player.getName(), location.getWorld().getName(), location.getBlockX(),
-                                location.getBlockY(), location.getBlockZ(), null);
-                    }
-                });
-		} else if (location != null)
+		if (config.getBoolean("bungeecord.enable"))
+            BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player, server,
+                    new IdentifiedCallable() {
+                @Override
+                public void call(String response) {
+                    BungeeCordHandler.getInstance().teleport(BungeeCordHandler.Receiver.SUB_SERVER,
+                            player.getName(), location.getWorld().getName(), location.getBlockX(),
+                            location.getBlockY(), location.getBlockZ(), null);
+                }
+            });
+		else if (location != null)
 			getPlayer().teleport(location);
     }
 
@@ -381,7 +379,7 @@ public class GamePlayer {
 		//apply walked statistic
         StatManager instance = StatManager.getInstance();
 
-        Stat stat = instance.getStat(player, StatType.WALKED);
+        var stat = instance.getStat(player, StatType.WALKED);
 
         instance.registerStat(
             player,
@@ -399,8 +397,8 @@ public class GamePlayer {
     @Contract("null -> fail")
 	public void sendActionbar(String text) {
         try {
-            Class<?> iChatBaseComponent = getNMSClass("IChatBaseComponent");
-            Class<?> chatMessageType = getNMSClass("ChatMessageType");
+            var iChatBaseComponent = getNMSClass("IChatBaseComponent");
+            var chatMessageType = getNMSClass("ChatMessageType");
 
             sendPacket(getNMSClass("PacketPlayOutChat").getConstructor(iChatBaseComponent, chatMessageType)
                 .newInstance(iChatBaseComponent.getDeclaredClasses()[0].getMethod("a", String.class)

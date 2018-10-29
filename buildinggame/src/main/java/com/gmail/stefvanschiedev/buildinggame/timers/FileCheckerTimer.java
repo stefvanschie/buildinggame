@@ -59,7 +59,7 @@ public class FileCheckerTimer extends BukkitRunnable {
         if (key == null)
             return;
 
-        for (WatchEvent<?> event : key.pollEvents()) {
+        key.pollEvents().forEach(event -> {
             Path context = (Path) event.context();
             boolean debug = SETTINGS_MANAGER.getConfig().getBoolean("debug");
 
@@ -74,7 +74,7 @@ public class FileCheckerTimer extends BukkitRunnable {
 
                 SETTINGS_MANAGER.refreshMessages();
             }
-        }
+        });
 
         key.reset();
     }

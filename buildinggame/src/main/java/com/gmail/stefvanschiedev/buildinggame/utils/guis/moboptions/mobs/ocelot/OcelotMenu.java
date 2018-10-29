@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A menu for changing the options of an ocelot
@@ -23,8 +22,8 @@ public class OcelotMenu extends BabyMenu {
         super(plot, ocelot);
 
         //type
-        ItemStack type = new ItemStack(Material.BONE);
-        ItemMeta typeMeta = type.getItemMeta();
+        var type = new ItemStack(Material.BONE);
+        var typeMeta = type.getItemMeta();
         typeMeta.setDisplayName(ChatColor.GREEN + "Change type");
         type.setItemMeta(typeMeta);
 

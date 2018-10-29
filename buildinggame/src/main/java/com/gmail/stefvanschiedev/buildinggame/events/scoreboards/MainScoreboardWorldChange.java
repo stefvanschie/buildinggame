@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.events.scoreboards;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -28,7 +27,7 @@ public class MainScoreboardWorldChange implements Listener {
 	public void onWorldChange(PlayerChangedWorldEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		Player player = e.getPlayer();
+		var player = e.getPlayer();
 		MainScoreboardManager manager = MainScoreboardManager.getInstance();
 		
 		if (!config.getBoolean("scoreboards.main.enable"))

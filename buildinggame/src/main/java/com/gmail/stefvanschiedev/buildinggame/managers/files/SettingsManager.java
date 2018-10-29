@@ -1,17 +1,18 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.files;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+import java.io.*;
+import java.util.*;
 
 import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
+import com.gmail.stefvanschiedev.buildinggame.utils.JsonReaderUtil;
+import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -105,6 +106,12 @@ public final class SettingsManager {
 	private File schematicsFolder;
 
     /**
+     * The file for storing holograms, may be null if the file does not yet exist
+     */
+    @Nullable
+	private File hologramsFile;
+
+    /**
      * The runnable used for managing the watch service
      */
 	private FileCheckerTimer runnable;
@@ -124,7 +131,7 @@ public final class SettingsManager {
 	@Contract("null, _ -> fail")
 	public void setup(Plugin p, boolean save) {
         File dataFolder = p.getDataFolder();
-        Logger logger = p.getLogger();
+        var logger = p.getLogger();
 
         if (!dataFolder.exists()) {
             if (!dataFolder.mkdir())
@@ -138,6 +145,7 @@ public final class SettingsManager {
 		messagesFile = new File(dataFolder, "messages.yml");
 		signsFile = new File(dataFolder, "signs.yml");
 		statsFile = new File(dataFolder, "stats.yml");
+        hologramsFile = new File(dataFolder, "holograms.json");
 
 		arenas = YamlConfiguration.loadConfiguration(arenasFile);
 		config = YamlConfiguration.loadConfiguration(configFile);
@@ -193,6 +201,21 @@ public final class SettingsManager {
 			}
 		}
 
+		if (hologramsFile.exists()) {
+            try {
+                var jsonReader = new Gson().newJsonReader(new InputStreamReader(new FileInputStream(hologramsFile)));
+
+                jsonReader.beginArray();
+
+                while (jsonReader.hasNext())
+                    TopStatHologram.load(jsonReader);
+
+                jsonReader.endArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 		if (!schematicsFolder.exists() && config.getBoolean("schematics.enable") &&
             Bukkit.getPluginManager().isPluginEnabled("WorldEdit") && !schematicsFolder.mkdirs())
 		    logger.warning("Unable to create schematics folder");
@@ -217,6 +240,11 @@ public final class SettingsManager {
         generateSettings(false);
     }
 
+    /**
+     * Refreshes the messages.yml file
+     *
+     * @since 5.8.4
+     */
     public void refreshMessages() {
         messages = YamlConfiguration.loadConfiguration(messagesFile);
         generateMessages(false);
@@ -308,21 +336,69 @@ public final class SettingsManager {
     }
 
 	/**
-     * Saves all files
+     * Saves all files. The holograms.json will be saved async when it exists.
      *
      * @since 2.1.0
      */
 	public void save() {
-		try {
-			arenas.save(arenasFile);
-			config.save(configFile);
-			messages.save(messagesFile);
-			signs.save(signsFile);
-			stats.save(statsFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        try {
+            arenas.save(arenasFile);
+            config.save(configFile);
+            messages.save(messagesFile);
+            signs.save(signsFile);
+            stats.save(statsFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //we use a thread instead of a bukkitrunnable, because this method may be called when the plugin is disabling
+        new Thread(() -> {
+            try {
+                if (!hologramsFile.exists() && !hologramsFile.createNewFile()) {
+                    Main.getInstance().getLogger().warning("Unable to create holograms file");
+                    return;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try (var writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(hologramsFile)))) {
+                writer.beginArray();
+
+                TopStatHologram.getHolograms().forEach(hologram -> {
+                    try {
+                        writer.jsonValue(
+                            new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Location.class, new TypeAdapter<Location>() {
+                                @Override
+                                public void write(JsonWriter jsonWriter, Location location) throws IOException {
+                                    jsonWriter
+                                        .beginObject()
+                                        .name("world").value(location.getWorld().getName())
+                                        .name("x").value(location.getX())
+                                        .name("y").value(location.getY())
+                                        .name("z").value(location.getZ())
+                                        .name("yaw").value(location.getYaw())
+                                        .name("pitch").value(location.getPitch())
+                                        .endObject();
+                                }
+
+                                @Override
+                                public Location read(JsonReader jsonReader) throws IOException {
+                                    return JsonReaderUtil.parseLocation(jsonReader);
+                                }
+                            }).create().toJson(hologram)
+                        );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                writer.endArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 
 	/**
      * Compares the config.yml with the default config.yml and adds, removes and modifies key/value pairs when needed
@@ -363,7 +439,7 @@ public final class SettingsManager {
         }
 
         if (config.getBoolean("debug")) {
-            Logger logger = Main.getInstance().getLogger();
+            var logger = Main.getInstance().getLogger();
 
             logger.info("Found " + settings + " settings");
         	logger.info("Added " + addedSettings + " new settings");
@@ -409,7 +485,7 @@ public final class SettingsManager {
         }
 
         if (config.getBoolean("debug")) {
-            Logger logger = Main.getInstance().getLogger();
+            var logger = Main.getInstance().getLogger();
 
             logger.info("Found " + settings + " settings");
         	logger.info("Added " + addedSettings + " new settings");

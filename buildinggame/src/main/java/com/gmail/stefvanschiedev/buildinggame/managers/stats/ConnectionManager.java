@@ -49,7 +49,7 @@ class ConnectionManager {
         try {
             Class.forName("com.mysql.jdbc.Driver"); //also you need the MySQL driver
             plugin.getLogger().info("Creating HikariCP Configuration...");
-            HikariConfig hikariConfig = new HikariConfig();
+            var hikariConfig = new HikariConfig();
 
             hikariConfig.setJdbcUrl(config.getString("stats.database.address"));
             hikariConfig.setUsername(config.getString("stats.database.user"));

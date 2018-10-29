@@ -12,12 +12,10 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu.Ba
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * The gui for plot settings and tools
@@ -98,11 +96,11 @@ public class BuildMenu extends Gui {
 		bannerMenu = new BaseColorBannerMenu();
 		biomeMenu = new BiomeMenu(plot);
 
-        StaticPane pane = new StaticPane(new GuiLocation(0, 0), 9, 5);
+        var pane = new StaticPane(new GuiLocation(0, 0), 9, 5);
 
         //particles
-        ItemStack particles = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.particles.id")));
-        ItemMeta particlesMeta = particles.getItemMeta();
+        var particles = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.particles.id")));
+        var particlesMeta = particles.getItemMeta();
         particlesMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.particles.name")));
         particlesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.particles.lores")));
         particles.setItemMeta(particlesMeta);
@@ -114,14 +112,14 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(1, 1));
 
         //floor
-        ItemStack floor = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.floor.id")));
-        ItemMeta floorMeta = floor.getItemMeta();
+        var floor = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.floor.id")));
+        var floorMeta = floor.getItemMeta();
         floorMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.name")));
         floorMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.lores")));
         floor.setItemMeta(floorMeta);
 
         pane.addItem((this.floor = new GuiItem(floor, event -> {
-            Player player = (Player) event.getWhoClicked();
+            var player = (Player) event.getWhoClicked();
 
             int cooldown = (int) CONFIG.getDouble("gui.floor.cooldown") * 1000;
 
@@ -142,20 +140,18 @@ public class BuildMenu extends Gui {
                 return;
             }
 
-            for (String material : CONFIG.getStringList("blocks.blocked")) {
+            CONFIG.getStringList("blocks.blocked").forEach(material -> {
                 if (Material.matchMaterial(material) != event.getCursor().getType())
-                    continue;
+                    return;
 
-                for (String message : MessageManager.translate(MESSAGES.getStringList("plots.floor.blocked")))
-                    player.sendMessage(message);
+                MessageManager.getInstance().send(player, MESSAGES.getStringList("plots.floor.blocked"));
 
                 event.setCancelled(true);
-            }
+            });
 
 
             if (event.getCursor().getType() == Material.WATER_BUCKET) {
-                for (Block block : plot.getFloor().getAllBlocks())
-                    block.setType(Material.WATER);
+                plot.getFloor().getAllBlocks().forEach(block -> block.setType(Material.WATER));
 
                 floorChange = System.currentTimeMillis();
 
@@ -163,8 +159,7 @@ public class BuildMenu extends Gui {
             }
 
             if (event.getCursor().getType() == Material.LAVA_BUCKET) {
-                for (Block block : plot.getFloor().getAllBlocks())
-                    block.setType(Material.LAVA);
+                plot.getFloor().getAllBlocks().forEach(block -> block.setType(Material.LAVA));
 
                 floorChange = System.currentTimeMillis();
 
@@ -172,19 +167,14 @@ public class BuildMenu extends Gui {
             }
 
             if (!event.getCursor().getType().isBlock()) {
-                for (String message :
-                    MessageManager.translate(MESSAGES.getStringList("plots.floor.incorrect")))
-                    player.sendMessage(message);
+                MessageManager.getInstance().send(player, MESSAGES.getStringList("plots.floor.incorrect"));
 
                 event.setCancelled(true);
             }
 
-            for (Block block : plot.getFloor().getAllBlocks()) {
-                if (block.getType() == event.getCursor().getType())
-                    continue;
-
-                block.setType(event.getCursor().getType());
-            }
+            plot.getFloor().getAllBlocks().stream()
+                .filter(block -> block.getType() != event.getCursor().getType())
+                .forEach(block -> block.setType(event.getCursor().getType()));
 
             floorChange = System.currentTimeMillis();
 
@@ -192,8 +182,8 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(3, 1));
 
         //time
-        ItemStack time = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.time.id")));
-        ItemMeta timeMeta = time.getItemMeta();
+        var time = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.time.id")));
+        var timeMeta = time.getItemMeta();
         timeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.time.name")));
         timeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.lores")));
         time.setItemMeta(timeMeta);
@@ -205,8 +195,8 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(5, 1));
 
         //rain
-        ItemStack rain = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.rain.id")));
-        ItemMeta rainMeta = rain.getItemMeta();
+        var rain = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.rain.id")));
+        var rainMeta = rain.getItemMeta();
         rainMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.rain.name")));
         rainMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.rain.lores")));
         rain.setItemMeta(rainMeta);
@@ -218,8 +208,8 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(7, 1));
 
         //fly speed
-        ItemStack flySpeed = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.fly-speed.id")));
-        ItemMeta flySpeedMeta = flySpeed.getItemMeta();
+        var flySpeed = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.fly-speed.id")));
+        var flySpeedMeta = flySpeed.getItemMeta();
         flySpeedMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.fly-speed.name")));
         flySpeedMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.lores")));
         flySpeed.setItemMeta(flySpeedMeta);
@@ -231,8 +221,8 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(1, 2));
 
         //heads
-        ItemStack heads = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.heads.id")));
-        ItemMeta headsMeta = heads.getItemMeta();
+        var heads = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.heads.id")));
+        var headsMeta = heads.getItemMeta();
         headsMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.heads.name")));
         headsMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.lores")));
         heads.setItemMeta(headsMeta);
@@ -244,8 +234,8 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(3, 2));
 
         //banners
-        ItemStack banners = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.banners.id")));
-        ItemMeta bannersMeta = banners.getItemMeta();
+        var banners = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.banners.id")));
+        var bannersMeta = banners.getItemMeta();
         bannersMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.name")));
         bannersMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.lores")));
         banners.setItemMeta(bannersMeta);
@@ -257,8 +247,8 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(5, 2));
 
         //biome
-        ItemStack biome = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.biome.id")));
-        ItemMeta biomeMeta = biome.getItemMeta();
+        var biome = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.biome.id")));
+        var biomeMeta = biome.getItemMeta();
         biomeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.biome.name")));
         biomeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.lores")));
         biome.setItemMeta(biomeMeta);
@@ -270,8 +260,8 @@ public class BuildMenu extends Gui {
         })), new GuiLocation(7, 2));
 
         //close menu
-        ItemStack close = new ItemStack(Material.BOOK);
-        ItemMeta closeMeta = close.getItemMeta();
+        var close = new ItemStack(Material.BOOK);
+        var closeMeta = close.getItemMeta();
         closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.close-menu.name")));
         closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.close-menu.lores")));
         close.setItemMeta(closeMeta);

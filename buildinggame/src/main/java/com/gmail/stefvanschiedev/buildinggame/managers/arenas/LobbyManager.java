@@ -7,11 +7,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.Lobby;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.logging.Logger;
 
 /**
  * This class handles all lobbies
@@ -51,8 +48,8 @@ public final class LobbyManager {
     public void setup() {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
-        for (Arena arena : ArenaManager.getInstance().getArenas()) {
-            String name = arena.getName();
+        for (var arena : ArenaManager.getInstance().getArenas()) {
+            var name = arena.getName();
 
             if (!arenas.contains(name + ".lobby"))
 				continue;
@@ -65,7 +62,7 @@ public final class LobbyManager {
                     (float) arenas.getDouble(name + ".lobby.pitch", 0))));
 
 			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-                Logger logger = Main.getInstance().getLogger();
+                var logger = Main.getInstance().getLogger();
 
                 if (arena.getLobby().getLocation().getWorld() == null)
 			        logger.warning("Unable to load world for lobby");

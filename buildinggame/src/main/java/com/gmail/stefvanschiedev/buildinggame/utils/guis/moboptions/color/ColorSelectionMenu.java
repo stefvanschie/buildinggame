@@ -28,7 +28,7 @@ public class ColorSelectionMenu extends Gui {
     public ColorSelectionMenu(Creature entity) {
         super(Main.getInstance(), 2, ChatColor.GREEN + "Select a color");
 
-        OutlinePane pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
+        var pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
 
         MappedMaterialUtil.WOOL_DYE_COLOR_ITEMS.forEach(entry ->
             pane.addItem(new GuiItem(new ItemStack(entry.getKey()), event -> {

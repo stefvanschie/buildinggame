@@ -3,10 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -34,8 +32,8 @@ public class ClickJoinSign implements Listener {
      */
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		Player player = e.getPlayer();
-        Block clickedBlock = e.getClickedBlock();
+		var player = e.getPlayer();
+        var clickedBlock = e.getClickedBlock();
 
         if (clickedBlock == null)
 		    return;
@@ -45,7 +43,7 @@ public class ClickJoinSign implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(state instanceof Sign))
 			return;
 		
-		Sign sign = (Sign) state;
+		var sign = (Sign) state;
 		Arena arena = null;
 
 		for (Arena a : ArenaManager.getInstance().getArenas()) {
@@ -53,7 +51,7 @@ public class ClickJoinSign implements Listener {
                 arena = a;
         }
 
-        Arena playerArena = ArenaManager.getInstance().getArena(player);
+        var playerArena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null) {
 		    if (SignManager.getInstance().getRandomJoinSigns().contains(sign)) {

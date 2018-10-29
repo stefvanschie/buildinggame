@@ -2,15 +2,17 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.util.*;
 
-import fr.rhaz.socketapi.server.SocketMessenger;
-import fr.rhaz.sockets.socket4mc.Socket4Bungee;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.ServerConnectedEvent;
+import net.md_5.bungee.api.event.ServerDisconnectEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import simplenet.Client;
+import simplenet.Server;
+import simplenet.packet.Packet;
 
 /**
  * Main class for this plugin
@@ -18,19 +20,19 @@ import org.jetbrains.annotations.NotNull;
 public class Main extends Plugin implements Listener {
 
     /**
-     * A collection of socket messengers
+     * The server
      */
-	private Collection<SocketMessenger> socketMessengers;
+    private final Server server = new Server();
+
+    /**
+     * A collection of clients
+     */
+	private Collection<Client> clients;
 
     /**
      * A map of the connections which still have to be send to a server
      */
-	private Map<ProxiedPlayer, Map.Entry<SocketMessenger, String>> pendingConnections;
-
-    /**
-     * The channel name
-     */
-	private static final String CHANNEL = "BuildingGame";
+	private Map<UUID, Map.Entry<Client, String>> pendingConnections;
 
     /**
      * Called whenever this plugin is being enabled
@@ -39,9 +41,21 @@ public class Main extends Plugin implements Listener {
      */
 	@Override
 	public void onEnable() {
+	    server.onConnect(client -> {
+	        getLogger().info("An instance has connected.");
+
+	        clients.add(client);
+
+	        client.readStringAlways(value -> onMessageReceived(value, client));
+
+	        client.onDisconnect(() -> getLogger().info("An instance has disconnected."));
+        });
+
+	    server.bind("localhost", 26048);
+
 	    getProxy().getPluginManager().registerListener(this, this);
 
-		socketMessengers = new HashSet<>();
+		clients = new HashSet<>();
 		pendingConnections = new HashMap<>();
 
 		getLogger().info("BuildingGame - BungeeCord AddOn has been enabled");
@@ -58,18 +72,6 @@ public class Main extends Plugin implements Listener {
 	}
 
     /**
-     * Called whenever the server connects with BungeeCord correctly
-     *
-     * @param e the event that occurs
-     * @since 2.1.0
-     */
-	@SuppressWarnings("unused")
-    @EventHandler
-	public void onServerSocketHandshake(Socket4Bungee.Server.ServerSocketHandshakeEvent e) {
-        socketMessengers.add(e.getMessenger());
-	}
-
-    /**
      * Called whenever a player is connected to a server
      *
      * @param e the event that occurs
@@ -77,75 +79,67 @@ public class Main extends Plugin implements Listener {
      */
     @SuppressWarnings("unused")
     @EventHandler
-    public void onServerConnected(ServerConnectedEvent e) {
-        ProxiedPlayer proxiedPlayer = e.getPlayer();
+    public void onServerDisconnect(ServerDisconnectEvent e) {
+        UUID uuid = e.getPlayer().getUniqueId();
 
-        if (!pendingConnections.containsKey(proxiedPlayer))
+        if (!pendingConnections.containsKey(uuid))
             return;
 
-        Map.Entry<SocketMessenger, String> entry = pendingConnections.get(proxiedPlayer);
+        var entry = pendingConnections.get(uuid);
 
-        entry.getKey().writeJSON(CHANNEL, entry.getValue());
-        pendingConnections.remove(proxiedPlayer);
+        Packet.builder().putString(entry.getValue()).writeAndFlush(entry.getKey());
+        pendingConnections.remove(uuid);
     }
 
     /**
      * Called whenever BungeeCord receives information from a server
      *
-     * @param e the event that occurs
-     * @since 2.1.0
+     * @param message the message received
+     * @since 6.2.0
      */
-	@SuppressWarnings("unused")
-    @EventHandler
-	public void onBungeeSocketJSON(Socket4Bungee.Server.ServerSocketJSONEvent e) {
-		//send the information through
-		if (!e.getChannel().equals("BuildingGame"))
-			return;
-
-        //encode data
-        String[] data = e.getData().split(";");
+	@Contract("null, _ -> fail")
+	private void onMessageReceived(@NotNull String message, @NotNull Client client) {
+	    //encode data
+        String[] data = message.split(";");
 
         if (data[0].startsWith("response")) {
             //bungee doesn't send stuff by itself
-            for (SocketMessenger messenger : socketMessengers)
-                messenger.writeJSON(CHANNEL, e.getData());
+            clients.forEach(c -> Packet.builder().putString(message).writeAndFlush(c));
 
             return;
         }
 
         if (data[1].split(":")[1].equals(Receiver.BUNGEE))
             //has to be a connect statement
-            connect(data[0].split(":")[1], e.getMessenger(), data.length > 2 ? data[2] : null);
-        else {
+            connect(data[0].split(":")[1], client, data.length > 2 ? data[2] : null);
+        else
             //send to other servers
-            for (SocketMessenger messenger : socketMessengers)
-                messenger.writeJSON(CHANNEL, e.getData());
-        }
+            clients.forEach(c -> Packet.builder().putString(message).writeAndFlush(c));
 	}
 
     /**
      * Connects the player to a server, based on the given response
      *
      * @param response the response gotten from the server
-     * @param messenger the messenger which sent this message
+     * @param client the client which sent this message
      * @param uuid the uuid of the callable on the sending server
      * @since 4.0.6
      */
-	private void connect(@NotNull String response, SocketMessenger messenger, String uuid) {
+	private void connect(@NotNull String response, Client client, String uuid) {
         String[] data = response.replace("connect:", "").trim().split(", ");
 
-        ProxiedPlayer proxiedPlayer = getProxy().getPlayer(data[0]);
-        ServerInfo serverInfo = getProxy().getServerInfo(data[1]);
+        var proxiedPlayer = getProxy().getPlayer(data[0]);
+        var serverInfo = getProxy().getServerInfo(data[1]);
 
         if (proxiedPlayer != null && serverInfo != null) {
             proxiedPlayer.connect(serverInfo);
-            pendingConnections.put(proxiedPlayer, new AbstractMap.SimpleEntry<>(messenger, "response:success" +
-                    (uuid != null ? ';' + uuid : "")));
+            pendingConnections.put(proxiedPlayer.getUniqueId(), new AbstractMap.SimpleEntry<>(client,
+                "response:success" + (uuid != null ? ';' + uuid : "")));
 
             return;
         }
 
-        messenger.writeJSON(CHANNEL, "response:failed" + (uuid != null ? ';' + uuid : ""));
+        Packet.builder().putString("response:failed" + (uuid != null ? ';' + uuid : "")).writeAndFlush(client);
     }
 
     /**

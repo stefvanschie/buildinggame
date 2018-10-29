@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Snowman;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A menu for changing the options of a snow golem
@@ -22,8 +21,8 @@ public class SnowGolemMenu extends RemoveMenu {
     public SnowGolemMenu(Plot plot, Snowman snowman) {
         super(plot, snowman);
 
-        ItemStack pumpkin = new ItemStack(Material.PUMPKIN);
-        ItemMeta pumpkinMeta = pumpkin.getItemMeta();
+        var pumpkin = new ItemStack(Material.PUMPKIN);
+        var pumpkinMeta = pumpkin.getItemMeta();
         pumpkinMeta.setDisplayName(ChatColor.GREEN + "Change whether this snow golem has a pumpkin");
         pumpkin.setItemMeta(pumpkinMeta);
 

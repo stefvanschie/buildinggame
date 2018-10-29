@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -54,9 +55,7 @@ public final class StatManager {
 			database = new MySQLDatabase(Main.getInstance());
 			
 			if (database.setup()) {
-				Set<UUID> uuids = database.getAllPlayers();
-
-				uuids.forEach(uuid -> {
+				database.getAllPlayers().forEach(uuid -> {
 				    for (StatType statType : StatType.values())
 				        registerStat(Bukkit.getOfflinePlayer(uuid), statType, database.getStat(uuid.toString(), statType
                             .toString().toLowerCase(Locale.getDefault())));
@@ -123,17 +122,12 @@ public final class StatManager {
 	@Nullable
     @Contract("_, null -> null")
     public synchronized Stat getStat(OfflinePlayer player, StatType type) {
-        Iterable<Stat> stats = getStats(type);
+        List<Stat> stats = getStats(type);
 
         if (stats == null)
             return null;
 
-        for (Stat stat : stats) {
-			if (player.equals(stat.getPlayer().getPlayer()))
-				return stat;
-		}
-
-		return null;
+        return stats.stream().filter(stat -> player.equals(stat.getPlayer().getPlayer())).findAny().orElse(null);
 	}
 
 	/**
@@ -185,6 +179,8 @@ public final class StatManager {
         }
 
         statsByType.add(index, new Stat(player, value));
+
+        TopStatHologram.update(type);
 	}
 
     /**

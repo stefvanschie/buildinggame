@@ -3,14 +3,11 @@ package com.gmail.stefvanschiedev.buildinggame.timers;
 import com.gmail.stefvanschiedev.buildinggame.utils.Target;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Contract;
@@ -21,21 +18,6 @@ import org.jetbrains.annotations.Contract;
  * @since 2.1.0
  */
 public class WaitTimer extends Timer {
-
-    /**
-     * The amount of seconds left
-     */
-	private int seconds;
-
-	/**
-     * The arena this timer belongs to
-     */
-	private final Arena arena;
-
-    /**
-     * Whether this timer is running or not
-     */
-    private boolean running;
 
 	/**
      * The config.yml YAML configuration
@@ -54,8 +36,9 @@ public class WaitTimer extends Timer {
      * @param arena the arena this timer belongs to
      */
 	public WaitTimer(int seconds, Arena arena) {
+	    super(arena);
+
 		this.seconds = seconds;
-		this.arena = arena;
 	}
 
 	/**
@@ -71,19 +54,17 @@ public class WaitTimer extends Timer {
 			this.cancel();
 			return;
 		} else if (seconds % 15 == 0 || (seconds <= 10 && seconds >= 1)) {
-			for (Plot plot : arena.getUsedPlots()) {
-				for (GamePlayer gamePlayer : plot.getGamePlayers()) {
-					Player player = gamePlayer.getPlayer();
+            arena.getUsedPlots().stream().flatMap(plot -> plot.getGamePlayers().stream()).forEach(gamePlayer -> {
+                var player = gamePlayer.getPlayer();
 
-					for (String message : messages.getStringList("lobbyCountdown.message")) {
-						MessageManager.getInstance().send(player, message
-								.replace("%seconds%", seconds + "")
-								.replace("%minutes%", getMinutes() + "")
-								.replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
-								.replace("%seconds_from_minute%", getSecondsFromMinute() + ""));
-					}
-				}
-			}
+                messages.getStringList("lobbyCountdown.message").forEach(message ->
+                    MessageManager.getInstance().send(player, message
+                        .replace("%seconds%", seconds + "")
+                        .replace("%minutes%", getMinutes() + "")
+                        .replace("%time%", getMinutes() + ":" + getSecondsFromMinute())
+                        .replace("%seconds_from_minute%", getSecondsFromMinute() + ""))
+                );
+            });
 		}
 
         arena.getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer ->
@@ -91,10 +72,9 @@ public class WaitTimer extends Timer {
 		
 		//timings
 		try {
-			for (String key : config.getConfigurationSection("timings.lobby-timer.at").getKeys(false)) {
-                if (seconds == Integer.parseInt(key)) {
-                    for (String command : config.getStringList("timings.lobby-timer.at." + Integer
-                        .parseInt(key))) {
+            config.getConfigurationSection("timings.lobby-timer.at").getKeys(false).forEach(key -> {
+                if (seconds == Integer.parseInt(key))
+                    config.getStringList("timings.lobby-timer.at." + Integer.parseInt(key)).forEach(command -> {
                         command = command.replace("%arena%", arena.getName());
 
                         if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -103,24 +83,23 @@ public class WaitTimer extends Timer {
                             Target.parse(targetText).execute(command.substring(targetText.length() + 1));
                         } else
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
-			for (String key : config.getConfigurationSection("timings.lobby-timer.every").getKeys(false)) {
-                if (seconds % Integer.parseInt(key) == 0) {
-                    for (String command : config.getStringList("timings.lobby-timer.every." + Integer
-                        .parseInt(key))) {
-                        command = command.replace("%arena%", arena.getName());
+                    });
+            });
+            config.getConfigurationSection("timings.lobby-timer.every").getKeys(false).forEach(key -> {
+                if (seconds % Integer.parseInt(key) == 0)
+                    config.getStringList("timings.lobby-timer.every." + Integer.parseInt(key)).forEach(
+                        command -> {
+                            command = command.replace("%arena%", arena.getName());
 
-                        if (!command.isEmpty() && command.charAt(0) == '@') {
-                            String targetText = command.split(" ")[0];
+                            if (!command.isEmpty() && command.charAt(0) == '@') {
+                                String targetText = command.split(" ")[0];
 
-                            Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                        } else
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    }
-                }
-			}
+                                Target.parse(targetText).execute(command.substring(targetText.length() + 1));
+                            } else
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                        }
+                    );
+            });
 		} catch (NullPointerException | NumberFormatException ignore) {}
 
 		seconds--;
@@ -136,29 +115,6 @@ public class WaitTimer extends Timer {
 
 	    return super.runTaskTimer(plugin, delay, period);
     }
-
-	/**
-     * Returns the amount of seconds left
-     *
-     * @return amount of seconds left
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-	@Override
-	public int getSeconds() {
-		return seconds;
-	}
-
-	/**
-     * Returns whether this timer is active or not
-     *
-     * @return true if this timer is active, false otherwise
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-	public boolean isActive() {
-		return running;
-	}
 
 	/**
      * Changes the amount of seconds left

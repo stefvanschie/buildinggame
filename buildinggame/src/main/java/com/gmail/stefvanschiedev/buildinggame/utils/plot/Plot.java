@@ -1,17 +1,16 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -170,13 +169,12 @@ public class Plot {
 	public void addSpectator(final Player spectator, GamePlayer spectates) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		final GamePlayer gamePlayer = new GamePlayer(spectator, GamePlayerType.SPECTATOR);
+		final var gamePlayer = new GamePlayer(spectator, GamePlayerType.SPECTATOR);
 		gamePlayer.setSpectates(spectates);
 		
 		getAllGamePlayers().add(gamePlayer);
 		
-		for (GamePlayer player : getAllGamePlayers())
-			player.getPlayer().hidePlayer(Main.getInstance(), spectator);
+		getAllGamePlayers().forEach(player -> player.getPlayer().hidePlayer(Main.getInstance(), spectator));
 
         spectator.getInventory().setItem(config.getInt("leave-item.slot"),
             new ItemBuilder(spectator, Material.matchMaterial(config.getString("leave-item.id")))
@@ -226,38 +224,38 @@ public class Plot {
 
 		//check how many times voted
 		if (getTimesVoted(sender) == config.getInt("max-vote-change")) {
-			for (String message : messages.getStringList("vote.maximum-votes"))
-				MessageManager.getInstance().send(sender, message
-						.replace("%max_votes%", config.getInt("max-votes-change") + ""));
+            messages.getStringList("vote.maximum-votes").forEach(message ->
+                MessageManager.getInstance().send(sender, message
+                    .replace("%max_votes%", config.getInt("max-votes-change") + "")));
 
 			return;
 		}
 
 		getTimesVoted().put(sender, getTimesVoted(sender) + 1);
-		
-		for (String message : messages.getStringList("vote.message"))
-			MessageManager.getInstance().send(sender, message
-					.replace("%playerplot%", arena.getVotingPlot().getPlayerFormat())
-					.replace("%points%", vote.getPoints() + ""));
-		
-		for (String message : messages.getStringList("vote.receiver")) {
-			for (GamePlayer player : arena.getVotingPlot().getGamePlayers())
-				MessageManager.getInstance().send(player.getPlayer(), message
-						.replace("%points%", vote.getPoints() + "")
-						.replace("%sender%", sender.getName()));
-		}
 
-		Arena senderArena = ArenaManager.getInstance().getArena(sender);
+        messages.getStringList("vote.message").forEach(message ->
+            MessageManager.getInstance().send(sender, message
+                .replace("%playerplot%", arena.getVotingPlot().getPlayerFormat())
+                .replace("%points%", vote.getPoints() + "")));
 
-		if (senderArena != null) {
-            for (GamePlayer player : senderArena.getPlot(sender).getGamePlayers()) {
+        messages.getStringList("vote.receiver").forEach(message ->
+			arena.getVotingPlot().getGamePlayers().forEach(player ->
+                MessageManager.getInstance().send(player.getPlayer(), message
+                    .replace("%points%", vote.getPoints() + "")
+                    .replace("%sender%", sender.getName()))
+			)
+		);
+
+		var senderArena = ArenaManager.getInstance().getArena(sender);
+
+		if (senderArena != null)
+            senderArena.getPlot(sender).getGamePlayers().forEach(player -> {
                 player.addTitleAndSubtitle(messages.getString("vote.title")
                     .replace("%points%", vote.getPoints() + ""), messages.getString("vote.subtitle")
                     .replace("%points%", vote.getPoints() + ""));
                 player.sendActionbar(messages.getString("vote.actionbar")
                     .replace("%points%", String.valueOf(vote.getPoints())));
-            }
-        }
+            });
 
         int previousPoints = getPoints();
 
@@ -269,18 +267,16 @@ public class Plot {
 		if (!config.getBoolean("scoreboards.vote.text"))
 			arena.getVoteScoreboard(this).setScore(getPlayerFormat(), getPoints());
 		
-		if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable")) {
-			for (Plot p : arena.getPlots()) {
-				if (!p.getGamePlayers().isEmpty()) {
-					for (GamePlayer player : getGamePlayers())
-						arena.getVoteScoreboard(this).show(player.getPlayer());
-				}
-			}
-		}
+		if (!config.getBoolean("names-after-voting") && config.getBoolean("scoreboards.vote.enable"))
+		    arena.getPlots().stream()
+                .filter(p -> !p.getGamePlayers().isEmpty())
+                .flatMap(p -> getGamePlayers().stream())
+                .forEach(player -> arena.getVoteScoreboard(this).show(player.getPlayer()));
 
 		//point actions
-        ConfigurationSection configurationSection = config.getConfigurationSection("voting.point-actions");
-		for (String key : configurationSection.getKeys(false)) {
+        var configurationSection = config.getConfigurationSection("voting.point-actions");
+
+		configurationSection.getKeys(false).forEach(key -> {
 		    int points;
 
 		    try {
@@ -290,13 +286,13 @@ public class Plot {
 		            Main.getInstance().getLogger()
                         .warning("Unsupported value found in config.yml in voting > point-actions > " + key);
 
-		        continue;
+		        return;
             }
 
             //ensure the amount of points is higher and that this is the first time we get this (e.g. the added amount
             //of points made the amount go over the minimum, it shouldn't already have been higher than the minimum)
             if (getPoints() < points || previousPoints >= points)
-                continue;
+                return;
 
             configurationSection.getStringList(key).forEach(command -> {
                 if (!command.isEmpty() && command.charAt(0) == '@') {
@@ -306,20 +302,20 @@ public class Plot {
                 } else
                     getGamePlayers().forEach(gamePlayer -> Bukkit.dispatchCommand(gamePlayer.getPlayer(), command));
             });
-        }
+        });
 
         //track stats
-        StatManager statManager = StatManager.getInstance();
+        var statManager = StatManager.getInstance();
 
-        for (GamePlayer gamePlayer : getGamePlayers()) {
-            Player player = gamePlayer.getPlayer();
-            Stat stat = statManager.getStat(player, StatType.POINTS_RECEIVED);
+        getGamePlayers().forEach(gamePlayer -> {
+            var player = gamePlayer.getPlayer();
+            var stat = statManager.getStat(player, StatType.POINTS_RECEIVED);
 
             statManager.registerStat(player, StatType.POINTS_RECEIVED,
                     (stat == null ? 0 : stat.getValue()) + vote.getPoints());
-        }
+        });
 
-        Stat stat = statManager.getStat(sender, StatType.POINTS_GIVEN);
+        var stat = statManager.getStat(sender, StatType.POINTS_GIVEN);
 
         statManager.registerStat(sender, StatType.POINTS_GIVEN,
                 (stat == null ? 0 : stat.getValue()) + vote.getPoints());
@@ -407,12 +403,10 @@ public class Plot {
     @Nullable
     @Contract(pure = true)
 	public GamePlayer getGamePlayer(Player player) {
-		for (GamePlayer gamePlayer : getAllGamePlayers()) {
-			if (gamePlayer.getPlayer().equals(player))
-				return gamePlayer;
-		}
-
-		return null;
+        return getAllGamePlayers().stream()
+            .filter(gamePlayer -> gamePlayer.getPlayer().equals(player))
+            .findAny()
+            .orElse(null);
 	}
 
 	/**
@@ -424,14 +418,9 @@ public class Plot {
 	@NotNull
     @Contract(pure = true)
 	public List<GamePlayer> getGamePlayers() {
-		List<GamePlayer> gamePlayers = new ArrayList<>();
-		
-		for (GamePlayer gamePlayer : getAllGamePlayers()) {
-			if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER)
-				gamePlayers.add(gamePlayer);
-		}
-		
-		return gamePlayers;
+	    return getAllGamePlayers().stream()
+            .filter(gamePlayer -> gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER)
+            .collect(Collectors.toList());
 	}
 
 	/**
@@ -504,7 +493,7 @@ public class Plot {
 		
 		StringBuilder players = new StringBuilder();
 		
-		for (int i = 0; i < getGamePlayers().size(); i++) {
+		for (var i = 0; i < getGamePlayers().size(); i++) {
 			GamePlayer player = getGamePlayers().get(i);
 			
 			if (i == getGamePlayers().size() - 1)
@@ -526,12 +515,7 @@ public class Plot {
      */
 	@Contract(pure = true)
 	public int getPoints() {
-		int points = 0;
-		
-		for (Vote vote : votes)
-			points += vote.getPoints();
-		
-		return points;
+	    return votes.stream().mapToInt(Vote::getPoints).sum();
 	}
 
 	/**
@@ -543,14 +527,9 @@ public class Plot {
 	@NotNull
 	@Contract(pure = true)
 	public Collection<GamePlayer> getSpectators() {
-		Collection<GamePlayer> spectators = new ArrayList<>();
-		
-		for (GamePlayer gamePlayer : getAllGamePlayers()) {
-			if (gamePlayer.getGamePlayerType() == GamePlayerType.SPECTATOR)
-				spectators.add(gamePlayer);
-		}
-		
-		return spectators;
+	    return getAllGamePlayers().stream()
+            .filter(gamePlayer -> gamePlayer.getGamePlayerType() == GamePlayerType.SPECTATOR)
+            .collect(Collectors.toSet());
 	}
 
 	/**
@@ -598,12 +577,7 @@ public class Plot {
 	@Nullable
 	@Contract(pure = true)
 	public Vote getVote(Player player) {
-		for (Vote vote : getVotes()) {
-			if (vote.getSender().equals(player))
-				return vote;
-		}
-
-		return null;
+	    return getVotes().stream().filter(vote -> vote.getSender().equals(player)).findAny().orElse(null);
 	}
 
 	/**
@@ -627,12 +601,7 @@ public class Plot {
      */
 	@Contract(value = "null -> false", pure = true)
 	public boolean hasVoted(Player player) {
-		for (Vote vote : getVotes()) {
-			if (vote.getSender().equals(player))
-				return true;
-		}
-
-		return false;
+	    return getVotes().stream().anyMatch(vote -> vote.getSender().equals(player));
 	}
 
 	/**
@@ -669,15 +638,15 @@ public class Plot {
 	public boolean join(GamePlayer gamePlayer) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-        String name = gamePlayer.getPlayer().getName();
+        var name = gamePlayer.getPlayer().getName();
 
         if (arena.getMode() == ArenaMode.TEAM) {
 			if (!isFull()) {
 				gamePlayers.add(gamePlayer);
-				
-				for (String s : MessageManager.translate(messages.getStringList("join.plot.message")))
-					MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%",
-                            getID() + ""));
+
+                MessageManager.translate(messages.getStringList("join.plot.message")).forEach(s ->
+                    MessageManager.getInstance().send(gamePlayer.getPlayer(), s
+                        .replace("%plot%", getID() + "")));
 
                 arena.getLobbyScoreboard(this).getGreenTeam().addEntry(name);
                 arena.getBuildScoreboard(this).getGreenTeam().addEntry(name);
@@ -695,10 +664,10 @@ public class Plot {
 				gamePlayers.remove(0).getPlayer().getName();
 
             gamePlayers.add(gamePlayer);
-			
-			for (String s : MessageManager.translate(messages.getStringList("join.plot.message")))
-				MessageManager.getInstance().send(gamePlayer.getPlayer(), s.replace("%plot%",
-                        getID() + ""));
+
+            MessageManager.translate(messages.getStringList("join.plot.message")).forEach(s ->
+                MessageManager.getInstance().send(gamePlayer.getPlayer(), s
+                    .replace("%plot%", getID() + "")));
 
             arena.getLobbyScoreboard(this).getGreenTeam().addEntry(name);
             arena.getBuildScoreboard(this).getGreenTeam().addEntry(name);
@@ -729,8 +698,7 @@ public class Plot {
 	public void removeSpectator(GamePlayer spectator) {
 		getAllGamePlayers().remove(spectator);
 		
-		for (GamePlayer player : getAllGamePlayers())
-			player.getPlayer().showPlayer(Main.getInstance(), spectator.getPlayer());
+		getAllGamePlayers().forEach(player -> player.getPlayer().showPlayer(Main.getInstance(), spectator.getPlayer()));
 		
 		Player spPlayer = spectator.getPlayer();
 		spectator.restore();
@@ -749,13 +717,12 @@ public class Plot {
 		if (!SettingsManager.getInstance().getConfig().getBoolean("restore-plots"))
 			return;
 		
-		for (Map.Entry<BlockState, Biome> entry : blocks.entrySet()) {
-            BlockState blockState = entry.getKey();
+		blocks.forEach((blockState, biome) -> {
+            Block block = blockState.getLocation().getBlock();
 
-            blockState.getLocation().getBlock().setType(blockState.getType());
-
-            blockState.getLocation().getBlock().setBiome(entry.getValue());
-		}
+            block.setType(blockState.getType());
+            block.setBiome(biome);
+		});
 
         //refresh chunks because of the biomes
         arena.getPlots().forEach(plot -> plot.getBoundary().getChunks().forEach(chunk ->
@@ -779,8 +746,7 @@ public class Plot {
 			return;
 		}
 		
-		for (Block block : getBoundary().getAllBlocks())
-			blocks.put(block.getState(), block.getBiome());
+		getBoundary().getAllBlocks().forEach(block -> blocks.put(block.getState(), block.getBiome()));
 	}
 
     /**
@@ -832,13 +798,8 @@ public class Plot {
 	public void setRaining(boolean raining) {
 		this.raining = raining;
 
-		if (raining) {
-			for (GamePlayer gamePlayer : getGamePlayers())
-				gamePlayer.getPlayer().setPlayerWeather(WeatherType.DOWNFALL);
-		} else {
-			for (GamePlayer gamePlayer : getGamePlayers())
-				gamePlayer.getPlayer().setPlayerWeather(WeatherType.CLEAR);
-		}
+		getGamePlayers().forEach(gamePlayer ->
+            gamePlayer.getPlayer().setPlayerWeather(raining ? WeatherType.DOWNFALL : WeatherType.CLEAR));
 	}
 
     /**
@@ -850,8 +811,7 @@ public class Plot {
 	public void setTime(long time) {
 		this.time = time;
 
-		for (GamePlayer gamePlayer : getGamePlayers())
-			gamePlayer.getPlayer().setPlayerTime(time, false);
+		getGamePlayers().forEach(gamePlayer -> gamePlayer.getPlayer().setPlayerTime(time, false));
 	}
 
     /**

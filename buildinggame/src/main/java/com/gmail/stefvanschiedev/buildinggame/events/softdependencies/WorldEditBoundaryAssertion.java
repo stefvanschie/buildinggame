@@ -1,16 +1,14 @@
 package com.gmail.stefvanschiedev.buildinggame.events.softdependencies;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.WorldEditException;
-import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.event.extent.EditSessionEvent;
 import com.sk89q.worldedit.extent.AbstractDelegateExtent;
 import com.sk89q.worldedit.util.eventbus.Subscribe;
+import com.sk89q.worldedit.world.block.BlockStateHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 /**
  * Implements necessary checks to assure that edits made by WorldEdit are in the boundary of the given plot. Is only
@@ -31,8 +29,8 @@ public class WorldEditBoundaryAssertion {
         if (event.getActor() == null || !event.getActor().isPlayer())
             return;
 
-        Player player = Bukkit.getPlayer(event.getActor().getUniqueId());
-        Arena arena = ArenaManager.getInstance().getArena(player);
+        var player = Bukkit.getPlayer(event.getActor().getUniqueId());
+        var arena = ArenaManager.getInstance().getArena(player);
 
         //don't do anything if the player isn't in an arena
         if (arena == null)
@@ -40,16 +38,15 @@ public class WorldEditBoundaryAssertion {
 
         event.setExtent(new AbstractDelegateExtent(event.getExtent()) {
             @Override
-            public boolean setBlock(Vector location, BaseBlock block) throws WorldEditException {
-                if (!arena.getPlot(player).getBoundary().isInside(new Location(
-                    Bukkit.getWorld(event.getWorld().getName()),
-                    location.getX(),
-                    location.getY(),
-                    location.getZ()
-                )))
-                    return false;
+            public boolean setBlock(Vector vector, BlockStateHolder block) throws WorldEditException {
+                var world = Bukkit.getWorld(event.getWorld().getName());
+                var location = new Location(world, vector.getX(), vector.getY(), vector.getZ());
 
-                return super.setBlock(location, block);
+                if (!arena.getPlot(player).getBoundary().isInside(location)) {
+                    return false;
+                }
+
+                return super.setBlock(vector, block);
             }
         });
     }

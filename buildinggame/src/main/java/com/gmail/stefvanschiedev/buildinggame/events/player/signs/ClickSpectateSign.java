@@ -5,10 +5,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -35,8 +32,8 @@ public class ClickSpectateSign implements Listener {
      */
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		Player player = e.getPlayer();
-        Block clickedBlock = e.getClickedBlock();
+		var player = e.getPlayer();
+        var clickedBlock = e.getClickedBlock();
 
         if (clickedBlock == null)
 		    return;
@@ -46,19 +43,19 @@ public class ClickSpectateSign implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(state instanceof Sign))
 			return;
 		
-		Sign sign = (Sign) state;
+		var sign = (Sign) state;
 		
 		if (!SignManager.getInstance().getSpectateSigns().containsKey(sign))
 			return;
 
-        OfflinePlayer offlinePlayer = SignManager.getInstance().getSpectateSigns().get(sign);
+        var offlinePlayer = SignManager.getInstance().getSpectateSigns().get(sign);
 
         if (!offlinePlayer.isOnline()) {
             MessageManager.getInstance().send(player, ChatColor.RED + offlinePlayer.getName() + " is offline");
             return;
         }
 
-        Arena arena = ArenaManager.getInstance().getArena(offlinePlayer.getPlayer());
+        var arena = ArenaManager.getInstance().getArena(offlinePlayer.getPlayer());
 
         if (arena == null) {
             MessageManager.getInstance().send(player, ChatColor.RED + "This player is not in an arena");
@@ -79,8 +76,8 @@ public class ClickSpectateSign implements Listener {
     @Nullable
     @Contract(pure = true, value = "null, _ -> fail; !null, null -> null")
     private static GamePlayer getPlayer(Arena arena, Player player) {
-        for (Plot plot : arena.getUsedPlots()) {
-            for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
+        for (var plot : arena.getUsedPlots()) {
+            for (var gamePlayer : plot.getAllGamePlayers()) {
                 if (gamePlayer.getPlayer().equals(player))
                     return gamePlayer;
             }

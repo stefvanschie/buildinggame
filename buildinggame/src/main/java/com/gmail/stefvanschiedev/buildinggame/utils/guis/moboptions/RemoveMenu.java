@@ -10,7 +10,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A menu for removing the entity
@@ -35,8 +34,8 @@ public class RemoveMenu extends Gui {
 
         pane = new OutlinePane(new GuiLocation(0, 0), 9, 1);
 
-        ItemStack remove = new ItemStack(Material.BARRIER);
-        ItemMeta removeMeta = remove.getItemMeta();
+        var remove = new ItemStack(Material.BARRIER);
+        var removeMeta = remove.getItemMeta();
         removeMeta.setDisplayName(ChatColor.RED + "Remove entity");
         remove.setItemMeta(removeMeta);
 

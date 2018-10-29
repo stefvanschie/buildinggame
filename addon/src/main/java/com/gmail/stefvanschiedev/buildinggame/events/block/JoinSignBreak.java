@@ -30,27 +30,24 @@ public class JoinSignBreak implements Listener {
 	public void onBlockBreak(BlockBreakEvent e) {
 		YamlConfiguration signs = SettingsManager.getInstance().getSigns();
 		
-		Block block = e.getBlock();
+		var block = e.getBlock();
 		
 		if (!(block.getState() instanceof Sign))
 			return;
 		
 		BlockState sign = block.getState();
 		
-		for (String string : signs.getKeys(false)) {
-			if (!signs.getString(string + ".world").equals(sign.getLocation().getWorld().getName()))
-				continue;
-			if (signs.getInt(string + ".x") != sign.getLocation().getBlockX())
-				continue;
-			if (signs.getInt(string + ".y") != sign.getLocation().getBlockY())
-				continue;
-			if (signs.getInt(string + ".z") != sign.getLocation().getBlockZ())
-				continue;
+		signs.getKeys(false).forEach(string -> {
+            if (!signs.getString(string + ".world").equals(sign.getLocation().getWorld().getName()) ||
+                signs.getInt(string + ".x") != sign.getLocation().getBlockX() ||
+                signs.getInt(string + ".y") != sign.getLocation().getBlockY() ||
+                signs.getInt(string + ".z") != sign.getLocation().getBlockZ())
+                return;
 
 			signs.set(string, null);
             SettingsManager.getInstance().save();
 
             JoinSign.load();
-		}
+		});
 	}
 }

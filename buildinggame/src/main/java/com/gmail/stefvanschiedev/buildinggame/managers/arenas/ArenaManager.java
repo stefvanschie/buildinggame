@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -97,12 +95,7 @@ public final class ArenaManager {
 	@Nullable
     @Contract(value = "null -> null", pure = true)
     public Arena getArena(String name) {
-		for (Arena arena : arenas) {
-			if (arena.getName().equals(name))
-				return arena;
-		}
-
-		return null;
+	    return arenas.stream().filter(arena -> arena.getName().equals(name)).findAny().orElse(null);
 	}
 
 	/**
@@ -116,17 +109,6 @@ public final class ArenaManager {
 	@Nullable
     @Contract(value = "null -> null", pure = true)
     public Arena getArena(Player player) {
-		for (Arena arena : arenas) {
-			for (Plot plot : arena.getUsedPlots()) {
-                GamePlayer gamePlayer = plot.getGamePlayer(player);
-
-                if (gamePlayer != null) {
-					if (gamePlayer.getPlayer().equals(player))
-						return arena;
-				}
-			}
-		}
-
-		return null;
+	    return arenas.stream().filter(arena -> arena.getPlot(player) != null).findAny().orElse(null);
 	}
 }

@@ -10,8 +10,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.logging.Logger;
-
 /**
  * This class handles the main spawn
  *
@@ -73,7 +71,7 @@ public final class MainSpawnManager {
 			setServer(arenas.getString("main-spawn.server"));
 
 			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-                Logger logger = Main.getInstance().getLogger();
+                var logger = Main.getInstance().getLogger();
 
                 if (mainSpawn.getWorld() == null)
 			        logger.warning("Unable to find world for main spawn");

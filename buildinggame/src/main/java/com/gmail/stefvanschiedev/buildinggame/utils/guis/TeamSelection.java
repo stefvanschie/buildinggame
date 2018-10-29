@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
@@ -13,13 +13,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 /**
  * A menu for selecting a team
@@ -60,34 +57,32 @@ public class TeamSelection extends Gui {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         int iteration = 0;
 
-        OutlinePane outlinePane = new OutlinePane(new GuiLocation(0, 0), 9,
+        var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9,
             (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
 
-        for (final Plot plot : arena.getPlots()) {
-            ItemStack item = new ItemStack(Material.matchMaterial(config.getString("team-selection.team." +
+        for (final var plot : arena.getPlots()) {
+            var item = new ItemStack(Material.matchMaterial(config.getString("team-selection.team." +
                 (iteration + 1) + ".id")));
-            ItemMeta itemMeta = item.getItemMeta();
+            var itemMeta = item.getItemMeta();
             itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
                     .replace("%plot%", plot.getID() + "")
                     .replace("%plot_players%", plot.getPlayers() + "")
                     .replace("%plot_max_players%", plot.getMaxPlayers() + ""), (Player) humanEntity));
 
-            List<String> lores = new ArrayList<>();
-
-            if (!config.getBoolean("team-selection.show-names-as-lore")) {
-                for (String lore : MESSAGES.getStringList("team-gui.team.lores"))
-                    lores.add(MessageManager.translate(lore, (Player) humanEntity));
-            } else {
-                for (GamePlayer gamePlayer : plot.getGamePlayers())
-                    lores.add(gamePlayer.getPlayer().getName());
-            }
+            List<String> lores = config.getBoolean("team-selection.show-names-as-lore") ?
+                plot.getGamePlayers().stream()
+                    .map(gamePlayer -> gamePlayer.getPlayer().getName())
+                    .collect(Collectors.toList()) :
+                MESSAGES.getStringList("team-gui.team.lores").stream()
+                    .map(lore -> MessageManager.translate(lore, (Player) humanEntity))
+                    .collect(Collectors.toList());
 
             itemMeta.setLore(lores);
             item.setItemMeta(itemMeta);
             outlinePane.addItem(new GuiItem(item, event -> {
                 Player p = (Player) event.getWhoClicked();
-                Plot previousPlot = arena.getPlot(p);
-                GamePlayer gamePlayer = previousPlot.getGamePlayer(p);
+                var previousPlot = arena.getPlot(p);
+                var gamePlayer = previousPlot.getGamePlayer(p);
 
                 if (plot.join(gamePlayer))
                     previousPlot.leave(gamePlayer);

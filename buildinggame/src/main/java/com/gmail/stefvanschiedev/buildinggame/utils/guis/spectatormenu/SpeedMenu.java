@@ -8,7 +8,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A menu to change the fly speed for spectators
@@ -33,18 +32,18 @@ class SpeedMenu {
     SpeedMenu() {
         this.gui = Gui.load(Main.getInstance(), this, Main.getInstance().getResource("gui/spectatormenu/speedmenu.xml"));
 
-        String title = gui.getTitle();
+        var title = gui.getTitle();
 
         if (!title.isEmpty() && title.charAt(0) == '*')
             gui.setTitle(MessageManager.translate(MESSAGES.getString(title.substring(1))));
 
         gui.getItems().forEach(item -> {
-            ItemMeta itemMeta = item.getItem().getItemMeta();
+            var itemMeta = item.getItem().getItemMeta();
 
             if (itemMeta == null)
                 return;
 
-            String displayName = itemMeta.getDisplayName();
+            var displayName = itemMeta.getDisplayName();
 
             if (!displayName.isEmpty() && displayName.charAt(0) == '*')
                 itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString(displayName.substring(1))));

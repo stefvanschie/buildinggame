@@ -40,8 +40,7 @@ public final class Target {
      * @since 5.5.4
      */
     public void execute(String command) {
-        for (CommandSender target : targets)
-            Bukkit.dispatchCommand(target, command);
+        targets.forEach(target -> Bukkit.dispatchCommand(target, command));
     }
 
     /**
@@ -65,13 +64,13 @@ public final class Target {
     @NotNull
     @Contract(pure = true)
     public static Target parse(String command) {
-        Target target = new Target();
+        var target = new Target();
 
         //remove at sign
         command = command.substring(1);
 
         //look for target
-        for (Map.Entry<String, Supplier<List<CommandSender>>> entry : FUNCTIONS.entrySet()) {
+        for (var entry : FUNCTIONS.entrySet()) {
             if (!entry.getKey().equals(command))
                 continue;
 

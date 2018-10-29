@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.events.scoreboards;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -29,7 +28,7 @@ public class MainScoreboardJoinShow implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		
-		Player player = e.getPlayer();
+		var player = e.getPlayer();
 		
 		if (!config.getBoolean("scoreboards.main.enable"))
 			return;

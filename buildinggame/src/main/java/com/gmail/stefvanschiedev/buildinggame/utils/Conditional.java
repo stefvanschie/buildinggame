@@ -119,14 +119,14 @@ public final class Conditional {
     @Nullable
     @Contract(pure = true)
     public static Conditional parse(@NotNull String input) {
-        Conditional conditional = new Conditional();
+        var conditional = new Conditional();
 
         //remove dollar sign in front of text
         input = input.substring(1);
 
         //check for left side argument
-        for (Map.Entry<String, Function<Arena, Integer>> entry : FUNCTIONS.entrySet()) {
-            String name = entry.getKey();
+        for (var entry : FUNCTIONS.entrySet()) {
+            var name = entry.getKey();
 
             if (!input.startsWith(name))
                 continue;
@@ -151,8 +151,8 @@ public final class Conditional {
         input = input.substring(2);
 
         //check for right side argument
-        for (Map.Entry<String, Function<Arena, Integer>> entry : FUNCTIONS.entrySet()) {
-            String name = entry.getKey();
+        for (var entry : FUNCTIONS.entrySet()) {
+            var name = entry.getKey();
 
             if (!input.startsWith(name))
                 continue;

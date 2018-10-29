@@ -1,13 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 
 /**
  * Handles players leaving the server
@@ -25,13 +23,11 @@ public class Leave implements Listener {
      */
 	@EventHandler
 	public void onPlayerLeave(PlayerQuitEvent e) {
-		Player player = e.getPlayer();
-		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+		var player = e.getPlayer();
+		var arena = ArenaManager.getInstance().getArena(player);
+
+		if (arena == null)
 			return;
-		}
-		
-		Arena arena = ArenaManager.getInstance().getArena(player);
 		
 		arena.leave(player);
 	}
@@ -45,13 +41,11 @@ public class Leave implements Listener {
      */
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent e) {
-		Player player = e.getPlayer();
-		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+		var player = e.getPlayer();
+        var arena = ArenaManager.getInstance().getArena(player);
+
+		if (arena == null)
 			return;
-		}
-		
-		Arena arena = ArenaManager.getInstance().getArena(player);
 		
 		arena.leave(player);
 	}

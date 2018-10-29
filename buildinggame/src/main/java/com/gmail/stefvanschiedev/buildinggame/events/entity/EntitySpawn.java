@@ -1,9 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -13,7 +10,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.inventory.ItemStack;
 
@@ -33,13 +29,11 @@ public class EntitySpawn implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public void onEntitySpawn(EntitySpawnEvent e) {
-		Entity entity = e.getEntity();
+		var entity = e.getEntity();
+		var plot = Plot.getPlot(entity.getLocation());
 
-		Plot plot;
-		if ((plot = Plot.getPlot(entity.getLocation())) != null) {
-			if (!plot.addEntity(entity))
-				entity.remove();
-		}
+		if (plot != null && !plot.addEntity(entity))
+		    entity.remove();
 	}
 
 	/**
@@ -51,13 +45,11 @@ public class EntitySpawn implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public void onVehicleCreate(VehicleCreateEvent e) {
-		Vehicle vehicle = e.getVehicle();
-		
-		Plot plot;
-		if ((plot = Plot.getPlot(vehicle.getLocation())) != null) {
-			if (!plot.addEntity(vehicle))
-				vehicle.remove();
-		}
+		var vehicle = e.getVehicle();
+		var plot = Plot.getPlot(vehicle.getLocation());
+
+		if (plot != null && !plot.addEntity(vehicle))
+		    vehicle.remove();
 	}
 
 	/**
@@ -72,9 +64,10 @@ public class EntitySpawn implements Listener {
 		if (ArenaManager.getInstance().getArena(e.getPlayer()) == null)
 			return;
 		
-		Entity entity = e.getEntity();
-		Plot plot;
-		if ((plot = Plot.getPlot(entity.getLocation())) != null) {
+		var entity = e.getEntity();
+		var plot = Plot.getPlot(entity.getLocation());
+
+		if (plot != null) {
 			if (!plot.addEntity(entity))
 				e.setCancelled(true);
 		} else
@@ -90,8 +83,8 @@ public class EntitySpawn implements Listener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
-        Arena arena = ArenaManager.getInstance().getArena(player);
+        var player = e.getPlayer();
+        var arena = ArenaManager.getInstance().getArena(player);
         ItemStack item = e.getItem();
 
         if (item == null)

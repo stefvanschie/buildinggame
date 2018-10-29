@@ -2,8 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.events.block;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -12,9 +10,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
-import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
-import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 
 /**
  * Handles players placing blocks
@@ -32,13 +28,13 @@ public class BlockPlace implements Listener {
      */
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
-		Player player = e.getPlayer();
-        Arena arena = ArenaManager.getInstance().getArena(player);
+		var player = e.getPlayer();
+        var arena = ArenaManager.getInstance().getArena(player);
 		
 		if (arena == null)
 			return;
 
-		Plot plot = arena.getPlot(player);
+		var plot = arena.getPlot(player);
 		
 		if (plot.getGamePlayer(player).getGamePlayerType() == GamePlayerType.SPECTATOR) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "Spectators can't build");
@@ -52,7 +48,7 @@ public class BlockPlace implements Listener {
 			return;
 		}
 
-        Block block = e.getBlock();
+        var block = e.getBlock();
 
         if (!plot.getBoundary().isInside(block.getLocation())) {
 			MessageManager.getInstance().send(player,
