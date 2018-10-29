@@ -120,6 +120,7 @@ public class EntityOptionsMenu implements Listener {
             case TROPICAL_FISH:
                 new TropicalFishMenu(plot, (TropicalFish) entity).show(player);
                 break;
+            //TODO: Add case for the PANDA
             default:
                 new RemoveMenu(plot, entity).show(player);
                 break;

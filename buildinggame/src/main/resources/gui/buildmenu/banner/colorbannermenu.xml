@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.banners.color.title" rows="3">
     <outlinepane x="0" y="0" length="9" height="2">
+        <!--TODO: Change to black dye-->
         <item id="ink_sac" onLocalClick="bannerClick">
             <displayname>*gui.banners.color.black.name</displayname>
             <lore>
@@ -28,6 +29,7 @@
                 <property type="dye-color">GREEN</property>
             </properties>
         </item>
+        <!--TODO: Change to brown dye-->
         <item id="cocoa_beans" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.brown.name</displayname>
             <lore>
@@ -37,6 +39,7 @@
                 <property type="dye-color">BROWN</property>
             </properties>
         </item>
+        <!--TODO: Change to blue dye-->
         <item id="lapis_lazuli" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.blue.name</displayname>
             <lore>
@@ -137,6 +140,7 @@
                 <property type="dye-color">ORANGE</property>
             </properties>
         </item>
+        <!--TODO: Change to white dye-->
         <item id="bone_meal" onLocalClick="dyeClick">
             <displayname>*gui.banners.color.white.name</displayname>
             <lore>
