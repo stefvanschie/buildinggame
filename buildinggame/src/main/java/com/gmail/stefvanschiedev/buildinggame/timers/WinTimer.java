@@ -16,21 +16,6 @@ import org.jetbrains.annotations.Contract;
  */
 public class WinTimer extends Timer {
 
-    /**
-     * The arena this timer belongs to
-     */
-	private final Arena arena;
-
-	/**
-     * Whether this timer is running or not
-     */
-	private boolean running;
-
-	/**
-     * The amount of seconds left
-     */
-	private int seconds;
-
 	/**
      * The config.yml YAML configuration
      */
@@ -43,7 +28,8 @@ public class WinTimer extends Timer {
      * @param arena the arena this timer belongs to
      */
 	public WinTimer(int seconds, Arena arena) {
-		this.arena = arena;
+	    super(arena);
+
 		this.seconds = seconds;
 	}
 
@@ -92,26 +78,5 @@ public class WinTimer extends Timer {
             });
 		} catch (NullPointerException | NumberFormatException ignore) {}
 		seconds--;
-	}
-
-	/**
-     * Returns the amount of seconds left
-     *
-     * @return the amount of seconds
-     */
-	@Contract(pure = true)
-	@Override
-	public int getSeconds() {
-		return seconds;
-	}
-
-	/**
-     * Rturns whether this timer is running or not
-     *
-     * @return true if this timer is active, otherwise false
-     */
-	@Contract(pure = true)
-	public boolean isActive() {
-		return running;
 	}
 }

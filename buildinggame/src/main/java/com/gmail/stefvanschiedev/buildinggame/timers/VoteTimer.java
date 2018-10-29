@@ -42,25 +42,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class VoteTimer extends Timer {
 
-    /**
-     * Whether this timer is active or not
-     */
-	private boolean running;
-
-	/**
-     * The amount of seconds left for this plot
-     */
-	private int seconds;
-
 	/**
      * The original amount of seconds per plot
      */
 	private final int originalSeconds;
-
-	/**
-     * The arena this timer belongs to
-     */
-	private final Arena arena;
 
 	/**
      * The plot which is currently being voted on
@@ -84,9 +69,10 @@ public class VoteTimer extends Timer {
      * @param arena the arena this timer belongs to
      */
 	public VoteTimer(int seconds, Arena arena) {
+	    super(arena);
+
 		this.seconds = seconds;
 		originalSeconds = seconds;
-		this.arena = arena;
 	}
 
     /**
@@ -430,28 +416,5 @@ arena.getVoteScoreboard(plot).show(player);
             .filter(plot -> !arena.getVotedPlots().contains(plot) && !plot.getGamePlayers().isEmpty())
             .findAny()
             .orElse(null);
-	}
-
-	/**
-     * Returns the amount of seconds left for this plot
-     *
-     * @return the amount of seconds left
-     * @since 2.1.0
-     */
-    @Contract(pure = true)
-	@Override
-	public int getSeconds() {
-		return seconds;
-	}
-
-	/**
-     * Returns whether this timer is running or not
-     *
-     * @return true if this timer is running, false otherwise
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-	public boolean isActive() {
-		return running;
 	}
 }

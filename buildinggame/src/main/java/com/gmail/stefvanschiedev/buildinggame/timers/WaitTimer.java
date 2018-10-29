@@ -19,21 +19,6 @@ import org.jetbrains.annotations.Contract;
  */
 public class WaitTimer extends Timer {
 
-    /**
-     * The amount of seconds left
-     */
-	private int seconds;
-
-	/**
-     * The arena this timer belongs to
-     */
-	private final Arena arena;
-
-    /**
-     * Whether this timer is running or not
-     */
-    private boolean running;
-
 	/**
      * The config.yml YAML configuration
      */
@@ -51,8 +36,9 @@ public class WaitTimer extends Timer {
      * @param arena the arena this timer belongs to
      */
 	public WaitTimer(int seconds, Arena arena) {
+	    super(arena);
+
 		this.seconds = seconds;
-		this.arena = arena;
 	}
 
 	/**
@@ -129,29 +115,6 @@ public class WaitTimer extends Timer {
 
 	    return super.runTaskTimer(plugin, delay, period);
     }
-
-	/**
-     * Returns the amount of seconds left
-     *
-     * @return amount of seconds left
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-	@Override
-	public int getSeconds() {
-		return seconds;
-	}
-
-	/**
-     * Returns whether this timer is active or not
-     *
-     * @return true if this timer is active, false otherwise
-     * @since 2.1.0
-     */
-	@Contract(pure = true)
-	public boolean isActive() {
-		return running;
-	}
 
 	/**
      * Changes the amount of seconds left
