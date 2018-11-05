@@ -9,6 +9,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+/**
+ * A menu for changing the options of a panda
+ *
+ * @since 7.0.0
+ */
 public class PandaMenu extends BabyMenu {
 
     /**

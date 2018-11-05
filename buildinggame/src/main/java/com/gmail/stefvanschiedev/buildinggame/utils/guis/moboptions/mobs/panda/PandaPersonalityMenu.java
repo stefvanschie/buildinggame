@@ -19,6 +19,11 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+/**
+ * A menu for changing the personality of a panda
+ *
+ * @since 7.0.0
+ */
 class PandaPersonalityMenu extends Gui {
 
     /**
