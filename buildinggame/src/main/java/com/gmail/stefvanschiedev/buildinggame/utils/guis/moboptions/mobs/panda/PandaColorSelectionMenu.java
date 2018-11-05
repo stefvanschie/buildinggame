@@ -12,6 +12,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
+/**
+ * A menu for changing the color of a panda
+ *
+ * @since 7.0.0
+ */
 class PandaColorSelectionMenu extends Gui {
 
     /**

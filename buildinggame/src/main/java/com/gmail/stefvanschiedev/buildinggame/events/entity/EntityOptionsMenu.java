@@ -8,7 +8,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorM
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.LlamaMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.ocelot.OcelotMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot.ParrotMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish.PufferfishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
@@ -60,6 +59,7 @@ public class EntityOptionsMenu implements Listener {
             case CHICKEN:
             case COW:
             case MUSHROOM_COW:
+            case OCELOT:
             case SKELETON_HORSE:
             case POLAR_BEAR:
             case PIG_ZOMBIE:
@@ -102,9 +102,6 @@ public class EntityOptionsMenu implements Listener {
             case LLAMA:
                 new LlamaMenu(plot, (Llama) entity).show(player);
                 break;
-            case OCELOT:
-                new OcelotMenu(plot, (Ocelot) entity).show(player);
-                break;
             case PARROT:
                 new ParrotMenu(plot, (Parrot) entity).show(player);
                 break;
@@ -121,6 +118,7 @@ public class EntityOptionsMenu implements Listener {
                 new TropicalFishMenu(plot, (TropicalFish) entity).show(player);
                 break;
             //TODO: Add case for the PANDA
+            //TODO: Add case for the CAT
             default:
                 new RemoveMenu(plot, entity).show(player);
                 break;
