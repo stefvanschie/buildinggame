@@ -12,7 +12,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot.
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish.PufferfishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropicalfish.TropicalFishMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.profession.ProfessionMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villagerlike.VillagerlikeMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size.SizeMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.entity.*;
@@ -74,7 +74,7 @@ public class EntityOptionsMenu implements Listener {
                 break;
             case VILLAGER:
             case ZOMBIE_VILLAGER:
-                new ProfessionMenu(plot, (Creature) entity).show(player);
+                new VillagerlikeMenu(plot, (Creature) entity).show(player);
                 break;
             case PHANTOM:
             case MAGMA_CUBE:
