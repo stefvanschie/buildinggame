@@ -159,6 +159,19 @@ public class CatAppearanceMenu extends Gui {
             event.setCancelled(true);
         }));
 
+        //jellie
+        ItemStack jellie = new ItemStack(Material.GRAY_BANNER);
+        BannerMeta jellieMeta = (BannerMeta) jellie.getItemMeta();
+        jellieMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT));
+        jellieMeta.setDisplayName(ChatColor.GREEN + "Jellie");
+        jellie.setItemMeta(jellieMeta);
+
+        pane.addItem(new GuiItem(jellie, event -> {
+            //TODO: Change the cat's appearance to jellie
+
+            event.setCancelled(true);
+        }));
+
         addPane(pane);
     }
 }
