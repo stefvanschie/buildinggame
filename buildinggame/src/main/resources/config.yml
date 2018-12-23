@@ -72,6 +72,12 @@ scoreboards:
   win:
     enable: true
 
+achievements:
+  30-wins:
+    stat: first
+    amount-required: 30
+    message: "&aYou got the 30 wins achievement!"
+
 blocked-entities:
 - 'ender_crystal'
 - 'ender_dragon'
