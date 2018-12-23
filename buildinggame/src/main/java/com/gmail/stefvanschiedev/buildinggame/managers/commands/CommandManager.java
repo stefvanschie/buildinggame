@@ -601,7 +601,6 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setlobby")
     @CommandCompletion("@arenas")
     //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-    @SuppressWarnings("TypeMayBeWeakened")
     public void onSetLobby(Player player, Arena arena) {
         ARENAS.set(arena.getName() + ".lobby.server", player.getServer().getServerName());
         ARENAS.set(arena.getName() + ".lobby.world", player.getLocation().getWorld().getName());
@@ -648,7 +647,6 @@ public class CommandManager extends BaseCommand {
     @Description("Set the main spawn")
     @CommandPermission("bg.setmainspawn")
     //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-    @SuppressWarnings("TypeMayBeWeakened")
     public void onSetMainSpawn(Player player) {
         List<String> worlds = CONFIG.getStringList("scoreboards.main.worlds.enable");
 
@@ -779,7 +777,6 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setspawn")
     @CommandCompletion("@arenas")
     //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-    @SuppressWarnings("TypeMayBeWeakened")
     public void onSetSpawn(Player player, Arena arena) {
         int place = arena.getMaxPlayers() + 1;
         String name = arena.getName();
@@ -1008,7 +1005,6 @@ public class CommandManager extends BaseCommand {
         }
 
         if (spectating != null)
-            //noinspection ConstantConditions
             spectating.removeSpectator(spectating.getGamePlayer(player));
 
         arena.getPlot(toSpectateGamePlayer.getPlayer()).addSpectator(player, toSpectateGamePlayer);
@@ -1108,9 +1104,9 @@ public class CommandManager extends BaseCommand {
          * Creates and registers a new hologram at the position of the player
          *
          * @param player the player who executed the command
-         * @param name the name of the hologram to create, see {@link TopStatHologram#name}
-         * @param type the type of statistic to track, see {@link TopStatHologram#type}
-         * @param values the amount of values to display on the hologram, see {@link TopStatHologram#values}
+         * @param name the name of the hologram to create
+         * @param type the type of statistic to track
+         * @param values the amount of values to display on the hologram
          * @since 6.2.0
          */
         @Subcommand("create")
@@ -1119,7 +1115,6 @@ public class CommandManager extends BaseCommand {
         @CommandCompletion("@nothing @stattypes @nothing")
         @Conditions("hdenabled")
         //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-        @SuppressWarnings("TypeMayBeWeakened")
         public void onCreate(Player player, String name, StatType type, int values) {
             if (TopStatHologram.getHolograms().stream()
                 .anyMatch(hologram -> hologram.getName().equalsIgnoreCase(name))) {
@@ -1136,7 +1131,7 @@ public class CommandManager extends BaseCommand {
          * Deletes an already existing hologram
          *
          * @param sender the sender which executed the command
-         * @param name the name of the hologram to delete, see {@link TopStatHologram#name}
+         * @param name the name of the hologram to delete
          * @since 6.2.0
          */
         @Subcommand("delete")

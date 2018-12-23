@@ -16,6 +16,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
 import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
@@ -373,7 +374,10 @@ public class Main extends JavaPlugin {
 		
 		getLogger().info("Loading stats");
 		StatManager.getInstance().setup();
-		
+
+		//loading achievements should happen after the statistics have been loaded
+        Achievement.loadAchievements();
+
 		getLogger().info("Loading listeners");
 		if (!loadedListeners) {
 			pm.registerEvents(new BlockBreak(), this);
