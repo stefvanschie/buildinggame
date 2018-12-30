@@ -40,6 +40,14 @@ public class SubjectMenu extends Gui {
      */
 	private final Collection<SubjectVote> votes = new HashSet<>();
 
+    /**
+     * The moment this theme gui should be accessible
+     *
+     * @see When
+     * @since 6.4.0
+     */
+	private final When when;
+
 	/**
      * YAML Configuration for the config.yml
      */
@@ -57,16 +65,19 @@ public class SubjectMenu extends Gui {
 		super(Main.getInstance(), 4, MessageManager.translate(MESSAGES.getString("subject-gui.title")));
 
 		var amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
-		var subjects = new ArrayList<String>();
 
-		if (amountOfSubjects == -1)
+        when = When.fromName(CONFIG.getString("subject-gui.when"));
+
+        var subjects = new ArrayList<String>();
+
+        if (amountOfSubjects == -1)
 			subjects.addAll(CONFIG.getStringList("subjects"));
 		else {
 			for (int i = 0; i < amountOfSubjects; i++)
 				subjects.add(CONFIG.getStringList("subjects").get(ThreadLocalRandom.current()
                         .nextInt(amountOfSubjects)));
 		}
-		
+
 		subjects.forEach(s -> votes.add(new SubjectVote(s, 0)));
 
 		//gui
@@ -239,7 +250,7 @@ public class SubjectMenu extends Gui {
 	public String getHighestVote() {
 		if (forcedTheme != null)
 			return forcedTheme;
-		
+
 		int highest = -1;
 
         for (SubjectVote subjectVote : votes) {
@@ -252,7 +263,7 @@ public class SubjectMenu extends Gui {
 			if (subjectVote.getVotes() == highest)
 				subjects.add(subjectVote.getSubject());
 		}
-		
+
 		return subjects.get(ThreadLocalRandom.current().nextInt(subjects.size()));
 	}
 
@@ -270,5 +281,57 @@ public class SubjectMenu extends Gui {
             .filter(subjectVote -> subjectVote.getSubject().equals(subject))
             .findAny()
             .orElse(null);
+    }
+
+    /**
+     * Gets the time when the menu should be accessible
+     *
+     * @return when the menu should be accessible
+     * @see When
+     * @since 6.4.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public When getWhen() {
+	    return when;
+    }
+
+    /**
+     * An enum for the possible timings when the theme gui can be accessed
+     *
+     * @since 6.4.0
+     */
+    public enum When {
+
+        /**
+         * The subject menu will be accessible while waiting in the lobby
+         *
+         * @since 6.4.0
+         */
+	    LOBBY,
+
+        /**
+         * The subject menu will be accessible right before building
+         *
+         * @since 6.4.0
+         */
+        BEFORE_BUILD;
+
+        /**
+         * Gets an enum value from this enum by the given name.
+         *
+         * @param name the name of the enum value
+         * @return the enum value
+         * @since 6.4.0
+         */
+        @NotNull
+        @Contract(pure = true)
+        public static When fromName(@NotNull String name) {
+            return When.valueOf(name
+                .trim()
+                .toUpperCase(Locale.getDefault())
+                .replace('-', '_')
+                .replace(' ', '_'));
+        }
     }
 }

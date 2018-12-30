@@ -206,6 +206,7 @@ leave-item:
   id: 'clock'
 
 subject-gui:
+  when: lobby
   item:
     id: 'paper'
   subject-amount: -1

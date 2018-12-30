@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu.When;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.*;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -824,15 +825,10 @@ public class Arena {
                         }).build());
 				
 				//give paper for subject
-				if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting"))
-                    player.getInventory().setItem(config.getInt("subject-gui.slot"),
-                        new ItemBuilder(player, Material.matchMaterial(config.getString("subject-gui.item.id")))
-                            .setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"),
-                                player)).setLore(MessageManager.translate(messages
-                            .getStringList("subject-gui.item.lores"), player)).setClickEvent(event -> {
-                                getSubjectMenu().show(player);
-                                event.setCancelled(true);
-                            }).build());
+                if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting") &&
+                    getSubjectMenu().getWhen() == SubjectMenu.When.LOBBY) {
+                    giveSubjectMenuItem(player);
+                }
 
                 player.getInventory().setItem(config.getInt("leave-item.slot"),
                     new ItemBuilder(player, Material.matchMaterial(config.getString("leave-item.id")))
@@ -1241,6 +1237,30 @@ public class Arena {
 		getVotedPlots().add(votingPlot);
 	}
 
+    /**
+     * This will give the subject menu item to the specified player.
+     *
+     * @param player the player who should receive the subject menu item
+     * @since 6.4.0
+     */
+	private void giveSubjectMenuItem(@NotNull Player player) {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        player.getInventory().setItem(
+            config.getInt("subject-gui.slot"),
+            new ItemBuilder(player, Material.matchMaterial(config.getString("subject-gui.item.id")))
+                .setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"),
+                    player))
+                .setLore(MessageManager.translate(messages.getStringList("subject-gui.item.lores"),
+                    player))
+                .setClickEvent(event -> {
+                    getSubjectMenu().show(player);
+                    event.setCancelled(true);
+                }).build()
+        );
+    }
+
 	/**
      * Sets the wait (lobby) timer
      *
@@ -1263,15 +1283,45 @@ public class Arena {
 		this.winTimer = winTimer;
 	}
 
+    /**
+     * This is called before starting the game as to allow the players to vote on a subject if the subject choosing
+     * should be done at {@link When#BEFORE_BUILD}. This will automatically progress the game when needed. When starting
+     * the game this should be called rather than {@link #postStart()}.
+     *
+     * @since 6.4.0
+     */
+	public void preStart() {
+        if (getSubjectMenu().getWhen() == SubjectMenu.When.BEFORE_BUILD) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    postStart();
+                }
+            }.runTaskLater(Main.getInstance(), 200L);
+
+            getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer -> {
+                var player = gamePlayer.getPlayer();
+
+                player.teleport(plot.getLocation());
+
+                giveSubjectMenuItem(player);
+            }));
+
+            return;
+        }
+
+        postStart();
+    }
+
 	/**
      * Starts a new match. An ArenaStartEvent will be fired once this method is called.
      *
      * @since 2.1.0
      */
-	public void start() {
+	private void postStart() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
+
 		//call event
 		ArenaStartEvent event = new ArenaStartEvent(this);
 		Bukkit.getPluginManager().callEvent(event);
@@ -1342,7 +1392,7 @@ public class Arena {
 
 	/**
      * Moves on to the next match or stops the game if all matches have been played. This won't cancel any timers, and
-     * if called incorrectly this will mess with the arena resulting in incorrect behviour.
+     * if called incorrectly this will mess with the arena resulting in incorrect behaviour.
      *
      * @since 4.0.6
      */
@@ -1390,7 +1440,7 @@ public class Arena {
         if (matches == maxMatches)
             stop();
         else
-            start();
+            postStart();
     }
 
     /**
