@@ -207,6 +207,7 @@ leave-item:
 
 subject-gui:
   when: lobby
+  open-instantly: false
   item:
     id: 'paper'
   subject-amount: -1

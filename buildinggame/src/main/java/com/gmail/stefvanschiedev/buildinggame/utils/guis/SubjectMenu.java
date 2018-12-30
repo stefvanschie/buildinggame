@@ -42,11 +42,13 @@ public class SubjectMenu extends Gui {
 
     /**
      * The moment this theme gui should be accessible
-     *
-     * @see When
-     * @since 6.4.0
      */
 	private final When when;
+
+    /**
+     * Whether this menu should open automatically when possible.
+     */
+	private final boolean openInstantly;
 
 	/**
      * YAML Configuration for the config.yml
@@ -67,6 +69,7 @@ public class SubjectMenu extends Gui {
 		var amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
 
         when = When.fromName(CONFIG.getString("subject-gui.when"));
+        openInstantly = CONFIG.getBoolean("subject-gui.open-instantly");
 
         var subjects = new ArrayList<String>();
 
@@ -294,6 +297,17 @@ public class SubjectMenu extends Gui {
     @Contract(pure = true)
     public When getWhen() {
 	    return when;
+    }
+
+    /**
+     * Gets whether this menu should be opened immediately when possible
+     *
+     * @return true if this menu should open directly, false otherwise
+     * @since 6.4.0
+     */
+    @Contract(pure = true)
+    public boolean opensInstantly() {
+        return openInstantly;
     }
 
     /**

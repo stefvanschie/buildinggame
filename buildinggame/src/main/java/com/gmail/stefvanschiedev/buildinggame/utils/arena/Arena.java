@@ -828,6 +828,10 @@ public class Arena {
                 if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting") &&
                     getSubjectMenu().getWhen() == SubjectMenu.When.LOBBY) {
                     giveSubjectMenuItem(player);
+
+                    if (getSubjectMenu().opensInstantly()) {
+                        getSubjectMenu().show(player);
+                    }
                 }
 
                 player.getInventory().setItem(config.getInt("leave-item.slot"),
@@ -1305,6 +1309,10 @@ public class Arena {
                 player.teleport(plot.getLocation());
 
                 giveSubjectMenuItem(player);
+
+                if (getSubjectMenu().opensInstantly()) {
+                    getSubjectMenu().show(player);
+                }
             }));
 
             return;
