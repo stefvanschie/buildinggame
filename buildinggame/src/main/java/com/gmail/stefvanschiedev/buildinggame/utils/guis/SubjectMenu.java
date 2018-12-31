@@ -64,7 +64,8 @@ public class SubjectMenu extends Gui {
      * Constructs a new SubjectMenu
      */
 	public SubjectMenu() {
-		super(Main.getInstance(), 4, MessageManager.translate(MESSAGES.getString("subject-gui.title")));
+		super(Main.getInstance(), CONFIG.getInt("subject-gui.rows"),
+            MessageManager.translate(MESSAGES.getString("subject-gui.title")));
 
 		var amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
 
