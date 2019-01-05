@@ -209,6 +209,8 @@ subject-gui:
   when: lobby
   open-instantly: false
   rows: 4
+  vote-items:
+    orientation: horizontal
   item:
     id: 'paper'
   subject-amount: -1

@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.Orientable;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -85,15 +85,15 @@ public class SubjectMenu extends Gui {
 		subjects.forEach(s -> votes.add(new SubjectVote(s, 0)));
 
 		//gui
-        var paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 3);
+        var paginatedPane = new PaginatedPane(0, 0, 9, getRows() - 1);
 
         initializePages(paginatedPane, subjects);
 
         addPane(paginatedPane);
 
-        var previousPane = new OutlinePane(new GuiLocation(2, 3), 1, 1);
-        var closePane = new OutlinePane(new GuiLocation(4, 3), 1, 1);
-        var nextPane = new OutlinePane(new GuiLocation(6, 3), 1, 1);
+        var previousPane = new OutlinePane(2, getRows() - 1, 1, 1);
+        var closePane = new OutlinePane(4, getRows() - 1, 1, 1);
+        var nextPane = new OutlinePane(6, getRows() - 1, 1, 1);
 
         //previous page
         var prevItem = new ItemStack(Material.SUGAR_CANE);
@@ -165,9 +165,14 @@ public class SubjectMenu extends Gui {
      */
     @Contract("null, _ -> fail")
     private void initializePages(@NotNull PaginatedPane paginatedPane, List<String> subjects) {
-        for (var page = 0; page < Math.ceil(subjects.size() / 27.0); page++) {
-            var pane =
-                new OutlinePane(new GuiLocation(0, 0), paginatedPane.getLength(), paginatedPane.getHeight());
+        for (var page = 0;
+             page < Math.ceil((float) subjects.size() / (paginatedPane.getHeight() * paginatedPane.getLength()));
+             page++) {
+            var pane = new OutlinePane(0, 0, paginatedPane.getLength(), paginatedPane.getHeight());
+
+            pane.setOrientation(Orientable.Orientation.valueOf(
+                CONFIG.getString("subject-gui.vote-items.orientation").toUpperCase(Locale.getDefault())
+            ));
 
             for (var index = 0; index < paginatedPane.getLength() * paginatedPane.getHeight(); index++) {
                 if (subjects.size() - 1 < index + (page * paginatedPane.getLength() * paginatedPane.getHeight()))

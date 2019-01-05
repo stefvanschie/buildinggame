@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.profession;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -25,7 +24,7 @@ class ProfessionSelectionMenu extends Gui {
     ProfessionSelectionMenu(Creature creature) {
         super(Main.getInstance(), 1, ChatColor.GREEN + "Select profession");
 
-        var pane = new StaticPane(new GuiLocation(1, 0), 7, 1);
+        var pane = new StaticPane(1, 0, 7, 1);
 
         //blacksmith
         var blacksmith = new ItemStack(Material.ANVIL);
@@ -41,7 +40,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BLACKSMITH);
 
             event.setCancelled(true);
-        }), new GuiLocation(0, 0));
+        }), 0, 0);
 
         //butcher
         var butcher = new ItemStack(Material.BEEF);
@@ -57,7 +56,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BUTCHER);
 
             event.setCancelled(true);
-        }), new GuiLocation(1, 0));
+        }), 1, 0);
 
         //farmer
         var farmer = new ItemStack(Material.WHEAT);
@@ -73,7 +72,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.FARMER);
 
             event.setCancelled(true);
-        }), new GuiLocation(2, 0));
+        }), 2, 0);
 
         //librarian
         var librarian = new ItemStack(Material.BOOK);
@@ -89,7 +88,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.LIBRARIAN);
 
             event.setCancelled(true);
-        }), new GuiLocation(4, 0));
+        }), 4, 0);
 
         //nitwit
         var nitwit = new ItemStack(Material.DIAMOND_HOE);
@@ -105,7 +104,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.NITWIT);
 
             event.setCancelled(true);
-        }), new GuiLocation(5, 0));
+        }), 5, 0);
 
         //priest
         var priest = new ItemStack(Material.ENDER_EYE);
@@ -121,7 +120,7 @@ class ProfessionSelectionMenu extends Gui {
                 ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.PRIEST);
 
             event.setCancelled(true);
-        }), new GuiLocation(6, 0));
+        }), 6, 0);
 
         addPane(pane);
     }

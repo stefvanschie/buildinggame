@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -36,7 +35,7 @@ public class ArenaSelection extends Gui {
      */
 	@Override
 	public void show(@NotNull HumanEntity humanEntity) {
-		var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 6);
+		var outlinePane = new OutlinePane(0, 0, 9, 6);
 
         ArenaManager.getInstance().getArenas().stream()
             .filter(arena ->

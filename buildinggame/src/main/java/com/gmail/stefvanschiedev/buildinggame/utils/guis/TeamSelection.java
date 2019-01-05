@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.Material;
@@ -17,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A menu for selecting a team
@@ -53,12 +53,12 @@ public class TeamSelection extends Gui {
      * @since 5.6.0
      */
 	@Override
-    public void show(HumanEntity humanEntity) {
+    public void show(@NotNull HumanEntity humanEntity) {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         int iteration = 0;
 
-        var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9,
-            (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
+        var outlinePane =
+            new OutlinePane(0, 0, 9, (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
 
         for (final var plot : arena.getPlots()) {
             var item = new ItemStack(Material.matchMaterial(config.getString("team-selection.team." +
