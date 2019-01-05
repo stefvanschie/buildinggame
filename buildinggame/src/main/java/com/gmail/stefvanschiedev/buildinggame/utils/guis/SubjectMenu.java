@@ -184,7 +184,8 @@ public class SubjectMenu extends Gui {
                 if (getSubjectVote(subject) == null)
                     votes.add(new SubjectVote(subject, 0));
 
-                var item = new ItemStack(Material.PAPER);
+                var item =
+                    new ItemStack(Material.matchMaterial(CONFIG.getString("subject-gui.vote-items.item.id")));
                 var meta = item.getItemMeta();
                 meta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.subject.name")
                     .replace("%subject%", subject)));

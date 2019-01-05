@@ -210,6 +210,8 @@ subject-gui:
   open-instantly: false
   rows: 4
   vote-items:
+    item:
+      id: 'paper'
     orientation: horizontal
   item:
     id: 'paper'
