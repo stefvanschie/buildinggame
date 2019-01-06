@@ -9,6 +9,7 @@ import com.github.stefvanschie.inventoryframework.pane.Orientable;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.PercentageBar;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -212,6 +213,29 @@ public class SubjectMenu extends Gui {
 
                     event.setCancelled(true);
                 }));
+
+                if (CONFIG.getBoolean("subject-gui.percentage-bars")) {
+                    int x;
+                    int y;
+
+                    if (pane.getOrientation() == Orientable.Orientation.HORIZONTAL) {
+                        x = index % pane.getLength();
+                        y = (int) Math.floor((double) index / pane.getLength());
+                    } else if (pane.getOrientation() == Orientable.Orientation.VERTICAL) {
+                        x = (int) Math.floor((double) index / pane.getHeight());
+                        y = index % pane.getHeight();
+                    } else {
+                        throw new UnsupportedOperationException("Unknown orientation found");
+                    }
+
+                    int totalVotes = votes.stream().mapToInt(SubjectVote::getVotes).sum();
+                    int userVotes = getSubjectVote(subject).getVotes();
+
+                    var percentageBar = new PercentageBar(x + 2, y, 7, 1);
+                    percentageBar.setPercentage(totalVotes == 0 ? 0 : (float) userVotes / totalVotes);
+
+                    addPane(percentageBar);
+                }
             }
 
             paginatedPane.addPane(page, pane);

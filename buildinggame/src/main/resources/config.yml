@@ -215,6 +215,7 @@ subject-gui:
     orientation: horizontal
   item:
     id: 'paper'
+  percentage-bars: false
   subject-amount: -1
   slot: 8
 
