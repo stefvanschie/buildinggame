@@ -166,6 +166,46 @@ public class SubjectMenu extends Gui {
 
             addPane(closePane);
         }
+
+        //additional items
+        CONFIG.getConfigurationSection("subject-gui.additional-items").getKeys(false).forEach(section -> {
+            String baseNode = "subject-gui.additional-items." + section;
+
+            int x = CONFIG.getInt(baseNode + ".x") - 1;
+            int y = CONFIG.getInt(baseNode + ".y") - 1;
+
+            var pane = new OutlinePane(x, y, 1, 1);
+
+            var item = new ItemStack(Material.matchMaterial(CONFIG.getString(baseNode + ".id")));
+            var itemMeta = item.getItemMeta();
+
+            var name = MESSAGES.getString(baseNode + ".name");
+
+            if (name == null) {
+                var baseName = item.getType().name().substring(1).replace('_', ' ');
+                var lowerCaseName = baseName.toLowerCase(Locale.getDefault());
+                var prettyName = Character.toUpperCase(item.getType().name().charAt(0)) + lowerCaseName;
+
+                MESSAGES.set(baseNode + ".name", prettyName);
+                name = MESSAGES.getString(baseNode + ".name");
+            }
+
+            itemMeta.setDisplayName(MessageManager.translate(name));
+
+            var lore = MESSAGES.getStringList(baseNode + ".lore");
+
+            if (lore == null) {
+                MESSAGES.set(baseNode + ".name", new ArrayList<String>());
+                lore = new ArrayList<>();
+            }
+
+            itemMeta.setLore(MessageManager.translate(lore));
+            item.setItemMeta(itemMeta);
+
+            pane.addItem(new GuiItem(item, event -> event.setCancelled(true)));
+
+            addPane(pane);
+        });
     }
 
     /**

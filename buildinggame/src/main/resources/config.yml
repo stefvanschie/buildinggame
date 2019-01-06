@@ -222,6 +222,7 @@ subject-gui:
       y: 0
   close-item:
     enable: true
+  additional-items: {}
   subject-amount: -1
   slot: 8
 
