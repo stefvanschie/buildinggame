@@ -220,6 +220,8 @@ subject-gui:
     offset:
       x: 2
       y: 0
+  close-item:
+    enable: true
   subject-amount: -1
   slot: 8
 

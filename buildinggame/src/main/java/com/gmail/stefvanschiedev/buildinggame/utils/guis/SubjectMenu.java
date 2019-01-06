@@ -90,47 +90,44 @@ public class SubjectMenu extends Gui {
 
         initializePages(paginatedPane, subjects);
 
+        if (paginatedPane.getPages() == 1 && !CONFIG.getBoolean("subject-gui.close-item.enable")) {
+            paginatedPane.setHeight(getRows());
+
+            initializePages(paginatedPane, subjects);
+        }
+
         addPane(paginatedPane);
 
-        var previousPane = new OutlinePane(2, getRows() - 1, 1, 1);
-        var closePane = new OutlinePane(4, getRows() - 1, 1, 1);
-        var nextPane = new OutlinePane(6, getRows() - 1, 1, 1);
-
-        //previous page
-        var prevItem = new ItemStack(Material.SUGAR_CANE);
-        var prevMeta = prevItem.getItemMeta();
-        prevMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name")));
-        prevMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.previous-page.lores")));
-        prevItem.setItemMeta(prevMeta);
-
-        previousPane.addItem(new GuiItem(prevItem, event -> {
-            paginatedPane.setPage(paginatedPane.getPage() - 1);
-
-            if (paginatedPane.getPage() == 0)
-                previousPane.setVisible(false);
-
-            nextPane.setVisible(true);
-
-            update();
-
-            event.setCancelled(true);
-        }));
-
-        previousPane.setVisible(false);
-
-        var closeItem = new ItemStack(Material.BOOK);
-        var closeMeta = closeItem.getItemMeta();
-        closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name")));
-        closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.close-menu.lores")));
-        closeItem.setItemMeta(closeMeta);
-
-        closePane.addItem(new GuiItem(closeItem, event -> {
-            event.getWhoClicked().closeInventory();
-            event.setCancelled(true);
-        }));
-
-        //next page
         if (paginatedPane.getPages() != 1) {
+            var previousPane = new OutlinePane(2, getRows() - 1, 1, 1);
+            var nextPane = new OutlinePane(6, getRows() - 1, 1, 1);
+
+            //previous page
+            var prevItem = new ItemStack(Material.SUGAR_CANE);
+            var prevMeta = prevItem.getItemMeta();
+            prevMeta
+                .setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name")));
+            prevMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.previous-page.lores")));
+            prevItem.setItemMeta(prevMeta);
+
+            previousPane.addItem(new GuiItem(prevItem, event -> {
+                paginatedPane.setPage(paginatedPane.getPage() - 1);
+
+                if (paginatedPane.getPage() == 0)
+                    previousPane.setVisible(false);
+
+                nextPane.setVisible(true);
+
+                update();
+
+                event.setCancelled(true);
+            }));
+
+            previousPane.setVisible(false);
+
+            addPane(previousPane);
+
+            //next page
             var nextItem = new ItemStack(Material.SUGAR_CANE);
             var nextMeta = nextItem.getItemMeta();
             nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name")));
@@ -153,8 +150,22 @@ public class SubjectMenu extends Gui {
             addPane(nextPane);
         }
 
-        addPane(previousPane);
-        addPane(closePane);
+        if (CONFIG.getBoolean("subject-gui.close-item.enable")) {
+            var closePane = new OutlinePane(4, getRows() - 1, 1, 1);
+
+            var closeItem = new ItemStack(Material.BOOK);
+            var closeMeta = closeItem.getItemMeta();
+            closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name")));
+            closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.close-menu.lores")));
+            closeItem.setItemMeta(closeMeta);
+
+            closePane.addItem(new GuiItem(closeItem, event -> {
+                event.getWhoClicked().closeInventory();
+                event.setCancelled(true);
+            }));
+
+            addPane(closePane);
+        }
     }
 
     /**
@@ -166,6 +177,8 @@ public class SubjectMenu extends Gui {
      */
     @Contract("null, _ -> fail")
     private void initializePages(@NotNull PaginatedPane paginatedPane, List<String> subjects) {
+        paginatedPane.clear();
+
         for (var page = 0;
              page < Math.ceil((float) subjects.size() / (paginatedPane.getHeight() * paginatedPane.getLength()));
              page++) {

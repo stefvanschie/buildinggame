@@ -255,4 +255,12 @@ public class PercentageBar extends Pane {
     public Collection<Pane> getPanes() {
         return Stream.of(this.greenPane, this.redPane).collect(Collectors.toSet());
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since 6.4.0
+     */
+    @Override
+    public void clear() {}
 }
