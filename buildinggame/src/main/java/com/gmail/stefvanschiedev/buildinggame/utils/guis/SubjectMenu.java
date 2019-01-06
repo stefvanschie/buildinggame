@@ -214,7 +214,7 @@ public class SubjectMenu extends Gui {
                     event.setCancelled(true);
                 }));
 
-                if (CONFIG.getBoolean("subject-gui.percentage-bars")) {
+                if (CONFIG.getBoolean("subject-gui.percentage-bars.enable")) {
                     int x;
                     int y;
 
@@ -228,10 +228,13 @@ public class SubjectMenu extends Gui {
                         throw new UnsupportedOperationException("Unknown orientation found");
                     }
 
+                    int xOffset = CONFIG.getInt("subject-gui.percentage-bars.offset.x");
+                    int yOffset = CONFIG.getInt("subject-gui.percentage-bars.offset.y");
+
                     int totalVotes = votes.stream().mapToInt(SubjectVote::getVotes).sum();
                     int userVotes = getSubjectVote(subject).getVotes();
 
-                    var percentageBar = new PercentageBar(x + 2, y, 7, 1);
+                    var percentageBar = new PercentageBar(x + xOffset, y + yOffset, 7, 1);
                     percentageBar.setPercentage(totalVotes == 0 ? 0 : (float) userVotes / totalVotes);
 
                     addPane(percentageBar);
