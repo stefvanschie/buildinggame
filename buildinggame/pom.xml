@@ -123,7 +123,7 @@
         <dependency>
             <groupId>com.github.stefvanschie.inventoryframework</groupId>
             <artifactId>IF</artifactId>
-            <version>0.2.3</version>
+            <version>0.3.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -164,6 +164,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.0</version>
+                <!--Relocation is crucial due to possible different api versions in plugin.yml files-->
                 <configuration>
                     <relocations>
                         <relocation>
@@ -177,6 +178,10 @@
                         <relocation>
                             <pattern>com.github.stefvanschie.inventoryframework</pattern>
                             <shadedPattern>com.gmail.stefvanschiedev.buildinggame.inventoryframework</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>me.ialistannen</pattern>
+                            <shadedPattern>com.gmail.stefvanschiedev.buildinggame.nbt</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -35,7 +34,7 @@ class PatternBannerMenu extends Gui {
         super(Main.getInstance(), 6,
             MessageManager.translate(MESSAGES.getString("gui.banners.pattern.title")));
 
-        var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 6);
+        var outlinePane = new OutlinePane(0, 0, 9, 6);
 
         //base pattern
         var baseBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
@@ -777,7 +776,7 @@ class PatternBannerMenu extends Gui {
             event.setCancelled(true);
         }));
 
-        StaticPane staticPane = new StaticPane(new GuiLocation(0, 4), 9, 2);
+        StaticPane staticPane = new StaticPane(0, 4, 9, 2);
 
         //dyed flower charge pattern
         var dyedFlowerChargeBanner =
@@ -798,7 +797,7 @@ class PatternBannerMenu extends Gui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), new GuiLocation(3, 0));
+        }), 3, 0);
 
         //dyed thing pattern
         var dyedThingBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
@@ -818,7 +817,7 @@ class PatternBannerMenu extends Gui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), new GuiLocation(5, 0));
+        }), 5, 0);
 
         //preview
         staticPane.addItem(new GuiItem(banner, event -> {
@@ -828,7 +827,7 @@ class PatternBannerMenu extends Gui {
             humanEntity.closeInventory();
 
             event.setCancelled(true);
-        }), new GuiLocation(4, 1));
+        }), 4, 1);
 
         addPane(outlinePane);
         addPane(staticPane);

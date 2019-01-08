@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -155,10 +154,10 @@ class FloorMenu extends Gui {
 	FloorMenu(final Plot plot) {
 		super(Main.getInstance(), 6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
 
-        var paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 5);
+        var paginatedPane = new PaginatedPane(0, 0, 9, 5);
 
         for (var page = 0; page < Math.ceil(getBlocks().size() / 45.0); page++) {
-            var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 5);
+            var outlinePane = new OutlinePane(0, 0, 9, 5);
 
             for (var i = 0; i < 45; i++) {
                 if (i + (45 * page) == getBlocks().size())
@@ -176,9 +175,9 @@ class FloorMenu extends Gui {
             paginatedPane.addPane(page, outlinePane);
         }
 
-        var previous = new OutlinePane(new GuiLocation(2, 5), 1, 1);
-        var back = new OutlinePane(new GuiLocation(4, 5), 1, 1);
-        var next = new OutlinePane(new GuiLocation(6, 5), 1, 1);
+        var previous = new OutlinePane(2, 5, 1, 1);
+        var back = new OutlinePane(4, 5, 1, 1);
+        var next = new OutlinePane(6, 5, 1, 1);
 
         previous.addItem(new GuiItem(PREVIOUS_PAGE, event -> {
             paginatedPane.setPage(paginatedPane.getPage() - 1);

@@ -206,8 +206,23 @@ leave-item:
   id: 'clock'
 
 subject-gui:
+  when: lobby
+  open-instantly: false
+  rows: 4
+  vote-items:
+    item:
+      id: 'paper'
+    orientation: horizontal
   item:
     id: 'paper'
+  percentage-bars:
+    enable: false
+    offset:
+      x: 2
+      y: 0
+  close-item:
+    enable: true
+  additional-items: {}
   subject-amount: -1
   slot: 8
 

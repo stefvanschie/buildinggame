@@ -5,10 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
+import com.github.stefvanschie.inventoryframework.pane.Orientable;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.util.PercentageBar;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -40,6 +41,16 @@ public class SubjectMenu extends Gui {
      */
 	private final Collection<SubjectVote> votes = new HashSet<>();
 
+    /**
+     * The moment this theme gui should be accessible
+     */
+	private final When when;
+
+    /**
+     * Whether this menu should open automatically when possible.
+     */
+	private final boolean openInstantly;
+
 	/**
      * YAML Configuration for the config.yml
      */
@@ -54,67 +65,69 @@ public class SubjectMenu extends Gui {
      * Constructs a new SubjectMenu
      */
 	public SubjectMenu() {
-		super(Main.getInstance(), 4, MessageManager.translate(MESSAGES.getString("subject-gui.title")));
+		super(Main.getInstance(), CONFIG.getInt("subject-gui.rows"),
+            MessageManager.translate(MESSAGES.getString("subject-gui.title")));
 
 		var amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
-		var subjects = new ArrayList<String>();
 
-		if (amountOfSubjects == -1)
+        when = When.fromName(CONFIG.getString("subject-gui.when"));
+        openInstantly = CONFIG.getBoolean("subject-gui.open-instantly");
+
+        var subjects = new ArrayList<String>();
+
+        if (amountOfSubjects == -1)
 			subjects.addAll(CONFIG.getStringList("subjects"));
 		else {
 			for (int i = 0; i < amountOfSubjects; i++)
 				subjects.add(CONFIG.getStringList("subjects").get(ThreadLocalRandom.current()
                         .nextInt(amountOfSubjects)));
 		}
-		
+
 		subjects.forEach(s -> votes.add(new SubjectVote(s, 0)));
 
 		//gui
-        var paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 3);
+        var paginatedPane = new PaginatedPane(0, 0, 9, getRows() - 1);
 
         initializePages(paginatedPane, subjects);
 
+        if (paginatedPane.getPages() == 1 && !CONFIG.getBoolean("subject-gui.close-item.enable")) {
+            paginatedPane.setHeight(getRows());
+
+            initializePages(paginatedPane, subjects);
+        }
+
         addPane(paginatedPane);
 
-        var previousPane = new OutlinePane(new GuiLocation(2, 3), 1, 1);
-        var closePane = new OutlinePane(new GuiLocation(4, 3), 1, 1);
-        var nextPane = new OutlinePane(new GuiLocation(6, 3), 1, 1);
-
-        //previous page
-        var prevItem = new ItemStack(Material.SUGAR_CANE);
-        var prevMeta = prevItem.getItemMeta();
-        prevMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name")));
-        prevMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.previous-page.lores")));
-        prevItem.setItemMeta(prevMeta);
-
-        previousPane.addItem(new GuiItem(prevItem, event -> {
-            paginatedPane.setPage(paginatedPane.getPage() - 1);
-
-            if (paginatedPane.getPage() == 0)
-                previousPane.setVisible(false);
-
-            nextPane.setVisible(true);
-
-            update();
-
-            event.setCancelled(true);
-        }));
-
-        previousPane.setVisible(false);
-
-        var closeItem = new ItemStack(Material.BOOK);
-        var closeMeta = closeItem.getItemMeta();
-        closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name")));
-        closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.close-menu.lores")));
-        closeItem.setItemMeta(closeMeta);
-
-        closePane.addItem(new GuiItem(closeItem, event -> {
-            event.getWhoClicked().closeInventory();
-            event.setCancelled(true);
-        }));
-
-        //next page
         if (paginatedPane.getPages() != 1) {
+            var previousPane = new OutlinePane(2, getRows() - 1, 1, 1);
+            var nextPane = new OutlinePane(6, getRows() - 1, 1, 1);
+
+            //previous page
+            var prevItem = new ItemStack(Material.SUGAR_CANE);
+            var prevMeta = prevItem.getItemMeta();
+            prevMeta
+                .setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.previous-page.name")));
+            prevMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.previous-page.lores")));
+            prevItem.setItemMeta(prevMeta);
+
+            previousPane.addItem(new GuiItem(prevItem, event -> {
+                paginatedPane.setPage(paginatedPane.getPage() - 1);
+
+                if (paginatedPane.getPage() == 0)
+                    previousPane.setVisible(false);
+
+                nextPane.setVisible(true);
+
+                update();
+
+                event.setCancelled(true);
+            }));
+
+            previousPane.setVisible(false);
+
+            addPane(previousPane);
+
+            //next page
             var nextItem = new ItemStack(Material.SUGAR_CANE);
             var nextMeta = nextItem.getItemMeta();
             nextMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.next-page.name")));
@@ -137,8 +150,62 @@ public class SubjectMenu extends Gui {
             addPane(nextPane);
         }
 
-        addPane(previousPane);
-        addPane(closePane);
+        if (CONFIG.getBoolean("subject-gui.close-item.enable")) {
+            var closePane = new OutlinePane(4, getRows() - 1, 1, 1);
+
+            var closeItem = new ItemStack(Material.BOOK);
+            var closeMeta = closeItem.getItemMeta();
+            closeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.close-menu.name")));
+            closeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("subject-gui.close-menu.lores")));
+            closeItem.setItemMeta(closeMeta);
+
+            closePane.addItem(new GuiItem(closeItem, event -> {
+                event.getWhoClicked().closeInventory();
+                event.setCancelled(true);
+            }));
+
+            addPane(closePane);
+        }
+
+        //additional items
+        CONFIG.getConfigurationSection("subject-gui.additional-items").getKeys(false).forEach(section -> {
+            String baseNode = "subject-gui.additional-items." + section;
+
+            int x = CONFIG.getInt(baseNode + ".x") - 1;
+            int y = CONFIG.getInt(baseNode + ".y") - 1;
+
+            var pane = new OutlinePane(x, y, 1, 1);
+
+            var item = new ItemStack(Material.matchMaterial(CONFIG.getString(baseNode + ".id")));
+            var itemMeta = item.getItemMeta();
+
+            var name = MESSAGES.getString(baseNode + ".name");
+
+            if (name == null) {
+                var baseName = item.getType().name().substring(1).replace('_', ' ');
+                var lowerCaseName = baseName.toLowerCase(Locale.getDefault());
+                var prettyName = Character.toUpperCase(item.getType().name().charAt(0)) + lowerCaseName;
+
+                MESSAGES.set(baseNode + ".name", prettyName);
+                name = MESSAGES.getString(baseNode + ".name");
+            }
+
+            itemMeta.setDisplayName(MessageManager.translate(name));
+
+            var lore = MESSAGES.getStringList(baseNode + ".lore");
+
+            if (lore == null) {
+                MESSAGES.set(baseNode + ".name", new ArrayList<String>());
+                lore = new ArrayList<>();
+            }
+
+            itemMeta.setLore(MessageManager.translate(lore));
+            item.setItemMeta(itemMeta);
+
+            pane.addItem(new GuiItem(item, event -> event.setCancelled(true)));
+
+            addPane(pane);
+        });
     }
 
     /**
@@ -150,9 +217,16 @@ public class SubjectMenu extends Gui {
      */
     @Contract("null, _ -> fail")
     private void initializePages(@NotNull PaginatedPane paginatedPane, List<String> subjects) {
-        for (var page = 0; page < Math.ceil(subjects.size() / 27.0); page++) {
-            var pane =
-                new OutlinePane(new GuiLocation(0, 0), paginatedPane.getLength(), paginatedPane.getHeight());
+        paginatedPane.clear();
+
+        for (var page = 0;
+             page < Math.ceil((float) subjects.size() / (paginatedPane.getHeight() * paginatedPane.getLength()));
+             page++) {
+            var pane = new OutlinePane(0, 0, paginatedPane.getLength(), paginatedPane.getHeight());
+
+            pane.setOrientation(Orientable.Orientation.valueOf(
+                CONFIG.getString("subject-gui.vote-items.orientation").toUpperCase(Locale.getDefault())
+            ));
 
             for (var index = 0; index < paginatedPane.getLength() * paginatedPane.getHeight(); index++) {
                 if (subjects.size() - 1 < index + (page * paginatedPane.getLength() * paginatedPane.getHeight()))
@@ -164,7 +238,8 @@ public class SubjectMenu extends Gui {
                 if (getSubjectVote(subject) == null)
                     votes.add(new SubjectVote(subject, 0));
 
-                var item = new ItemStack(Material.PAPER);
+                var item =
+                    new ItemStack(Material.matchMaterial(CONFIG.getString("subject-gui.vote-items.item.id")));
                 var meta = item.getItemMeta();
                 meta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.subject.name")
                     .replace("%subject%", subject)));
@@ -191,6 +266,32 @@ public class SubjectMenu extends Gui {
 
                     event.setCancelled(true);
                 }));
+
+                if (CONFIG.getBoolean("subject-gui.percentage-bars.enable")) {
+                    int x;
+                    int y;
+
+                    if (pane.getOrientation() == Orientable.Orientation.HORIZONTAL) {
+                        x = index % pane.getLength();
+                        y = (int) Math.floor((double) index / pane.getLength());
+                    } else if (pane.getOrientation() == Orientable.Orientation.VERTICAL) {
+                        x = (int) Math.floor((double) index / pane.getHeight());
+                        y = index % pane.getHeight();
+                    } else {
+                        throw new UnsupportedOperationException("Unknown orientation found");
+                    }
+
+                    int xOffset = CONFIG.getInt("subject-gui.percentage-bars.offset.x");
+                    int yOffset = CONFIG.getInt("subject-gui.percentage-bars.offset.y");
+
+                    int totalVotes = votes.stream().mapToInt(SubjectVote::getVotes).sum();
+                    int userVotes = getSubjectVote(subject).getVotes();
+
+                    var percentageBar = new PercentageBar(x + xOffset, y + yOffset, 7, 1);
+                    percentageBar.setPercentage(totalVotes == 0 ? 0 : (float) userVotes / totalVotes);
+
+                    addPane(percentageBar);
+                }
             }
 
             paginatedPane.addPane(page, pane);
@@ -239,7 +340,7 @@ public class SubjectMenu extends Gui {
 	public String getHighestVote() {
 		if (forcedTheme != null)
 			return forcedTheme;
-		
+
 		int highest = -1;
 
         for (SubjectVote subjectVote : votes) {
@@ -252,7 +353,7 @@ public class SubjectMenu extends Gui {
 			if (subjectVote.getVotes() == highest)
 				subjects.add(subjectVote.getSubject());
 		}
-		
+
 		return subjects.get(ThreadLocalRandom.current().nextInt(subjects.size()));
 	}
 
@@ -270,5 +371,68 @@ public class SubjectMenu extends Gui {
             .filter(subjectVote -> subjectVote.getSubject().equals(subject))
             .findAny()
             .orElse(null);
+    }
+
+    /**
+     * Gets the time when the menu should be accessible
+     *
+     * @return when the menu should be accessible
+     * @see When
+     * @since 6.4.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public When getWhen() {
+	    return when;
+    }
+
+    /**
+     * Gets whether this menu should be opened immediately when possible
+     *
+     * @return true if this menu should open directly, false otherwise
+     * @since 6.4.0
+     */
+    @Contract(pure = true)
+    public boolean opensInstantly() {
+        return openInstantly;
+    }
+
+    /**
+     * An enum for the possible timings when the theme gui can be accessed
+     *
+     * @since 6.4.0
+     */
+    public enum When {
+
+        /**
+         * The subject menu will be accessible while waiting in the lobby
+         *
+         * @since 6.4.0
+         */
+	    LOBBY,
+
+        /**
+         * The subject menu will be accessible right before building
+         *
+         * @since 6.4.0
+         */
+        BEFORE_BUILD;
+
+        /**
+         * Gets an enum value from this enum by the given name.
+         *
+         * @param name the name of the enum value
+         * @return the enum value
+         * @since 6.4.0
+         */
+        @NotNull
+        @Contract(pure = true)
+        public static When fromName(@NotNull String name) {
+            return When.valueOf(name
+                .trim()
+                .toUpperCase(Locale.getDefault())
+                .replace('-', '_')
+                .replace(' ', '_'));
+        }
     }
 }

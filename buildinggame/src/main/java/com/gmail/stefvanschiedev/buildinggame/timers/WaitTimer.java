@@ -48,7 +48,7 @@ public class WaitTimer extends Timer {
 	@Override
 	public void run() {
 		if (seconds <= 0) {
-			arena.start();
+			arena.preStart();
             running = false;
 			this.cancel();
 			return;

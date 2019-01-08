@@ -25,13 +25,11 @@ public class PaginatedHeadsMenu extends HeadsMenu {
     /**
      * The paginated pane
      */
-    @SuppressWarnings("WeakerAccess")
     public PaginatedPane paginatedPane;
 
     /**
      * The panes for going to the previous and next pages
      */
-    @SuppressWarnings("WeakerAccess")
     public OutlinePane previous, next;
 
     /**

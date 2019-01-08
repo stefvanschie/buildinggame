@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropic
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +29,7 @@ class TropicalFishPatternMenu extends Gui {
     TropicalFishPatternMenu(TropicalFish tropicalFish) {
         super(Main.getInstance(), 2, ChatColor.GREEN + "Select a pattern");
 
-        var pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
+        var pane = new OutlinePane(0, 0, 9, 2);
 
         for (var pattern : TropicalFish.Pattern.values()) {
             var bucket = new ItemStack(Material.TROPICAL_FISH_BUCKET);
