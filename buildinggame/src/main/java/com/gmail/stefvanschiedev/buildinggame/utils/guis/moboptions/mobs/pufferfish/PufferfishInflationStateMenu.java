@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.puffer
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -23,7 +22,7 @@ class PufferfishInflationStateMenu extends Gui {
     PufferfishInflationStateMenu(PufferFish pufferfish) {
         super(Main.getInstance(), 1, ChatColor.GREEN + "Set pufferfish inflation state");
 
-        var pane = new OutlinePane(new GuiLocation(3, 0), 3, 1);
+        var pane = new OutlinePane(3, 0, 3, 1);
 
         //deflated
         var goldNugget = new ItemStack(Material.GOLD_NUGGET);

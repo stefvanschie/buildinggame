@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -23,7 +22,7 @@ class ParrotTypeMenu extends Gui {
     ParrotTypeMenu(Parrot parrot) {
         super(Main.getInstance(), 1, ChatColor.GREEN + "Select the parrot type");
 
-        var pane = new OutlinePane(new GuiLocation(2, 0), 7, 1);
+        var pane = new OutlinePane(2, 0, 7, 1);
 
         //blue
         var blue = new Wool(DyeColor.BLUE).toItemStack(1);

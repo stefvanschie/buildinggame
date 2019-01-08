@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.MappedMaterialUtil;
@@ -28,7 +27,7 @@ public class ColorSelectionMenu extends Gui {
     public ColorSelectionMenu(Creature entity) {
         super(Main.getInstance(), 2, ChatColor.GREEN + "Select a color");
 
-        var pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
+        var pane = new OutlinePane(0, 0, 9, 2);
 
         MappedMaterialUtil.WOOL_DYE_COLOR_ITEMS.forEach(entry ->
             pane.addItem(new GuiItem(new ItemStack(entry.getKey()), event -> {

@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -25,7 +24,7 @@ class HorseStyleSelectionMenu extends Gui {
     HorseStyleSelectionMenu(Horse horse) {
         super(Main.getInstance(), 1, ChatColor.GREEN + "Change the horse style");
 
-        var pane = new OutlinePane(new GuiLocation(2, 0), 7, 1);
+        var pane = new OutlinePane(2, 0, 7, 1);
 
         //black dots
         var blackDots = new ItemStack(Material.MELON_SEEDS);
