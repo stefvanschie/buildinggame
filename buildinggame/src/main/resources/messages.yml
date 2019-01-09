@@ -437,6 +437,10 @@ gui:
       name: "&aNautilus"
       lore:
       - "&7Place a nautilus particle effect"
+    campfire-smoke:
+      name: "&aCampfire smoke"
+      lore:
+      - "&7Place a campfire smoke particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:
