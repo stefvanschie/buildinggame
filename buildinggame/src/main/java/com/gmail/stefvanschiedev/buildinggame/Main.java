@@ -21,6 +21,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.ConfirmationMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
@@ -168,6 +169,7 @@ public class Main extends JavaPlugin {
         Gui.registerProperty("biome", Biome::valueOf);
         Gui.registerProperty("dye-color", DyeColor::valueOf);
         Gui.registerProperty("material", Material::valueOf);
+        Gui.registerProperty("response", ConfirmationMenu.Response::valueOf);
 		
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, false);

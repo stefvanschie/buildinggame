@@ -71,7 +71,7 @@ public class ItemBuilder implements Listener {
      * @param material the item's material
      * @param amount the amount of items there should be
      */
-	public ItemBuilder(@NotNull Player player, Material material, int amount) {
+	private ItemBuilder(@NotNull Player player, Material material, int amount) {
 	    this.item = new ItemStack(material, amount);
 		this.player = player;
 

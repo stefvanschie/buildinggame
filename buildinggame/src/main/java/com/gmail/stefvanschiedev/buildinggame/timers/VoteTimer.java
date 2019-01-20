@@ -3,12 +3,6 @@ package com.gmail.stefvanschiedev.buildinggame.timers;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.math.MathElement;
 import com.gmail.stefvanschiedev.buildinggame.utils.math.util.MathElementFactory;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
-import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.util.io.Closer;
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,9 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -140,25 +132,13 @@ public class VoteTimer extends Timer {
                             String players = arena.getFirstPlot().getGamePlayers().stream()
                                 .map(gp -> '-' + gp.getPlayer().getName())
                                 .reduce("", String::concat);
-                            var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schematic";
-                            var file = new File(SettingsManager.getInstance().getSchematicsFolder(), fileName);
+                            var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
+                            var file = new File(SettingsManager.getInstance().getWinnerSchematicsFolder(), fileName);
 
-                            try (var closer = Closer.create()) {
-                                var fileOutputStream = closer.register(new FileOutputStream(file));
-                                var bufferedOutputStream = closer.register(new BufferedOutputStream(fileOutputStream));
-                                var builtInClipboardFormat = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
-                                var clipboardWriter = builtInClipboardFormat.getWriter(bufferedOutputStream);
-
-                                var lowVector = BlockVector3.at(region.getLowX(), region.getLowY(), region.getLowZ());
-                                var highVector = BlockVector3.at(region.getHighX(), region.getHighY(), region.getHighZ());
-                                var bukkitWorld = new BukkitWorld(region.getWorld());
-
-                                var cuboidRegion = new CuboidRegion(bukkitWorld, lowVector, highVector);
-                                var blockArrayClipboard = new BlockArrayClipboard(cuboidRegion);
-
-                                closer.register(clipboardWriter).write(blockArrayClipboard);
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            try {
+                                region.saveSchematic(file);
+                            } catch (IOException exception) {
+                                exception.printStackTrace();
                             }
                         }
                     }.runTaskAsynchronously(Main.getInstance());

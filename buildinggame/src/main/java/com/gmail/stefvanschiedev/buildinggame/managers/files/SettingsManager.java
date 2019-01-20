@@ -1,10 +1,16 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.files;
 
 import java.io.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.JsonReaderUtil;
+import com.gmail.stefvanschiedev.buildinggame.utils.Report;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -100,16 +106,28 @@ public final class SettingsManager {
 	private File statsFile;
 
     /**
-     * The schematics folder, may not yet be created when schematics.enable is false or the
+     * The winner schematics folder, may not yet be created when schematics.enable is false or the
      * {@link #setup(Plugin, boolean)} hasn't been called yet
      */
-	private File schematicsFolder;
+	private File winnerSchematicsFolder;
+
+    /**
+     * The report schematics folder, may not yet be created when {@link #setup(Plugin, boolean)} hasn't been called yet
+     */
+    @Nullable
+	private File reportSchematicsFolder;
 
     /**
      * The file for storing holograms, may be null if the file does not yet exist
      */
     @Nullable
 	private File hologramsFile;
+
+    /**
+     * The file used for storing reports, may be null if the file does not yet exist.
+     */
+    @Nullable
+    private File reportsFile;
 
     /**
      * The runnable used for managing the watch service
@@ -138,7 +156,8 @@ public final class SettingsManager {
                 logger.warning("Unable to create data folder");
         }
 
-        schematicsFolder = new File(dataFolder, "schematics");
+        winnerSchematicsFolder = new File(dataFolder + File.separator + "schematics", "winners");
+        reportSchematicsFolder = new File(dataFolder + File.separator + "schematics", "reports");
 
 		arenasFile = new File(dataFolder, "arenas.yml");
 		configFile = new File(dataFolder, "config.yml");
@@ -146,6 +165,7 @@ public final class SettingsManager {
 		signsFile = new File(dataFolder, "signs.yml");
 		statsFile = new File(dataFolder, "stats.yml");
         hologramsFile = new File(dataFolder, "holograms.json");
+        reportsFile = new File(dataFolder, "reports.json");
 
 		arenas = YamlConfiguration.loadConfiguration(arenasFile);
 		config = YamlConfiguration.loadConfiguration(configFile);
@@ -211,16 +231,82 @@ public final class SettingsManager {
                     TopStatHologram.load(jsonReader);
 
                 jsonReader.endArray();
+            } catch (EOFException ignore) {
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-		if (!schematicsFolder.exists() && config.getBoolean("schematics.enable") &&
-            Bukkit.getPluginManager().isPluginEnabled("WorldEdit") && !schematicsFolder.mkdirs())
-		    logger.warning("Unable to create schematics folder");
+		if (!winnerSchematicsFolder.exists()) {
+            boolean directoryCreationSuccess = winnerSchematicsFolder.mkdirs();
 
-		generateSettings(save);
+            if (directoryCreationSuccess) {
+                //move schematics that were previously created to new subfolder
+                try {
+                    var schematicDirectory = new File(dataFolder, "schematics");
+
+                    Files.walkFileTree(schematicDirectory.toPath(), new FileVisitor<>() {
+                        @Override
+                        public FileVisitResult preVisitDirectory(@NotNull Path dir,
+                                                                 @NotNull BasicFileAttributes attributes) {
+                            if (dir.equals(schematicDirectory.toPath())) {
+                                return FileVisitResult.CONTINUE;
+                            }
+
+                            return FileVisitResult.SKIP_SUBTREE;
+                        }
+
+                        @Override
+                        public FileVisitResult visitFile(@NotNull Path file, @NotNull BasicFileAttributes attributes) {
+                            try {
+                                Files.copy(file, new File(winnerSchematicsFolder, file.toFile().getName()).toPath());
+                                Files.delete(file);
+                            } catch (IOException exception) {
+                                exception.printStackTrace();
+                                return FileVisitResult.TERMINATE;
+                            }
+
+                            return FileVisitResult.CONTINUE;
+                        }
+
+                        @Override
+                        public FileVisitResult visitFileFailed(@NotNull Path file, @NotNull IOException exception) {
+                            exception.printStackTrace();
+
+                            return FileVisitResult.TERMINATE;
+                        }
+
+                        @Override
+                        public FileVisitResult postVisitDirectory(@NotNull Path dir, @Nullable IOException exception) {
+                            if (exception != null) {
+                                exception.printStackTrace();
+                                return FileVisitResult.TERMINATE;
+                            }
+
+                            return FileVisitResult.CONTINUE;
+                        }
+                    });
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            } else {
+                logger.warning("Unable to create winner schematics folder");
+            }
+        }
+
+        var worldEditEnabled = Bukkit.getPluginManager().isPluginEnabled("WorldEdit");
+
+		if (!reportSchematicsFolder.exists() && worldEditEnabled && !reportSchematicsFolder.mkdirs()) {
+            logger.warning("Unable to create report schematics folder");
+        }
+
+        try {
+            Report.loadAllReports();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        generateSettings(save);
 		generateMessages(save);
 
 		if (runnable != null)
@@ -311,16 +397,41 @@ public final class SettingsManager {
 	}
 
     /**
-     * Returns the schematic folder. The folder may not exist when either {@link #setup(Plugin, boolean)} hasn't been
+     * Gets the reports.json file
+     *
+     * @return the reports.json file
+     * @since 6.5.0
+     */
+	@NotNull
+    @Contract(pure = true)
+	public File getReports() {
+	    return reportsFile;
+    }
+
+    /**
+     * Returns the winner schematic folder. The folder may not exist when either {@link #setup(Plugin, boolean)} hasn't been
      * run yet or when schematics.enable is false in the config.yml.
      *
-     * @return the schematics folder
+     * @return the winner schematics folder
      * @since 5.5.0
      */
 	@NotNull
     @Contract(pure = true)
-    public File getSchematicsFolder() {
-	    return schematicsFolder;
+    public File getWinnerSchematicsFolder() {
+	    return winnerSchematicsFolder;
+    }
+
+    /**
+     * Gets the reports schematic folder. The folder may not exist when WorldEdit is absent, or when
+     * {@link #setup(Plugin, boolean)} hasn't been called yet.
+     *
+     * @return the report schematics folder
+     * @since 6.5.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public File getReportsSchematicsFolder() {
+        return reportSchematicsFolder;
     }
 
     /**
@@ -347,6 +458,8 @@ public final class SettingsManager {
             messages.save(messagesFile);
             signs.save(signsFile);
             stats.save(statsFile);
+
+            Report.saveAllReports();
         } catch (IOException e) {
             e.printStackTrace();
         }
