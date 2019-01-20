@@ -487,8 +487,19 @@ public class Main extends JavaPlugin {
 		new StatSignUpdater().runTaskTimerAsynchronously(this, 0L, 1L);
 		
 		long end = System.currentTimeMillis();
-		
-		getLogger().info("BuildingGame has been enabled in " + ((end - start) / 1000.0) + " seconds!");
+
+		long duration = end - start;
+		String time;
+
+		if (duration < 1000) {
+		    time = duration + " milliseconds";
+        } else if (duration < 60000) {
+		    time = duration / 1000.0 + " seconds";
+        } else {
+		    time = (duration / 60) + ":" + (duration % 60) / 1000.0 + " minutes";
+        }
+
+		getLogger().info("BuildingGame has been enabled in " + time + '!');
 	}
 
     /**
