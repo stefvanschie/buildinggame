@@ -1,5 +1,12 @@
 package com.gmail.stefvanschiedev.buildinggame.utils;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.worldedit.WorldBackedClipboard;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.util.io.Closer;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,6 +16,10 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,6 +85,35 @@ public class Region {
         this.lowX = lowX;
         this.lowY = lowY;
         this.lowZ = lowZ;
+    }
+
+    /**
+     * Saves this region to a schematic file. This will do nothing if WorldEdit is not enabled. This should be called
+     * async.
+     *
+     * @param file the file to save the schematic to
+     * @since 6.5.0
+     */
+    public void saveSchematic(@NotNull File file) throws IOException {
+        if (!Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+            return;
+        }
+
+        try (var closer = Closer.create()) {
+            var fileOutputStream = closer.register(new FileOutputStream(file));
+            var bufferedOutputStream = closer.register(new BufferedOutputStream(fileOutputStream));
+            var builtInClipboardFormat = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
+            var clipboardWriter = builtInClipboardFormat.getWriter(bufferedOutputStream);
+
+            var lowVector = BlockVector3.at(getLowX(), getLowY(), getLowZ());
+            var highVector = BlockVector3.at(getHighX(), getHighY(), getHighZ());
+            var bukkitWorld = new BukkitWorld(getWorld());
+
+            var cuboidRegion = new CuboidRegion(bukkitWorld, lowVector, highVector);
+            var blockArrayClipboard = new WorldBackedClipboard(cuboidRegion);
+
+            closer.register(clipboardWriter).write(blockArrayClipboard);
+        }
     }
 
     /**
@@ -167,7 +207,7 @@ public class Region {
      * @since 5.5.0
      */
     @Contract(pure = true)
-    public int getLowX() {
+    private int getLowX() {
         return lowX;
     }
 
@@ -178,7 +218,7 @@ public class Region {
      * @since 5.5.0
      */
     @Contract(pure = true)
-    public int getLowY() {
+    private int getLowY() {
         return lowY;
     }
 
@@ -189,7 +229,7 @@ public class Region {
      * @since 5.5.0
      */
     @Contract(pure = true)
-    public int getLowZ() {
+    private int getLowZ() {
         return lowZ;
     }
 
@@ -200,7 +240,7 @@ public class Region {
      * @since 5.5.0
      */
     @Contract(pure = true)
-    public int getHighX() {
+    private int getHighX() {
         return highX;
     }
 
@@ -211,7 +251,7 @@ public class Region {
      * @since 5.5.0
      */
     @Contract(pure = true)
-    public int getHighY() {
+    private int getHighY() {
         return highY;
     }
 
@@ -222,7 +262,7 @@ public class Region {
      * @since 5.5.0
      */
     @Contract(pure = true)
-    public int getHighZ() {
+    private int getHighZ() {
         return highZ;
     }
 

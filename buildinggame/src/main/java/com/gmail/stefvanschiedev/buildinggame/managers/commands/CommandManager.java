@@ -20,8 +20,10 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.ReportMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -359,6 +361,24 @@ public class CommandManager extends BaseCommand {
         Main.getInstance().loadPlugin();
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Reloaded the plugin!");
+    }
+
+    /**
+     * Called when a player wants to view the reportsd
+     *
+     * @param player the player executing this command
+     * @since 6.5.0
+     */
+    @Subcommand("reports")
+    @Description("Show all reports made")
+    @CommandPermission("bg.reports")
+    public void onReports(Player player) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+            player.sendMessage(ChatColor.RED + "WorldEdit needs to be enabled in order for this feature to work.");
+            return;
+        }
+
+        new ReportMenu().show(player);
     }
 
     /**
