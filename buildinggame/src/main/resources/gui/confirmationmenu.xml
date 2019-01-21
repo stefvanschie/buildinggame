@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="null" rows="1" onClose="close">
+    <staticpane x="0" y="0" length="9" height="1">
+        <item x="2" y="0" id="green_stained_glass_pane" onLocalClick="choice">
+            <displayname>&amp;aAccept</displayname>
+            <properties>
+                <property type="response">ACCEPT</property>
+            </properties>
+        </item>
+        <item x="6" y="0" id="red_stained_glass_pane" onLocalClick="choice">
+            <displayname>&amp;cDeny</displayname>
+            <properties>
+                <property type="response">DENY</property>
+            </properties>
+        </item>
+    </staticpane>
+</gui>

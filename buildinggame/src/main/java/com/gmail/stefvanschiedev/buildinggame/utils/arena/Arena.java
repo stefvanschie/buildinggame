@@ -1,5 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.arena;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -1193,16 +1198,16 @@ public class Arena {
 				
 				ItemBuilder.check(player);
 				
-				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER)
-				    config.getConfigurationSection("voting.items").getKeys(false).forEach(identifier -> {
-				        boolean save = false;
+				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
+                    config.getConfigurationSection("voting.items").getKeys(false).forEach(identifier -> {
+                        boolean save = false;
 
-				        if (!messages.contains("voting.items." + identifier + ".name")) {
+                        if (!messages.contains("voting.items." + identifier + ".name")) {
                             messages.set("voting.items." + identifier + ".name", "Type: Null");
                             save = true;
                         }
 
-				        if (!messages.contains("voting.items." + identifier + ".lore")) {
+                        if (!messages.contains("voting.items." + identifier + ".lore")) {
                             messages.set("voting.items." + identifier + ".lore", new ArrayList<String>(0));
                             save = true;
                         }
@@ -1210,8 +1215,8 @@ public class Arena {
                         if (save)
                             SettingsManager.getInstance().save();
 
-				        player.getInventory().setItem(
-				            config.getInt("voting.items." + identifier + ".slot") - 1,
+                        player.getInventory().setItem(
+                            config.getInt("voting.items." + identifier + ".slot") - 1,
                             new ItemBuilder(player,
                                 Material.matchMaterial(config.getString("voting.items." + identifier + ".id")))
                                 .setDisplayName(MessageManager.translate(
@@ -1228,6 +1233,36 @@ public class Arena {
                                 }).build()
                         );
                     });
+
+                    player.getInventory().setItem(8, new ItemBuilder(player, Material.BOOK)
+                        .setDisplayName(ChatColor.RED + "Report build")
+                        .movable(false)
+                        .setClickEvent(event -> {
+                            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd_HH-mm-ss");
+                            String players = getVotingPlot().getGamePlayers().stream()
+                                .map(gp -> '-' + gp.getPlayer().getName())
+                                .reduce("", String::concat);
+                            var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
+                            var file = new File(SettingsManager.getInstance().getReportsSchematicsFolder(), fileName);
+
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        getVotingPlot().getBoundary().saveSchematic(file);
+
+                                        MessageManager.getInstance().send(event.getPlayer(),
+                                            ChatColor.GREEN + "Your report has been saved.");
+                                    } catch (IOException exception) {
+                                        exception.printStackTrace();
+                                    }
+                                }
+                            }.runTaskAsynchronously(Main.getInstance());
+
+                            getVotingPlot().getGamePlayers().forEach(gp ->
+                                Report.add(new Report(gp.getPlayer(), player, ZonedDateTime.now(), file)));
+                        }).build());
+                }
 				
 				//update scoreboard and update time and weather
 				if (config.getBoolean("scoreboards.vote.enable"))

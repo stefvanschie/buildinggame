@@ -427,7 +427,7 @@ public class SubjectMenu extends Gui {
          */
         @NotNull
         @Contract(pure = true)
-        public static When fromName(@NotNull String name) {
+        static When fromName(@NotNull String name) {
             return When.valueOf(name
                 .trim()
                 .toUpperCase(Locale.getDefault())

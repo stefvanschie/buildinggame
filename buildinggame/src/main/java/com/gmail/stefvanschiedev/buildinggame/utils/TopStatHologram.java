@@ -89,7 +89,7 @@ public class TopStatHologram {
      *
      * @since 6.2.0
      */
-    public void update() {
+    private void update() {
         var stats = StatManager.getInstance().getStats(type);
 
         if (stats == null)
