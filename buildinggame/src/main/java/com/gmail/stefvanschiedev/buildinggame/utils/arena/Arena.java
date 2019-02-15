@@ -1227,8 +1227,9 @@ public class Arena {
                                 ))
                                 .movable(false)
                                 .setClickEvent(event -> {
-                                    plot.addVote(new Vote(config.getInt("voting.items." + identifier + ".points"),
-                                        player));
+                                    int points = config.getInt("voting.items." + identifier + ".points");
+
+                                    votingPlot.addVote(new Vote(points, player));
                                     event.setCancelled(true);
                                 }).build()
                         );
