@@ -222,6 +222,8 @@ public final class SettingsManager {
 		}
 
 		if (hologramsFile.exists()) {
+		    TopStatHologram.clearAll();
+
             try {
                 var jsonReader = new Gson().newJsonReader(new InputStreamReader(new FileInputStream(hologramsFile)));
 
