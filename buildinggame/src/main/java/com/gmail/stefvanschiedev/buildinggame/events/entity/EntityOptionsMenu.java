@@ -119,6 +119,7 @@ public class EntityOptionsMenu implements Listener {
                 break;
             //TODO: Add case for the PANDA
             //TODO: Add case for the CAT
+            //TODO: Add case for the FOX
             default:
                 new RemoveMenu(plot, entity).show(player);
                 break;
