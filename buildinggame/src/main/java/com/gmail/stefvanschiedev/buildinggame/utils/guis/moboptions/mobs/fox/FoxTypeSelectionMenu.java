@@ -11,6 +11,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A menu for setting the type of a fox
+ *
+ * @since 7.0.0
+ */
 public class FoxTypeSelectionMenu extends Gui {
 
     /**

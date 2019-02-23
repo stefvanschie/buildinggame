@@ -10,6 +10,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A menu for altering foxes
+ *
+ * @since 7.0.0
+ */
 public class FoxMenu extends BabyMenu {
 
     /**
