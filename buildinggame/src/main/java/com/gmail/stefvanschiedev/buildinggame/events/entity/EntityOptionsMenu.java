@@ -8,6 +8,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorM
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.LlamaMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.mooshroom.MooshroomMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot.ParrotMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish.PufferfishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
@@ -58,7 +59,6 @@ public class EntityOptionsMenu implements Listener {
         switch (entity.getType()) {
             case CHICKEN:
             case COW:
-            case MUSHROOM_COW:
             case OCELOT:
             case SKELETON_HORSE:
             case POLAR_BEAR:
@@ -116,6 +116,9 @@ public class EntityOptionsMenu implements Listener {
                 break;
             case TROPICAL_FISH:
                 new TropicalFishMenu(plot, (TropicalFish) entity).show(player);
+                break;
+            case MUSHROOM_COW:
+                new MooshroomMenu(plot, (MushroomCow) entity).show(player);
                 break;
             //TODO: Add case for the PANDA
             //TODO: Add case for the CAT
