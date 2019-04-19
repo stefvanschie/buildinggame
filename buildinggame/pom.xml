@@ -63,13 +63,6 @@
         </dependency>
         <!--Needs to be created manually-->
         <dependency>
-            <groupId>me.robin</groupId>
-            <artifactId>leaderheads</artifactId>
-            <version>3.1.6</version>
-            <scope>provided</scope>
-        </dependency>
-        <!--Needs to be created manually-->
-        <dependency>
             <groupId>me.ebonjaeger</groupId>
             <artifactId>perworldinventory-kt</artifactId>
             <version>2.1.0</version>
