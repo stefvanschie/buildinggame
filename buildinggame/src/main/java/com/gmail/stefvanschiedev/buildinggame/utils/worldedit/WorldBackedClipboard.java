@@ -12,7 +12,7 @@ import com.sk89q.worldedit.math.BlockVector2;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.util.Location;
-import com.sk89q.worldedit.world.biome.BaseBiome;
+import com.sk89q.worldedit.world.biome.BiomeType;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockStateHolder;
@@ -210,20 +210,10 @@ public class WorldBackedClipboard implements Clipboard {
      * @since 6.5.0
      */
     @Override
-    public BaseBiome getBiome(BlockVector2 blockVector2) {
-         try {
-             int id = BUKKIT_IMPL_ADAPTER.getBiomeId(BukkitAdapter.adapt(region.getWorld())
-                 .getBiome(blockVector2.getX(), blockVector2.getZ()));
+    public BiomeType getBiome(BlockVector2 blockVector2) {
+        World world = BukkitAdapter.adapt(region.getWorld());
 
-             //noinspection JavaReflectionInvocation
-             return (BaseBiome) BUKKIT_BIOME_REGISTRY.getClass().getMethod("createFromId")
-                 .invoke(BUKKIT_BIOME_REGISTRY, id);
-         } catch (NoSuchMethodException | IllegalAccessException |
-             InvocationTargetException exception) {
-             exception.printStackTrace();
-         }
-
-         return null;
+        return BukkitAdapter.adapt(world.getBiome(blockVector2.getBlockX(), blockVector2.getBlockZ()));
     }
 
     /**
@@ -245,8 +235,8 @@ public class WorldBackedClipboard implements Clipboard {
      * @since 6.5.0
      */
     @Override
-    public boolean setBiome(BlockVector2 blockVector2, BaseBiome baseBiome) {
-        Biome biome = BUKKIT_IMPL_ADAPTER.getBiome(baseBiome.getId());
+    public boolean setBiome(BlockVector2 blockVector2, BiomeType biomeType) {
+        Biome biome = BukkitAdapter.adapt(biomeType);
 
         BukkitAdapter.adapt(region.getWorld()).setBiome(blockVector2.getX(), blockVector2.getZ(), biome);
 
