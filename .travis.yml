@@ -8,4 +8,4 @@ install:
 
 script:
   - cd buildinggame
-  - mvn clean install
+  - mvn clean install -D maven.wagon.http.ssl.insecure=true -D maven.wagon.http.ssl.allowall=true
