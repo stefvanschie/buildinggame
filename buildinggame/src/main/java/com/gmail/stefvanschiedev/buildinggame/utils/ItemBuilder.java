@@ -3,10 +3,11 @@ package com.gmail.stefvanschiedev.buildinggame.utils;
 import java.util.*;
 import java.util.function.Consumer;
 
-import me.ialistannen.mininbt.ItemNBTUtil;
-import me.ialistannen.mininbt.NBTWrappers;
+import com.gmail.stefvanschiedev.buildinggame.utils.itemtagtypes.BooleanItemTagType;
+import com.gmail.stefvanschiedev.buildinggame.utils.itemtagtypes.UUIDItemTagType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +19,8 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +50,8 @@ public class ItemBuilder implements Listener {
     /**
      * The item we're making
      */
-    private ItemStack item;
+    @NotNull
+    private final ItemStack item;
 
     /**
      * A map containing all players with their registered items
@@ -85,20 +89,21 @@ public class ItemBuilder implements Listener {
      * @since 5.6.1
      */
     public ItemStack build() {
-        NBTWrappers.NBTTagCompound tag = ItemNBTUtil.getTag(item);
+        ItemMeta itemMeta = item.getItemMeta();
+        CustomItemTagContainer customTagContainer = itemMeta.getCustomTagContainer();
 
-        if (tag == null)
-            tag = new NBTWrappers.NBTTagCompound();
+        NamespacedKey movableKey = new NamespacedKey(Main.getInstance(), "movable");
+        NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "uuid");
 
-        tag.setBoolean("movable", movable);
-        tag.setString("player", player.getUniqueId().toString());
+        customTagContainer.setCustomTag(movableKey, new BooleanItemTagType(), this.movable);
+        customTagContainer.setCustomTag(playerKey, new UUIDItemTagType(), this.player.getUniqueId());
 
-        this.item = ItemNBTUtil.setNBTTag(tag, item);
+        item.setItemMeta(itemMeta);
 
-        if (!REGISTERED_ITEMS.containsKey(player))
-            REGISTERED_ITEMS.put(player, new HashSet<>());
+        if (!REGISTERED_ITEMS.containsKey(this.player))
+            REGISTERED_ITEMS.put(this.player, new HashSet<>());
 
-        REGISTERED_ITEMS.get(player).add(this);
+        REGISTERED_ITEMS.get(this.player).add(this);
 
         return item;
     }
@@ -172,6 +177,8 @@ public class ItemBuilder implements Listener {
      * @return the item
      * @since 5.6.1
      */
+    @NotNull
+    @Contract(pure = true)
     private ItemStack getItem() {
         return item;
     }
@@ -223,15 +230,21 @@ public class ItemBuilder implements Listener {
 	@Contract("null -> fail")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (e.getCurrentItem() == null)
-			return;
+		if (e.getCurrentItem() == null) {
+            return;
+        }
 
-        NBTWrappers.NBTTagCompound tag = ItemNBTUtil.getTag(e.getCurrentItem());
+        CustomItemTagContainer customTagContainer = e.getCurrentItem().getItemMeta().getCustomTagContainer();
 
-        if (tag != null && tag.getString("player") != null &&
-            e.getWhoClicked().getUniqueId().equals(UUID.fromString(tag.getString("player"))) &&
-            !tag.getBoolean("movable"))
+        NamespacedKey uuidKey = new NamespacedKey(Main.getInstance(), "uuid");
+        NamespacedKey movableKey = new NamespacedKey(Main.getInstance(), "movable");
+
+        UUID uuid = customTagContainer.getCustomTag(uuidKey, new UUIDItemTagType());
+        boolean movable = customTagContainer.getCustomTag(movableKey, new BooleanItemTagType());
+
+        if (uuid != null && e.getWhoClicked().getUniqueId().equals(uuid) && !movable) {
             e.setCancelled(true);
+        }
 	}
 
     /**
