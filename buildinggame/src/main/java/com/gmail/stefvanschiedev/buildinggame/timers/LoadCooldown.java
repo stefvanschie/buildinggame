@@ -25,7 +25,7 @@ public class LoadCooldown extends BukkitRunnable {
 				return;
 		}
 
-		Main.getInstance().loadPlugin();
+		Main.getInstance().loadPlugin(false);
 		this.cancel();
 	}
 }

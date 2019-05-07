@@ -3,315 +3,315 @@
     <paginatedpane x="0" y="0" length="9" height="5" field="paginatedPane">
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="2de4e2783f85a391221dd91656ba688e7e42d16f6abbfbcfad9ca53617fca6"/>
                     <displayname>*gui.heads.devices.clock.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.clock.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="d2c3569b62a1a9d28d279098b05764fed0648138be98f55dc26265fd08c40"/>
                     <displayname>*gui.heads.devices.golden-clock.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.golden-clock.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="78472a2dcc239b4a483ac44c1dbf8fdba0fca1d253eb643fa0bd93af83a373"/>
                     <displayname>*gui.heads.devices.antique-clock.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.antique-clock.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="cc1e2b82db10ad25ca41345e9245f5847e76760cd245c48e5af1fd8985ef915"/>
                     <displayname>*gui.heads.devices.gamecube.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.gamecube.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="e063a0ebb2d8010273b6c45b64e84d83b1e43e2ca5dfb2a6fd838c3f88827d"/>
                     <displayname>*gui.heads.devices.gamecube-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.gamecube-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="2f159a1cbe173d927392fa65fcfe78553d81aa5dc29495b9fbbade362f8bf9"/>
                     <displayname>*gui.heads.devices.security-camera.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.security-camera.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ea7d2a7fbb4d37b4d53fe87757128e5ef66ec23d7ff4fe9944546dbc8ce777"/>
                     <displayname>*gui.heads.devices.camera.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.camera.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ff7becf1718e9a6096ee5f9cb7abeb6cfd9488c44a3116407c92ec33ad7d8521"/>
                     <displayname>*gui.heads.devices.speaker.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.speaker.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="59e9c9246f1ba5a41e53efa68b2bd56a70da308f393487dcf6fe756799b3c7"/>
                     <displayname>*gui.heads.devices.headlight.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.headlight.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="f0896390c4921bf889a29cfd1842abf9ef7f84e5a22fbce7e64891db41666bc"/>
                     <displayname>*gui.heads.devices.ceiling-lamp.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.ceiling-lamp.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="a76fa636c54e36085fe2fa46dc966215c15722bb764a2eee84cfe8476caf71"/>
                     <displayname>*gui.heads.devices.microwave.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.microwave.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="8ae52ae8c98ac19fd07637a469ffa256ab0b3b10ece6243186188ba38df154"/>
                     <displayname>*gui.heads.devices.computer.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.computer.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="9c9a91a74d3a1bb1d785f5bdc8d826de3b2fddc6a1fad12923fd06ec84f499e"/>
                     <displayname>*gui.heads.devices.computer-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.computer-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="a824bfc3d8813d7ae3cbc5f8b75f7239368ca87c85fef82244dbaf59cb225c3"/>
                     <displayname>*gui.heads.devices.monitor.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.monitor.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="15c292a24f54a7a43785266552dba7a184f9c50e0d94b337d8d3e76e9e9cce7"/>
                     <displayname>*gui.heads.devices.monitor-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.monitor-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="4c3c8517516f8d8e8067781e7c62eea27de478b14c4a68c8e8c1ad8af1bae21"/>
                     <displayname>*gui.heads.devices.old-radio.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.old-radio.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="198dd1806a81ac069979199eb3f222341d671af507798527484d1e2fe1638"/>
                     <displayname>*gui.heads.devices.computer-3.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.computer-3.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="6d6c65b44c34b1acc2ccb346752397125f0d9ffa0ab3c50a99d1db3b74c63"/>
                     <displayname>*gui.heads.devices.monitor-3.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.monitor-3.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="bb53e8d374b4f6f573d1286681bf841055b89a462f7cdd99e8e63d2f514e45"/>
                     <displayname>*gui.heads.devices.toaster.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.toaster.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="543fe8802edb2e981ae6ed4dfaba3eab79aa8facf9abdc38126896debeb7c6b"/>
                     <displayname>*gui.heads.devices.toaster-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.toaster-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="207bd38f16b380c882f8c28315ebed2561adab2fdb996b2cc0d747f64bc4eb8"/>
                     <displayname>*gui.heads.devices.camera-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.camera-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="82442bbf7171b5cafca217c9ba44ce27647225df76cda9689d61a9f1c0a5f176"/>
                     <displayname>*gui.heads.devices.telephone.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.telephone.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="d3a0feb626e567e479576f4ff543e16e9b36a7304891b2f3293eaa8b68735a4"/>
                     <displayname>*gui.heads.devices.old-camera.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.old-camera.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="7cc217a9b9e3ce3cd0484c7e8ce49d1cf741281bdda5a4d6cb821f378752718"/>
                     <displayname>*gui.heads.devices.lantern.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.lantern.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="d2c81b435dc22d29d4778ffd22feb846a68b648dd1af5de818b517f0574d"/>
                     <displayname>*gui.heads.devices.lantern-off.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.lantern-off.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="1c49bd9019d05d1f7d201cf9ed10d25a33ac3ac5e8296636ec659f39143f8"/>
                     <displayname>*gui.heads.devices.shower-head.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.shower-head.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="c2847cd5717e5f5a64e1ba9cb481dc9e22c78ca23f8516d553f55412fa113e0"/>
                     <displayname>*gui.heads.devices.aquarium.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.aquarium.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="25b3f2cfa0739c4e828316f39f90b05bc1f4ed27b1e35888511f558d4675"/>
                     <displayname>*gui.heads.devices.instagram.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.instagram.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="a6b221be89678d5856eaa68667f98683175bcce6741f82c62e73f044166367"/>
                     <displayname>*gui.heads.devices.siren.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.siren.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="d4bf643cfb41ee5f9e618de9789cc6d85c2e953f44567e4e2d3b19a79e843"/>
                     <displayname>*gui.heads.devices.police-siren.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.police-siren.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="8d19c68461666aacd7628e34a1e2ad39fe4f2bde32e231963ef3b35533"/>
                     <displayname>*gui.heads.devices.computer-4.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.computer-4.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="a247c876488167c74cb948ab1181e6bef9e4c8d7573c191aaab4e5cc75b09d"/>
                     <displayname>*gui.heads.devices.broken-tv.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.broken-tv.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="2017bc48fe3cdc9085a0e110fe1f628426a09775747398de5724e73586bd"/>
                     <displayname>*gui.heads.devices.broken-tv-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.broken-tv-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="cc99d8fbad11f9b73340bcc1adf6dd28f67f754b52ce4e502b4fe02b16b1834"/>
                     <displayname>*gui.heads.devices.broken-tv-3.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.broken-tv-3.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="54a8dc1e9e12d58e2de63e1a1f7f89276ec13df062fbd28b267fd54e1c1d74"/>
                     <displayname>*gui.heads.devices.broken-tv-4.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.broken-tv-4.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="be3db27cbd1789310409081ad8c42d690b08961b55cadd45b42d46bca28b8"/>
                     <displayname>*gui.heads.devices.broken-tv-5.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.broken-tv-5.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="da6ae5b34c4f79a5f9ed6ccc33bc981fc40acf2bfcd9522664fe1c524d2eb0"/>
                     <displayname>*gui.heads.devices.clock-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.clock-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ca35afa58631609791ffe25f3a879dfbffea1151f87bff62c5423ed6136ee0"/>
                     <displayname>*gui.heads.devices.police-siren-2.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.police-siren-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="9ccefd5f2a94f242819858a96555a13baeba9dae8d467f4061974ee999b6959b"/>
                     <displayname>*gui.heads.devices.computer-5.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.computer-5.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="fed4ae757f23445b5c9335cc5a8f7f7c6f9a5aee85bb69fe97f581dafb18d30"/>
                     <displayname>*gui.heads.devices.computer-6.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.computer-6.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="8da332abde333a15a6c6fcfeca83f0159ea94b68e8f274bafc04892b6dbfc"/>
                     <displayname>*gui.heads.devices.c4-explosive.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.c4-explosive.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="c74170c66bf3140f234b322add724c5df6949a9209f807ebf86d4f9c8c1e178"/>
                     <displayname>*gui.heads.devices.monitor-4.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.monitor-4.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="1256f7ff52e7bfd8187b83dd34df34502952b8db9fafb7288ebebb6e78ef15f"/>
                     <displayname>*gui.heads.devices.gamecube-3.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.gamecube-3.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="53da39e556c927990384faa1feb3b825252dac78cd288779cde1117c37a8"/>
                     <displayname>*gui.heads.devices.computer-7.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.computer-7.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="bfe4ed837849dea840cd4f9929fdd1519d14b5dde3803559e7f63d27f1e6f29"/>
                     <displayname>*gui.heads.devices.clock-3.name</displayname>
                     <lore>
@@ -322,35 +322,35 @@
         </page>
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ba10da526e5111cfb6e3ebd47693e162dd52d41a2182028daa7c2b19aa3143"/>
                     <displayname>*gui.heads.devices.black-clock.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.black-clock.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="9ed6ff4d0f2fd91847a836e476acf8d4afbadf4d841e0cd48746f7347cf42"/>
                     <displayname>*gui.heads.devices.hot-toaster.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.hot-toaster.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="b01a568eba7e453b55f15545f5e35ffab8791aacf9034afbbbe4bddb21fa50"/>
                     <displayname>*gui.heads.devices.keypad.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.keypad.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="2e99f669725d2358636ae2f5bc3439d667849daa8462af93a42e212af12b2a"/>
                     <displayname>*gui.heads.devices.speakers.name</displayname>
                     <lore>
                         <line>*gui.heads.devices.speakers.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="98636123b1a3755abd8aef6d85b2a85bf10f486edefdd1a3cef7679d825"/>
                     <displayname>*gui.heads.devices.blender.name</displayname>
                     <lore>
@@ -361,7 +361,7 @@
         </page>
     </paginatedpane>
     <outlinepane x="2" y="5" length="1" height="1" field="previous" visible="false">
-        <item id="sugar_cane" onLocalClick="previousPageClick">
+        <item id="sugar_cane" onClick="previousPageClick">
             <displayname>*gui.heads.devices.previous-page.name</displayname>
             <lore>
                 <line>*gui.heads.devices.previous-page.lores</line>
@@ -369,7 +369,7 @@
         </item>
     </outlinepane>
     <outlinepane x="4" y="5" length="1" height="1">
-        <item id="book" onLocalClick="closeClick">
+        <item id="book" onClick="closeClick">
             <displayname>*gui.heads.devices.close.name</displayname>
             <lore>
                 <line>*gui.heads.devices.close.lores</line>
@@ -377,7 +377,7 @@
         </item>
     </outlinepane>
     <outlinepane x="6" y="5" length="1" height="1" field="next">
-        <item id="sugar_cane" onLocalClick="nextPageClick">
+        <item id="sugar_cane" onClick="nextPageClick">
             <displayname>*gui.heads.devices.next-page.name</displayname>
             <lore>
                 <line>*gui.heads.devices.next-page.lores</line>

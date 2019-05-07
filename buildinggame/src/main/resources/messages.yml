@@ -4383,6 +4383,10 @@ gui:
         name: "&aDyed thing pattern"
         lore:
         -
+      globe:
+        name: "&aGlobe pattern"
+        lore:
+        -
   biome:
     name: "&aBiomes"
     lores:

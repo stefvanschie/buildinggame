@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -25,7 +24,7 @@ class SizeSelectionMenu extends Gui {
     SizeSelectionMenu(Mob mob) {
         super(Main.getInstance(), 1, ChatColor.GREEN + "Change size");
 
-        var pane = new OutlinePane(new GuiLocation(3, 0), 6, 1);
+        var pane = new OutlinePane(3, 0, 6, 1);
 
         //small
         var goldNugget = new ItemStack(Material.GOLD_NUGGET);

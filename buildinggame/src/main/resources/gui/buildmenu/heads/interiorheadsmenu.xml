@@ -3,322 +3,322 @@
     <paginatedpane x="0" y="0" length="9" height="5" field="paginatedPane">
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="9dba38e9fc67f72c458fdac8ecd7cabaed3eb83737143a0128350a1ab381e3e"/>
                     <displayname>*gui.heads.interior.potted-rose-plant.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.potted-rose-plant.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ed80c26f904b57e631e39ebc446ec1af2dce3432eb8431fbd19087adb4abcb"/>
                     <displayname>*gui.heads.interior.potted-salvia-plant.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.potted-salvia-plant.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="7380c7e621a1f4da543e4c7ab1494ee184b87bb132418512c9eee858f9de1db"/>
                     <displayname>*gui.heads.interior.toiletpaper.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.toiletpaper.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ded3d34da8ae8b482f266ae175cd22cce3b0cfe2ca2a16416c1c84cb1e8e3b78"/>
                     <displayname>*gui.heads.interior.toiletroll.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.toiletroll.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="8d1b28f886ca3c8fc4301b785bf38c619ea66b68352a882bf8080e63034e0"/>
                     <displayname>*gui.heads.interior.winrar-books.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.winrar-books.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="32a18d36c746e4843850a3b65c51150ab3f75d13b7f8cc55c7686febd17b6a"/>
                     <displayname>*gui.heads.interior.bookcase.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.bookcase.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="93184d6ad4a0e15b3a71dadf45f6c7ce9ec96172bc9ff25fd3af787a379bd1"/>
                     <displayname>*gui.heads.interior.bookshelf.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.bookshelf.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="21c63d9b9fd8742eaeb04c692172cb9da43781698a575cdabe1c04df12c3f"/>
                     <displayname>*gui.heads.interior.pile-of-books.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.pile-of-books.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="6f68d509b5d1669b971dd1d4df2e47e19bcb1b33bf1a7ff1dda29bfc6f9ebf"/>
                     <displayname>*gui.heads.interior.chest.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.chest.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="a6cc486c2be1cb9dfcb2e53dd9a3e9a883bfadb27cb956f1896d602b4067"/>
                     <displayname>*gui.heads.interior.enderchest.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.enderchest.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="e8e5544af7f5489cc27491ca68fa92384b8ea5cf20b5c8198adb7bfd12bc2bc2"/>
                     <displayname>*gui.heads.interior.iron-chest.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.iron-chest.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="f7c7df52b5e50badb61fed7212d979e63fe94f1bde02b2968c6b156a770126c"/>
                     <displayname>*gui.heads.interior.medicine-chest.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.medicine-chest.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="f73c56ac528f3b9dd13789623b52f60233262e59e13cfebcf6586ca55449fcb"/>
                     <displayname>*gui.heads.interior.cabinet.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.cabinet.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="f0afa4fffd10863e76c698da2c9c9e799bcf9ab9aa37d8312881734225d3ca"/>
                     <displayname>*gui.heads.interior.present.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.present.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="13cfbf2bdfd48514bfbace9518c7664112df2c173e8c7ad92b3e65621a9ed6e0"/>
                     <displayname>*gui.heads.interior.present-2.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.present-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="c6e69b1c7e69bcd49ed974f5ac36ea275efabb8c649cb2b1fe9d6ea6166ec3"/>
                     <displayname>*gui.heads.interior.present-3.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.present-3.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="b1dd4fe4a429abd665dfdb3e21321d6efa6a6b5e7b956db9c5d59c9efab25"/>
                     <displayname>*gui.heads.interior.globe.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.globe.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="bf9c71af3f7e819ec3c4496f291567aefb98f5584517da266ba0a6eccaa9a6e3"/>
                     <displayname>*gui.heads.interior.plant.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.plant.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ce7d8c242d2e4f8028f930be76f35014b21b5255208b1c04181b2574131b75a"/>
                     <displayname>*gui.heads.interior.crafting-table.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.crafting-table.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="23fffc8955b0e8302898f7f015d849f0a01dbbb0427417506fb89ead54d45f6"/>
                     <displayname>*gui.heads.interior.potted-daffodil-plant.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.potted-daffodil-plant.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="9dc4c12bf2619cbfc8f22dc62c022ce15126cea3e212c28d9f96ea310ac4c42"/>
                     <displayname>*gui.heads.interior.potted-camellia-plant.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.potted-camellia-plant.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="781226656d825291b1d7e456b74ecdce28672169641e6c35b1e23b9b40274e"/>
                     <displayname>*gui.heads.interior.candle.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.candle.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="7acc61666adf1e4cd7cf57af3e1e17ba17310b2fcd8e3ed27cf88b7d0d88518"/>
                     <displayname>*gui.heads.interior.unlit-candle.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.unlit-candle.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="e344d83e7c6ece90d34c685a9a3384f8e8d0151633fc2eeae4d4b636862d33"/>
                     <displayname>*gui.heads.interior.old-books.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.old-books.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="c35257b799d3946927f2b325d366eb5104a5c35219ee4e4d35721bf28a210"/>
                     <displayname>*gui.heads.interior.potted-azelea-plant.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.potted-azelea-plant.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ed7ad1b1db2b323f013b775a8f9481f1cd292bf9a58dd2905e3e1929d13bac"/>
                     <displayname>*gui.heads.interior.white-vase.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.white-vase.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ca76674c6cec6f31bfefe0483ddaeaad2386f02c3587f055eab91e44ca7b4"/>
                     <displayname>*gui.heads.interior.brown-vase.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.brown-vase.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="3c6c1d85485ea567a536d2bb33dad8fd6dc31f1f74467e7c17d8d75a3d57"/>
                     <displayname>*gui.heads.interior.pink-vase.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.pink-vase.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="e5847b5d159a2d0a1d73a2c8bf8d9eaf134f4a6854176ace7d8194ff782f21f"/>
                     <displayname>*gui.heads.interior.blue-vase.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.blue-vase.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="dfd9b2f42d5f1c2a77b511fe41a4c6b5c192fb10b2ceadde05bd1af52a151"/>
                     <displayname>*gui.heads.interior.furnace.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.furnace.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="422768db6573651626552bb26442609a7279c7843cb69b8e603d2c1db645d0"/>
                     <displayname>*gui.heads.interior.cauldron.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.cauldron.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="c2847cd5717e5f5a64e1ba9cb481dc9e22c78ca23f8516d553f55412fa113e0"/>
                     <displayname>*gui.heads.interior.aquarium.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.aquarium.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="af22b6a3a0f24bdeeab2a6acd9b1f52bb9594d5f6b1e2c05dddb219410c8"/>
                     <displayname>*gui.heads.interior.wooden-crate.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.wooden-crate.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="f5612dc7b86d71afc1197301c15fd979e9f39e7b1f41d8f1ebdf8115576e2e"/>
                     <displayname>*gui.heads.interior.christmas-present.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.christmas-present.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="4411fc3f2de5b1eb9b87e9979091993c3490502eba7265bed93d8b1edf2cfa37"/>
                     <displayname>*gui.heads.interior.books.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.books.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="45ca5e85c4aea608bd3443cabdf1c2bdde3b431ad3aa38fffe04a32eb7e525"/>
                     <displayname>*gui.heads.interior.chinese-ming-vase.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.chinese-ming-vase.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="785aeed252c927b2acecb1cd7fab450977e57d9296614e964d4ece4d7b89dd0"/>
                     <displayname>*gui.heads.interior.japanese-lantern.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.japanese-lantern.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="70808284ba50ec088dcf6d9e5549e91f82585f1c28299c40593cc8aaf2db50"/>
                     <displayname>*gui.heads.interior.chinese-lantern.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.chinese-lantern.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="4d48e75ff55cb57533c7b904be887a374925f93832f7ae16b7923987e970"/>
                     <displayname>*gui.heads.interior.globe-2.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.globe-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="26283e7a88d32719304a37ede0c6a8c5dc9d9cf9b00a179cf904e8ce821312"/>
                     <displayname>*gui.heads.interior.paper-lantern.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.paper-lantern.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="9fddddb8eee11bc312d1acfd621a446b56868aaf66a5071ca9425582b18cdd6"/>
                     <displayname>*gui.heads.interior.red-candle.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.red-candle.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="ceaa55f43e5e3ad49b1140df2486626cf9f11dfaf76f1b278b5d93bf4edf124"/>
                     <displayname>*gui.heads.interior.unlit-red-candle.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.unlit-red-candle.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="82ae19107086dd314daf31d86618e51948a6e3e20d96dca17d21b25d42d2b24"/>
                     <displayname>*gui.heads.interior.stack-of-books.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.stack-of-books.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="f493936544ca291b9fc7928663ae2763e1835756aa1b3952f965d525c3937b5d"/>
                     <displayname>*gui.heads.interior.stack-of-books-2.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.stack-of-books-2.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="4ce8fda1303b5b3239b96efba395f62717cc8785be32e1d889afe6b97bb1c1a"/>
                     <displayname>*gui.heads.interior.fish-tank.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.fish-tank.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="bd7a9f6ed08dd217fdf09f4652bf6b7af621e1d5f8963605349da73998a443"/>
                     <displayname>*gui.heads.interior.present-4.name</displayname>
                     <lore>
@@ -329,14 +329,14 @@
         </page>
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="64abe81e6f4961e0f6bd82f2d4135b6b5fc845739e71cfe3b8943531d921e"/>
                     <displayname>*gui.heads.interior.present-5.name</displayname>
                     <lore>
                         <line>*gui.heads.interior.present-5.lores</line>
                     </lore>
                 </item>
-                <item id="player_head" damage="3" onLocalClick="headClick">
+                <item id="player_head" damage="3" onClick="headClick">
                     <skull id="c2412548ebd6897e808c1fcbbf5bf7a625fe15fa48fbff4cf822b0c8e57a8"/>
                     <displayname>*gui.heads.interior.cd-case.name</displayname>
                     <lore>
@@ -347,7 +347,7 @@
         </page>
     </paginatedpane>
     <outlinepane x="2" y="5" length="1" height="1" field="previous" visible="false">
-        <item id="sugar_cane" onLocalClick="previousPageClick">
+        <item id="sugar_cane" onClick="previousPageClick">
             <displayname>*gui.heads.interior.previous-page.name</displayname>
             <lore>
                 <line>*gui.heads.interior.previous-page.lores</line>
@@ -355,7 +355,7 @@
         </item>
     </outlinepane>
     <outlinepane x="4" y="5" length="1" height="1">
-        <item id="book" onLocalClick="closeClick">
+        <item id="book" onClick="closeClick">
             <displayname>*gui.heads.interior.close.name</displayname>
             <lore>
                 <line>*gui.heads.interior.close.lores</line>
@@ -363,7 +363,7 @@
         </item>
     </outlinepane>
     <outlinepane x="6" y="5" length="1" height="1" field="next">
-        <item id="sugar_cane" onLocalClick="nextPageClick">
+        <item id="sugar_cane" onClick="nextPageClick">
             <displayname>*gui.heads.interior.next-page.name</displayname>
             <lore>
                 <line>*gui.heads.interior.next-page.lores</line>

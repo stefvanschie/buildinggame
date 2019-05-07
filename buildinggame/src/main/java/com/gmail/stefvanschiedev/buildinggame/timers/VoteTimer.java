@@ -7,6 +7,7 @@ import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.util.io.Closer;
 import org.bukkit.Bukkit;
@@ -149,8 +150,8 @@ public class VoteTimer extends Timer {
                                 var builtInClipboardFormat = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
                                 var clipboardWriter = builtInClipboardFormat.getWriter(bufferedOutputStream);
 
-                                var lowVector = new Vector(region.getLowX(), region.getLowY(), region.getLowZ());
-                                var highVector = new Vector(region.getHighX(), region.getHighY(), region.getHighZ());
+                                var lowVector = BlockVector3.at(region.getLowX(), region.getLowY(), region.getLowZ());
+                                var highVector = BlockVector3.at(region.getHighX(), region.getHighY(), region.getHighZ());
                                 var bukkitWorld = new BukkitWorld(region.getWorld());
 
                                 var cuboidRegion = new CuboidRegion(bukkitWorld, lowVector, highVector);

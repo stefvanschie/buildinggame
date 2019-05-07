@@ -6,9 +6,12 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat.CatMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox.FoxMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.LlamaMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.mooshroom.MooshroomMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.panda.PandaMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot.ParrotMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish.PufferfishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
@@ -120,9 +123,15 @@ public class EntityOptionsMenu implements Listener {
             case MUSHROOM_COW:
                 new MooshroomMenu(plot, (MushroomCow) entity).show(player);
                 break;
-            //TODO: Add case for the PANDA
-            //TODO: Add case for the CAT
-            //TODO: Add case for the FOX
+            case PANDA:
+                new PandaMenu(plot, (Panda) entity).show(player);
+                break;
+            case CAT:
+                new CatMenu(plot, (Cat) entity).show(player);
+                break;
+            case FOX:
+                new FoxMenu(plot, (Fox) entity).show(player);
+                break;
             default:
                 new RemoveMenu(plot, entity).show(player);
                 break;

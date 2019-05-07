@@ -7,6 +7,7 @@ import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -51,7 +52,8 @@ class PatternBannerMenu extends Gui {
             bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
             banner.setItemMeta(bannerMeta);
 
-            new ColorBannerMenu(banner).show(event.getWhoClicked());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () ->
+                new ColorBannerMenu(banner).show(event.getWhoClicked()));
 
             event.setCancelled(true);
         }));
@@ -819,17 +821,18 @@ class PatternBannerMenu extends Gui {
             event.setCancelled(true);
         }), 4, 0);
 
-        //globe pattern
         var globeBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var globeBannerMeta = (BannerMeta) globeBanner.getItemMeta();
-        //TODO: Add pattern to banner
-        globeBannerMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.pattern.globe.name")));
-        globeBannerMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.pattern.globe.name")));
+        globeBannerMeta.addPattern(new Pattern(dyeColor, PatternType.GLOBE));
+        globeBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
+            .getString("gui.banners.pattern.globe.name")));
+        globeBannerMeta.setLore(MessageManager.translate(MESSAGES
+            .getStringList("gui.banners.pattern.globe.lore")));
         globeBanner.setItemMeta(globeBannerMeta);
 
         staticPane.addItem(new GuiItem(globeBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            //TODO: Add pattern to base banner
+            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.GLOBE));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());

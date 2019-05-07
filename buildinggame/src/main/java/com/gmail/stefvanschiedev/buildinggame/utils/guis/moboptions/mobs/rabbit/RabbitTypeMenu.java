@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -21,7 +20,7 @@ class RabbitTypeMenu extends Gui {
     RabbitTypeMenu(Rabbit rabbit) {
         super(Main.getInstance(), 1, ChatColor.GREEN + "Set rabbit type");
 
-        var pane = new OutlinePane(new GuiLocation(1, 0), 8, 1);
+        var pane = new OutlinePane(1, 0, 8, 1);
 
         //black type
         var black = new ItemStack(Material.BLACK_WOOL, 1);

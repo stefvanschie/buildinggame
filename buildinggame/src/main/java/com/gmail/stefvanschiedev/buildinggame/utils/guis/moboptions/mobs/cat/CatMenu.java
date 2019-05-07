@@ -6,6 +6,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Animals;
+import org.bukkit.entity.Cat;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -19,9 +20,8 @@ public class CatMenu extends ColorMenu {
     /**
      * {@inheritDoc}
      */
-    //TODO: Change Animals to Cat
-    public CatMenu(Plot plot, Animals entity) {
-        super(plot, entity);
+    public CatMenu(Plot plot, Cat cat) {
+        super(plot, cat);
 
         //appearance
         ItemStack appearance = new ItemStack(Material.PINK_BANNER);
@@ -30,7 +30,7 @@ public class CatMenu extends ColorMenu {
         appearance.setItemMeta(appearanceMeta);
 
         pane.insertItem(new GuiItem(appearance, event -> {
-            new CatAppearanceMenu(entity).show(event.getWhoClicked());
+            new CatAppearanceMenu(cat).show(event.getWhoClicked());
 
             event.setCancelled(true);
         }), 0);

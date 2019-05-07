@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -10,7 +9,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
-import org.bukkit.entity.Animals;
+import org.bukkit.entity.Cat;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,16 +19,15 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @since 7.0.0
  */
-public class CatAppearanceMenu extends Gui {
+class CatAppearanceMenu extends Gui {
 
     /**
      * {@inheritDoc}
      */
-    //TODO: Change Animals to Cat
-    public CatAppearanceMenu(Animals cat) {
+     CatAppearanceMenu(Cat cat) {
         super(Main.getInstance(), 2, ChatColor.GREEN + "Change the cat's appearance");
 
-        var pane = new OutlinePane(new GuiLocation(0, 0), 9, 2);
+        var pane = new OutlinePane(0, 0, 9, 2);
 
         //tabby
         ItemStack tabby = new ItemStack(Material.BROWN_BANNER);
@@ -39,7 +37,7 @@ public class CatAppearanceMenu extends Gui {
         tabby.setItemMeta(tabbyMeta);
 
         pane.addItem(new GuiItem(tabby, event -> {
-            //TODO: Change the cat's appearance to tabby
+            cat.setCatType(Cat.Type.TABBY);
 
             event.setCancelled(true);
         }));
@@ -52,20 +50,20 @@ public class CatAppearanceMenu extends Gui {
         tuxedo.setItemMeta(tuxedoMeta);
 
         pane.addItem(new GuiItem(tuxedo, event -> {
-            //TODO: Change the cat's appearance to tuxedo
+            cat.setCatType(Cat.Type.BLACK);
 
             event.setCancelled(true);
         }));
 
         //red tabby
-        ItemStack redTabby = new ItemStack(Material.ORANGE_BANNER);
-        BannerMeta redTabbyMeta = (BannerMeta) redTabby.getItemMeta();
-        redTabbyMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT));
-        redTabbyMeta.setDisplayName(ChatColor.GREEN + "Red tabby");
-        redTabby.setItemMeta(redTabbyMeta);
+        ItemStack red = new ItemStack(Material.ORANGE_BANNER);
+        BannerMeta redMeta = (BannerMeta) red.getItemMeta();
+        redMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT));
+        redMeta.setDisplayName(ChatColor.GREEN + "Red");
+        red.setItemMeta(redMeta);
 
-        pane.addItem(new GuiItem(redTabby, event -> {
-            //TODO: Change the cat's appearance to red tabby
+        pane.addItem(new GuiItem(red, event -> {
+            cat.setCatType(Cat.Type.RED);
 
             event.setCancelled(true);
         }));
@@ -78,7 +76,7 @@ public class CatAppearanceMenu extends Gui {
         siamese.setItemMeta(siameseMeta);
 
         pane.addItem(new GuiItem(siamese, event -> {
-            //TODO: Change the cat's appearance to siamese
+            cat.setCatType(Cat.Type.SIAMESE);
 
             event.setCancelled(true);
         }));
@@ -90,7 +88,7 @@ public class CatAppearanceMenu extends Gui {
         britishShorthair.setItemMeta(britishShorthairMeta);
 
         pane.addItem(new GuiItem(britishShorthair, event -> {
-            //TODO: Change the cat's appearance to british shorthair
+            cat.setCatType(Cat.Type.BRITISH_SHORTHAIR);
 
             event.setCancelled(true);
         }));
@@ -104,7 +102,7 @@ public class CatAppearanceMenu extends Gui {
         calico.setItemMeta(calicoMeta);
 
         pane.addItem(new GuiItem(calico, event -> {
-            //TODO: Change the cat's appearance to calico
+            cat.setCatType(Cat.Type.CALICO);
 
             event.setCancelled(true);
         }));
@@ -116,7 +114,7 @@ public class CatAppearanceMenu extends Gui {
         persian.setItemMeta(persianMeta);
 
         pane.addItem(new GuiItem(persian, event -> {
-            //TODO: Change the cat's appearance to persian
+            cat.setCatType(Cat.Type.PERSIAN);
 
             event.setCancelled(true);
         }));
@@ -129,7 +127,7 @@ public class CatAppearanceMenu extends Gui {
         ragdoll.setItemMeta(ragdollMeta);
 
         pane.addItem(new GuiItem(ragdoll, event -> {
-            //TODO: Change the cat's appearance to ragdoll
+            cat.setCatType(Cat.Type.RAGDOLL);
 
             event.setCancelled(true);
         }));
@@ -142,19 +140,19 @@ public class CatAppearanceMenu extends Gui {
         white.setItemMeta(whiteMeta);
 
         pane.addItem(new GuiItem(white, event -> {
-            //TODO: Change the cat's appearance to white
+            cat.setCatType(Cat.Type.WHITE);
 
             event.setCancelled(true);
         }));
 
         //all black
-        ItemStack allBlack = new ItemStack(Material.BLACK_BANNER);
-        ItemMeta allBlackMeta = allBlack.getItemMeta();
-        allBlackMeta.setDisplayName(ChatColor.GREEN + "All black");
-        allBlack.setItemMeta(allBlackMeta);
+        ItemStack black = new ItemStack(Material.BLACK_BANNER);
+        ItemMeta blackMeta = black.getItemMeta();
+        blackMeta.setDisplayName(ChatColor.GREEN + "Black");
+        black.setItemMeta(blackMeta);
 
-        pane.addItem(new GuiItem(allBlack, event -> {
-            //TODO: Change the cat's appearance to all black
+        pane.addItem(new GuiItem(black, event -> {
+            cat.setCatType(Cat.Type.ALL_BLACK);
 
             event.setCancelled(true);
         }));
@@ -167,7 +165,7 @@ public class CatAppearanceMenu extends Gui {
         jellie.setItemMeta(jellieMeta);
 
         pane.addItem(new GuiItem(jellie, event -> {
-            //TODO: Change the cat's appearance to jellie
+            cat.setCatType(Cat.Type.JELLIE);
 
             event.setCancelled(true);
         }));
