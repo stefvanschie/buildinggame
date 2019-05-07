@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villag
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
@@ -22,23 +21,23 @@ class ProfessionSelectionMenu extends Gui {
     /**
      * {@inheritDoc}
      */
-    ProfessionSelectionMenu(Creature creature) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Select profession");
+    ProfessionSelectionMenu(Creature villagerLike) {
+        super(Main.getInstance(), 2, ChatColor.GREEN + "Select profession");
 
-        var pane = new OutlinePane(new GuiLocation(1, 0), 7, 1);
+        var pane = new OutlinePane(0, 0, 9, 2);
 
-        //blacksmith
-        var blacksmith = new ItemStack(Material.ANVIL);
-        var blacksmithMeta = blacksmith.getItemMeta();
-        blacksmithMeta.setDisplayName(ChatColor.GREEN + "Blacksmith");
-        blacksmith.setItemMeta(blacksmithMeta);
+        //armorer
+        var armorer = new ItemStack(Material.IRON_CHESTPLATE);
+        var armorerMeta = armorer.getItemMeta();
+        armorerMeta.setDisplayName(ChatColor.GREEN + "Armorer");
+        armorer.setItemMeta(armorerMeta);
 
-        pane.addItem(new GuiItem(blacksmith, event -> {
-            if (creature instanceof Villager)
-                ((Villager) creature).setProfession(Villager.Profession.BLACKSMITH);
-            else if (creature instanceof ZombieVillager)
-                //noinspection OverlyStrongTypeCast
-                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BLACKSMITH);
+        pane.addItem(new GuiItem(armorer, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.ARMORER);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.ARMORER);
+            }
 
             event.setCancelled(true);
         }));
@@ -50,11 +49,43 @@ class ProfessionSelectionMenu extends Gui {
         butcher.setItemMeta(butcherMeta);
 
         pane.addItem(new GuiItem(butcher, event -> {
-            if (creature instanceof Villager)
-                ((Villager) creature).setProfession(Villager.Profession.BUTCHER);
-            else if (creature instanceof ZombieVillager)
-                //noinspection OverlyStrongTypeCast
-                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.BUTCHER);
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.BUTCHER);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.BUTCHER);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //cartographer
+        var cartographer = new ItemStack(Material.MAP);
+        var cartographerMeta = cartographer.getItemMeta();
+        cartographerMeta.setDisplayName(ChatColor.GREEN + "Cartographer");
+        cartographer.setItemMeta(cartographerMeta);
+
+        pane.addItem(new GuiItem(cartographer, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.CARTOGRAPHER);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.CARTOGRAPHER);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //cleric
+        var cleric = new ItemStack(Material.BREWING_STAND);
+        var clericMeta = cleric.getItemMeta();
+        clericMeta.setDisplayName(ChatColor.GREEN + "Cleric");
+        cleric.setItemMeta(clericMeta);
+
+        pane.addItem(new GuiItem(cleric, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.CLERIC);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.CLERIC);
+            }
 
             event.setCancelled(true);
         }));
@@ -66,11 +97,59 @@ class ProfessionSelectionMenu extends Gui {
         farmer.setItemMeta(farmerMeta);
 
         pane.addItem(new GuiItem(farmer, event -> {
-            if (creature instanceof Villager)
-                ((Villager) creature).setProfession(Villager.Profession.FARMER);
-            else if (creature instanceof ZombieVillager)
-                //noinspection OverlyStrongTypeCast
-                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.FARMER);
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.FARMER);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.FARMER);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //fisherman
+        var fisherman = new ItemStack(Material.COD);
+        var fishermanMeta = fisherman.getItemMeta();
+        fishermanMeta.setDisplayName(ChatColor.GREEN + "Fisherman");
+        fisherman.setItemMeta(fishermanMeta);
+
+        pane.addItem(new GuiItem(fisherman, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.FISHERMAN);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.FISHERMAN);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //fletcher
+        var fletcher = new ItemStack(Material.ARROW);
+        var fletcherMeta = fletcher.getItemMeta();
+        fletcherMeta.setDisplayName(ChatColor.GREEN + "Fletcher");
+        fletcher.setItemMeta(fletcherMeta);
+
+        pane.addItem(new GuiItem(fletcher, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.FLETCHER);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.FLETCHER);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //leatherworker
+        var leatherworker = new ItemStack(Material.LEATHER);
+        var leatherworkerMeta = leatherworker.getItemMeta();
+        leatherworkerMeta.setDisplayName(ChatColor.GREEN + "Leatherworker");
+        leatherworker.setItemMeta(leatherworkerMeta);
+
+        pane.addItem(new GuiItem(leatherworker, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.LEATHERWORKER);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.LEATHERWORKER);
+            }
 
             event.setCancelled(true);
         }));
@@ -82,43 +161,11 @@ class ProfessionSelectionMenu extends Gui {
         librarian.setItemMeta(librarianMeta);
 
         pane.addItem(new GuiItem(librarian, event -> {
-            if (creature instanceof Villager)
-                ((Villager) creature).setProfession(Villager.Profession.LIBRARIAN);
-            else if (creature instanceof ZombieVillager)
-                //noinspection OverlyStrongTypeCast
-                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.LIBRARIAN);
-
-            event.setCancelled(true);
-        }));
-
-        //nitwit
-        var nitwit = new ItemStack(Material.DIAMOND_HOE);
-        var nitwitMeta = nitwit.getItemMeta();
-        nitwitMeta.setDisplayName(ChatColor.GREEN + "Nitwit");
-        nitwit.setItemMeta(nitwitMeta);
-
-        pane.addItem(new GuiItem(nitwit, event -> {
-            if (creature instanceof Villager)
-                ((Villager) creature).setProfession(Villager.Profession.NITWIT);
-            else if (creature instanceof ZombieVillager)
-                //noinspection OverlyStrongTypeCast
-                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.NITWIT);
-
-            event.setCancelled(true);
-        }));
-
-        //priest
-        var priest = new ItemStack(Material.ENDER_EYE);
-        var priestMeta = priest.getItemMeta();
-        priestMeta.setDisplayName(ChatColor.GREEN + "Priest");
-        priest.setItemMeta(priestMeta);
-
-        pane.addItem(new GuiItem(priest, event -> {
-            if (creature instanceof Villager)
-                ((Villager) creature).setProfession(Villager.Profession.PRIEST);
-            else if (creature instanceof ZombieVillager)
-                //noinspection OverlyStrongTypeCast
-                ((ZombieVillager) creature).setVillagerProfession(Villager.Profession.PRIEST);
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.LIBRARIAN);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.LIBRARIAN);
+            }
 
             event.setCancelled(true);
         }));
@@ -130,10 +177,74 @@ class ProfessionSelectionMenu extends Gui {
         mason.setItemMeta(masonMeta);
 
         pane.addItem(new GuiItem(mason, event -> {
-            if (creature instanceof Villager) {
-                //TODO: Set the villager's profession to mason
-            } else if (creature instanceof ZombieVillager) {
-                //TODO: Set the villager's profession to mason
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.MASON);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.MASON);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //nitwit
+        var nitwit = new ItemStack(Material.DIAMOND_HOE);
+        var nitwitMeta = nitwit.getItemMeta();
+        nitwitMeta.setDisplayName(ChatColor.GREEN + "Nitwit");
+        nitwit.setItemMeta(nitwitMeta);
+
+        pane.addItem(new GuiItem(nitwit, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.NITWIT);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.NITWIT);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //shepherd
+        var shepherd = new ItemStack(Material.SHEARS);
+        var shepherdMeta = shepherd.getItemMeta();
+        shepherdMeta.setDisplayName(ChatColor.GREEN + "Shepherd");
+        shepherd.setItemMeta(shepherdMeta);
+
+        pane.addItem(new GuiItem(shepherd, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.SHEPHERD);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.SHEPHERD);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //toolsmith
+        var toolsmith = new ItemStack(Material.IRON_PICKAXE);
+        var toolsmithMeta = toolsmith.getItemMeta();
+        toolsmithMeta.setDisplayName(ChatColor.GREEN + "Toolsmith");
+        toolsmith.setItemMeta(toolsmithMeta);
+
+        pane.addItem(new GuiItem(toolsmith, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.TOOLSMITH);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.TOOLSMITH);
+            }
+
+            event.setCancelled(true);
+        }));
+
+        //weaponsmith
+        var weaponsmith = new ItemStack(Material.IRON_SWORD);
+        var weaponsmithMeta = weaponsmith.getItemMeta();
+        weaponsmithMeta.setDisplayName(ChatColor.GREEN + "Weaponsmith");
+        weaponsmith.setItemMeta(weaponsmithMeta);
+
+        pane.addItem(new GuiItem(weaponsmith, event -> {
+            if (villagerLike instanceof Villager) {
+                ((Villager) villagerLike).setProfession(Villager.Profession.WEAPONSMITH);
+            } else if (villagerLike instanceof ZombieVillager) {
+                ((ZombieVillager) villagerLike).setVillagerProfession(Villager.Profession.WEAPONSMITH);
             }
 
             event.setCancelled(true);

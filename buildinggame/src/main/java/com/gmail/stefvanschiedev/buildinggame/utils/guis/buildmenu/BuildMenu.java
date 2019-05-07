@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
@@ -96,7 +95,7 @@ public class BuildMenu extends Gui {
 		bannerMenu = new BaseColorBannerMenu();
 		biomeMenu = new BiomeMenu(plot);
 
-        var pane = new StaticPane(new GuiLocation(0, 0), 9, 5);
+        var pane = new StaticPane(0, 0, 9, 5);
 
         //particles
         var particles = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.particles.id")));
@@ -109,7 +108,7 @@ public class BuildMenu extends Gui {
             particlesMenu.show(event.getWhoClicked());
 
             event.setCancelled(true);
-        })), new GuiLocation(1, 1));
+        })), 1, 1);
 
         //floor
         var floor = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.floor.id")));
@@ -179,7 +178,7 @@ public class BuildMenu extends Gui {
             floorChange = System.currentTimeMillis();
 
             event.setCancelled(true);
-        })), new GuiLocation(3, 1));
+        })), 3, 1);
 
         //time
         var time = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.time.id")));
@@ -192,7 +191,7 @@ public class BuildMenu extends Gui {
             timeMenu.show(event.getWhoClicked());
 
             event.setCancelled(true);
-        })), new GuiLocation(5, 1));
+        })), 5, 1);
 
         //rain
         var rain = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.rain.id")));
@@ -205,7 +204,7 @@ public class BuildMenu extends Gui {
             plot.setRaining(!plot.isRaining());
 
             event.setCancelled(true);
-        })), new GuiLocation(7, 1));
+        })), 7, 1);
 
         //fly speed
         var flySpeed = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.fly-speed.id")));
@@ -218,7 +217,7 @@ public class BuildMenu extends Gui {
             flySpeedMenu.show(event.getWhoClicked());
 
             event.setCancelled(true);
-        })), new GuiLocation(1, 2));
+        })), 1, 2);
 
         //heads
         var heads = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.heads.id")));
@@ -231,7 +230,7 @@ public class BuildMenu extends Gui {
             headsMenu.show(event.getWhoClicked());
 
             event.setCancelled(true);
-        })), new GuiLocation(3, 2));
+        })), 3, 2);
 
         //banners
         var banners = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.banners.id")));
@@ -244,7 +243,7 @@ public class BuildMenu extends Gui {
             bannerMenu.show(event.getWhoClicked());
 
             event.setCancelled(true);
-        })), new GuiLocation(5, 2));
+        })), 5, 2);
 
         //biome
         var biome = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.biome.id")));
@@ -257,7 +256,7 @@ public class BuildMenu extends Gui {
             biomeMenu.show(event.getWhoClicked());
 
             event.setCancelled(true);
-        })), new GuiLocation(7, 2));
+        })), 7, 2);
 
         //close menu
         var close = new ItemStack(Material.BOOK);
@@ -270,16 +269,15 @@ public class BuildMenu extends Gui {
             event.getWhoClicked().closeInventory();
 
             event.setCancelled(true);
-        }), new GuiLocation(4, 3));
+        }), 4, 3);
 
         addPane(pane);
 	}
 
     /**
-     * {@link Gui#show(HumanEntity)}
-     *
-     * @since 5.6.0
+     * {@inheritDoc}
      */
+    @Override
     public void show(HumanEntity humanEntity) {
         particles.setVisible(humanEntity.hasPermission("bg.buildmenu.particles"));
         floor.setVisible(humanEntity.hasPermission("bg.buildmenu.floor"));

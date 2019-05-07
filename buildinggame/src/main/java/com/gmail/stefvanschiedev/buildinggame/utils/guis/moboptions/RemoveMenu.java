@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -32,7 +31,7 @@ public class RemoveMenu extends Gui {
     public RemoveMenu(Plot plot, Entity entity) {
         super(Main.getInstance(), 1, ChatColor.GREEN + "Modify entity");
 
-        pane = new OutlinePane(new GuiLocation(0, 0), 9, 1);
+        pane = new OutlinePane(0, 0, 9, 1);
 
         var remove = new ItemStack(Material.BARRIER);
         var removeMeta = remove.getItemMeta();

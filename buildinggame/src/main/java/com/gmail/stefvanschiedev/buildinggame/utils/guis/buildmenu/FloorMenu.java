@@ -2,7 +2,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
-import com.github.stefvanschie.inventoryframework.GuiLocation;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -53,11 +52,14 @@ class FloorMenu extends Gui {
      */
 	private static final Material[] SKIP_MATERIALS = {
 		Material.ACACIA_DOOR,
+        Material.ACACIA_WALL_SIGN,
 		Material.AIR,
         Material.ATTACHED_MELON_STEM,
         Material.ATTACHED_PUMPKIN_STEM,
+        Material.BAMBOO_SAPLING,
         Material.BEETROOTS,
 		Material.BIRCH_DOOR,
+        Material.BIRCH_WALL_SIGN,
         Material.BLACK_WALL_BANNER,
         Material.BLUE_WALL_BANNER,
         Material.BRAIN_CORAL_WALL_FAN,
@@ -73,6 +75,7 @@ class FloorMenu extends Gui {
         Material.CREEPER_WALL_HEAD,
         Material.CYAN_WALL_BANNER,
 		Material.DARK_OAK_DOOR,
+        Material.DARK_OAK_WALL_SIGN,
         Material.DEAD_BRAIN_CORAL_WALL_FAN,
         Material.DEAD_BUBBLE_CORAL_WALL_FAN,
         Material.DEAD_FIRE_CORAL_WALL_FAN,
@@ -89,6 +92,7 @@ class FloorMenu extends Gui {
         Material.GREEN_WALL_BANNER,
         Material.HORN_CORAL_WALL_FAN,
 		Material.JUNGLE_DOOR,
+        Material.JUNGLE_WALL_SIGN,
         Material.KELP_PLANT,
 		Material.LAVA,
         Material.LIGHT_BLUE_WALL_BANNER,
@@ -98,25 +102,30 @@ class FloorMenu extends Gui {
 		Material.MELON_STEM,
 		Material.MOVING_PISTON,
 		Material.NETHER_PORTAL,
+        Material.OAK_WALL_SIGN,
         Material.ORANGE_WALL_BANNER,
         Material.PINK_WALL_BANNER,
         Material.PISTON_HEAD,
         Material.PLAYER_WALL_HEAD,
+        Material.POPPED_CHORUS_FRUIT,
         Material.POPPY,
 		Material.POTATO,
         Material.POTATOES,
         Material.POTTED_ACACIA_SAPLING,
         Material.POTTED_ALLIUM,
         Material.POTTED_AZURE_BLUET,
+        Material.POTTED_BAMBOO,
         Material.POTTED_BIRCH_SAPLING,
         Material.POTTED_BLUE_ORCHID,
         Material.POTTED_BROWN_MUSHROOM,
         Material.POTTED_CACTUS,
+        Material.POTTED_CORNFLOWER,
         Material.POTTED_DANDELION,
         Material.POTTED_DARK_OAK_SAPLING,
         Material.POTTED_DEAD_BUSH,
         Material.POTTED_FERN,
         Material.POTTED_JUNGLE_SAPLING,
+        Material.POTTED_LILY_OF_THE_VALLEY,
         Material.POTTED_OAK_SAPLING,
         Material.POTTED_ORANGE_TULIP,
         Material.POTTED_OXEYE_DAISY,
@@ -126,6 +135,7 @@ class FloorMenu extends Gui {
         Material.POTTED_RED_TULIP,
         Material.POTTED_SPRUCE_SAPLING,
         Material.POTTED_WHITE_TULIP,
+        Material.POTTED_WITHER_ROSE,
 		Material.PUMPKIN_STEM,
         Material.PURPLE_WALL_BANNER,
         Material.RED_WALL_BANNER,
@@ -133,11 +143,12 @@ class FloorMenu extends Gui {
 		Material.REDSTONE_WIRE,
         Material.SKELETON_WALL_SKULL,
 		Material.SPRUCE_DOOR,
+        Material.SPRUCE_WALL_SIGN,
+        Material.SWEET_BERRY_BUSH,
         Material.TALL_SEAGRASS,
 		Material.TRIPWIRE,
         Material.TUBE_CORAL_WALL_FAN,
         Material.VOID_AIR,
-		Material.WALL_SIGN,
         Material.WALL_TORCH,
 		Material.WATER,
         Material.WHITE_WALL_BANNER,
@@ -155,10 +166,10 @@ class FloorMenu extends Gui {
 	FloorMenu(final Plot plot) {
 		super(Main.getInstance(), 6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
 
-        var paginatedPane = new PaginatedPane(new GuiLocation(0, 0), 9, 5);
+        var paginatedPane = new PaginatedPane(0, 0, 9, 5);
 
         for (var page = 0; page < Math.ceil(getBlocks().size() / 45.0); page++) {
-            var outlinePane = new OutlinePane(new GuiLocation(0, 0), 9, 5);
+            var outlinePane = new OutlinePane(0, 0, 9, 5);
 
             for (var i = 0; i < 45; i++) {
                 if (i + (45 * page) == getBlocks().size())
@@ -176,9 +187,9 @@ class FloorMenu extends Gui {
             paginatedPane.addPane(page, outlinePane);
         }
 
-        var previous = new OutlinePane(new GuiLocation(2, 5), 1, 1);
-        var back = new OutlinePane(new GuiLocation(4, 5), 1, 1);
-        var next = new OutlinePane(new GuiLocation(6, 5), 1, 1);
+        var previous = new OutlinePane(2, 5, 1, 1);
+        var back = new OutlinePane(4, 5, 1, 1);
+        var next = new OutlinePane(6, 5, 1, 1);
 
         previous.addItem(new GuiItem(PREVIOUS_PAGE, event -> {
             paginatedPane.setPage(paginatedPane.getPage() - 1);

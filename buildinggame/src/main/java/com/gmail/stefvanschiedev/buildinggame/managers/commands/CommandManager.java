@@ -20,6 +20,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.ParticlesMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu.BaseColorBannerMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.ChatColor;
@@ -356,7 +358,7 @@ public class CommandManager extends BaseCommand {
         if (!runnable.isCancelled())
             runnable.cancel();
 
-        Main.getInstance().loadPlugin();
+        Main.getInstance().loadPlugin(true);
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Reloaded the plugin!");
     }
@@ -600,10 +602,8 @@ public class CommandManager extends BaseCommand {
     @Description("Set the lobby")
     @CommandPermission("bg.setlobby")
     @CommandCompletion("@arenas")
-    //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-    @SuppressWarnings("TypeMayBeWeakened")
     public void onSetLobby(Player player, Arena arena) {
-        ARENAS.set(arena.getName() + ".lobby.server", player.getServer().getServerName());
+        ARENAS.set(arena.getName() + ".lobby.server", player.getServer().getName());
         ARENAS.set(arena.getName() + ".lobby.world", player.getLocation().getWorld().getName());
         ARENAS.set(arena.getName() + ".lobby.x", player.getLocation().getBlockX());
         ARENAS.set(arena.getName() + ".lobby.y", player.getLocation().getBlockY());
@@ -647,8 +647,6 @@ public class CommandManager extends BaseCommand {
     @Subcommand("setmainspawn")
     @Description("Set the main spawn")
     @CommandPermission("bg.setmainspawn")
-    //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-    @SuppressWarnings("TypeMayBeWeakened")
     public void onSetMainSpawn(Player player) {
         List<String> worlds = CONFIG.getStringList("scoreboards.main.worlds.enable");
 
@@ -658,7 +656,7 @@ public class CommandManager extends BaseCommand {
         worlds.add(player.getLocation().getWorld().getName());
         CONFIG.set("scoreboards.main.worlds.enable", worlds);
 
-        ARENAS.set("main-spawn.server", player.getServer().getServerName());
+        ARENAS.set("main-spawn.server", player.getServer().getName());
         ARENAS.set("main-spawn.world", player.getLocation().getWorld().getName());
         ARENAS.set("main-spawn.x", player.getLocation().getBlockX());
         ARENAS.set("main-spawn.y", player.getLocation().getBlockY());
@@ -778,13 +776,11 @@ public class CommandManager extends BaseCommand {
     @Description("Set a new spawn")
     @CommandPermission("bg.setspawn")
     @CommandCompletion("@arenas")
-    //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-    @SuppressWarnings("TypeMayBeWeakened")
     public void onSetSpawn(Player player, Arena arena) {
         int place = arena.getMaxPlayers() + 1;
         String name = arena.getName();
 
-        ARENAS.set(name + '.' + place + ".server", player.getServer().getServerName());
+        ARENAS.set(name + '.' + place + ".server", player.getServer().getName());
         ARENAS.set(name + '.' + place + ".world", player.getLocation().getWorld().getName());
         ARENAS.set(name + '.' + place + ".x", player.getLocation().getBlockX());
         ARENAS.set(name + '.' + place + ".y", player.getLocation().getBlockY());
@@ -1108,9 +1104,9 @@ public class CommandManager extends BaseCommand {
          * Creates and registers a new hologram at the position of the player
          *
          * @param player the player who executed the command
-         * @param name the name of the hologram to create, see {@link TopStatHologram#name}
-         * @param type the type of statistic to track, see {@link TopStatHologram#type}
-         * @param values the amount of values to display on the hologram, see {@link TopStatHologram#values}
+         * @param name the name of the hologram to create, see {@link TopStatHologram#getName()}
+         * @param type the type of statistic to track,
+         * @param values the amount of values to display on the hologram
          * @since 6.2.0
          */
         @Subcommand("create")
@@ -1118,8 +1114,6 @@ public class CommandManager extends BaseCommand {
         @CommandPermission("bg.hologram.create")
         @CommandCompletion("@nothing @stattypes @nothing")
         @Conditions("hdenabled")
-        //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
-        @SuppressWarnings("TypeMayBeWeakened")
         public void onCreate(Player player, String name, StatType type, int values) {
             if (TopStatHologram.getHolograms().stream()
                 .anyMatch(hologram -> hologram.getName().equalsIgnoreCase(name))) {
@@ -1136,7 +1130,7 @@ public class CommandManager extends BaseCommand {
          * Deletes an already existing hologram
          *
          * @param sender the sender which executed the command
-         * @param name the name of the hologram to delete, see {@link TopStatHologram#name}
+         * @param name the name of the hologram to delete, see {@link TopStatHologram#getName()}
          * @since 6.2.0
          */
         @Subcommand("delete")

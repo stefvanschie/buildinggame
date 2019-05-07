@@ -20,7 +20,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
-import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import com.sk89q.worldedit.WorldEdit;
@@ -28,6 +27,7 @@ import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -90,16 +90,6 @@ public class Main extends JavaPlugin {
 	private final LoadCooldown load = new LoadCooldown();
 
     /**
-     * Whether the listeners have been loaded
-     */
-	private boolean loadedListeners;
-
-    /**
-     * Whether the commands have been loaded
-     */
-	private boolean loadedCommands;
-
-    /**
      * Called whenever this plugin is being enabled
      *
      * @since 2.1.0
@@ -112,7 +102,7 @@ public class Main extends JavaPlugin {
 		SettingsManager.getInstance().setup(this, true);
 
         String version = Bukkit.getBukkitVersion().split("\\.")[1];
-        if (!version.substring(0, version.length() < 2 ? version.length() : 2).equals("13")) {
+        if (!version.substring(0, version.length() < 2 ? version.length() : 2).equals("14")) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
@@ -126,7 +116,7 @@ public class Main extends JavaPlugin {
 		
 			load.runTaskTimer(this, 20L, 20L);
 		} else
-			loadPlugin();
+			loadPlugin(false);
 	}
 
     /**
@@ -159,14 +149,16 @@ public class Main extends JavaPlugin {
      *
      * @since 2.1.0
      */
-	public void loadPlugin() {
+	public void loadPlugin(boolean reload) {
 		long start = System.currentTimeMillis();
 
 		//this has to be done quite early
-        Gui.registerProperty("particle-type", ParticleType::valueOf);
-        Gui.registerProperty("biome", Biome::valueOf);
-        Gui.registerProperty("dye-color", DyeColor::valueOf);
-        Gui.registerProperty("material", Material::valueOf);
+        if (!reload) {
+            Gui.registerProperty("particle-type", Particle::valueOf);
+            Gui.registerProperty("biome", Biome::valueOf);
+            Gui.registerProperty("dye-color", DyeColor::valueOf);
+            Gui.registerProperty("material", Material::valueOf);
+        }
 		
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, false);
@@ -311,7 +303,7 @@ public class Main extends JavaPlugin {
         }
 
 		getLogger().info("Loading commands");
-		if (!loadedCommands) {
+		if (!reload) {
             var manager = new BukkitCommandManager(this);
 
             //noinspection deprecation
@@ -367,15 +359,13 @@ public class Main extends JavaPlugin {
             manager.getCommandConditions().addCondition("hdenabled", context ->
                 pm.isPluginEnabled("HolographicDisplays"));
             manager.registerCommand(new CommandManager());
-
-            loadedCommands = true;
         }
 		
 		getLogger().info("Loading stats");
 		StatManager.getInstance().setup();
 		
 		getLogger().info("Loading listeners");
-		if (!loadedListeners) {
+		if (!reload) {
 			pm.registerEvents(new BlockBreak(), this);
 			pm.registerEvents(new BlockDispenseItem(), this);
 			pm.registerEvents(new BlockPlace(), this);
@@ -464,8 +454,6 @@ public class Main extends JavaPlugin {
 				pm.registerEvents(new JoinPlayerStats(), this);
 				pm.registerEvents(new QuitPlayerStats(), this);
 			}
-			
-			loadedListeners = true;
 		}
 		
 		getLogger().info("Loading signs");
