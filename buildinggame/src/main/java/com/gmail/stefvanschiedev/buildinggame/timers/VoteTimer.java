@@ -174,8 +174,6 @@ public class VoteTimer extends Timer {
 						if (first != null)
 							player.teleport(first.getLocation());
 						
-						ItemBuilder.check(player);
-						
 						MessageManager.getInstance().send(player, messages.getStringList("game-ends.message"));
 
 						if (second != null && third != null) {

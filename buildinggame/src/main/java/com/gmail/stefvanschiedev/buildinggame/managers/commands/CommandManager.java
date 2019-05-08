@@ -458,7 +458,6 @@ public class CommandManager extends BaseCommand {
                         previousLocation = null;
 
                         player.getInventory().setItemInMainHand(null);
-                        ItemBuilder.check(player);
                     }
 
                     event.setCancelled(true);
@@ -558,7 +557,6 @@ public class CommandManager extends BaseCommand {
                         previousLocation = null;
 
                         player.getInventory().setItemInMainHand(null);
-                        ItemBuilder.check(player);
                     }
 
                     event.setCancelled(true);

@@ -703,8 +703,6 @@ public class Plot {
 		Player spPlayer = spectator.getPlayer();
 		spectator.restore();
 		spPlayer.setCanPickupItems(true);
-		
-		ItemBuilder.check(spPlayer);
 	}
 
 	/**

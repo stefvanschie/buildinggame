@@ -902,8 +902,6 @@ public class Arena {
 		GamePlayer p = plot.getGamePlayer(player);
 		p.restore();
 		
-		ItemBuilder.check(player);
-		
 		if (MainSpawnManager.getInstance().getMainSpawn() != null)
 			p.connect(MainSpawnManager.getInstance().getServer(), MainSpawnManager.getInstance().getMainSpawn());
 		
@@ -1182,16 +1180,13 @@ public class Arena {
                         .replace("%playerplot%", votingPlot.getPlayerFormat()));
 				}
 
-				if (safeLocation == null)
-                    player.teleport(boundary.getAllBlocks().get(ThreadLocalRandom.current().nextInt(votingPlot
-                            .getBoundary().getAllBlocks().size())).getLocation());
-				else
-				    player.teleport(safeLocation);
+                int blockIndex = ThreadLocalRandom.current().nextInt(votingPlot.getBoundary().getAllBlocks().size());
+
+                player.teleport(Objects.requireNonNullElseGet(safeLocation, () ->
+                    boundary.getAllBlocks().get(blockIndex).getLocation()));
 
 				//give blocks
 				player.getInventory().clear();
-				
-				ItemBuilder.check(player);
 				
 				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER)
 				    config.getConfigurationSection("voting.items").getKeys(false).forEach(identifier -> {
@@ -1305,8 +1300,6 @@ public class Arena {
 				player.getInventory().clear();
 				player.setGameMode(GameMode.CREATIVE);
 				player.setPlayerTime(plot.getTime(), false);
-				
-				ItemBuilder.check(player);
 				
 				//hotbar
 				for (int i = 0; i < 9; i++)
