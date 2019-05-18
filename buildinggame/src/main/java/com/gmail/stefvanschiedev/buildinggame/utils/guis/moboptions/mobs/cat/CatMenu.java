@@ -5,7 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorM
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Animals;
 import org.bukkit.entity.Cat;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

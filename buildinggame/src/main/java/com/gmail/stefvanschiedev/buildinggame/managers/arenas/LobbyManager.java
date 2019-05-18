@@ -2,11 +2,11 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.Lobby;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -53,19 +53,22 @@ public final class LobbyManager {
 
             if (!arenas.contains(name + ".lobby"))
 				continue;
-			
-			arena.setLobby(new Lobby(new Location(Bukkit.getWorld(arenas.getString(name + ".lobby.world")),
-					arenas.getInt(name + ".lobby.x"),
-					arenas.getInt(name + ".lobby.y"),
-					arenas.getInt(name + ".lobby.z"),
-                    (float) arenas.getDouble(name + ".lobby.yaw", 0),
-                    (float) arenas.getDouble(name + ".lobby.pitch", 0))));
+
+            World world = Bukkit.getWorld(arenas.getString(name + ".lobby.world"));
+            int x = arenas.getInt(name + ".lobby.x");
+            int y = arenas.getInt(name + ".lobby.y");
+            int z = arenas.getInt(name + ".lobby.z");
+            float yaw = (float) arenas.getDouble(name + ".lobby.yaw", 0);
+            float pitch = (float) arenas.getDouble(name + ".lobby.pitch", 0);
+
+            arena.setLobby(new Location(world, x, y, z, yaw, pitch));
 
 			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                 var logger = Main.getInstance().getLogger();
 
-                if (arena.getLobby().getLocation().getWorld() == null)
-			        logger.warning("Unable to load world for lobby");
+                if (arena.getLobby().getWorld() == null) {
+                    logger.warning("Unable to load world for lobby");
+                }
 
                 logger.info("Loaded lobby for " + name);
             }

@@ -3,16 +3,12 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Fox;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * A menu for altering foxes

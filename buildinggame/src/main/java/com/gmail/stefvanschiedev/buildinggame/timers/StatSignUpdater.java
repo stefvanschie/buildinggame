@@ -7,7 +7,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
-import com.google.common.primitives.Chars;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -100,31 +99,10 @@ public class StatSignUpdater extends BukkitRunnable {
     @NotNull
     @Contract(value = "null, _, _, _ -> fail", pure = true)
     private String replace(String input, StatSign sign, OfflinePlayer player, int value) {
-        var list = new ArrayList<>(Chars.asList(input.toCharArray()));
         var matcher = Pattern.compile("%([^%]+)%").matcher(input);
 
         while (matcher.find()) {
-            list.subList(matcher.start(), matcher.end()).clear();
-
-            var function = REPLACEMENTS.get(matcher.group(1));
-
-            if (function == null)
-                continue;
-
-            char[] replacement = function.apply(sign, new AbstractMap.SimpleEntry<>(player, value)).toCharArray();
-
-            var length = replacement.length;
-            for (var i = 0; i < length; i++)
-                list.add(matcher.start() + i, replacement[i]);
-
-            StringBuilder builder = new StringBuilder();
-
-            for (char c : list)
-                builder.append(c);
-
-            input = builder.toString();
-
-            matcher.reset(input);
+            input = matcher.replaceFirst(REPLACEMENTS.get(matcher.group(1)).apply(sign, Map.entry(player, value)));
         }
 
         return input;

@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 4.0.6
  */
-public class ItemBuilder implements Listener {
+public class ItemBuilder {
 
     /**
      * The click event assigned to this item
@@ -94,7 +94,7 @@ public class ItemBuilder implements Listener {
      */
     public ItemStack build() {
         if (!hasRegisteredListener) {
-            Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
+            Bukkit.getPluginManager().registerEvents(new Listener(), Main.getInstance());
 
             hasRegisteredListener = true;
         }
@@ -171,75 +171,83 @@ public class ItemBuilder implements Listener {
     }
 
     /**
-     * Handles the interaction between player and their item
+     * This class listens to events related to {@link ItemBuilder}s.
      *
-     * @param e the event that occurs
-     * @since 4.0.6
+     * @since 7.0.0
      */
-    @Contract("null -> fail")
-    @EventHandler(ignoreCancelled = true)
-    private void onPlayerInteract(PlayerInteractEvent e) {
-        if (e.getItem() == null || e.getHand() != EquipmentSlot.HAND) {
-            return;
+    public class Listener implements org.bukkit.event.Listener {
+
+        /**
+         * Handles the interaction between player and their item
+         *
+         * @param e the event that occurs
+         * @since 7.0.0
+         */
+        @Contract("null -> fail")
+        @EventHandler
+        private void onPlayerInteract(PlayerInteractEvent e) {
+            if (e.getItem() == null || e.getHand() != EquipmentSlot.HAND) {
+                return;
+            }
+
+            ItemMeta itemMeta = e.getItem().getItemMeta();
+
+            NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
+            var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());
+
+            if (playerUUID == null || !e.getPlayer().getUniqueId().equals(playerUUID)) {
+                return;
+            }
+
+            NamespacedKey clickKey = new NamespacedKey(Main.getInstance(), "click");
+            String clickUUID = itemMeta.getPersistentDataContainer().get(clickKey, PersistentDataType.STRING);
+
+            if (clickUUID == null) {
+                return;
+            }
+
+            var consumer = CLICK_EVENTS.get(clickUUID);
+
+            if (consumer == null) {
+                return;
+            }
+
+            consumer.accept(e);
         }
 
-        ItemMeta itemMeta = e.getItem().getItemMeta();
+        /**
+         * Handles the movement of items
+         *
+         * @param e the event that occurs
+         * @since 7.0.0
+         */
+        @Contract("null -> fail")
+        @EventHandler(ignoreCancelled = true)
+        private void onInventoryClick(InventoryClickEvent e) {
+            if (e.getCurrentItem() == null) {
+                return;
+            }
 
-        NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
-        var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());
+            var itemMeta = e.getCurrentItem().getItemMeta();
 
-        if (playerUUID == null || !e.getPlayer().getUniqueId().equals(playerUUID)) {
-            return;
-        }
+            NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
+            var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());
 
-        NamespacedKey clickKey = new NamespacedKey(Main.getInstance(), "click");
-        String clickUUID = itemMeta.getPersistentDataContainer().get(clickKey, PersistentDataType.STRING);
+            if (playerUUID == null || !e.getWhoClicked().getUniqueId().equals(playerUUID)) {
+                return;
+            }
 
-        if (clickUUID == null) {
-            return;
-        }
+            NamespacedKey movableKey = new NamespacedKey(Main.getInstance(), "movable");
 
-        var consumer = CLICK_EVENTS.get(clickUUID);
+            if (!itemMeta.getPersistentDataContainer().has(movableKey, new BooleanDataType())) {
+                return;
+            }
 
-        if (consumer == null) {
-            return;
-        }
+            boolean movable = itemMeta.getPersistentDataContainer().get(movableKey, new BooleanDataType());
 
-        consumer.accept(e);
-    }
-
-    /**
-     * Handles the movement of items
-     *
-     * @param e the event that occurs
-     * @since 4.0.6
-     */
-    @Contract("null -> fail")
-    @EventHandler(ignoreCancelled = true)
-    private void onInventoryClick(InventoryClickEvent e) {
-        if (e.getCurrentItem() == null) {
-            return;
-        }
-
-        var itemMeta = e.getCurrentItem().getItemMeta();
-
-        NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
-        var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());
-
-        if (playerUUID == null || !e.getWhoClicked().getUniqueId().equals(playerUUID)) {
-            return;
-        }
-
-        NamespacedKey movableKey = new NamespacedKey(Main.getInstance(), "movable");
-
-        if (!itemMeta.getPersistentDataContainer().has(movableKey, new BooleanDataType())) {
-            return;
-        }
-
-        boolean movable = itemMeta.getPersistentDataContainer().get(movableKey, new BooleanDataType());
-
-        if (!movable) {
-            e.setCancelled(true);
+            if (!movable) {
+                e.setCancelled(true);
+            }
         }
     }
 }

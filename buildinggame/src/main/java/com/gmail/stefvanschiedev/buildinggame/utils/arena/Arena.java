@@ -31,7 +31,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
 import com.gmail.stefvanschiedev.buildinggame.timers.BuildTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.VoteTimer;
-import com.gmail.stefvanschiedev.buildinggame.timers.WaitTimer;
+import com.gmail.stefvanschiedev.buildinggame.timers.LobbyTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.WinTimer;
 import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
@@ -83,7 +83,7 @@ public class Arena {
 	/**
      * The lobby of this arena
      */
-	private Lobby lobby;
+	private Location lobby;
 
 	/**
      * The name of this arena
@@ -166,9 +166,9 @@ public class Arena {
 	private TeamSelection teamSelection;
 
 	/**
-     * The wait timer
+     * The lobby timer
      */
-    private WaitTimer waitTimer;
+    private LobbyTimer lobbyTimer;
 
     /**
      * The win timer
@@ -271,8 +271,8 @@ public class Arena {
     @Nullable
     @Contract(pure = true)
 	public Timer getActiveTimer() {
-		if (waitTimer.isActive())
-			return waitTimer;
+		if (lobbyTimer.isActive())
+			return lobbyTimer;
 
 		if (buildTimer.isActive())
 			return buildTimer;
@@ -329,12 +329,11 @@ public class Arena {
      * Returns the lobby for this arena, may return null when the lobby hasn't been set or hasn't been loaded yet
      *
      * @return the lobby
-     * @see Lobby
      * @since 5.5.3
      */
 	@Nullable
 	@Contract(pure = true)
-	public Lobby getLobby() {
+	public Location getLobby() {
 	    return lobby;
     }
 
@@ -410,7 +409,7 @@ public class Arena {
 	@Nullable
     @Contract(pure = true)
 	public Plot getPlot(int ID) {
-	    return plots.stream().filter(plot -> plot.getID() == ID).findAny().orElse(null);
+	    return plots.stream().filter(plot -> plot.getId() == ID).findAny().orElse(null);
 	}
 
 	/**
@@ -586,16 +585,16 @@ public class Arena {
 	}
 
 	/**
-     * Returns the wait (lobby) timer
+     * Returns the lobby timer
      *
-     * @return the wait timer
-     * @see WaitTimer
+     * @return the lobby timer
+     * @see LobbyTimer
      * @since 2.1.0
      */
 	@Nullable
     @Contract(pure = true)
-	public WaitTimer getWaitTimer() {
-		return waitTimer;
+	public LobbyTimer getLobbyTimer() {
+		return lobbyTimer;
 	}
 
 	/**
@@ -697,11 +696,11 @@ public class Arena {
 
 			getPlots().stream().filter(plot -> plot.getBoundary() == null).forEach(plot ->
 					MessageManager.getInstance().send(player, ChatColor.RED + " - The boundary of plot " +
-                            plot.getID() + " (/bg setbounds " + getName() + ' ' + plot.getID() + ')'));
+                            plot.getId() + " (/bg setbounds " + getName() + ' ' + plot.getId() + ')'));
 
 			getPlots().stream().filter(plot -> plot.getFloor() == null).forEach(plot ->
 					MessageManager.getInstance().send(player, ChatColor.RED + " - The floor of plot " +
-                            plot.getID() + " (/bg setfloor " + getName() + ' ' + plot.getID() + ')'));
+                            plot.getId() + " (/bg setfloor " + getName() + ' ' + plot.getId() + ')'));
 
 			return;
 		}
@@ -771,7 +770,7 @@ public class Arena {
         });
 		
 		if (lobby != null)
-			player.teleport(lobby.getLocation());
+			player.teleport(lobby);
 		
 		if (config.getBoolean("scoreboards.lobby.enable"))
 			getUsedPlots().forEach(pl ->
@@ -800,11 +799,11 @@ public class Arena {
         getUsedPlots().stream().flatMap(pl -> pl.getGamePlayers().stream()).forEach(gamePlayer ->
             gamePlayer.getPlayer().showPlayer(Main.getInstance(), player));
 		
-		if (getPlayers() >= minPlayers && !waitTimer.isActive())
-			waitTimer.runTaskTimer(Main.getInstance(), 0L, 20L);
+		if (getPlayers() >= minPlayers && !lobbyTimer.isActive())
+			lobbyTimer.runTaskTimer(Main.getInstance(), 0L, 20L);
 		
 		if (getPlayers() >= getMaxPlayers())
-			waitTimer.setSeconds(0);
+			lobbyTimer.setSeconds(0);
 
 		var arena = this;
 
@@ -957,15 +956,15 @@ public class Arena {
         );
 
         //cancel wait timer when user amount drops below minimum
-        if (getPlayers() < minPlayers && waitTimer.isActive()) {
-            waitTimer.cancel();
-            setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), this));
+        if (getPlayers() < minPlayers && lobbyTimer.isActive()) {
+            lobbyTimer.cancel();
+            setLobbyTimer(new LobbyTimer(arenas.getInt(name + ".lobby-timer"), this));
         }
 
 		if (getPlayers() <= 1) {
-			if (getWaitTimer().isActive()) {
-				waitTimer.cancel();
-				setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), this));
+			if (getLobbyTimer().isActive()) {
+				lobbyTimer.cancel();
+				setLobbyTimer(new LobbyTimer(arenas.getInt(name + ".lobby-timer"), this));
 				setState(GameState.WAITING);
 			}
 			if (buildTimer.isActive()) {
@@ -1017,10 +1016,9 @@ public class Arena {
      * Sets a new lobby
      *
      * @param lobby the new lobby
-     * @see Lobby
      * @since 2.1.0
      */
-	public void setLobby(Lobby lobby) {
+	public void setLobby(Location lobby) {
 		this.lobby = lobby;
 	}
 
@@ -1237,14 +1235,14 @@ public class Arena {
 	}
 
 	/**
-     * Sets the wait (lobby) timer
+     * Sets the lobby timer
      *
-     * @param waitTimer the new wait (lobby) timer
-     * @see WaitTimer
+     * @param lobbyTimer the new lobby timer
+     * @see LobbyTimer
      * @since 2.1.0
      */
-	public void setWaitTimer(WaitTimer waitTimer) {
-		this.waitTimer = waitTimer;
+	public void setLobbyTimer(LobbyTimer lobbyTimer) {
+		this.lobbyTimer = lobbyTimer;
 	}
 
 	/**
@@ -1343,7 +1341,7 @@ public class Arena {
         YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
         setState(GameState.WAITING);
-        this.waitTimer = new WaitTimer(arenas.getInt(name + ".lobby-timer"), this);
+        this.lobbyTimer = new LobbyTimer(arenas.getInt(name + ".lobby-timer"), this);
         this.buildTimer = new BuildTimer(arenas.getInt(name + ".timer"), this);
         this.voteTimer = new VoteTimer(arenas.getInt(name + ".vote-timer"), this);
         this.winTimer = new WinTimer(arenas.getInt(name + ".win-timer"), this);
@@ -1445,6 +1443,16 @@ public class Arena {
 	@Override
     public boolean equals(Object obj) {
         return obj instanceof Arena && ((Arena) obj).getName().equals(name);
+    }
+
+    /**
+     * Removes a registered plot
+     *
+     * @param plot the plot to remove
+     * @since 7.0.0
+     */
+    public void removePlot(@NotNull Plot plot) {
+	    plots.remove(plot);
     }
 
     /**

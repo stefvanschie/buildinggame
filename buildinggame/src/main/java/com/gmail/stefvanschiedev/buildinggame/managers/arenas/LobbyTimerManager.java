@@ -3,7 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.timers.WaitTimer;
+import com.gmail.stefvanschiedev.buildinggame.timers.LobbyTimer;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +30,7 @@ public final class LobbyTimerManager {
             if (!arenas.contains(name + ".lobby-timer"))
 				arenas.set(name + ".lobby-timer", config.getInt("timers.lobby"));
 			
-			arena.setWaitTimer(new WaitTimer(arenas.getInt(name + ".lobby-timer"), arena));
+			arena.setLobbyTimer(new LobbyTimer(arenas.getInt(name + ".lobby-timer"), arena));
 		}
 	}
 

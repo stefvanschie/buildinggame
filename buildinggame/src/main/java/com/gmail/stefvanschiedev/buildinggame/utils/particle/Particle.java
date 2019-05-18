@@ -1,8 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.particle;
 
-import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.file.YamlConfiguration;
 

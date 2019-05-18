@@ -32,7 +32,7 @@ public abstract class Timer extends BukkitRunnable {
      * @param arena the arena
      * @since 6.2.0
      */
-    public Timer(Arena arena) {
+    protected Timer(Arena arena) {
         this.arena = arena;
     }
 
