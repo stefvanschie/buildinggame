@@ -51,7 +51,7 @@ public final class MaxPlayersManager {
             arena.setMaxPlayers(arenas.getInt(name + ".maxplayers", 0));
 
             for (var plot : arena.getPlots()) {
-                int id = plot.getID();
+                int id = plot.getId();
 
                 if (!config.contains("team-selection.team." + id))
                     config.set("team-selection.team." + id + ".id", "paper");

@@ -3,21 +3,21 @@ package com.gmail.stefvanschiedev.buildinggame.utils;
 import java.util.*;
 import java.util.function.Consumer;
 
-import me.ialistannen.mininbt.ItemNBTUtil;
-import me.ialistannen.mininbt.NBTWrappers;
+import com.gmail.stefvanschiedev.buildinggame.utils.datatype.BooleanDataType;
+import com.gmail.stefvanschiedev.buildinggame.utils.datatype.UUIDDataType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,57 +26,64 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 4.0.6
  */
-public class ItemBuilder implements Listener {
+public class ItemBuilder {
 
     /**
      * The click event assigned to this item
      */
-	private Consumer<PlayerInteractEvent> event;
+    private Consumer<PlayerInteractEvent> event;
 
     /**
      * Whether you can move the item around
      */
-	private boolean movable;
+    private boolean movable;
 
     /**
      * The player this item belongs to
      */
     @NotNull
-	private final Player player;
+    private final Player player;
 
     /**
      * The item we're making
      */
-    private ItemStack item;
+    private final ItemStack item;
 
     /**
-     * A map containing all players with their registered items
+     * Whether the listener was already registered or not
      */
-	private static final Map<Player, Set<ItemBuilder>> REGISTERED_ITEMS = new HashMap<>();
+    private static boolean hasRegisteredListener;
+
+    /**
+     * A map containing the uuid which were attached to the item with the consumer that should be executed when the item
+     * was clicked. The uuid is stored as a string, so it can be directly attached to the item as an NBTString, instead
+     * of undergoing conversion. Avoidance of this conversion is crucial, since the map will otherwise lose its key,
+     * since the map is a {@link WeakHashMap}. The reason for this WeakHashMap is because we can't know if an item is
+     * still alive or not and we don't want memory leaks.
+     */
+    private static final Map<String, Consumer<PlayerInteractEvent>> CLICK_EVENTS = new WeakHashMap<>();
 
     /**
      * Constructs a new ItemBuilder
      *
-     * @param player the player for whom the item is meant
+     * @param player   the player for whom the item is meant
      * @param material the item's material
      */
-	public ItemBuilder(@NotNull Player player, Material material) {
-		this(player, material, 1);
-	}
+    public ItemBuilder(@NotNull Player player, Material material) {
+        this(player, material, 1);
+    }
 
     /**
      * Constructs a new ItemBuilder
      *
-     * @param player the player for whom the item is meant
+     * @param player   the player for whom the item is meant
      * @param material the item's material
-     * @param amount the amount of items there should be
+     * @param amount   the amount of items there should be
      */
-	private ItemBuilder(@NotNull Player player, Material material, int amount) {
-	    this.item = new ItemStack(material, amount);
-		this.player = player;
-
-		Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
-	}
+    private ItemBuilder(@NotNull Player player, Material material, int amount) {
+        this.item = new ItemStack(material, amount);
+        this.player = player;
+    }
 
     /**
      * Builds the item stack
@@ -85,33 +92,29 @@ public class ItemBuilder implements Listener {
      * @since 5.6.1
      */
     public ItemStack build() {
-        NBTWrappers.NBTTagCompound tag = ItemNBTUtil.getTag(item);
+        if (!hasRegisteredListener) {
+            Bukkit.getPluginManager().registerEvents(new Listener(), Main.getInstance());
 
-        if (tag == null)
-            tag = new NBTWrappers.NBTTagCompound();
+            hasRegisteredListener = true;
+        }
 
-        tag.setBoolean("movable", movable);
-        tag.setString("player", player.getUniqueId().toString());
+        String clickUUID = UUID.randomUUID().toString();
+        CLICK_EVENTS.put(clickUUID, event);
 
-        this.item = ItemNBTUtil.setNBTTag(tag, item);
+        ItemMeta itemMeta = item.getItemMeta();
 
-        if (!REGISTERED_ITEMS.containsKey(player))
-            REGISTERED_ITEMS.put(player, new HashSet<>());
+        NamespacedKey movableKey = new NamespacedKey(Main.getInstance(), "movable");
+        itemMeta.getPersistentDataContainer().set(movableKey, new BooleanDataType(), this.movable);
 
-        REGISTERED_ITEMS.get(player).add(this);
+        NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
+        itemMeta.getPersistentDataContainer().set(playerKey, new UUIDDataType(), this.player.getUniqueId());
+
+        NamespacedKey clickKey = new NamespacedKey(Main.getInstance(), "click");
+        itemMeta.getPersistentDataContainer().set(clickKey, PersistentDataType.STRING, clickUUID);
+
+        item.setItemMeta(itemMeta);
 
         return item;
-    }
-
-    /**
-     * Returns the player who belongs to this instance
-     *
-     * @return the player
-     */
-    @NotNull
-    @Contract(pure = true)
-	private Player getPlayer() {
-	    return player;
     }
 
     /**
@@ -121,10 +124,10 @@ public class ItemBuilder implements Listener {
      * @return this instance
      * @since 4.0.6
      */
-	public ItemBuilder movable(boolean movable) {
-		this.movable = movable;
-		return this;
-	}
+    public ItemBuilder movable(boolean movable) {
+        this.movable = movable;
+        return this;
+    }
 
     /**
      * Sets the click event for this item
@@ -133,10 +136,10 @@ public class ItemBuilder implements Listener {
      * @return this instance
      * @since 4.0.6
      */
-	public ItemBuilder setClickEvent(Consumer<PlayerInteractEvent> event) {
-		this.event = event;
-		return this;
-	}
+    public ItemBuilder setClickEvent(Consumer<PlayerInteractEvent> event) {
+        this.event = event;
+        return this;
+    }
 
     /**
      * Sets the display name of this item
@@ -145,12 +148,12 @@ public class ItemBuilder implements Listener {
      * @return this instance
      * @since 4.0.6
      */
-	public ItemBuilder setDisplayName(String name) {
-		var meta = item.getItemMeta();
-		meta.setDisplayName(name);
-		item.setItemMeta(meta);
-		return this;
-	}
+    public ItemBuilder setDisplayName(String name) {
+        var meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        item.setItemMeta(meta);
+        return this;
+    }
 
     /**
      * Sets the lore of this item
@@ -159,95 +162,91 @@ public class ItemBuilder implements Listener {
      * @return this item
      * @since 4.0.6
      */
-	public ItemBuilder setLore(List<String> lores) {
-		var meta = item.getItemMeta();
-		meta.setLore(lores);
-		item.setItemMeta(meta);
-		return this;
-	}
-
-    /**
-     * Returns the item that belongs to this builder
-     *
-     * @return the item
-     * @since 5.6.1
-     */
-    private ItemStack getItem() {
-        return item;
+    public ItemBuilder setLore(List<String> lores) {
+        var meta = item.getItemMeta();
+        meta.setLore(lores);
+        item.setItemMeta(meta);
+        return this;
     }
 
     /**
-     * Checks to see if the specified player still has this item in their inventory
+     * This class listens to events related to {@link ItemBuilder}s.
      *
-     * @param player the player to check
-     * @since 4.0.6
+     * @since 7.0.0
      */
-	public static void check(Player player) {
-		Set<ItemBuilder> builders = REGISTERED_ITEMS.get(player);
-		
-		if (builders == null)
-			return;
+    public class Listener implements org.bukkit.event.Listener {
 
-		for (Iterator<ItemBuilder> iterator = builders.iterator(); iterator.hasNext();) {
-		    ItemBuilder builder = iterator.next();
+        /**
+         * Handles the interaction between player and their item
+         *
+         * @param e the event that occurs
+         * @since 7.0.0
+         */
+        @Contract("null -> fail")
+        @EventHandler
+        private void onPlayerInteract(PlayerInteractEvent e) {
+            if (e.getItem() == null || e.getHand() != EquipmentSlot.HAND) {
+                return;
+            }
 
-            if (!player.getInventory().contains(builder.getItem())) {
-                HandlerList.unregisterAll(builder);
-                iterator.remove();
+            ItemMeta itemMeta = e.getItem().getItemMeta();
+
+            NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
+            var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());
+
+            if (playerUUID == null || !e.getPlayer().getUniqueId().equals(playerUUID)) {
+                return;
+            }
+
+            NamespacedKey clickKey = new NamespacedKey(Main.getInstance(), "click");
+            String clickUUID = itemMeta.getPersistentDataContainer().get(clickKey, PersistentDataType.STRING);
+
+            if (clickUUID == null) {
+                return;
+            }
+
+            var consumer = CLICK_EVENTS.get(clickUUID);
+
+            if (consumer == null) {
+                return;
+            }
+
+            consumer.accept(e);
+        }
+
+        /**
+         * Handles the movement of items
+         *
+         * @param e the event that occurs
+         * @since 7.0.0
+         */
+        @Contract("null -> fail")
+        @EventHandler(ignoreCancelled = true)
+        private void onInventoryClick(InventoryClickEvent e) {
+            if (e.getCurrentItem() == null) {
+                return;
+            }
+
+            var itemMeta = e.getCurrentItem().getItemMeta();
+
+            NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
+            var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());
+
+            if (playerUUID == null || !e.getWhoClicked().getUniqueId().equals(playerUUID)) {
+                return;
+            }
+
+            NamespacedKey movableKey = new NamespacedKey(Main.getInstance(), "movable");
+
+            if (!itemMeta.getPersistentDataContainer().has(movableKey, new BooleanDataType())) {
+                return;
+            }
+
+            boolean movable = itemMeta.getPersistentDataContainer().get(movableKey, new BooleanDataType());
+
+            if (!movable) {
+                e.setCancelled(true);
             }
         }
-	}
-
-    /**
-     * Handles the interaction between player and their item
-     *
-     * @param e the event that occurs
-     * @since 4.0.6
-     */
-	@Contract("null -> fail")
-	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (e.getItem() == null || !this.item.isSimilar(e.getItem()) || event == null || !e.getPlayer().equals(player))
-			return;
-
-		if (e.getHand() == EquipmentSlot.HAND)
-			this.event.accept(e);
-	}
-
-    /**
-     * Handles the movement of items
-     *
-     * @param e the event that occurs
-     * @since 4.0.6
-     */
-	@Contract("null -> fail")
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onInventoryClick(InventoryClickEvent e) {
-		if (e.getCurrentItem() == null)
-			return;
-
-        NBTWrappers.NBTTagCompound tag = ItemNBTUtil.getTag(e.getCurrentItem());
-
-        if (tag != null && tag.getString("player") != null &&
-            e.getWhoClicked().getUniqueId().equals(UUID.fromString(tag.getString("player"))) &&
-            !tag.getBoolean("movable"))
-            e.setCancelled(true);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-    public int hashCode() {
-        return 31 * super.hashCode() + player.hashCode();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Contract(pure = true, value = "null -> false")
-    @Override
-    public boolean equals(Object obj) {
-	    return super.equals(obj) && obj instanceof ItemBuilder && player.equals(((ItemBuilder) obj).getPlayer());
     }
 }

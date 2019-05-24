@@ -6,7 +6,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
-import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -19,7 +18,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  *
  * @since 2.1.0
  */
-class ParticlesMenu {
+public class ParticlesMenu {
 
     /**
      * YAML Configuration for the messages.yml
@@ -78,18 +77,18 @@ class ParticlesMenu {
      * @param event the event called when clicking
      * @since 5.6.0
      */
-    public void particleClick(InventoryClickEvent event, ParticleType particleType) {
+    public void particleClick(InventoryClickEvent event, org.bukkit.Particle particleType) {
         var player = (Player) event.getWhoClicked();
         var arena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null)
             return;
 
-        if (particleType == ParticleType.FALLING_DUST)
+        if (particleType == org.bukkit.Particle.FALLING_DUST)
             arena.getPlot(player).addParticle(event.getCursor() != null ?
-                new Particle(player.getLocation(), ParticleType.FALLING_DUST,
+                new Particle(player.getLocation(), org.bukkit.Particle.FALLING_DUST,
                     Bukkit.createBlockData(event.getCursor().getType())) :
-                new Particle(player.getLocation(), ParticleType.FALLING_DUST), player);
+                new Particle(player.getLocation(), org.bukkit.Particle.FALLING_DUST), player);
         else
             arena.getPlot(player).addParticle(new Particle(player.getLocation(), particleType), player);
 

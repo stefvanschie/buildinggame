@@ -222,6 +222,8 @@ public final class SettingsManager {
 		}
 
 		if (hologramsFile.exists()) {
+		    TopStatHologram.clearAll();
+
             try {
                 var jsonReader = new Gson().newJsonReader(new InputStreamReader(new FileInputStream(hologramsFile)));
 
@@ -300,10 +302,12 @@ public final class SettingsManager {
             logger.warning("Unable to create report schematics folder");
         }
 
-        try {
-            Report.loadAllReports();
-        } catch (IOException e) {
-            e.printStackTrace();
+		if (worldEditEnabled) {
+            try {
+                Report.loadAllReports();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         generateSettings(save);
@@ -459,7 +463,9 @@ public final class SettingsManager {
             signs.save(signsFile);
             stats.save(statsFile);
 
-            Report.saveAllReports();
+            if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+                Report.saveAllReports();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

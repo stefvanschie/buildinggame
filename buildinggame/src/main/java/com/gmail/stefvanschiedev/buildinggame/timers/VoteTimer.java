@@ -152,9 +152,7 @@ public class VoteTimer extends Timer {
 
 						if (first != null)
 							player.teleport(first.getLocation());
-						
-						ItemBuilder.check(player);
-						
+
 						MessageManager.getInstance().send(player, messages.getStringList("game-ends.message"));
 
 						if (second != null && third != null) {
@@ -297,12 +295,13 @@ public class VoteTimer extends Timer {
 					first.getGamePlayers().forEach(gamePlayer -> config.getStringList("win-commands").forEach(command -> {
                         command = command.replace("%winner%", gamePlayer.getPlayer().getName());
 
-if (!command.isEmpty() && command.charAt(0) == '@') {
-String targetText = command.split(" ")[0];
+                        if (!command.isEmpty() && command.charAt(0) == '@') {
+                            String targetText = command.split(" ")[0];
 
-Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-} else
-Bukkit.dispatchCommand(gamePlayer.getPlayer(), command);
+                            Target.parse(targetText).execute(command.substring(targetText.length() + 1));
+                        } else {
+                            Bukkit.dispatchCommand(gamePlayer.getPlayer(), command);
+                        }
                     }));
 				}
 
@@ -317,9 +316,10 @@ Bukkit.dispatchCommand(gamePlayer.getPlayer(), command);
 			arena.getUsedPlots().forEach(plot -> plot.getAllGamePlayers().forEach(gamePlayer -> {
                 var player = gamePlayer.getPlayer();
 
-if (!config.getBoolean("names-after-voting") &&
-config.getBoolean("scoreboards.vote.enable"))
-arena.getVoteScoreboard(plot).show(player);
+                if (!config.getBoolean("names-after-voting") &&
+                    config.getBoolean("scoreboards.vote.enable")) {
+                    arena.getVoteScoreboard(plot).show(player);
+                }
 
                 player.setPlayerTime(this.plot.getTime(), false);
                 player.setPlayerWeather(this.plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);

@@ -58,7 +58,7 @@ public final class MainSpawnManager {
 
 		try {
 			if (!arenas.contains("main-spawn.server")) {
-				arenas.set("main-spawn.server", Bukkit.getServer().getServerName());
+				arenas.set("main-spawn.server", Bukkit.getServer().getName());
 				SettingsManager.getInstance().save();
 			}
 			

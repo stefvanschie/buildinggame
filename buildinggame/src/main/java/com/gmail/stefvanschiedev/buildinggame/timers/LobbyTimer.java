@@ -10,13 +10,14 @@ import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This timer handles the lobby time
  *
  * @since 2.1.0
  */
-public class WaitTimer extends Timer {
+public class LobbyTimer extends Timer {
 
 	/**
      * The config.yml YAML configuration
@@ -34,7 +35,7 @@ public class WaitTimer extends Timer {
      * @param seconds the amount of time
      * @param arena the arena this timer belongs to
      */
-	public WaitTimer(int seconds, Arena arena) {
+	public LobbyTimer(int seconds, Arena arena) {
 	    super(arena);
 
 		this.seconds = seconds;
@@ -107,9 +108,10 @@ public class WaitTimer extends Timer {
     /**
      * {@inheritDoc}
      */
-	@Override
-    public synchronized BukkitTask runTaskTimer(Plugin plugin, long delay, long period) throws IllegalArgumentException,
-            IllegalStateException {
+	@NotNull
+    @Override
+    public synchronized BukkitTask runTaskTimer(@NotNull Plugin plugin, long delay, long period)
+        throws IllegalArgumentException, IllegalStateException {
         running = true;
 
 	    return super.runTaskTimer(plugin, delay, period);

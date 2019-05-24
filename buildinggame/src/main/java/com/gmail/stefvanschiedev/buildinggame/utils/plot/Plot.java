@@ -60,9 +60,9 @@ public class Plot {
 	private Region floor;
 
 	/**
-     * The ID assigned to this plot
+     * The id assigned to this plot
      */
-	private final int ID;
+	private int id;
 
 	/**
      * A list of all game players playing and spectating the game
@@ -112,10 +112,10 @@ public class Plot {
 	/**
      * Constructs a new Plot
      *
-     * @param ID the ID of this plot
+     * @param id the id of this plot
      */
-	public Plot(int ID) {
-		this.ID = ID;
+	public Plot(int id) {
+		this.id = id;
 		
 		this.buildMenu = new BuildMenu(this);
 		this.entities = new HashMap<>();
@@ -424,14 +424,14 @@ public class Plot {
 	}
 
 	/**
-     * Returns the ID for this plot
+     * Returns the id for this plot
      *
-     * @return the ID
+     * @return the id
      * @since 2.1.0
      */
     @Contract(pure = true)
-	public int getID() {
-		return ID;
+	public int getId() {
+		return id;
 	}
 
 	/**
@@ -646,7 +646,7 @@ public class Plot {
 
                 MessageManager.translate(messages.getStringList("join.plot.message")).forEach(s ->
                     MessageManager.getInstance().send(gamePlayer.getPlayer(), s
-                        .replace("%plot%", getID() + "")));
+                        .replace("%plot%", getId() + "")));
 
                 arena.getLobbyScoreboard(this).getGreenTeam().addEntry(name);
                 arena.getBuildScoreboard(this).getGreenTeam().addEntry(name);
@@ -667,7 +667,7 @@ public class Plot {
 
             MessageManager.translate(messages.getStringList("join.plot.message")).forEach(s ->
                 MessageManager.getInstance().send(gamePlayer.getPlayer(), s
-                    .replace("%plot%", getID() + "")));
+                    .replace("%plot%", getId() + "")));
 
             arena.getLobbyScoreboard(this).getGreenTeam().addEntry(name);
             arena.getBuildScoreboard(this).getGreenTeam().addEntry(name);
@@ -703,8 +703,6 @@ public class Plot {
 		Player spPlayer = spectator.getPlayer();
 		spectator.restore();
 		spPlayer.setCanPickupItems(true);
-		
-		ItemBuilder.check(spPlayer);
 	}
 
 	/**
@@ -850,7 +848,7 @@ public class Plot {
 
 	    Plot plot = (Plot) obj;
 
-	    return plot.getID() == ID && plot.getArena().equals(arena);
+	    return plot.getId() == id && plot.getArena().equals(arena);
     }
 
     /**
@@ -861,8 +859,18 @@ public class Plot {
         int hashCode = 1;
 
         hashCode = 31 * hashCode + arena.hashCode();
-        hashCode = 31 * hashCode + ID;
+        hashCode = 31 * hashCode + id;
 
         return hashCode;
+    }
+
+    /**
+     * Sets the id of this plot
+     *
+     * @param id the new id
+     * @since 7.0.0
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

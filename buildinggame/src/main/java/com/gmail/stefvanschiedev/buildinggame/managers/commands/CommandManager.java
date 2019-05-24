@@ -8,12 +8,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.plots.BoundaryManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.plots.FloorManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.plots.LocationManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.plots.PlotManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
-import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
+import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
@@ -27,6 +23,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -92,18 +89,26 @@ public class CommandManager extends BaseCommand {
     @Description("Create an arena")
     @CommandPermission("bg.createarena")
     public void onCreateArena(CommandSender sender, @Conditions("arenanotexist") @Single String name) {
+        int buildTime = CONFIG.getInt("timers.build");
+        int lobbyTime = CONFIG.getInt("timers.lobby");
+        int voteTime = CONFIG.getInt("timers.vote");
+        int winTime = CONFIG.getInt("timers.win");
+
         ARENAS.set(name + ".mode", "SOLO");
-        ARENAS.set(name + ".timer", CONFIG.getInt("timers.build"));
-        ARENAS.set(name + ".lobby-timer", CONFIG.getInt("timers.lobby"));
-        ARENAS.set(name + ".vote-timer", CONFIG.getInt("timers.vote"));
-        ARENAS.set(name + ".win-timer", CONFIG.getInt("timers.win"));
+        ARENAS.set(name + ".timer", buildTime);
+        ARENAS.set(name + ".lobby-timer", lobbyTime);
+        ARENAS.set(name + ".vote-timer", voteTime);
+        ARENAS.set(name + ".win-timer", winTime);
         SettingsManager.getInstance().save();
 
-        ArenaManager.getInstance().setup();
-        LobbyTimerManager.getInstance().setup();
-        BuildTimerManager.getInstance().setup();
-        VoteTimerManager.getInstance().setup();
-        WinTimerManager.getInstance().setup();
+        Arena arena = new Arena(name);
+        arena.setMode(ArenaMode.SOLO);
+        arena.setBuildTimer(new BuildTimer(buildTime, arena));
+        arena.setLobbyTimer(new LobbyTimer(lobbyTime, arena));
+        arena.setVoteTimer(new VoteTimer(voteTime, arena));
+        arena.setWinTimer(new WinTimer(winTime, arena));
+
+        ArenaManager.getInstance().getArenas().add(arena);
 
         MESSAGES.getStringList("commands.createarena.success").forEach(message ->
             MessageManager.getInstance().send(sender, message.replace("%arena%", name)));
@@ -124,15 +129,7 @@ public class CommandManager extends BaseCommand {
         ARENAS.set(arena.getName(), null);
         SettingsManager.getInstance().save();
 
-        ArenaManager.getInstance().setup();
-        LobbyManager.getInstance().setup();
-        MaxPlayersManager.getInstance().setup();
-        MinPlayersManager.getInstance().setup();
-
-        PlotManager.getInstance().setup();
-        LocationManager.getInstance().setup();
-        BoundaryManager.getInstance().setup();
-        FloorManager.getInstance().setup();
+        ArenaManager.getInstance().getArenas().remove(arena);
 
         MESSAGES.getStringList("commands.deletearena.success").forEach(message ->
             MessageManager.getInstance().send(sender, message.replace("%arena%", arena.getName())));
@@ -161,23 +158,25 @@ public class CommandManager extends BaseCommand {
 
         var maxPlayers = ARENAS.getInt(arena.getName() + ".maxplayers");
 
-        for (var i = plot.getID(); i < maxPlayers; i++)
+        arena.removePlot(plot);
+
+        for (var i = plot.getId(); i < maxPlayers; i++) {
             ARENAS.set(arena.getName() + '.' + i, ARENAS.getConfigurationSection(arena.getName() + '.' + i + 1));
+
+            if (i != plot.getId()) {
+                arena.getPlot(i).setId(i - 1);
+            }
+        }
 
         ARENAS.set(arena.getName() + '.' + maxPlayers, null);
         ARENAS.set(arena.getName() + ".maxplayers", maxPlayers - 1);
 
         SettingsManager.getInstance().save();
 
-        MaxPlayersManager.getInstance().setup();
-
-        PlotManager.getInstance().setup();
-        LocationManager.getInstance().setup();
-        BoundaryManager.getInstance().setup();
-        FloorManager.getInstance().setup();
+        arena.setMaxPlayers(maxPlayers - 1);
 
         MESSAGES.getStringList("commands.deletespawn.success").forEach(message ->
-            MessageManager.getInstance().send(sender, message.replace("%place%", plot.getID() + "")));
+            MessageManager.getInstance().send(sender, message.replace("%place%", plot.getId() + "")));
     }
 
     /**
@@ -219,7 +218,7 @@ public class CommandManager extends BaseCommand {
             var playerArena = ArenaManager.getInstance().getArena(player);
 
             if (playerArena != null && arena == null) {
-                playerArena.getWaitTimer().setSeconds(0);
+                playerArena.getLobbyTimer().setSeconds(0);
                 return;
             }
 
@@ -242,7 +241,7 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        arena.getWaitTimer().setSeconds(0);
+        arena.getLobbyTimer().setSeconds(0);
     }
 
     /**
@@ -358,7 +357,7 @@ public class CommandManager extends BaseCommand {
         if (!runnable.isCancelled())
             runnable.cancel();
 
-        Main.getInstance().loadPlugin();
+        Main.getInstance().loadPlugin(true);
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Reloaded the plugin!");
     }
@@ -425,10 +424,11 @@ public class CommandManager extends BaseCommand {
                         //second time
                         var location = event.getClickedBlock().getLocation();
                         String name = arena.getName();
-                        int plotID = plot.getID();
+                        int plotID = plot.getId();
+                        World world = location.getWorld();
 
-                        if (previousLocation.getWorld().equals(location.getWorld())) {
-                            arenas.set(name + '.' + plotID + ".high.world", location.getWorld().getName());
+                        if (previousLocation.getWorld().equals(world)) {
+                            arenas.set(name + '.' + plotID + ".high.world", world.getName());
                             arenas.set(name + '.' + plotID + ".low.world", previousLocation.getWorld().getName());
                         } else {
                             MessageManager.getInstance().send(player,
@@ -437,35 +437,36 @@ public class CommandManager extends BaseCommand {
                             return;
                         }
 
+                        int highestX = previousLocation.getBlockX() < location.getBlockX() ? location.getBlockX() :
+                            previousLocation.getBlockX();
+                        int lowestX = previousLocation.getBlockX() > location.getBlockX() ? location.getBlockX() :
+                            previousLocation.getBlockX();
+
+                        int highestY = previousLocation.getBlockY() < location.getBlockY() ? location.getBlockY() :
+                            previousLocation.getBlockY();
+                        int lowestY = previousLocation.getBlockY() > location.getBlockY() ? location.getBlockY() :
+                            previousLocation.getBlockY();
+
+                        int highestZ = previousLocation.getBlockZ() < location.getBlockZ() ? location.getBlockZ() :
+                            previousLocation.getBlockZ();
+                        int lowestZ = previousLocation.getBlockZ() > location.getBlockZ() ? location.getBlockZ() :
+                            previousLocation.getBlockZ();
+
                         //x
-                        if (previousLocation.getBlockX() < location.getBlockX()) {
-                            arenas.set(name + '.' + plotID + ".high.x", location.getBlockX());
-                            arenas.set(name + '.' + plotID + ".low.x", previousLocation.getBlockX());
-                        } else {
-                            arenas.set(name + '.' + plotID + ".low.x", location.getBlockX());
-                            arenas.set(name + '.' + plotID + ".high.x", previousLocation.getBlockX());
-                        }
+                        arenas.set(name + '.' + plotID + ".high.x", highestX);
+                        arenas.set(name + '.' + plotID + ".low.x", lowestX);
 
                         //y
-                        if (previousLocation.getBlockY() < location.getBlockY()) {
-                            arenas.set(name + '.' + plotID + ".high.y", location.getBlockY());
-                            arenas.set(name + '.' + plotID + ".low.y", previousLocation.getBlockY());
-                        } else {
-                            arenas.set(name + '.' + plotID + ".low.y", location.getBlockY());
-                            arenas.set(name + '.' + plotID + ".high.y", previousLocation.getBlockY());
-                        }
+                        arenas.set(name + '.' + plotID + ".high.y", highestY);
+                        arenas.set(name + '.' + plotID + ".low.y", lowestY);
 
                         //z
-                        if (previousLocation.getBlockZ() < location.getBlockZ()) {
-                            arenas.set(name + '.' + plotID + ".high.z", location.getBlockZ());
-                            arenas.set(name + '.' + plotID + ".low.z", previousLocation.getBlockZ());
-                        } else {
-                            arenas.set(name + '.' + plotID + ".low.z", location.getBlockZ());
-                            arenas.set(name + '.' + plotID + ".high.z", previousLocation.getBlockZ());
-                        }
+                        arenas.set(name + '.' + plotID + ".high.z", highestZ);
+                        arenas.set(name + '.' + plotID + ".low.z", lowestZ);
 
                         SettingsManager.getInstance().save();
-                        BoundaryManager.getInstance().setup();
+
+                        plot.setBoundary(new Region(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ));
 
                         messages.getStringList("commands.setbounds.success").forEach(message ->
                             MessageManager.getInstance().send(player, message
@@ -476,7 +477,6 @@ public class CommandManager extends BaseCommand {
                         previousLocation = null;
 
                         player.getInventory().setItemInMainHand(null);
-                        ItemBuilder.check(player);
                     }
 
                     event.setCancelled(true);
@@ -529,10 +529,11 @@ public class CommandManager extends BaseCommand {
                         //second time
                         var location = event.getClickedBlock().getLocation();
                         String name = arena.getName();
-                        int plotID = plot.getID();
+                        int plotID = plot.getId();
+                        World world = location.getWorld();
 
-                        if (previousLocation.getWorld().equals(location.getWorld())) {
-                            arenas.set(name + '.' + plotID + ".floor.high.world", location.getWorld().getName());
+                        if (previousLocation.getWorld().equals(world)) {
+                            arenas.set(name + '.' + plotID + ".floor.high.world", world.getName());
                             arenas.set(name + '.' + plotID + ".floor.low.world", previousLocation.getWorld().getName());
                         } else {
                             MessageManager.getInstance().send(player,
@@ -541,42 +542,42 @@ public class CommandManager extends BaseCommand {
                             return;
                         }
 
+                        int highestX = previousLocation.getBlockX() < location.getBlockX() ? location.getBlockX() :
+                            previousLocation.getBlockX();
+                        int lowestX = previousLocation.getBlockX() > location.getBlockX() ? location.getBlockX() :
+                            previousLocation.getBlockX();
+
+                        int highestY = previousLocation.getBlockY() < location.getBlockY() ? location.getBlockY() :
+                            previousLocation.getBlockY();
+                        int lowestY = previousLocation.getBlockY() > location.getBlockY() ? location.getBlockY() :
+                            previousLocation.getBlockY();
+
+                        int highestZ = previousLocation.getBlockZ() < location.getBlockZ() ? location.getBlockZ() :
+                            previousLocation.getBlockZ();
+                        int lowestZ = previousLocation.getBlockZ() > location.getBlockZ() ? location.getBlockZ() :
+                            previousLocation.getBlockZ();
+
                         //x
-                        if (previousLocation.getBlockX() < location.getBlockX()) {
-                            arenas.set(name + '.' + plotID + ".floor.high.x", location.getBlockX());
-                            arenas.set(name + '.' + plotID + ".floor.low.x", previousLocation.getBlockX());
-                        } else {
-                            arenas.set(name + '.' + plotID + ".floor.low.x", location.getBlockX());
-                            arenas.set(name + '.' + plotID + ".floor.high.x", previousLocation.getBlockX());
-                        }
+                        arenas.set(name + '.' + plotID + ".floor.high.x", highestX);
+                        arenas.set(name + '.' + plotID + ".floor.low.x", lowestX);
 
                         //y
-                        if (previousLocation.getBlockY() < location.getBlockY()) {
-                            arenas.set(name + '.' + plotID + ".floor.high.y", location.getBlockY());
-                            arenas.set(name + '.' + plotID + ".floor.low.y", previousLocation.getBlockY());
-                        } else {
-                            arenas.set(name + '.' + plotID + ".floor.low.y", location.getBlockY());
-                            arenas.set(name + '.' + plotID + ".floor.high.y", previousLocation.getBlockY());
-                        }
+                        arenas.set(name + '.' + plotID + ".floor.high.y", highestY);
+                        arenas.set(name + '.' + plotID + ".floor.low.y", lowestY);
 
                         //z
-                        if (previousLocation.getBlockZ() < location.getBlockZ()) {
-                            arenas.set(name + '.' + plotID + ".floor.high.z", location.getBlockZ());
-                            arenas.set(name + '.' + plotID + ".floor.low.z", previousLocation.getBlockZ());
-                        } else {
-                            arenas.set(name + '.' + plotID + ".floor.low.z", location.getBlockZ());
-                            arenas.set(name + '.' + plotID + ".floor.high.z", previousLocation.getBlockZ());
-                        }
+                        arenas.set(name + '.' + plotID + ".floor.high.z", highestZ);
+                        arenas.set(name + '.' + plotID + ".floor.low.z", lowestZ);
 
                         SettingsManager.getInstance().save();
-                        FloorManager.getInstance().setup();
+
+                        plot.setBoundary(new Region(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ));
 
                         MessageManager.getInstance().send(player, ChatColor.GREEN + "Floor set!");
 
                         previousLocation = null;
 
                         player.getInventory().setItemInMainHand(null);
-                        ItemBuilder.check(player);
                     }
 
                     event.setCancelled(true);
@@ -602,7 +603,7 @@ public class CommandManager extends BaseCommand {
         ARENAS.set(arena.getName() + ".mode", arenaMode.toString());
         SettingsManager.getInstance().save();
 
-        ArenaModeManager.getInstance().setup();
+        arena.setMode(arenaMode);
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN +
             "Successfully changed game mode of arena " + arena.getName() + " to " +
@@ -620,18 +621,25 @@ public class CommandManager extends BaseCommand {
     @Description("Set the lobby")
     @CommandPermission("bg.setlobby")
     @CommandCompletion("@arenas")
-    //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
     public void onSetLobby(Player player, Arena arena) {
-        ARENAS.set(arena.getName() + ".lobby.server", player.getServer().getServerName());
-        ARENAS.set(arena.getName() + ".lobby.world", player.getLocation().getWorld().getName());
-        ARENAS.set(arena.getName() + ".lobby.x", player.getLocation().getBlockX());
-        ARENAS.set(arena.getName() + ".lobby.y", player.getLocation().getBlockY());
-        ARENAS.set(arena.getName() + ".lobby.z", player.getLocation().getBlockZ());
-        ARENAS.set(arena.getName() + ".lobby.pitch", player.getLocation().getPitch());
-        ARENAS.set(arena.getName() + ".lobby.yaw", player.getLocation().getYaw());
+        Location location = player.getLocation();
+        World world = location.getWorld();
+        int blockX = location.getBlockX();
+        int blockY = location.getBlockY();
+        int blockZ = location.getBlockZ();
+        float pitch = location.getPitch();
+        float yaw = location.getYaw();
+
+        ARENAS.set(arena.getName() + ".lobby.server", player.getServer().getName());
+        ARENAS.set(arena.getName() + ".lobby.world", world.getName());
+        ARENAS.set(arena.getName() + ".lobby.x", blockX);
+        ARENAS.set(arena.getName() + ".lobby.y", blockY);
+        ARENAS.set(arena.getName() + ".lobby.z", blockZ);
+        ARENAS.set(arena.getName() + ".lobby.pitch", pitch);
+        ARENAS.set(arena.getName() + ".lobby.yaw", yaw);
         SettingsManager.getInstance().save();
 
-        LobbyManager.getInstance().setup();
+        arena.setLobby(new Location(world, blockX, blockY, blockZ, yaw, pitch));
 
         MessageManager.getInstance().send(player, MESSAGES.getStringList("commands.setlobby.success"));
     }
@@ -651,7 +659,8 @@ public class CommandManager extends BaseCommand {
     public void onSetLobbyTimer(CommandSender sender, Arena arena, int seconds) {
         ARENAS.set(arena.getName() + ".lobby-timer", seconds);
         SettingsManager.getInstance().save();
-        LobbyTimerManager.getInstance().setup();
+
+        arena.setLobbyTimer(new LobbyTimer(seconds, arena));
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Lobby timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
@@ -666,7 +675,6 @@ public class CommandManager extends BaseCommand {
     @Subcommand("setmainspawn")
     @Description("Set the main spawn")
     @CommandPermission("bg.setmainspawn")
-    //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
     public void onSetMainSpawn(Player player) {
         List<String> worlds = CONFIG.getStringList("scoreboards.main.worlds.enable");
 
@@ -676,7 +684,7 @@ public class CommandManager extends BaseCommand {
         worlds.add(player.getLocation().getWorld().getName());
         CONFIG.set("scoreboards.main.worlds.enable", worlds);
 
-        ARENAS.set("main-spawn.server", player.getServer().getServerName());
+        ARENAS.set("main-spawn.server", player.getServer().getName());
         ARENAS.set("main-spawn.world", player.getLocation().getWorld().getName());
         ARENAS.set("main-spawn.x", player.getLocation().getBlockX());
         ARENAS.set("main-spawn.y", player.getLocation().getBlockY());
@@ -711,7 +719,7 @@ public class CommandManager extends BaseCommand {
         ARENAS.set(arena.getName() + ".matches", matches);
         SettingsManager.getInstance().save();
 
-        MatchesManager.getInstance().setup();
+        arena.setMaxMatches(matches);
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Amount of matches changed!");
     }
@@ -759,7 +767,7 @@ public class CommandManager extends BaseCommand {
 
         SettingsManager.getInstance().save();
 
-        MaxPlayersManager.getInstance().setup();
+        arena.setMaxPlayers(maxPlayers);
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Max players changed!");
     }
@@ -769,18 +777,18 @@ public class CommandManager extends BaseCommand {
      *
      * @param sender the command sender
      * @param arena the arena
-     * @param maxPlayers the maximum amount of players
+     * @param minPlayers the minimum amount of players
      * @since 5.8.0
      */
     @Subcommand("setminplayers")
     @Description("Set the minimum amount of players")
     @CommandPermission("bg.setminplayers")
     @CommandCompletion("@arenas @nothing")
-    public void onSetMinPlayers(CommandSender sender, Arena arena, int maxPlayers) {
-        ARENAS.set(arena.getName() + ".minplayers", maxPlayers);
+    public void onSetMinPlayers(CommandSender sender, Arena arena, int minPlayers) {
+        ARENAS.set(arena.getName() + ".minplayers", minPlayers);
         SettingsManager.getInstance().save();
 
-        MinPlayersManager.getInstance().setup();
+        arena.setMinPlayers(minPlayers);
 
         MessageManager.getInstance().send(sender, MESSAGES.getStringList("commands.setminplayers.success"));
     }
@@ -796,24 +804,33 @@ public class CommandManager extends BaseCommand {
     @Description("Set a new spawn")
     @CommandPermission("bg.setspawn")
     @CommandCompletion("@arenas")
-    //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
     public void onSetSpawn(Player player, Arena arena) {
         int place = arena.getMaxPlayers() + 1;
         String name = arena.getName();
 
-        ARENAS.set(name + '.' + place + ".server", player.getServer().getServerName());
-        ARENAS.set(name + '.' + place + ".world", player.getLocation().getWorld().getName());
-        ARENAS.set(name + '.' + place + ".x", player.getLocation().getBlockX());
-        ARENAS.set(name + '.' + place + ".y", player.getLocation().getBlockY());
-        ARENAS.set(name + '.' + place + ".z", player.getLocation().getBlockZ());
-        ARENAS.set(name + '.' + place + ".pitch", player.getLocation().getPitch());
-        ARENAS.set(name + '.' + place + ".yaw", player.getLocation().getYaw());
+        Location location = player.getLocation();
+        World world = location.getWorld();
+        int blockX = location.getBlockX();
+        int blockY = location.getBlockY();
+        int blockZ = location.getBlockZ();
+        float pitch = location.getPitch();
+        float yaw = location.getYaw();
+
+        ARENAS.set(name + '.' + place + ".server", player.getServer().getName());
+        ARENAS.set(name + '.' + place + ".world", world.getName());
+        ARENAS.set(name + '.' + place + ".x", blockX);
+        ARENAS.set(name + '.' + place + ".y", blockY);
+        ARENAS.set(name + '.' + place + ".z", blockZ);
+        ARENAS.set(name + '.' + place + ".pitch", pitch);
+        ARENAS.set(name + '.' + place + ".yaw", yaw);
         ARENAS.set(name + ".maxplayers", place);
         SettingsManager.getInstance().save();
 
-        PlotManager.getInstance().setup();
-        LocationManager.getInstance().setup();
-        MaxPlayersManager.getInstance().setup();
+        Plot plot = new Plot(place);
+        plot.setLocation(new Location(world, blockX, blockY, blockZ, yaw, pitch));
+
+        arena.addPlot(plot);
+        arena.setMaxPlayers(place);
 
         MESSAGES.getStringList("commands.setspawn.success").forEach(message ->
             MessageManager.getInstance().send(player, message.replace("%place%", place + "")));
@@ -834,7 +851,8 @@ public class CommandManager extends BaseCommand {
     public void onSetTimer(CommandSender sender, Arena arena, int seconds) {
         ARENAS.set(arena.getName() + ".timer", seconds);
         SettingsManager.getInstance().save();
-        BuildTimerManager.getInstance().setup();
+
+        arena.setBuildTimer(new BuildTimer(seconds, arena));
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
@@ -938,7 +956,8 @@ public class CommandManager extends BaseCommand {
     public void onSetVoteTimer(CommandSender sender, Arena arena, int seconds) {
         ARENAS.set(arena.getName() + ".vote-timer", seconds);
         SettingsManager.getInstance().save();
-        VoteTimerManager.getInstance().setup();
+
+        arena.setVoteTimer(new VoteTimer(seconds, arena));
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Vote timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
@@ -959,7 +978,8 @@ public class CommandManager extends BaseCommand {
     public void onSetWinTimer(CommandSender sender, Arena arena, int seconds) {
         ARENAS.set(arena.getName() + ".win-timer", seconds);
         SettingsManager.getInstance().save();
-        WinTimerManager.getInstance().setup();
+
+        arena.setWinTimer(new WinTimer(seconds, arena));
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Win timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
@@ -1134,7 +1154,6 @@ public class CommandManager extends BaseCommand {
         @CommandPermission("bg.hologram.create")
         @CommandCompletion("@nothing @stattypes @nothing")
         @Conditions("hdenabled")
-        //ACF may not function correctly when Player is changed to Entity due to the reliance on reflection
         public void onCreate(Player player, String name, StatType type, int values) {
             if (TopStatHologram.getHolograms().stream()
                 .anyMatch(hologram -> hologram.getName().equalsIgnoreCase(name))) {

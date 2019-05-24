@@ -6,14 +6,17 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat.CatMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox.FoxMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.LlamaMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.ocelot.OcelotMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.mooshroom.MooshroomMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.panda.PandaMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot.ParrotMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish.PufferfishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropicalfish.TropicalFishMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.profession.ProfessionMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villagerlike.VillagerlikeMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size.SizeMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.entity.*;
@@ -59,7 +62,7 @@ public class EntityOptionsMenu implements Listener {
         switch (entity.getType()) {
             case CHICKEN:
             case COW:
-            case MUSHROOM_COW:
+            case OCELOT:
             case SKELETON_HORSE:
             case POLAR_BEAR:
             case PIG_ZOMBIE:
@@ -74,7 +77,7 @@ public class EntityOptionsMenu implements Listener {
                 break;
             case VILLAGER:
             case ZOMBIE_VILLAGER:
-                new ProfessionMenu(plot, (Creature) entity).show(player);
+                new VillagerlikeMenu(plot, (Creature) entity).show(player);
                 break;
             case PHANTOM:
             case MAGMA_CUBE:
@@ -102,9 +105,6 @@ public class EntityOptionsMenu implements Listener {
             case LLAMA:
                 new LlamaMenu(plot, (Llama) entity).show(player);
                 break;
-            case OCELOT:
-                new OcelotMenu(plot, (Ocelot) entity).show(player);
-                break;
             case PARROT:
                 new ParrotMenu(plot, (Parrot) entity).show(player);
                 break;
@@ -119,6 +119,18 @@ public class EntityOptionsMenu implements Listener {
                 break;
             case TROPICAL_FISH:
                 new TropicalFishMenu(plot, (TropicalFish) entity).show(player);
+                break;
+            case MUSHROOM_COW:
+                new MooshroomMenu(plot, (MushroomCow) entity).show(player);
+                break;
+            case PANDA:
+                new PandaMenu(plot, (Panda) entity).show(player);
+                break;
+            case CAT:
+                new CatMenu(plot, (Cat) entity).show(player);
+                break;
+            case FOX:
+                new FoxMenu(plot, (Fox) entity).show(player);
                 break;
             default:
                 new RemoveMenu(plot, entity).show(player);

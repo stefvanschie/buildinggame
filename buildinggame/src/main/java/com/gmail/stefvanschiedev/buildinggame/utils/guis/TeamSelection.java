@@ -65,7 +65,7 @@ public class TeamSelection extends Gui {
                 (iteration + 1) + ".id")));
             var itemMeta = item.getItemMeta();
             itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
-                    .replace("%plot%", plot.getID() + "")
+                    .replace("%plot%", plot.getId() + "")
                     .replace("%plot_players%", plot.getPlayers() + "")
                     .replace("%plot_max_players%", plot.getMaxPlayers() + ""), (Player) humanEntity));
 

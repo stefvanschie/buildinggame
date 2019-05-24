@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -83,51 +86,18 @@ public class Move implements Listener {
 		}
 		
 		if (arena.getState() == GameState.VOTING) {
-            var votingPlot = arena.getVotingPlot();
-
-            if (votingPlot == null)
-				return;
-
-            Region votingBoundary = votingPlot.getBoundary();
-
-            if (!votingBoundary.isInside(from)) {
-                List<Block> allBlocks = votingBoundary.getAllBlocks();
-
-                player.teleport(allBlocks.get(ThreadLocalRandom.current().nextInt(allBlocks.size())).getLocation());
-				return;
-			}
-			
-			if (!votingBoundary.isInside(to)) {
-				player.teleport(from);
-				MessageManager.getInstance().send(player, messages.getStringList("in-game.move-out-bounds"));
-				return;
-			}
-		}
+            teleportBack(arena.getVotingPlot(), player, from, to);
+            return;
+        }
 		
 		if (arena.getState() == GameState.RESETING) {
-            var firstPlot = arena.getFirstPlot();
-
-            if (firstPlot == null)
-				return;
-
-            Region firstBoundary = firstPlot.getBoundary();
-
-            if (!firstBoundary.isInside(from)) {
-                List<Block> allBlocks = firstBoundary.getAllBlocks();
-
-                player.teleport(allBlocks.get(ThreadLocalRandom.current().nextInt(allBlocks.size())).getLocation());
-				return;
-			}
-			
-			if (!firstBoundary.isInside(to)) {
-				player.teleport(from);
-				MessageManager.getInstance().send(player, messages.getStringList("in-game.move-out-bounds"));
-				return;
-			}
+            teleportBack(arena.getFirstPlot(), player, from, to);
+            return;
 		}
 		
-		if (arena.getState() != GameState.BUILDING)
-			return;
+		if (arena.getState() != GameState.BUILDING) {
+            return;
+        }
 
         if (!boundary.isInside(from)) {
             List<Block> allBlocks = boundary.getAllBlocks();
@@ -141,6 +111,32 @@ public class Move implements Listener {
 			MessageManager.getInstance().send(player, messages.getStringList("in-game.move-out-bounds"));
 		}
 	}
+
+    /**
+     * Teleport a entity back to the specified plot
+     *
+     * @param plot the plot to teleport the entity to
+     * @param entity the entity to teleport
+     *
+     * @since 7.0.0
+     */
+	private static void teleportBack(Plot plot, Entity entity, Location previousLocation, Location currentLocation) {
+	    YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        if (plot == null)
+            return;
+
+        Region firstBoundary = plot.getBoundary();
+
+        if (!firstBoundary.isInside(previousLocation)) {
+            List<Block> allBlocks = firstBoundary.getAllBlocks();
+
+            entity.teleport(allBlocks.get(ThreadLocalRandom.current().nextInt(allBlocks.size())).getLocation());
+        } else if (!firstBoundary.isInside(currentLocation)) {
+            entity.teleport(previousLocation);
+            MessageManager.getInstance().send(entity, messages.getStringList("in-game.move-out-bounds"));
+        }
+    }
 
     /**
      * Returns the closest position outside any active plots from the current position

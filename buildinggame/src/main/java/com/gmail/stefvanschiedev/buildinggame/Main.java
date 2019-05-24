@@ -13,25 +13,21 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateS
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.WorldEditBoundaryAssertion;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
-import com.gmail.stefvanschiedev.buildinggame.utils.Booster;
+import com.gmail.stefvanschiedev.buildinggame.utils.PlaceholderSupplier;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.ConfirmationMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.particle.ParticleType;
-import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import com.sk89q.worldedit.WorldEdit;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Biome;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -92,16 +88,6 @@ public class Main extends JavaPlugin {
 	private final LoadCooldown load = new LoadCooldown();
 
     /**
-     * Whether the listeners have been loaded
-     */
-	private boolean loadedListeners;
-
-    /**
-     * Whether the commands have been loaded
-     */
-	private boolean loadedCommands;
-
-    /**
      * Called whenever this plugin is being enabled
      *
      * @since 2.1.0
@@ -114,7 +100,7 @@ public class Main extends JavaPlugin {
 		SettingsManager.getInstance().setup(this, true);
 
         String version = Bukkit.getBukkitVersion().split("\\.")[1];
-        if (!version.substring(0, version.length() < 2 ? version.length() : 2).equals("13")) {
+        if (!version.substring(0, version.length() < 2 ? version.length() : 2).equals("14")) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
@@ -128,7 +114,7 @@ public class Main extends JavaPlugin {
 		
 			load.runTaskTimer(this, 20L, 20L);
 		} else
-			loadPlugin();
+			loadPlugin(false);
 	}
 
     /**
@@ -161,15 +147,16 @@ public class Main extends JavaPlugin {
      *
      * @since 2.1.0
      */
-	public void loadPlugin() {
+	public void loadPlugin(boolean reload) {
 		long start = System.currentTimeMillis();
 
 		//this has to be done quite early
-        Gui.registerProperty("particle-type", ParticleType::valueOf);
-        Gui.registerProperty("biome", Biome::valueOf);
-        Gui.registerProperty("dye-color", DyeColor::valueOf);
-        Gui.registerProperty("material", Material::valueOf);
-        Gui.registerProperty("response", ConfirmationMenu.Response::valueOf);
+        if (!reload) {
+            Gui.registerProperty("particle-type", Particle::valueOf);
+            Gui.registerProperty("biome", Biome::valueOf);
+            Gui.registerProperty("dye-color", DyeColor::valueOf);
+            Gui.registerProperty("material", Material::valueOf);
+        }
 		
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, false);
@@ -202,11 +189,6 @@ public class Main extends JavaPlugin {
 		if (pm.isPluginEnabled("Vault"))
 			SDVault.getInstance().setup();
 
-		if (pm.isPluginEnabled("LeaderHeads")) {
-            for (var statType : StatType.values())
-                new LeaderHeadsStatistic(statType);
-        }
-
         if (pm.isPluginEnabled("PlaceholderAPI")) {
             try {
                 String version = pm.getPlugin("PlaceholderAPI").getDescription().getVersion();
@@ -234,87 +216,13 @@ public class Main extends JavaPlugin {
         }
 
         if (pm.isPluginEnabled("MVdWPlaceholderAPI")) {
-            PlaceholderAPI.registerPlaceholder(this, "buildinggame_players", event ->
-                String.valueOf(ArenaManager.getInstance().getArenas().stream().mapToInt(Arena::getPlayers).sum()));
-
-            PlaceholderAPI.registerPlaceholder(this, "buildinggame_has_booster", event -> {
-                YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-                var player = event.getPlayer();
-                var falseMessage = messages.getString("placeholder-api.has-booster.result.false");
-
-                if (player == null)
-                    return falseMessage;
-
-                return Booster.hasBooster(player) ?
-                    messages.getString("placeholder-api.has-booster.result.true") : falseMessage;
-            });
-
-            PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_multiplier", event -> {
-                var player = event.getPlayer();
-
-                if (player == null)
-                    return "0.0";
-
-                return String.valueOf(Booster.getMultiplier(player));
-            });
-
-            PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_time_left", event -> {
-                var player = event.getPlayer();
-
-                if (player == null)
-                    return "0";
-
-                return String.valueOf(Booster.getBoosters(player).stream().mapToInt(Booster::getRemainingTime).max()
-                    .orElse(0));
-            });
-
-            PlaceholderAPI.registerPlaceholder(this, "buildinggame_booster_activator", event -> {
-                var player = event.getPlayer();
-
-                if (player == null)
-                    return "";
-
-                var boosters = Booster.getBoosters(player);
-
-                if (boosters.isEmpty())
-                    return "";
-
-                StringBuilder activators = new StringBuilder();
-                boosters.stream().map(booster -> booster.getActivator().getName()).distinct().forEach(name -> activators
-                    .append(name).append(", "));
-
-                if (boosters.stream().map(booster -> booster.getActivator().getName()).distinct().count() == 1)
-                    return activators.substring(0, activators.length() - 2);
-
-                return activators.replace(activators.length() - 2, activators.length(), "").replace(activators
-                    .lastIndexOf(", "), activators.lastIndexOf(", ") + 2, " and ").toString();
-            });
-
-            for (var statType : StatType.values()) {
-                var name = statType.toString().toLowerCase(Locale.getDefault());
-
-                PlaceholderAPI.registerPlaceholder(this, "buildinggame_stat_" + name, event -> {
-                    Stat stat = StatManager.getInstance().getStat(event.getOfflinePlayer(), statType);
-
-                    return stat == null ? "0" : String.valueOf(stat.getValue());
-                });
-
-                PlaceholderAPI.registerPlaceholder(this, "buildinggame_stat_" + name + "_top",
-                    event -> {
-                        List<Stat> stats = StatManager.getInstance().getStats(statType);
-
-                        if (stats == null)
-                            return "-1";
-
-                        return String.valueOf(stats.get(0).getValue());
-                    }
-                );
-            }
+            PlaceholderSupplier.getPlaceholderReplacements().forEach((placeholder, biFunction) ->
+                PlaceholderAPI.registerPlaceholder(this, placeholder, event ->
+                    biFunction.apply(event.getOfflinePlayer(), event.getPlaceholder())));
         }
 
 		getLogger().info("Loading commands");
-		if (!loadedCommands) {
+		if (!reload) {
             var manager = new BukkitCommandManager(this);
 
             //noinspection deprecation
@@ -370,8 +278,6 @@ public class Main extends JavaPlugin {
             manager.getCommandConditions().addCondition("hdenabled", context ->
                 pm.isPluginEnabled("HolographicDisplays"));
             manager.registerCommand(new CommandManager());
-
-            loadedCommands = true;
         }
 		
 		getLogger().info("Loading stats");
@@ -381,7 +287,7 @@ public class Main extends JavaPlugin {
         Achievement.loadAchievements();
 
 		getLogger().info("Loading listeners");
-		if (!loadedListeners) {
+		if (!reload) {
 			pm.registerEvents(new BlockBreak(), this);
 			pm.registerEvents(new BlockDispenseItem(), this);
 			pm.registerEvents(new BlockPlace(), this);
@@ -470,8 +376,6 @@ public class Main extends JavaPlugin {
 				pm.registerEvents(new JoinPlayerStats(), this);
 				pm.registerEvents(new QuitPlayerStats(), this);
 			}
-			
-			loadedListeners = true;
 		}
 		
 		getLogger().info("Loading signs");

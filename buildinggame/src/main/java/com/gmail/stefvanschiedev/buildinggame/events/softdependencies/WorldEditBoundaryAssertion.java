@@ -38,15 +38,15 @@ public class WorldEditBoundaryAssertion {
 
         event.setExtent(new AbstractDelegateExtent(event.getExtent()) {
             @Override
-            public boolean setBlock(BlockVector3 location, BlockStateHolder block) throws WorldEditException {
+            public boolean setBlock(BlockVector3 vector, BlockStateHolder block) throws WorldEditException {
                 var world = Bukkit.getWorld(event.getWorld().getName());
-                var loc = new Location(world, location.getX(), location.getY(), location.getZ());
+                var loc = new Location(world, vector.getX(), vector.getY(), vector.getZ());
 
                 if (!arena.getPlot(player).getBoundary().isInside(loc)) {
                     return false;
                 }
 
-                return super.setBlock(location, block);
+                return super.setBlock(vector, block);
             }
         });
     }

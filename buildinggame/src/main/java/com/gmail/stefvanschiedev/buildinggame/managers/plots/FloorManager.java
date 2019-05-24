@@ -54,13 +54,13 @@ public final class FloorManager {
 			arena.getPlots().forEach(plot -> {
 				try {
 					plot.setFloor(new Region(Bukkit.getWorld(
-					        arenas.getString(arena.getName() + '.' + plot.getID() + ".floor.high.world")),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.high.x"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.high.y"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.high.z"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.low.x"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.low.y"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".floor.low.z")));
+					        arenas.getString(arena.getName() + '.' + plot.getId() + ".floor.high.world")),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.high.x"),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.high.y"),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.high.z"),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.low.x"),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.low.y"),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.low.z")));
 
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                         Logger logger = Main.getInstance().getLogger();
@@ -68,7 +68,7 @@ public final class FloorManager {
                         if (plot.getFloor().getWorld() == null)
                             logger.warning("Unable to load world for plot floor");
 
-                        logger.info("Loaded floor for plot " + plot.getID() +
+                        logger.info("Loaded floor for plot " + plot.getId() +
                             " in arena " + arena.getName());
                     }
 				} catch (NullPointerException | IllegalArgumentException npe) {

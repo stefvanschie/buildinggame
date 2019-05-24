@@ -437,6 +437,10 @@ gui:
       name: "&aNautilus"
       lore:
       - "&7Place a nautilus particle effect"
+    campfire-smoke:
+      name: "&aCampfire smoke"
+      lore:
+      - "&7Place a campfire smoke particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:
@@ -4379,6 +4383,10 @@ gui:
         name: "&aDyed thing pattern"
         lore:
         -
+      globe:
+        name: "&aGlobe pattern"
+        lore:
+        -
   biome:
     name: "&aBiomes"
     lores:
@@ -4416,6 +4424,10 @@ gui:
       name: "&aJungle"
       lores:
       - "&7Change the biome to Jungle"
+    bamboo-jungle:
+      name: "&aBamboo Jungle"
+      lore:
+        - "&7Change the biome to Bamboo Jungle"
     mushroom-fields:
       name: "&aMushroom Fields"
       lores:

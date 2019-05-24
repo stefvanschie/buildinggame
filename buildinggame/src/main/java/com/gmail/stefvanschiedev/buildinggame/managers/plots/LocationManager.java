@@ -52,12 +52,12 @@ public final class LocationManager {
 			arena.getPlots().forEach(plot -> {
 				try {
 					plot.setLocation(new Location(Bukkit.getWorld(
-					        arenas.getString(arena.getName() + '.' + plot.getID() + ".world")),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".x"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".y"),
-							arenas.getInt(arena.getName() + '.' + plot.getID() + ".z"),
-                            (float) arenas.getDouble(arena.getName() + '.' + plot.getID() + ".yaw", 0),
-                            (float) arenas.getDouble(arena.getName() + '.' + plot.getID() + ".pitch", 0)));
+					        arenas.getString(arena.getName() + '.' + plot.getId() + ".world")),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".x"),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".y"),
+							arenas.getInt(arena.getName() + '.' + plot.getId() + ".z"),
+                            (float) arenas.getDouble(arena.getName() + '.' + plot.getId() + ".yaw", 0),
+                            (float) arenas.getDouble(arena.getName() + '.' + plot.getId() + ".pitch", 0)));
 					
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                         var logger = Main.getInstance().getLogger();
@@ -65,7 +65,7 @@ public final class LocationManager {
                         if (plot.getLocation().getWorld() == null)
 					        logger.warning("Unable to load world for plot spawn");
 
-                        logger.info("Loaded spawn for plot " + plot.getID() + " in arena " + arena.getName());
+                        logger.info("Loaded spawn for plot " + plot.getId() + " in arena " + arena.getName());
                     }
 				} catch (NullPointerException | IllegalArgumentException npe) {
 					plot.setLocation(null);

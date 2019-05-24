@@ -1,8 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.worldedit;
 
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.adapter.BukkitImplAdapter;
 import com.sk89q.worldedit.entity.BaseEntity;
 import com.sk89q.worldedit.entity.Entity;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
@@ -12,7 +10,7 @@ import com.sk89q.worldedit.math.BlockVector2;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.util.Location;
-import com.sk89q.worldedit.world.biome.BaseBiome;
+import com.sk89q.worldedit.world.biome.BiomeType;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockStateHolder;
@@ -22,9 +20,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,19 +42,6 @@ public class WorldBackedClipboard implements Clipboard {
      */
     @NotNull
     private BlockVector3 origin;
-
-    //reflection
-    /**
-     * WorldEdit's {@link BukkitImplAdapter}
-     */
-    @Nullable
-    private static BukkitImplAdapter BUKKIT_IMPL_ADAPTER;
-
-    /**
-     * The biome registry
-     */
-    @Nullable
-    private static Object BUKKIT_BIOME_REGISTRY;
 
     /**
      * Creates a new world backed clipboard
@@ -210,20 +192,10 @@ public class WorldBackedClipboard implements Clipboard {
      * @since 6.5.0
      */
     @Override
-    public BaseBiome getBiome(BlockVector2 blockVector2) {
-         try {
-             int id = BUKKIT_IMPL_ADAPTER.getBiomeId(BukkitAdapter.adapt(region.getWorld())
-                 .getBiome(blockVector2.getX(), blockVector2.getZ()));
+    public BiomeType getBiome(BlockVector2 blockVector2) {
+        Biome biome = BukkitAdapter.adapt(region.getWorld()).getBiome(blockVector2.getX(), blockVector2.getZ());
 
-             //noinspection JavaReflectionInvocation
-             return (BaseBiome) BUKKIT_BIOME_REGISTRY.getClass().getMethod("createFromId")
-                 .invoke(BUKKIT_BIOME_REGISTRY, id);
-         } catch (NoSuchMethodException | IllegalAccessException |
-             InvocationTargetException exception) {
-             exception.printStackTrace();
-         }
-
-         return null;
+        return BukkitAdapter.adapt(biome);
     }
 
     /**
@@ -245,10 +217,9 @@ public class WorldBackedClipboard implements Clipboard {
      * @since 6.5.0
      */
     @Override
-    public boolean setBiome(BlockVector2 blockVector2, BaseBiome baseBiome) {
-        Biome biome = BUKKIT_IMPL_ADAPTER.getBiome(baseBiome.getId());
-
-        BukkitAdapter.adapt(region.getWorld()).setBiome(blockVector2.getX(), blockVector2.getZ(), biome);
+    public boolean setBiome(BlockVector2 blockVector2, BiomeType baseBiome) {
+        World world = BukkitAdapter.adapt(region.getWorld());
+        world.setBiome(blockVector2.getX(), blockVector2.getZ(), BukkitAdapter.adapt(baseBiome));
 
         return true;
     }
@@ -262,24 +233,5 @@ public class WorldBackedClipboard implements Clipboard {
     @Override
     public Operation commit() {
         return null;
-    }
-
-    static {
-        try {
-            WorldEditPlugin plugin = WorldEditPlugin.getPlugin(WorldEditPlugin.class);
-
-            Method getBukkitImplAdapter = plugin.getClass().getDeclaredMethod("getBukkitImplAdapter");
-            getBukkitImplAdapter.setAccessible(true);
-            BUKKIT_IMPL_ADAPTER = (BukkitImplAdapter) getBukkitImplAdapter.invoke(plugin);
-
-            Class<?> clazz = Class.forName("com.sk89q.worldedit.bukkit.BukkitBiomeRegistry");
-
-            Constructor<?> constructor = clazz.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            BUKKIT_BIOME_REGISTRY = constructor.newInstance();
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException |
-            ClassNotFoundException exception) {
-            exception.printStackTrace();
-        }
     }
 }

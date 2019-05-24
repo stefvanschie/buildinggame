@@ -56,7 +56,7 @@ public final class PlotManager {
                     arena.addPlot(p);
 
                     if (SettingsManager.getInstance().getConfig().getBoolean("debug"))
-                        Main.getInstance().getLogger().info("Loaded plot " + p.getID() + " in arena " +
+                        Main.getInstance().getLogger().info("Loaded plot " + p.getId() + " in arena " +
                             arena.getName());
                 });
         });

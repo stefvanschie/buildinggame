@@ -5,7 +5,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
 import com.gmail.stefvanschiedev.buildinggame.utils.Conditional;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
-import com.google.common.primitives.Chars;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -121,7 +120,7 @@ public abstract class ArenaScoreboard {
 
             return timer == null ? "0" : String.valueOf(timer.getMinutes());
         });
-        replacements.put("plot", player -> String.valueOf(arena.getPlot(player).getID()));
+        replacements.put("plot", player -> String.valueOf(arena.getPlot(player).getId()));
         replacements.put("time", player -> {
             var timer = arena.getActiveTimer();
 
@@ -260,30 +259,10 @@ public abstract class ArenaScoreboard {
     @NotNull
     @Contract(value = "null, _ -> fail", pure = true)
     private String replace(String input, Player player) {
-        var list = new ArrayList<>(Chars.asList(input.toCharArray()));
         var matcher = Pattern.compile("%([^%]+)%").matcher(input);
 
         while (matcher.find()) {
-            list.subList(matcher.start(), matcher.end()).clear();
-
-            Function<Player, String> function = replacements.get(matcher.group(1));
-
-            if (function == null)
-                continue;
-
-            char[] replacement = function.apply(player).toCharArray();
-
-            var length = replacement.length;
-            for (var i = 0; i < length; i++)
-                list.add(matcher.start() + i, replacement[i]);
-
-            StringBuilder builder = new StringBuilder();
-
-            for (char c : list)
-                builder.append(c);
-
-            input = builder.toString();
-
+            input = matcher.replaceFirst(replacements.get(matcher.group(1)).apply(player));
             matcher.reset(input);
         }
 

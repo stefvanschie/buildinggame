@@ -15,7 +15,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * The gui for plot settings and tools
@@ -276,11 +275,10 @@ public class BuildMenu extends Gui {
 	}
 
     /**
-     * {@link Gui#show(HumanEntity)}
-     *
-     * @since 5.6.0
+     * {@inheritDoc}
      */
-    public void show(@NotNull HumanEntity humanEntity) {
+    @Override
+    public void show(HumanEntity humanEntity) {
         particles.setVisible(humanEntity.hasPermission("bg.buildmenu.particles"));
         floor.setVisible(humanEntity.hasPermission("bg.buildmenu.floor"));
         time.setVisible(humanEntity.hasPermission("bg.buildmenu.time"));

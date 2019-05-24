@@ -7,6 +7,7 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.MappedMaterialUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
+import org.bukkit.entity.Cat;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Wolf;
 import org.bukkit.inventory.ItemStack;
@@ -33,13 +34,18 @@ public class ColorSelectionMenu extends Gui {
             pane.addItem(new GuiItem(new ItemStack(entry.getKey()), event -> {
                 DyeColor dyeColor = entry.getValue();
 
-                if (entity instanceof Colorable)
+                if (entity instanceof Colorable) {
                     ((Colorable) entity).setColor(dyeColor);
-                else if (entity instanceof Wolf) {
+                } else if (entity instanceof Wolf) {
                     Wolf wolf = (Wolf) entity;
 
                     wolf.setTamed(true);
                     wolf.setCollarColor(dyeColor);
+                } else if (entity instanceof Cat) {
+                    Cat cat = (Cat) entity;
+
+                    cat.setTamed(true);
+                    cat.setCollarColor(dyeColor);
                 }
 
                 event.setCancelled(true);
