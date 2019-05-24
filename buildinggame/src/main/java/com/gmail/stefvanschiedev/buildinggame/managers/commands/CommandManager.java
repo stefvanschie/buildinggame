@@ -16,8 +16,10 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.ReportMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -358,6 +360,24 @@ public class CommandManager extends BaseCommand {
         Main.getInstance().loadPlugin(true);
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Reloaded the plugin!");
+    }
+
+    /**
+     * Called when a player wants to view the reportsd
+     *
+     * @param player the player executing this command
+     * @since 6.5.0
+     */
+    @Subcommand("reports")
+    @Description("Show all reports made")
+    @CommandPermission("bg.reports")
+    public void onReports(Player player) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+            player.sendMessage(ChatColor.RED + "WorldEdit needs to be enabled in order for this feature to work.");
+            return;
+        }
+
+        new ReportMenu().show(player);
     }
 
     /**
@@ -1124,8 +1144,8 @@ public class CommandManager extends BaseCommand {
          * Creates and registers a new hologram at the position of the player
          *
          * @param player the player who executed the command
-         * @param name the name of the hologram to create, see {@link TopStatHologram#getName()}
-         * @param type the type of statistic to track,
+         * @param name the name of the hologram to create
+         * @param type the type of statistic to track
          * @param values the amount of values to display on the hologram
          * @since 6.2.0
          */
@@ -1150,7 +1170,7 @@ public class CommandManager extends BaseCommand {
          * Deletes an already existing hologram
          *
          * @param sender the sender which executed the command
-         * @param name the name of the hologram to delete, see {@link TopStatHologram#getName()}
+         * @param name the name of the hologram to delete
          * @since 6.2.0
          */
         @Subcommand("delete")

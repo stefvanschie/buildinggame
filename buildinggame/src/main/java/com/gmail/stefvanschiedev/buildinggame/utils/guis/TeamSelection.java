@@ -57,8 +57,8 @@ public class TeamSelection extends Gui {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         int iteration = 0;
 
-        var outlinePane = new OutlinePane(0, 0, 9,
-            (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
+        var outlinePane =
+            new OutlinePane(0, 0, 9, (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
 
         for (final var plot : arena.getPlots()) {
             var item = new ItemStack(Material.matchMaterial(config.getString("team-selection.team." +

@@ -72,6 +72,12 @@ scoreboards:
   win:
     enable: true
 
+achievements:
+  30-wins:
+    stat: first
+    amount-required: 30
+    message: "&aYou got the 30 wins achievement!"
+
 blocked-entities:
 - 'ender_crystal'
 - 'ender_dragon'
@@ -108,31 +114,31 @@ voting:
     second-slot:
       id: 'coal_block'
       points: 2
-      slot: 2
+      slot: 1
     third-slot:
       id: 'iron_block'
       points: 3
-      slot: 3
+      slot: 2
     fourth-slot:
       id: 'lapis_block'
       points: 4
-      slot: 4
+      slot: 3
     fifth-slot:
       id: 'redstone_block'
       points: 5
-      slot: 5
+      slot: 4
     sixth-slot:
       id: 'gold_block'
       points: 6
-      slot: 6
+      slot: 5
     seventh-slot:
       id: 'diamond_block'
       points: 7
-      slot: 7
+      slot: 6
     eighth-slot:
       id: 'emerald_block'
       points: 8
-      slot: 8
+      slot: 7
   point-actions: {}
 
 command-whitelist:
@@ -200,8 +206,23 @@ leave-item:
   id: 'clock'
 
 subject-gui:
+  when: lobby
+  open-instantly: false
+  rows: 4
+  vote-items:
+    item:
+      id: 'paper'
+    orientation: horizontal
   item:
     id: 'paper'
+  percentage-bars:
+    enable: false
+    offset:
+      x: 2
+      y: 0
+  close-item:
+    enable: true
+  additional-items: {}
   subject-amount: -1
   slot: 8
 

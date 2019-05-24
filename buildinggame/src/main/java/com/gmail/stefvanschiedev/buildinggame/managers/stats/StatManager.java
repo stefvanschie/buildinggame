@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -157,10 +158,10 @@ public final class StatManager {
 		if (!config.getBoolean("stats.enable." + type.toString().toLowerCase(Locale.getDefault())))
 			return;
 
-        Stat stat = getStat(player, type);
+        Stat oldStat = getStat(player, type);
 
-        if (stat != null)
-			stats.get(type).remove(stat);
+        if (oldStat != null)
+			stats.get(type).remove(oldStat);
 
         if (!stats.containsKey(type))
             stats.put(type, Collections.synchronizedList(new ArrayList<>()));
@@ -178,9 +179,18 @@ public final class StatManager {
                 break;
         }
 
-        statsByType.add(index, new Stat(player, value));
+        Stat newStat = new Stat(player, value);
+
+        statsByType.add(index, newStat);
 
         TopStatHologram.update(type);
+
+        if (player.isOnline()) {
+            Achievement.getAchievements(type).stream()
+                .filter(achievement ->
+                    !achievement.checkConditions(type, oldStat) && achievement.checkConditions(type, newStat))
+                .forEach(achievement -> achievement.grant(player.getPlayer()));
+        }
 	}
 
     /**

@@ -40,9 +40,9 @@ public class WorldEditBoundaryAssertion {
             @Override
             public boolean setBlock(BlockVector3 vector, BlockStateHolder block) throws WorldEditException {
                 var world = Bukkit.getWorld(event.getWorld().getName());
-                var location = new Location(world, vector.getX(), vector.getY(), vector.getZ());
+                var loc = new Location(world, vector.getX(), vector.getY(), vector.getZ());
 
-                if (!arena.getPlot(player).getBoundary().isInside(location)) {
+                if (!arena.getPlot(player).getBoundary().isInside(loc)) {
                     return false;
                 }
 

@@ -213,7 +213,6 @@ public final class BungeeCordHandler {
      *
      * @param uuid the uuid to look for
      * @return the identified callable with the given uuid
-     * @see IdentifiedCallable
      * @since 4.0.6
      */
     @Nullable
