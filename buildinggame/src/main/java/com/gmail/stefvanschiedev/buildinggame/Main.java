@@ -13,7 +13,6 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateS
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.WorldEditBoundaryAssertion;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.LeaderHeadsStatistic;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
@@ -189,11 +188,6 @@ public class Main extends JavaPlugin {
 		getLogger().info("Loading soft dependencies");
 		if (pm.isPluginEnabled("Vault"))
 			SDVault.getInstance().setup();
-
-		if (pm.isPluginEnabled("LeaderHeads")) {
-            for (var statType : StatType.values())
-                new LeaderHeadsStatistic(statType);
-        }
 
         if (pm.isPluginEnabled("PlaceholderAPI")) {
             try {

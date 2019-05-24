@@ -41,6 +41,10 @@
             <id>filoghost-repo</id>
             <url>https://ci.filoghost.me/plugin/repository/everything/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -61,18 +65,11 @@
             <artifactId>SimpleNet</artifactId>
             <version>1.2.0</version>
         </dependency>
-        <!--Needs to be created manually-->
+        <!-- Will be built using Jitpack.io -->
         <dependency>
-            <groupId>me.robin</groupId>
-            <artifactId>leaderheads</artifactId>
-            <version>3.1.6</version>
-            <scope>provided</scope>
-        </dependency>
-        <!--Needs to be created manually-->
-        <dependency>
-            <groupId>me.ebonjaeger</groupId>
+            <groupId>com.github.EbonJaeger</groupId>
             <artifactId>perworldinventory-kt</artifactId>
-            <version>2.1.0</version>
+            <version>v2.2.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -131,6 +128,12 @@
             <artifactId>MVdWPlaceholderAPI</artifactId>
             <version>2.5.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.spigotmc</groupId>
+                    <artifactId>spigot</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.gmail.filoghost.holographicdisplays</groupId>
@@ -172,10 +175,6 @@
                         <relocation>
                             <pattern>com.github.stefvanschie.inventoryframework</pattern>
                             <shadedPattern>com.gmail.stefvanschiedev.buildinggame.inventoryframework</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>me.ialistannen</pattern>
-                            <shadedPattern>com.gmail.stefvanschiedev.buildinggame.nbt</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

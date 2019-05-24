@@ -190,6 +190,15 @@ public class TopStatHologram {
     }
 
     /**
+     * Clears all the {@link TopStatHologram}s currently registered.
+     *
+     * @since 6.5.1
+     */
+    public static void clearAll() {
+        HOLOGRAMS.clear();
+    }
+
+    /**
      * Gets a set of all currently registered holograms
      *
      * @return all holograms
