@@ -143,7 +143,7 @@ class SkinTypeSelectionMenu extends Gui {
 
         pane.addItem(new GuiItem(snowyTundra, event -> {
             if (villagerLike instanceof Villager) {
-                ((Villager) villagerLike).setVillagerType(Villager.Type.SNOWY);
+                ((Villager) villagerLike).setVillagerType(Villager.Type.SNOW);
             } else if (villagerLike instanceof ZombieVillager) {
                 try {
                     Object newVillagerData = VILLAGER_DATA_WITH_TYPE.invoke(finalVillagerData, VILLAGER_TYPE_E);
