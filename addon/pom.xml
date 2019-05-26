@@ -29,12 +29,12 @@
         <dependency>
             <groupId>com.github.jhg023</groupId>
             <artifactId>SimpleNet</artifactId>
-            <version>1.2.0</version>
+            <version>1.4.14</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>13.0</version>
+            <version>17.0.0</version>
         </dependency>
         <dependency>
             <groupId>co.aikar</groupId>
