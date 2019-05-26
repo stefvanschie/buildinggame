@@ -231,7 +231,7 @@ public final class BungeeCordHandler {
             client.readStringAlways(this::onMessageReceived);
         });
 
-        client.onDisconnect(() -> {
+        client.postDisconnect(() -> {
             Main.getInstance().getLogger().info("This server has been disconnected from BungeeCord.");
 
             connectClient();

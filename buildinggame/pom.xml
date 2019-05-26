@@ -45,13 +45,27 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>mojang-repo</id>
+            <url>https://libraries.minecraft.net/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.14-R0.1-SNAPSHOT</version>
+            <artifactId>spigot-api</artifactId>
+            <version>1.14.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.21</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -63,7 +77,7 @@
         <dependency>
             <groupId>com.github.jhg023</groupId>
             <artifactId>SimpleNet</artifactId>
-            <version>1.2.0</version>
+            <version>1.4.14</version>
         </dependency>
         <!-- Will be built using Jitpack.io -->
         <dependency>
@@ -114,7 +128,7 @@
         <dependency>
             <groupId>com.github.stefvanschie.inventoryframework</groupId>
             <artifactId>IF</artifactId>
-            <version>0.5.3</version>
+            <version>0.5.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

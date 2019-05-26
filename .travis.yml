@@ -9,10 +9,6 @@ matrix:
         - rm "${JAVA_HOME}/lib/security/cacerts"
         - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
 
-install:
-  - wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
-  - java -jar BuildTools.jar --rev 1.13.2
-
 script:
   - cd buildinggame
   - mvn clean install -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2 -D maven.wagon.http.ssl.insecure=true -D maven.wagon.http.ssl.allowall=true
