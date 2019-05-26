@@ -48,7 +48,7 @@ public class Main extends Plugin implements Listener {
 
 	        client.readStringAlways(value -> onMessageReceived(value, client));
 
-	        client.onDisconnect(() -> getLogger().info("An instance has disconnected."));
+	        client.postDisconnect(() -> getLogger().info("An instance has disconnected."));
         });
 
 	    server.bind("localhost", 26048);
@@ -114,7 +114,7 @@ public class Main extends Plugin implements Listener {
             connect(data[0].split(":")[1], client, data.length > 2 ? data[2] : null);
         else
             //send to other servers
-            clients.forEach(c -> Packet.builder().putString(message).writeAndFlush(c));
+            Packet.builder().putString(message).writeAndFlush(clients);
 	}
 
     /**
