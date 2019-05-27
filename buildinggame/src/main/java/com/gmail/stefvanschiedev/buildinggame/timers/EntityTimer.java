@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;

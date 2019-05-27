@@ -18,6 +18,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ReportMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.RegionFactory;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -466,7 +468,10 @@ public class CommandManager extends BaseCommand {
 
                         SettingsManager.getInstance().save();
 
-                        plot.setBoundary(new Region(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ));
+                        Region region =
+                            RegionFactory.createRegion(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ);
+
+                        plot.setBoundary(region);
 
                         messages.getStringList("commands.setbounds.success").forEach(message ->
                             MessageManager.getInstance().send(player, message
@@ -571,7 +576,9 @@ public class CommandManager extends BaseCommand {
 
                         SettingsManager.getInstance().save();
 
-                        plot.setBoundary(new Region(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ));
+                        Region region =
+                            RegionFactory.createRegion(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ);
+                        plot.setBoundary(region);
 
                         MessageManager.getInstance().send(player, ChatColor.GREEN + "Floor set!");
 

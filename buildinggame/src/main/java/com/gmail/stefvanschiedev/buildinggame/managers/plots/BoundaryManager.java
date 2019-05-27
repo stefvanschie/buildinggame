@@ -1,7 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.plots;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.RegionFactory;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -51,14 +53,19 @@ public final class BoundaryManager {
 		ArenaManager.getInstance().getArenas().forEach(arena ->
 			arena.getPlots().forEach(plot -> {
 				try {
-					plot.setBoundary(new Region(Bukkit.getWorld(
-					        arenas.getString(arena.getName() + '.' + plot.getId() + ".high.world")),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".high.x"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".high.y"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".high.z"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".low.x"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".low.y"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".low.z")));
+                    String arenaName = arena.getName();
+                    int plotId = plot.getId();
+
+                    String worldName = arenas.getString(arenaName + '.' + plotId + ".high.world");
+                    World world = Bukkit.getWorld(worldName);
+                    int highX = arenas.getInt(arenaName + '.' + plotId + ".high.x");
+                    int highY = arenas.getInt(arenaName + '.' + plotId + ".high.y");
+                    int highZ = arenas.getInt(arenaName + '.' + plotId + ".high.z");
+                    int lowX = arenas.getInt(arenaName + '.' + plotId + ".low.x");
+                    int lowY = arenas.getInt(arenaName + '.' + plotId + ".low.y");
+                    int lowZ = arenas.getInt(arenaName + '.' + plotId + ".low.z");
+
+                    plot.setBoundary(RegionFactory.createRegion(world, highX, highY, highZ, lowX, lowY, lowZ));
 
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                         var logger = Main.getInstance().getLogger();
@@ -66,8 +73,8 @@ public final class BoundaryManager {
                         if (plot.getBoundary().getWorld() == null)
                             logger.warning("Unable to load world for plot boundary");
 
-                        logger.info("Loaded boundary for plot " + plot.getId() +
-                            " in arena " + arena.getName());
+                        logger.info("Loaded boundary for plot " + plotId +
+                            " in arena " + arenaName);
                     }
 				} catch (NullPointerException | IllegalArgumentException e) {
 					plot.setBoundary(null);

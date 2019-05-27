@@ -1,7 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.plots;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.RegionFactory;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -53,14 +55,19 @@ public final class FloorManager {
 		ArenaManager.getInstance().getArenas().forEach(arena ->
 			arena.getPlots().forEach(plot -> {
 				try {
-					plot.setFloor(new Region(Bukkit.getWorld(
-					        arenas.getString(arena.getName() + '.' + plot.getId() + ".floor.high.world")),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.high.x"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.high.y"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.high.z"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.low.x"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.low.y"),
-							arenas.getInt(arena.getName() + '.' + plot.getId() + ".floor.low.z")));
+                    String arenaName = arena.getName();
+                    int plotId = plot.getId();
+
+                    String worldName = arenas.getString(arenaName + '.' + plotId + ".floor.high.world");
+                    World world = Bukkit.getWorld(worldName);
+                    int highX = arenas.getInt(arenaName + '.' + plotId + ".floor.high.x");
+                    int highY = arenas.getInt(arenaName + '.' + plotId + ".floor.high.y");
+                    int highZ = arenas.getInt(arenaName + '.' + plotId + ".floor.high.z");
+                    int lowX = arenas.getInt(arenaName + '.' + plotId + ".floor.low.x");
+                    int lowY = arenas.getInt(arenaName + '.' + plotId + ".floor.low.y");
+                    int lowZ = arenas.getInt(arenaName + '.' + plotId + ".floor.low.z");
+
+                    plot.setFloor(RegionFactory.createRegion(world, highX, highY, highZ, lowX, lowY, lowZ));
 
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                         Logger logger = Main.getInstance().getLogger();
@@ -68,8 +75,8 @@ public final class FloorManager {
                         if (plot.getFloor().getWorld() == null)
                             logger.warning("Unable to load world for plot floor");
 
-                        logger.info("Loaded floor for plot " + plot.getId() +
-                            " in arena " + arena.getName());
+                        logger.info("Loaded floor for plot " + plotId +
+                            " in arena " + arenaName);
                     }
 				} catch (NullPointerException | IllegalArgumentException npe) {
 					plot.setFloor(null);

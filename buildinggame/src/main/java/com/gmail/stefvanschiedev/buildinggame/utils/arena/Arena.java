@@ -1,7 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.arena;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu.When;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.*;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -1131,8 +1131,9 @@ public class Arena {
      * @since 2.1.0
      */
 	public void setVotingPlot(Plot votingPlot) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+        SettingsManager instance = SettingsManager.getInstance();
+        YamlConfiguration config = instance.getConfig();
+		YamlConfiguration messages = instance.getMessages();
 		
 		this.votingPlot = votingPlot;
 
@@ -1206,7 +1207,7 @@ public class Arena {
                         }
 
                         if (save)
-                            SettingsManager.getInstance().save();
+                            instance.save();
 
                         player.getInventory().setItem(
                             config.getInt("voting.items." + identifier + ".slot") - 1,
@@ -1228,34 +1229,26 @@ public class Arena {
                         );
                     });
 
-                    player.getInventory().setItem(8, new ItemBuilder(player, Material.BOOK)
-                        .setDisplayName(ChatColor.RED + "Report build")
-                        .movable(false)
-                        .setClickEvent(event -> {
-                            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd_HH-mm-ss");
-                            String players = getVotingPlot().getGamePlayers().stream()
-                                .map(gp -> '-' + gp.getPlayer().getName())
-                                .reduce("", String::concat);
-                            var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
-                            var file = new File(SettingsManager.getInstance().getReportsSchematicsFolder(), fileName);
+                    if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+                        player.getInventory().setItem(8, new ItemBuilder(player, Material.BOOK)
+                            .setDisplayName(ChatColor.RED + "Report build")
+                            .movable(false)
+                            .setClickEvent(event -> {
+                                var dateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd_HH-mm-ss");
+                                String players = getVotingPlot().getGamePlayers().stream()
+                                    .map(gp -> '-' + gp.getPlayer().getName())
+                                    .reduce("", String::concat);
+                                var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
+                                var file = new File(instance.getReportsSchematicsFolder(), fileName);
 
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        getVotingPlot().getBoundary().saveSchematic(file);
+                                getVotingPlot().getBoundary().saveSchematic(file, () ->
+                                    MessageManager.getInstance().send(event.getPlayer(),
+                                        ChatColor.GREEN + "Your report has been saved."));
 
-                                        MessageManager.getInstance().send(event.getPlayer(),
-                                            ChatColor.GREEN + "Your report has been saved.");
-                                    } catch (IOException exception) {
-                                        exception.printStackTrace();
-                                    }
-                                }
-                            }.runTaskAsynchronously(Main.getInstance());
-
-                            getVotingPlot().getGamePlayers().forEach(gp ->
-                                Report.add(new Report(gp.getPlayer(), player, ZonedDateTime.now(), file)));
-                        }).build());
+                                getVotingPlot().getGamePlayers().forEach(gp ->
+                                    Report.add(new Report(gp.getPlayer(), player, ZonedDateTime.now(), file)));
+                            }).build());
+                    }
                 }
 
 				//update scoreboard and update time and weather

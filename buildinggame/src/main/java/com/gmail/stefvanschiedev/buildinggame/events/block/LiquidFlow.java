@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Region;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

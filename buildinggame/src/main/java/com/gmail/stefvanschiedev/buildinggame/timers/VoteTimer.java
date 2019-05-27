@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.timers;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.math.MathElement;
 import com.gmail.stefvanschiedev.buildinggame.utils.math.util.MathElementFactory;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,12 +19,10 @@ import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -120,28 +119,16 @@ public class VoteTimer extends Timer {
 				//create a schematic of the first plot
                 if (config.getBoolean("schematics.enable") &&
                     Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
-                    new BukkitRunnable() {
-                        /**
-                         * {@inheritDoc}
-                         */
-                        @Override
-                        public void run() {
-                            Region region = arena.getFirstPlot().getBoundary();
+                    Region region = arena.getFirstPlot().getBoundary();
 
-                            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd_HH-mm-ss");
-                            String players = arena.getFirstPlot().getGamePlayers().stream()
-                                .map(gp -> '-' + gp.getPlayer().getName())
-                                .reduce("", String::concat);
-                            var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
-                            var file = new File(SettingsManager.getInstance().getWinnerSchematicsFolder(), fileName);
+                    var dateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd_HH-mm-ss");
+                    String players = arena.getFirstPlot().getGamePlayers().stream()
+                        .map(gp -> '-' + gp.getPlayer().getName())
+                        .reduce("", String::concat);
+                    var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
+                    var file = new File(SettingsManager.getInstance().getWinnerSchematicsFolder(), fileName);
 
-                            try {
-                                region.saveSchematic(file);
-                            } catch (IOException exception) {
-                                exception.printStackTrace();
-                            }
-                        }
-                    }.runTaskAsynchronously(Main.getInstance());
+                    region.saveSchematic(file);
                 }
 
 				for (var plot : arena.getUsedPlots()) {
