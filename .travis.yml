@@ -2,13 +2,6 @@ language: java
 jdk: openjdk11
 sudo: true
 
-matrix:
-  include:
-    - jdk: openjdk11
-      before_install:
-        - rm "${JAVA_HOME}/lib/security/cacerts"
-        - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
-
 script:
   - cd buildinggame
   - mvn clean install -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2 -D maven.wagon.http.ssl.insecure=true -D maven.wagon.http.ssl.allowall=true
