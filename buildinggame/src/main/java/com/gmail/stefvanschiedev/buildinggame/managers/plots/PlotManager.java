@@ -51,8 +51,7 @@ public final class PlotManager {
                         return;
                     }
 
-                    Plot p = new Plot(id);
-                    p.setArena(arena);
+                    Plot p = new Plot(arena, id);
                     arena.addPlot(p);
 
                     if (SettingsManager.getInstance().getConfig().getBoolean("debug"))

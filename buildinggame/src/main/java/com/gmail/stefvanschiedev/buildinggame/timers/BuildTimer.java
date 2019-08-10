@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.timers;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.Target;
+import com.gmail.stefvanschiedev.buildinggame.utils.CommandUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -127,31 +127,16 @@ public class BuildTimer extends Timer {
 		//timings
 		try {
             config.getConfigurationSection("timings.build-timer.at").getKeys(false).forEach(key -> {
-                if (seconds == Integer.parseInt(key))
-                    config.getStringList("timings.build-timer.at." + Integer.parseInt(key)).forEach(command -> {
-                        command = command.replace("%arena%", arena.getName());
-
-                        if (!command.isEmpty() && command.charAt(0) == '@') {
-                            String targetText = command.split(" ")[0];
-
-                            Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                        } else
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    });
+                if (seconds == Integer.parseInt(key)) {
+                    config.getStringList("timings.build-timer.at." + Integer.parseInt(key)).forEach(command ->
+                        CommandUtil.dispatch(command.replace("%arena%", arena.getName())));
+                }
             });
             config.getConfigurationSection("timings.build-timer.every").getKeys(false).forEach(key -> {
-                if (seconds % Integer.parseInt(key) == 0)
-                    config.getStringList("timings.build-timer.every." + Integer.parseInt(key)).forEach(
-                        command -> {
-                            command = command.replace("%arena%", arena.getName());
-
-                            if (!command.isEmpty() && command.charAt(0) == '@') {
-                                String targetText = command.split(" ")[0];
-
-                                Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                            } else
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                        });
+                if (seconds % Integer.parseInt(key) == 0) {
+                    config.getStringList("timings.build-timer.every." + Integer.parseInt(key)).forEach(command ->
+                        CommandUtil.dispatch(command.replace("%arena%", arena.getName())));
+                }
             });
 		} catch (NullPointerException | NumberFormatException ignore) {}
 

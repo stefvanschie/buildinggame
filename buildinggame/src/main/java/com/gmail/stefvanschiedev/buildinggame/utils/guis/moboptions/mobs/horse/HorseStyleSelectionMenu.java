@@ -5,11 +5,9 @@ import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Wool;
 
 /**
  * A menu for changing the style of a horse
@@ -51,7 +49,7 @@ class HorseStyleSelectionMenu extends Gui {
         }));
 
         //white
-        var white = new Wool(DyeColor.WHITE).toItemStack(1);
+        var white = new ItemStack(Material.WHITE_WOOL);
         var whiteMeta = white.getItemMeta();
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);

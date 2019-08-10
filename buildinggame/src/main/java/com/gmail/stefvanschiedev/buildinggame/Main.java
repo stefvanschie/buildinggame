@@ -5,6 +5,7 @@ import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.InvalidCommandArgument;
 import com.github.stefvanschie.inventoryframework.Gui;
+import com.gmail.stefvanschiedev.buildinggame.events.block.BlockEdit;
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.*;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
@@ -31,9 +32,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.gmail.stefvanschiedev.buildinggame.events.block.BlockBreak;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockDispenseItem;
-import com.gmail.stefvanschiedev.buildinggame.events.block.BlockPlace;
 import com.gmail.stefvanschiedev.buildinggame.events.block.LiquidFlow;
 import com.gmail.stefvanschiedev.buildinggame.events.block.PistonBlockMove;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.ChickenSpawnByEgg;
@@ -100,7 +99,7 @@ public class Main extends JavaPlugin {
 		SettingsManager.getInstance().setup(this, true);
 
         String version = Bukkit.getBukkitVersion().split("\\.")[1];
-        if (!version.substring(0, version.length() < 2 ? version.length() : 2).equals("14")) {
+        if (!version.substring(0, Math.min(version.length(), 2)).equals("14")) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
@@ -288,9 +287,8 @@ public class Main extends JavaPlugin {
 
 		getLogger().info("Loading listeners");
 		if (!reload) {
-			pm.registerEvents(new BlockBreak(), this);
 			pm.registerEvents(new BlockDispenseItem(), this);
-			pm.registerEvents(new BlockPlace(), this);
+			pm.registerEvents(new BlockEdit(), this);
 			pm.registerEvents(new JoinSignCreate(), this);
 			pm.registerEvents(new LeaveSignCreate(), this);
 			pm.registerEvents(new StatSignCreate(), this);

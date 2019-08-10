@@ -34,7 +34,7 @@ public final class BungeeCordHandler {
     /**
      * A utility class for the names of people who can receive a message
      */
-    public final class Receiver {
+    public static final class Receiver {
         public static final String BUNGEE = "bungee";
         public static final String SUB_SERVER = "main";
 

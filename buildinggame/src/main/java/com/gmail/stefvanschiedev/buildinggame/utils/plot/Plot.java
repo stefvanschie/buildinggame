@@ -43,7 +43,7 @@ public class Plot {
     /**
      * The arena this plot belongs to
      */
-	private Arena arena;
+	private final Arena arena;
 
 	/**
      * Whether it's raining on the plot or not
@@ -113,9 +113,11 @@ public class Plot {
 	/**
      * Constructs a new Plot
      *
+     * @param arena the arena this plot belongs to
      * @param id the id of this plot
      */
-	public Plot(int id) {
+	public Plot(@NotNull Arena arena, int id) {
+	    this.arena = arena;
 		this.id = id;
 		
 		this.buildMenu = new BuildMenu(this);
@@ -746,16 +748,6 @@ public class Plot {
 		}
 		
 		getBoundary().getAllBlocks().forEach(block -> blocks.put(block.getState(), block.getBiome()));
-	}
-
-    /**
-     * Sets the arena this plot belongs to
-     *
-     * @param arena the new arena
-     * @since 2.1.0
-     */
-	public void setArena(Arena arena) {
-		this.arena = arena;
 	}
 
     /**

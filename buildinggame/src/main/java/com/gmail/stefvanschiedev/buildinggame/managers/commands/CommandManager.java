@@ -439,20 +439,14 @@ public class CommandManager extends BaseCommand {
                             return;
                         }
 
-                        int highestX = previousLocation.getBlockX() < location.getBlockX() ? location.getBlockX() :
-                            previousLocation.getBlockX();
-                        int lowestX = previousLocation.getBlockX() > location.getBlockX() ? location.getBlockX() :
-                            previousLocation.getBlockX();
+                        int highestX = Math.max(previousLocation.getBlockX(), location.getBlockX());
+                        int lowestX = Math.min(previousLocation.getBlockX(), location.getBlockX());
 
-                        int highestY = previousLocation.getBlockY() < location.getBlockY() ? location.getBlockY() :
-                            previousLocation.getBlockY();
-                        int lowestY = previousLocation.getBlockY() > location.getBlockY() ? location.getBlockY() :
-                            previousLocation.getBlockY();
+                        int highestY = Math.max(previousLocation.getBlockY(), location.getBlockY());
+                        int lowestY = Math.min(previousLocation.getBlockY(), location.getBlockY());
 
-                        int highestZ = previousLocation.getBlockZ() < location.getBlockZ() ? location.getBlockZ() :
-                            previousLocation.getBlockZ();
-                        int lowestZ = previousLocation.getBlockZ() > location.getBlockZ() ? location.getBlockZ() :
-                            previousLocation.getBlockZ();
+                        int highestZ = Math.max(previousLocation.getBlockZ(), location.getBlockZ());
+                        int lowestZ = Math.min(previousLocation.getBlockZ(), location.getBlockZ());
 
                         //x
                         arenas.set(name + '.' + plotID + ".high.x", highestX);
@@ -547,20 +541,14 @@ public class CommandManager extends BaseCommand {
                             return;
                         }
 
-                        int highestX = previousLocation.getBlockX() < location.getBlockX() ? location.getBlockX() :
-                            previousLocation.getBlockX();
-                        int lowestX = previousLocation.getBlockX() > location.getBlockX() ? location.getBlockX() :
-                            previousLocation.getBlockX();
+                        int highestX = Math.max(previousLocation.getBlockX(), location.getBlockX());
+                        int lowestX = Math.min(previousLocation.getBlockX(), location.getBlockX());
 
-                        int highestY = previousLocation.getBlockY() < location.getBlockY() ? location.getBlockY() :
-                            previousLocation.getBlockY();
-                        int lowestY = previousLocation.getBlockY() > location.getBlockY() ? location.getBlockY() :
-                            previousLocation.getBlockY();
+                        int highestY = Math.max(previousLocation.getBlockY(), location.getBlockY());
+                        int lowestY = Math.min(previousLocation.getBlockY(), location.getBlockY());
 
-                        int highestZ = previousLocation.getBlockZ() < location.getBlockZ() ? location.getBlockZ() :
-                            previousLocation.getBlockZ();
-                        int lowestZ = previousLocation.getBlockZ() > location.getBlockZ() ? location.getBlockZ() :
-                            previousLocation.getBlockZ();
+                        int highestZ = Math.max(previousLocation.getBlockZ(), location.getBlockZ());
+                        int lowestZ = Math.min(previousLocation.getBlockZ(), location.getBlockZ());
 
                         //x
                         arenas.set(name + '.' + plotID + ".floor.high.x", highestX);
@@ -578,7 +566,7 @@ public class CommandManager extends BaseCommand {
 
                         Region region =
                             RegionFactory.createRegion(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ);
-                        plot.setBoundary(region);
+                        plot.setFloor(region);
 
                         MessageManager.getInstance().send(player, ChatColor.GREEN + "Floor set!");
 
@@ -833,7 +821,7 @@ public class CommandManager extends BaseCommand {
         ARENAS.set(name + ".maxplayers", place);
         SettingsManager.getInstance().save();
 
-        Plot plot = new Plot(place);
+        Plot plot = new Plot(arena, place);
         plot.setLocation(new Location(world, blockX, blockY, blockZ, yaw, pitch));
 
         arena.addPlot(plot);
@@ -1045,8 +1033,10 @@ public class CommandManager extends BaseCommand {
         for (Arena a : ArenaManager.getInstance().getArenas()) {
             for (Plot plot : a.getUsedPlots()) {
                 for (GamePlayer gamePlayer : plot.getSpectators()) {
-                    if (gamePlayer.getPlayer().equals(player))
+                    if (gamePlayer.getPlayer().equals(player)) {
                         spectating = plot;
+                        break;
+                    }
                 }
             }
         }
@@ -1144,6 +1134,7 @@ public class CommandManager extends BaseCommand {
      *
      * @since 6.2.0
      */
+    @SuppressWarnings("InnerClassMayBeStatic") //acf doesn't like it when we make this static
     @Subcommand("hologram")
     public class HologramCommand extends BaseCommand {
 
