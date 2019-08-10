@@ -172,11 +172,10 @@ public class MainScoreboard {
 			var text = replace(strings.get(i));
 			var length = text.length();
 			
-			team.setPrefix(text.substring(0, length > 16 ? 16 : length));
+			team.setPrefix(text.substring(0, Math.min(length, 16)));
 			
 			if (length > 16)
-				team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, length > 32 ? 32 :
-                        length));
+				team.setSuffix(ChatColor.getLastColors(team.getPrefix()) + text.substring(16, Math.min(length, 32)));
 			
 			objective.getScore(ChatColor.values()[i].toString()).setScore(strings.size() - i);
 		}

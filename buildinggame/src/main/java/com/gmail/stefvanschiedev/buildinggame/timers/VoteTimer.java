@@ -185,16 +185,8 @@ public class VoteTimer extends Timer {
                                     MessageManager.getInstance().send(player, message
                                         .replace("%points%", plot.getPoints() + "")));
 						
-								config.getStringList("commands.first").forEach(command -> {
-									command = command.replace("%player%", player.getName());
-
-                                    if (!command.isEmpty() && command.charAt(0) == '@') {
-                                        String targetText = command.split(" ")[0];
-
-                                        Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                                    } else
-                                        Bukkit.dispatchCommand(player, command);
-								});
+								config.getStringList("commands.first").forEach(command ->
+                                    CommandUtil.dispatch(command.replace("%player%", player.getName())));
 							} else if (second.equals(plot)) {
 								moneyString = config.getString("money.second");
 
@@ -202,16 +194,8 @@ public class VoteTimer extends Timer {
                                     MessageManager.getInstance().send(player, message
                                         .replace("%points%", plot.getPoints() + "")));
 
-                                config.getStringList("commands.second").forEach(command -> {
-                                    command = command.replace("%player%", player.getName());
-
-                                    if (!command.isEmpty() && command.charAt(0) == '@') {
-                                        String targetText = command.split(" ")[0];
-
-                                        Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                                    } else
-                                        Bukkit.dispatchCommand(player, command);
-                                });
+                                config.getStringList("commands.second").forEach(command ->
+                                    CommandUtil.dispatch(command.replace("%player%", player.getName())));
 							} else if (third.equals(plot)) {
 								moneyString = config.getString("money.third");
 					
@@ -219,29 +203,13 @@ public class VoteTimer extends Timer {
 									MessageManager.getInstance().send(player, message
 											.replace("%points%", plot.getPoints() + "")));
 						
-								config.getStringList("commands.third").forEach(command -> {
-                                    command = command.replace("%player%", player.getName());
-
-                                    if (!command.isEmpty() && command.charAt(0) == '@') {
-                                        String targetText = command.split(" ")[0];
-
-                                        Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                                    } else
-                                        Bukkit.dispatchCommand(player, command);
-								});
+								config.getStringList("commands.third").forEach(command ->
+                                    CommandUtil.dispatch(command.replace("%player%", player.getName())));
 							} else {
 								moneyString = config.getString("money.others");
 							
-								config.getStringList("commands.others").forEach(command -> {
-                                    command = command.replace("%player%", player.getName());
-
-                                    if (!command.isEmpty() && command.charAt(0) == '@') {
-                                        String targetText = command.split(" ")[0];
-
-                                        Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                                    } else
-                                        Bukkit.dispatchCommand(player, command);
-								});
+								config.getStringList("commands.others").forEach(command ->
+                                    CommandUtil.dispatch(command.replace("%player%", player.getName())));
 							}
 
 							//compute money
@@ -315,30 +283,16 @@ public class VoteTimer extends Timer {
 		//timings
 		try {
             config.getConfigurationSection("timings.vote-timer.at").getKeys(false).forEach(key -> {
-                if (seconds == Integer.parseInt(key))
-                    config.getStringList("timings.vote-timer.at." + Integer.parseInt(key)).forEach(command -> {
-                        command = command.replace("%arena%", arena.getName());
-
-                        if (!command.isEmpty() && command.charAt(0) == '@') {
-                            String targetText = command.split(" ")[0];
-
-                            Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                        } else
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    });
+                if (seconds == Integer.parseInt(key)) {
+                    config.getStringList("timings.vote-timer.at." + Integer.parseInt(key)).forEach(command ->
+                        CommandUtil.dispatch(command.replace("%arena%", arena.getName())));
+                }
             });
             config.getConfigurationSection("timings.vote-timer.every").getKeys(false).forEach(key -> {
-                if (seconds % Integer.parseInt(key) == 0)
-                    config.getStringList("timings.vote-timer.every." + Integer.parseInt(key)).forEach(command -> {
-                        command = command.replace("%arena%", arena.getName());
-
-                        if (!command.isEmpty() && command.charAt(0) == '@') {
-                            String targetText = command.split(" ")[0];
-
-                            Target.parse(targetText).execute(command.substring(targetText.length() + 1));
-                        } else
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                    });
+                if (seconds % Integer.parseInt(key) == 0) {
+                    config.getStringList("timings.vote-timer.every." + Integer.parseInt(key)).forEach(command ->
+                        CommandUtil.dispatch(command.replace("%arena%", arena.getName())));
+                }
             });
 		} catch (NullPointerException | NumberFormatException ignore) {}
 		
