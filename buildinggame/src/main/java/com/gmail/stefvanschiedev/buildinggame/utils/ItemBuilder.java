@@ -174,7 +174,7 @@ public class ItemBuilder {
      *
      * @since 7.0.0
      */
-    public class Listener implements org.bukkit.event.Listener {
+    public static class Listener implements org.bukkit.event.Listener {
 
         /**
          * Handles the interaction between player and their item
@@ -228,6 +228,10 @@ public class ItemBuilder {
             }
 
             var itemMeta = e.getCurrentItem().getItemMeta();
+
+            if (itemMeta == null) {
+                return;
+            }
 
             NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
             var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());

@@ -5,9 +5,9 @@ import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Parrot;
-import org.bukkit.material.Wool;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * A menu for changing the type of a parrot
@@ -25,7 +25,7 @@ class ParrotTypeMenu extends Gui {
         var pane = new OutlinePane(2, 0, 7, 1);
 
         //blue
-        var blue = new Wool(DyeColor.BLUE).toItemStack(1);
+        var blue = new ItemStack(Material.BLUE_WOOL);
         var blueMeta = blue.getItemMeta();
         blueMeta.setDisplayName(ChatColor.GREEN + "Blue");
         blue.setItemMeta(blueMeta);
@@ -37,7 +37,7 @@ class ParrotTypeMenu extends Gui {
         }));
 
         //cyan
-        var cyan = new Wool(DyeColor.CYAN).toItemStack(1);
+        var cyan = new ItemStack(Material.CYAN_WOOL);
         var cyanMeta = cyan.getItemMeta();
         cyanMeta.setDisplayName(ChatColor.GREEN + "Cyan");
         cyan.setItemMeta(cyanMeta);
@@ -49,7 +49,7 @@ class ParrotTypeMenu extends Gui {
         }));
 
         //gray
-        var gray = new Wool(DyeColor.GRAY).toItemStack(1);
+        var gray = new ItemStack(Material.GRAY_WOOL);
         var grayMeta = gray.getItemMeta();
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
@@ -61,7 +61,7 @@ class ParrotTypeMenu extends Gui {
         }));
 
         //green
-        var green = new Wool(DyeColor.GREEN).toItemStack(1);
+        var green = new ItemStack(Material.GREEN_WOOL);
         var greenMeta = green.getItemMeta();
         greenMeta.setDisplayName(ChatColor.GREEN + "Green");
         green.setItemMeta(greenMeta);
@@ -73,7 +73,7 @@ class ParrotTypeMenu extends Gui {
         }));
 
         //red
-        var red = new Wool(DyeColor.RED).toItemStack(1);
+        var red = new ItemStack(Material.RED_WOOL);
         var redMeta = red.getItemMeta();
         redMeta.setDisplayName(ChatColor.GREEN + "Red");
         red.setItemMeta(redMeta);

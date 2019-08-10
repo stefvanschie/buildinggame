@@ -1,6 +1,5 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.plots;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.RegionFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.World;

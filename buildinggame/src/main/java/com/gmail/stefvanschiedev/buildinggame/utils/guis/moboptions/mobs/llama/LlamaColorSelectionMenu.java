@@ -5,11 +5,9 @@ import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Llama;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Wool;
 
 /**
  * A menu for changing the color of a llama
@@ -27,7 +25,7 @@ class LlamaColorSelectionMenu extends Gui {
         var pane = new StaticPane(2, 0, 5, 1);
 
         //brown
-        var brown = new Wool(DyeColor.BROWN).toItemStack(1);
+        var brown = new ItemStack(Material.BROWN_WOOL);
         var brownMeta = brown.getItemMeta();
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
@@ -51,7 +49,7 @@ class LlamaColorSelectionMenu extends Gui {
         }), 1, 0);
 
         //gray
-        var gray = new Wool(DyeColor.GRAY).toItemStack(1);
+        var gray = new ItemStack(Material.GRAY_WOOL);
         var grayMeta = gray.getItemMeta();
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
@@ -63,7 +61,7 @@ class LlamaColorSelectionMenu extends Gui {
         }), 3, 0);
 
         //white
-        var white = new Wool(DyeColor.WHITE).toItemStack(1);
+        var white = new ItemStack(Material.WHITE_WOOL);
         var whiteMeta = white.getItemMeta();
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);

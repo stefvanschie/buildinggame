@@ -5,11 +5,9 @@ import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Wool;
 
 /**
  * A menu for changing the color of a horse
@@ -27,7 +25,7 @@ class HorseColorSelectionMenu extends Gui {
         var pane = new OutlinePane(1, 0, 8, 1);
 
         //black
-        var black = new Wool(DyeColor.BLACK).toItemStack(1);
+        var black = new ItemStack(Material.BLACK_WOOL);
         var blackMeta = black.getItemMeta();
         blackMeta.setDisplayName(ChatColor.GREEN + "Black");
         black.setItemMeta(blackMeta);
@@ -39,7 +37,7 @@ class HorseColorSelectionMenu extends Gui {
         }));
 
         //brown
-        var brown = new Wool(DyeColor.BROWN).toItemStack(1);
+        var brown = new ItemStack(Material.BROWN_WOOL);
         var brownMeta = brown.getItemMeta();
         brownMeta.setDisplayName(ChatColor.GREEN + "Brown");
         brown.setItemMeta(brownMeta);
@@ -87,7 +85,7 @@ class HorseColorSelectionMenu extends Gui {
         }));
 
         //gray
-        var gray = new Wool(DyeColor.GRAY).toItemStack(1);
+        var gray = new ItemStack(Material.GRAY_WOOL);
         var grayMeta = gray.getItemMeta();
         grayMeta.setDisplayName(ChatColor.GREEN + "Gray");
         gray.setItemMeta(grayMeta);
@@ -99,7 +97,7 @@ class HorseColorSelectionMenu extends Gui {
         }));
 
         //white
-        var white = new Wool(DyeColor.WHITE).toItemStack(1);
+        var white = new ItemStack(Material.WHITE_WOOL);
         var whiteMeta = white.getItemMeta();
         whiteMeta.setDisplayName(ChatColor.GREEN + "White");
         white.setItemMeta(whiteMeta);
