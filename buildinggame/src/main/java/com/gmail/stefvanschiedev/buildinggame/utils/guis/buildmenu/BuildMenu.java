@@ -15,6 +15,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The gui for plot settings and tools
@@ -69,11 +71,6 @@ public class BuildMenu extends Gui {
     private final BiomeMenu biomeMenu;
 
     /**
-     * The last time the floor was changed (according to System.currentMillis())
-     */
-	private long floorChange;
-
-    /**
      * The items inside this pane
      */
     private final GuiItem particles, floor, time, rain, flySpeed, heads, banners, biome;
@@ -122,60 +119,64 @@ public class BuildMenu extends Gui {
 
             int cooldown = (int) CONFIG.getDouble("gui.floor.cooldown") * 1000;
 
-            if (cooldown > 0 && System.currentTimeMillis() - floorChange < cooldown) {
+            if (cooldown > 0 && System.currentTimeMillis() - floorMenu.getLastFloorChange() < cooldown) {
                 MessageManager.getInstance().send(player, ChatColor.YELLOW + "You have to wait " +
-                    (((cooldown - System.currentTimeMillis()) + floorChange) / 1000.0) +
+                    (((cooldown - System.currentTimeMillis()) + floorMenu.getLastFloorChange()) / 1000.0) +
                     " seconds before you can change the floor again");
                 event.setCancelled(true);
+                return;
             }
 
-            if (ArenaManager.getInstance().getArena(player) == null)
+            if (ArenaManager.getInstance().getArena(player) == null) {
                 return;
+            }
 
             if (event.getCursor().getType() == Material.AIR) {
                 floorMenu.show(player);
-                floorChange = System.currentTimeMillis();
+                floorMenu.setLastFloorChange(System.currentTimeMillis());
                 event.setCancelled(true);
                 return;
             }
 
-            CONFIG.getStringList("blocks.blocked").forEach(material -> {
-                if (Material.matchMaterial(material) != event.getCursor().getType())
-                    return;
-
+            if (CONFIG.getStringList("blocks.blocked").stream().anyMatch(material ->
+                Material.matchMaterial(material) == event.getCursor().getType())) {
                 MessageManager.getInstance().send(player, MESSAGES.getStringList("plots.floor.blocked"));
 
                 event.setCancelled(true);
-            });
+                return;
+            }
 
 
             if (event.getCursor().getType() == Material.WATER_BUCKET) {
                 plot.getFloor().getAllBlocks().forEach(block -> block.setType(Material.WATER));
 
-                floorChange = System.currentTimeMillis();
+                floorMenu.setLastFloorChange(System.currentTimeMillis());
 
                 event.setCancelled(true);
+                return;
             }
 
             if (event.getCursor().getType() == Material.LAVA_BUCKET) {
                 plot.getFloor().getAllBlocks().forEach(block -> block.setType(Material.LAVA));
 
-                floorChange = System.currentTimeMillis();
+                floorMenu.setLastFloorChange(System.currentTimeMillis());
 
                 event.setCancelled(true);
+                return;
             }
 
             if (!event.getCursor().getType().isBlock()) {
                 MessageManager.getInstance().send(player, MESSAGES.getStringList("plots.floor.incorrect"));
 
                 event.setCancelled(true);
+                return;
             }
 
             plot.getFloor().getAllBlocks().stream()
                 .filter(block -> block.getType() != event.getCursor().getType())
                 .forEach(block -> block.setType(event.getCursor().getType()));
 
-            floorChange = System.currentTimeMillis();
+            floorMenu.setLastFloorChange(System.currentTimeMillis());
 
             event.setCancelled(true);
         })), 3, 1);
@@ -289,5 +290,17 @@ public class BuildMenu extends Gui {
         biome.setVisible(humanEntity.hasPermission("bg.buildmenu.biome"));
 
         super.show(humanEntity);
+    }
+
+    /**
+     * Gets the floor menu
+     *
+     * @return the floor menu
+     * @since 7.1.0
+     */
+    @NotNull
+    @Contract(pure = true)
+    public FloorMenu getFloorMenu() {
+        return floorMenu;
     }
 }
