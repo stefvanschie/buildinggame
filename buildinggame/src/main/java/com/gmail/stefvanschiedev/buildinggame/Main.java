@@ -6,6 +6,7 @@ import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.InvalidCommandArgument;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockEdit;
+import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.NPCCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.*;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
@@ -17,12 +18,15 @@ import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
+import com.gmail.stefvanschiedev.buildinggame.utils.NPCFloorChangeTrait;
 import com.gmail.stefvanschiedev.buildinggame.utils.PlaceholderSupplier;
 import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import com.sk89q.worldedit.WorldEdit;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.trait.TraitInfo;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
@@ -329,6 +333,13 @@ public class Main extends JavaPlugin {
 
             if (pm.isPluginEnabled("WorldEdit"))
                 WorldEdit.getInstance().getEventBus().register(new WorldEditBoundaryAssertion());
+
+            if (pm.isPluginEnabled("Citizens")) {
+                pm.registerEvents(new NPCCreate(), this);
+
+                TraitInfo traitInfo = TraitInfo.create(NPCFloorChangeTrait.class).withName("buildinggame:floorchange");
+                CitizensAPI.getTraitFactory().registerTrait(traitInfo);
+            }
 
 			pm.registerEvents(new ClickJoinSign(), this);
 			pm.registerEvents(new ClickLeaveSign(), this);

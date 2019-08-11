@@ -25,12 +25,17 @@ import java.util.Locale;
  *
  * @since 4.0.0
  */
-class FloorMenu extends Gui {
+public class FloorMenu extends Gui {
 
     /**
      * YAML Configuration for the messages.yml
      */
 	private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
+
+    /**
+     * The last time the floor was changed (according to System.currentMillis())
+     */
+    private long floorChange;
 
 	/**
      * An item stack for going to the previous page
@@ -257,6 +262,27 @@ class FloorMenu extends Gui {
 		
 		return blocks;
 	}
+
+    /**
+     * Sets the last time the floor was changed specified as milliseconds elapsed since the UNIX epoch.
+     *
+     * @param lastFloorChange the last time the floor was changed
+     * @since 7.1.0
+     */
+	public void setLastFloorChange(long lastFloorChange) {
+	    this.floorChange = lastFloorChange;
+    }
+
+    /**
+     * Gets the last time the floor was changed as milliseconds elapsed since the UNIX epoch.
+     *
+     * @return the time the floor was last changed
+     * @since 7.1.0
+     */
+	@Contract(pure = true)
+	public long getLastFloorChange() {
+	    return floorChange;
+    }
 	
 	static {
 		PREVIOUS_PAGE = new ItemStack(Material.SUGAR_CANE);
