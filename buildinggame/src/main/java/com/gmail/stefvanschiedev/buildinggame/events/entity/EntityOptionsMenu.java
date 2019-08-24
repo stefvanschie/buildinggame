@@ -132,6 +132,7 @@ public class EntityOptionsMenu implements Listener {
             case FOX:
                 new FoxMenu(plot, (Fox) entity).show(player);
                 break;
+            //TODO add bee case
             default:
                 new RemoveMenu(plot, entity).show(player);
                 break;

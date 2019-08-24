@@ -441,6 +441,10 @@ gui:
       name: "&aCampfire smoke"
       lore:
       - "&7Place a campfire smoke particle effect"
+    honey:
+      name: "&aHoney"
+      lore:
+      - "&7Place a honey particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:
