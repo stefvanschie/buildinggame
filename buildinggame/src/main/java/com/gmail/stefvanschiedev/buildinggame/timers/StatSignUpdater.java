@@ -13,10 +13,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.regex.Pattern;
 
 /**
  * A class which updates the statistic signs every tick. Can be ran async.
@@ -50,12 +50,20 @@ public class StatSignUpdater extends BukkitRunnable {
                 if (stats == null)
                     return;
 
-                Stat stat = stats.get(sign.getNumber() - 1);
+                OfflinePlayer offlinePlayer = null;
+                int value = -1;
+
+                if (stats.size() > sign.getNumber() - 1) {
+                    Stat stat = stats.get(sign.getNumber() - 1);
+
+                    offlinePlayer = stat.getPlayer();
+                    value = stat.getValue();
+                }
 
                 for (int i = 0; i < 4; i++)
                     lines[i] = replace(MessageManager.translate(messages.getString("signs.stat." + sign.getType()
                         .toString().toLowerCase(Locale.getDefault()).replace("_", "-") + ".line-" +
-                        (i + 1))), sign, stat.getPlayer(), stat.getValue());
+                        (i + 1))), sign, offlinePlayer, value);
 
             } else {
                 lines[0] = "";
@@ -98,11 +106,12 @@ public class StatSignUpdater extends BukkitRunnable {
      */
     @NotNull
     @Contract(value = "null, _, _, _ -> fail", pure = true)
-    private String replace(String input, StatSign sign, OfflinePlayer player, int value) {
-        var matcher = Pattern.compile("%([^%]+)%").matcher(input);
+    private String replace(String input, StatSign sign, @Nullable OfflinePlayer player, int value) {
+        var pair = new AbstractMap.SimpleEntry<>(player, value);
 
-        while (matcher.find()) {
-            input = matcher.replaceFirst(REPLACEMENTS.get(matcher.group(1)).apply(sign, Map.entry(player, value)));
+        for (Map.Entry<String, BiFunction<StatSign, Map.Entry<OfflinePlayer, Integer>, String>> entry : REPLACEMENTS
+            .entrySet()) {
+            input = input.replace('%' + entry.getKey() + '%', entry.getValue().apply(sign, pair));
         }
 
         return input;
