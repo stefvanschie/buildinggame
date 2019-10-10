@@ -9,6 +9,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat.CatMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox.FoxMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.irongolem.IronGolemMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.LlamaMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.mooshroom.MooshroomMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.panda.PandaMenu;
@@ -133,6 +134,9 @@ public class EntityOptionsMenu implements Listener {
                 new FoxMenu(plot, (Fox) entity).show(player);
                 break;
             //TODO add bee case
+            case IRON_GOLEM:
+                new IronGolemMenu(plot, (IronGolem) entity).show(player);
+                break;
             default:
                 new RemoveMenu(plot, entity).show(player);
                 break;
