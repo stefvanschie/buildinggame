@@ -133,7 +133,9 @@ public class EntityOptionsMenu implements Listener {
             case FOX:
                 new FoxMenu(plot, (Fox) entity).show(player);
                 break;
-            //TODO add bee case
+            case BEE:
+                new BeeMenu(plot, (Bee) entity).show(player);
+                break;
             case IRON_GOLEM:
                 new IronGolemMenu(plot, (IronGolem) entity).show(player);
                 break;

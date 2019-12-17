@@ -5,7 +5,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.Bee;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
@@ -20,9 +20,8 @@ public class BeeMenu extends BabyMenu {
     /**
      * {@inheritDoc}
      */
-    //TODO change entity to bee
-    public BeeMenu(@NotNull Plot plot, @NotNull Entity entity) {
-        super(plot, entity);
+    public BeeMenu(@NotNull Plot plot, @NotNull Bee bee) {
+        super(plot, bee);
 
         //angry
         ItemStack angry = new ItemStack(Material.DIAMOND_SWORD);
@@ -31,7 +30,7 @@ public class BeeMenu extends BabyMenu {
         angry.setItemMeta(angryMeta);
 
         pane.insertItem(new GuiItem(angry, event -> {
-            //TODO change whether bee is angry
+            bee.setAnger(bee.getAnger() > 0 ? 0 : Integer.MAX_VALUE);
 
             event.setCancelled(true);
         }), 0);
@@ -43,7 +42,7 @@ public class BeeMenu extends BabyMenu {
         pollen.setItemMeta(pollenMeta);
 
         pane.insertItem(new GuiItem(pollen, event -> {
-            //TODO change whether bee has pollen on it
+            bee.setHasNectar(!bee.hasNectar());
 
             event.setCancelled(true);
         }), 1);
@@ -55,7 +54,7 @@ public class BeeMenu extends BabyMenu {
         stinger.setItemMeta(stingerMeta);
 
         pane.insertItem(new GuiItem(stinger, event -> {
-            //TODO change whether bee has stinger
+            bee.setHasStung(!bee.hasStung());
 
             event.setCancelled(true);
         }), 2);

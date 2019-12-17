@@ -6,6 +6,7 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -35,7 +36,7 @@ class IronGolemCrackedMenu extends Gui {
         noCracks.setItemMeta(noCracksMeta);
 
         pane.addItem(new GuiItem(noCracks, event -> {
-            //TODO: remove cracks from iron golem
+            ironGolem.setHealth(ironGolem.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
 
             event.setCancelled(true);
         }));
@@ -47,7 +48,7 @@ class IronGolemCrackedMenu extends Gui {
         chipped.setItemMeta(chippedMeta);
 
         pane.addItem(new GuiItem(chipped, event -> {
-            //TODO: set crack state to chipped
+            ironGolem.setHealth((ironGolem.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 4) * 3);
 
             event.setCancelled(true);
         }));
@@ -59,7 +60,7 @@ class IronGolemCrackedMenu extends Gui {
         damaged.setItemMeta(damagedMeta);
 
         pane.addItem(new GuiItem(damaged, event -> {
-            //TODO: set crack state to damaged
+            ironGolem.setHealth(ironGolem.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 4);
 
             event.setCancelled(true);
         }));
@@ -71,7 +72,7 @@ class IronGolemCrackedMenu extends Gui {
         severelyDamaged.setItemMeta(severelyDamagedMeta);
 
         pane.addItem(new GuiItem(severelyDamaged, event -> {
-            //TODO: set crack state to severely damaged
+            ironGolem.setHealth(1);
 
             event.setCancelled(true);
         }));

@@ -445,6 +445,10 @@ gui:
       name: "&aHoney"
       lore:
       - "&7Place a honey particle effect"
+    nectar:
+      name: "&aNectar"
+      lore:
+      - "&7Place a nectar particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:

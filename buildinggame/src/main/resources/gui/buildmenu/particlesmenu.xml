@@ -199,15 +199,6 @@
                 <property type="particle-type">FALLING_HONEY</property>
             </properties>
         </item>
-        <item id="honey_bottle" onClick="particleClick">
-            <displayname>*gui.particles.honey.name</displayname>
-            <lore>
-                <line>*gui.particles.honey.lore</line>
-            </lore>
-            <properties>
-                <property type="particle-type">FALLING_HONEY</property>
-            </properties>
-        </item>
         <item id="azure_bluet" onClick="particleClick">
             <displayname>*gui.particles.nectar.name</displayname>
             <lore>
