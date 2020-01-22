@@ -190,6 +190,24 @@
                 <property type="particle-type">CAMPFIRE_COSY_SMOKE</property>
             </properties>
         </item>
+        <item id="honey_bottle" onClick="particleClick">
+            <displayname>*gui.particles.honey.name</displayname>
+            <lore>
+                <line>*gui.particles.honey.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FALLING_HONEY</property>
+            </properties>
+        </item>
+        <item id="azure_bluet" onClick="particleClick">
+            <displayname>*gui.particles.nectar.name</displayname>
+            <lore>
+                <line>*gui.particles.nectar.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FALLING_NECTAR</property>
+            </properties>
+        </item>
     </outlinepane>
     <!--Clearing all particles and closing menu-->
     <outlinepane x="7" y="2" length="2" height="1">
