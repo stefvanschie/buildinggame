@@ -43,8 +43,7 @@ public class StatSignUpdater extends BukkitRunnable {
         SignManager.getInstance().getStatSigns().forEach(sign -> {
             String[] lines = new String[4];
 
-            if (config.getBoolean("stats.enable." + sign.getType().toString().toLowerCase(Locale.getDefault())
-                .replace("_", "-"))) {
+            if (sign.getType().isEnabled(config)) {
                 var stats = StatManager.getInstance().getStats(sign.getType());
 
                 if (stats == null)
