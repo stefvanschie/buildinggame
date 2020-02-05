@@ -73,26 +73,27 @@ public final class StatManager {
 			OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
 			
 			stats.getConfigurationSection(uuid).getKeys(false).forEach(stat -> {
-				if (stat.equalsIgnoreCase("plays") && config.getBoolean("stats.enable.plays"))
-				    registerStat(player, StatType.PLAYS, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("first") && config.getBoolean("stats.enable.first"))
+				if (stat.equalsIgnoreCase("plays") && StatType.PLAYS.isEnabled(config)) {
+                    registerStat(player, StatType.PLAYS, stats.getInt(uuid + '.' + stat));
+                } else if (stat.equalsIgnoreCase("first") && StatType.FIRST.isEnabled(config)) {
                     registerStat(player, StatType.FIRST, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("second") && config.getBoolean("stats.enable.second"))
+                } else if (stat.equalsIgnoreCase("second") && StatType.SECOND.isEnabled(config)) {
                     registerStat(player, StatType.SECOND, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("third") && config.getBoolean("stats.enable.third"))
+                } else if (stat.equalsIgnoreCase("third") && StatType.THIRD.isEnabled(config)) {
                     registerStat(player, StatType.THIRD, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("broken") && config.getBoolean("stats.enable.broken"))
+                } else if (stat.equalsIgnoreCase("broken") && StatType.BROKEN.isEnabled(config)) {
                     registerStat(player, StatType.BROKEN, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("placed") && config.getBoolean("stats.enable.placed"))
+                } else if (stat.equalsIgnoreCase("placed") && StatType.PLACED.isEnabled(config)) {
                     registerStat(player, StatType.PLACED, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("walked") && config.getBoolean("stats.enable.walked"))
+                } else if (stat.equalsIgnoreCase("walked") && StatType.WALKED.isEnabled(config)) {
                     registerStat(player, StatType.WALKED, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("points_given") &&
-                        config.getBoolean("stats.enable.points-given"))
+                } else if (stat.equalsIgnoreCase("points_given") &&
+                    StatType.POINTS_GIVEN.isEnabled(config)) {
                     registerStat(player, StatType.POINTS_GIVEN, stats.getInt(uuid + '.' + stat));
-				else if (stat.equalsIgnoreCase("points_received") &&
-                        config.getBoolean("stats.enable.points_received"))
+                } else if (stat.equalsIgnoreCase("points_received") &&
+                    StatType.POINTS_RECEIVED.isEnabled(config)) {
                     registerStat(player, StatType.POINTS_RECEIVED, stats.getInt(uuid + '.' + stat));
+                }
 			});
 		});
 	}
@@ -154,9 +155,10 @@ public final class StatManager {
 	@Contract("_, null, _ -> fail")
 	public synchronized void registerStat(OfflinePlayer player, @NotNull StatType type, int value) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		if (!config.getBoolean("stats.enable." + type.toString().toLowerCase(Locale.getDefault())))
-			return;
+
+		if (!type.isEnabled(config)) {
+            return;
+        }
 
         Stat oldStat = getStat(player, type);
 
@@ -205,8 +207,9 @@ public final class StatManager {
         this.stats.forEach((statType, statList) -> statList.forEach(stat -> {
             String type = statType.toString().toLowerCase(Locale.getDefault());
 
-            if (config.getBoolean("stats.enable." + type))
+            if (statType.isEnabled(config)) {
                 stats.set(stat.getPlayer().getUniqueId() + "." + type, stat.getValue());
+            }
         }));
 		
 		SettingsManager.getInstance().save();
@@ -220,12 +223,11 @@ public final class StatManager {
 	public synchronized void saveToDatabase() {
 	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
-        this.stats.forEach((statType, statList) -> statList.forEach(stat -> {
-            String type = statType.toString().toLowerCase(Locale.getDefault());
-
-            if (config.getBoolean("stats.enable." + type))
-                getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), type, stat.getValue());
-        }));
+        this.stats.entrySet().stream().filter(entry -> entry.getKey().isEnabled(config)).forEach(entry ->
+            entry.getValue().forEach(stat -> {
+                getMySQLDatabase().setStat(stat.getPlayer().getUniqueId().toString(), entry.getKey(), stat.getValue());
+            })
+        );
 	}
 
 	/**

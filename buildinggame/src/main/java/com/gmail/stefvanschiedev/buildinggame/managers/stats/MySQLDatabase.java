@@ -1,10 +1,12 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.stats;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -176,12 +178,14 @@ public class MySQLDatabase {
      * WARNING: Use this in a Async task!
      *
      * @param UUID UUID from player
-     * @param stat String from stat to be updated
+     * @param statType the stat type to update
      * @param number Reset to this amount
      * @since 4.0.6
      */
-    public void setStat(String UUID, String stat, int number){
-        executeUpdate("UPDATE buildinggamestats SET " + stat + '=' + number + " WHERE UUID='" + UUID + '\'');
+    public void setStat(String UUID, StatType statType, int number) {
+        String statName = statType.toString().toLowerCase(Locale.getDefault());
+
+        executeUpdate("UPDATE buildinggamestats SET " + statName + '=' + number + " WHERE UUID='" + UUID + '\'');
     }
 
     /**

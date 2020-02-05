@@ -38,9 +38,9 @@ public class QuitPlayerStats implements Listener {
 
                 for (var type : StatType.values()) {
                     var stat = instance.getStat(player, type);
+                    int value = stat == null ? 0 : stat.getValue();
 
-                    instance.getMySQLDatabase().setStat(player.getUniqueId().toString(),
-                            type.toString().toLowerCase(Locale.getDefault()), stat == null ? 0 : stat.getValue());
+                    instance.getMySQLDatabase().setStat(player.getUniqueId().toString(), type, value);
                 }
             }
         }.runTaskAsynchronously(Main.getInstance());
