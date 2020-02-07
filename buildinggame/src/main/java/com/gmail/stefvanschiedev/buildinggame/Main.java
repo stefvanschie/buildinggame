@@ -24,6 +24,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import com.google.common.base.StandardSystemProperty;
 import com.sk89q.worldedit.WorldEdit;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.trait.TraitInfo;
@@ -98,6 +99,11 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
+
+		if (!checkJavaVersion()) {
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
 
 		getLogger().info("Loading files");
 		SettingsManager.getInstance().setup(this, true);
@@ -425,5 +431,24 @@ public class Main extends JavaPlugin {
     @Contract(pure = true)
     public static Main getInstance() {
 		return instance;
+	}
+
+	/**
+	 * Returns false if the user using old java version, that is not supports.
+	 * @return boolean
+	*/
+	private boolean checkJavaVersion() {
+		try {
+			// Java versions: https://en.wikipedia.org/wiki/Java_class_file
+			if (Float.parseFloat(StandardSystemProperty.JAVA_CLASS_VERSION.value()) < 55.0) {
+				getLogger().warning("You are using an older Java that is not supported. Please use 1.11 or higher versions!");
+				return false;
+			}
+		} catch (NumberFormatException e) {
+			getLogger().warning("Failed to detect Java version.");
+			return false;
+		}
+
+		return true;
 	}
 }
