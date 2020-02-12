@@ -208,9 +208,45 @@
                 <property type="particle-type">FALLING_NECTAR</property>
             </properties>
         </item>
+        <item id="coal" onClick="particleClick">
+            <displayname>*gui.particles.ash.name</displayname>
+            <lore>
+                <line>*gui.particles.ash.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">ASH</property>
+            </properties>
+        </item>
+        <item id="nether_wart_block" onClick="particleClick">
+            <displayname>*gui.particles.crimson-spore.name</displayname>
+            <lore>
+                <line>*gui.particles.crimson-spore.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">CRIMSON_SPORE</property>
+            </properties>
+        </item>
+        <item id="soul_sand" onClick="particleClick">
+            <displayname>*gui.particles.soul-fire-flame.name</displayname>
+            <lore>
+                <line>*gui.particles.soul-fire-flame.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SOUL_FIRE_FLAME</property>
+            </properties>
+        </item>
+        <item id="warped_wart_block" onClick="particleClick">
+            <displayname>*gui.particles.warped-spore.name</displayname>
+            <lore>
+                <line>*gui.particles.warped-spore.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">WARPED_SPORE</property>
+            </properties>
+        </item>
     </outlinepane>
     <!--Clearing all particles and closing menu-->
-    <outlinepane x="7" y="2" length="2" height="1">
+    <outlinepane x="7" y="3" length="2" height="1">
         <item id="barrier" onClick="clearParticlesClick">
             <displayname>*gui.particles.clear-particles.name</displayname>
             <lore>

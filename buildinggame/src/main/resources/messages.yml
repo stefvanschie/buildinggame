@@ -449,6 +449,22 @@ gui:
       name: "&aNectar"
       lore:
       - "&7Place a nectar particle effect"
+    ash:
+      name: "&aAsh"
+      lore:
+      - "&7Place an ash particle effect"
+    crimson-spore:
+      name: "&aCrimson spore"
+      lore:
+      - "&7Place a crimson spore particle effect"
+    soul-fire-flame:
+      name: "&aSoul fire flame"
+      lore:
+      - "&7Place a soul fire flame particle effect"
+    warped-spore:
+      name: "&aWarped spore"
+      lore:
+      - "&7Place a warped spore particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:
@@ -4456,10 +4472,22 @@ gui:
       name: "&aBadlands"
       lores:
       - "&7Change the biome to Badlands"
-    nether:
-      name: "&aNether"
+    nether-wastes:
+      name: "&aNether Wastes"
       lores:
-      - "&7Change the biome to Nether"
+      - "&7Change the biome to Nether Wastes"
+    crimson-forest:
+      name: "&aCrimson Forest"
+      lores:
+      - "&7Change the biome to Crimson Forest"
+    soul-sand-valley:
+      name: "&aSoul Sand Valley"
+      lores:
+      - "&7Change the biome to Soul Sand Valley"
+    warped-forest:
+      name: "&aWarped Forest"
+      lores:
+      - "&7Change the biome to Warped Forest"
     ocean:
       name: "&aOcean"
       lores:
