@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import org.bukkit.inventory.EquipmentSlot;
 
 /**
  * Handles players clicking on a leave sign
@@ -28,6 +29,10 @@ public class ClickLeaveSign implements Listener {
      */
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
+        if (e.getHand() != EquipmentSlot.HAND) {
+            return;
+        }
+
 		var player = e.getPlayer();
         var clickedBlock = e.getClickedBlock();
 

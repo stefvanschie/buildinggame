@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
+import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,6 +33,10 @@ public class ClickJoinSign implements Listener {
      */
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
+	    if (e.getHand() != EquipmentSlot.HAND) {
+	        return;
+        }
+
 		var player = e.getPlayer();
         var clickedBlock = e.getClickedBlock();
 
