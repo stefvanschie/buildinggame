@@ -465,6 +465,14 @@ gui:
       name: "&aWarped spore"
       lore:
       - "&7Place a warped spore particle effect"
+    obsidian-tear:
+      name: "&aObsidian tear"
+      lore:
+      - "&7Place an obsidian tear particle effect"
+    soul:
+      name: "&aSoul"
+      lore:
+      - "&7Place a soul particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:

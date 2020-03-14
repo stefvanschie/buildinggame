@@ -244,6 +244,24 @@
                 <property type="particle-type">WARPED_SPORE</property>
             </properties>
         </item>
+        <item id="crying_obsidian" onClick="particleClick">
+            <displayname>*gui.particles.obsidian-tear.name</displayname>
+            <lore>
+                <line>*gui.particles.obsidian-tear.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DRIPPING_OBSIDIAN_TEAR</property>
+            </properties>
+        </item>
+        <item id="soulsand" onClick="particleClick">
+            <displayname>*gui.particles.soul.name</displayname>
+            <lore>
+                <line>*gui.particles.soul.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SOUL</property>
+            </properties>
+        </item>
     </outlinepane>
     <!--Clearing all particles and closing menu-->
     <outlinepane x="7" y="3" length="2" height="1">
