@@ -15,6 +15,7 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * A gui for selecting the pattern to apply in combination with the previously chosen color
@@ -799,7 +800,7 @@ class PatternBannerMenu extends Gui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), 2, 0);
+        }), 1, 0);
 
         //dyed thing pattern
         var dyedThingBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
@@ -819,7 +820,7 @@ class PatternBannerMenu extends Gui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), 4, 0);
+        }), 3, 0);
 
         var globeBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var globeBannerMeta = (BannerMeta) globeBanner.getItemMeta();
@@ -838,7 +839,25 @@ class PatternBannerMenu extends Gui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), 6, 0);
+        }), 5, 0);
+
+        //piglin pattern
+        var piglinBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
+        ItemMeta piglinBannerMeta = piglinBanner.getItemMeta();
+        //TODO: add pattern to piglin banner
+        piglinBannerMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.pattern.piglin.name")));
+        piglinBannerMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.pattern.piglin.lore")));
+        piglinBanner.setItemMeta(piglinBannerMeta);
+
+        staticPane.addItem(new GuiItem(piglinBanner, event -> {
+            ItemMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+            //TODO: add pattern to banner
+            banner.setItemMeta(bannerMeta);
+
+            new ColorBannerMenu(banner).show(event.getWhoClicked());
+
+            event.setCancelled(true);
+        }), 7, 0);
 
         //preview
         staticPane.addItem(new GuiItem(banner, event -> {

@@ -4419,6 +4419,10 @@ gui:
         name: "&aGlobe pattern"
         lore:
         -
+      piglin:
+        name: "&aPiglin pattern"
+        lore:
+        -
   biome:
     name: "&aBiomes"
     lores:
@@ -4496,6 +4500,10 @@ gui:
       name: "&aWarped Forest"
       lores:
       - "&7Change the biome to Warped Forest"
+    basalt-deltas:
+      name: "&aBasalt Deltas"
+      lore:
+        - "&7Change the biome to Basalt Deltas"
     ocean:
       name: "&aOcean"
       lores:

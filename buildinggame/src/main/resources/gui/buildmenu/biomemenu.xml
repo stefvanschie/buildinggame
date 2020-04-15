@@ -163,6 +163,15 @@
                 <property type="biome">WARPED_FOREST</property>
             </properties>
         </item>
+        <item id="blackstone" onClick="biomeClick">
+            <displayname>*gui.biome.basalt-deltas.name</displayname>
+            <lore>
+                <line>*gui.biome.basalt-deltas.lore</line>
+            </lore>
+            <properties>
+                <property type="biome">BASALT_DELTAS</property>
+            </properties>
+        </item>
         <item id="water_bucket" onClick="biomeClick">
             <displayname>*gui.biome.ocean.name</displayname>
             <lore>
