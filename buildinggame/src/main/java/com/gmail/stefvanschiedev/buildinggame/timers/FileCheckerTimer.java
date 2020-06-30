@@ -25,6 +25,11 @@ public class FileCheckerTimer extends BukkitRunnable {
     private WatchService watchService;
 
     /**
+     * The last time the config.yml and messages.yml were updated as per the modified timestamp on the file
+     */
+    private long configLastModified = Long.MIN_VALUE, messagesLastModified = Long.MIN_VALUE;
+
+    /**
      * The settings manager instance
      */
     @NotNull
@@ -62,17 +67,30 @@ public class FileCheckerTimer extends BukkitRunnable {
         key.pollEvents().forEach(event -> {
             Path context = (Path) event.context();
             boolean debug = SETTINGS_MANAGER.getConfig().getBoolean("debug");
+            long lastModified = Main.getInstance().getDataFolder().toPath().resolve(context).toFile().lastModified();
 
             if (context.endsWith("config.yml")) {
+                if (lastModified <= this.configLastModified) {
+                    return;
+                }
+
                 if (debug)
                     LOGGER.info("Detected changes in the config.yml");
 
                 SETTINGS_MANAGER.refreshConfig();
+
+                this.configLastModified = lastModified;
             } else if (context.endsWith("messages.yml")) {
+                if (lastModified <= this.messagesLastModified) {
+                    return;
+                }
+
                 if (debug)
                     LOGGER.info("Detected changes in the messages.yml");
 
                 SETTINGS_MANAGER.refreshMessages();
+
+                this.messagesLastModified = lastModified;
             }
         });
 
