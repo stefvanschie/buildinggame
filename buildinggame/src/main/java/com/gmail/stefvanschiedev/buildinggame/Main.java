@@ -103,7 +103,7 @@ public class Main extends JavaPlugin {
 		SettingsManager.getInstance().setup(this, true);
 
         String version = Bukkit.getBukkitVersion().split("\\.")[1];
-        if (!version.substring(0, Math.min(version.length(), 2)).equals("15")) {
+        if (Integer.parseInt(version.substring(0, Math.min(version.length(), 2))) < 16) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
