@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gui title="*gui.options-title" rows="2">
-    <outlinepane x="0" y="0" length="9" height="2">
+<gui title="*gui.options-title" rows="3">
+    <outlinepane x="0" y="0" length="9" height="3">
         <item id="ice" onClick="biomeClick">
             <displayname>*gui.biome.snowy-tundra.name</displayname>
             <lore>
@@ -128,12 +128,48 @@
             </properties>
         </item>
         <item id="netherrack" onClick="biomeClick">
-            <displayname>*gui.biome.nether.name</displayname>
+            <displayname>*gui.biome.nether-wastes.name</displayname>
             <lore>
-                <line>*gui.biome.nether.lores</line>
+                <line>*gui.biome.nether-wastes.lores</line>
             </lore>
             <properties>
-                <property type="biome">NETHER</property>
+                <property type="biome">NETHER_WASTES</property>
+            </properties>
+        </item>
+        <item id="nether_wart_block" onClick="biomeClick">
+            <displayname>*gui.biome.crimson-forest.name</displayname>
+            <lore>
+                <line>*gui.biome.crimson-forest.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">CRIMSON_FOREST</property>
+            </properties>
+        </item>
+        <item id="soul_sand" onClick="biomeClick">
+            <displayname>*gui.biome.soul-sand-valley.name</displayname>
+            <lore>
+                <line>*gui.biome.soul-sand-valley.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">SOUL_SAND_VALLEY</property>
+            </properties>
+        </item>
+        <item id="warped_wart_block" onClick="biomeClick">
+            <displayname>*gui.biome.warped-forest.name</displayname>
+            <lore>
+                <line>*gui.biome.warped-forest.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">WARPED_FOREST</property>
+            </properties>
+        </item>
+        <item id="blackstone" onClick="biomeClick">
+            <displayname>*gui.biome.basalt-deltas.name</displayname>
+            <lore>
+                <line>*gui.biome.basalt-deltas.lore</line>
+            </lore>
+            <properties>
+                <property type="biome">BASALT_DELTAS</property>
             </properties>
         </item>
         <item id="water_bucket" onClick="biomeClick">

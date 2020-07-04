@@ -7,6 +7,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
+import net.kyori.text.adapter.bukkit.TextAdapter;
+import net.kyori.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -352,8 +354,9 @@ public class GamePlayer {
                     .newInstance(chunk.getX(), chunk.getZ()));
 
             //send the chunk again
-            sendPacket(getNMSClass("PacketPlayOutMapChunk").getConstructor(getNMSClass("Chunk"), int.class)
-                    .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF));
+            sendPacket(getNMSClass("PacketPlayOutMapChunk")
+                .getConstructor(getNMSClass("Chunk"), int.class, boolean.class)
+                .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF, true));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
                 InstantiationException e) {
             e.printStackTrace();
@@ -394,21 +397,8 @@ public class GamePlayer {
      * @param text the text to send
      * @since 5.6.0
      */
-    @Contract("null -> fail")
-	public void sendActionbar(String text) {
-        try {
-            var iChatBaseComponent = getNMSClass("IChatBaseComponent");
-            var chatMessageType = getNMSClass("ChatMessageType");
-
-            sendPacket(getNMSClass("PacketPlayOutChat").getConstructor(iChatBaseComponent, chatMessageType)
-                .newInstance(iChatBaseComponent.getDeclaredClasses()[0].getMethod("a", String.class)
-                    .invoke(null, ChatColor.translateAlternateColorCodes('&',
-                        "{\"text\":\"" + MessageManager.translate(text, player) + "\"}")), chatMessageType
-                    .getField("GAME_INFO").get(null)));
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException |
-            NoSuchFieldException e) {
-            e.printStackTrace();
-        }
+	public void sendActionbar(@NotNull String text) {
+        TextAdapter.sendActionBar(player, LegacyComponentSerializer.INSTANCE.deserialize(text));
     }
 
 	/**

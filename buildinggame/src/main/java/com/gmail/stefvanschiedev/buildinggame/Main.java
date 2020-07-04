@@ -103,7 +103,7 @@ public class Main extends JavaPlugin {
 		SettingsManager.getInstance().setup(this, true);
 
         String version = Bukkit.getBukkitVersion().split("\\.")[1];
-        if (!version.substring(0, Math.min(version.length(), 2)).equals("15")) {
+        if (Integer.parseInt(version.substring(0, Math.min(version.length(), 2))) < 16) {
 			getLogger().info("Incorrect Bukkit/Spigot version, not loading plugin.");
 			return;
 		}
@@ -409,7 +409,7 @@ public class Main extends JavaPlugin {
         } else if (duration < 60000) {
 		    time = duration / 1000.0 + " seconds";
         } else {
-		    time = (duration / 60) + ":" + (duration % 60) / 1000.0 + " minutes";
+		    time = (duration / 60000) + ":" + (duration % 60000) / 1000.0 + " minutes";
         }
 
 		getLogger().info("BuildingGame has been enabled in " + time + '!');

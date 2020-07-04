@@ -4,9 +4,7 @@ import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Ageable;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -30,13 +28,26 @@ public class BabyMenu extends RemoveMenu {
         pane.insertItem(new GuiItem(baby, event -> {
             if (entity instanceof Ageable) {
                 var ageable = (Ageable) entity;
-                if (ageable.isAdult())
+
+                if (ageable.isAdult()) {
                     ageable.setBaby();
-                else
+                } else {
                     ageable.setAdult();
+                }
             } else if (entity instanceof Zombie) {
                 var zombie = (Zombie) entity;
+
                 zombie.setBaby(!zombie.isBaby());
+            } else if (entity instanceof Zoglin) {
+                var zoglin = (Zoglin) entity;
+
+                zoglin.setBaby(!zoglin.isBaby());
+            } else if (entity instanceof Piglin) {
+                var piglin = (Piglin) entity;
+
+                piglin.setBaby(!piglin.isBaby());
+            } else {
+                throw new IllegalArgumentException("Unable to convert entity from baby to adult or vice versa");
             }
 
             event.setCancelled(true);
