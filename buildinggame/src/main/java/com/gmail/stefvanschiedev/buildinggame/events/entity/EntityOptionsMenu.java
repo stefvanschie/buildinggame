@@ -69,7 +69,10 @@ public class EntityOptionsMenu implements Listener {
             case HUSK:
             case ZOMBIE:
             case TURTLE:
-            //TODO: Add piglin, hoglin, strider and zoglin
+            case PIGLIN:
+            case HOGLIN:
+            case STRIDER:
+            case ZOGLIN:
                 new BabyMenu(plot, entity).show(player);
                 break;
             case DONKEY:

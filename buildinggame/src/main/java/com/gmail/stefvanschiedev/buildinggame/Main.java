@@ -409,7 +409,7 @@ public class Main extends JavaPlugin {
         } else if (duration < 60000) {
 		    time = duration / 1000.0 + " seconds";
         } else {
-		    time = (duration / 60) + ":" + (duration % 60) / 1000.0 + " minutes";
+		    time = (duration / 60000) + ":" + (duration % 60000) / 1000.0 + " minutes";
         }
 
 		getLogger().info("BuildingGame has been enabled in " + time + '!');

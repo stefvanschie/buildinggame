@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gui title="*gui.particles.title" rows="3">
-    <outlinepane x="0" y="0" length="9" height="3">
+<gui title="*gui.particles.title" rows="4">
+    <outlinepane x="0" y="0" length="9" height="4">
         <item id="flint_and_steel" onClick="particleClick">
             <displayname>*gui.particles.flames.name</displayname>
             <lore>
@@ -253,7 +253,7 @@
                 <property type="particle-type">DRIPPING_OBSIDIAN_TEAR</property>
             </properties>
         </item>
-        <item id="soulsand" onClick="particleClick">
+        <item id="soul_soil" onClick="particleClick">
             <displayname>*gui.particles.soul.name</displayname>
             <lore>
                 <line>*gui.particles.soul.lore</line>

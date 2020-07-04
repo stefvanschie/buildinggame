@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gui title="*gui.options-title" rows="2">
+<gui title="*gui.options-title" rows="3">
     <outlinepane x="0" y="0" length="9" height="3">
         <item id="ice" onClick="biomeClick">
             <displayname>*gui.biome.snowy-tundra.name</displayname>
