@@ -284,16 +284,22 @@ public class CommandManager extends BaseCommand {
     @CommandCompletion("@arenas")
     public void onJoin(Player player, @Optional Arena arena) {
         if (arena == null) {
-            List<Arena> arenas = ArenaManager.getInstance().getArenas().stream()
-                .filter(a -> !a.isFull() && (a.getState() == GameState.WAITING || a.getState() == GameState.STARTING))
-                .collect(Collectors.toList());
+            boolean joinInGame = CONFIG.getBoolean("join-during-game");
 
-            if (arenas.isEmpty()) {
-                MessageManager.getInstance().send(player, MESSAGES.getStringList("join.no-arena"));
+            for (Arena a : ArenaManager.getInstance().getArenas()) {
+                GameState state = a.getState();
+
+                if (a.isFull() ||
+                    (state != GameState.STARTING && state != GameState.WAITING && state != GameState.BUILDING) ||
+                    (!joinInGame && state == GameState.BUILDING)) {
+                    continue;
+                }
+
+                new ArenaSelection().show(player);
                 return;
             }
 
-            new ArenaSelection().show(player);
+            MessageManager.getInstance().send(player, MESSAGES.getStringList("join.no-arena"));
             return;
         }
 

@@ -4,14 +4,18 @@ import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -20,6 +24,11 @@ import org.jetbrains.annotations.NotNull;
  * @since 4.0.4
  */
 public class ArenaSelection extends Gui {
+
+    /**
+     * The config YAML configuration
+     */
+    private static final YamlConfiguration CONFIG = SettingsManager.getInstance().getConfig();
 
     /**
      * Constructs a new ArenaSelection
@@ -37,21 +46,28 @@ public class ArenaSelection extends Gui {
 	public void show(@NotNull HumanEntity humanEntity) {
 		var outlinePane = new OutlinePane(0, 0, 9, 6);
 
-        ArenaManager.getInstance().getArenas().stream()
-            .filter(arena ->
-                (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) && !arena.isFull())
-            .forEach(arena -> {
-                var item = new ItemStack(Material.LIME_WOOL);
-                var itemMeta = item.getItemMeta();
-                itemMeta.setDisplayName(ChatColor.GREEN + arena.getName());
-                item.setItemMeta(itemMeta);
+        boolean joinInGame = CONFIG.getBoolean("join-during-game");
 
-                outlinePane.addItem(new GuiItem(item, event -> {
-                    arena.join((Player) humanEntity);
+        for (Arena arena : ArenaManager.getInstance().getArenas()) {
+            GameState state = arena.getState();
 
-                    event.setCancelled(true);
-                }));
-            });
+            if (arena.isFull() ||
+                (state != GameState.STARTING && state != GameState.WAITING && state != GameState.BUILDING) ||
+                (!joinInGame && state == GameState.BUILDING)) {
+                continue;
+            }
+
+            var item = new ItemStack(Material.LIME_WOOL);
+            ItemMeta itemMeta = item.getItemMeta();
+            itemMeta.setDisplayName(ChatColor.GREEN + arena.getName());
+            item.setItemMeta(itemMeta);
+
+            outlinePane.addItem(new GuiItem(item, event -> {
+                arena.join((Player) humanEntity);
+
+                event.setCancelled(true);
+            }));
+        }
 
 		addPane(outlinePane);
 		

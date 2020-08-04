@@ -15,6 +15,7 @@ max-vote-change: -1
 max-particles: -1
 names-after-voting: false
 enable-item-drop: false
+join-during-game: false
 
 stats:
   enable:
