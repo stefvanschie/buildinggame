@@ -715,8 +715,11 @@ public class Arena {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You're already in a game");
 			return;
 		}
-		
-		if (getState() != GameState.STARTING && getState() != GameState.WAITING) {
+
+        boolean joinInGame = config.getBoolean("join-during-game");
+
+        if ((getState() != GameState.STARTING && getState() != GameState.WAITING && getState() != GameState.BUILDING) ||
+            (!joinInGame && getState() == GameState.BUILDING)) {
 			MessageManager.getInstance().send(player, messages.getStringList("join.in-game"));
 			return;
 		}
@@ -746,9 +749,14 @@ public class Arena {
 		
 		if (config.getBoolean("scoreboards.main.enable"))
 			MainScoreboardManager.getInstance().remove(player);
-		
-		if (config.getBoolean("scoreboards.lobby.enable"))
-			getLobbyScoreboard(plot).show(player);
+
+        boolean enableLobbyScoreboard = config.getBoolean("scoreboards.lobby.enable");
+
+        if (enableLobbyScoreboard && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
+            getLobbyScoreboard(plot).show(player);
+        } else {
+            getBuildScoreboard(plot).show(player);
+        }
 
         String name = player.getName();
 
@@ -775,20 +783,32 @@ public class Arena {
                     .replace("%max_players%", getMaxPlayers() + "")));
         });
 		
-		if (lobby != null)
-			player.teleport(lobby);
-		
-		if (config.getBoolean("scoreboards.lobby.enable"))
-			getUsedPlots().forEach(pl ->
+		if (lobby != null && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
+            player.teleport(lobby);
+        } else {
+		    player.teleport(plot.getLocation());
+        }
+
+		if (enableLobbyScoreboard && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
+            getUsedPlots().forEach(pl ->
                 pl.getGamePlayers().forEach(gamePlayer -> lobbyScoreboards.get(pl).show(gamePlayer.getPlayer())));
+        } else {
+            getUsedPlots().forEach(pl ->
+                pl.getGamePlayers().forEach(gamePlayer -> buildScoreboards.get(pl).show(gamePlayer.getPlayer())));
+        }
 		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
 		//fill lives and hunger
 		player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
 		player.setFoodLevel(20);
-		//gamemode
-		player.setGameMode(GameMode.ADVENTURE);
+
+        if (getState() == GameState.WAITING || getState() == GameState.STARTING) {
+            player.setGameMode(GameMode.ADVENTURE);
+        } else {
+            player.setGameMode(GameMode.CREATIVE);
+        }
+
 		//time
 		if (config.getBoolean("join.time-change.change"))
 			player.setPlayerTime(config.getInt("join.time-change.time"), false);
@@ -805,8 +825,10 @@ public class Arena {
         getUsedPlots().stream().flatMap(pl -> pl.getGamePlayers().stream()).forEach(gamePlayer ->
             gamePlayer.getPlayer().showPlayer(Main.getInstance(), player));
 		
-		if (getPlayers() >= minPlayers && !lobbyTimer.isActive())
-			lobbyTimer.runTaskTimer(Main.getInstance(), 0L, 20L);
+		if (getPlayers() >= minPlayers && !lobbyTimer.isActive() &&
+            (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
+            lobbyTimer.runTaskTimer(Main.getInstance(), 0L, 20L);
+        }
 		
 		if (getPlayers() >= getMaxPlayers())
 			lobbyTimer.setSeconds(0);
@@ -818,34 +840,38 @@ public class Arena {
 			@Override
 			public void run() {
 				//give team selection
-				if (getMode() == ArenaMode.TEAM)
-                    player.getInventory().setItem(0, new ItemBuilder(player, Material.matchMaterial(config
-                        .getString("team-selection.item.id"))).setDisplayName(MessageManager
-                        .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
-                        .translate(messages.getStringList("team-gui.item.lores"), player))
-                        .setClickEvent(event -> {
-                            getTeamSelection().show(player);
-                            event.setCancelled(true);
-                        }).build());
-				
-				//give paper for subject
-                if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting") &&
-                    getSubjectMenu().getWhen() == SubjectMenu.When.LOBBY) {
-                    giveSubjectMenuItem(player);
+                if (getState() == GameState.WAITING || getState() == GameState.STARTING) {
+                    if (getMode() == ArenaMode.TEAM)
+                        player.getInventory().setItem(0, new ItemBuilder(player, Material.matchMaterial(config
+                            .getString("team-selection.item.id"))).setDisplayName(MessageManager
+                            .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
+                            .translate(messages.getStringList("team-gui.item.lores"), player))
+                            .setClickEvent(event -> {
+                                getTeamSelection().show(player);
+                                event.setCancelled(true);
+                            }).build());
 
-                    if (getSubjectMenu().opensInstantly()) {
-                        getSubjectMenu().show(player);
+                    //give paper for subject
+                    if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting") &&
+                        getSubjectMenu().getWhen() == SubjectMenu.When.LOBBY) {
+                        giveSubjectMenuItem(player);
+
+                        if (getSubjectMenu().opensInstantly()) {
+                            getSubjectMenu().show(player);
+                        }
                     }
-                }
 
-                player.getInventory().setItem(config.getInt("leave-item.slot"),
-                    new ItemBuilder(player, Material.matchMaterial(config.getString("leave-item.id")))
-                        .setDisplayName(MessageManager.translate(messages.getString("leave-item.name"), player))
-                        .setClickEvent(event -> {
-                            leave(player);
-                            event.setCancelled(true);
-                        }).build());
-                player.updateInventory();
+                    player.getInventory().setItem(config.getInt("leave-item.slot"),
+                        new ItemBuilder(player, Material.matchMaterial(config.getString("leave-item.id")))
+                            .setDisplayName(MessageManager.translate(messages.getString("leave-item.name"), player))
+                            .setClickEvent(event -> {
+                                leave(player);
+                                event.setCancelled(true);
+                            }).build());
+                    player.updateInventory();
+                } else if (getState() == GameState.BUILDING) {
+                    tryGiveOptionsMenu(player);
+                }
 			}
 
             /**
@@ -863,7 +889,7 @@ public class Arena {
                 return teamSelection;
             }
 		};
-		
+
 		runnable.runTaskLater(Main.getInstance(), 1L);
 		
 		SignManager.getInstance().updateJoinSigns(this);
@@ -993,6 +1019,27 @@ public class Arena {
 			getBossBar().removePlayer(player);
 		
 		SignManager.getInstance().updateJoinSigns(this);
+	}
+
+    /**
+     * Tries to give the options menu item to the specified player. This may not work in case the options menu has been
+     * disabled in the config.yml.
+     *
+     * @since 9.0.1
+     */
+	public void tryGiveOptionsMenu(@NotNull Player player) {
+	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
+	    YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        if (config.getBoolean("gui.enable")) {
+            player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player,
+                Material.EMERALD).setDisplayName(MessageManager.translate(messages
+                .getString("gui.options-emerald"), player)).setLore(MessageManager.translate(messages
+                .getStringList("gui.options-lores"), player)).movable(false).setClickEvent(e -> {
+                getPlot(player).getBuildMenu().show(player);
+                e.setCancelled(true);
+            }).build());
+        }
 	}
 
 	/**
@@ -1395,14 +1442,7 @@ public class Arena {
 				//bossbar
 				getBossBar().setVisible(true);
 
-				if (config.getBoolean("gui.enable"))
-                    player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player,
-                        Material.EMERALD).setDisplayName(MessageManager.translate(messages
-                        .getString("gui.options-emerald"), player)).setLore(MessageManager.translate(messages
-                        .getStringList("gui.options-lores"), player)).movable(false).setClickEvent(e -> {
-                            getPlot(player).getBuildMenu().show(player);
-                            e.setCancelled(true);
-                        }).build());
+                tryGiveOptionsMenu(player);
 			})
 		);
 		
