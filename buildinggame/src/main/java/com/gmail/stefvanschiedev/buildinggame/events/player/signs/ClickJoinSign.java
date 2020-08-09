@@ -1,8 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
+import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
 import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -47,19 +48,30 @@ public class ClickJoinSign implements Listener {
 
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(state instanceof Sign))
 			return;
-		
-		var sign = (Sign) state;
+
 		Arena arena = null;
 
 		for (Arena a : ArenaManager.getInstance().getArenas()) {
-            if (a.getSigns().contains(sign))
-                arena = a;
+            for (PotentialBlockPosition blockPos : a.getSigns()) {
+                Block block = blockPos.getBlock();
+
+                if (block != null && block.equals(clickedBlock)) {
+                    arena = a;
+                    break;
+                }
+            }
         }
 
         var playerArena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null) {
-		    if (SignManager.getInstance().getRandomJoinSigns().contains(sign)) {
+		    for (PotentialBlockPosition blockPos : SignManager.getInstance().getRandomJoinSigns()) {
+                Block block = blockPos.getBlock();
+
+                if (block == null || !block.equals(clickedBlock)) {
+		            continue;
+                }
+
                 arena = getRandomArena();
 
                 if (arena == null)
@@ -91,9 +103,9 @@ public class ClickJoinSign implements Listener {
 	    Arena arena = null;
 
 	    for (Arena a : ArenaManager.getInstance().getArenas()) {
-	        if ((a.getState() != GameState.WAITING && a.getState() != GameState.STARTING) || a.isFull() ||
-                    a.getPlayers() < (arena == null ? 0 : arena.getPlayers()))
-	            continue;
+	        if (!a.canJoin() || a.getPlayers() < (arena == null ? 0 : arena.getPlayers())) {
+                continue;
+            }
 
 	        arena = a;
         }

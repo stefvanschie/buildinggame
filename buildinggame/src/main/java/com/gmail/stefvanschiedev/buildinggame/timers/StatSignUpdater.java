@@ -5,10 +5,13 @@ import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.Stat;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
@@ -81,7 +84,15 @@ public class StatSignUpdater extends BukkitRunnable {
             @Override
             public void run() {
                 signTexts.forEach((statSign, lines) -> {
-                    var sign = statSign.getSign();
+                    PotentialBlockPosition blockPos = statSign.getBlockPosition();
+
+                    Block block = blockPos.getBlock();
+
+                    if (block == null || !(block.getState() instanceof Sign)) {
+                        return;
+                    }
+
+                    Sign sign = (Sign) block.getState();
                     var length = lines.length;
 
                     for (var i = 0; i < length; i++)

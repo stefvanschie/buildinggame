@@ -3,9 +3,12 @@ package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -15,6 +18,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Handles players clicking on a leave sign
@@ -42,27 +47,32 @@ public class ClickSpectateSign implements Listener {
 
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(state instanceof Sign))
 			return;
-		
-		var sign = (Sign) state;
-		
-		if (!SignManager.getInstance().getSpectateSigns().containsKey(sign))
-			return;
 
-        var offlinePlayer = SignManager.getInstance().getSpectateSigns().get(sign);
+        for (Map.Entry<PotentialBlockPosition, OfflinePlayer> entry :
+            SignManager.getInstance().getSpectateSigns().entrySet()) {
+            Block block = entry.getKey().getBlock();
 
-        if (!offlinePlayer.isOnline()) {
-            MessageManager.getInstance().send(player, ChatColor.RED + offlinePlayer.getName() + " is offline");
-            return;
+            if (block == null || !block.equals(clickedBlock)) {
+                continue;
+            }
+
+            OfflinePlayer offlinePlayer = entry.getValue();
+
+            if (!offlinePlayer.isOnline()) {
+                MessageManager.getInstance().send(player, ChatColor.RED + offlinePlayer.getName() + " is offline");
+                return;
+            }
+
+            Arena arena = ArenaManager.getInstance().getArena(offlinePlayer.getPlayer());
+
+            if (arena == null) {
+                MessageManager.getInstance().send(player, ChatColor.RED + "This player is not in an arena");
+                return;
+            }
+
+            arena.getPlot(offlinePlayer.getPlayer()).addSpectator(player, getPlayer(arena, offlinePlayer.getPlayer()));
+            break;
         }
-
-        var arena = ArenaManager.getInstance().getArena(offlinePlayer.getPlayer());
-
-        if (arena == null) {
-            MessageManager.getInstance().send(player, ChatColor.RED + "This player is not in an arena");
-            return;
-        }
-
-        arena.getPlot(offlinePlayer.getPlayer()).addSpectator(player, getPlayer(arena, offlinePlayer.getPlayer()));
 	}
 
     /**

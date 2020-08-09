@@ -14,7 +14,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.*;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Sign;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -84,7 +83,7 @@ public class Arena {
 	/**
      * A list of all join signs belonging to this arena
      */
-	private final Collection<Sign> signs = new ArrayList<>();
+	private final Collection<PotentialBlockPosition> signs = new ArrayList<>();
 
 	/**
      * The lobby of this arena
@@ -232,16 +231,6 @@ public class Arena {
         buildScoreboards.put(plot, new BuildScoreboard(this));
         voteScoreboards.put(plot, new VoteScoreboard(this));
         winScoreboards.put(plot, new WinScoreboard(this));
-	}
-
-	/**
-     * Add a join sign to the list
-     *
-     * @param sign the sign to add
-     * @since 2.1.0
-     */
-	public void addSign(Sign sign) {
-		getSigns().add(sign);
 	}
 
 	/**
@@ -472,7 +461,7 @@ public class Arena {
      */
 	@NotNull
     @Contract(pure = true)
-	public Collection<Sign> getSigns() {
+	public Collection<PotentialBlockPosition> getSigns() {
 		return signs;
 	}
 
@@ -716,10 +705,7 @@ public class Arena {
 			return;
 		}
 
-        boolean joinInGame = config.getBoolean("join-during-game");
-
-        if ((getState() != GameState.STARTING && getState() != GameState.WAITING && getState() != GameState.BUILDING) ||
-            (!joinInGame && getState() == GameState.BUILDING)) {
+        if (!canJoin()) {
 			MessageManager.getInstance().send(player, messages.getStringList("join.in-game"));
 			return;
 		}
@@ -1563,6 +1549,21 @@ public class Arena {
 
 		SignManager.getInstance().updateJoinSigns(this);
 	}
+
+    /**
+     * Checks if this arena can be joined at this moment
+     *
+     * @return true if this arena can be joined, false otherwise
+     * @since 9.0.1
+     */
+	@Contract(pure = true)
+	public boolean canJoin() {
+	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        boolean joinInGame = config.getBoolean("join-during-game");
+
+        return ((getState() == GameState.STARTING || getState() == GameState.WAITING || getState() == GameState.BUILDING) &&
+            (joinInGame || getState() != GameState.BUILDING) && !isFull());
+    }
 
     /**
      * {@inheritDoc}
