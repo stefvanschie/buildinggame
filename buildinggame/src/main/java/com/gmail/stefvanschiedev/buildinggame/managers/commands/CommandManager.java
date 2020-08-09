@@ -35,7 +35,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * This class handles all subcommands for the buildinggame command
@@ -284,14 +283,8 @@ public class CommandManager extends BaseCommand {
     @CommandCompletion("@arenas")
     public void onJoin(Player player, @Optional Arena arena) {
         if (arena == null) {
-            boolean joinInGame = CONFIG.getBoolean("join-during-game");
-
             for (Arena a : ArenaManager.getInstance().getArenas()) {
-                GameState state = a.getState();
-
-                if (a.isFull() ||
-                    (state != GameState.STARTING && state != GameState.WAITING && state != GameState.BUILDING) ||
-                    (!joinInGame && state == GameState.BUILDING)) {
+                if (!a.canJoin()) {
                     continue;
                 }
 

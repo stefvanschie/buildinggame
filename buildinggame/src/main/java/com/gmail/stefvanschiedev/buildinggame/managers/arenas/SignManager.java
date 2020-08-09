@@ -3,10 +3,10 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 import java.util.*;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
+import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -55,12 +55,12 @@ public final class SignManager {
 	/**
      * A collection of all random join signs
      */
-	private final Collection<Sign> randomJoinSigns = new ArrayList<>();
+	private final Collection<PotentialBlockPosition> randomJoinSigns = new ArrayList<>();
 
 	/**
      * A collection of all leave signs
      */
-	private final Collection<Sign> leaveSigns = new ArrayList<>();
+	private final Collection<PotentialBlockPosition> leaveSigns = new ArrayList<>();
 
 	/**
      * A collection of all statistic signs
@@ -70,7 +70,7 @@ public final class SignManager {
     /**
      * A map of all spectate signs
      */
-	private final Map<Sign, OfflinePlayer> spectateSigns = new HashMap<>();
+	private final Map<PotentialBlockPosition, OfflinePlayer> spectateSigns = new HashMap<>();
 
 	/**
      * Loads/Reloads all signs
@@ -89,17 +89,12 @@ public final class SignManager {
 		spectateSigns.clear();
 		
 		for (var string : signs.getKeys(false)) {
-            BlockState state = new Location(Bukkit.getWorld(signs.getString(string + ".world")),
-                    signs.getInt(string + ".x"),
-                    signs.getInt(string + ".y"),
-                    signs.getInt(string + ".z")).getBlock().getState();
+		    int x = signs.getInt(string + ".x");
+		    int y = signs.getInt(string + ".y");
+		    int z = signs.getInt(string + ".z");
 
-            if (!(state instanceof Sign)) {
-				signs.set(string, null);
-				continue;
-			}
-			
-			var sign = (Sign) state;
+            var blockPos = new PotentialBlockPosition(() ->
+                Bukkit.getWorld(signs.getString(string + ".world")), x, y, z);
 			
 			if (!signs.contains(string + ".type"))
 				signs.set(string + ".type", "join");
@@ -109,30 +104,30 @@ public final class SignManager {
                     var arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
 
                     if (arena == null) {
-                        randomJoinSigns.add(sign);
+                        randomJoinSigns.add(blockPos);
                         continue;
                     }
 
-                    arena.addSign(sign);
+                    arena.getSigns().add(blockPos);
 
                     if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
                     break;
                 case "leave":
-                    leaveSigns.add(sign);
+                    leaveSigns.add(blockPos);
 
                     if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found leave sign");
                     break;
                 case "stat":
-                    statSigns.add(new StatSign(sign, StatType.valueOf(signs.getString(string + ".stat")),
+                    statSigns.add(new StatSign(blockPos, StatType.valueOf(signs.getString(string + ".stat")),
                             Integer.parseInt(signs.getString(string + ".number"))));
 
                     if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found stat sign");
                     break;
                 case "spectate":
-                    spectateSigns.put(sign, Bukkit.getOfflinePlayer(UUID.fromString(signs.getString(string +
+                    spectateSigns.put(blockPos, Bukkit.getOfflinePlayer(UUID.fromString(signs.getString(string +
                             ".player"))));
 
                     if (config.getBoolean("debug"))
@@ -228,13 +223,21 @@ public final class SignManager {
             BungeeCordHandler.getInstance().sign(BungeeCordHandler.Receiver.SUB_SERVER, arena, line1, line2, line3,
                     line4, null);
 
-		arena.getSigns().forEach(sign -> {
-			sign.setLine(0, line1);
-			sign.setLine(1, line2);
-			sign.setLine(2, line3);
-			sign.setLine(3, line4);
+		arena.getSigns().forEach(blockPos -> {
+            Block block = blockPos.getBlock();
 
-			sign.update();
+            if (block == null || !(block.getState() instanceof Sign)) {
+                return;
+            }
+
+            Sign sign = (Sign) block.getState();
+
+            sign.setLine(0, line1);
+            sign.setLine(1, line2);
+            sign.setLine(2, line3);
+            sign.setLine(3, line4);
+
+            sign.update();
 		});
 	}
 
@@ -246,7 +249,15 @@ public final class SignManager {
 	private void updateRandomJoinSigns() {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-        randomJoinSigns.forEach(sign -> {
+        randomJoinSigns.forEach(blockPos -> {
+            Block block = blockPos.getBlock();
+
+            if (block == null || !(block.getState() instanceof Sign)) {
+                return;
+            }
+
+            Sign sign = (Sign) block.getState();
+
             sign.setLine(0, MessageManager.translate(messages.getString("signs.join.random.line-1")));
             sign.setLine(1, MessageManager.translate(messages.getString("signs.join.random.line-2")));
             sign.setLine(2, MessageManager.translate(messages.getString("signs.join.random.line-3")));
@@ -264,7 +275,15 @@ public final class SignManager {
 	private void updateLeaveSigns() {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
-		leaveSigns.forEach(sign -> {
+		leaveSigns.forEach(blockPos -> {
+            Block block = blockPos.getBlock();
+
+            if (block == null || !(block.getState() instanceof Sign)) {
+                return;
+            }
+
+            Sign sign = (Sign) block.getState();
+
 			sign.setLine(0, MessageManager.translate(messages.getString("signs.leave.line-1")));
 			sign.setLine(1, MessageManager.translate(messages.getString("signs.leave.line-2")));
 			sign.setLine(2, MessageManager.translate(messages.getString("signs.leave.line-3")));
@@ -280,7 +299,15 @@ public final class SignManager {
      * @since 5.4.0
      */
 	private void updateSpectateSigns() {
-        spectateSigns.forEach((sign, offlinePlayer) -> {
+        spectateSigns.forEach((blockPos, offlinePlayer) -> {
+            Block block = blockPos.getBlock();
+
+            if (block == null || !(block.getState() instanceof Sign)) {
+                return;
+            }
+
+            Sign sign = (Sign) block.getState();
+
             sign.setLine(0, ChatColor.BOLD + "Building Game");
             sign.setLine(1, "spectate");
             sign.setLine(2, ChatColor.UNDERLINE + offlinePlayer.getName());
@@ -297,7 +324,7 @@ public final class SignManager {
      */
 	@NotNull
 	@Contract(pure = true)
-    public Collection<Sign> getRandomJoinSigns() {
+    public Collection<PotentialBlockPosition> getRandomJoinSigns() {
 	    return randomJoinSigns;
     }
 
@@ -309,7 +336,7 @@ public final class SignManager {
      */
     @NotNull
 	@Contract(pure = true)
-    public Collection<Sign> getLeaveSigns() {
+    public Collection<PotentialBlockPosition> getLeaveSigns() {
 		return leaveSigns;
 	}
 
@@ -321,7 +348,7 @@ public final class SignManager {
      */
     @NotNull
     @Contract(pure = true)
-    public Map<Sign, OfflinePlayer> getSpectateSigns() {
+    public Map<PotentialBlockPosition, OfflinePlayer> getSpectateSigns() {
         return spectateSigns;
     }
 

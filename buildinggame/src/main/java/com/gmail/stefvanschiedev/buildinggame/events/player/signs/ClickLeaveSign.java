@@ -1,6 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
+import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -44,18 +47,22 @@ public class ClickLeaveSign implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(state instanceof Sign))
 			return;
 		
-		var sign = (Sign) state;
-		
-		if (!SignManager.getInstance().getLeaveSigns().contains(sign))
-			return;
+		for (PotentialBlockPosition blockPos : SignManager.getInstance().getLeaveSigns()) {
+            Block block = blockPos.getBlock();
 
-		var arena = ArenaManager.getInstance().getArena(player);
+            if (block == null || !block.equals(clickedBlock)) {
+                continue;
+            }
 
-		if (arena == null) {
-			MessageManager.getInstance().send(player, ChatColor.RED + "You're not in an arena");
-			return;
-		}
-		
-		arena.leave(player);
+            Arena arena = ArenaManager.getInstance().getArena(player);
+
+            if (arena == null) {
+                MessageManager.getInstance().send(player, ChatColor.RED + "You're not in an arena");
+                return;
+            }
+
+            arena.leave(player);
+            break;
+        }
 	}
 }

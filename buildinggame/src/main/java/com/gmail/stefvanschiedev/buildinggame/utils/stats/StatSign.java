@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.stats;
 
-import org.bukkit.block.Sign;
+import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +14,8 @@ public class StatSign {
     /**
      * The sign this class is a wrapper for
      */
-	private final Sign sign;
+    @NotNull
+	private final PotentialBlockPosition blockPos;
 
     /**
      * The statistic type this sign holds
@@ -29,12 +30,12 @@ public class StatSign {
     /**
      * Constructs a new StatSign
      *
-     * @param sign the signs this class's a wrapper for
+     * @param blockPos the potential block position at which this sign should reside
      * @param type the stat type this sign holds
      * @param number the position of the player
      */
-	public StatSign(Sign sign, StatType type, int number) {
-		this.sign = sign;
+	public StatSign(@NotNull PotentialBlockPosition blockPos, StatType type, int number) {
+		this.blockPos = blockPos;
 		this.type = type;
 		this.number = number;
 	}
@@ -56,8 +57,8 @@ public class StatSign {
      */
 	@NotNull
     @Contract(pure = true)
-	public Sign getSign() {
-		return sign;
+	public PotentialBlockPosition getBlockPosition() {
+		return blockPos;
 	}
 
     /**
