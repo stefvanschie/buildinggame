@@ -7,6 +7,7 @@ import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import net.citizensnpcs.Settings;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
@@ -61,8 +62,10 @@ public class TeamSelection extends Gui {
             new OutlinePane(0, 0, 9, (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
 
         for (final var plot : arena.getPlots()) {
-            var item = new ItemStack(Material.matchMaterial(config.getString("team-selection.team." +
-                (iteration + 1) + ".id")));
+            Material material = SettingsManager.getInstance().getMaterial("team-selection.team." + (iteration + 1) + ".id",
+                Material.BARRIER);
+
+            var item = new ItemStack(material);
             var itemMeta = item.getItemMeta();
             itemMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("team-gui.team.name")
                     .replace("%plot%", plot.getId() + "")

@@ -176,7 +176,9 @@ public class SubjectMenu extends Gui {
 
             var pane = new OutlinePane(x, y, 1, 1);
 
-            var item = new ItemStack(Material.matchMaterial(CONFIG.getString(baseNode + ".id")));
+            Material material = SettingsManager.getInstance().getMaterial(baseNode + ".id", Material.BARRIER);
+
+            var item = new ItemStack(material);
             var itemMeta = item.getItemMeta();
 
             var name = MESSAGES.getString(baseNode + ".name");
@@ -238,8 +240,10 @@ public class SubjectMenu extends Gui {
                 if (getSubjectVote(subject) == null)
                     votes.add(new SubjectVote(subject, 0));
 
-                var item =
-                    new ItemStack(Material.matchMaterial(CONFIG.getString("subject-gui.vote-items.item.id")));
+                Material material = SettingsManager.getInstance().getMaterial("subject-gui.vote-items.item.id",
+                    Material.BARRIER);
+
+                var item = new ItemStack(material);
                 var meta = item.getItemMeta();
                 meta.setDisplayName(MessageManager.translate(MESSAGES.getString("subject-gui.subject.name")
                     .replace("%subject%", subject)));

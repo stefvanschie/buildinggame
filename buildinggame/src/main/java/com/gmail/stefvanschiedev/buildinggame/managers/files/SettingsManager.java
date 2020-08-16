@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
+import java.util.logging.Logger;
 
 import com.gmail.stefvanschiedev.buildinggame.timers.FileCheckerTimer;
 import com.gmail.stefvanschiedev.buildinggame.utils.JsonReaderUtil;
@@ -19,6 +20,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -613,6 +615,33 @@ public final class SettingsManager {
         if (save)
         	save();
 	}
+
+    /**
+     * Gets a material from the config.yml in a save manner. If the material at the specified location isn't valid, a
+     * warning message will be shown. The default material is returned in this case, unless no default material is
+     * specified, in which case null will be returned.
+     *
+     * @param location the location in the config.yml to look
+     * @param fallback the material to fallback on if the specified material is invalid
+     * @return the material in the config.yml, or the fallback specified if this doesn't exist
+     * @since 9.0.2
+     */
+	@Nullable
+    @Contract(pure = true, value = "_, !null -> !null")
+	public Material getMaterial(@NotNull String location, @Nullable Material fallback) {
+	    String materialString = config.getString(location);
+        Material material = Material.matchMaterial(materialString);
+
+        if (material == null) {
+            Logger logger = Main.getInstance().getLogger();
+            logger.warning("Invalid material found in the config.yml in '" + location + "' ('" +
+                materialString + "')");
+
+            return fallback;
+        }
+
+        return material;
+    }
 
     static {
         RELOCATED_SETTINGS_LOCATIONS.put("timer", "timers.build");
