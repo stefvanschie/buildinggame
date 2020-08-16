@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
@@ -827,15 +828,20 @@ public class Arena {
 			public void run() {
 				//give team selection
                 if (getState() == GameState.WAITING || getState() == GameState.STARTING) {
-                    if (getMode() == ArenaMode.TEAM)
-                        player.getInventory().setItem(0, new ItemBuilder(player, Material.matchMaterial(config
-                            .getString("team-selection.item.id"))).setDisplayName(MessageManager
-                            .translate(messages.getString("team-gui.item.name"), player)).setLore(MessageManager
-                            .translate(messages.getStringList("team-gui.item.lores"), player))
-                            .setClickEvent(event -> {
+                    if (getMode() == ArenaMode.TEAM) {
+                        Material material = SettingsManager.getInstance().getMaterial("team-selection.item.id",
+                            Material.BARRIER);
+
+                        player.getInventory().setItem(0, new ItemBuilder(player, material)
+                            .setDisplayName(
+                                MessageManager.translate(messages.getString("team-gui.item.name"), player)
+                            ).setLore(
+                                MessageManager.translate(messages.getStringList("team-gui.item.lores"), player)
+                            ).setClickEvent(event -> {
                                 getTeamSelection().show(player);
                                 event.setCancelled(true);
                             }).build());
+                    }
 
                     //give paper for subject
                     if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting") &&
@@ -847,8 +853,11 @@ public class Arena {
                         }
                     }
 
+                    Material material = SettingsManager.getInstance().getMaterial("leave-item.id",
+                        Material.BARRIER);
+
                     player.getInventory().setItem(config.getInt("leave-item.slot"),
-                        new ItemBuilder(player, Material.matchMaterial(config.getString("leave-item.id")))
+                        new ItemBuilder(player, material)
                             .setDisplayName(MessageManager.translate(messages.getString("leave-item.name"), player))
                             .setClickEvent(event -> {
                                 leave(player);
@@ -1242,10 +1251,13 @@ public class Arena {
                         if (save)
                             instance.save();
 
+                        Material material = SettingsManager.getInstance().getMaterial(
+                            "voting.items." + identifier + ".id", Material.BARRIER
+                        );
+
                         player.getInventory().setItem(
                             config.getInt("voting.items." + identifier + ".slot") - 1,
-                            new ItemBuilder(player,
-                                Material.matchMaterial(config.getString("voting.items." + identifier + ".id")))
+                            new ItemBuilder(player, material)
                                 .setDisplayName(MessageManager.translate(
                                     messages.getString("voting.items." + identifier + ".name")
                                 ))
@@ -1306,9 +1318,11 @@ public class Arena {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
+        Material material = SettingsManager.getInstance().getMaterial("subject-gui.item.id", Material.BARRIER);
+
         player.getInventory().setItem(
             config.getInt("subject-gui.slot"),
-            new ItemBuilder(player, Material.matchMaterial(config.getString("subject-gui.item.id")))
+            new ItemBuilder(player, material)
                 .setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"),
                     player))
                 .setLore(MessageManager.translate(messages.getStringList("subject-gui.item.lores"),
@@ -1420,10 +1434,13 @@ public class Arena {
 				player.setPlayerTime(plot.getTime(), false);
 
 				//hotbar
-				for (int i = 0; i < 9; i++)
-					player.getInventory().setItem(i, new ItemStack(
-					    Material.matchMaterial(config.getString("hotbar.default.slot-" + (i + 1)))
-                    ));
+				for (int i = 0; i < 9; i++) {
+                    Material material = SettingsManager.getInstance().getMaterial(
+                        "hotbar.default.slot-" + (i + 1), Material.AIR
+                    );
+
+                    player.getInventory().setItem(i, new ItemStack(material));
+                }
 				
 				//bossbar
 				getBossBar().setVisible(true);

@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
@@ -179,8 +180,10 @@ public class Plot {
 		
 		getAllGamePlayers().forEach(player -> player.getPlayer().hidePlayer(Main.getInstance(), spectator));
 
+        Material material = SettingsManager.getInstance().getMaterial("leave-item.id", Material.BARRIER);
+
         spectator.getInventory().setItem(config.getInt("leave-item.slot"),
-            new ItemBuilder(spectator, Material.matchMaterial(config.getString("leave-item.id")))
+            new ItemBuilder(spectator, material)
                 .setDisplayName(MessageManager.translate(SettingsManager.getInstance().getMessages()
                     .getString("leave-item.name"), spectator)).setClickEvent(event -> {
                         gamePlayer.connect(MainSpawnManager.getInstance().getServer(),

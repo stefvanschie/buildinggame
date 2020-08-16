@@ -18,6 +18,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Logger;
+
 /**
  * The gui for plot settings and tools
  *
@@ -95,7 +97,10 @@ public class BuildMenu extends Gui {
         var pane = new StaticPane(0, 0, 9, 5);
 
         //particles
-        var particles = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.particles.id")));
+        Material particlesMaterial = SettingsManager.getInstance().getMaterial("gui.particles.id",
+            Material.BARRIER);
+
+        var particles = new ItemStack(particlesMaterial);
         var particlesMeta = particles.getItemMeta();
         particlesMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.particles.name")));
         particlesMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.particles.lores")));
@@ -108,7 +113,9 @@ public class BuildMenu extends Gui {
         })), 1, 1);
 
         //floor
-        var floor = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.floor.id")));
+        Material floorMaterial = SettingsManager.getInstance().getMaterial("gui.floor.id", Material.BARRIER);
+
+        var floor = new ItemStack(floorMaterial);
         var floorMeta = floor.getItemMeta();
         floorMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.name")));
         floorMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.lores")));
@@ -138,12 +145,21 @@ public class BuildMenu extends Gui {
                 return;
             }
 
-            if (CONFIG.getStringList("blocks.blocked").stream().anyMatch(material ->
-                Material.matchMaterial(material) == event.getCursor().getType())) {
-                MessageManager.getInstance().send(player, MESSAGES.getStringList("plots.floor.blocked"));
+            for (String materialString : CONFIG.getStringList("blocks.blocked")) {
+                Material material = Material.matchMaterial(materialString);
 
-                event.setCancelled(true);
-                return;
+                if (material == null) {
+                    Logger logger = Main.getInstance().getLogger();
+                    logger.warning("Invalid material found in the config.yml in 'blocks.blocked' ('" +
+                        materialString + "')");
+                }
+
+                if (material == event.getCursor().getType()) {
+                    MessageManager.getInstance().send(player, MESSAGES.getStringList("plots.floor.blocked"));
+
+                    event.setCancelled(true);
+                    return;
+                }
             }
 
 
@@ -182,7 +198,9 @@ public class BuildMenu extends Gui {
         })), 3, 1);
 
         //time
-        var time = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.time.id")));
+        Material timeMaterial = SettingsManager.getInstance().getMaterial("gui.time.id", Material.BARRIER);
+
+        var time = new ItemStack(timeMaterial);
         var timeMeta = time.getItemMeta();
         timeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.time.name")));
         timeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.time.lores")));
@@ -195,7 +213,9 @@ public class BuildMenu extends Gui {
         })), 5, 1);
 
         //rain
-        var rain = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.rain.id")));
+        Material rainMaterial = SettingsManager.getInstance().getMaterial("gui.rain.id", Material.BARRIER);
+
+        var rain = new ItemStack(rainMaterial);
         var rainMeta = rain.getItemMeta();
         rainMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.rain.name")));
         rainMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.rain.lores")));
@@ -208,7 +228,10 @@ public class BuildMenu extends Gui {
         })), 7, 1);
 
         //fly speed
-        var flySpeed = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.fly-speed.id")));
+        Material flySpeedMaterial = SettingsManager.getInstance().getMaterial("gui.fly-speed.id",
+            Material.BARRIER);
+
+        var flySpeed = new ItemStack(flySpeedMaterial);
         var flySpeedMeta = flySpeed.getItemMeta();
         flySpeedMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.fly-speed.name")));
         flySpeedMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.fly-speed.lores")));
@@ -221,7 +244,9 @@ public class BuildMenu extends Gui {
         })), 1, 2);
 
         //heads
-        var heads = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.heads.id")));
+        Material headsMaterial = SettingsManager.getInstance().getMaterial("gui.heads.id", Material.BARRIER);
+
+        var heads = new ItemStack(headsMaterial);
         var headsMeta = heads.getItemMeta();
         headsMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.heads.name")));
         headsMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.heads.lores")));
@@ -234,7 +259,10 @@ public class BuildMenu extends Gui {
         })), 3, 2);
 
         //banners
-        var banners = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.banners.id")));
+        Material bannersMaterial = SettingsManager.getInstance().getMaterial("gui.banners.id",
+            Material.BARRIER);
+
+        var banners = new ItemStack(bannersMaterial);
         var bannersMeta = banners.getItemMeta();
         bannersMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.name")));
         bannersMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.lores")));
@@ -247,7 +275,9 @@ public class BuildMenu extends Gui {
         })), 5, 2);
 
         //biome
-        var biome = new ItemStack(Material.matchMaterial(CONFIG.getString("gui.biome.id")));
+        Material biomeMaterial = SettingsManager.getInstance().getMaterial("gui.biome.id", Material.BARRIER);
+
+        var biome = new ItemStack(biomeMaterial);
         var biomeMeta = biome.getItemMeta();
         biomeMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.biome.name")));
         biomeMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.biome.lores")));

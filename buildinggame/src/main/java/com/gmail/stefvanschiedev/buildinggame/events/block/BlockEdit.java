@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -15,6 +16,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.logging.Logger;
 
 /**
  * Handles players editing blocks
@@ -71,9 +74,19 @@ public class BlockEdit implements Listener {
     public void onBlockPlace(@NotNull BlockPlaceEvent e) {
         blockEdit(e.getPlayer(), e);
 
-        if (SettingsManager.getInstance().getConfig().getStringList("blocks.blocked").stream()
-            .anyMatch(material -> Material.matchMaterial(material) == e.getBlock().getType())) {
-            e.setCancelled(true);
+        for (String materialString : SettingsManager.getInstance().getConfig().getStringList("blocks.blocked")) {
+            Material material = Material.matchMaterial(materialString);
+
+            if (material == null) {
+                Logger logger = Main.getInstance().getLogger();
+                logger.warning("Invalid material found in the config.yml in 'blocks.blocked' ('" +
+                    materialString + "')");
+            }
+
+            if (material == e.getBlock().getType()) {
+                e.setCancelled(true);
+                break;
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils;
 
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -13,6 +14,8 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.logging.Logger;
 
 /**
  * A trait for a citizens NPS that enables this NPC to open the floor change menu, or apply the block as in the player's
@@ -75,8 +78,19 @@ public class NPCFloorChangeTrait extends Trait {
             return;
         }
 
-        if (config.getStringList("blocks.blocked").stream().anyMatch(material ->
-            Material.matchMaterial(material) == materialInHand)) {
+        for (String materialString : config.getStringList("blocks.blocked")) {
+            Material material = Material.matchMaterial(materialString);
+
+            if (material == null) {
+                Logger logger = Main.getInstance().getLogger();
+                logger.warning("Invalid material found in the config.yml in 'blocks.blocked' ('" +
+                    materialString + "')");
+            }
+
+            if (material != materialInHand) {
+                continue;
+            }
+
             MessageManager.getInstance().send(player, messages.getStringList("plots.floor.blocked"));
 
             event.setCancelled(true);
