@@ -19,7 +19,7 @@ public class BooleanDataType implements PersistentDataType<Byte, Boolean> {
     @Contract(pure = true)
     @Override
     public Class<Byte> getPrimitiveType() {
-        return byte.class;
+        return Byte.class;
     }
 
     /**
@@ -29,7 +29,7 @@ public class BooleanDataType implements PersistentDataType<Byte, Boolean> {
     @Contract(pure = true)
     @Override
     public Class<Boolean> getComplexType() {
-        return boolean.class;
+        return Boolean.class;
     }
 
     /**
