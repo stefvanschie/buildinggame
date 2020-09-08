@@ -2,6 +2,9 @@ package com.gmail.stefvanschiedev.buildinggame;
 
 import java.util.*;
 
+import com.github.simplenet.Client;
+import com.github.simplenet.Server;
+import com.github.simplenet.packet.Packet;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerDisconnectEvent;
@@ -10,9 +13,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import simplenet.Client;
-import simplenet.Server;
-import simplenet.packet.Packet;
 
 /**
  * Main class for this plugin
@@ -87,7 +87,7 @@ public class Main extends Plugin implements Listener {
 
         var entry = pendingConnections.get(uuid);
 
-        Packet.builder().putString(entry.getValue()).writeAndFlush(entry.getKey());
+        Packet.builder().putString(entry.getValue()).queueAndFlush(entry.getKey());
         pendingConnections.remove(uuid);
     }
 
@@ -104,8 +104,7 @@ public class Main extends Plugin implements Listener {
 
         if (data[0].startsWith("response")) {
             //bungee doesn't send stuff by itself
-            clients.forEach(c -> Packet.builder().putString(message).writeAndFlush(c));
-
+            Packet.builder().putString(message).queueAndFlush(clients);
             return;
         }
 
@@ -114,7 +113,7 @@ public class Main extends Plugin implements Listener {
             connect(data[0].split(":")[1], client, data.length > 2 ? data[2] : null);
         else
             //send to other servers
-            Packet.builder().putString(message).writeAndFlush(clients);
+            Packet.builder().putString(message).queueAndFlush(clients);
 	}
 
     /**
@@ -139,7 +138,7 @@ public class Main extends Plugin implements Listener {
             return;
         }
 
-        Packet.builder().putString("response:failed" + (uuid != null ? ';' + uuid : "")).writeAndFlush(client);
+        Packet.builder().putString("response:failed" + (uuid != null ? ';' + uuid : "")).queueAndFlush(client);
     }
 
     /**
