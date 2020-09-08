@@ -1,5 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.bungeecord;
 
+import com.github.simplenet.Client;
+import com.github.simplenet.packet.Packet;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.JoinSign;
@@ -14,9 +16,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import simplenet.Client;
-import simplenet.packet.Packet;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -75,7 +74,7 @@ public final class BungeeCordHandler {
             callables.add(callable);
 
         Packet.builder().putString(message + (callable == null ? "" : ";uuid:" + callable.getUuid()))
-            .writeAndFlush(client);
+            .queueAndFlush(client);
     }
 
     /**
