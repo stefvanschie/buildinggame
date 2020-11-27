@@ -9,6 +9,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu.BaseColorBannerMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -107,7 +108,7 @@ public class BuildMenu extends Gui {
         particles.setItemMeta(particlesMeta);
 
         pane.addItem((this.particles = new GuiItem(particles, event -> {
-            particlesMenu.show(event.getWhoClicked());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> particlesMenu.show(event.getWhoClicked()));
 
             event.setCancelled(true);
         })), 1, 1);
@@ -207,7 +208,7 @@ public class BuildMenu extends Gui {
         time.setItemMeta(timeMeta);
 
         pane.addItem((this.time = new GuiItem(time, event -> {
-            timeMenu.show(event.getWhoClicked());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> timeMenu.show(event.getWhoClicked()));
 
             event.setCancelled(true);
         })), 5, 1);
@@ -238,7 +239,7 @@ public class BuildMenu extends Gui {
         flySpeed.setItemMeta(flySpeedMeta);
 
         pane.addItem((this.flySpeed = new GuiItem(flySpeed, event -> {
-            flySpeedMenu.show(event.getWhoClicked());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> flySpeedMenu.show(event.getWhoClicked()));
 
             event.setCancelled(true);
         })), 1, 2);
@@ -253,7 +254,7 @@ public class BuildMenu extends Gui {
         heads.setItemMeta(headsMeta);
 
         pane.addItem((this.heads = new GuiItem(heads, event -> {
-            headsMenu.show(event.getWhoClicked());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> headsMenu.show(event.getWhoClicked()));
 
             event.setCancelled(true);
         })), 3, 2);
@@ -269,7 +270,7 @@ public class BuildMenu extends Gui {
         banners.setItemMeta(bannersMeta);
 
         pane.addItem((this.banners = new GuiItem(banners, event -> {
-            bannerMenu.show(event.getWhoClicked());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> bannerMenu.show(event.getWhoClicked()));
 
             event.setCancelled(true);
         })), 5, 2);
@@ -284,7 +285,7 @@ public class BuildMenu extends Gui {
         biome.setItemMeta(biomeMeta);
 
         pane.addItem((this.biome = new GuiItem(biome, event -> {
-            biomeMenu.show(event.getWhoClicked());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> biomeMenu.show(event.getWhoClicked()));
 
             event.setCancelled(true);
         })), 7, 2);
