@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/addon" # Location of package manifests
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "maven"
+    directory: "/buildinggame" # Location of package manifests
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "maven"
+    directory: "/bungeecord" # Location of package manifests
+    schedule:
+      interval: "daily"
