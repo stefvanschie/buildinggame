@@ -353,10 +353,18 @@ public class GamePlayer {
             sendPacket(getNMSClass("PacketPlayOutUnloadChunk").getConstructor(int.class, int.class)
                     .newInstance(chunk.getX(), chunk.getZ()));
 
+            String version = getVersion();
+
             //send the chunk again
-            sendPacket(getNMSClass("PacketPlayOutMapChunk")
-                .getConstructor(getNMSClass("Chunk"), int.class, boolean.class)
-                .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF, true));
+            if (version.equals("v1_16_R1")) {
+                sendPacket(getNMSClass("PacketPlayOutMapChunk")
+                    .getConstructor(getNMSClass("Chunk"), int.class, boolean.class)
+                    .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF, true));
+            } else if (version.equals("v1_16_R2") || version.equals("v1_16_R3")) {
+                sendPacket(getNMSClass("PacketPlayOutMapChunk")
+                    .getConstructor(getNMSClass("Chunk"), int.class)
+                    .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF));
+            }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
                 InstantiationException e) {
             e.printStackTrace();
