@@ -80,7 +80,7 @@
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm-commons</artifactId>
-                        <version>7.0-beta</version>
+                        <version>9.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
