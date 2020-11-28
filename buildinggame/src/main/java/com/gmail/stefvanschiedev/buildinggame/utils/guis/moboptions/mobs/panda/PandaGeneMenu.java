@@ -6,7 +6,6 @@ import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import org.apache.commons.codec.binary.Base64;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Panda;
@@ -16,6 +15,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+import java.util.Base64;
 import java.util.UUID;
 
 /**
@@ -143,7 +143,8 @@ class PandaGeneMenu extends Gui {
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
 
         String fullUrl = "http://textures.minecraft.net/texture/" + id;
-        byte[] encodedData = Base64.encodeBase64(String.format("{textures:{SKIN:{id:\"%s\"}}}", fullUrl).getBytes());
+        byte[] bytes = String.format("{textures:{SKIN:{url:\"%s\"}}}", fullUrl).getBytes();
+        byte[] encodedData = Base64.getEncoder().encode(bytes);
 
         profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
 
