@@ -91,6 +91,11 @@ public class Main extends JavaPlugin {
 	private final LoadCooldown load = new LoadCooldown();
 
     /**
+     * The plugin id used by bStats
+     */
+	private static final int BSTATS_PLUGIN_ID = 627;
+
+    /**
      * Called whenever this plugin is being enabled
      *
      * @since 2.1.0
@@ -110,7 +115,7 @@ public class Main extends JavaPlugin {
 
 		//loading metrics
 		getLogger().info("Loading metrics");
-        new MetricsLite(this);
+        new MetricsLite(this, BSTATS_PLUGIN_ID);
 		
 		if (SettingsManager.getInstance().getConfig().getBoolean("loading.load-after-plugins")) {
 			getLogger().info("Waiting until other plugins are loaded");
