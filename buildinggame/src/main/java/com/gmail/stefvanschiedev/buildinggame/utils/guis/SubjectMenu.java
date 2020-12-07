@@ -3,8 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.Orientable;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
@@ -61,7 +61,7 @@ public class SubjectMenu {
      * All guis of this class with their paginated pane that are currently open
      */
     @NotNull
-	private final Map<Gui, PaginatedPane> openGuis = new HashMap<>();
+	private final Map<ChestGui, PaginatedPane> openGuis = new HashMap<>();
 
 	/**
      * YAML Configuration for the config.yml
@@ -100,7 +100,7 @@ public class SubjectMenu {
      * @param paginatedPane the paginated pane
      * @since 5.6.0
      */
-    private void initializePages(@NotNull Gui gui, @NotNull PaginatedPane paginatedPane) {
+    private void initializePages(@NotNull ChestGui gui, @NotNull PaginatedPane paginatedPane) {
         paginatedPane.clear();
 
         for (var page = 0;
@@ -191,7 +191,7 @@ public class SubjectMenu {
      * @since 9.0.3
      */
     public void show(@NotNull HumanEntity humanEntity) {
-        Gui gui = new Gui(Main.getInstance(), CONFIG.getInt("subject-gui.rows"),
+        ChestGui gui = new ChestGui(CONFIG.getInt("subject-gui.rows"),
             MessageManager.translate(MESSAGES.getString("subject-gui.title")));
 
         int rows = gui.getRows();
@@ -406,11 +406,11 @@ public class SubjectMenu {
      * @since 9.0.3
      */
     private void update() {
-        for (Map.Entry<Gui, PaginatedPane> entry : openGuis.entrySet()) {
+        for (Map.Entry<ChestGui, PaginatedPane> entry : openGuis.entrySet()) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Gui gui = entry.getKey();
+                    ChestGui gui = entry.getKey();
                     initializePages(gui, entry.getValue());
 
                     gui.update();

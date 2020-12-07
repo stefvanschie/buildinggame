@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -10,6 +11,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.io.InputStream;
 
 /**
  * A gui for selecting the base color of your banner
@@ -26,15 +29,15 @@ public class BaseColorBannerMenu {
     /**
      * The gui
      */
-    private final Gui gui;
+    private final ChestGui gui;
 
     /**
      * {@inheritDoc}
      */
     public BaseColorBannerMenu() {
-        this.gui = Gui.load(Main.getInstance(), this, Main.getInstance().getResource(
-            "gui/buildmenu/banner/basecolorbannermenu.xml"
-        ));
+        InputStream resource = Main.getInstance().getResource("gui/buildmenu/banner/basecolorbannermenu.xml");
+
+        this.gui = ChestGui.load(this, resource);
 
         var title = gui.getTitle();
 

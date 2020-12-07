@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.MappedMaterialUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -18,7 +17,7 @@ import org.bukkit.material.Colorable;
  *
  * @since 5.3.0
  */
-public class ColorSelectionMenu extends Gui {
+public class ColorSelectionMenu extends ChestGui {
 
     /**
      * Constructs a new Gui
@@ -26,7 +25,7 @@ public class ColorSelectionMenu extends Gui {
      * @param entity the entity to change the color of
      */
     public ColorSelectionMenu(Creature entity) {
-        super(Main.getInstance(), 2, ChatColor.GREEN + "Select a color");
+        super(2, ChatColor.GREEN + "Select a color");
 
         var pane = new OutlinePane(0, 0, 9, 2);
 

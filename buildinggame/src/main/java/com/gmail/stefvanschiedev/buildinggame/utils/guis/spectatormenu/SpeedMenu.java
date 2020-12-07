@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.spectatormenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -8,6 +9,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+
+import java.io.InputStream;
 
 /**
  * A menu to change the fly speed for spectators
@@ -24,13 +27,14 @@ class SpeedMenu {
     /**
      * The gui
      */
-    private final Gui gui;
+    private final ChestGui gui;
 
     /**
      * Constructs a new SpeedMenu
      */
     SpeedMenu() {
-        this.gui = Gui.load(Main.getInstance(), this, Main.getInstance().getResource("gui/spectatormenu/speedmenu.xml"));
+        InputStream resource = Main.getInstance().getResource("gui/spectatormenu/speedmenu.xml");
+        this.gui = ChestGui.load(this, resource);
 
         var title = gui.getTitle();
 

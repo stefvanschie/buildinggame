@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -25,7 +26,7 @@ public class ConfirmationMenu {
      * The gui this class represents
      */
     @NotNull
-    private final Gui gui;
+    private final ChestGui gui;
 
     /**
      * Constructs a new GUI
@@ -35,9 +36,7 @@ public class ConfirmationMenu {
      * @since 6.5.0
      */
     ConfirmationMenu(@NotNull String title, @NotNull Consumer<Response> response) {
-        Main main = Main.getInstance();
-
-        gui = Gui.load(main, this, main.getResource("gui/confirmationmenu.xml"));
+        gui = ChestGui.load(this, Main.getInstance().getResource("gui/confirmationmenu.xml"));
 
         gui.setTitle(title);
 

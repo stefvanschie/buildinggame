@@ -1,10 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -25,7 +24,7 @@ import java.util.Locale;
  *
  * @since 4.0.0
  */
-public class FloorMenu extends Gui {
+public class FloorMenu extends ChestGui {
 
     /**
      * YAML Configuration for the messages.yml
@@ -169,7 +168,7 @@ public class FloorMenu extends Gui {
      * @see Plot
      */
 	FloorMenu(final Plot plot) {
-		super(Main.getInstance(), 6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
+		super(6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
 
         var paginatedPane = new PaginatedPane(0, 0, 9, 5);
 

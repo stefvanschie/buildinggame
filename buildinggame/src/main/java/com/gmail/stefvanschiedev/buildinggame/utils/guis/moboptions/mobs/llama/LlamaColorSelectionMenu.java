@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Llama;
@@ -14,13 +13,13 @@ import org.bukkit.inventory.ItemStack;
  *
  * @since 5.3.0
  */
-class LlamaColorSelectionMenu extends Gui {
+class LlamaColorSelectionMenu extends ChestGui {
 
     /**
      * {@inheritDoc}
      */
     LlamaColorSelectionMenu(Llama llama) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Change the llama color");
+        super(1, ChatColor.GREEN + "Change the llama color");
 
         var pane = new StaticPane(2, 0, 5, 1);
 

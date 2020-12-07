@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -24,7 +25,7 @@ public class HeadsMenu {
     /**
      * The gui
      */
-    Gui gui;
+    ChestGui gui;
 
     /**
      * Empty constructor in case paginated heads menu wants to initialize the gui
@@ -40,7 +41,7 @@ public class HeadsMenu {
      * @since 5.6.0
      */
     public HeadsMenu(String location) {
-        this.gui = Gui.load(Main.getInstance(), this, Main.getInstance().getResource(location));
+        this.gui = ChestGui.load(this, Main.getInstance().getResource(location));
 
         var title = gui.getTitle();
 

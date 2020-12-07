@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.bannermenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -21,7 +21,7 @@ import org.bukkit.inventory.meta.BannerMeta;
  *
  * @since 5.2.0
  */
-class PatternBannerMenu extends Gui {
+class PatternBannerMenu extends ChestGui {
 
     /**
      * YAML Configuration for the messages.yml
@@ -32,8 +32,7 @@ class PatternBannerMenu extends Gui {
      * {@inheritDoc}
      */
     PatternBannerMenu(ItemStack banner, DyeColor dyeColor) {
-        super(Main.getInstance(), 6,
-            MessageManager.translate(MESSAGES.getString("gui.banners.pattern.title")));
+        super(6, MessageManager.translate(MESSAGES.getString("gui.banners.pattern.title")));
 
         var outlinePane = new OutlinePane(0, 0, 9, 6);
 

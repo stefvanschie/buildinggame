@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat;
 
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;

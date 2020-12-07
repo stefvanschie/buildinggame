@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -34,13 +34,13 @@ import java.util.stream.Collectors;
  *
  * @since 6.5.0
  */
-public class ReportMenu extends Gui {
+public class ReportMenu extends ChestGui {
 
     /**
      * Constructs a new report menu
      */
     public ReportMenu() {
-        super(Main.getInstance(), 6, ChatColor.GREEN + "Reports");
+        super(6, ChatColor.GREEN + "Reports");
 
         var paginatedPane = new PaginatedPane(0, 0, 9, 5);
 
@@ -172,10 +172,8 @@ public class ReportMenu extends Gui {
      */
     @NotNull
     @Contract(pure = true)
-    private Gui playerReportsGui(@NotNull OfflinePlayer player) {
-        Gui gui = new Gui(
-            Main.getInstance(), 6, ChatColor.GREEN + player.getName() + "'s reports"
-        );
+    private ChestGui playerReportsGui(@NotNull OfflinePlayer player) {
+        ChestGui gui = new ChestGui(6, ChatColor.GREEN + player.getName() + "'s reports");
 
         var paginatedPane = new PaginatedPane(0, 0, 9, 5);
 

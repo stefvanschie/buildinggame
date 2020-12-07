@@ -1,7 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -82,7 +83,7 @@ class HeadsMenu {
     /**
      * The gui
      */
-    private final Gui gui;
+    private final ChestGui gui;
 
     /**
      * The items inside this pane
@@ -94,8 +95,7 @@ class HeadsMenu {
      * Constructs a new HeadsMenu
      */
 	HeadsMenu() {
-		this.gui = Gui.load(Main.getInstance(), this,
-            Main.getInstance().getResource("gui/buildmenu/headsmenu.xml"));
+		this.gui = ChestGui.load(this, Main.getInstance().getResource("gui/buildmenu/headsmenu.xml"));
 
         var title = gui.getTitle();
 

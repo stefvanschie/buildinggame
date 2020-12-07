@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropicalfish;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.MappedMaterialUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.TropicalFish;
@@ -14,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
  *
  * @since 6.0.0
  */
-class TropicalFishPatternColorMenu extends Gui {
+class TropicalFishPatternColorMenu extends ChestGui {
 
     /**
      * Constructs a new tropical fish pattern color menu
@@ -22,7 +21,7 @@ class TropicalFishPatternColorMenu extends Gui {
      * @param tropicalFish the tropical fish to change the pattern color of
      */
     TropicalFishPatternColorMenu(TropicalFish tropicalFish) {
-        super(Main.getInstance(), 2, ChatColor.GREEN + "Select a color");
+        super(2, ChatColor.GREEN + "Select a color");
 
         var pane = new OutlinePane(0, 0, 9, 2);
 

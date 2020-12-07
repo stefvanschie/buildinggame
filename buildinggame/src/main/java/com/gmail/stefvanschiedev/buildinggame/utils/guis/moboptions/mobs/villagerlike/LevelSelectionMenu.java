@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villagerlike;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -22,13 +21,13 @@ import java.lang.reflect.Method;
  *
  * @since 7.0.0
  */
-class LevelSelectionMenu extends Gui {
+class LevelSelectionMenu extends ChestGui {
 
     /**
      * {@inheritDoc}
      */
     LevelSelectionMenu(@NotNull Creature villagerLike) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Change the level");
+        super(1, ChatColor.GREEN + "Change the level");
 
         Object nmsVillager = null;
         Object villagerData = null;

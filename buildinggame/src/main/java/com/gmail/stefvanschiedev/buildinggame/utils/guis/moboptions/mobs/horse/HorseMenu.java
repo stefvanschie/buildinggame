@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;

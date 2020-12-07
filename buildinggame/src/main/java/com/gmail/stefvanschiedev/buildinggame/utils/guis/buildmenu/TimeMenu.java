@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -26,14 +27,13 @@ class TimeMenu {
     /**
      * The gui
      */
-    private final Gui gui;
+    private final ChestGui gui;
 
 	/**
      * Constructs a new TimeMenu
      */
 	TimeMenu() {
-		this.gui = Gui.load(Main.getInstance(), this,
-            Main.getInstance().getResource("gui/buildmenu/timemenu.xml"));
+		this.gui = ChestGui.load(this, Main.getInstance().getResource("gui/buildmenu/timemenu.xml"));
 
         var title = gui.getTitle();
 

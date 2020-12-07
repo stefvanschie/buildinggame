@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @since 2.1.0
  */
-public class BuildMenu extends Gui {
+public class BuildMenu extends ChestGui {
 
     /**
      * YAML Configuration for the messages.yml
@@ -85,7 +85,7 @@ public class BuildMenu extends Gui {
      * @see Plot
      */
     public BuildMenu(Plot plot) {
-        super(Main.getInstance(), 5, MessageManager.translate(MESSAGES.getString("gui.options-title")));
+        super(5, MessageManager.translate(MESSAGES.getString("gui.options-title")));
 
 		particlesMenu = new ParticlesMenu();
 		floorMenu = new FloorMenu(plot);

@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villagerlike;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Creature;
@@ -16,13 +15,13 @@ import org.bukkit.inventory.ItemStack;
  *
  * @since 5.3.0
  */
-class ProfessionSelectionMenu extends Gui {
+class ProfessionSelectionMenu extends ChestGui {
 
     /**
      * {@inheritDoc}
      */
     ProfessionSelectionMenu(Creature villagerLike) {
-        super(Main.getInstance(), 2, ChatColor.GREEN + "Select profession");
+        super(2, ChatColor.GREEN + "Select profession");
 
         var pane = new OutlinePane(0, 0, 9, 2);
 
