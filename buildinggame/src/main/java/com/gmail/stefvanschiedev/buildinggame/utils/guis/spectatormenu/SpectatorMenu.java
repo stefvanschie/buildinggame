@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.spectatormenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -23,13 +24,13 @@ public class SpectatorMenu {
     /**
      * The gui
      */
-    private final Gui gui;
+    private final ChestGui gui;
 
     /**
      * Constructs a new SpeedMenu
      */
     public SpectatorMenu() {
-        this.gui = Gui.load(Main.getInstance(), this, Main.getInstance().getResource(
+        this.gui = ChestGui.load(this, Main.getInstance().getResource(
             "gui/spectatormenu/spectatormenu.xml"
         ));
 

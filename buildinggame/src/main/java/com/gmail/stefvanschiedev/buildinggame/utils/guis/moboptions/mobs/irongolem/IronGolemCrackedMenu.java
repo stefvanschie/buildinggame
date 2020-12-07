@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.irongolem;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -17,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 8.0.0
  */
-class IronGolemCrackedMenu extends Gui {
+class IronGolemCrackedMenu extends ChestGui {
 
     /**
      * Creates a new menu
@@ -25,7 +24,7 @@ class IronGolemCrackedMenu extends Gui {
      * @since 8.0.0
      */
     IronGolemCrackedMenu(@NotNull IronGolem ironGolem) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Change the cracked state of an iron golem");
+        super(1, ChatColor.GREEN + "Change the cracked state of an iron golem");
 
         var pane = new OutlinePane(0, 0, 9, 1);
 

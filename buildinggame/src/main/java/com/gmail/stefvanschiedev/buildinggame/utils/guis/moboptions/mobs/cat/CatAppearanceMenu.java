@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -19,13 +18,13 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @since 7.0.0
  */
-class CatAppearanceMenu extends Gui {
+class CatAppearanceMenu extends ChestGui {
 
     /**
      * {@inheritDoc}
      */
      CatAppearanceMenu(Cat cat) {
-        super(Main.getInstance(), 2, ChatColor.GREEN + "Change the cat's appearance");
+        super(2, ChatColor.GREEN + "Change the cat's appearance");
 
         var pane = new OutlinePane(0, 0, 9, 2);
 

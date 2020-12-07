@@ -3,11 +3,9 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
-import net.citizensnpcs.Settings;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
@@ -24,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 2.1.0
  */
-public class TeamSelection extends Gui {
+public class TeamSelection extends ChestGui {
 
     /**
      * YAML Configuration for the messages.yml
@@ -42,7 +40,7 @@ public class TeamSelection extends Gui {
      * @param arena the arena this team selection menu is for
      */
 	public TeamSelection(Arena arena) {
-		super(Main.getInstance(), (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6),
+		super((int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6),
             MessageManager.translate(MESSAGES.getString("team-gui.title")));
 
 		this.arena = arena;

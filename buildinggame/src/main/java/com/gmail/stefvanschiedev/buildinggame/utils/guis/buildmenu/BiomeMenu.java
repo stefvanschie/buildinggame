@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -26,7 +27,7 @@ class BiomeMenu {
     /**
      * The gui
      */
-    private final Gui gui;
+    private final ChestGui gui;
 
     /**
      * The plot this gui is for
@@ -40,8 +41,7 @@ class BiomeMenu {
      */
     BiomeMenu(Plot plot) {
         this.plot = plot;
-        this.gui = Gui.load(Main.getInstance(), this,
-            Main.getInstance().getResource("gui/buildmenu/biomemenu.xml"));
+        this.gui = ChestGui.load(this, Main.getInstance().getResource("gui/buildmenu/biomemenu.xml"));
 
         var title = gui.getTitle();
 

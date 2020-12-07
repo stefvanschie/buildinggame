@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
  *
  * @since 5.3.0
  */
-public class RemoveMenu extends Gui {
+public class RemoveMenu extends ChestGui {
 
     /**
      * The general outline pane
@@ -29,7 +29,7 @@ public class RemoveMenu extends Gui {
      * @param entity the entity to edit
      */
     public RemoveMenu(Plot plot, Entity entity) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Modify entity");
+        super(1, ChatColor.GREEN + "Modify entity");
 
         pane = new OutlinePane(0, 0, 9, 1);
 

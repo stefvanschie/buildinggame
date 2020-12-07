@@ -4,7 +4,7 @@ import be.maximvdw.placeholderapi.PlaceholderAPI;
 import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.InvalidCommandArgument;
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockEdit;
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.NPCCreate;
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.PerWorldInventoryCancel;

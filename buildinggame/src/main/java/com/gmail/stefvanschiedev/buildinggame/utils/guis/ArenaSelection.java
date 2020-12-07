@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
@@ -20,13 +20,13 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 4.0.4
  */
-public class ArenaSelection extends Gui {
+public class ArenaSelection extends ChestGui {
 
     /**
      * Constructs a new ArenaSelection
      */
 	public ArenaSelection() {
-		super(Main.getInstance(), 6, ChatColor.GREEN + "Select an arena");
+		super(6, ChatColor.GREEN + "Select an arena");
 	}
 
 	/**

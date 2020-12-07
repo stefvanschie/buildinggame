@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.mooshroom;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.MushroomCow;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 7.0.0
  */
-class MooshroomTypeSelectionMenu extends Gui {
+class MooshroomTypeSelectionMenu extends ChestGui {
 
     /**
      * Creates a new mushroom type selection menu
@@ -25,7 +24,7 @@ class MooshroomTypeSelectionMenu extends Gui {
      * @since 7.0.0
      */
     MooshroomTypeSelectionMenu(@NotNull MushroomCow mushroomCow) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Change the mooshroom's type");
+        super(1, ChatColor.GREEN + "Change the mooshroom's type");
 
         var pane = new StaticPane(0, 0, 9, 1);
 

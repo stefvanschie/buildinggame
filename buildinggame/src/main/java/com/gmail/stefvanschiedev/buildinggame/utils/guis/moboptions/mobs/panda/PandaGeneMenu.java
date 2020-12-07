@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.panda;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.bukkit.ChatColor;
@@ -23,13 +22,13 @@ import java.util.UUID;
  *
  * @since 7.0.0
  */
-class PandaGeneMenu extends Gui {
+class PandaGeneMenu extends ChestGui {
 
     /**
      * {@inheritDoc}
      */
     PandaGeneMenu(Panda panda) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Change the panda's personality");
+        super(1, ChatColor.GREEN + "Change the panda's personality");
 
         var pane = new OutlinePane(1, 0, 7, 1);
 

@@ -1,9 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 
-import com.github.stefvanschie.inventoryframework.Gui;
-import com.github.stefvanschie.inventoryframework.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
@@ -14,13 +13,13 @@ import org.bukkit.inventory.ItemStack;
  *
  * @since 5.3.0
  */
-class HorseStyleSelectionMenu extends Gui {
+class HorseStyleSelectionMenu extends ChestGui {
 
     /**
      * {@inheritDoc}
      */
     HorseStyleSelectionMenu(Horse horse) {
-        super(Main.getInstance(), 1, ChatColor.GREEN + "Change the horse style");
+        super(1, ChatColor.GREEN + "Change the horse style");
 
         var pane = new OutlinePane(2, 0, 7, 1);
 

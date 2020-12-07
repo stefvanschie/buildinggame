@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu;
 
-import com.github.stefvanschie.inventoryframework.Gui;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -38,7 +38,7 @@ public class PaginatedHeadsMenu extends HeadsMenu {
      * @since 5.6.0
      */
     public PaginatedHeadsMenu(String location) {
-        this.gui = Gui.load(Main.getInstance(), this, Main.getInstance().getResource(location));
+        this.gui = ChestGui.load(this, Main.getInstance().getResource(location));
 
         var title = gui.getTitle();
 
