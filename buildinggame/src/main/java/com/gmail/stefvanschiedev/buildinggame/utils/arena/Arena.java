@@ -1274,7 +1274,9 @@ public class Arena {
                         );
                     });
 
-                    if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+                    boolean worldEditEnabled = Bukkit.getPluginManager().isPluginEnabled("WorldEdit");
+
+                    if (worldEditEnabled && config.getBoolean("reports.enable")) {
                         player.getInventory().setItem(8, new ItemBuilder(player, Material.BOOK)
                             .setDisplayName(ChatColor.RED + "Report build")
                             .movable(false)

@@ -73,6 +73,9 @@ scoreboards:
   win:
     enable: true
 
+reports:
+  enable: true
+
 achievements:
   30-wins:
     stat: first
