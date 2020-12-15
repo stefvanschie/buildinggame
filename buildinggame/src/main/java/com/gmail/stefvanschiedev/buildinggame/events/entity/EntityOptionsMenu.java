@@ -25,11 +25,27 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
+import java.util.EnumSet;
 
 /**
  * Handles opening the options menu for entities
  */
 public class EntityOptionsMenu implements Listener {
+
+    /**
+     * Represents the entity types for which the options menu only opens in case you hold shift.
+     *
+     * @since 9.1.0
+     */
+    @NotNull
+    private static final Collection<EntityType> SHIFT_CLICK_TYPES = EnumSet.of(
+        EntityType.BOAT,
+        EntityType.ITEM_FRAME,
+        EntityType.MINECART
+    );
 
     /**
      * Called whenever a player interacts with an entity
@@ -43,6 +59,13 @@ public class EntityOptionsMenu implements Listener {
             return;
 
         var entity = e.getRightClicked();
+        EntityType entityType = entity.getType();
+        Player player = e.getPlayer();
+
+        if (SHIFT_CLICK_TYPES.contains(entityType) && !player.isSneaking()) {
+            return;
+        }
+
         Plot plot = null;
 
         loop:
@@ -58,9 +81,7 @@ public class EntityOptionsMenu implements Listener {
         if (plot == null)
             return;
 
-        var player = e.getPlayer();
-
-        switch (entity.getType()) {
+        switch (entityType) {
             case CHICKEN:
             case COW:
             case OCELOT:
