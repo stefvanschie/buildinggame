@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
@@ -78,8 +79,9 @@ public class EntityOptionsMenu implements Listener {
             }
         }
 
-        if (plot == null)
+        if (plot == null || plot.getArena().getState() != GameState.BUILDING) {
             return;
+        }
 
         switch (entityType) {
             case CHICKEN:
