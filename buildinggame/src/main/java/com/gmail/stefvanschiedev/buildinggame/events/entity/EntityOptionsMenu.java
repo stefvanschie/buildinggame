@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
@@ -56,8 +57,11 @@ public class EntityOptionsMenu implements Listener {
      */
     @EventHandler
     public void onEntityInteract(PlayerInteractEntityEvent e) {
-        if (e.getHand() != EquipmentSlot.HAND)
+        SettingsManager settingsManager = SettingsManager.getInstance();
+
+        if (e.getHand() != EquipmentSlot.HAND || !settingsManager.getConfig().getBoolean("mobs.options.enable")) {
             return;
+        }
 
         var entity = e.getRightClicked();
         EntityType entityType = entity.getType();
