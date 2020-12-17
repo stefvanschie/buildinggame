@@ -99,6 +99,8 @@ bossbar:
 mobs:
   enable-noai: true
   allow: true
+  options:
+    enable: true
 
 chat:
   adjust: true
