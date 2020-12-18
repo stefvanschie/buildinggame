@@ -91,6 +91,8 @@ blocks:
   blocked:
   - 'command_block'
   - 'command_block_minecart'
+  piston-movement:
+    enable: true
 
 bossbar:
   color: purple

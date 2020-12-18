@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
+import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,11 @@ public class PistonBlockMove implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPistonExtend(BlockPistonExtendEvent e) {
+	    if (!SettingsManager.getInstance().getConfig().getBoolean("blocks.piston-movement.enable")) {
+	        e.setCancelled(true);
+	        return;
+        }
+
 	    Plot plot = Plot.getPlot(e.getBlock().getLocation());
 
 	    if (plot == null) {
@@ -46,6 +52,11 @@ public class PistonBlockMove implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPistonRetract(BlockPistonRetractEvent e) {
+        if (!SettingsManager.getInstance().getConfig().getBoolean("blocks.piston-movement.enable")) {
+            e.setCancelled(true);
+            return;
+        }
+
         Plot plot = Plot.getPlot(e.getBlock().getLocation());
 
         if (plot == null) {
