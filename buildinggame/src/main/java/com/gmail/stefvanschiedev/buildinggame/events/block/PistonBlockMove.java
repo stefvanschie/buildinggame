@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPistonExtendEvent;
@@ -23,8 +24,17 @@ public class PistonBlockMove implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPistonExtend(BlockPistonExtendEvent e) {
-		if (Plot.getPlot(e.getBlock().getLocation()) != null)
-			e.setCancelled(true);
+	    Plot plot = Plot.getPlot(e.getBlock().getLocation());
+
+	    if (plot == null) {
+	        return;
+        }
+
+        for (Block block : e.getBlocks()) {
+            if (!plot.equals(Plot.getPlot(block.getRelative(e.getDirection())))) {
+                e.setCancelled(true);
+            }
+        }
 	}
 
     /**
@@ -36,7 +46,16 @@ public class PistonBlockMove implements Listener {
      */
 	@EventHandler(ignoreCancelled = true)
 	public static void onBlockPistonRetract(BlockPistonRetractEvent e) {
-		if (Plot.getPlot(e.getBlock().getLocation()) != null)
-			e.setCancelled(true);
+        Plot plot = Plot.getPlot(e.getBlock().getLocation());
+
+        if (plot == null) {
+            return;
+        }
+
+        for (Block block : e.getBlocks()) {
+            if (!plot.equals(Plot.getPlot(block))) {
+                e.setCancelled(true);
+            }
+        }
 	}
 }

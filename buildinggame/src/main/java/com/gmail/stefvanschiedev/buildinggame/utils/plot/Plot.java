@@ -809,6 +809,19 @@ public class Plot {
 	}
 
     /**
+     * Returns the plot by the given block based on the boundary
+     *
+     * @param block the block inside the boundary
+     * @return the plot which boundary contains the given block
+     * @since 9.1.0
+     */
+    @Nullable
+    @Contract(pure = true)
+    public static Plot getPlot(@NotNull Block block) {
+        return getPlot(block.getLocation());
+    }
+
+    /**
      * Returns the plot by the given location based on the boundary
      *
      * @param location the location inside the boundary
