@@ -115,6 +115,7 @@ public class EntityOptionsMenu implements Listener {
             case SLIME:
                 new SizeMenu(plot, (Mob) entity).show(player);
                 break;
+            //TODO: add axolotl case
             case PIG:
                 new PigMenu(plot, (Pig) entity).show(player);
                 break;
