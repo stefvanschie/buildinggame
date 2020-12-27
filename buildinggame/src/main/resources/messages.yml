@@ -473,6 +473,10 @@ gui:
       name: "&aSoul"
       lore:
       - "&7Place a soul particle effect"
+    snowflake:
+      name: "&aSnowflake"
+      lore:
+      - "&7Place a snowflake particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:
