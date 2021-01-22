@@ -6,7 +6,7 @@
 
     <groupId>com.gmail.stefvanschiedev</groupId>
     <artifactId>buildinggame-bungeecord</artifactId>
-    <version>9.1.0</version>
+    <version>9.1.1</version>
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
