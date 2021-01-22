@@ -11,6 +11,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -177,6 +178,15 @@ public class ItemBuilder {
     public static class Listener implements org.bukkit.event.Listener {
 
         /**
+         * Inventory types for which the specified item's action should continue as opposed to ignoring it.
+         */
+        @NotNull
+        private static final EnumSet<InventoryType> ALLOWED_INVENTORY_TYPES = EnumSet.of(
+            InventoryType.CRAFTING,
+            InventoryType.CREATIVE
+        );
+
+        /**
          * Handles the interaction between player and their item
          *
          * @param e the event that occurs
@@ -185,7 +195,11 @@ public class ItemBuilder {
         @Contract("null -> fail")
         @EventHandler
         private void onPlayerInteract(PlayerInteractEvent e) {
-            if (e.getItem() == null || e.getHand() != EquipmentSlot.HAND) {
+            Player player = e.getPlayer();
+
+            if (e.getItem() == null
+                || e.getHand() != EquipmentSlot.HAND
+                || !ALLOWED_INVENTORY_TYPES.contains(player.getOpenInventory().getType())) {
                 return;
             }
 
@@ -194,7 +208,7 @@ public class ItemBuilder {
             NamespacedKey playerKey = new NamespacedKey(Main.getInstance(), "player");
             var playerUUID = itemMeta.getPersistentDataContainer().get(playerKey, new UUIDDataType());
 
-            if (playerUUID == null || !e.getPlayer().getUniqueId().equals(playerUUID)) {
+            if (playerUUID == null || !player.getUniqueId().equals(playerUUID)) {
                 return;
             }
 

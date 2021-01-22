@@ -37,21 +37,6 @@ public class FloorMenu extends ChestGui {
     private long floorChange;
 
 	/**
-     * An item stack for going to the previous page
-     */
-	private static final ItemStack PREVIOUS_PAGE;
-
-	/**
-     * An item stack for going to the next page
-     */
-	private static final ItemStack NEXT_PAGE;
-
-	/**
-     * An item stack for closing the menu
-     */
-	private static final ItemStack CLOSE_MENU;
-
-	/**
      * An array of materials which should not be included in the menu
      */
 	private static final Material[] SKIP_MATERIALS = {
@@ -195,7 +180,15 @@ public class FloorMenu extends ChestGui {
         var back = new OutlinePane(4, 5, 1, 1);
         var next = new OutlinePane(6, 5, 1, 1);
 
-        previous.addItem(new GuiItem(PREVIOUS_PAGE, event -> {
+        var previousPage = new ItemStack(Material.SUGAR_CANE);
+        ItemMeta previousPageMeta = previousPage.getItemMeta();
+        previousPageMeta.setDisplayName(MessageManager.translate(MESSAGES
+            .getString("gui.floor.previous-page.name")));
+        previousPageMeta.setLore(MessageManager.translate(MESSAGES
+            .getStringList("gui.floor.previous-page.lores")));
+        previousPage.setItemMeta(previousPageMeta);
+
+        previous.addItem(new GuiItem(previousPage, event -> {
             paginatedPane.setPage(paginatedPane.getPage() - 1);
 
             if (paginatedPane.getPage() == 0)
@@ -210,13 +203,25 @@ public class FloorMenu extends ChestGui {
 
         previous.setVisible(false);
 
-        back.addItem(new GuiItem(CLOSE_MENU, event -> {
+        var closeMenu = new ItemStack(Material.BOOK);
+        ItemMeta closeMenuMeta = closeMenu.getItemMeta();
+        closeMenuMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.close-menu.name")));
+        closeMenuMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.close-menu.lores")));
+        closeMenu.setItemMeta(closeMenuMeta);
+
+        back.addItem(new GuiItem(closeMenu, event -> {
             event.getWhoClicked().closeInventory();
 
             event.setCancelled(true);
         }));
 
-        next.addItem(new GuiItem(NEXT_PAGE, event -> {
+        var nextPage = new ItemStack(Material.SUGAR_CANE);
+        ItemMeta nextPageMeta = nextPage.getItemMeta();
+        nextPageMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.next-page.name")));
+        nextPageMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.next-page.lores")));
+        nextPage.setItemMeta(nextPageMeta);
+
+        next.addItem(new GuiItem(nextPage, event -> {
             paginatedPane.setPage(paginatedPane.getPage() + 1);
 
             if (paginatedPane.getPage() == paginatedPane.getPages() - 1)
@@ -282,26 +287,4 @@ public class FloorMenu extends ChestGui {
 	public long getLastFloorChange() {
 	    return floorChange;
     }
-	
-	static {
-		PREVIOUS_PAGE = new ItemStack(Material.SUGAR_CANE);
-		ItemMeta previousPageMeta = PREVIOUS_PAGE.getItemMeta();
-		previousPageMeta.setDisplayName(MessageManager.translate(MESSAGES
-                .getString("gui.floor.previous-page.name")));
-		previousPageMeta.setLore(MessageManager.translate(MESSAGES
-                .getStringList("gui.floor.previous-page.lores")));
-		PREVIOUS_PAGE.setItemMeta(previousPageMeta);
-		
-		NEXT_PAGE = new ItemStack(Material.SUGAR_CANE);
-		ItemMeta nextPageMeta = NEXT_PAGE.getItemMeta();
-		nextPageMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.next-page.name")));
-		nextPageMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.next-page.lores")));
-		NEXT_PAGE.setItemMeta(nextPageMeta);
-		
-		CLOSE_MENU = new ItemStack(Material.BOOK);
-		ItemMeta closeMenuMeta = CLOSE_MENU.getItemMeta();
-		closeMenuMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.floor.close-menu.name")));
-		closeMenuMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.floor.close-menu.lores")));
-		CLOSE_MENU.setItemMeta(closeMenuMeta);
-	}
 }
