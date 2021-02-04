@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.plot;
 
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.*;
@@ -94,7 +94,8 @@ public class Plot {
 	/**
      * The spawn location for this plot
      */
-	private Location location;
+	@Nullable
+	private PotentialLocation location;
 
 	/**
      * The amount of times a player has voted for this plot
@@ -444,11 +445,11 @@ public class Plot {
      * Returns the spawn location for this plot
      *
      * @return the spawn location
-     * @since 2.1.0
+     * @since 9.1.2
      */
 	@Nullable
     @Contract(pure = true)
-	public Location getLocation() {
+	public PotentialLocation getLocation() {
 		return location;
 	}
 
@@ -777,9 +778,9 @@ public class Plot {
      * Sets the spawn location of this plot
      *
      * @param location the new location
-     * @since 2.1.0
+     * @since 9.1.2
      */
-	public void setLocation(Location location) {
+	public void setLocation(@NotNull PotentialLocation location) {
 		this.location = location;
 	}
 

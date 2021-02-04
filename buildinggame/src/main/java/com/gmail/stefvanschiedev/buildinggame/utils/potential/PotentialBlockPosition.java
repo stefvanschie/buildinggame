@@ -1,4 +1,4 @@
-package com.gmail.stefvanschiedev.buildinggame.utils;
+package com.gmail.stefvanschiedev.buildinggame.utils.potential;
 
 import org.bukkit.World;
 import org.bukkit.block.Block;

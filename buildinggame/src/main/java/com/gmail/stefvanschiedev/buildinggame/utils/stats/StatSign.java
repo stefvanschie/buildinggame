@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.stats;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

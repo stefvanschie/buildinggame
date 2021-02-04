@@ -11,6 +11,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Supplier;
+
 /**
  * This class handles the boundaries
  *
@@ -56,7 +58,7 @@ public final class BoundaryManager {
                     int plotId = plot.getId();
 
                     String worldName = arenas.getString(arenaName + '.' + plotId + ".high.world");
-                    World world = Bukkit.getWorld(worldName);
+                    Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
                     int highX = arenas.getInt(arenaName + '.' + plotId + ".high.x");
                     int highY = arenas.getInt(arenaName + '.' + plotId + ".high.y");
                     int highZ = arenas.getInt(arenaName + '.' + plotId + ".high.z");
@@ -64,16 +66,12 @@ public final class BoundaryManager {
                     int lowY = arenas.getInt(arenaName + '.' + plotId + ".low.y");
                     int lowZ = arenas.getInt(arenaName + '.' + plotId + ".low.z");
 
-                    plot.setBoundary(RegionFactory.createRegion(world, highX, highY, highZ, lowX, lowY, lowZ));
+                    plot.setBoundary(RegionFactory.createRegion(worldSupplier, highX, highY, highZ, lowX, lowY, lowZ));
 
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                         var logger = Main.getInstance().getLogger();
 
-                        if (plot.getBoundary().getWorld() == null)
-                            logger.warning("Unable to load world for plot boundary");
-
-                        logger.info("Loaded boundary for plot " + plotId +
-                            " in arena " + arenaName);
+                        logger.info("Loaded boundary for plot " + plotId + " in arena " + arenaName);
                     }
 				} catch (NullPointerException | IllegalArgumentException e) {
 					plot.setBoundary(null);

@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.mainspawn;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -42,7 +43,7 @@ public final class MainSpawnManager {
 	/**
      * The main spawn location
      */
-	private Location mainSpawn;
+	private PotentialLocation mainSpawn;
 
 	/**
      * The server which contains the main spawn
@@ -62,21 +63,16 @@ public final class MainSpawnManager {
 				SettingsManager.getInstance().save();
 			}
 			
-			setMainSpawn(new Location(Bukkit.getWorld(arenas.getString("main-spawn.world")),
-					arenas.getInt("main-spawn.x"),
-					arenas.getInt("main-spawn.y"),
-					arenas.getInt("main-spawn.z"),
-                    (float) arenas.getDouble("main-spawn.yaw", 0),
-                    (float) arenas.getDouble("main-spawn.pitch", 0)));
+			setMainSpawn(new PotentialLocation(() -> Bukkit.getWorld(arenas.getString("main-spawn.world")),
+                arenas.getInt("main-spawn.x"),
+                arenas.getInt("main-spawn.y"),
+                arenas.getInt("main-spawn.z"),
+                (float) arenas.getDouble("main-spawn.yaw", 0),
+                (float) arenas.getDouble("main-spawn.pitch", 0)));
 			setServer(arenas.getString("main-spawn.server"));
 
 			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-                var logger = Main.getInstance().getLogger();
-
-                if (mainSpawn.getWorld() == null)
-			        logger.warning("Unable to find world for main spawn");
-
-                logger.info("Loaded main spawn");
+                Main.getInstance().getLogger().info("Loaded main spawn");
             }
 		} catch (NullPointerException | IllegalArgumentException e) {
 			setMainSpawn(null);
@@ -92,7 +88,7 @@ public final class MainSpawnManager {
      */
 	@Nullable
 	@Contract(pure = true)
-    public Location getMainSpawn() {
+    public PotentialLocation getMainSpawn() {
 		return mainSpawn;
 	}
 
@@ -113,7 +109,7 @@ public final class MainSpawnManager {
      *
      * @param mainSpawn the new main spawn location
      */
-	public void setMainSpawn(Location mainSpawn) {
+	public void setMainSpawn(PotentialLocation mainSpawn) {
 		this.mainSpawn = mainSpawn;
 	}
 
