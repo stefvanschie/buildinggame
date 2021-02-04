@@ -6,11 +6,12 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu.When;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.*;
 import org.bukkit.*;
@@ -89,7 +90,8 @@ public class Arena {
 	/**
      * The lobby of this arena
      */
-	private Location lobby;
+	@Nullable
+	private PotentialLocation lobby;
 
 	/**
      * The name of this arena
@@ -325,11 +327,11 @@ public class Arena {
      * Returns the lobby for this arena, may return null when the lobby hasn't been set or hasn't been loaded yet
      *
      * @return the lobby
-     * @since 5.5.3
+     * @since 9.1.2
      */
 	@Nullable
 	@Contract(pure = true)
-	public Location getLobby() {
+	public PotentialLocation getLobby() {
 	    return lobby;
     }
 
@@ -771,9 +773,9 @@ public class Arena {
         });
 		
 		if (lobby != null && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
-            player.teleport(lobby);
+            lobby.teleport(player);
         } else {
-		    player.teleport(plot.getLocation());
+            plot.getLocation().teleport(player);
         }
 
 		if (enableLobbyScoreboard && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
@@ -1063,9 +1065,9 @@ public class Arena {
      * Sets a new lobby
      *
      * @param lobby the new lobby
-     * @since 2.1.0
+     * @since 9.1.2
      */
-	public void setLobby(Location lobby) {
+	public void setLobby(@NotNull PotentialLocation lobby) {
 		this.lobby = lobby;
 	}
 
@@ -1377,7 +1379,7 @@ public class Arena {
             getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer -> {
                 var player = gamePlayer.getPlayer();
 
-                player.teleport(plot.getLocation());
+                plot.getLocation().teleport(player);
 
                 giveSubjectMenuItem(player);
 
@@ -1415,7 +1417,7 @@ public class Arena {
 		
 		getUsedPlots().forEach(plot ->
 			plot.getGamePlayers().forEach(gamePlayer -> {
-				gamePlayer.getPlayer().teleport(plot.getLocation());
+                plot.getLocation().teleport(gamePlayer.getPlayer());
 				
 				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages
                         .getStringList("gameStarts.message"));

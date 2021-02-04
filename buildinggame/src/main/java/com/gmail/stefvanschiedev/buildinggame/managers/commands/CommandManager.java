@@ -4,7 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import com.gmail.stefvanschiedev.buildinggame.Main;
-import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
+import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -18,14 +18,11 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ReportMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.RegionFactory;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -35,6 +32,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * This class handles all subcommands for the buildinggame command
@@ -461,8 +459,11 @@ public class CommandManager extends BaseCommand {
 
                         SettingsManager.getInstance().save();
 
-                        Region region =
-                            RegionFactory.createRegion(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ);
+                        String worldName = world.getName();
+                        Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
+
+                        Region region = RegionFactory.createRegion(worldSupplier, highestX, highestY, highestZ, lowestX,
+                            lowestY, lowestZ);
 
                         plot.setBoundary(region);
 
@@ -563,8 +564,11 @@ public class CommandManager extends BaseCommand {
 
                         SettingsManager.getInstance().save();
 
-                        Region region =
-                            RegionFactory.createRegion(world, highestX, highestY, highestZ, lowestX, lowestY, lowestZ);
+                        String worldName = world.getName();
+                        Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
+
+                        Region region = RegionFactory.createRegion(worldSupplier, highestX, highestY, highestZ, lowestX,
+                            lowestY, lowestZ);
                         plot.setFloor(region);
 
                         MessageManager.getInstance().send(player, ChatColor.GREEN + "Floor set!");
@@ -617,7 +621,7 @@ public class CommandManager extends BaseCommand {
     @CommandCompletion("@arenas")
     public void onSetLobby(Player player, Arena arena) {
         Location location = player.getLocation();
-        World world = location.getWorld();
+        String worldName = location.getWorld().getName();
         int blockX = location.getBlockX();
         int blockY = location.getBlockY();
         int blockZ = location.getBlockZ();
@@ -625,7 +629,7 @@ public class CommandManager extends BaseCommand {
         float yaw = location.getYaw();
 
         ARENAS.set(arena.getName() + ".lobby.server", player.getServer().getName());
-        ARENAS.set(arena.getName() + ".lobby.world", world.getName());
+        ARENAS.set(arena.getName() + ".lobby.world", worldName);
         ARENAS.set(arena.getName() + ".lobby.x", blockX);
         ARENAS.set(arena.getName() + ".lobby.y", blockY);
         ARENAS.set(arena.getName() + ".lobby.z", blockZ);
@@ -633,7 +637,7 @@ public class CommandManager extends BaseCommand {
         ARENAS.set(arena.getName() + ".lobby.yaw", yaw);
         SettingsManager.getInstance().save();
 
-        arena.setLobby(new Location(world, blockX, blockY, blockZ, yaw, pitch));
+        arena.setLobby(new PotentialLocation(() -> Bukkit.getWorld(worldName), blockX, blockY, blockZ, yaw, pitch));
 
         MessageManager.getInstance().send(player, MESSAGES.getStringList("commands.setlobby.success"));
     }
@@ -675,19 +679,21 @@ public class CommandManager extends BaseCommand {
         if (ARENAS.contains("main-spawn.world"))
             worlds.remove(ARENAS.getString("main-spawn.world"));
 
-        worlds.add(player.getLocation().getWorld().getName());
+        Location location = player.getLocation();
+
+        worlds.add(location.getWorld().getName());
         CONFIG.set("scoreboards.main.worlds.enable", worlds);
 
         ARENAS.set("main-spawn.server", player.getServer().getName());
-        ARENAS.set("main-spawn.world", player.getLocation().getWorld().getName());
-        ARENAS.set("main-spawn.x", player.getLocation().getBlockX());
-        ARENAS.set("main-spawn.y", player.getLocation().getBlockY());
-        ARENAS.set("main-spawn.z", player.getLocation().getBlockZ());
-        ARENAS.set("main-spawn.pitch", player.getLocation().getPitch());
-        ARENAS.set("main-spawn.yaw", player.getLocation().getYaw());
+        ARENAS.set("main-spawn.world", location.getWorld().getName());
+        ARENAS.set("main-spawn.x", location.getBlockX());
+        ARENAS.set("main-spawn.y", location.getBlockY());
+        ARENAS.set("main-spawn.z", location.getBlockZ());
+        ARENAS.set("main-spawn.pitch", location.getPitch());
+        ARENAS.set("main-spawn.yaw", location.getYaw());
         SettingsManager.getInstance().save();
 
-        MainSpawnManager.getInstance().setMainSpawn(player.getLocation());
+        MainSpawnManager.getInstance().setMainSpawn(new PotentialLocation(location));
         MessageManager.getInstance().send(player, MESSAGES.getStringList("commands.setmainspawn.success"));
     }
 
@@ -803,7 +809,7 @@ public class CommandManager extends BaseCommand {
         String name = arena.getName();
 
         Location location = player.getLocation();
-        World world = location.getWorld();
+        String worldName = location.getWorld().getName();
         int blockX = location.getBlockX();
         int blockY = location.getBlockY();
         int blockZ = location.getBlockZ();
@@ -811,7 +817,7 @@ public class CommandManager extends BaseCommand {
         float yaw = location.getYaw();
 
         ARENAS.set(name + '.' + place + ".server", player.getServer().getName());
-        ARENAS.set(name + '.' + place + ".world", world.getName());
+        ARENAS.set(name + '.' + place + ".world", worldName);
         ARENAS.set(name + '.' + place + ".x", blockX);
         ARENAS.set(name + '.' + place + ".y", blockY);
         ARENAS.set(name + '.' + place + ".z", blockZ);
@@ -821,7 +827,7 @@ public class CommandManager extends BaseCommand {
         SettingsManager.getInstance().save();
 
         Plot plot = new Plot(arena, place);
-        plot.setLocation(new Location(world, blockX, blockY, blockZ, yaw, pitch));
+        plot.setLocation(new PotentialLocation(() -> Bukkit.getWorld(worldName), blockX, blockY, blockZ, yaw, pitch));
 
         arena.addPlot(plot);
         arena.setMaxPlayers(place);

@@ -6,6 +6,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.IdentifiedCallable;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import net.kyori.text.adapter.bukkit.TextAdapter;
 import net.kyori.text.serializer.legacy.LegacyComponentSerializer;
@@ -205,21 +206,23 @@ public class GamePlayer {
      * @param location the location to teleport this player to after it has been connected to the other server
      * @since 4.0.6
      */
-	public void connect(String server, final Location location) {
+	public void connect(String server, final PotentialLocation location) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		if (config.getBoolean("bungeecord.enable"))
+
+		World world = location.getWorld();
+
+		if (config.getBoolean("bungeecord.enable") && world != null)
             BungeeCordHandler.getInstance().connect(BungeeCordHandler.Receiver.BUNGEE, player, server,
                     new IdentifiedCallable() {
                 @Override
                 public void call(String response) {
                     BungeeCordHandler.getInstance().teleport(BungeeCordHandler.Receiver.SUB_SERVER,
-                            player.getName(), location.getWorld().getName(), location.getBlockX(),
-                            location.getBlockY(), location.getBlockZ(), null);
+                        player.getName(), world.getName(), location.getX(), location.getY(), location.getZ(),
+                        null);
                 }
             });
 		else if (location != null)
-			getPlayer().teleport(location);
+		    location.teleport(getPlayer());
     }
 
     /**

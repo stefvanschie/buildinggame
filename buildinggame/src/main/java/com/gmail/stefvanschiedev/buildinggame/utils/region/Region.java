@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +26,7 @@ public class Region {
      * The world this region is located in
      */
     @NotNull
-    private final World world;
+    private final Supplier<World> worldSupplier;
 
     /**
      * The high point x coordinate
@@ -60,7 +61,7 @@ public class Region {
     /**
      * Constructs a new region
      *
-     * @param world the world this region is located in
+     * @param worldSupplier the world this region is located in
      * @param highX the high point x coordinate
      * @param highY the high point y coordinate
      * @param highZ the high point z coordinate
@@ -68,8 +69,9 @@ public class Region {
      * @param lowY the low point y coordinate
      * @param lowZ the low point z coordinate
      */
-    public Region(@NotNull World world, int highX, int highY, int highZ, int lowX, int lowY, int lowZ) {
-        this.world = world;
+    public Region(@NotNull Supplier<World> worldSupplier, int highX, int highY, int highZ, int lowX, int lowY,
+                  int lowZ) {
+        this.worldSupplier = worldSupplier;
         this.highX = highX;
         this.highY = highY;
         this.highZ = highZ;
@@ -79,7 +81,8 @@ public class Region {
     }
 
     /**
-     * Returns a list of all blocks inside the region
+     * Returns a list of all blocks inside the region if the world exists. If the world does not exist, then an empty
+     * list is returned.
      *
      * @return all blocks inside the region
      * @since 5.0.5
@@ -87,6 +90,12 @@ public class Region {
     @NotNull
     @Contract(pure = true)
     public List<Block> getAllBlocks() {
+        World world = worldSupplier.get();
+
+        if (world == null) {
+            return new ArrayList<>(0);
+        }
+
         List<Block> blocks = new ArrayList<>();
 
         for (var x = lowX; x <= highX; x++) {
@@ -95,18 +104,25 @@ public class Region {
                     blocks.add(world.getBlockAt(x, y, z));
             }
         }
+
         return blocks;
     }
 
     /**
-     * Returns the center location of this region
+     * Returns the center location of this region or null if the world does not exist.
      *
      * @return the center
      * @since 5.0.5
      */
-    @NotNull
+    @Nullable
     @Contract(pure = true)
     public Location getCenter() {
+        World world = worldSupplier.get();
+
+        if (world == null) {
+            return null;
+        }
+
         return new Location(world, lowX + (highX - lowX / 2.0), lowY + (highY - lowY / 2.0),
                 lowZ  + (highZ - lowZ / 2.0));
     }
@@ -125,14 +141,20 @@ public class Region {
 
     /**
      * Returns a location that is safe for a player. This includes both blocks being inside the region and being fully
-     * transparent. When no space inside a plot is safe this will return null.
+     * transparent. When no space inside a plot is safe or the world does not exist this will return null.
      *
-     * @return a safe location inside the region or null if there's no safe spot
+     * @return a safe location inside the region or null if there's no safe spot or the world does not exist
      * @since 5.0.5
      */
     @Nullable
     @Contract(pure = true)
     public Location getSafeLocation() {
+        World world = worldSupplier.get();
+
+        if (world == null) {
+            return null;
+        }
+
         Location loc = new Location(world, highX, highY - 1, highZ);
 
         for (var xOffset = 0; xOffset < highX - lowX; xOffset++) {
@@ -169,8 +191,8 @@ public class Region {
      */
     @NotNull
     @Contract(pure = true)
-    public World getWorld() {
-        return world;
+    public Supplier<World> getWorld() {
+        return worldSupplier;
     }
 
     /**
@@ -240,7 +262,7 @@ public class Region {
     }
 
     /**
-     * Returns whether the location is inside the region or not
+     * Returns whether the location is inside the region or not. If the world does not exists, this returns false.
      *
      * @param location the location to test for
      * @return true if the location is inside, false otherwise
@@ -248,14 +270,20 @@ public class Region {
      */
     @Contract(pure = true)
     public boolean isInside(Location location) {
+        World world = worldSupplier.get();
+
+        if (world == null) {
+            return false;
+        }
+
         return location.getWorld().equals(world) && !(location.getBlockX() < lowX || location.getBlockX() > highX) &&
                 !(location.getBlockY() < lowY || location.getBlockY() > highY) &&
                 !(location.getBlockZ() < lowZ || location.getBlockZ() > highZ);
     }
 
     /**
-     * Saves this region to a schematic file. This will do nothing if WorldEdit is not enabled. This will be called
-     * async.
+     * Saves this region to a schematic file. This will do nothing if WorldEdit is not enabled or if the world does not
+     * exist. This will be called async.
      *
      * @param file the file to save the schematic to
      * @param runAfter code that will be ran when this method has completed successfully. May be null.
