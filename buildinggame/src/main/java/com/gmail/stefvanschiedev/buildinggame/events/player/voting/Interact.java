@@ -1,6 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.voting;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -21,7 +22,8 @@ public class Interact implements Listener {
      * @see PlayerInteractEvent
      * @since 2.1.0
      */
-	@EventHandler
+    //essential high priority so vote blocks are handled first
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerInteract(PlayerInteractEvent e) {
         var arena = ArenaManager.getInstance().getArena(e.getPlayer());
 
