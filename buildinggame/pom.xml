@@ -87,7 +87,7 @@
         <dependency>
             <groupId>com.github.EbonJaeger</groupId>
             <artifactId>perworldinventory-kt</artifactId>
-            <version>v2.3.1</version>
+            <version>v2.3.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
