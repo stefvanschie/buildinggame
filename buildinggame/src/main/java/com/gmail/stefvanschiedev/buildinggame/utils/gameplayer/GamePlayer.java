@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.gameplayer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
@@ -297,26 +298,6 @@ public class GamePlayer {
 	}
 
 	/**
-     * Sets the timings for the titles and subtitles
-     *
-     * @param fadeIn the fade in time
-     * @param stay the stay time
-     * @param fadeOut the fade out time
-     * @since 2.1.0
-     */
-	@SuppressWarnings("ConstantConditions")
-	private void setTimes(int fadeIn, int stay, int fadeOut) {
-		try {
-			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
-                    .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"), int.class, int.class, int.class)
-                    .newInstance(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0]
-                            .getField("TIMES").get(null), null, fadeIn, stay, fadeOut));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
      * Returns the title countdown if any exists
      *
      * @return the title countdown
@@ -350,21 +331,17 @@ public class GamePlayer {
 	public void refreshChunk(Chunk chunk) {
         try {
             //unload the chunk (bukkit prevents you from unloading it with internal methods when the player is still there, so make use of packets)
-            sendPacket(getNMSClass("PacketPlayOutUnloadChunk").getConstructor(int.class, int.class)
-                    .newInstance(chunk.getX(), chunk.getZ()));
+            Class<?> unloadPacketClass = getClass("net.minecraft.network.protocol.game.PacketPlayOutUnloadChunk");
 
-            String version = getVersion();
+            sendPacket(unloadPacketClass.getConstructor(int.class, int.class).newInstance(chunk.getX(), chunk.getZ()));
+
+            Class<?> chunkPacketClass = getClass("net.minecraft.network.protocol.game.PacketPlayOutMapChunk");
+            Class<?> chunkClass = getClass("net.minecraft.world.level.chunk.Chunk");
+
+            Object nmsChunk = chunk.getClass().getMethod("getHandle").invoke(chunk);
 
             //send the chunk again
-            if (version.equals("v1_16_R1")) {
-                sendPacket(getNMSClass("PacketPlayOutMapChunk")
-                    .getConstructor(getNMSClass("Chunk"), int.class, boolean.class)
-                    .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF, true));
-            } else if (version.equals("v1_16_R2") || version.equals("v1_16_R3")) {
-                sendPacket(getNMSClass("PacketPlayOutMapChunk")
-                    .getConstructor(getNMSClass("Chunk"), int.class)
-                    .newInstance(chunk.getClass().getMethod("getHandle").invoke(chunk), 0xFFFF));
-            }
+            sendPacket(chunkPacketClass.getConstructor(chunkClass).newInstance(nmsChunk));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
                 InstantiationException e) {
             e.printStackTrace();
@@ -418,21 +395,12 @@ public class GamePlayer {
 	@SuppressWarnings("ConstantConditions")
 	void sendSubtitle(String subtitle) {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		try {
-			setTimes(config.getInt("title.fade-in"), config.getInt("title.stay"),
-                    config.getInt("title.fade-out"));
 
-			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
-                    .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"))
-                    .newInstance(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0]
-                            .getField("SUBTITLE").get(null), getNMSClass("IChatBaseComponent")
-                            .getDeclaredClasses()[0].getMethod("a", String.class).invoke(null,
-                            ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" +
-                                    MessageManager.translate(subtitle, player) + "\"}"))));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        int fadeIn = config.getInt("title.fade-in");
+        int stay = config.getInt("title.stay");
+        int fadeOut = config.getInt("title.fade-out");
+
+        this.player.sendTitle(null, MessageManager.translate(subtitle, player), fadeIn, stay, fadeOut);
 	}
 
 	/**
@@ -443,22 +411,13 @@ public class GamePlayer {
      */
 	@SuppressWarnings("ConstantConditions")
 	void sendTitle(String title) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
-		try {
-			setTimes(config.getInt("title.fade-in"), config.getInt("title.stay"),
-                    config.getInt("title.fade-out"));
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
 
-			sendPacket(getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle")
-                    .getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"))
-                    .newInstance(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0]
-                            .getField("TITLE").get(null), getNMSClass("IChatBaseComponent")
-                            .getDeclaredClasses()[0].getMethod("a", String.class).invoke(null,
-                            ChatColor.translateAlternateColorCodes('&', "{\"text\":\"" +
-                                    title + "\"}"))));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        int fadeIn = config.getInt("title.fade-in");
+        int stay = config.getInt("title.stay");
+        int fadeOut = config.getInt("title.fade-out");
+
+        this.player.sendTitle(MessageManager.translate(title, player), null, fadeIn, stay, fadeOut);
 	}
 
 	/**
@@ -525,9 +484,10 @@ public class GamePlayer {
 	private void sendPacket(Object packet) {
 		try {
 			Object handle = getPlayer().getClass().getMethod("getHandle").invoke(getPlayer());
-			Object playerConnection = handle.getClass().getField("playerConnection").get(handle);
-			playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet"))
-                    .invoke(playerConnection, packet);
+			Object playerConnection = handle.getClass().getField("b").get(handle); //connection
+            Class<?> packetClass = getClass("net.minecraft.network.protocol.Packet");
+
+            playerConnection.getClass().getMethod("sendPacket", packetClass).invoke(playerConnection, packet);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -541,24 +501,13 @@ public class GamePlayer {
      * @since 2.1.0
      */
 	@Nullable
-    private static Class<?> getNMSClass(String name) {
+    private static Class<?> getClass(String name) {
 		try {
-			return Class.forName("net.minecraft.server." + getVersion() + '.' + name);
+			return Class.forName(name);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	/**
-     * Returns the version of the server
-     *
-     * @return the version
-     * @since 2.1.0
-     */
-	@NotNull
-	private static String getVersion() {
-		return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	}
 
     /**

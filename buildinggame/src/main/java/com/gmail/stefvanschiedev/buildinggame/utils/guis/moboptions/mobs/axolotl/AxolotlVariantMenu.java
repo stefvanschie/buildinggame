@@ -5,7 +5,7 @@ import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.Axolotl;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
@@ -23,20 +23,19 @@ class AxolotlVariantMenu extends ChestGui {
      * @param axolotl the axolotl to change
      * @since 10.0.0
      */
-    //TODO: change parameter type to axolotl
-    AxolotlVariantMenu(@NotNull Entity axolotl) {
+    AxolotlVariantMenu(@NotNull Axolotl axolotl) {
         super(1, ChatColor.GREEN + "Axolotl variant");
 
         var pane = new OutlinePane(2, 0, 5, 1);
 
-        //leucistic
-        var leucistic = new ItemStack(Material.PINK_WOOL);
-        ItemMeta leucisticMeta = leucistic.getItemMeta();
-        leucisticMeta.setDisplayName(ChatColor.GREEN + "Leucistic");
-        leucistic.setItemMeta(leucisticMeta);
+        //lucy
+        var lucy = new ItemStack(Material.PINK_WOOL);
+        ItemMeta lucyMeta = lucy.getItemMeta();
+        lucyMeta.setDisplayName(ChatColor.GREEN + "Lucy");
+        lucy.setItemMeta(lucyMeta);
 
-        pane.addItem(new GuiItem(leucistic, event -> {
-            //TODO: change axolotl variant to leucistic
+        pane.addItem(new GuiItem(lucy, event -> {
+            axolotl.setVariant(Axolotl.Variant.LUCY);
 
             event.setCancelled(true);
         }));
@@ -48,7 +47,7 @@ class AxolotlVariantMenu extends ChestGui {
         wild.setItemMeta(wildMeta);
 
         pane.addItem(new GuiItem(wild, event -> {
-            //TODO: change axolotl variant to wild
+            axolotl.setVariant(Axolotl.Variant.WILD);
 
             event.setCancelled(true);
         }));
@@ -60,7 +59,7 @@ class AxolotlVariantMenu extends ChestGui {
         gold.setItemMeta(goldMeta);
 
         pane.addItem(new GuiItem(gold, event -> {
-            //TODO: change axolotl variant to gold
+            axolotl.setVariant(Axolotl.Variant.GOLD);
 
             event.setCancelled(true);
         }));
@@ -72,7 +71,7 @@ class AxolotlVariantMenu extends ChestGui {
         cyan.setItemMeta(cyanMeta);
 
         pane.addItem(new GuiItem(cyan, event -> {
-            //TODO: change axolotl variant to cyan
+            axolotl.setVariant(Axolotl.Variant.CYAN);
 
             event.setCancelled(true);
         }));
@@ -84,7 +83,7 @@ class AxolotlVariantMenu extends ChestGui {
         blue.setItemMeta(blueMeta);
 
         pane.addItem(new GuiItem(blue, event -> {
-            //TODO: change axolotl variant to blue
+            axolotl.setVariant(Axolotl.Variant.BLUE);
 
             event.setCancelled(true);
         }));
