@@ -8,6 +8,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.axolotl.AxolotlMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat.CatMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox.FoxMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
@@ -90,6 +91,7 @@ public class EntityOptionsMenu implements Listener {
         switch (entityType) {
             case CHICKEN:
             case COW:
+            case GOAT:
             case OCELOT:
             case SKELETON_HORSE:
             case POLAR_BEAR:
@@ -114,6 +116,9 @@ public class EntityOptionsMenu implements Listener {
             case MAGMA_CUBE:
             case SLIME:
                 new SizeMenu(plot, (Mob) entity).show(player);
+                break;
+            case AXOLOTL:
+                new AxolotlMenu(plot, (Axolotl) entity).show(player);
                 break;
             case PIG:
                 new PigMenu(plot, (Pig) entity).show(player);
