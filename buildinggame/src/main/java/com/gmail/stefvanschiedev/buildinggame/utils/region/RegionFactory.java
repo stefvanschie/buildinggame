@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Supplier;
+
 /**
  * A factory for creating regions.
  *
@@ -25,8 +27,8 @@ public final class RegionFactory {
      * @return the created region
      * @since 7.0.0
      */
-    public static Region createRegion(@NotNull World world, int highX, int highY, int highZ, int lowX, int lowY,
-                                      int lowZ) {
+    public static Region createRegion(@NotNull Supplier<World> world, int highX, int highY, int highZ, int lowX,
+                                      int lowY, int lowZ) {
         //noinspection IfMayBeConditional
         if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
             return new WorldEditRegion(world, highX, highY, highZ, lowX, lowY, lowZ);

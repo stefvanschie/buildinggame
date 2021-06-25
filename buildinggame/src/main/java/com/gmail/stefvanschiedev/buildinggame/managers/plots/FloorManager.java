@@ -11,6 +11,7 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 /**
@@ -58,7 +59,7 @@ public final class FloorManager {
                     int plotId = plot.getId();
 
                     String worldName = arenas.getString(arenaName + '.' + plotId + ".floor.high.world");
-                    World world = Bukkit.getWorld(worldName);
+                    Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
                     int highX = arenas.getInt(arenaName + '.' + plotId + ".floor.high.x");
                     int highY = arenas.getInt(arenaName + '.' + plotId + ".floor.high.y");
                     int highZ = arenas.getInt(arenaName + '.' + plotId + ".floor.high.z");
@@ -66,16 +67,12 @@ public final class FloorManager {
                     int lowY = arenas.getInt(arenaName + '.' + plotId + ".floor.low.y");
                     int lowZ = arenas.getInt(arenaName + '.' + plotId + ".floor.low.z");
 
-                    plot.setFloor(RegionFactory.createRegion(world, highX, highY, highZ, lowX, lowY, lowZ));
+                    plot.setFloor(RegionFactory.createRegion(worldSupplier, highX, highY, highZ, lowX, lowY, lowZ));
 
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                         Logger logger = Main.getInstance().getLogger();
 
-                        if (plot.getFloor().getWorld() == null)
-                            logger.warning("Unable to load world for plot floor");
-
-                        logger.info("Loaded floor for plot " + plotId +
-                            " in arena " + arenaName);
+                        logger.info("Loaded floor for plot " + plotId + " in arena " + arenaName);
                     }
 				} catch (NullPointerException | IllegalArgumentException npe) {
 					plot.setFloor(null);

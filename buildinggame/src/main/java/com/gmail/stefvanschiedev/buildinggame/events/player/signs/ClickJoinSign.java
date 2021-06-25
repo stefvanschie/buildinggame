@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -88,6 +88,8 @@ public class ClickJoinSign implements Listener {
             else
                 arena.join(player);
         }
+
+        e.setCancelled(true);
 	}
 
 	/**

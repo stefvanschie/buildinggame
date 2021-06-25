@@ -1,7 +1,7 @@
 package com.gmail.stefvanschiedev.buildinggame.managers.plots;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -51,7 +51,7 @@ public final class LocationManager {
         ArenaManager.getInstance().getArenas().forEach(arena ->
 			arena.getPlots().forEach(plot -> {
 				try {
-					plot.setLocation(new Location(Bukkit.getWorld(
+					plot.setLocation(new PotentialLocation(() -> Bukkit.getWorld(
 					        arenas.getString(arena.getName() + '.' + plot.getId() + ".world")),
 							arenas.getInt(arena.getName() + '.' + plot.getId() + ".x"),
 							arenas.getInt(arena.getName() + '.' + plot.getId() + ".y"),
@@ -61,9 +61,6 @@ public final class LocationManager {
 					
 					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
                         var logger = Main.getInstance().getLogger();
-
-                        if (plot.getLocation().getWorld() == null)
-					        logger.warning("Unable to load world for plot spawn");
 
                         logger.info("Loaded spawn for plot " + plot.getId() + " in arena " + arena.getName());
                     }

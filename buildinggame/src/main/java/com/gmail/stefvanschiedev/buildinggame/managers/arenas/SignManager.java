@@ -3,7 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 import java.util.*;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
-import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.*;
 import org.bukkit.block.Block;

@@ -16,6 +16,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.function.Supplier;
 
 /**
  * The same as {@link Region}, but this one is used when WorldEdit is present, so we can do WorldEdit dependent method
@@ -28,8 +29,8 @@ public class WorldEditRegion extends Region {
     /**
      * {@inheritDoc}
      */
-    WorldEditRegion(World world, int highX, int highY, int highZ, int lowX, int lowY, int lowZ) {
-        super(world, highX, highY, highZ, lowX, lowY, lowZ);
+    WorldEditRegion(Supplier<World> worldSupplier, int highX, int highY, int highZ, int lowX, int lowY, int lowZ) {
+        super(worldSupplier, highX, highY, highZ, lowX, lowY, lowZ);
     }
 
     /**
@@ -37,6 +38,12 @@ public class WorldEditRegion extends Region {
      */
     @Override
     public void saveSchematic(@NotNull File file, @Nullable Runnable runAfter) {
+        World world = getWorld().get();
+
+        if (world == null) {
+            return;
+        }
+
         Runnable runnable = () -> {
             try (var closer = Closer.create()) {
                 var fileOutputStream = closer.register(new FileOutputStream(file));
@@ -46,7 +53,7 @@ public class WorldEditRegion extends Region {
 
                 var lowVector = BlockVector3.at(getLowX(), getLowY(), getLowZ());
                 var highVector = BlockVector3.at(getHighX(), getHighY(), getHighZ());
-                var bukkitWorld = new BukkitWorld(getWorld());
+                var bukkitWorld = new BukkitWorld(world);
 
                 var cuboidRegion = new CuboidRegion(bukkitWorld, lowVector, highVector);
                 var blockArrayClipboard = new WorldBackedClipboard(cuboidRegion);

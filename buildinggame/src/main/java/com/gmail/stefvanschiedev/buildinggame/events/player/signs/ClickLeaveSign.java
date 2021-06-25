@@ -1,6 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.PotentialBlockPosition;
+import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
