@@ -193,7 +193,7 @@ public class ItemBuilder {
          * @since 7.0.0
          */
         @Contract("null -> fail")
-        @EventHandler(ignoreCancelled = true)
+        @EventHandler
         private void onPlayerInteract(PlayerInteractEvent e) {
             Player player = e.getPlayer();
 
