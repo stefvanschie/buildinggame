@@ -1,7 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.particle;
 
 import org.bukkit.Location;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -14,17 +13,12 @@ public class Particle {
     /**
      * The location of the particle
      */
-	private final Location location;
+	protected final Location location;
 
 	/**
      * The particle type
      */
 	private final org.bukkit.Particle type;
-
-	/**
-     * The particle data in case needed
-     */
-	private BlockData data;
 
 	/**
      * Constructs a new Particle
@@ -35,18 +29,6 @@ public class Particle {
 	public Particle(Location location, org.bukkit.Particle type) {
 		this.location = location;
 		this.type = type;
-	}
-
-	/**
-     * Constructs a new Particle
-     *
-     * @param location the location this particle is located
-     * @param type the type of this particle
-     * @param data the data of this particle
-     */
-	public Particle(Location location, org.bukkit.Particle type, BlockData data) {
-		this(location, type);
-		this.data = data;
 	}
 
 	/**
@@ -64,10 +46,6 @@ public class Particle {
 
         var world = location.getWorld();
 
-        if (data == null) {
-            world.spawnParticle(type, location, amount, offsetX, offsetY, offsetZ);
-        } else {
-            world.spawnParticle(type, location, amount, offsetX, offsetY, offsetZ, data);
-        }
+        world.spawnParticle(type, location, amount, offsetX, offsetY, offsetZ);
 	}
 }
