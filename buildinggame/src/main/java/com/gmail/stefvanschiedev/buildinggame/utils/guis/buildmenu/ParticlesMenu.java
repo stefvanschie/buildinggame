@@ -6,9 +6,14 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.particle.FallingDustParticle;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
+import com.gmail.stefvanschiedev.buildinggame.utils.particle.RedstoneParticle;
+import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -88,13 +93,24 @@ public class ParticlesMenu {
         if (arena == null)
             return;
 
-        if (particleType == org.bukkit.Particle.FALLING_DUST)
-            arena.getPlot(player).addParticle(event.getCursor() != null ?
-                new Particle(player.getLocation(), org.bukkit.Particle.FALLING_DUST,
-                    Bukkit.createBlockData(event.getCursor().getType())) :
-                new Particle(player.getLocation(), org.bukkit.Particle.FALLING_DUST), player);
-        else
-            arena.getPlot(player).addParticle(new Particle(player.getLocation(), particleType), player);
+        Location location = player.getLocation();
+        Plot plot = arena.getPlot(player);
+
+        if (particleType == org.bukkit.Particle.FALLING_DUST) {
+            Particle particle;
+
+            if (event.getCursor() == null) {
+                particle = new FallingDustParticle(location, Bukkit.createBlockData(Material.SAND));
+            } else {
+                particle = new FallingDustParticle(location, Bukkit.createBlockData(event.getCursor().getType()));
+            }
+
+            plot.addParticle(particle, player);
+        } else if (particleType == org.bukkit.Particle.REDSTONE) {
+            plot.addParticle(new RedstoneParticle(location), player);
+        } else {
+            plot.addParticle(new Particle(location, particleType), player);
+        }
 
         event.setCancelled(true);
     }
