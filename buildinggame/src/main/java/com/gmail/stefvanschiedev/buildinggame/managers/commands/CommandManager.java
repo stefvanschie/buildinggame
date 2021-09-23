@@ -43,21 +43,6 @@ import java.util.function.Supplier;
 public class CommandManager extends BaseCommand {
 
     /**
-     * The arenas YAML configuration
-     */
-    private static final YamlConfiguration ARENAS = SettingsManager.getInstance().getArenas();
-
-    /**
-     * The config YAML configuration
-     */
-    private static final YamlConfiguration CONFIG = SettingsManager.getInstance().getConfig();
-
-    /**
-     * The messages YAML configuration
-     */
-    private static final YamlConfiguration MESSAGES = SettingsManager.getInstance().getMessages();
-
-    /**
      * Called whenever a command sender wants to start a booster
      *
      * @param sender the command sender
@@ -88,16 +73,20 @@ public class CommandManager extends BaseCommand {
     @Description("Create an arena")
     @CommandPermission("bg.createarena")
     public void onCreateArena(CommandSender sender, @Conditions("arenanotexist") @Single String name) {
-        int buildTime = CONFIG.getInt("timers.build");
-        int lobbyTime = CONFIG.getInt("timers.lobby");
-        int voteTime = CONFIG.getInt("timers.vote");
-        int winTime = CONFIG.getInt("timers.win");
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-        ARENAS.set(name + ".mode", "SOLO");
-        ARENAS.set(name + ".timer", buildTime);
-        ARENAS.set(name + ".lobby-timer", lobbyTime);
-        ARENAS.set(name + ".vote-timer", voteTime);
-        ARENAS.set(name + ".win-timer", winTime);
+        int buildTime = config.getInt("timers.build");
+        int lobbyTime = config.getInt("timers.lobby");
+        int voteTime = config.getInt("timers.vote");
+        int winTime = config.getInt("timers.win");
+
+        arenas.set(name + ".mode", "SOLO");
+        arenas.set(name + ".timer", buildTime);
+        arenas.set(name + ".lobby-timer", lobbyTime);
+        arenas.set(name + ".vote-timer", voteTime);
+        arenas.set(name + ".win-timer", winTime);
         SettingsManager.getInstance().save();
 
         Arena arena = new Arena(name);
@@ -109,7 +98,7 @@ public class CommandManager extends BaseCommand {
 
         ArenaManager.getInstance().getArenas().add(arena);
 
-        MESSAGES.getStringList("commands.createarena.success").forEach(message ->
+        messages.getStringList("commands.createarena.success").forEach(message ->
             MessageManager.getInstance().send(sender, message.replace("%arena%", name)));
     }
 
@@ -125,12 +114,15 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.deletearena")
     @CommandCompletion("@arenas")
     public void onDeleteArena(CommandSender sender, Arena arena) {
-        ARENAS.set(arena.getName(), null);
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        arenas.set(arena.getName(), null);
         SettingsManager.getInstance().save();
 
         ArenaManager.getInstance().getArenas().remove(arena);
 
-        MESSAGES.getStringList("commands.deletearena.success").forEach(message ->
+        messages.getStringList("commands.deletearena.success").forEach(message ->
             MessageManager.getInstance().send(sender, message.replace("%arena%", arena.getName())));
     }
 
@@ -147,6 +139,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.deletespawn")
     @CommandCompletion("@arenas @nothing")
     public void onDeleteSpawn(CommandSender sender, Arena arena, int spawn) {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         var plot = arena.getPlot(spawn);
 
         if (plot == null) {
@@ -155,26 +150,26 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        var maxPlayers = ARENAS.getInt(arena.getName() + ".maxplayers");
+        var maxPlayers = arenas.getInt(arena.getName() + ".maxplayers");
 
         arena.removePlot(plot);
 
         for (var i = plot.getId(); i < maxPlayers; i++) {
-            ARENAS.set(arena.getName() + '.' + i, ARENAS.getConfigurationSection(arena.getName() + '.' + i + 1));
+            arenas.set(arena.getName() + '.' + i, arenas.getConfigurationSection(arena.getName() + '.' + i + 1));
 
             if (i != plot.getId()) {
                 arena.getPlot(i).setId(i - 1);
             }
         }
 
-        ARENAS.set(arena.getName() + '.' + maxPlayers, null);
-        ARENAS.set(arena.getName() + ".maxplayers", maxPlayers - 1);
+        arenas.set(arena.getName() + '.' + maxPlayers, null);
+        arenas.set(arena.getName() + ".maxplayers", maxPlayers - 1);
 
         SettingsManager.getInstance().save();
 
         arena.setMaxPlayers(maxPlayers - 1);
 
-        MESSAGES.getStringList("commands.deletespawn.success").forEach(message ->
+        messages.getStringList("commands.deletespawn.success").forEach(message ->
             MessageManager.getInstance().send(sender, message.replace("%place%", plot.getId() + "")));
     }
 
@@ -191,7 +186,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.enablemoney")
     @CommandCompletion("@arenas true|false")
     public void onEnableMoney(CommandSender sender, Arena arena, boolean enableMoney) {
-        ARENAS.set(arena.getName() + ".enable-money", enableMoney);
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
+        arenas.set(arena.getName() + ".enable-money", enableMoney);
 
         arena.setMoneyEnabled(enableMoney);
 
@@ -255,6 +252,8 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.forcetheme")
     @CommandCompletion("@arenas @nothing")
     public void onForceTheme(Player player, String theme) {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         var arena = ArenaManager.getInstance().getArena(player);
 
         if (arena == null) {
@@ -264,7 +263,7 @@ public class CommandManager extends BaseCommand {
 
         arena.getSubjectMenu().forceTheme(theme);
 
-        MESSAGES.getStringList("commands.forcetheme.success").forEach(message ->
+        messages.getStringList("commands.forcetheme.success").forEach(message ->
             MessageManager.getInstance().send(player, message.replace("%theme%", theme)));
     }
 
@@ -280,6 +279,8 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.join")
     @CommandCompletion("@arenas")
     public void onJoin(Player player, @Optional Arena arena) {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         if (arena == null) {
             for (Arena a : ArenaManager.getInstance().getArenas()) {
                 if (!a.canJoin()) {
@@ -290,7 +291,7 @@ public class CommandManager extends BaseCommand {
                 return;
             }
 
-            MessageManager.getInstance().send(player, MESSAGES.getStringList("join.no-arena"));
+            MessageManager.getInstance().send(player, messages.getStringList("join.no-arena"));
             return;
         }
 
@@ -598,7 +599,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setgamemode")
     @CommandCompletion("@arenas @arenamodes")
     public void onSetGameMode(CommandSender sender, Arena arena, ArenaMode arenaMode) {
-        ARENAS.set(arena.getName() + ".mode", arenaMode.toString());
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
+        arenas.set(arena.getName() + ".mode", arenaMode.toString());
         SettingsManager.getInstance().save();
 
         arena.setMode(arenaMode);
@@ -620,6 +623,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setlobby")
     @CommandCompletion("@arenas")
     public void onSetLobby(Player player, Arena arena) {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         Location location = player.getLocation();
         String worldName = location.getWorld().getName();
         int blockX = location.getBlockX();
@@ -628,18 +634,18 @@ public class CommandManager extends BaseCommand {
         float pitch = location.getPitch();
         float yaw = location.getYaw();
 
-        ARENAS.set(arena.getName() + ".lobby.server", player.getServer().getName());
-        ARENAS.set(arena.getName() + ".lobby.world", worldName);
-        ARENAS.set(arena.getName() + ".lobby.x", blockX);
-        ARENAS.set(arena.getName() + ".lobby.y", blockY);
-        ARENAS.set(arena.getName() + ".lobby.z", blockZ);
-        ARENAS.set(arena.getName() + ".lobby.pitch", pitch);
-        ARENAS.set(arena.getName() + ".lobby.yaw", yaw);
+        arenas.set(arena.getName() + ".lobby.server", player.getServer().getName());
+        arenas.set(arena.getName() + ".lobby.world", worldName);
+        arenas.set(arena.getName() + ".lobby.x", blockX);
+        arenas.set(arena.getName() + ".lobby.y", blockY);
+        arenas.set(arena.getName() + ".lobby.z", blockZ);
+        arenas.set(arena.getName() + ".lobby.pitch", pitch);
+        arenas.set(arena.getName() + ".lobby.yaw", yaw);
         SettingsManager.getInstance().save();
 
         arena.setLobby(new PotentialLocation(() -> Bukkit.getWorld(worldName), blockX, blockY, blockZ, yaw, pitch));
 
-        MessageManager.getInstance().send(player, MESSAGES.getStringList("commands.setlobby.success"));
+        MessageManager.getInstance().send(player, messages.getStringList("commands.setlobby.success"));
     }
 
     /**
@@ -655,7 +661,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setlobbytimer")
     @CommandCompletion("@arenas @nothing")
     public void onSetLobbyTimer(CommandSender sender, Arena arena, int seconds) {
-        ARENAS.set(arena.getName() + ".lobby-timer", seconds);
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
+        arenas.set(arena.getName() + ".lobby-timer", seconds);
         SettingsManager.getInstance().save();
 
         arena.setLobbyTimer(new LobbyTimer(seconds, arena));
@@ -674,27 +682,31 @@ public class CommandManager extends BaseCommand {
     @Description("Set the main spawn")
     @CommandPermission("bg.setmainspawn")
     public void onSetMainSpawn(Player player) {
-        List<String> worlds = CONFIG.getStringList("scoreboards.main.worlds.enable");
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-        if (ARENAS.contains("main-spawn.world"))
-            worlds.remove(ARENAS.getString("main-spawn.world"));
+        List<String> worlds = config.getStringList("scoreboards.main.worlds.enable");
+
+        if (arenas.contains("main-spawn.world"))
+            worlds.remove(arenas.getString("main-spawn.world"));
 
         Location location = player.getLocation();
 
         worlds.add(location.getWorld().getName());
-        CONFIG.set("scoreboards.main.worlds.enable", worlds);
+        config.set("scoreboards.main.worlds.enable", worlds);
 
-        ARENAS.set("main-spawn.server", player.getServer().getName());
-        ARENAS.set("main-spawn.world", location.getWorld().getName());
-        ARENAS.set("main-spawn.x", location.getBlockX());
-        ARENAS.set("main-spawn.y", location.getBlockY());
-        ARENAS.set("main-spawn.z", location.getBlockZ());
-        ARENAS.set("main-spawn.pitch", location.getPitch());
-        ARENAS.set("main-spawn.yaw", location.getYaw());
+        arenas.set("main-spawn.server", player.getServer().getName());
+        arenas.set("main-spawn.world", location.getWorld().getName());
+        arenas.set("main-spawn.x", location.getBlockX());
+        arenas.set("main-spawn.y", location.getBlockY());
+        arenas.set("main-spawn.z", location.getBlockZ());
+        arenas.set("main-spawn.pitch", location.getPitch());
+        arenas.set("main-spawn.yaw", location.getYaw());
         SettingsManager.getInstance().save();
 
         MainSpawnManager.getInstance().setMainSpawn(new PotentialLocation(location));
-        MessageManager.getInstance().send(player, MESSAGES.getStringList("commands.setmainspawn.success"));
+        MessageManager.getInstance().send(player, messages.getStringList("commands.setmainspawn.success"));
     }
 
     /**
@@ -710,13 +722,15 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setmatches")
     @CommandCompletion("@arenas @nothing")
     public void onSetMatches(CommandSender sender, Arena arena, int matches) {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
         if (!arena.isEmpty()) {
             MessageManager.getInstance().send(sender, ChatColor.RED +
                 "The arena isn't empty, changing the matches now is likely to cause problems. Please wait until the arena is empty.");
             return;
         }
 
-        ARENAS.set(arena.getName() + ".matches", matches);
+        arenas.set(arena.getName() + ".matches", matches);
         SettingsManager.getInstance().save();
 
         arena.setMaxMatches(matches);
@@ -737,6 +751,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setmaxplayers")
     @CommandCompletion("@arenas @nothing")
     public void onSetMaxPlayers(CommandSender sender, Arena arena, int maxPlayers) {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
         if (arena.getMode() == ArenaMode.SOLO) {
             MessageManager.getInstance().send(sender,
                 ChatColor.RED + "You can only modify the maximum amount of players from arenas which are in team mode");
@@ -755,14 +772,14 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        ARENAS.set(arena.getName() + ".maxplayers", maxPlayers);
+        arenas.set(arena.getName() + ".maxplayers", maxPlayers);
 
         //add parts to config
         for (int i = 0; i < maxPlayers; i++) {
-            if (CONFIG.contains("team-selection.team." + i))
+            if (config.contains("team-selection.team." + i))
                 continue;
 
-            CONFIG.set("team-selection.team." + i + ".id", "paper");
+            config.set("team-selection.team." + i + ".id", "paper");
         }
 
         SettingsManager.getInstance().save();
@@ -785,12 +802,15 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setminplayers")
     @CommandCompletion("@arenas @nothing")
     public void onSetMinPlayers(CommandSender sender, Arena arena, int minPlayers) {
-        ARENAS.set(arena.getName() + ".minplayers", minPlayers);
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        arenas.set(arena.getName() + ".minplayers", minPlayers);
         SettingsManager.getInstance().save();
 
         arena.setMinPlayers(minPlayers);
 
-        MessageManager.getInstance().send(sender, MESSAGES.getStringList("commands.setminplayers.success"));
+        MessageManager.getInstance().send(sender, messages.getStringList("commands.setminplayers.success"));
     }
 
     /**
@@ -805,6 +825,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setspawn")
     @CommandCompletion("@arenas")
     public void onSetSpawn(Player player, Arena arena) {
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         int place = arena.getMaxPlayers() + 1;
         String name = arena.getName();
 
@@ -816,14 +839,14 @@ public class CommandManager extends BaseCommand {
         float pitch = location.getPitch();
         float yaw = location.getYaw();
 
-        ARENAS.set(name + '.' + place + ".server", player.getServer().getName());
-        ARENAS.set(name + '.' + place + ".world", worldName);
-        ARENAS.set(name + '.' + place + ".x", blockX);
-        ARENAS.set(name + '.' + place + ".y", blockY);
-        ARENAS.set(name + '.' + place + ".z", blockZ);
-        ARENAS.set(name + '.' + place + ".pitch", pitch);
-        ARENAS.set(name + '.' + place + ".yaw", yaw);
-        ARENAS.set(name + ".maxplayers", place);
+        arenas.set(name + '.' + place + ".server", player.getServer().getName());
+        arenas.set(name + '.' + place + ".world", worldName);
+        arenas.set(name + '.' + place + ".x", blockX);
+        arenas.set(name + '.' + place + ".y", blockY);
+        arenas.set(name + '.' + place + ".z", blockZ);
+        arenas.set(name + '.' + place + ".pitch", pitch);
+        arenas.set(name + '.' + place + ".yaw", yaw);
+        arenas.set(name + ".maxplayers", place);
         SettingsManager.getInstance().save();
 
         Plot plot = new Plot(arena, place);
@@ -832,7 +855,7 @@ public class CommandManager extends BaseCommand {
         arena.addPlot(plot);
         arena.setMaxPlayers(place);
 
-        MESSAGES.getStringList("commands.setspawn.success").forEach(message ->
+        messages.getStringList("commands.setspawn.success").forEach(message ->
             MessageManager.getInstance().send(player, message.replace("%place%", place + "")));
     }
 
@@ -849,7 +872,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.settimer")
     @CommandCompletion("@arenas @nothing")
     public void onSetTimer(CommandSender sender, Arena arena, int seconds) {
-        ARENAS.set(arena.getName() + ".timer", seconds);
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
+        arenas.set(arena.getName() + ".timer", seconds);
         SettingsManager.getInstance().save();
 
         arena.setBuildTimer(new BuildTimer(seconds, arena));
@@ -870,12 +895,14 @@ public class CommandManager extends BaseCommand {
     @Description("Change a setting")
     @CommandPermission("bg.setting")
     public void onSetting(CommandSender sender, String path, @Split(" ") String[] args) {
-        if (!CONFIG.contains(path)) {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
+        if (!config.contains(path)) {
             MessageManager.getInstance().send(sender, ChatColor.RED + "That setting doesn't exist");
             return;
         }
 
-        if (CONFIG.isList(path)) {
+        if (config.isList(path)) {
             if (args.length < 2) {
                 MessageManager.getInstance().send(sender, ChatColor.RED +
                     "Please specify if you want to add or remove this value and the value");
@@ -884,16 +911,16 @@ public class CommandManager extends BaseCommand {
 
             if (args[0].equalsIgnoreCase("add")) {
                 //add the value
-                List<String> list = CONFIG.getStringList(path);
+                List<String> list = config.getStringList(path);
                 list.add(args[1]);
-                CONFIG.set(path, list);
+                config.set(path, list);
 
                 MessageManager.getInstance().send(sender, ChatColor.GREEN + "Value added to config");
             } else if (args[0].equalsIgnoreCase("remove")) {
                 //remove the value
-                List<String> list = CONFIG.getStringList(path);
+                List<String> list = config.getStringList(path);
                 list.remove(args[1]);
-                CONFIG.set(path, list);
+                config.set(path, list);
 
                 MessageManager.getInstance().send(sender, ChatColor.GREEN + "Value removed from config");
             }
@@ -903,34 +930,34 @@ public class CommandManager extends BaseCommand {
         }
 
         //whole bunch of checking
-        if (CONFIG.isBoolean(path))
-            CONFIG.set(path, Boolean.parseBoolean(args[0]));
-        else if (CONFIG.isDouble(path)) {
+        if (config.isBoolean(path))
+            config.set(path, Boolean.parseBoolean(args[0]));
+        else if (config.isDouble(path)) {
             try {
-                CONFIG.set(path, Double.parseDouble(args[0]));
+                config.set(path, Double.parseDouble(args[0]));
             } catch (NumberFormatException e) {
                 MessageManager.getInstance().send(sender, ChatColor.RED +
                     "Value type isn't the same as in the config, it should be a double");
                 return;
             }
-        } else if (CONFIG.isInt(path)) {
+        } else if (config.isInt(path)) {
             try {
-                CONFIG.set(path, Integer.parseInt(args[0]));
+                config.set(path, Integer.parseInt(args[0]));
             } catch (NumberFormatException e) {
                 MessageManager.getInstance().send(sender, ChatColor.RED +
                     "Value type isn't the same as in the config, it should be an integer");
                 return;
             }
-        } else if (CONFIG.isLong(path)) {
+        } else if (config.isLong(path)) {
             try {
-                CONFIG.set(path, Long.parseLong(args[0]));
+                config.set(path, Long.parseLong(args[0]));
             } catch (NumberFormatException e) {
                 MessageManager.getInstance().send(sender, ChatColor.RED +
                     "Value type isn't the same as in the config, it should be a long");
                 return;
             }
-        } else if (CONFIG.isString(path))
-            CONFIG.set(path, args[0]);
+        } else if (config.isString(path))
+            config.set(path, args[0]);
         else {
             MessageManager.getInstance().send(sender, ChatColor.YELLOW +
                 "Unable to change setting with commands, please change this setting by hand");
@@ -954,7 +981,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setvotetimer")
     @CommandCompletion("@arenas @nothing")
     public void onSetVoteTimer(CommandSender sender, Arena arena, int seconds) {
-        ARENAS.set(arena.getName() + ".vote-timer", seconds);
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
+        arenas.set(arena.getName() + ".vote-timer", seconds);
         SettingsManager.getInstance().save();
 
         arena.setVoteTimer(new VoteTimer(seconds, arena));
@@ -976,7 +1005,9 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.setwintimer")
     @CommandCompletion("@arenas @nothing")
     public void onSetWinTimer(CommandSender sender, Arena arena, int seconds) {
-        ARENAS.set(arena.getName() + ".win-timer", seconds);
+        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
+
+        arenas.set(arena.getName() + ".win-timer", seconds);
         SettingsManager.getInstance().save();
 
         arena.setWinTimer(new WinTimer(seconds, arena));
@@ -1065,6 +1096,8 @@ public class CommandManager extends BaseCommand {
     @Description("Show your stats")
     @CommandPermission("bg.stats")
     public void onStats(Player player) {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         StatManager statManager = StatManager.getInstance();
 
         var playsStat = statManager.getStat(player, StatType.PLAYS);
@@ -1077,7 +1110,7 @@ public class CommandManager extends BaseCommand {
         var pointsGivenStat = statManager.getStat(player, StatType.POINTS_GIVEN);
         var pointsReceivedStat = statManager.getStat(player, StatType.POINTS_RECEIVED);
 
-        MessageManager.translate(MESSAGES.getStringList("commands.stats.success")).forEach(message ->
+        MessageManager.translate(messages.getStringList("commands.stats.success")).forEach(message ->
             MessageManager.getInstance().send(player, message
                 .replace("%stat_plays%", playsStat == null ? "0" : String.valueOf(playsStat.getValue()))
                 .replace("%stat_first%", firstStat == null ? "0" : String.valueOf(firstStat.getValue()))
@@ -1104,6 +1137,8 @@ public class CommandManager extends BaseCommand {
     @CommandPermission("bg.vote")
     @CommandCompletion("@range:1-10")
     public void onVote(Player player, int points) {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
         if (points < 1 || points > 10) {
             MessageManager.getInstance().send(player, ChatColor.RED + "Points can only be between 1 and 10");
             return;
@@ -1129,7 +1164,7 @@ public class CommandManager extends BaseCommand {
         var plot = arena.getVotingPlot();
         plot.addVote(new Vote(points, player));
 
-        MessageManager.getInstance().send(player, MESSAGES.getString("vote.message")
+        MessageManager.getInstance().send(player, messages.getString("vote.message")
             .replace("%playerplot%", plot.getPlayerFormat())
             .replace("%points%", points + ""));
     }

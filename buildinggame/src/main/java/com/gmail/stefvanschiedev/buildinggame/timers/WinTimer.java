@@ -15,11 +15,6 @@ import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 public class WinTimer extends Timer {
 
 	/**
-     * The config.yml YAML configuration
-     */
-	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
-
-	/**
      * Constructs a new WinTimer with the given amount of seconds
      *
      * @param seconds the amount of time
@@ -38,6 +33,8 @@ public class WinTimer extends Timer {
      */
 	@Override
 	public void run() {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+
 		if (!isActive())
 			running = true;
 		if (seconds <= 0) {

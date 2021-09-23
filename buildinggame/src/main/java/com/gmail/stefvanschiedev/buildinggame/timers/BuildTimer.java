@@ -27,16 +27,6 @@ public class BuildTimer extends Timer {
 	private final int originalSeconds;
 
 	/**
-     * The config.yml YAML configuration
-     */
-	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
-
-	/**
-     * The messages.yml YAML configuration
-     */
-	private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-	/**
      * Constructs a new BuildTimer with the given amount of seconds
      *
      * @param seconds the amount of time
@@ -56,6 +46,9 @@ public class BuildTimer extends Timer {
      */
 	@Override
 	public void run() {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
 		running = true;
         var bossBar = arena.getBossBar();
 
