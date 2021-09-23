@@ -19,16 +19,6 @@ import org.jetbrains.annotations.NotNull;
 public class LobbyTimer extends Timer {
 
 	/**
-     * The config.yml YAML configuration
-     */
-	private final YamlConfiguration config = SettingsManager.getInstance().getConfig();
-
-	/**
-     * The messages.yml YAML configuration
-     */
-	private final YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-	/**
      * Constructs a new WaitTimer with the given amount of seconds
      *
      * @param seconds the amount of time
@@ -47,6 +37,9 @@ public class LobbyTimer extends Timer {
      */
 	@Override
 	public void run() {
+        YamlConfiguration config = SettingsManager.getInstance().getConfig();
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
 		if (seconds <= 0) {
 			arena.preStart();
             running = false;
