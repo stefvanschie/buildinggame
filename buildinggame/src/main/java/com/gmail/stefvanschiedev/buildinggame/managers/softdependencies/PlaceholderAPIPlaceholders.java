@@ -8,6 +8,9 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+import java.util.function.BiFunction;
+
 /**
  * Registers placeholder for PlaceholderAPI
  *
@@ -15,45 +18,44 @@ import org.jetbrains.annotations.Nullable;
  */
 public class PlaceholderAPIPlaceholders extends PlaceholderExpansion {
 
-    /**
-     * {@inheritDoc}
-     *
-     * @since 5.5.1
-     */
     @Nullable
     @Contract(pure = true)
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String identifier) {
-        return PlaceholderSupplier.getPlaceholderReplacements().get(identifier).apply(player, identifier);
+        String fullIdentifier = "buildinggame_" + identifier;
+
+        Map<String, BiFunction<OfflinePlayer, String, String>> replacements = PlaceholderSupplier.getPlaceholderReplacements();
+        BiFunction<OfflinePlayer, String, String> replacer = replacements.get(fullIdentifier);
+
+        if (replacer == null) {
+            return null;
+        }
+
+        return replacer.apply(player, fullIdentifier);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @NotNull
+    @Contract(pure = true)
     @Override
     public String getAuthor() {
         return String.join(", ", Main.getInstance().getDescription().getAuthors());
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @NotNull
+    @Contract(pure = true)
     @Override
     public String getVersion() {
         return Main.getInstance().getDescription().getVersion();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @NotNull
+    @Contract(pure = true)
     @Override
     public String getIdentifier() {
         return "buildinggame";
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Contract(pure = true)
     @Override
     public boolean persist() {
         return true;
