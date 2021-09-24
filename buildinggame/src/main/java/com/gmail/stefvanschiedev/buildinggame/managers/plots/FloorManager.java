@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.managers.plots;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.RegionFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -54,29 +55,33 @@ public final class FloorManager {
 
 		ArenaManager.getInstance().getArenas().forEach(arena ->
 			arena.getPlots().forEach(plot -> {
-				try {
-                    String arenaName = arena.getName();
-                    int plotId = plot.getId();
+                String arenaName = arena.getName();
+                int plotId = plot.getId();
 
-                    String worldName = arenas.getString(arenaName + '.' + plotId + ".floor.high.world");
-                    Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
-                    int highX = arenas.getInt(arenaName + '.' + plotId + ".floor.high.x");
-                    int highY = arenas.getInt(arenaName + '.' + plotId + ".floor.high.y");
-                    int highZ = arenas.getInt(arenaName + '.' + plotId + ".floor.high.z");
-                    int lowX = arenas.getInt(arenaName + '.' + plotId + ".floor.low.x");
-                    int lowY = arenas.getInt(arenaName + '.' + plotId + ".floor.low.y");
-                    int lowZ = arenas.getInt(arenaName + '.' + plotId + ".floor.low.z");
+                ConfigurationSection plotSection = arenas.getConfigurationSection(arenaName + '.' + plotId);
 
-                    plot.setFloor(RegionFactory.createRegion(worldSupplier, highX, highY, highZ, lowX, lowY, lowZ));
+                if (!plotSection.contains("floor.high") || !plotSection.contains("floor.low")) {
+                    return;
+                }
 
-					if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-                        Logger logger = Main.getInstance().getLogger();
+                ConfigurationSection floorSection = plotSection.getConfigurationSection("floor");
 
-                        logger.info("Loaded floor for plot " + plotId + " in arena " + arenaName);
-                    }
-				} catch (NullPointerException | IllegalArgumentException npe) {
-					plot.setFloor(null);
-				}
+                String worldName = floorSection.getString("high.world");
+                Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
+                int highX = floorSection.getInt("high.x");
+                int highY = floorSection.getInt("high.y");
+                int highZ = floorSection.getInt("high.z");
+                int lowX = floorSection.getInt("low.x");
+                int lowY = floorSection.getInt("low.y");
+                int lowZ = floorSection.getInt("low.z");
+
+                plot.setFloor(RegionFactory.createRegion(worldSupplier, highX, highY, highZ, lowX, lowY, lowZ));
+
+                if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+                    Logger logger = Main.getInstance().getLogger();
+
+                    logger.info("Loaded floor for plot " + plotId + " in arena " + arenaName);
+                }
 			})
 		);
 	}
