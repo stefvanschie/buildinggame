@@ -57,26 +57,26 @@ public final class MainSpawnManager {
 		mainSpawn = null;
 		YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 
-		try {
-			if (!arenas.contains("main-spawn.server")) {
-				arenas.set("main-spawn.server", Bukkit.getServer().getName());
-				SettingsManager.getInstance().save();
-			}
-			
-			setMainSpawn(new PotentialLocation(() -> Bukkit.getWorld(arenas.getString("main-spawn.world")),
-                arenas.getInt("main-spawn.x"),
-                arenas.getInt("main-spawn.y"),
-                arenas.getInt("main-spawn.z"),
-                (float) arenas.getDouble("main-spawn.yaw", 0),
-                (float) arenas.getDouble("main-spawn.pitch", 0)));
-			setServer(arenas.getString("main-spawn.server"));
+        if (!arenas.contains("main-spawn")) {
+            return;
+        }
 
-			if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
-                Main.getInstance().getLogger().info("Loaded main spawn");
-            }
-		} catch (NullPointerException | IllegalArgumentException e) {
-			setMainSpawn(null);
-		}
+        if (!arenas.contains("main-spawn.server")) {
+            arenas.set("main-spawn.server", Bukkit.getServer().getName());
+            SettingsManager.getInstance().save();
+        }
+
+        setMainSpawn(new PotentialLocation(() -> Bukkit.getWorld(arenas.getString("main-spawn.world")),
+            arenas.getInt("main-spawn.x"),
+            arenas.getInt("main-spawn.y"),
+            arenas.getInt("main-spawn.z"),
+            (float) arenas.getDouble("main-spawn.yaw", 0),
+            (float) arenas.getDouble("main-spawn.pitch", 0)));
+        setServer(arenas.getString("main-spawn.server"));
+
+        if (SettingsManager.getInstance().getConfig().getBoolean("debug")) {
+            Main.getInstance().getLogger().info("Loaded main spawn");
+        }
 	}
 
 	/**
