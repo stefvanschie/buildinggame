@@ -76,11 +76,7 @@ scoreboards:
 reports:
   enable: true
 
-achievements:
-  30-wins:
-    stat: first
-    amount-required: 30
-    message: "&aYou got the 30 wins achievement!"
+achievements: {}
 
 blocked-entities:
 - 'ender_crystal'
@@ -156,8 +152,6 @@ command-whitelist:
 timings:
   lobby-timer:
     at:
-      10:
-      - 'tellraw @a ["",{"text":"Hurry up, ","color":"aqua"},{"selector":"@p","color":"gold","italic":true},{"text":", %arena% is starting soon!","color":"aqua"}]'
     every:
   build-timer:
     at:
