@@ -301,6 +301,7 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new JoinSignCreate(), this);
 			pm.registerEvents(new LeaveSignCreate(), this);
 			pm.registerEvents(new StatSignCreate(), this);
+            pm.registerEvents(new UpdateLoadedSigns(), this);
 			pm.registerEvents(new SpectateSignCreate(), this);
 			pm.registerEvents(new SignBreak(), this);
 			pm.registerEvents(new LiquidFlow(), this);

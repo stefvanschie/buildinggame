@@ -2,7 +2,9 @@ package com.gmail.stefvanschiedev.buildinggame.managers.arenas;
 
 import java.util.*;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.ChunkCoordinates;
 import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
+import com.gmail.stefvanschiedev.buildinggame.utils.SpectateSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import org.bukkit.*;
@@ -20,6 +22,7 @@ import org.bukkit.material.Attachable;
 import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class handles all join, leave and statistic signs
@@ -53,24 +56,28 @@ public final class SignManager {
 	}
 
 	/**
-     * A collection of all random join signs
+     * A map of all random join signs
      */
-	private final Collection<PotentialBlockPosition> randomJoinSigns = new ArrayList<>();
+    @NotNull
+	private final Map<ChunkCoordinates, Collection<PotentialBlockPosition>> randomJoinSigns = new HashMap<>();
 
 	/**
-     * A collection of all leave signs
+     * A map of all leave signs
      */
-	private final Collection<PotentialBlockPosition> leaveSigns = new ArrayList<>();
+    @NotNull
+	private final Map<ChunkCoordinates, Collection<PotentialBlockPosition>> leaveSigns = new HashMap<>();
 
 	/**
      * A collection of all statistic signs
      */
-	private final Collection<StatSign> statSigns = new ArrayList<>();
+    @NotNull
+	private final Collection<StatSign> statSigns = new HashSet<>();
 
     /**
      * A map of all spectate signs
      */
-	private final Map<PotentialBlockPosition, OfflinePlayer> spectateSigns = new HashMap<>();
+    @NotNull
+	private final Map<ChunkCoordinates, Collection<SpectateSign>> spectateSigns = new HashMap<>();
 
 	/**
      * Loads/Reloads all signs
@@ -80,8 +87,10 @@ public final class SignManager {
 	public void setup() {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         YamlConfiguration signs = SettingsManager.getInstance().getSigns();
-		
-		ArenaManager.getInstance().getArenas().forEach(arena -> arena.getSigns().clear());
+
+        for (Arena arena : ArenaManager.getInstance().getArenas()) {
+            arena.clearSigns();
+        }
 
 		randomJoinSigns.clear();
 		leaveSigns.clear();
@@ -95,8 +104,9 @@ public final class SignManager {
 
             var blockPos = new PotentialBlockPosition(() ->
                 Bukkit.getWorld(signs.getString(string + ".world")), x, y, z);
-			
-			if (!signs.contains(string + ".type"))
+            ChunkCoordinates chunkCoordinates = blockPos.getChunkCoordinates();
+
+            if (!signs.contains(string + ".type"))
 				signs.set(string + ".type", "join");
 
             switch (signs.getString(string + ".type")) {
@@ -104,17 +114,19 @@ public final class SignManager {
                     var arena = ArenaManager.getInstance().getArena(signs.getString(string + ".arena"));
 
                     if (arena == null) {
-                        randomJoinSigns.add(blockPos);
+                        randomJoinSigns.putIfAbsent(chunkCoordinates, new HashSet<>());
+                        randomJoinSigns.get(chunkCoordinates).add(blockPos);
                         continue;
                     }
 
-                    arena.getSigns().add(blockPos);
+                    arena.addSign(blockPos);
 
                     if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found join sign for arena " + arena.getName());
                     break;
                 case "leave":
-                    leaveSigns.add(blockPos);
+                    leaveSigns.putIfAbsent(chunkCoordinates, new HashSet<>());
+                    leaveSigns.get(chunkCoordinates).add(blockPos);
 
                     if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found leave sign");
@@ -127,8 +139,10 @@ public final class SignManager {
                         Main.getInstance().getLogger().info("Found stat sign");
                     break;
                 case "spectate":
-                    spectateSigns.put(blockPos, Bukkit.getOfflinePlayer(UUID.fromString(signs.getString(string +
-                            ".player"))));
+                    UUID uuid = UUID.fromString(signs.getString(string + ".player"));
+
+                    spectateSigns.putIfAbsent(chunkCoordinates, new HashSet<>());
+                    spectateSigns.get(chunkCoordinates).add(new SpectateSign(blockPos, Bukkit.getOfflinePlayer(uuid)));
 
                     if (config.getBoolean("debug"))
                         Main.getInstance().getLogger().info("Found spectate sign");
@@ -163,32 +177,57 @@ public final class SignManager {
      * @since 3.1.0
      */
 	private void updateSigns() {
-	    updateSpectateSigns();
-		updateLeaveSigns();
-		updateRandomJoinSigns();
-		updateJoinSigns();
+        for (SpectateSign spectateSign : getSpectateSigns()) {
+            updateSpectateSign(spectateSign);
+        }
+
+        for (PotentialBlockPosition position : getLeaveSigns()) {
+            updateLeaveSign(position);
+        }
+
+        for (PotentialBlockPosition position : getRandomJoinSigns()) {
+            updateRandomJoinSign(position);
+        }
+
+        for (Arena arena : ArenaManager.getInstance().getArenas()) {
+            updateJoinSigns(arena);
+        }
 	}
 
-	/**
-     * Updates all join signs
-     *
-     * @since 2.1.0
-     */
-	private void updateJoinSigns() {
-		ArenaManager.getInstance().getArenas().forEach(this::updateJoinSigns);
-	}
-
-	/**
-     * Updates all join signs for the given arena
+    /**
+     * Updates all join signs for the given arena. This only updates the signs that are in loaded chunks.
      *
      * @param arena the arena to update the join signs for
      * @see Arena
      * @since 2.1.0
      */
-	@Contract("null -> fail")
-    public void updateJoinSigns(Arena arena) {
+    public void updateJoinSigns(@NotNull Arena arena) {
+        for (PotentialBlockPosition position : arena.getSigns()) {
+            if (!position.isLoaded()) {
+                continue;
+            }
+
+            updateJoinSign(arena, position);
+        }
+    }
+
+	/**
+     * Updates all join signs for the given arena
+     *
+     * @param arena the arena to update the join signs for
+     * @param blockPos the block position of the sign to update
+     * @see Arena
+     * @since 2.1.0
+     */
+    public void updateJoinSign(@NotNull Arena arena, @NotNull PotentialBlockPosition blockPos) {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        Sign sign = tryGetSign(blockPos);
+
+        if (sign == null) {
+            return;
+        }
 
         if (config.getBoolean("signs.glass-colors-enabled"))
             updateBlockBehindJoinSigns(arena);
@@ -223,22 +262,12 @@ public final class SignManager {
             BungeeCordHandler.getInstance().sign(BungeeCordHandler.Receiver.SUB_SERVER, arena, line1, line2, line3,
                     line4, null);
 
-		arena.getSigns().forEach(blockPos -> {
-            Block block = blockPos.getBlock();
+        sign.setLine(0, line1);
+        sign.setLine(1, line2);
+        sign.setLine(2, line3);
+        sign.setLine(3, line4);
 
-            if (block == null || !(block.getState() instanceof Sign)) {
-                return;
-            }
-
-            Sign sign = (Sign) block.getState();
-
-            sign.setLine(0, line1);
-            sign.setLine(1, line2);
-            sign.setLine(2, line3);
-            sign.setLine(3, line4);
-
-            sign.update();
-		});
+        sign.update();
 	}
 
 	/**
@@ -246,25 +275,21 @@ public final class SignManager {
      *
      * @since 4.0.6
      */
-	private void updateRandomJoinSigns() {
+	private void updateRandomJoinSign(@NotNull PotentialBlockPosition blockPos) {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
-        randomJoinSigns.forEach(blockPos -> {
-            Block block = blockPos.getBlock();
+        Sign sign = tryGetSign(blockPos);
 
-            if (block == null || !(block.getState() instanceof Sign)) {
-                return;
-            }
+        if (sign == null) {
+            return;
+        }
 
-            Sign sign = (Sign) block.getState();
+        sign.setLine(0, MessageManager.translate(messages.getString("signs.join.random.line-1")));
+        sign.setLine(1, MessageManager.translate(messages.getString("signs.join.random.line-2")));
+        sign.setLine(2, MessageManager.translate(messages.getString("signs.join.random.line-3")));
+        sign.setLine(3, MessageManager.translate(messages.getString("signs.join.random.line-4")));
 
-            sign.setLine(0, MessageManager.translate(messages.getString("signs.join.random.line-1")));
-            sign.setLine(1, MessageManager.translate(messages.getString("signs.join.random.line-2")));
-            sign.setLine(2, MessageManager.translate(messages.getString("signs.join.random.line-3")));
-            sign.setLine(3, MessageManager.translate(messages.getString("signs.join.random.line-4")));
-
-            sign.update();
-        });
+        sign.update();
     }
 
     /**
@@ -272,25 +297,21 @@ public final class SignManager {
      *
      * @since 3.1.0
      */
-	private void updateLeaveSigns() {
+	private void updateLeaveSign(@NotNull PotentialBlockPosition blockPos) {
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
-		leaveSigns.forEach(blockPos -> {
-            Block block = blockPos.getBlock();
 
-            if (block == null || !(block.getState() instanceof Sign)) {
-                return;
-            }
+        Sign sign = tryGetSign(blockPos);
 
-            Sign sign = (Sign) block.getState();
+        if (sign == null) {
+            return;
+        }
 
-			sign.setLine(0, MessageManager.translate(messages.getString("signs.leave.line-1")));
-			sign.setLine(1, MessageManager.translate(messages.getString("signs.leave.line-2")));
-			sign.setLine(2, MessageManager.translate(messages.getString("signs.leave.line-3")));
-			sign.setLine(3, MessageManager.translate(messages.getString("signs.leave.line-4")));
+        sign.setLine(0, MessageManager.translate(messages.getString("signs.leave.line-1")));
+        sign.setLine(1, MessageManager.translate(messages.getString("signs.leave.line-2")));
+        sign.setLine(2, MessageManager.translate(messages.getString("signs.leave.line-3")));
+        sign.setLine(3, MessageManager.translate(messages.getString("signs.leave.line-4")));
 
-			sign.update();
-		});
+        sign.update();
 	}
 
     /**
@@ -298,22 +319,69 @@ public final class SignManager {
      *
      * @since 5.4.0
      */
-	private void updateSpectateSigns() {
-        spectateSigns.forEach((blockPos, offlinePlayer) -> {
-            Block block = blockPos.getBlock();
+	private void updateSpectateSign(@NotNull SpectateSign spectateSign) {
+        Sign sign = tryGetSign(spectateSign.getPotentialBlockPosition());
 
-            if (block == null || !(block.getState() instanceof Sign)) {
-                return;
+        if (sign == null) {
+            return;
+        }
+
+        sign.setLine(0, ChatColor.BOLD + "Building Game");
+        sign.setLine(1, "spectate");
+        sign.setLine(2, ChatColor.UNDERLINE + spectateSign.getOfflinePlayer().getName());
+
+        sign.update();
+    }
+
+    /**
+     * Updates all the signs in the given chunk.
+     *
+     * @param chunkCoordinates the chunk for which to load all signs contained herein.
+     * @since 10.0.3
+     */
+    public void updateSigns(@NotNull ChunkCoordinates chunkCoordinates) {
+        for (Arena arena : ArenaManager.getInstance().getArenas()) {
+            for (PotentialBlockPosition position : arena.getSigns(chunkCoordinates)) {
+                updateJoinSign(arena, position);
             }
+        }
 
-            Sign sign = (Sign) block.getState();
+        for (PotentialBlockPosition position : this.randomJoinSigns.getOrDefault(chunkCoordinates, new HashSet<>())) {
+            updateRandomJoinSign(position);
+        }
 
-            sign.setLine(0, ChatColor.BOLD + "Building Game");
-            sign.setLine(1, "spectate");
-            sign.setLine(2, ChatColor.UNDERLINE + offlinePlayer.getName());
+        for (PotentialBlockPosition position : this.leaveSigns.getOrDefault(chunkCoordinates, new HashSet<>())) {
+            updateLeaveSign(position);
+        }
 
-            sign.update();
-        });
+        for (SpectateSign spectateSign : this.spectateSigns.getOrDefault(chunkCoordinates, new HashSet<>())) {
+            updateSpectateSign(spectateSign);
+        }
+    }
+
+    /**
+     * Tries to get a sign from the given block position. This will return null if the location at the given position is
+     * not loaded or, if the location is loaded, the block at the given location is not a sign. If this succeeds, it
+     * will return the sign at the given position.
+     *
+     * @param position the position of the sign
+     * @return the sign, or null
+     * @since 10.0.3
+     */
+    @Nullable
+    @Contract(pure = true)
+    private Sign tryGetSign(@NotNull PotentialBlockPosition position) {
+        if (!position.isLoaded()) {
+            return null;
+        }
+
+        Block block = position.getBlock();
+
+        if (block == null || !(block.getState() instanceof Sign)) {
+            return null;
+        }
+
+        return (Sign) block.getState();
     }
 
 	/**
@@ -325,7 +393,13 @@ public final class SignManager {
 	@NotNull
 	@Contract(pure = true)
     public Collection<PotentialBlockPosition> getRandomJoinSigns() {
-	    return randomJoinSigns;
+        Collection<PotentialBlockPosition> allPositions = new HashSet<>();
+
+        for (Collection<PotentialBlockPosition> positions : this.randomJoinSigns.values()) {
+            allPositions.addAll(positions);
+        }
+
+        return allPositions;
     }
 
     /**
@@ -337,7 +411,13 @@ public final class SignManager {
     @NotNull
 	@Contract(pure = true)
     public Collection<PotentialBlockPosition> getLeaveSigns() {
-		return leaveSigns;
+        Collection<PotentialBlockPosition> allPositions = new HashSet<>();
+
+        for (Collection<PotentialBlockPosition> positions : this.leaveSigns.values()) {
+            allPositions.addAll(positions);
+        }
+
+        return allPositions;
 	}
 
     /**
@@ -348,8 +428,14 @@ public final class SignManager {
      */
     @NotNull
     @Contract(pure = true)
-    public Map<PotentialBlockPosition, OfflinePlayer> getSpectateSigns() {
-        return spectateSigns;
+    public Collection<SpectateSign> getSpectateSigns() {
+        Collection<SpectateSign> allSigns = new HashSet<>();
+
+        for (Collection<SpectateSign> signs : this.spectateSigns.values()) {
+            allSigns.addAll(signs);
+        }
+
+        return allSigns;
     }
 
     /**
@@ -371,6 +457,10 @@ public final class SignManager {
     @SuppressWarnings("deprecation")
     private void updateBlockBehindJoinSigns(@NotNull Arena arena){
         arena.getSigns().forEach(sign -> {
+            if (!sign.isLoaded()) {
+                return;
+            }
+
             MaterialData signMaterialData = sign.getBlock().getState().getData();
 
             if (signMaterialData instanceof Attachable) {
