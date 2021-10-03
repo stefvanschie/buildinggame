@@ -85,7 +85,7 @@ public class Arena {
 	/**
      * A list of all join signs belonging to this arena
      */
-	private final Collection<PotentialBlockPosition> signs = new ArrayList<>();
+	private final Map<ChunkCoordinates, Collection<PotentialBlockPosition>> signs = new HashMap<>();
 
 	/**
      * The lobby of this arena
@@ -465,7 +465,13 @@ public class Arena {
 	@NotNull
     @Contract(pure = true)
 	public Collection<PotentialBlockPosition> getSigns() {
-		return signs;
+        Collection<PotentialBlockPosition> allPositions = new HashSet<>();
+
+        for (Collection<PotentialBlockPosition> positions : signs.values()) {
+            allPositions.addAll(positions);
+        }
+
+		return allPositions;
 	}
 
 	/**
@@ -1584,6 +1590,40 @@ public class Arena {
 
         return ((getState() == GameState.STARTING || getState() == GameState.WAITING || getState() == GameState.BUILDING) &&
             (joinInGame || getState() != GameState.BUILDING) && !isFull());
+    }
+
+    /**
+     * Adds the sign of the given position to this arena.
+     *
+     * @param position the position to add
+     * @since 10.0.3
+     */
+    public void addSign(@NotNull PotentialBlockPosition position) {
+        this.signs.putIfAbsent(position.getChunkCoordinates(), new HashSet<>());
+        this.signs.get(position.getChunkCoordinates()).add(position);
+    }
+
+    /**
+     * Gets a collection of signs in the given chunk. If no signs are in the given chunk, an empty collection is
+     * returned. The returned collection si unmodifiable.
+     *
+     * @param chunkCoordinates the chunk coordinates of the signs to get
+     * @return the signs in the given chunk
+     * @since 10.0.3
+     */
+    @NotNull
+    @Contract(pure = true)
+    public Collection<? extends PotentialBlockPosition> getSigns(@NotNull ChunkCoordinates chunkCoordinates) {
+        return Collections.unmodifiableCollection(this.signs.getOrDefault(chunkCoordinates, new HashSet<>()));
+    }
+
+    /**
+     * Clears all the signs of this arena.
+     *
+     * @since 10.0.3
+     */
+    public void clearSigns() {
+        this.signs.clear();
     }
 
     /**

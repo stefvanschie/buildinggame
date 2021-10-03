@@ -1,7 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.potential;
 
+import com.gmail.stefvanschiedev.buildinggame.utils.ChunkCoordinates;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,5 +60,35 @@ public class PotentialBlockPosition {
         }
 
         return world.getBlockAt(x, y, z);
+    }
+
+    /**
+     * Gets whether this position is loaded. This position is loaded iff. the world in which it resides exists and is
+     * loaded and the chunk this position is in is also loaded.
+     *
+     * @return whether this position is loaded.
+     * @since 10.0.3
+     */
+    @Contract(pure = true)
+    public boolean isLoaded() {
+        World world = worldSupplier.get();
+
+        if (world == null) {
+            return false;
+        }
+
+        return world.isChunkLoaded(x >> 4, z >> 4);
+    }
+
+    /**
+     * Gets a pair of chunk coordinates in which this block position is contained.
+     *
+     * @return chunk coordinates of this position
+     * @since 10.0.3
+     */
+    @NotNull
+    @Contract(pure = true)
+    public ChunkCoordinates getChunkCoordinates() {
+        return new ChunkCoordinates(x >> 4, z >> 4);
     }
 }

@@ -3,7 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.events.player.signs;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
+import com.gmail.stefvanschiedev.buildinggame.utils.SpectateSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import org.bukkit.ChatColor;
@@ -17,9 +17,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
 
 /**
  * Handles players clicking on a leave sign
@@ -48,15 +47,14 @@ public class ClickSpectateSign implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || !(state instanceof Sign))
 			return;
 
-        for (Map.Entry<PotentialBlockPosition, OfflinePlayer> entry :
-            SignManager.getInstance().getSpectateSigns().entrySet()) {
-            Block block = entry.getKey().getBlock();
+        for (SpectateSign spectateSign : SignManager.getInstance().getSpectateSigns()) {
+            Block block = spectateSign.getPotentialBlockPosition().getBlock();
 
-            if (block == null || !block.equals(clickedBlock)) {
+            if (!clickedBlock.equals(block)) {
                 continue;
             }
 
-            OfflinePlayer offlinePlayer = entry.getValue();
+            OfflinePlayer offlinePlayer = spectateSign.getOfflinePlayer();
 
             if (!offlinePlayer.isOnline()) {
                 MessageManager.getInstance().send(player, ChatColor.RED + offlinePlayer.getName() + " is offline");
@@ -84,8 +82,8 @@ public class ClickSpectateSign implements Listener {
      * @since 5.4.0
      */
     @Nullable
-    @Contract(pure = true, value = "null, _ -> fail; !null, null -> null")
-    private static GamePlayer getPlayer(Arena arena, Player player) {
+    @Contract(pure = true, value = "_, null -> null")
+    private static GamePlayer getPlayer(@NotNull Arena arena, @Nullable Player player) {
         for (var plot : arena.getUsedPlots()) {
             for (var gamePlayer : plot.getAllGamePlayers()) {
                 if (gamePlayer.getPlayer().equals(player))
