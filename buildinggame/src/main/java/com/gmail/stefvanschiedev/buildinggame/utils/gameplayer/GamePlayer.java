@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.gameplayer;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -338,13 +339,27 @@ public class GamePlayer {
 
             sendPacket(unloadPacketClass.getConstructor(int.class, int.class).newInstance(chunk.getX(), chunk.getZ()));
 
-            Class<?> chunkPacketClass = getClass("net.minecraft.network.protocol.game.PacketPlayOutMapChunk");
+            Class<?> chunkPacketClass = getClass("net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket");
             Class<?> chunkClass = getClass("net.minecraft.world.level.chunk.Chunk");
+            Class<?> lightEngineClass = getClass("net.minecraft.world.level.lighting.LightEngine");
 
             Object nmsChunk = chunk.getClass().getMethod("getHandle").invoke(chunk);
 
+            World world = chunk.getWorld();
+
+            Object nmsWorld = world.getClass().getMethod("getHandle").invoke(world);
+            Object lightEngine = nmsWorld.getClass().getMethod("l_").invoke(nmsWorld);
+
+            Constructor<?> packetConstructor = chunkPacketClass.getConstructor(
+                chunkClass,
+                lightEngineClass,
+                BitSet.class,
+                BitSet.class,
+                boolean.class
+            );
+
             //send the chunk again
-            sendPacket(chunkPacketClass.getConstructor(chunkClass).newInstance(nmsChunk));
+            sendPacket(packetConstructor.newInstance(nmsChunk, lightEngine, null, null, true));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
                 InstantiationException e) {
             e.printStackTrace();
@@ -490,7 +505,7 @@ public class GamePlayer {
 			Object playerConnection = handle.getClass().getField("b").get(handle); //connection
             Class<?> packetClass = getClass("net.minecraft.network.protocol.Packet");
 
-            playerConnection.getClass().getMethod("sendPacket", packetClass).invoke(playerConnection, packet);
+            playerConnection.getClass().getMethod("a", packetClass).invoke(playerConnection, packet); //sendPacket
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -4440,18 +4440,30 @@ gui:
     lores:
     - "&7Change the biome of your plot"
     title: "&aBiomes"
-    snowy-tundra:
-      name: "&aSnowy Tundra"
+    snowy-plains:
+      name: "&aSnowy Plains"
       lores:
-      - "&7Change the biome to Snowy Tundra"
+      - "&7Change the biome to Snowy Plains"
     taiga:
       name: "&aTaiga"
       lores:
       - "&7Change the biome to Taiga"
-    mountains:
-      name: "&aMountains"
+    windswept-hills:
+      name: "&aWindswept Hills"
       lores:
-      - "&7Change the biome to Mountains"
+        - "&7Change the biome to Windswept Hills"
+    meadow:
+      name: "&aMeadow"
+      lores:
+      - "&7Change the biome to Meadow"
+    frozen-peaks:
+      name: "&aFrozen Peaks"
+      lores:
+        - "&7Change the biome to Frozen Peaks"
+    stony-peaks:
+      name: "&aStony Peaks"
+      lores:
+        - "&7Change the biome to Stony Peaks"
     plains:
       name: "&aPlains"
       lores:

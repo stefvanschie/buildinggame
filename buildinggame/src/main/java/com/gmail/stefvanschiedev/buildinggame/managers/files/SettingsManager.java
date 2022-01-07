@@ -141,6 +141,11 @@ public final class SettingsManager {
      */
 	private static final Map<String, String> RELOCATED_SETTINGS_LOCATIONS = new HashMap<>();
 
+    /**
+     * A map containing the previous location of a key/value pair in the messages.yml and the new location
+     */
+    private static final Map<String, String> RELOCATED_MESSAGES_LOCATIONS = new HashMap<>();
+
 	/**
      * Loads/Reloads all files and YAML configurations
      *
@@ -578,6 +583,16 @@ public final class SettingsManager {
      * @since 2.1.0
      */
 	private void generateMessages(boolean save) {
+        //relocate messages
+        RELOCATED_MESSAGES_LOCATIONS.forEach((originalKey, newKey) -> {
+            //ignore already adjusted messages
+            if (messages.contains(newKey))
+                return;
+
+            messages.set(newKey, messages.get(originalKey));
+            messages.set(originalKey, null);
+        });
+
 		int settings = 0;
 		int addedSettings = 0;
 		
@@ -651,5 +666,8 @@ public final class SettingsManager {
         RELOCATED_SETTINGS_LOCATIONS.put("title.fade_in", "title.fade-in");
         RELOCATED_SETTINGS_LOCATIONS.put("title.fade_out", "title.fade-out");
         RELOCATED_SETTINGS_LOCATIONS.put("title.syncronize", "title.synchronize");
+
+        RELOCATED_MESSAGES_LOCATIONS.put("gui.biome.snowy-tundra", "gui.biome.snowy-plains");
+        RELOCATED_MESSAGES_LOCATIONS.put("gui.biome.mountains", "gui.biome.windswept-hills");
     }
 }
