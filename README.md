@@ -1,6 +1,6 @@
 # Building Game <a href="https://discord.gg/5AJEGXG"><img align="right" src="https://img.shields.io/discord/389784128700153868" alt="Discord guild"></a>
 
-*This plugin works for Minecraft version 1.17*
+*This plugin works for Minecraft version 1.18*
 
 The Building Game is a plugin in which you compete against other users by making the best building. You first vote on a theme you will base your building on. After that you get a set amount of time to make your building. After this time is up, you go through everyone's plot and vote on how good you think each person's building is. The one with the highest amount of points at the end wins.
 

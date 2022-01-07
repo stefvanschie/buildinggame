@@ -2,12 +2,12 @@
 <gui title="*gui.options-title" rows="3">
     <outlinepane x="0" y="0" length="9" height="3">
         <item id="ice" onClick="biomeClick">
-            <displayname>*gui.biome.snowy-tundra.name</displayname>
+            <displayname>*gui.biome.snowy-plains.name</displayname>
             <lore>
-                <line>*gui.biome.snowy-tundra.lores</line>
+                <line>*gui.biome.snowy-plains.lores</line>
             </lore>
             <properties>
-                <property type="biome">SNOWY_TUNDRA</property>
+                <property type="biome">SNOWY_PLAINS</property>
             </properties>
         </item>
         <item id="spruce_log" onClick="biomeClick">
@@ -19,13 +19,40 @@
                 <property type="biome">TAIGA</property>
             </properties>
         </item>
-        <item id="stone" onClick="biomeClick">
-            <displayname>*gui.biome.mountains.name</displayname>
+        <item id="emerald_ore" onClick="biomeClick">
+            <displayname>*gui.biome.windswept-hills.name</displayname>
             <lore>
-                <line>*gui.biome.mountains.lores</line>
+                <line>*gui.biome.windswept-hills.lores</line>
             </lore>
             <properties>
-                <property type="biome">MOUNTAINS</property>
+                <property type="biome">WINDSWEPT_HILLS</property>
+            </properties>
+        </item>
+        <item id="dandelion" onClick="biomeClick">
+            <displayname>*gui.biome.meadow.name</displayname>
+            <lore>
+                <line>*gui.biome.meadow.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">MEADOW</property>
+            </properties>
+        </item>
+        <item id="packed_ice" onClick="biomeClick">
+            <displayname>*gui.biome.frozen-peaks.name</displayname>
+            <lore>
+                <line>*gui.biome.frozen-peaks.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">FROZEN_PEAKS</property>
+            </properties>
+        </item>
+        <item id="stone" onClick="biomeClick">
+            <displayname>*gui.biome.stony-peaks.name</displayname>
+            <lore>
+                <line>*gui.biome.stony-peaks.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">STONY_PEAKS</property>
             </properties>
         </item>
         <item id="grass" onClick="biomeClick">
