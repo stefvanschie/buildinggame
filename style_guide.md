@@ -1,14 +1,85 @@
 This file is an addition to Google's Java Style Guide which you can view [here](https://google.github.io/styleguide/javaguide.html).
 All the text underneath are only the points in which the styling of this project differs from Google's Style Guide.
 
+### Additions
+#### Variable declarations
+
+**Var usage: only when clear**
+
+Replacing the explicit type definition in a local variable declaration/initialisation may be replaced by the var word
+for type inference, only if it is clear from the initialisation what the actual type would be, even for someone who does
+not necessarily know the rest of the codebase. For example, this is a place where this is allowed:
+
+```java
+var text = "Hi"; //allowed, it's clear from the right-hand side that this is a String
+```
+
+However, this is a place where local type inference is not allowed:
+
+```java
+var data = getData(); //disallowed, it's unclear what type data would be
+```
+
+Usage of local type inference is always a may, never a must. When in doubt whether local variable type inference would
+be acceptable, don't use it and resort to the explicit type name.**
+
+#### Text blocks
+
+Text blocks must only be used when a piece of text contains multiple lines of text. Text blocks must not be used for
+text on a single line or empty text. When a text block is used, the ending three quotes must be indented by four spaces
+or one tab character. The following is correct:
+```java
+var text = """
+    Some text that
+    spans across multiple
+    lines.
+    """
+```
+while the following is not:
+```java
+var text = """
+    Some text that
+    spans across multiple
+    lines.
+           """
+```
+
+The text in text blocks must be indented by four spaces or one tab. The text may only be aligned more to the right iff.
+the entire text starts with a space or a tab character.
+
+#### Records
+
+Records are not used.
+
+#### Sealed classes
+
+Classes may only be marked as sealed if creation of additional subclasses, besides the permitted subclasses, would yield
+incorrect behaviour in functionality related to this base class.
+
+#### Pattern matching
+
+For an evaluated expression, x instanceof Y, pattern matching must be used if code that is run when this expression
+evaluates to true contains a cast form x to Y. The following is incorrect:
+```java
+if (x instanceof String) {
+    String y = (String) x;
+    //code
+}
+```
+while this is correct:
+```java
+if (x instanceof String y) {
+    //code
+}
+```
+
+### Differences
+
 2.3.1 ([original](https://google.github.io/styleguide/javaguide.html#s2.3.1-whitespace-characters)):  
 Tab characters *may* be used for indentation.
 
 3 ([original](https://google.github.io/styleguide/javaguide.html#s3-source-file-structure)):  
 This project uses The Unlicense license, therefor no license or copyright information at the top.
-
-3.3.1 ([original](https://google.github.io/styleguide/javaguide.html#s3.3.1-wildcard-imports)):  
-Wildcard imports, static or otherwise, *may* be used.
 
 3.3.3 ([original](https://google.github.io/styleguide/javaguide.html#s3.3.3-import-ordering-and-spacing)):  
 The import statements do not have to be in ASCII sort order, but import statements starting with the same main package name should be grouped.
@@ -45,12 +116,6 @@ Constants should always be on separate lines and should never be like an array i
 
 4.8.2.1 ([original](https://google.github.io/styleguide/javaguide.html#s4.8.2-variable-declarations)):  
 Multiple variable declarations in one line are allowed.
-
-4.8.3.1 ([original](https://google.github.io/styleguide/javaguide.html#s4.8.3-arrays)):  
-An array initializer should never be in a matrix like grid. Either all one the same line, or all on separate ones.
-
-4.8.4.2 ([original](https://google.github.io/styleguide/javaguide.html#s4.8.4-switch)):  
-Fall through shouldn't be commented.
 
 4.8.5 ([original](https://google.github.io/styleguide/javaguide.html#s4.8.5-annotations)):  
 Annotations should always be above the member class/method/field and there should always be one per line.
