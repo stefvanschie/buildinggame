@@ -261,7 +261,13 @@ public abstract class ArenaScoreboard {
         var matcher = Pattern.compile("%([^%]+)%").matcher(input);
 
         while (matcher.find()) {
-            input = matcher.replaceFirst(replacements.get(matcher.group(1)).apply(player));
+            Function<Player, String> replacement = replacements.get(matcher.group(1));
+
+            if (replacement == null) {
+                continue;
+            }
+
+            input = matcher.replaceFirst(replacement.apply(player));
             matcher.reset(input);
         }
 
