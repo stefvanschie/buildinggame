@@ -39,7 +39,7 @@ public class ArenaSelection extends ChestGui {
 		var outlinePane = new OutlinePane(0, 0, 9, 6);
 
         for (Arena arena : ArenaManager.getInstance().getArenas()) {
-            if (arena.canJoin()) {
+            if (!arena.canJoin()) {
                 continue;
             }
 
