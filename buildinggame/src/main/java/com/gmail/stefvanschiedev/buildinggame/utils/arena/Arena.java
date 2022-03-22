@@ -840,7 +840,7 @@ public class Arena {
                         Material material = SettingsManager.getInstance().getMaterial("team-selection.item.id",
                             Material.BARRIER);
 
-                        player.getInventory().setItem(0, new ItemBuilder(player, material)
+                        player.getInventory().setItem(4, new ItemBuilder(player, material)
                             .setDisplayName(
                                 MessageManager.translate(messages.getString("team-gui.item.name"), player)
                             ).setLore(
@@ -861,10 +861,20 @@ public class Arena {
                         }
                     }
 
+                    int slot = config.getInt("leave-item.slot");
+                    ItemStack item = player.getInventory().getItem(slot);
+
+                    if (item != null && item.getType() != Material.AIR) {
+                        Main.getInstance().getLogger().warning(
+                            "The leave item overrides a different item. This other item will not be visible. " +
+                                "Please change the slots in the config.yml file to fix this."
+                        );
+                    }
+
                     Material material = SettingsManager.getInstance().getMaterial("leave-item.id",
                         Material.BARRIER);
 
-                    player.getInventory().setItem(config.getInt("leave-item.slot"),
+                    player.getInventory().setItem(slot,
                         new ItemBuilder(player, material)
                             .setDisplayName(MessageManager.translate(messages.getString("leave-item.name"), player))
                             .setClickEvent(event -> {
@@ -1328,10 +1338,20 @@ public class Arena {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
+        int slot = config.getInt("subject-gui.slot");
+        ItemStack item = player.getInventory().getItem(slot);
+
+        if (item != null && item.getType() != Material.AIR) {
+            Main.getInstance().getLogger().warning(
+                "Subject gui item overrides a different item. This other item will not be visible. Please " +
+                "change the slots in the config.yml file to fix this."
+            );
+        }
+
         Material material = SettingsManager.getInstance().getMaterial("subject-gui.item.id", Material.BARRIER);
 
         player.getInventory().setItem(
-            config.getInt("subject-gui.slot"),
+            slot,
             new ItemBuilder(player, material)
                 .setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"),
                     player))

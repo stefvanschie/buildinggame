@@ -7,7 +7,6 @@ import co.aikar.commands.InvalidCommandArgument;
 import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.events.block.BlockEdit;
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.NPCCreate;
-import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.PerWorldInventoryCancel;
 import com.gmail.stefvanschiedev.buildinggame.events.block.signs.*;
 import com.gmail.stefvanschiedev.buildinggame.events.entity.EntityOptionsMenu;
 import com.gmail.stefvanschiedev.buildinggame.events.player.*;
@@ -310,32 +309,6 @@ public class Main extends JavaPlugin {
 			//starts the connection to bungeecord
             if (SettingsManager.getInstance().getConfig().getBoolean("bungeecord.enable"))
 			    BungeeCordHandler.getInstance();
-
-			//per world inventory compatibility fix
-            if (pm.isPluginEnabled("PerWorldInventory")) {
-                try {
-                    String version = pm.getPlugin("PerWorldInventory").getDescription().getVersion();
-                    var number = Integer.parseInt(version.replace(".", ""));
-
-                    //Make sure every version has at least three parts (e.g. 1.11.0 instead of 1.11).
-                    //This ensures the versions don't get mixed up (e.g. 1.7.5 being bigger than 1.11).
-                    for (var i = version.split("\\.").length; i < 3; i++)
-                        number *= 10;
-
-                    //200 is the first version with the new package name
-                    if (number >= 200)
-                        pm.registerEvents(new PerWorldInventoryCancel(), this);
-                    else
-                        getLogger().warning(
-                                "PerWorldInventory is outdated, update to a later version to keep BuildingGame compatible with PerWorldInventory."
-                        );
-                } catch (NumberFormatException e) {
-                    getLogger().warning(
-                            "Unable to get PerWorldInventory version, contact the plugin author about this."
-                    );
-                    e.printStackTrace();
-                }
-            }
 
             if (pm.isPluginEnabled("WorldEdit"))
                 WorldEdit.getInstance().getEventBus().register(new WorldEditBoundaryAssertion());
