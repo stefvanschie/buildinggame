@@ -19,7 +19,7 @@
         </repository>
         <repository>
             <id>placeholderapi</id>
-            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
         <repository>
             <id>worldedit-core</id>
@@ -40,10 +40,6 @@
         <repository>
             <id>filoghost-repo</id>
             <url>https://ci.filoghost.me/plugin/repository/everything/</url>
-        </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
         </repository>
         <repository>
             <id>spigot-repo</id>
@@ -82,13 +78,6 @@
             <groupId>com.github.jhg023</groupId>
             <artifactId>SimpleNet</artifactId>
             <version>1.6.6</version>
-        </dependency>
-        <!-- Will be built using Jitpack.io -->
-        <dependency>
-            <groupId>com.github.EbonJaeger</groupId>
-            <artifactId>perworldinventory-kt</artifactId>
-            <version>v2.3.2</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
