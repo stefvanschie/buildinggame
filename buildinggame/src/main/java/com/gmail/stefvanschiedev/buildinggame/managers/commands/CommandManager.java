@@ -1026,7 +1026,7 @@ public class CommandManager extends BaseCommand {
     @Subcommand("spectate")
     @Description("Spectate a player")
     @CommandPermission("bg.spectate")
-    public void onSpectate(Player player, Player toSpectate) {
+    public void onSpectate(Player player, @Flags("other") Player toSpectate) {
         var arena = ArenaManager.getInstance().getArena(toSpectate);
 
         if (arena == null) {
