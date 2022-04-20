@@ -17,6 +17,9 @@ import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ArenaSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.ReportMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.ClickEvent;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.ItemBuilder;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.datatype.PlotDataType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
@@ -401,89 +404,11 @@ public class CommandManager extends BaseCommand {
         }
 
         player.getInventory().setItemInMainHand(new ItemBuilder(player, Material.STICK)
-            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new Consumer<>() {
-                private Location previousLocation;
-
-                @Override
-                public void accept(PlayerInteractEvent event) {
-                    YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-                    YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-                    var player = event.getPlayer();
-                    var action = event.getAction();
-
-                    if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
-                        return;
-
-                    if (previousLocation == null) {
-                        previousLocation = event.getClickedBlock().getLocation();
-
-                        MessageManager.getInstance().send(player,
-                            ChatColor.GREEN + "Now click on the other corner");
-                    } else {
-                        //second time
-                        var location = event.getClickedBlock().getLocation();
-                        String name = arena.getName();
-                        int plotID = plot.getId();
-                        World world = location.getWorld();
-
-                        if (previousLocation.getWorld().equals(world)) {
-                            arenas.set(name + '.' + plotID + ".high.world", world.getName());
-                            arenas.set(name + '.' + plotID + ".low.world", previousLocation.getWorld().getName());
-                        } else {
-                            MessageManager.getInstance().send(player,
-                                ChatColor.RED + "The world has to be the same");
-                            event.setCancelled(true);
-                            return;
-                        }
-
-                        int highestX = Math.max(previousLocation.getBlockX(), location.getBlockX());
-                        int lowestX = Math.min(previousLocation.getBlockX(), location.getBlockX());
-
-                        int highestY = Math.max(previousLocation.getBlockY(), location.getBlockY());
-                        int lowestY = Math.min(previousLocation.getBlockY(), location.getBlockY());
-
-                        int highestZ = Math.max(previousLocation.getBlockZ(), location.getBlockZ());
-                        int lowestZ = Math.min(previousLocation.getBlockZ(), location.getBlockZ());
-
-                        //x
-                        arenas.set(name + '.' + plotID + ".high.x", highestX);
-                        arenas.set(name + '.' + plotID + ".low.x", lowestX);
-
-                        //y
-                        arenas.set(name + '.' + plotID + ".high.y", highestY);
-                        arenas.set(name + '.' + plotID + ".low.y", lowestY);
-
-                        //z
-                        arenas.set(name + '.' + plotID + ".high.z", highestZ);
-                        arenas.set(name + '.' + plotID + ".low.z", lowestZ);
-
-                        SettingsManager.getInstance().save();
-
-                        String worldName = world.getName();
-                        Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
-
-                        Region region = RegionFactory.createRegion(worldSupplier, highestX, highestY, highestZ, lowestX,
-                            lowestY, lowestZ);
-
-                        plot.setBoundary(region);
-
-                        messages.getStringList("commands.setbounds.success").forEach(message ->
-                            MessageManager.getInstance().send(player, message
-                                .replace("%place%", plotID + "")
-                                .replace("%arena%", name))
-                        );
-
-                        previousLocation = null;
-
-                        player.getInventory().setItemInMainHand(null);
-                    }
-
-                    event.setCancelled(true);
-                }
-            }).build());
-
-        MessageManager.getInstance().send(player, ChatColor.GREEN + "Please click on one corner");
+            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand")
+            .addContext("plot", PlotDataType.getInstance(), plot)
+            .setClickEvent(ClickEvent.BOUNDS_CLICK)
+            .build()
+        );
     }
 
     /**
@@ -507,83 +432,11 @@ public class CommandManager extends BaseCommand {
         }
 
         player.getInventory().setItemInMainHand(new ItemBuilder(player, Material.STICK)
-            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand").setClickEvent(new Consumer<>() {
-                private Location previousLocation;
-
-                @Override
-                public void accept(PlayerInteractEvent event) {
-                    YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-
-                    var player = event.getPlayer();
-                    var action = event.getAction();
-
-                    if (action != Action.LEFT_CLICK_BLOCK && action != Action.RIGHT_CLICK_BLOCK)
-                        return;
-
-                    if (previousLocation == null) {
-                        previousLocation = event.getClickedBlock().getLocation();
-
-                        MessageManager.getInstance().send(player,
-                            ChatColor.GREEN + "Now click on the other corner");
-                    } else {
-                        //second time
-                        var location = event.getClickedBlock().getLocation();
-                        String name = arena.getName();
-                        int plotID = plot.getId();
-                        World world = location.getWorld();
-
-                        if (previousLocation.getWorld().equals(world)) {
-                            arenas.set(name + '.' + plotID + ".floor.high.world", world.getName());
-                            arenas.set(name + '.' + plotID + ".floor.low.world", previousLocation.getWorld().getName());
-                        } else {
-                            MessageManager.getInstance().send(player,
-                                ChatColor.RED + "The world has to be the same");
-                            event.setCancelled(true);
-                            return;
-                        }
-
-                        int highestX = Math.max(previousLocation.getBlockX(), location.getBlockX());
-                        int lowestX = Math.min(previousLocation.getBlockX(), location.getBlockX());
-
-                        int highestY = Math.max(previousLocation.getBlockY(), location.getBlockY());
-                        int lowestY = Math.min(previousLocation.getBlockY(), location.getBlockY());
-
-                        int highestZ = Math.max(previousLocation.getBlockZ(), location.getBlockZ());
-                        int lowestZ = Math.min(previousLocation.getBlockZ(), location.getBlockZ());
-
-                        //x
-                        arenas.set(name + '.' + plotID + ".floor.high.x", highestX);
-                        arenas.set(name + '.' + plotID + ".floor.low.x", lowestX);
-
-                        //y
-                        arenas.set(name + '.' + plotID + ".floor.high.y", highestY);
-                        arenas.set(name + '.' + plotID + ".floor.low.y", lowestY);
-
-                        //z
-                        arenas.set(name + '.' + plotID + ".floor.high.z", highestZ);
-                        arenas.set(name + '.' + plotID + ".floor.low.z", lowestZ);
-
-                        SettingsManager.getInstance().save();
-
-                        String worldName = world.getName();
-                        Supplier<World> worldSupplier = () -> Bukkit.getWorld(worldName);
-
-                        Region region = RegionFactory.createRegion(worldSupplier, highestX, highestY, highestZ, lowestX,
-                            lowestY, lowestZ);
-                        plot.setFloor(region);
-
-                        MessageManager.getInstance().send(player, ChatColor.GREEN + "Floor set!");
-
-                        previousLocation = null;
-
-                        player.getInventory().setItemInMainHand(null);
-                    }
-
-                    event.setCancelled(true);
-                }
-            }).build());
-
-        MessageManager.getInstance().send(player, ChatColor.GREEN + "Please click on one corner");
+            .setDisplayName(ChatColor.LIGHT_PURPLE + "Wand")
+            .addContext("plot", PlotDataType.getInstance(), plot)
+            .setClickEvent(ClickEvent.FLOOR_CLICK)
+            .build()
+        );
     }
 
     /**

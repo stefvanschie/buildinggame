@@ -1,4 +1,4 @@
-package com.gmail.stefvanschiedev.buildinggame.utils.datatype;
+package com.gmail.stefvanschiedev.buildinggame.utils.item.datatype;
 
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;

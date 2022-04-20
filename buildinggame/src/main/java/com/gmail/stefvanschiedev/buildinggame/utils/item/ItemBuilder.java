@@ -1,10 +1,9 @@
-package com.gmail.stefvanschiedev.buildinggame.utils;
+package com.gmail.stefvanschiedev.buildinggame.utils.item;
 
 import java.util.*;
-import java.util.function.Consumer;
 
-import com.gmail.stefvanschiedev.buildinggame.utils.datatype.BooleanDataType;
-import com.gmail.stefvanschiedev.buildinggame.utils.datatype.UUIDDataType;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.datatype.BooleanDataType;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.datatype.UUIDDataType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -32,7 +31,7 @@ public class ItemBuilder {
     /**
      * The click event assigned to this item
      */
-    private Consumer<PlayerInteractEvent> event;
+    private ClickEvent event;
 
     /**
      * Whether you can move the item around
@@ -51,18 +50,14 @@ public class ItemBuilder {
     private final ItemStack item;
 
     /**
+     * Stores the context for this item.
+     */
+    private final ContextBag contextBag;
+
+    /**
      * Whether the listener was already registered or not
      */
     private static boolean hasRegisteredListener;
-
-    /**
-     * A map containing the uuid which were attached to the item with the consumer that should be executed when the item
-     * was clicked. The uuid is stored as a string, so it can be directly attached to the item as an NBTString, instead
-     * of undergoing conversion. Avoidance of this conversion is crucial, since the map will otherwise lose its key,
-     * since the map is a {@link WeakHashMap}. The reason for this WeakHashMap is because we can't know if an item is
-     * still alive or not and we don't want memory leaks.
-     */
-    private static final Map<String, Consumer<PlayerInteractEvent>> CLICK_EVENTS = new WeakHashMap<>();
 
     /**
      * Constructs a new ItemBuilder
@@ -84,6 +79,7 @@ public class ItemBuilder {
     private ItemBuilder(@NotNull Player player, Material material, int amount) {
         this.item = new ItemStack(material, amount);
         this.player = player;
+        this.contextBag = new ContextBag(this.item);
     }
 
     /**
@@ -99,9 +95,6 @@ public class ItemBuilder {
             hasRegisteredListener = true;
         }
 
-        String clickUUID = UUID.randomUUID().toString();
-        CLICK_EVENTS.put(clickUUID, event);
-
         ItemMeta itemMeta = item.getItemMeta();
 
         NamespacedKey movableKey = new NamespacedKey(Main.getInstance(), "movable");
@@ -111,11 +104,27 @@ public class ItemBuilder {
         itemMeta.getPersistentDataContainer().set(playerKey, new UUIDDataType(), this.player.getUniqueId());
 
         NamespacedKey clickKey = new NamespacedKey(Main.getInstance(), "click");
-        itemMeta.getPersistentDataContainer().set(clickKey, PersistentDataType.STRING, clickUUID);
+        itemMeta.getPersistentDataContainer().set(clickKey, PersistentDataType.INTEGER, this.event.ordinal());
 
         item.setItemMeta(itemMeta);
 
         return item;
+    }
+
+    /**
+     * Adds context to this item that can be retrieved in a click event.
+     *
+     * @param key the key to identify the context with
+     * @param type the type of context
+     * @param context the context
+     * @return this instance
+     * @param <Z> the type of the context
+     * @since 11.0.1
+     */
+    public <Z> ItemBuilder addContext(@NotNull String key, @NotNull PersistentDataType<?, Z> type, @NotNull Z context) {
+        this.contextBag.addContext(key, type, context);
+
+        return this;
     }
 
     /**
@@ -137,7 +146,7 @@ public class ItemBuilder {
      * @return this instance
      * @since 4.0.6
      */
-    public ItemBuilder setClickEvent(Consumer<PlayerInteractEvent> event) {
+    public ItemBuilder setClickEvent(ClickEvent event) {
         this.event = event;
         return this;
     }
@@ -213,19 +222,14 @@ public class ItemBuilder {
             }
 
             NamespacedKey clickKey = new NamespacedKey(Main.getInstance(), "click");
-            String clickUUID = itemMeta.getPersistentDataContainer().get(clickKey, PersistentDataType.STRING);
+            int click = itemMeta.getPersistentDataContainer().get(clickKey, PersistentDataType.INTEGER);
+            ClickEvent[] events = ClickEvent.values();
 
-            if (clickUUID == null) {
+            if (click >= events.length) {
                 return;
             }
 
-            var consumer = CLICK_EVENTS.get(clickUUID);
-
-            if (consumer == null) {
-                return;
-            }
-
-            consumer.accept(e);
+            events[click].invoke(e, new ContextBag(e.getItem()));
         }
 
         /**

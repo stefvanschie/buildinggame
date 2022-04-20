@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu.When;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.ClickEvent;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.ItemBuilder;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.datatype.ArenaDataType;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
@@ -23,6 +26,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -845,10 +849,11 @@ public class Arena {
                                 MessageManager.translate(messages.getString("team-gui.item.name"), player)
                             ).setLore(
                                 MessageManager.translate(messages.getStringList("team-gui.item.lores"), player)
-                            ).setClickEvent(event -> {
-                                getTeamSelection().show(player);
-                                event.setCancelled(true);
-                            }).build());
+                            )
+                            .addContext("arena", ArenaDataType.getInstance(), Arena.this)
+                            .setClickEvent(ClickEvent.TEAM_GUI_CLICK)
+                            .build()
+                        );
                     }
 
                     //give paper for subject
@@ -877,30 +882,15 @@ public class Arena {
                     player.getInventory().setItem(slot,
                         new ItemBuilder(player, material)
                             .setDisplayName(MessageManager.translate(messages.getString("leave-item.name"), player))
-                            .setClickEvent(event -> {
-                                leave(player);
-                                event.setCancelled(true);
-                            }).build());
+                            .addContext("arena", ArenaDataType.getInstance(), Arena.this)
+                            .setClickEvent(ClickEvent.PLAYER_LEAVE_CLICK)
+                            .build()
+                    );
                     player.updateInventory();
                 } else if (getState() == GameState.BUILDING) {
                     tryGiveOptionsMenu(player);
                 }
 			}
-
-            /**
-             * Returns the team selection and creates one if it doesn't exist yet
-             *
-             * @return the team selection
-             * @see TeamSelection
-             * @since 2.1.0
-             */
-            @NotNull
-            private TeamSelection getTeamSelection() {
-                if (teamSelection == null)
-                    teamSelection = new TeamSelection(arena);
-
-                return teamSelection;
-            }
 		};
 
 		runnable.runTaskLater(Main.getInstance(), 1L);
@@ -1048,12 +1038,29 @@ public class Arena {
             player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player,
                 Material.EMERALD).setDisplayName(MessageManager.translate(messages
                 .getString("gui.options-emerald"), player)).setLore(MessageManager.translate(messages
-                .getStringList("gui.options-lores"), player)).movable(false).setClickEvent(e -> {
-                getPlot(player).getBuildMenu().show(player);
-                e.setCancelled(true);
-            }).build());
+                .getStringList("gui.options-lores"), player)).movable(false)
+                .addContext("arena", ArenaDataType.getInstance(), this)
+                .setClickEvent(ClickEvent.OPTIONS_GUI_CLICK)
+                .build()
+            );
         }
 	}
+
+    /**
+     * Returns the team selection and creates one if it doesn't exist yet
+     *
+     * @return the team selection
+     * @see TeamSelection
+     * @since 11.0.1
+     */
+    @NotNull
+    public TeamSelection getTeamSelection() {
+        if (this.teamSelection == null) {
+            this.teamSelection = new TeamSelection(this);
+        }
+
+        return this.teamSelection;
+    }
 
 	/**
      * Sets a new build timer. This won't cancel the current build timer if started.
@@ -1272,6 +1279,7 @@ public class Arena {
                         Material material = SettingsManager.getInstance().getMaterial(
                             "voting.items." + identifier + ".id", Material.BARRIER
                         );
+                        int points = config.getInt("voting.items." + identifier + ".points");
 
                         player.getInventory().setItem(
                             config.getInt("voting.items." + identifier + ".slot") - 1,
@@ -1283,12 +1291,10 @@ public class Arena {
                                     messages.getStringList("voting.items." + identifier + ".lore")
                                 ))
                                 .movable(false)
-                                .setClickEvent(event -> {
-                                    int points = config.getInt("voting.items." + identifier + ".points");
-
-                                    votingPlot.addVote(new Vote(points, player));
-                                    event.setCancelled(true);
-                                }).build()
+                                .addContext("arena", ArenaDataType.getInstance(), this)
+                                .addContext("points", PersistentDataType.INTEGER, points)
+                                .setClickEvent(ClickEvent.VOTE_CLICK)
+                                .build()
                         );
                     });
 
@@ -1298,21 +1304,10 @@ public class Arena {
                         player.getInventory().setItem(8, new ItemBuilder(player, Material.BOOK)
                             .setDisplayName(ChatColor.RED + "Report build")
                             .movable(false)
-                            .setClickEvent(event -> {
-                                var dateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd_HH-mm-ss");
-                                String players = getVotingPlot().getGamePlayers().stream()
-                                    .map(gp -> '-' + gp.getPlayer().getName())
-                                    .reduce("", String::concat);
-                                var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
-                                var file = new File(instance.getReportsSchematicsFolder(), fileName);
-
-                                getVotingPlot().getBoundary().saveSchematic(file, () ->
-                                    MessageManager.getInstance().send(event.getPlayer(),
-                                        ChatColor.GREEN + "Your report has been saved."));
-
-                                getVotingPlot().getGamePlayers().forEach(gp ->
-                                    Report.add(new Report(gp.getPlayer(), player, ZonedDateTime.now(), file)));
-                            }).build());
+                            .addContext("arena", ArenaDataType.getInstance(), this)
+                            .setClickEvent(ClickEvent.REPORT_CLICK)
+                            .build()
+                        );
                     }
                 }
 
@@ -1357,10 +1352,9 @@ public class Arena {
                     player))
                 .setLore(MessageManager.translate(messages.getStringList("subject-gui.item.lores"),
                     player))
-                .setClickEvent(event -> {
-                    getSubjectMenu().show(player);
-                    event.setCancelled(true);
-                }).build()
+                .addContext("arena", ArenaDataType.getInstance(), this)
+                .setClickEvent(ClickEvent.SUBJECT_GUI_CLICK)
+                .build()
         );
     }
 

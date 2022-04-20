@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.stats.StatManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.ClickEvent;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.ItemBuilder;
+import com.gmail.stefvanschiedev.buildinggame.utils.item.datatype.PlotDataType;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
@@ -186,19 +189,17 @@ public class Plot {
         spectator.getInventory().setItem(config.getInt("leave-item.slot"),
             new ItemBuilder(spectator, material)
                 .setDisplayName(MessageManager.translate(SettingsManager.getInstance().getMessages()
-                    .getString("leave-item.name"), spectator)).setClickEvent(event -> {
-                        gamePlayer.connect(MainSpawnManager.getInstance().getServer(),
-                            MainSpawnManager.getInstance().getMainSpawn());
-                        removeSpectator(gamePlayer);
-                        MessageManager.getInstance().send(spectator, ChatColor.GREEN + "Stopped spectating");
-                        event.setCancelled(true);
-                    }).build());
+                    .getString("leave-item.name"), spectator))
+                .addContext("plot", PlotDataType.getInstance(), this)
+                .setClickEvent(ClickEvent.SPECTATOR_STOP_CLICK)
+                .build()
+        );
 
         spectator.getInventory().setItem(8, new ItemBuilder(spectator, Material.EMERALD)
-            .setDisplayName(ChatColor.GREEN + "Spectator menu").setClickEvent(event -> {
-                new SpectatorMenu().show(spectator);
-                event.setCancelled(true);
-            }).build());
+            .setDisplayName(ChatColor.GREEN + "Spectator menu")
+            .setClickEvent(ClickEvent.SPECTATOR_GUI_CLICK)
+            .build()
+        );
 		
 		spectator.teleport(spectates.getPlayer().getLocation());
 		spectator.setGameMode(GameMode.CREATIVE);
