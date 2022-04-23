@@ -88,8 +88,6 @@ public class ClickJoinSign implements Listener {
             else
                 arena.join(player);
         }
-
-        e.setCancelled(true);
 	}
 
 	/**
