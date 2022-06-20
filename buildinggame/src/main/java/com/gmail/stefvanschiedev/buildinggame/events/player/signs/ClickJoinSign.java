@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -79,14 +80,20 @@ public class ClickJoinSign implements Listener {
                             ChatColor.RED + "Unable to join an arena right now");
                 else if (playerArena != null)
                     MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
-                else
+                else {
                     arena.join(player);
+
+                    e.setUseItemInHand(Event.Result.DENY);
+                }
             }
         } else {
             if (playerArena != null)
                 MessageManager.getInstance().send(player, ChatColor.RED + "You're already in an arena");
-            else
+            else {
                 arena.join(player);
+
+                e.setUseItemInHand(Event.Result.DENY);
+            }
         }
 	}
 

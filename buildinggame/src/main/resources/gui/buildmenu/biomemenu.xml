@@ -154,6 +154,24 @@
                 <property type="biome">BADLANDS</property>
             </properties>
         </item>
+        <item id="sculk" onClick="biomeClick">
+            <displayname>*gui.biome.deep-dark.name</displayname>
+            <lore>
+                <line>*gui.biome.deep-dark.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">DEEP_DARK</property>
+            </properties>
+        </item>
+        <item id="mangrove_log" onClick="biomeClick">
+            <displayname>*gui.biome.mangrove-swamp.name</displayname>
+            <lore>
+                <line>*gui.biome.mangrove-swamp.lores</line>
+            </lore>
+            <properties>
+                <property type="biome">MANGROVE_SWAMP</property>
+            </properties>
+        </item>
         <item id="netherrack" onClick="biomeClick">
             <displayname>*gui.biome.nether-wastes.name</displayname>
             <lore>

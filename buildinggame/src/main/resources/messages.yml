@@ -485,6 +485,10 @@ gui:
       name: "&aWax"
       lore:
         - "&7Place a wax particle effect"
+    sculk_soul:
+      name: "&aSculk soul"
+      lore:
+        - "&7Place a sculk soul particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:
@@ -4508,6 +4512,14 @@ gui:
       name: "&aBadlands"
       lores:
       - "&7Change the biome to Badlands"
+    deep-dark:
+      name: "&aDeep Dark"
+      lores:
+      - "&7Change the biome to Deep Dark"
+    mangrove-swamp:
+      name: "&aMangrove Swamp"
+      lore:
+        - "&7Change the biome to Mangrove Swamp"
     nether-wastes:
       name: "&aNether Wastes"
       lores:
