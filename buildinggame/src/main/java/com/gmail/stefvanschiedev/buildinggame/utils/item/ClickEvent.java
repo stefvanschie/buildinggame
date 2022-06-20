@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.persistence.PersistentDataType;
@@ -233,6 +234,10 @@ public enum ClickEvent {
      * @since 11.0.1
      */
     PLAYER_LEAVE_CLICK((event, contextBag) -> {
+        if (event.useItemInHand() == Event.Result.DENY) {
+            return;
+        }
+
         Arena arena = contextBag.getContext("arena", ArenaDataType.getInstance());
 
         if (arena == null) {

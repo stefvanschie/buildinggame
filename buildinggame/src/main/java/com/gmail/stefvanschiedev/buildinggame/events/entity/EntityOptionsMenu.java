@@ -11,6 +11,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.axolotl.AxolotlMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat.CatMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox.FoxMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.frog.FrogMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.irongolem.IronGolemMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.LlamaMenu;
@@ -46,6 +47,7 @@ public class EntityOptionsMenu implements Listener {
     @NotNull
     private static final Collection<EntityType> SHIFT_CLICK_TYPES = EnumSet.of(
         EntityType.BOAT,
+        EntityType.CHEST_BOAT,
         EntityType.ITEM_FRAME,
         EntityType.MINECART
     );
@@ -88,96 +90,35 @@ public class EntityOptionsMenu implements Listener {
             return;
         }
 
-        switch (entityType) {
-            case CHICKEN:
-            case COW:
-            case GOAT:
-            case OCELOT:
-            case SKELETON_HORSE:
-            case POLAR_BEAR:
-            case HUSK:
-            case ZOMBIE:
-            case TURTLE:
-            case PIGLIN:
-            case HOGLIN:
-            case STRIDER:
-            case ZOGLIN:
-                new BabyMenu(plot, entity).show(player);
-                break;
-            case DONKEY:
-            case MULE:
-                new ChestMenu(plot, (ChestedHorse) entity).show(player);
-                break;
-            case VILLAGER:
-            case ZOMBIE_VILLAGER:
-                new VillagerlikeMenu(plot, (Creature) entity).show(player);
-                break;
-            case PHANTOM:
-            case MAGMA_CUBE:
-            case SLIME:
-                new SizeMenu(plot, (Mob) entity).show(player);
-                break;
-            case AXOLOTL:
-                new AxolotlMenu(plot, (Axolotl) entity).show(player);
-                break;
-            case PIG:
-                new PigMenu(plot, (Pig) entity).show(player);
-                break;
-            case RABBIT:
-                new RabbitMenu(plot, (Rabbit) entity).show(player);
-                break;
-            case SHEEP:
-                new SheepMenu(plot, (Sheep) entity).show(player);
-                break;
-            case CREEPER:
-                new CreeperMenu(plot, (Creeper) entity).show(player);
-                break;
-            case SHULKER:
-                new ShulkerMenu(plot, (Shulker) entity).show(player);
-                break;
-            case HORSE:
-                new HorseMenu(plot, (Horse) entity).show(player);
-                break;
-            case LLAMA:
-                new LlamaMenu(plot, (Llama) entity).show(player);
-                break;
-            case PARROT:
-                new ParrotMenu(plot, (Parrot) entity).show(player);
-                break;
-            case WOLF:
-                new ColorMenu(plot, (Animals) entity).show(player);
-                break;
-            case SNOWMAN:
-                new SnowGolemMenu(plot, (Snowman) entity).show(player);
-                break;
-            case PUFFERFISH:
-                new PufferfishMenu(plot, (PufferFish) entity).show(player);
-                break;
-            case TROPICAL_FISH:
-                new TropicalFishMenu(plot, (TropicalFish) entity).show(player);
-                break;
-            case MUSHROOM_COW:
-                new MooshroomMenu(plot, (MushroomCow) entity).show(player);
-                break;
-            case PANDA:
-                new PandaMenu(plot, (Panda) entity).show(player);
-                break;
-            case CAT:
-                new CatMenu(plot, (Cat) entity).show(player);
-                break;
-            case FOX:
-                new FoxMenu(plot, (Fox) entity).show(player);
-                break;
-            case BEE:
-                new BeeMenu(plot, (Bee) entity).show(player);
-                break;
-            case IRON_GOLEM:
-                new IronGolemMenu(plot, (IronGolem) entity).show(player);
-                break;
-            default:
-                new RemoveMenu(plot, entity).show(player);
-                break;
-        }
+        (switch (entityType) {
+            case CHICKEN, COW, OCELOT, SKELETON_HORSE, POLAR_BEAR, HUSK, ZOMBIE, TURTLE, PIGLIN, HOGLIN, STRIDER,
+                ZOGLIN -> new BabyMenu(plot, entity);
+            case DONKEY, MULE -> new ChestMenu(plot, (ChestedHorse) entity);
+            case VILLAGER, ZOMBIE_VILLAGER -> new VillagerlikeMenu(plot, (Creature) entity);
+            case PHANTOM, MAGMA_CUBE, SLIME -> new SizeMenu(plot, (Mob) entity);
+            case AXOLOTL -> new AxolotlMenu(plot, (Axolotl) entity);
+            case GOAT -> new GoatMenu(plot, (Goat) entity);
+            case PIG -> new PigMenu(plot, (Pig) entity);
+            case RABBIT -> new RabbitMenu(plot, (Rabbit) entity);
+            case SHEEP -> new SheepMenu(plot, (Sheep) entity);
+            case CREEPER -> new CreeperMenu(plot, (Creeper) entity);
+            case SHULKER -> new ShulkerMenu(plot, (Shulker) entity);
+            case HORSE -> new HorseMenu(plot, (Horse) entity);
+            case LLAMA -> new LlamaMenu(plot, (Llama) entity);
+            case PARROT -> new ParrotMenu(plot, (Parrot) entity);
+            case WOLF -> new ColorMenu(plot, (Animals) entity);
+            case SNOWMAN -> new SnowGolemMenu(plot, (Snowman) entity);
+            case PUFFERFISH -> new PufferfishMenu(plot, (PufferFish) entity);
+            case TROPICAL_FISH -> new TropicalFishMenu(plot, (TropicalFish) entity);
+            case MUSHROOM_COW -> new MooshroomMenu(plot, (MushroomCow) entity);
+            case PANDA -> new PandaMenu(plot, (Panda) entity);
+            case CAT -> new CatMenu(plot, (Cat) entity);
+            case FOX -> new FoxMenu(plot, (Fox) entity);
+            case BEE -> new BeeMenu(plot, (Bee) entity);
+            case IRON_GOLEM -> new IronGolemMenu(plot, (IronGolem) entity);
+            case FROG -> new FrogMenu(plot, (Frog) entity);
+            default -> new RemoveMenu(plot, entity);
+        }).show(player);
 
         e.setCancelled(true);
     }

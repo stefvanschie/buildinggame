@@ -3,7 +3,6 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropic
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -18,7 +17,7 @@ import java.util.Locale;
  *
  * @since 6.0.0
  */
-class TropicalFishPatternMenu extends ChestGui {
+final class TropicalFishPatternMenu extends ChestGui {
 
     /**
      * Constructs a new tropical fish pattern menu
@@ -31,14 +30,18 @@ class TropicalFishPatternMenu extends ChestGui {
         var pane = new OutlinePane(0, 0, 9, 2);
 
         for (var pattern : TropicalFish.Pattern.values()) {
+            String name = pattern.toString().replace("_", " ").toLowerCase(Locale.getDefault());
+
+            if (!name.isEmpty()) {
+                name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+            }
+
             var bucket = new ItemStack(Material.TROPICAL_FISH_BUCKET);
             var bucketMeta = (TropicalFishBucketMeta) bucket.getItemMeta();
             bucketMeta.setBodyColor(DyeColor.BLUE);
             bucketMeta.setPatternColor(DyeColor.LIME);
             bucketMeta.setPattern(pattern);
-            bucketMeta.setDisplayName(ChatColor.GREEN + StringUtils.capitalize(
-                pattern.toString().replace("_", " ").toLowerCase(Locale.getDefault())
-            ));
+            bucketMeta.setDisplayName(ChatColor.GREEN + name);
             bucket.setItemMeta(bucketMeta);
 
             pane.addItem(new GuiItem(bucket, event -> {

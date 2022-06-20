@@ -4,4 +4,4 @@ name: BuildingGame
 author: stefvanschie
 softdepend: [Vault, PerWorldInventory, PlaceholderAPI, WorldEdit, MVdWPlaceholderAPI, HolographicDisplays, Citizens]
 
-api-version: 1.13
+api-version: 1.19
