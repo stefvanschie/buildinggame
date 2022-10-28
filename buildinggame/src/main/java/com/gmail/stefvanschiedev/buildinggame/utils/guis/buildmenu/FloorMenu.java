@@ -157,14 +157,16 @@ public class FloorMenu extends ChestGui {
 
         var paginatedPane = new PaginatedPane(0, 0, 9, 5);
 
-        for (var page = 0; page < Math.ceil(getBlocks().size() / 45.0); page++) {
+        var blocks = getBlocks();
+
+        for (var page = 0; page < Math.ceil(blocks.size() / 45.0); page++) {
             var outlinePane = new OutlinePane(0, 0, 9, 5);
 
             for (var i = 0; i < 45; i++) {
-                if (i + (45 * page) == getBlocks().size())
+                if (i + (45 * page) == blocks.size())
                     break;
 
-                Material material = getBlocks().get(i + (45 * page));
+                Material material = blocks.get(i + (45 * page));
 
                 outlinePane.addItem(new GuiItem(new ItemStack(material), event -> {
                     plot.getFloor().getAllBlocks().forEach(b -> b.setType(material));
