@@ -157,7 +157,7 @@ public class FloorMenu extends ChestGui {
 
         var paginatedPane = new PaginatedPane(0, 0, 9, 5);
 
-        var blocks = getBlocks();
+        List<Material> blocks = getBlocks();
 
         for (var page = 0; page < Math.ceil(blocks.size() / 45.0); page++) {
             var outlinePane = new OutlinePane(0, 0, 9, 5);
