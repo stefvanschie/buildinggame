@@ -87,7 +87,7 @@ public class SubjectMenu {
 		else {
 			for (int i = 0; i < amountOfSubjects; i++)
 				subjects.add(CONFIG.getStringList("subjects").get(ThreadLocalRandom.current()
-                        .nextInt(amountOfSubjects)));
+                    .nextInt(CONFIG.getStringList("subjects").size())));
 		}
 
 		subjects.forEach(s -> votes.add(new SubjectVote(s, 0)));
