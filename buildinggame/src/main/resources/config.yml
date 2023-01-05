@@ -59,7 +59,7 @@ subjects:
 
 scoreboards:
   main:
-    enable: true
+    enable: false
     worlds:
       enable:
       -
