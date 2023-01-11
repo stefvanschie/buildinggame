@@ -46,9 +46,10 @@ public class MainScoreboard {
     private final List<String> strings = new ArrayList<>();
 
     /**
-     * A list of teams that's used to hold the text
+     * A list of teams that are used to hold the text on the scoreboard
      */
-    private final List<Team> teams = new ArrayList<>();
+    @NotNull
+    private final List<SafeTeam> teams = new ArrayList<>();
 
     /**
      * The player that this scoreboard is meant for
@@ -81,11 +82,12 @@ public class MainScoreboard {
 		var strings = messages.getStringList("scoreboards.main.text");
 		
 		for (int i = 0; i < strings.size(); i++) {
-			var team = scoreboard.registerNewTeam(i + "");
+            String teamName = Integer.toString(i);
+			var team = scoreboard.registerNewTeam(teamName);
 			team.addEntry(ChatColor.values()[i].toString());
 			team.setDisplayName("");
 			
-			teams.add(team);
+			this.teams.add(new SafeTeam(team));
 			this.strings.add(MessageManager.translate(strings.get(i), player));
 		}
 
@@ -164,11 +166,11 @@ public class MainScoreboard {
      * @since 2.3.0
      */
 	public void show() {
-		if (!player.isOnline())
+		if (!player.isOnline() || !isRegistered())
 			return;
 
 		for (var i = 0; i < strings.size(); i++) {
-			var team = teams.get(i);
+			Team team = this.teams.get(i).getTeam();
 			var text = replace(strings.get(i));
 			var length = text.length();
 			
@@ -182,6 +184,17 @@ public class MainScoreboard {
 
 		player.setScoreboard(scoreboard);
 	}
+
+    /**
+     * Checks to see whether this scoreboard is still registered internally.
+     *
+     * @return true if this scoreboard is registered, false otherwise
+     * @since 12.1.0
+     */
+    @Contract(pure = true)
+    public boolean isRegistered() {
+        return ScoreboardUtil.isRegistered(this.scoreboard, this.teams);
+    }
 
     /**
      * Replaces all values in the input with the corresponding values from the {@link #replacements}

@@ -3,6 +3,8 @@ package com.gmail.stefvanschiedev.buildinggame.managers.scoreboards;
 import java.util.Collection;
 import java.util.HashSet;
 
+import com.gmail.stefvanschiedev.buildinggame.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.MainScoreboard;
@@ -51,8 +53,26 @@ public final class MainScoreboardManager {
      * @since 3.1.1
      */
 	public void update() {
-	    scoreboards.forEach(MainScoreboard::show);
-	}
+        Collection<MainScoreboard> scheduledForRemoval = new HashSet<>();
+
+        for (MainScoreboard scoreboard : this.scoreboards) {
+            if (!scoreboard.isRegistered()) {
+                scheduledForRemoval.add(scoreboard);
+                scoreboard.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+
+                Main.getInstance().getLogger().warning(
+                    "Scoreboard for '" + scoreboard.getPlayer().getName() + "' was unexpectedly unregistered, " +
+                        "they will temporarily be unable to see a scoreboard."
+                );
+
+                continue;
+            }
+
+            scoreboard.show();
+        }
+
+        this.scoreboards.removeAll(scheduledForRemoval);
+    }
 
 	/**
      * Constructs a new MainScoreboardManager. This shouldn't be called to keep this class a singleton.

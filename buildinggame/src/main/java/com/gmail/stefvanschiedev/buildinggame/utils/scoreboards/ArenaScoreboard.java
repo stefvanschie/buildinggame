@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 
+import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
@@ -47,7 +48,7 @@ public abstract class ArenaScoreboard {
     /**
      * A list of teams that's used to hold the text
      */
-    private final List<Team> teams = new ArrayList<>();
+    private final List<SafeTeam> teams = new ArrayList<>();
 
     /**
      * The red and green team
@@ -87,7 +88,7 @@ public abstract class ArenaScoreboard {
             team.addEntry(ChatColor.values()[i].toString());
             team.setDisplayName("");
 
-            teams.add(team);
+            this.teams.add(new SafeTeam(team));
 
             //parse conditional
             var text = MessageManager.translate(strings.get(i));
@@ -219,6 +220,17 @@ public abstract class ArenaScoreboard {
      */
     @Contract("null -> fail")
     public void show(Player player) {
+        if (!isRegistered()) {
+            player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+
+            Main.getInstance().getLogger().warning(
+                "Scoreboard for '" + player.getName() + "' was unexpectedly unregistered, " +
+                    "they will temporarily be unable to see a scoreboard."
+            );
+
+            return;
+        }
+
         //keep track of the line count cause lines may not be displayed at all
         var lineCount = 0;
 
@@ -232,7 +244,7 @@ public abstract class ArenaScoreboard {
             var text = replace(line.getKey(), player);
 
             var length = text.length();
-            var team = teams.get(lineCount);
+            Team team = this.teams.get(lineCount).getTeam();
 
             team.setPrefix(text.substring(0, Math.min(length, 16)));
 
@@ -245,6 +257,17 @@ public abstract class ArenaScoreboard {
         }
 
         player.setScoreboard(scoreboard);
+    }
+
+    /**
+     * Checks to see whether this scoreboard is still registered internally.
+     *
+     * @return true if this scoreboard is registered, false otherwise
+     * @since 12.1.0
+     */
+    @Contract(pure = true)
+    public boolean isRegistered() {
+        return ScoreboardUtil.isRegistered(this.scoreboard, this.teams);
     }
 
     /**
