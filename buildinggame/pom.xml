@@ -34,10 +34,6 @@
             <url>https://repo.aikar.co/content/groups/aikar/</url>
         </repository>
         <repository>
-            <id>mvdw-software</id>
-            <url>https://repo.mvdw-software.be/content/groups/public/</url>
-        </repository>
-        <repository>
             <id>filoghost-repo</id>
             <url>https://ci.filoghost.me/plugin/repository/everything/</url>
         </repository>
@@ -88,7 +84,7 @@
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-core</artifactId>
-            <version>7.2.12</version>
+            <version>7.2.13</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -100,7 +96,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>23.0.0</version>
+            <version>23.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -131,18 +127,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>be.maximvdw</groupId>
-            <artifactId>MVdWPlaceholderAPI</artifactId>
-            <version>2.5.1-SNAPSHOT</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.spigotmc</groupId>
-                    <artifactId>spigot</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>com.gmail.filoghost.holographicdisplays</groupId>
             <artifactId>holographicdisplays-api</artifactId>
             <version>2.4.9</version>
@@ -150,7 +134,7 @@
         </dependency>
         <dependency>
             <groupId>net.citizensnpcs</groupId>
-            <artifactId>citizens</artifactId>
+            <artifactId>citizens-main</artifactId>
             <version>2.0.24-SNAPSHOT</version>
             <type>jar</type>
             <scope>provided</scope>
@@ -239,7 +223,7 @@
                     <dependency>
                         <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.9.1</version>
+                        <version>5.9.2</version>
                     </dependency>
                 </dependencies>
             </plugin>
