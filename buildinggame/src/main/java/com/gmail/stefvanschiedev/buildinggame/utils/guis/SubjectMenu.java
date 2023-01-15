@@ -45,7 +45,7 @@ public class SubjectMenu {
     /**
      * The subjects players can pick from
      */
-	private final List<String> subjects = new ArrayList<>();
+	private final List<String> subjects;
 
     /**
      * The moment this theme gui should be accessible
@@ -82,12 +82,19 @@ public class SubjectMenu {
         when = When.fromName(CONFIG.getString("subject-gui.when"));
         openInstantly = CONFIG.getBoolean("subject-gui.open-instantly");
 
+        List<String> allSubjects = CONFIG.getStringList("subjects");
+
         if (amountOfSubjects == -1)
-			subjects.addAll(CONFIG.getStringList("subjects"));
+			this.subjects = allSubjects;
 		else {
-			for (int i = 0; i < amountOfSubjects; i++)
-				subjects.add(CONFIG.getStringList("subjects").get(ThreadLocalRandom.current()
-                        .nextInt(amountOfSubjects)));
+            this.subjects = new ArrayList<>();
+
+			for (int i = 0; i < amountOfSubjects && !allSubjects.isEmpty(); i++) {
+                int index = ThreadLocalRandom.current().nextInt(allSubjects.size());
+
+                this.subjects.add(allSubjects.get(index));
+                allSubjects.remove(index);
+            }
 		}
 
 		subjects.forEach(s -> votes.add(new SubjectVote(s, 0)));
