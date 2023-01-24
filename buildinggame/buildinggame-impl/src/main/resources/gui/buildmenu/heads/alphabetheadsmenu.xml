@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.heads.alphabet.title" rows="6">
+    <paginatedpane x="0" y="0" length="9" height="5" field="paginatedPane">
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d48b768c623432dfb259fb3c3978e98dec111f79dbd6cd88f21155374b70b3c"/>
+                    <displayname>*gui.heads.alphabet.arrow-up.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-up.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="2dadd755d08537352bf7a93e3bb7dd4d733121d39f2fb67073cd471f561194dd"/>
+                    <displayname>*gui.heads.alphabet.arrow-down.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-down.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1b6f1a25b6bc199946472aedb370522584ff6f4e83221e5946bd2e41b5ca13b"/>
+                    <displayname>*gui.heads.alphabet.arrow-right.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-right.lores</line>
+                    </lore>fuin
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3ebf907494a935e955bfcadab81beafb90fb9be49c7026ba97d798d5f1a23"/>
+                    <displayname>*gui.heads.alphabet.arrow-left.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-left.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5163dafac1d91a8c91db576caac784336791a6e18d8f7f62778fc47bf146b6"/>
+                    <displayname>*gui.heads.alphabet.question.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.question.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6a53bdd1545531c9ebb9c6f895bc576012f61820e6f489885988a7e8709a3f48"/>
+                    <displayname>*gui.heads.alphabet.exclamation.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.exclamation.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="733aa24916c88696ee71db7ac8cd306ad73096b5b6ffd868e1c384b1d62cfb3c"/>
+                    <displayname>*gui.heads.alphabet.dot.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.dot.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7f95d7c1bbf3afa285d8d96757bb5572259a3ae854f5389dc53207699d94fd8"/>
+                    <displayname>*gui.heads.alphabet.slash.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.slash.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a67d813ae7ffe5be951a4f41f2aa619a5e3894e85ea5d4986f84949c63d7672e"/>
+                    <displayname>*gui.heads.alphabet.a.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.a.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="50c1b584f13987b466139285b2f3f28df6787123d0b32283d8794e3374e23"/>
+                    <displayname>*gui.heads.alphabet.b.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.b.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="abe983ec478024ec6fd046fcdfa4842676939551b47350447c77c13af18e6f"/>
+                    <displayname>*gui.heads.alphabet.c.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.c.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3193dc0d4c5e80ff9a8a05d2fcfe269539cb3927190bac19da2fce61d71"/>
+                    <displayname>*gui.heads.alphabet.d.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.d.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="dbb2737ecbf910efe3b267db7d4b327f360abc732c77bd0e4eff1d510cdef"/>
+                    <displayname>*gui.heads.alphabet.e.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.e.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b183bab50a3224024886f25251d24b6db93d73c2432559ff49e459b4cd6a"/>
+                    <displayname>*gui.heads.alphabet.f.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.f.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1ca3f324beeefb6a0e2c5b3c46abc91ca91c14eba419fa4768ac3023dbb4b2"/>
+                    <displayname>*gui.heads.alphabet.g.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.g.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="31f3462a473549f1469f897f84a8d4119bc71d4a5d852e85c26b588a5c0c72f"/>
+                    <displayname>*gui.heads.alphabet.h.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.h.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="46178ad51fd52b19d0a3888710bd92068e933252aac6b13c76e7e6ea5d3226"/>
+                    <displayname>*gui.heads.alphabet.i.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.i.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3a79db9923867e69c1dbf17151e6f4ad92ce681bcedd3977eebbc44c206f49"/>
+                    <displayname>*gui.heads.alphabet.j.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.j.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9461b38c8e45782ada59d16132a4222c193778e7d70c4542c9536376f37be42"/>
+                    <displayname>*gui.heads.alphabet.k.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.k.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="319f50b432d868ae358e16f62ec26f35437aeb9492bce1356c9aa6bb19a386"/>
+                    <displayname>*gui.heads.alphabet.l.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.l.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="49c45a24aaabf49e217c15483204848a73582aba7fae10ee2c57bdb76482f"/>
+                    <displayname>*gui.heads.alphabet.m.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.m.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="35b8b3d8c77dfb8fbd2495c842eac94fffa6f593bf15a2574d854dff3928"/>
+                    <displayname>*gui.heads.alphabet.n.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.n.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d11de1cadb2ade61149e5ded1bd885edf0df6259255b33b587a96f983b2a1"/>
+                    <displayname>*gui.heads.alphabet.o.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.o.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a0a7989b5d6e621a121eedae6f476d35193c97c1a7cb8ecd43622a485dc2e912"/>
+                    <displayname>*gui.heads.alphabet.p.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.p.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="43609f1faf81ed49c5894ac14c94ba52989fda4e1d2a52fd945a55ed719ed4"/>
+                    <displayname>*gui.heads.alphabet.q.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.q.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a5ced9931ace23afc351371379bf05c635ad186943bc136474e4e5156c4c37"/>
+                    <displayname>*gui.heads.alphabet.r.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.r.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3e41c60572c533e93ca421228929e54d6c856529459249c25c32ba33a1b1517"/>
+                    <displayname>*gui.heads.alphabet.s.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.s.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1562e8c1d66b21e459be9a24e5c027a34d269bdce4fbee2f7678d2d3ee4718"/>
+                    <displayname>*gui.heads.alphabet.t.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.t.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="607fbc339ff241ac3d6619bcb68253dfc3c98782baf3f1f4efdb954f9c26"/>
+                    <displayname>*gui.heads.alphabet.u.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.u.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="cc9a138638fedb534d79928876baba261c7a64ba79c424dcbafcc9bac7010b8"/>
+                    <displayname>*gui.heads.alphabet.v.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.v.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="269ad1a88ed2b074e1303a129f94e4b710cf3e5b4d995163567f68719c3d9792"/>
+                    <displayname>*gui.heads.alphabet.w.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.w.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5a6787ba32564e7c2f3a0ce64498ecbb23b89845e5a66b5cec7736f729ed37"/>
+                    <displayname>*gui.heads.alphabet.x.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.x.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c52fb388e33212a2478b5e15a96f27aca6c62ac719e1e5f87a1cf0de7b15e918"/>
+                    <displayname>*gui.heads.alphabet.y.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.y.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="90582b9b5d97974b11461d63eced85f438a3eef5dc3279f9c47e1e38ea54ae8d"/>
+                    <displayname>*gui.heads.alphabet.z.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.z.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="71bc2bcfb2bd3759e6b1e86fc7a79585e1127dd357fc202893f9de241bc9e530"/>
+                    <displayname>*gui.heads.alphabet.1.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.1.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4cd9eeee883468881d83848a46bf3012485c23f75753b8fbe8487341419847"/>
+                    <displayname>*gui.heads.alphabet.2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1d4eae13933860a6df5e8e955693b95a8c3b15c36b8b587532ac0996bc37e5"/>
+                    <displayname>*gui.heads.alphabet.3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d2e78fb22424232dc27b81fbcb47fd24c1acf76098753f2d9c28598287db5"/>
+                    <displayname>*gui.heads.alphabet.4.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.4.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6d57e3bc88a65730e31a14e3f41e038a5ecf0891a6c243643b8e5476ae2"/>
+                    <displayname>*gui.heads.alphabet.5.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.5.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="334b36de7d679b8bbc725499adaef24dc518f5ae23e716981e1dcc6b2720ab"/>
+                    <displayname>*gui.heads.alphabet.6.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.6.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6db6eb25d1faabe30cf444dc633b5832475e38096b7e2402a3ec476dd7b9"/>
+                    <displayname>*gui.heads.alphabet.7.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.7.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="59194973a3f17bda9978ed6273383997222774b454386c8319c04f1f4f74c2b5" />
+                    <displayname>*gui.heads.alphabet.8.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.8.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e67caf7591b38e125a8017d58cfc6433bfaf84cd499d794f41d10bff2e5b840"/>
+                    <displayname>*gui.heads.alphabet.9.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.9.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="0ebe7e5215169a699acc6cefa7b73fdb108db87bb6dae2849fbe24714b27"/>
+                    <displayname>*gui.heads.alphabet.0.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.0.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="58fe251a40e4167d35d081c27869ac151af96b6bd16dd2834d5dc7235f47791d"/>
+                    <displayname>*gui.heads.alphabet.arrow-up-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-up-2.lores</line>
+                    </lore>
+                </item>
+            </outlinepane>
+        </page>
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9b7ce683d0868aa4378aeb60caa5ea80596bcffdab6b5af2d12595837a84853"/>
+                    <displayname>*gui.heads.alphabet.arrow-down-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-down-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f2f3a2dfce0c3dab7ee10db385e5229f1a39534a8ba2646178e37c4fa93b"/>
+                    <displayname>*gui.heads.alphabet.arrow-right-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-right-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="bb0f6e8af46ac6faf88914191ab66f261d6726a7999c637cf2e4159fe1fc477"/>
+                    <displayname>*gui.heads.alphabet.arrow-left-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.arrow-left-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3aab272840d790c2ed2be5c860289f95d88e316b65c456ff6a35180d2e5bff6"/>
+                    <displayname>*gui.heads.alphabet.question-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.question-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="87d19aabfcfd99ffaba4214caef299516ce52e6d13bf2dda125985e481b72f9"/>
+                    <displayname>*gui.heads.alphabet.exclamation-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.exclamation-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6ff99ff279a2cf25deb4bd5b66c3576b824cc96c36781027af727ed3a4c1308e"/>
+                    <displayname>*gui.heads.alphabet.dot-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.dot-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="2d593f0945cbb85a8e0be7d9a526010ee774810f2bc428cd4a23e4d232eff8"/>
+                    <displayname>*gui.heads.alphabet.slash-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.slash-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="2ac58b1a3b53b9481e317a1ea4fc5eed6bafca7a25e741a32e4e3c2841278c"/>
+                    <displayname>*gui.heads.alphabet.a-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.a-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d4c711571e7e214ee78dfe4ee0e1263b92516e418de8fc8f3257ae0901431"
+                           displayName="*gui.heads.alphabet.b-2.name" lores="*gui.heads.alphabet.b-2.lores"/>
+                    <displayname>*gui.heads.alphabet.b-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.b-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="fff5aabead6feafaaecf4422cdd7837cbb36b03c9841dd1b1d2d3edb7825e851"/>
+                    <displayname>*gui.heads.alphabet.c-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.c-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="893e622b581975792f7c119ec6f40a4f16e552bb98776b0c7ae2bdfd4154fe7"/>
+                    <displayname>*gui.heads.alphabet.d-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.d-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a157d65b19921c760ff4910b3404455b9c2ee36afc202d8538baefec676953"/>
+                    <displayname>*gui.heads.alphabet.e-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.e-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c54cf261b2cd6ab54b0c624f8f6ff565a7b63e28e3b50c6dbfb52b5f0d7cf9f"/>
+                    <displayname>*gui.heads.alphabet.f-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.f-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d3c9f8a74ca01ba8c54de1edc82e1fc07a83923e66574b6ffe606919240c6"/>
+                    <displayname>*gui.heads.alphabet.g-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.g-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f8c58c509034617bf81ee0db9be0ba3e85ca15568163914c87669edb2fd7"/>
+                    <displayname>*gui.heads.alphabet.h-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.h-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4246323c9fb319326ee2bf3f5b63ec3d99df76a12439bf0b4c3ab32d13fd9"/>
+                    <displayname>*gui.heads.alphabet.i-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.i-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c58456cd9bb8a7e978591ae0cb26af1aadad4fa7a16725b295145e09bed8064"/>
+                    <displayname>*gui.heads.alphabet.j-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.j-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="af49fb708369e7bc2944ad706963fb6ac6ce6d4c67081ddadecfe5da51"/>
+                    <displayname>*gui.heads.alphabet.k-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.k-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="8c84f75416e853a74f6c70fc7e1093d53961879955b433bd8c7c6d5a6df"/>
+                    <displayname>*gui.heads.alphabet.l-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.l-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="31fde91b19b9309913724fea9e85311271c67bcb78578d461bf65d9613074"/>
+                    <displayname>*gui.heads.alphabet.m-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.m-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1c7c972e6785d6b0aceb779abdd7702d98341c24c2a71e702930eca58055"/>
+                    <displayname>*gui.heads.alphabet.n-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.n-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="8073bb44f9345f9bb31a679027e7939e461842a8c27486d7a6b842c39eb38c4e"/>
+                    <displayname>*gui.heads.alphabet.o-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.o-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="64b231a8d55870cfb5a9f4e65db06dd7f8e34282f1416f95878b19acc34ac95"/>
+                    <displayname>*gui.heads.alphabet.p-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.p-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="ffedd6f9efdb156b86935699b2b4834df0f5d214513c01d38af3bd031cbcc92"/>
+                    <displayname>*gui.heads.alphabet.q-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.q-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c03a1cd583cbbffde08f943e56ac3e3afafecaede834221a81e6db6c64667f7d"/>
+                    <displayname>*gui.heads.alphabet.r-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.r-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b6572e655725d78375a9817eb9ee8b37829ca1fea93b6095cc7aa19e5eac"/>
+                    <displayname>*gui.heads.alphabet.s-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.s-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="708c9ef3a3751e254e2af1ad8b5d668ccf5c6ec3ea2641877cba575807d39"/>
+                    <displayname>*gui.heads.alphabet.t-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.t-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="55a6e3ae5ae625923524838fac9fef5b42527f5027c9ca149e6c207792eb"/>
+                    <displayname>*gui.heads.alphabet.u-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.u-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="975121f7d9c68da0e5b6a96ac615298b12b2ee5bd19989436ee647879da5b"/>
+                    <displayname>*gui.heads.alphabet.v-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.v-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="67e165c3edc5541d4654c4728871e6908f613fc0ec46e823c96eac82ac62e62"/>
+                    <displayname>*gui.heads.alphabet.w-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.w-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1919d1594bf809db7b44b3782bf90a69f449a87ce5d18cb40eb653fdec2722"/>
+                    <displayname>*gui.heads.alphabet.x-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.x-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e35424bb86305d7747604b13e924d74f1efe38906e4e458dd18dcc67b6ca48"/>
+                    <displayname>*gui.heads.alphabet.y-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.y-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4e91200df1cae51acc071f85c7f7f5b8449d39bb32f363b0aa51dbc85d133e"/>
+                    <displayname>*gui.heads.alphabet.z-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.z-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="31a9463fd3c433d5e1d9fec6d5d4b09a83a970b0b74dd546ce67a73348caab"/>
+                    <displayname>*gui.heads.alphabet.1-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.1-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="acb419d984d8796373c9646233c7a02664bd2ce3a1d3476dd9b1c5463b14ebe"/>
+                    <displayname>*gui.heads.alphabet.2-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.2-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f8ebab57b7614bb22a117be43e848bcd14daecb50e8f5d0926e4864dff470"/>
+                    <displayname>*gui.heads.alphabet.3-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.3-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="62bfcfb489da867dce96e3c3c17a3db7c79cae8ac1f9a5a8c8ac95e4ba3"/>
+                    <displayname>*gui.heads.alphabet.4-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.4-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="ef4ecf110b0acee4af1da343fb136f1f2c216857dfda6961defdbee7b9528"/>
+                    <displayname>*gui.heads.alphabet.5-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.5-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f331a6a6fcd6995b62088d353bfb68d9b89ae258325caf3f2886464f54a7329"/>
+                    <displayname>*gui.heads.alphabet.6-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.6-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d4ba6ac07d422377a855793f36dea2ed240223f52fd1648181612ecd1a0cfd5"/>
+                    <displayname>*gui.heads.alphabet.7-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.7-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c61a8a641437be9aea207253dd3f25440d954ea2b5866c552f386b29ac4d049"/>
+                    <displayname>*gui.heads.alphabet.8-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.8-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a1928e1bfd86a9b79397c4cb4b65ef99af49b7d5f7957ad62c0c699a622cfbe"/>
+                    <displayname>*gui.heads.alphabet.9-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.9-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="55a224807693978ed834355f9e5145f9c56ef68cf6f2c9e1734a46e246aae1"/>
+                    <displayname>*gui.heads.alphabet.0-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.0-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="bd898c40e47c5d2d76924065360768065d624ee5b9ee0be9e12b98fb77c76"/>
+                    <displayname>*gui.heads.alphabet.colon.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.colon.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4c9c2bbd7b7f7204dceb5729a6fba7fd45d6f193f3760ec59a6807533e63b"/>
+                    <displayname>*gui.heads.alphabet.diaeresis-a.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.diaeresis-a.lores</line>
+                    </lore>
+                </item>
+            </outlinepane>
+        </page>
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="caec53e4a6d221afd7297b65e55be87913cf9cb7f4f4547f7186120701d8d"/>
+                    <displayname>*gui.heads.alphabet.diaeresis-u.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.diaeresis-u.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c83d42bcb9b8e66c16166ccf261e2f9f78c68ee7886da225e43895cdbcaf5f"/>
+                    <displayname>*gui.heads.alphabet.diaeresis-o.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.diaeresis-o.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9c60da2944a177dd08268fbec04e40812d1d929650be66529b1ee5e1e7eca"/>
+                    <displayname>*gui.heads.alphabet.a-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.a-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="8041f5e86983d36eaec4e167b2bbb5a3727607cde88f7555ca1b522a039bb"/>
+                    <displayname>*gui.heads.alphabet.b-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.b-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d945996c8ae91e376196d4dc676fec31feac790a2f195b2981a703ca1d16cb6"/>
+                    <displayname>*gui.heads.alphabet.c-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.c-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1641150f481e8492f7128c948996254d2d91fc90f5a8ff4d8ac5c39a6a88a"/>
+                    <displayname>*gui.heads.alphabet.d-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.d-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="db251487ff8eef2ebc7a57dab6e3d9f1db7fc926ddc66fea14afe3dff15a45"/>
+                    <displayname>*gui.heads.alphabet.e-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.e-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7e433656b443668ed03dac8c442722a2a41221be8bb48e23b35bd8c2e59f63"/>
+                    <displayname>*gui.heads.alphabet.f-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.f-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="995863b73637605feacbb173b77d5e155e65204c78d5c7911f738f28deb60"/>
+                    <displayname>*gui.heads.alphabet.g-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.g-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3c1d358d927074289cc26bff5b1240746f9f4f0cc46f942f5981c6595f72dd"/>
+                    <displayname>*gui.heads.alphabet.h-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.h-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="8f2295865bda4e47979d36b8a887a75a13b034e6988f78670b64a1e6442c"/>
+                    <displayname>*gui.heads.alphabet.i-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.i-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e34462b55d7f5823680ad13f2adbd7d1ed46ba5101017ed4b37aeeeb775d"/>
+                    <displayname>*gui.heads.alphabet.j-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.j-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="773325a935c067b6ef227367f62ca4bf49f67adb9f6da32091e2d32c5dde328"/>
+                    <displayname>*gui.heads.alphabet.k-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.k-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="25a1e3328c571aa495d9c5f494815cca176c3acb184feb5a7b9c96ce8e52fce"/>
+                    <displayname>*gui.heads.alphabet.l-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.l-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d467bf6be95e5c8e9d01977a2f0c487ed5b0de5c87963a2eb15411c442fb2b"/>
+                    <displayname>*gui.heads.alphabet.m-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.m-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="823e434d6395fe7e63492431bdee5782bd5ee5bc8cab7559467bdd1f93b925a"/>
+                    <displayname>*gui.heads.alphabet.n-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.n-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="88445466bdc5ad5bcea82239c4e1b510f6ea5262d82d8a96d7291c342fb89"/>
+                    <displayname>*gui.heads.alphabet.o-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.o-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f9de601dee3ffeca4d54595f844201d0ed2091acec4548c696bb16a8a158f6"/>
+                    <displayname>*gui.heads.alphabet.p-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.p-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="66ca769bde25d4cc41e19e42adc35ab4c1557b76af232649acc9967ff198f13"/>
+                    <displayname>*gui.heads.alphabet.q-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.q-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="67a188805162ca5dd4f4649c661d3f6d23c42662aef01645b1a97f78b3f13219"/>
+                    <displayname>*gui.heads.alphabet.r-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.r-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="60d09dfd9f5de6243233e0e3325b6c3479335e7ccf13f2448d4e1f7fc4a0df"/>
+                    <displayname>*gui.heads.alphabet.s-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.s-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="64c75619b91d241f678350ad9237c134c5e08d87d6860741ede306a4ef91"/>
+                    <displayname>*gui.heads.alphabet.t-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.t-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e9f6d2c6d5285f882ae55d1e91b8f9efdfc9b377208bf4c83f88dd156415e"/>
+                    <displayname>*gui.heads.alphabet.u-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.u-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                <skull id="dce27a153635f835237d85c6bf74f5b1f2e638c48fee8c83038d0558d41da7"/>
+                    <displayname>*gui.heads.alphabet.v-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.v-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="aedcf4ffcb53b56d42baac9d0dfb118e343462327442dd9b29d49f50a7d38b"/>
+                    <displayname>*gui.heads.alphabet.w-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.w-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="83618ff1217640bec5b525fa2a8e671c75d2a7d7cb2ddc31d79d9d895eab1"/>
+                    <displayname>*gui.heads.alphabet.x-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.x-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d9c1d29a38bcf113b7e8c34e148a79f9fe41edf41aa8b1de873bb1d433b3861"/>
+                    <displayname>*gui.heads.alphabet.y-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.y-3.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b9295734195d2c7fa389b98757e9686ce6437c16c58bdf2b4cd538389b5912"/>
+                    <displayname>*gui.heads.alphabet.z-3.name</displayname>
+                    <lore>
+                        <line>*gui.heads.alphabet.z-3.lores</line>
+                    </lore>
+                </item>
+            </outlinepane>
+        </page>
+    </paginatedpane>
+    <outlinepane x="2" y="5" length="1" height="1" field="previous" visible="false">
+        <item id="sugar_cane" onClick="previousPageClick">
+            <displayname>*gui.heads.alphabet.previous-page.name</displayname>
+            <lore>
+                <line>*gui.heads.alphabet.previous-page.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+    <outlinepane x="4" y="5" length="1" height="1">
+        <item id="book" onClick="closeClick">
+            <displayname>*gui.heads.alphabet.close.name</displayname>
+            <lore>
+                <line>*gui.heads.alphabet.close.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+    <outlinepane x="6" y="5" length="1" height="1" field="next">
+        <item id="sugar_cane" onClick="nextPageClick">
+            <displayname>*gui.heads.alphabet.next-page.name</displayname>
+            <lore>
+                <line>*gui.heads.alphabet.next-page.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+</gui>

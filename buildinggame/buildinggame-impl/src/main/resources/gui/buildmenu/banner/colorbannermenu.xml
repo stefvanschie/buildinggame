@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.banners.color.title" rows="3">
+    <outlinepane x="0" y="0" length="9" height="2">
+        <item id="black_dye" onClick="bannerClick">
+            <displayname>*gui.banners.color.black.name</displayname>
+            <lore>
+                <line>*gui.banners.color.black.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">BLACK</property>
+            </properties>
+        </item>
+        <item id="red_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.red.name</displayname>
+            <lore>
+                <line>*gui.banners.color.red.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">RED</property>
+            </properties>
+        </item>
+        <item id="green_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.green.name</displayname>
+            <lore>
+                <line>*gui.banners.color.green.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">GREEN</property>
+            </properties>
+        </item>
+        <item id="brown_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.brown.name</displayname>
+            <lore>
+                <line>*gui.banners.color.brown.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">BROWN</property>
+            </properties>
+        </item>
+        <item id="blue_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.blue.name</displayname>
+            <lore>
+                <line>*gui.banners.color.blue.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">BLUE</property>
+            </properties>
+        </item>
+        <item id="purple_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.purple.name</displayname>
+            <lore>
+                <line>*gui.banners.color.purple.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">PURPLE</property>
+            </properties>
+        </item>
+        <item id="cyan_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.cyan.name</displayname>
+            <lore>
+                <line>*gui.banners.color.cyan.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">CYAN</property>
+            </properties>
+        </item>
+        <item id="light_gray_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.light-gray.name</displayname>
+            <lore>
+                <line>*gui.banners.color.light-gray.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">LIGHT_GRAY</property>
+            </properties>
+        </item>
+        <item id="gray_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.gray.name</displayname>
+            <lore>
+                <line>*gui.banners.color.gray.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">GRAY</property>
+            </properties>
+        </item>
+        <empty />
+        <item id="pink_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.pink.name</displayname>
+            <lore>
+                <line>*gui.banners.color.pink.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">PINK</property>
+            </properties>
+        </item>
+        <item id="lime_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.lime.name</displayname>
+            <lore>
+                <line>*gui.banners.color.lime.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">LIME</property>
+            </properties>
+        </item>
+        <item id="yellow_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.yellow.name</displayname>
+            <lore>
+                <line>*gui.banners.color.yellow.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">YELLOW</property>
+            </properties>
+        </item>
+        <item id="light_blue_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.light-blue.name</displayname>
+            <lore>
+                <line>*gui.banners.color.light-blue.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">LIGHT_BLUE</property>
+            </properties>
+        </item>
+        <item id="magenta_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.magenta.name</displayname>
+            <lore>
+                <line>*gui.banners.color.magenta.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">MAGENTA</property>
+            </properties>
+        </item>
+        <item id="orange_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.orange.name</displayname>
+            <lore>
+                <line>*gui.banners.color.orange.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">ORANGE</property>
+            </properties>
+        </item>
+        <item id="white_dye" onClick="dyeClick">
+            <displayname>*gui.banners.color.white.name</displayname>
+            <lore>
+                <line>*gui.banners.color.white.lore</line>
+            </lore>
+            <properties>
+                <property type="dye-color">WHITE</property>
+            </properties>
+        </item>
+    </outlinepane>
+    <outlinepane x="4" y="2" length="1" height="1" populate="populate" />
+</gui>

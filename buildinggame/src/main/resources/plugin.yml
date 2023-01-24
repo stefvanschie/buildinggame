@@ -1,7 +1,0 @@
-main: com.gmail.stefvanschiedev.buildinggame.Main
-version: ${project.version}
-name: BuildingGame
-author: stefvanschie
-softdepend: [Vault, PerWorldInventory, PlaceholderAPI, WorldEdit, MVdWPlaceholderAPI, HolographicDisplays, Citizens]
-
-api-version: 1.19

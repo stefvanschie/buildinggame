@@ -1,0 +1,289 @@
+timers:
+  build: 300
+  vote: 15
+  lobby: 60
+  win: 10
+
+loading:
+  load-after-plugins: false
+
+allow-fly-out-bounds: false
+enable-subject-voting: true
+restore-plots: true
+scoreboard-update-delay: 20
+max-vote-change: -1
+max-particles: -1
+names-after-voting: false
+enable-item-drop: false
+join-during-game: false
+
+stats:
+  enable:
+    plays: true
+    first: true
+    second: true
+    third: true
+    broken: true
+    placed: true
+    walked: true
+    points-given: true
+    points-received: true
+  save-delay: 900
+  database:
+    enable: false
+    address: 'jdbc:mysql://localhost:3306/<databasename>'
+    user: '<user>'
+    password: '<password>'
+    maximum-pool-size: 10
+    connection-timeout: 30000
+    max-lifetime: 1800000
+
+particles:
+  amount: 100
+  offset:
+    x: 0.5
+    y: 0.5
+    z: 0.5
+
+subjects:
+- dog
+- house
+- toilet
+- superman
+- superhero
+- car
+- book
+- candy
+- flower
+- headset
+
+scoreboards:
+  main:
+    enable: false
+    worlds:
+      enable:
+      -
+  lobby:
+    enable: true
+  build:
+    enable: true
+  vote:
+    enable: true
+    text: false
+  win:
+    enable: true
+
+reports:
+  enable: true
+
+achievements: {}
+
+blocked-entities:
+- 'ender_crystal'
+- 'ender_dragon'
+- 'wither'
+
+blocks:
+  blocked:
+  - 'command_block'
+  - 'command_block_minecart'
+  piston-movement:
+    enable: true
+
+bossbar:
+  color: purple
+  style: solid
+
+mobs:
+  enable-noai: true
+  allow: true
+  options:
+    enable: true
+
+chat:
+  adjust: true
+
+title:
+  fade-in: 0
+  stay: 20
+  fade-out: 20
+  synchronize: false
+
+tab-list:
+  adjust: true
+
+voting:
+  default-vote-points: 5
+  items:
+    second-slot:
+      id: 'coal_block'
+      points: 2
+      slot: 1
+    third-slot:
+      id: 'iron_block'
+      points: 3
+      slot: 2
+    fourth-slot:
+      id: 'lapis_block'
+      points: 4
+      slot: 3
+    fifth-slot:
+      id: 'redstone_block'
+      points: 5
+      slot: 4
+    sixth-slot:
+      id: 'gold_block'
+      points: 6
+      slot: 5
+    seventh-slot:
+      id: 'diamond_block'
+      points: 7
+      slot: 6
+    eighth-slot:
+      id: 'emerald_block'
+      points: 8
+      slot: 7
+  point-actions: {}
+
+command-whitelist:
+- give
+- gamemode
+
+timings:
+  lobby-timer:
+    at:
+    every:
+  build-timer:
+    at:
+    every:
+  vote-timer:
+    at:
+    every:
+  win-timer:
+    at:
+    every:
+
+join:
+  time-change:
+    change: true
+    time: 6000
+
+win-commands:
+- 'execute as %winner% run summon firework_rocket ~1 ~5 ~-4 {FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[I;14263784,581228,995542,3255052,13888116,4175055],FadeColors:[I;8848460]}]}}}}'
+- 'execute as %winner% run summon firework_rocket ~-2 ~5 ~3 {FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Explosions:[{Type:2,Colors:[I;14495340,12909992,8969028,7924605],FadeColors:[I;10438567,12267580,2724499,9942861]}]}}}}'
+- 'execute as %winner% run summon firework_rocket ~-4 ~5 ~1 {FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Explosions:[{Type:0,Colors:[I;2540754],FadeColors:[I;14655338,2417053,631931,4555299,15572482,3482736,693669]}]}}}}'
+
+schematics:
+  enable: true
+
+hotbar:
+  default:
+    slot-1: air
+    slot-2: air
+    slot-3: air
+    slot-4: air
+    slot-5: air
+    slot-6: air
+    slot-7: air
+    slot-8: air
+    slot-9: air
+
+money:
+  first: 20
+  second: 10
+  third: 5
+  others: 0
+commands:
+  first:
+  -
+  second:
+  -
+  third:
+  -
+  others:
+  -
+
+leave-item:
+  slot: 0
+  id: 'clock'
+
+subject-gui:
+  when: lobby
+  open-instantly: false
+  rows: 4
+  vote-items:
+    item:
+      id: 'paper'
+    orientation: horizontal
+  item:
+    id: 'paper'
+  percentage-bars:
+    enable: false
+    offset:
+      x: 2
+      y: 0
+  close-item:
+    enable: true
+  additional-items: {}
+  subject-amount: -1
+  slot: 8
+
+bungeecord:
+  server:
+    address: 'localhost'
+    port: 25565
+  enable: false
+  
+team-selection:
+  show-names-as-lore: false
+  item:
+    id: 'paper'
+  team:
+    1:
+      id: 'paper'
+  
+gui:
+  slot: 8
+  enable: true
+  particles:
+    id: 'poppy'
+    enabled: true
+  floor: 
+    id: 'terracotta'
+    enabled: true
+    excluded-blocks:
+    - poppy
+    cooldown: 0
+  time:
+    id: 'clock'
+    enabled: true
+  rain:
+    id: 'water_bucket'
+    enabled: true
+  fly-speed:
+    id: 'feather'
+    enabled: true
+  heads:
+    id: 'player_head'
+    enabled: true
+  banners:
+    id: 'white_banner'
+    enabled: true
+  biome:
+    id: 'oak_sapling'
+    enabled: true
+
+
+#Possible colors: BLACK, BLUE, BROWN, CYAN, GRAY, GREEN, LIGHT_BLUE, LIME, MAGENTA, ORANGE,PINK, PURPLE, RED, SILVER, WHITE,YELLOW
+#If you have glass-colors-enabled enabled but the stained glass colors do not show, check your console
+signs:
+  glass-colors-enabled: false
+  glass-colors:
+    waiting: LIME
+    starting: GREEN
+    full: RED
+    building: RED
+    voting: ORANGE
+    reseting: ORANGE
+
+debug: false

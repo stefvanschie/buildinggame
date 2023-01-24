@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.banners.base-color.title" rows="2">
+    <outlinepane x="0" y="0" length="9" height="2">
+        <item id="black_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.black.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.black.lore</line>
+            </lore>
+            <properties>
+                <property type="material">BLACK_BANNER</property>
+            </properties>
+        </item>
+        <item id="red_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.red.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.red.lore</line>
+            </lore>
+            <properties>
+                <property type="material">RED_BANNER</property>
+            </properties>
+        </item>
+        <item id="green_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.green.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.green.lore</line>
+            </lore>
+            <properties>
+                <property type="material">GREEN_BANNER</property>
+            </properties>
+        </item>
+        <item id="brown_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.brown.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.brown.lore</line>
+            </lore>
+            <properties>
+                <property type="material">BROWN_BANNER</property>
+            </properties>
+        </item>
+        <item id="blue_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.blue.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.blue.lore</line>
+            </lore>
+            <properties>
+                <property type="material">BLUE_BANNER</property>
+            </properties>
+        </item>
+        <item id="purple_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.purple.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.purple.lore</line>
+            </lore>
+            <properties>
+                <property type="material">PURPLE_BANNER</property>
+            </properties>
+        </item>
+        <item id="cyan_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.cyan.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.cyan.lore</line>
+            </lore>
+            <properties>
+                <property type="material">CYAN_BANNER</property>
+            </properties>
+        </item>
+        <item id="light_gray_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.light-gray.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.light-gray.lore</line>
+            </lore>
+            <properties>
+                <property type="material">LIGHT_GRAY_BANNER</property>
+            </properties>
+        </item>
+        <item id="gray_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.gray.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.gray.lore</line>
+            </lore>
+            <properties>
+                <property type="material">GRAY_BANNER</property>
+            </properties>
+        </item>
+        <empty />
+        <item id="pink_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.pink.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.pink.lore</line>
+            </lore>
+            <properties>
+                <property type="material">PINK_BANNER</property>
+            </properties>
+        </item>
+        <item id="lime_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.lime.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.lime.lore</line>
+            </lore>
+            <properties>
+                <property type="material">LIME_BANNER</property>
+            </properties>
+        </item>
+        <item id="yellow_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.yellow.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.yellow.lore</line>
+            </lore>
+            <properties>
+                <property type="material">YELLOW_BANNER</property>
+            </properties>
+        </item>
+        <item id="light_blue_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.light-blue.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.light-blue.lore</line>
+            </lore>
+            <properties>
+                <property type="material">LIGHT_BLUE_BANNER</property>
+            </properties>
+        </item>
+        <item id="magenta_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.magenta.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.magenta.lore</line>
+            </lore>
+            <properties>
+                <property type="material">MAGENTA_BANNER</property>
+            </properties>
+        </item>
+        <item id="orange_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.orange.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.orange.lore</line>
+            </lore>
+            <properties>
+                <property type="material">ORANGE_BANNER</property>
+            </properties>
+        </item>
+        <item id="white_banner" onClick="bannerClick">
+            <displayname>*gui.banners.base-color.white.name</displayname>
+            <lore>
+                <line>*gui.banners.base-color.white.lore</line>
+            </lore>
+            <properties>
+                <property type="material">WHITE_BANNER</property>
+            </properties>
+        </item>
+    </outlinepane>
+</gui>

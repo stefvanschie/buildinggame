@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*spectator-gui.fly-speed.title" rows="2">
+    <outlinepane x="2" y="0" length="5" height="1">
+        <item id="feather" onClick="speedClick">
+            <displayname>*spectator-gui.fly-speed.speed-1.name</displayname>
+            <lore>
+                <line>*spectator-gui.fly-speed.speed-1.lores</line>
+            </lore>
+            <properties>
+                <property type="float">0.1</property>
+            </properties>
+        </item>
+        <item id="feather" onClick="speedClick">
+            <displayname>*spectator-gui.fly-speed.speed-2.name</displayname>
+            <lore>
+                <line>*spectator-gui.fly-speed.speed-2.lores</line>
+            </lore>
+            <properties>
+                <property type="float">0.2</property>
+            </properties>
+        </item>
+        <item id="feather" onClick="speedClick">
+            <displayname>*spectator-gui.fly-speed.speed-3.name</displayname>
+            <lore>
+                <line>*spectator-gui.fly-speed.speed-3.lores</line>
+            </lore>
+            <properties>
+                <property type="float">0.3</property>
+            </properties>
+        </item>
+        <item id="feather" onClick="speedClick">
+            <displayname>*spectator-gui.fly-speed.speed-4.name</displayname>
+            <lore>
+                <line>*spectator-gui.fly-speed.speed-4.lores</line>
+            </lore>
+            <properties>
+                <property type="float">0.4</property>
+            </properties>
+        </item>
+        <item id="feather" onClick="speedClick">
+            <displayname>*spectator-gui.fly-speed.speed-5.name</displayname>
+            <lore>
+                <line>*spectator-gui.fly-speed.speed-5.lores</line>
+            </lore>
+            <properties>
+                <property type="float">0.5</property>
+            </properties>
+        </item>
+    </outlinepane>
+    <outlinepane x="8" y="1" length="1" height="1">
+        <item id="book" onClick="backClick">
+            <displayname>*spectator-gui.fly-speed.back.name</displayname>
+            <lore>
+                <line>*spectator-gui.fly-speed.back.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+</gui>

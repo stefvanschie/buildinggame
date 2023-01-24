@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.heads.blocks.title" rows="6">
+    <paginatedpane x="0" y="0" length="9" height="5" field="paginatedPane">
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="87bc8f5ac2bf3369741a962de2addbaa17d15cc4dadb19aef6e944817e6c24"/>
+                    <displayname>*gui.heads.blocks.light-blue-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.light-blue-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3f3e406291174d24cdf0f953f8a174a82bb3489dce8f679a443ef1aae0169061"/>
+                    <displayname>*gui.heads.blocks.blue-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.blue-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3ab0263bdd76f3e418dba5bf481b921ced397d8b8a34a5561fb7beaa46ece1"/>
+                    <displayname>*gui.heads.blocks.black-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.black-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a0e9d2beb84b32e3f15e380cc2c5510642911a512105fa2ec679bc540fd8184"/>
+                    <displayname>*gui.heads.blocks.wood-plank.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.wood-plank.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a4195f9a439c6d0ffd1961657f6f0aa8e3a2f8a2493afa662ab5e4193e0"/>
+                    <displayname>*gui.heads.blocks.podzol.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.podzol.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="349c63bc508723328a19e597f40862d27ad5c1d545663ac24466582f568d9"/>
+                    <displayname>*gui.heads.blocks.grass.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.grass.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3">
+                    <skull id="43c52eae747cad5b4fd19b1a23b39a336b62ed422797a622d045f43e5d38"
+                           displayName="*gui.heads.blocks.snow-grass.name" lores="*gui.heads.blocks.snow-grass.lores"
+                           onClick="headClick" />
+                    <displayname>*gui.heads.blocks.snow-grass.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.snow-grass.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1ab43b8c3d34f125e5a3f8b92cd43dfd14c62402c33298461d4d4d7ce2d3aea"/>
+                    <displayname>*gui.heads.blocks.dirt.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.dirt.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7eb4c41f481e816cf4b507b0a17595f2ba1f24664dc432be347d4e7a4eb3"/>
+                    <displayname>*gui.heads.blocks.mycellium.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.mycellium.name</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4ce41e6879dff0785d14cb7694ea6b0df192b96b8816013eb455e71552fce6a"/>
+                    <displayname>*gui.heads.blocks.red-sand.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.red-sand.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d7d7d72e78f35decd2b08ea9b74790e5cd7e26484cf2449bdeca4f78ba3"/>
+                    <displayname>*gui.heads.blocks.sand.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.sand.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1ea6f932b45fdf3b693d9e44bd05bca364eb5b9aff497226fdb52abb2436422"/>
+                    <displayname>*gui.heads.blocks.soulsand.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.soulsand.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5ece8e8383563bcef5d5ae0b1bffed1d6158b9ab7c1ac8344c18ac48f6b6a2"/>
+                    <displayname>*gui.heads.blocks.netherrack.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.netherrack.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="647e2e5d55b6d04943519bed2557c6329e33b60b909dee8923cd88b115210"/>
+                    <displayname>*gui.heads.blocks.mob-spawner.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.mob-spawner.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c60b2f9145215a3a5065dca2d89bb8b4ca44b9222dd22060b51c38d9bf587"/>
+                    <displayname>*gui.heads.blocks.netherbrick.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.netherbrick.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="26de58d583c103c1cd34824380c8a477e898fde2eb9a74e71f1a985053b96"/>
+                    <displayname>*gui.heads.blocks.quartz-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.quartz-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="8d388aed9b72a65ef3254809a4e7b91d5bc4eb255801eaf18ab537ba921e2"/>
+                    <displayname>*gui.heads.blocks.enderpearl.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.enderpearl.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="872d341d77dbde6d53dad61bf192524dbdb96af1358e0748feea1481b1f8"/>
+                    <displayname>*gui.heads.blocks.endereye.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.endereye.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a4a319deafefd6adb37f21449ea56d3ea5a83857fb9616fa7d4f9ea625177"/>
+                    <displayname>*gui.heads.blocks.ender-portal.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.ender-portal.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="872d9b98a6b34a2762aac1af915873c066c43c2b2b8d689d27626cc5afcb11"/>
+                    <displayname>*gui.heads.blocks.ice-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.ice-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5c7ecbfd6d33e873a1cf9a92f57f146152b52d9d7311694602671111a302f"/>
+                    <displayname>*gui.heads.blocks.water.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.water.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b6965e6a58684c277d18717cec959f2833a72dfa95661019dbcdf3dbf66b048"/>
+                    <displayname>*gui.heads.blocks.lava.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.lava.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="af121f7c1ab1567ff21983ff7a9e55c40c0b865f050d37e5d35defbaa"/>
+                    <displayname>*gui.heads.blocks.emerald-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.emerald-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="ef7ece624667b94526999dcfaeb7b360c6836be9a773aca9d2eec0d78e9ad5"/>
+                    <displayname>*gui.heads.blocks.diamond-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.diamond-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c1a1c1bb36c426c53a7fbfec3cd1f0f2189279c6b98eb881963f32f619159"/>
+                    <displayname>*gui.heads.blocks.gold-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.gold-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                <skull id="bba8459145d83ffc44ad58c3260e74ca5a0f634c7eeb59a1ad3234849c933c"/>
+                    <displayname>*gui.heads.blocks.iron-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.iron-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4fc495d1e6eb54a386068c6cb121c5875e031b7f61d7236d5f24b77db7da7f"/>
+                    <displayname>*gui.heads.blocks.emerald-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.emerald-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e8deee5866ab199eda1bdd7707bdb9edd693444f1e3bd336bd2c767151cf2"/>
+                    <displayname>*gui.heads.blocks.redstone-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.redstone-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="31cbd5383bac3cb78bc62efc8c44b36a6cf86bff9f4dcc2ce5ccf666d3a971"/>
+                    <displayname>*gui.heads.blocks.diamond-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.diamond-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="db97bdf92b61926e39f5cddf12f8f7132929dee541771e0b592c8b82c9ad52d"/>
+                    <displayname>*gui.heads.blocks.iron-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.iron-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e4df892293a9236f73f48f9efe979fe07dbd91f7b5d239e4acfd394f6eca"/>
+                    <displayname>*gui.heads.blocks.gold-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.gold-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="195534e02c59b33ece5619280331979777e025fa5fa81ae75e99fd8efdebb8"/>
+                    <displayname>*gui.heads.blocks.cobblestone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.cobblestone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="de9b8aae7f9cc76d625ccb8abc686f30d38f9e6c42533098b9ad577f91c333c"/>
+                    <displayname>*gui.heads.blocks.stone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.stone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c7a2c18ffa4d3f4216b2414179ecd88ae79e6b1e0e89c7bf25dd35994f7b96"/>
+                    <displayname>*gui.heads.blocks.stone-brick.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.stone-brick.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6a3bb93b9933689bc5088dec730bbe859d826b6dad5ffd773c2d2b8f847f5f"/>
+                    <displayname>*gui.heads.blocks.stone-brick-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.stone-brick-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3058ec4d3920adbfa86550f5852422e1af55054a15afc9c2c922d58765faa5b"/>
+                    <displayname>*gui.heads.blocks.chimney.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.chimney.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="bb99e036a4b27b3b58b72f8663c502cab8cfa46db393d8487119ca57979e3fd"/>
+                    <displayname>*gui.heads.blocks.bedrock.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.bedrock.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="290d4fcb2ce03b94d920f0a9e7a54b32cfc7a1d33a6dfe9757d8678cbb591"/>
+                    <displayname>*gui.heads.blocks.brick.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.brick.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e5e2b2ed298b53cc84783cd785ec57da49ceaabdcff31b25fe5256b3429b412"/>
+                    <displayname>*gui.heads.blocks.quartz-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.quartz-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4934a9f5ab1789a7d8dd96d32493cdacff577d8c81e7b23917dff2e32bd0bc10"/>
+                    <displayname>*gui.heads.blocks.slime-ball.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.slime-ball.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1aff93ebecc1f8fbd13ba7839ec7bdcdecab7c07fd8ba78ee78ad0bd3accbe"/>
+                    <displayname>*gui.heads.blocks.redstone-lamp-on.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.redstone-lamp-on.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="dac9672ff65c2d27ac61b94d174cf1cc70729ec7f5663397e2dd4726a7bcd5"/>
+                    <displayname>*gui.heads.blocks.piston.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.piston.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7ca4d218df9d32cd47d9c1d294877122be5919b418a6cc3d089162b133f2db"/>
+                    <displayname>*gui.heads.blocks.sticky-piston.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.sticky-piston.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b711315e3701d66c53154aac995d64ff7f80be8e11d2712d9298dbabd71d6"/>
+                    <displayname>*gui.heads.blocks.slime-piston.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.slime-piston.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="aa868ce917c09af8e4c350a5807041f6509bf2b89aca45e591fbbd7d4b117d"/>
+                    <displayname>*gui.heads.blocks.half-piston.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.half-piston.lores</line>
+                    </lore>
+                </item>
+            </outlinepane>
+        </page>
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6326f0e739353d2d7c8e9ab4e91e1fbec607cad0fe10296afd21d633b9ecee"/>
+                    <displayname>*gui.heads.blocks.dropper.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.dropper.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="25e9152efd892f60d7e0d7e53369e04779ed3111e2fb2752b6f4c26df540aedc"/>
+                    <displayname>*gui.heads.blocks.dropper-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.dropper-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c2b0a2709ad27c5783ba7acbdae8787d17673f0888f1b6d4e24ee13298d4"/>
+                    <displayname>*gui.heads.blocks.redstone-torch.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.redstone-torch.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5c9e37f599c55698d3873c8714d9f3a408751c01271a789e2ce3e7e9a2dc4"/>
+                    <displayname>*gui.heads.blocks.redstone-torch-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.redstone-torch-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d08ee6edfa98db5eae9b9c9936e94489b2d4bbbd3d2b4b6b4885a32240613c"/>
+                    <displayname>*gui.heads.blocks.redstone-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.redstone-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d08ee6edfa98db5eae9b9c9936e94489b2d4bbbd3d2b4b6b4885a32240613c"/>
+                    <displayname>*gui.heads.blocks.tnt.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.tnt.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="eb994b41f07f87b328186acfcbdabc699d5b1847fabb2e49d5abc27865143a4e"/>
+                    <displayname>*gui.heads.blocks.tnt-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.tnt-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6de4b53b78ec1c74d5b01f7f3b55832892b047fac155f534a74e717821c2ad"/>
+                    <displayname>*gui.heads.blocks.jukebox.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.jukebox.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="cc7d1b18398acd6e7e692a833a2217aea6b5a770f42c43513e4358cacd1b9c"/>
+                    <displayname>*gui.heads.blocks.jukebox-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.jukebox-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9613fdab43d76838b7b8c19244163f1765db874bdf151696bdcb654eb2e52"/>
+                    <displayname>*gui.heads.blocks.sponge.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.sponge.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6748ea7080afcdf07b1510fdce777665a76a6c6e2c166d39e1c345a6bb9c5f1e"/>
+                    <displayname>*gui.heads.blocks.mossy-stone-brick.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.mossy-stone-brick.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9a656926adcd507ff079ce42f5177435c28ef369359cf7ca6f9d825f5767db"/>
+                    <displayname>*gui.heads.blocks.hydrated-farmland.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.hydrated-farmland.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="97e56140686e476aef5520acbabc239535ff97e24b14d87f4982f13675c"/>
+                    <displayname>*gui.heads.blocks.prismarine.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.prismarine.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="1762a15b04692a2e4b3fb3663bd4b78434dce1732b8eb1c7a9f7c0fbf6f"/>
+                    <displayname>*gui.heads.blocks.enchantment-table.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.enchantment-table.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5083ec2b01dc0fee79aa32188d9429acc68ecf71408dca04aaab53ad8bea0"/>
+                    <displayname>*gui.heads.blocks.cocoa-pod.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.cocoa-pod.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="8514d225b262d847c7e557b474327dcef758c2c5882e41ee6d8c5e9cd3bc914"/>
+                    <displayname>*gui.heads.blocks.command-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.command-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="37cba233ffc457b3305228b25f35c02335611c9efb76698b5e94c0d541b5f4"/>
+                    <displayname>*gui.heads.blocks.prismarine-brick.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.prismarine-brick.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4e3ca5b390d1e5f297283257ce90ac6f8783d786ecaee095b49cc6b944d72d"/>
+                    <displayname>*gui.heads.blocks.hay-bale.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.hay-bale.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="51ac5c4ef7501ab1eb9a2789ad6e65acdf6a27318d8de5356fe2475173a618f"/>
+                    <displayname>*gui.heads.blocks.hay-bale-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.hay-bale-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="65d7bed8df714cea063e457ba5e87931141de293dd1d9b9146b0f5ab383866"/>
+                    <displayname>*gui.heads.blocks.glowstone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.glowstone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f32a1a50bbe431dc2ff71e8b26bb6dea155f72e2f469dda14f108c6083a7ecda"/>
+                    <displayname>*gui.heads.blocks.gravel.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.gravel.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="484684344ae098529fc941aa84e195bdca3748d69acfee2bac1332135edd98c"/>
+                    <displayname>*gui.heads.blocks.green-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.green-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e9e6917f2fb4ea08e7132df30961d2b5c523abba19ce43f835fc14c568f4"/>
+                    <displayname>*gui.heads.blocks.gray-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.gray-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a0285bea3c8a02db139fa8ec5cc588615a98550725f8e676c93fdbc33b6b"/>
+                    <displayname>*gui.heads.blocks.granite.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.granite.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9ae4cf22f45bb77aefa5afa1f864dd3c5f9d3e92f43b3588fd162b2aa8c"/>
+                    <displayname>*gui.heads.blocks.polished-granite.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.polished-granite.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="13fa5265a336abde301a9d59af4783e82a10dad0817716ead2962ab7c6d3dff"
+                           displayName="*gui.heads.blocks.diorite.name" lores="*gui.heads.blocks.diorite.lores"
+                           onClick="headClick" />
+                    <displayname>*gui.heads.blocks.diorite.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.diorite.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="31a281f4945286c31fa077121f9b32c588fb94064de7f908cf0e9677cdda8b1"/>
+                    <displayname>*gui.heads.blocks.polished-diorite.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.polished-diorite.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b513543a77118f8201f49b7c8b632dcfd38037ebfc601a1bc91aedc4caba"/>
+                    <displayname>*gui.heads.blocks.andesite.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.andesite.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="ca979f76633f5dda89496511716948e9d7b8592f6e1e480c5de1c83238d3e32"/>
+                    <displayname>*gui.heads.blocks.polished-andesite.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.polished-andesite.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="c28bdd34810f866527daaf283da71826a8378286b2a43a626615fa1b3639e"/>
+                    <displayname>*gui.heads.blocks.wet-sponge.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.wet-sponge.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="2d848dc6f694cbf35441722b1a27a195da56e4960231824fd7ec5b1315cc2a"/>
+                    <displayname>*gui.heads.blocks.lapis-lazuli-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.lapis-lazuli-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="2aa0d0fea1afaee334cab4d29d869652f5563c635253c0cbed797ed3cf57de0"/>
+                    <displayname>*gui.heads.blocks.lapis-lazuli-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.lapis-lazuli-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="cf38117c157f2cce27f566fb6242ddcc34dabc39cdd1d54e66128a4ec8a3ca4c"/>
+                    <displayname>*gui.heads.blocks.sandstone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.sandstone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d36e9862832a6fcc4855fa79c1aae5e73b9197ec6bbd38f6312efac680c63285"/>
+                    <displayname>*gui.heads.blocks.smooth-sandstone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.smooth-sandstone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="88efad74b254e57c799763dceee4511fa2f85ae9fa556eaa97d45bf67e0b6b3"/>
+                    <displayname>*gui.heads.blocks.cyan-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.cyan-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="32e36f6a654de74583d8030177ad6e3ac6755d7435d9123e8ebdff74b2d90cb"/>
+                    <displayname>*gui.heads.blocks.brown-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.brown-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f1af46febd45c0f4d81e8fa1b66b275d89e272b2ad55c978553a99c733e1ff"/>
+                    <displayname>*gui.heads.blocks.light-blue-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.light-blue-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="d67470a0c18f6851e914353719e795877d29b3252f7e6bd4a1b865765bd74feb"/>
+                    <displayname>*gui.heads.blocks.lime-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.lime-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="abb4386bcda84e353c31d778d3b11bcd26fea494dd63496b8a82c7c78a4ad"/>
+                    <displayname>*gui.heads.blocks.magenta-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.magenta-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="cbf7797a24a6af875f5c8271c5b8c425e19f372a415e0552fc247763f2859d1"/>
+                    <displayname>*gui.heads.blocks.orange-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.orange-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="6becfb3879936b899e420bfcd3a74f8a1bf9dd54c58ec7fb9f81d9a5d988e"/>
+                    <displayname>*gui.heads.blocks.pink-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.pink-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="ba94cb25de628ca359b2f6ea5a8868cbe26595eedb2bffb750967ad1ee1850"/>
+                    <displayname>*gui.heads.blocks.purple-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.purple-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="86d35a963d5987894b6bc214e328b39cd2382426ff9c8e082b0b6a6e044d3a3"/>
+                    <displayname>*gui.heads.blocks.red-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.red-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="998ba2b374cfc89454c1b8c32db458a270675439a495496c96771c989116162"/>
+                    <displayname>*gui.heads.blocks.light-gray-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.light-gray-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3faf4c29f1e7405f4680c5c2b03ef9384f1aecfe2986ad50138c605fefff2f15"/>
+                    <displayname>*gui.heads.blocks.white-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.white-wool.lores</line>
+                    </lore>
+                </item>
+            </outlinepane>
+        </page>
+        <page>
+            <outlinepane x="0" y="0" length="9" height="5">
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="27bbd0b2911c96b5d87b2df76691a51b8b12c6fefd523146d8ac5ef1b8ee"/>
+                    <displayname>*gui.heads.blocks.yellow-wool.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.yellow-wool.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="39a46b2ab32f216e2d922c7237ba2319f91b71fa24fe451ad2ca81423ea3c8"/>
+                    <displayname>*gui.heads.blocks.cracked-stone-brick.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.cracked-stone-brick.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7237333339cbc6b469452c96211fa23e1951e8795076f9eed96a13824a879"/>
+                    <displayname>*gui.heads.blocks.mossy-stone-brick-2.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.mossy-stone-brick-2.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="8dd0cd158c2bb6618650e3954b2d29237f5b4c0ddc7d258e17380ab6979f071"/>
+                    <displayname>*gui.heads.blocks.stone-slab.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.stone-slab.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5dd6fe267a418dcc7f37a8f76855b5328b1303897b342a107cf162f14fe3d"/>
+                    <displayname>*gui.heads.blocks.snow-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.snow-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="90e65e6e5113a5187dad46dfad3d3bf85e8ef807f82aac228a59c4a95d6f6a"/>
+                    <displayname>*gui.heads.blocks.slime-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.slime-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7840b87d52271d2a755dedc82877e0ed3df67dcc42ea479ec146176b02779a5"/>
+                    <displayname>*gui.heads.blocks.obsidian.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.obsidian.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="a2da7aa1ae6cc9d6c36c18a460d2398162edc2207fdfc9e28a7bf84d7441b8a2"/>
+                    <displayname>*gui.heads.blocks.smooth-red-sandstone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.smooth-red-sandstone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="db31be197ac7d78b30c34dac2665dbf1a74f96a79e52cb8ed5088ad70ee9348"/>
+                    <displayname>*gui.heads.blocks.red-sandstone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.red-sandstone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4ceeb77d4d25724a9caf2c7cdf2d88399b1417c6b9ff5213659b653be4376e3"/>
+                    <displayname>*gui.heads.blocks.note-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.note-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="56aab58fa01fce9af469ed747aed811d7ba18c476f5a7f9088e129c31b45f3"/>
+                    <displayname>*gui.heads.blocks.packed-ice-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.packed-ice-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b0bfc2577f6e26c6c6f7365c2c4076bccee653124989382ce93bca4fc9e39b"/>
+                    <displayname>*gui.heads.blocks.nether-portal.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.nether-portal.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="19f21f5d883316fd65a9366f32a33013182e3381dec21c17c78355d9bf4f0"/>
+                    <displayname>*gui.heads.blocks.end-stone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.end-stone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4d9238efc93493b14a582639eb0aa8834eaa48e10bd4c234eb1a4c363b43d5b"/>
+                    <displayname>*gui.heads.blocks.mossy-cobblestone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.mossy-cobblestone.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5ec0ebea1821c292fdff45d359b3a9e2122717e83d55dc07fc3bb1ce32935e"/>
+                    <displayname>*gui.heads.blocks.brick.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.brick.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="67826829eab5ad62f0c11d9faafdc9954364871160dd839e1ab5a3b213a33"/>
+                    <displayname>*gui.heads.blocks.clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7788f5ddaf52c5842287b9427a74dac8f0919eb2fdb1b51365ab25eb392c47"/>
+                    <displayname>*gui.heads.blocks.coal-ore.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.coal-ore.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f6c5ecac942c77b95ab4620df5b85e38064c974f9c5c576b843622806a4557"/>
+                    <displayname>*gui.heads.blocks.coal-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.coal-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="fd918598989549594446e83f33873891178da9db42f912e5272e1fb240312a"/>
+                    <displayname>*gui.heads.blocks.dark-prismarine.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.dark-prismarine.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e82e6aa950117384eb4bf55217283a78f57b8c85c089aad03bac5caa83c3020"/>
+                    <displayname>*gui.heads.blocks.dispenser.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.dispenser.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9dbdaa755099edd7efa1f12882c7a51b5815db52e0b164aef6df9a1f53eca23"/>
+                    <displayname>*gui.heads.blocks.beacon.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.beacon.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="61fab0225e20e8458e8b75399713388d929856b551b0149081dbb0121e2a1664"/>
+                    <displayname>*gui.heads.blocks.pillar-quartz-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.pillar-quartz-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="852cf1aef4b6adbc38f196dfba536db5a0b068f1ab91769ad8c6d2f74d3a5d4e"/>
+                    <displayname>*gui.heads.blocks.chiseled-quartz-block.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.chiseled-quartz-block.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="824c6ff1714eb2c3b844d46d2e5ea2f26d273a33eaaa744abf645b060b47d7"/>
+                    <displayname>*gui.heads.blocks.sea-lantern.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.sea-lantern.lores></line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="11530f790e972e0bcc63a54dc55532902568def8dedf2e22e759bbcbc55c0"/>
+                    <displayname>*gui.heads.blocks.dry-farmland.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.dry-farmland.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="2fa764b3c1d462f8124478ff543c7633fa19baf9913ee228513e81a3633d"/>
+                    <displayname>*gui.heads.blocks.coarse-dirt.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.coarse-dirt.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="bd58d459165d5978753eab5f44bd609f3db84ee3bb016932052389d38b895"/>
+                    <displayname>*gui.heads.blocks.redstone-lamp-off.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.redstone-lamp-off.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="82d5fefe20daf31c238ee227dd141827ada5ef8482d8d357bbe5a7cf40af85"/>
+                    <displayname>*gui.heads.blocks.hardened-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.hardened-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e17ff8babb91b4dbad7524e58eed4b2f71565745989af9a2ccfcf3328f61bd2"/>
+                    <displayname>*gui.heads.blocks.black-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.black-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7c116694731fbd272c1ffa4352a5359b6c3a4cb5864a74a5dbe0f665f8385c"/>
+                    <displayname>*gui.heads.blocks.blue-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.blue-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="54b932f117c87e11189f1c4c40cfd92be9119b1137cd610c68edd41ac58f14"/>
+                    <displayname>*gui.heads.blocks.brown-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.brown-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="4463811fd0c48fcd73abcb7bbe5aa5ec6bc2809ffc5577d3f4559df30765f"/>
+                    <displayname>*gui.heads.blocks.cyan-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.cyan-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9efa7b5e5e63d46d14615c61bed15427d90b261c7ca5e8159c466f09561da"/>
+                    <displayname>*gui.heads.blocks.gray-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.gray-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="b55d5019c8d55bcb9dc3494ccc3419757f89c3384cf3c9abec3f18831f35b0"/>
+                    <displayname>*gui.heads.blocks.green-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.green-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="55a117e161f7a291d0a3a168e77a21b09d39ffdf5773d22ac02f5fa6611db67"/>
+                    <displayname>*gui.heads.blocks.lime-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.lime-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="3441528d288b2b79736cb2248878fb91efb4462d43bebd711f7326afbbf85"/>
+                    <displayname>*gui.heads.blocks.magenta-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.magenta-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7316c16b1ac470d2c114434ff8730f1815709383db6f3cf720c39b6dce2116"/>
+                    <displayname>*gui.heads.blocks.orange-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.orange-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="f75db81e1592f32d771dd5dbc6c3a51e7a0d66b22dfe296b96868505ceec"/>
+                    <displayname>*gui.heads.blocks.pink-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.pink-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="9e42f682e430b55b61204a6f8b76d5227d278ed9ec4d98bda4a7a4830a4b6"/>
+                    <displayname>*gui.heads.blocks.red-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.red-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="e6f54f82836a55924ee85dec56bbbd8ca14633daa9bfe3565592edf39a6de"/>
+                    <displayname>*gui.heads.blocks.purple-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.purple-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="7159594388bf013a4e3e6869faabcb95d31dd3f4a258a535e7cbd92c9986b7"/>
+                    <displayname>*gui.heads.blocks.white-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.white-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="5cde99b72728ef881640fa5068d122e61dd9cf718dbb3709fc5b326f1af5d"/>
+                    <displayname>*gui.heads.blocks.light-gray-stained-clay.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.light-gray-stained-clay.lores</line>
+                    </lore>
+                </item>
+                <item id="player_head" damage="3" onClick="headClick">
+                    <skull id="491e7f9033765cec968f272fc58b7344c434a1721f9537b25a6aff4c24576c5"/>
+                    <displayname>*gui.heads.blocks.chiseled-sandstone.name</displayname>
+                    <lore>
+                        <line>*gui.heads.blocks.chiseled-sandstone.lores</line>
+                    </lore>
+                </item>
+            </outlinepane>
+        </page>
+    </paginatedpane>
+    <outlinepane x="2" y="5" length="1" height="1" field="previous" visible="false">
+        <item id="sugar_cane" onClick="previousPageClick">
+            <displayname>*gui.heads.blocks.previous-page.name</displayname>
+            <lore>
+                <line>*gui.heads.blocks.previous-page.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+    <outlinepane x="4" y="5" length="1" height="1">
+        <item id="book" onClick="closeClick">
+            <displayname>*gui.heads.blocks.close.name</displayname>
+            <lore>
+                <line>*gui.heads.blocks.close.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+    <outlinepane x="6" y="5" length="1" height="1" field="next">
+        <item id="sugar_cane" onClick="nextPageClick">
+            <displayname>*gui.heads.blocks.next-page.name</displayname>
+            <lore>
+                <line>*gui.heads.blocks.next-page.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+</gui>
