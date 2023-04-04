@@ -91,8 +91,8 @@ public class EntityOptionsMenu implements Listener {
         }
 
         (switch (entityType) {
-            case CHICKEN, COW, OCELOT, SKELETON_HORSE, POLAR_BEAR, HUSK, ZOMBIE, TURTLE, PIGLIN, HOGLIN, STRIDER,
-                ZOGLIN -> new BabyMenu(plot, entity);
+            case CAMEL, CHICKEN, COW, OCELOT, SKELETON_HORSE, SNIFFER, POLAR_BEAR, HUSK, ZOMBIE, TURTLE, PIGLIN, HOGLIN,
+                STRIDER, ZOGLIN -> new BabyMenu(plot, entity);
             case DONKEY, MULE -> new ChestMenu(plot, (ChestedHorse) entity);
             case VILLAGER, ZOMBIE_VILLAGER -> new VillagerlikeMenu(plot, (Creature) entity);
             case PHANTOM, MAGMA_CUBE, SLIME -> new SizeMenu(plot, (Mob) entity);

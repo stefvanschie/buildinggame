@@ -82,9 +82,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.gmail.stefvanschiedev</groupId>
+            <artifactId>1_19_4</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.19-R0.1-SNAPSHOT</version>
+            <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

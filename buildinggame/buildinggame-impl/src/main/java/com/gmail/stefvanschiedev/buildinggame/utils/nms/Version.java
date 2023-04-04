@@ -37,7 +37,14 @@ public enum Version {
      *
      * @since 12.1.0
      */
-    V1_19_3;
+    V1_19_3,
+
+    /**
+     * Version 1.19.4
+     *
+     * @since 12.2.0
+     */
+    V1_19_4;
 
     /**
      * Gets the version the server is currently running, or throws an {@link UnsupportedVersionException} when the
@@ -51,17 +58,13 @@ public enum Version {
     public static Version getVersion() {
         String version = Bukkit.getBukkitVersion().split("-")[0];
 
-        switch (version) {
-            case "1.19":
-                return V1_19_0;
-            case "1.19.1":
-                return V1_19_1;
-            case "1.19.2":
-                return V1_19_2;
-            case "1.19.3":
-                return V1_19_3;
-            default:
-                throw new UnsupportedVersionException("This server's version is not supported");
-        }
+        return switch (version) {
+            case "1.19" -> V1_19_0;
+            case "1.19.1" -> V1_19_1;
+            case "1.19.2" -> V1_19_2;
+            case "1.19.3" -> V1_19_3;
+            case "1.19.4" -> V1_19_4;
+            default -> throw new UnsupportedVersionException("This server's version is not supported");
+        };
     }
 }

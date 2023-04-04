@@ -5,4 +5,5 @@
 \output
 \out
 \target
+\.paper-nms
 dependency-reduced-pom.xml
