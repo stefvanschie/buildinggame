@@ -1,5 +1,9 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.item;
 
+import com.gmail.stefvanschiedev.buildinggame.game.LobbyGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.VotingGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.GamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.SubjectVoting;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -260,9 +264,17 @@ public enum ClickEvent {
             return;
         }
 
+        GamePhase phase = arena.getCurrentPhase();
+
+        if (!(phase instanceof VotingGamePhase)) {
+            return;
+        }
+
+        Plot votingPlot = ((VotingGamePhase) phase).getVotingPlot();
+
         StringBuilder players = new StringBuilder();
 
-        for (GamePlayer gamePlayer : arena.getVotingPlot().getGamePlayers()) {
+        for (GamePlayer gamePlayer : votingPlot.getGamePlayers()) {
             players.append('-').append(gamePlayer.getPlayer().getName());
         }
 
@@ -270,13 +282,13 @@ public enum ClickEvent {
         var fileName = LocalDateTime.now().format(dateTimeFormatter) + players + ".schem";
         var file = new File(SettingsManager.getInstance().getReportsSchematicsFolder(), fileName);
 
-        arena.getVotingPlot().getBoundary().saveSchematic(file, () ->
+        votingPlot.getBoundary().saveSchematic(file, () ->
             MessageManager.getInstance().send(
                 event.getPlayer(),
                 ChatColor.GREEN + "Your report has been saved."
             ));
 
-        for (GamePlayer gamePlayer : arena.getVotingPlot().getGamePlayers()) {
+        for (GamePlayer gamePlayer : votingPlot.getGamePlayers()) {
             Report.add(new Report(gamePlayer.getPlayer(), event.getPlayer(), ZonedDateTime.now(), file));
         }
     }),
@@ -333,7 +345,13 @@ public enum ClickEvent {
             return;
         }
 
-        arena.getSubjectMenu().show(event.getPlayer());
+        GamePhase phase = arena.getCurrentPhase();
+
+        if (!(phase instanceof SubjectVoting)) {
+            return;
+        }
+
+        ((SubjectVoting) phase).getSubjectMenu().show(event.getPlayer());
         event.setCancelled(true);
     }),
 
@@ -349,7 +367,13 @@ public enum ClickEvent {
             return;
         }
 
-        arena.getTeamSelection().show(event.getPlayer());
+        GamePhase phase = arena.getCurrentPhase();
+
+        if (!(phase instanceof LobbyGamePhase)) {
+            return;
+        }
+
+        ((LobbyGamePhase) phase).getTeamSelection().show(event.getPlayer());
         event.setCancelled(true);
     }),
 
@@ -365,6 +389,12 @@ public enum ClickEvent {
             return;
         }
 
+        GamePhase phase = arena.getCurrentPhase();
+
+        if (!(phase instanceof VotingGamePhase)) {
+            return;
+        }
+
         //due to boxing, this may be null; to properly check for this, we don't unbox it, so we can perform a null check
         Integer points = contextBag.getContext("points", PersistentDataType.INTEGER);
 
@@ -372,7 +402,7 @@ public enum ClickEvent {
             return;
         }
 
-        arena.getVotingPlot().addVote(new Vote(points, event.getPlayer()));
+        ((VotingGamePhase) phase).getVotingPlot().addVote(new Vote(points, event.getPlayer()));
         event.setCancelled(true);
     });
 

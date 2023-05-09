@@ -1,11 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.events.stats.unsaved;
 
+import com.gmail.stefvanschiedev.buildinggame.game.BuildingGamePhase;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 
 /**
  * Handles unsaved block placed
@@ -26,8 +26,9 @@ public class UnsavedStatsPlace implements Listener {
 		var player = e.getPlayer();
 		var arena = ArenaManager.getInstance().getArena(player);
 		
-		if (arena == null || arena.getState() != GameState.BUILDING)
-			return;
+		if (arena == null || !(arena.getCurrentPhase() instanceof BuildingGamePhase)) {
+            return;
+        }
 
         var gamePlayer = arena.getPlot(player).getGamePlayer(player);
 

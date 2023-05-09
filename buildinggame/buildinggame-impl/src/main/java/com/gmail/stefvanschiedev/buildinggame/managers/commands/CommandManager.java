@@ -4,6 +4,11 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.game.BuildingGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.LobbyGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.VotingGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.GamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.SubjectVoting;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
@@ -94,10 +99,6 @@ public class CommandManager extends BaseCommand {
 
         Arena arena = new Arena(name);
         arena.setMode(ArenaMode.SOLO);
-        arena.setBuildTimer(new BuildTimer(buildTime, arena));
-        arena.setLobbyTimer(new LobbyTimer(lobbyTime, arena));
-        arena.setVoteTimer(new VoteTimer(voteTime, arena));
-        arena.setWinTimer(new WinTimer(winTime, arena));
 
         ArenaManager.getInstance().getArenas().add(arena);
 
@@ -217,10 +218,16 @@ public class CommandManager extends BaseCommand {
             var playerArena = ArenaManager.getInstance().getArena(player);
 
             if (playerArena != null && arena == null) {
-                playerArena.getLobbyTimer().setSeconds(0);
+                GamePhase phase = playerArena.getCurrentPhase();
+
+                if (!(phase instanceof LobbyGamePhase)) {
+                    player.sendMessage(ChatColor.RED + "Game has already started");
+                } else {
+                    ((LobbyGamePhase) phase).endTimer();
+                }
+
                 return;
             }
-
         }
 
         if (arena == null) {
@@ -234,13 +241,13 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        if (arena.getState() != GameState.WAITING && arena.getState() != GameState.STARTING &&
-            arena.getState() != GameState.FULL) {
-            MessageManager.getInstance().send(sender, ChatColor.RED + "The arena is already in game");
-            return;
-        }
+        GamePhase phase = arena.getCurrentPhase();
 
-        arena.getLobbyTimer().setSeconds(0);
+        if (!(phase instanceof LobbyGamePhase)) {
+            sender.sendMessage(ChatColor.RED + "Game has already started");
+        } else {
+            ((LobbyGamePhase) phase).endTimer();
+        }
     }
 
     /**
@@ -264,10 +271,16 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        arena.getSubjectMenu().forceTheme(theme);
+        GamePhase phase = arena.getCurrentPhase();
 
-        messages.getStringList("commands.forcetheme.success").forEach(message ->
-            MessageManager.getInstance().send(player, message.replace("%theme%", theme)));
+        if (phase instanceof SubjectVoting) {
+            ((SubjectVoting) phase).getSubjectMenu().forceTheme(theme);
+
+            messages.getStringList("commands.forcetheme.success").forEach(message ->
+                MessageManager.getInstance().send(player, message.replace("%theme%", theme)));
+        } else {
+            player.sendMessage(ChatColor.RED + "Unable to force theme as no themes are being chosen currently");
+        }
     }
 
     /**
@@ -333,7 +346,7 @@ public class CommandManager extends BaseCommand {
     public void onList(CommandSender sender) {
         ArenaManager.getInstance().getArenas().forEach(arena ->
             MessageManager.getInstance().send(sender, ChatColor.DARK_AQUA + " - " + arena.getName() +
-                ChatColor.DARK_GREEN + " - " + arena.getState().toString().toLowerCase(Locale.getDefault())));
+                ChatColor.DARK_GREEN + " - " + arena.getCurrentPhase().getName()));
     }
 
     /**
@@ -518,8 +531,6 @@ public class CommandManager extends BaseCommand {
 
         arenas.set(arena.getName() + ".lobby-timer", seconds);
         SettingsManager.getInstance().save();
-
-        arena.setLobbyTimer(new LobbyTimer(seconds, arena));
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Lobby timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
@@ -730,8 +741,6 @@ public class CommandManager extends BaseCommand {
         arenas.set(arena.getName() + ".timer", seconds);
         SettingsManager.getInstance().save();
 
-        arena.setBuildTimer(new BuildTimer(seconds, arena));
-
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
     }
@@ -839,8 +848,6 @@ public class CommandManager extends BaseCommand {
         arenas.set(arena.getName() + ".vote-timer", seconds);
         SettingsManager.getInstance().save();
 
-        arena.setVoteTimer(new VoteTimer(seconds, arena));
-
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Vote timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
     }
@@ -862,8 +869,6 @@ public class CommandManager extends BaseCommand {
 
         arenas.set(arena.getName() + ".win-timer", seconds);
         SettingsManager.getInstance().save();
-
-        arena.setWinTimer(new WinTimer(seconds, arena));
 
         MessageManager.getInstance().send(sender, ChatColor.GREEN + "Win timer setting for arena '" +
             arena.getName() + "' changed to '" + seconds + '\'');
@@ -887,7 +892,7 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        if (arena.getState() != GameState.BUILDING) {
+        if (!(arena.getCurrentPhase() instanceof BuildingGamePhase)) {
             MessageManager.getInstance().send(player, ChatColor.RED + "You can't spectate right now");
             return;
         }
@@ -1009,12 +1014,14 @@ public class CommandManager extends BaseCommand {
             return;
         }
 
-        if (arena.getState() != GameState.VOTING) {
+        GamePhase phase = arena.getCurrentPhase();
+
+        if (!(phase instanceof VotingGamePhase)) {
             MessageManager.getInstance().send(player, ChatColor.RED + "You can't vote at this moment");
             return;
         }
 
-        var plot = arena.getVotingPlot();
+        var plot = ((VotingGamePhase) phase).getVotingPlot();
         plot.addVote(new Vote(points, player));
 
         MessageManager.getInstance().send(player, messages.getString("vote.message")

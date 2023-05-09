@@ -1,6 +1,11 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.scoreboards;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.game.BuildingGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.VotingGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.WinningGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.GamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.timed.TimedGamePhase;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.SDVault;
@@ -15,6 +20,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -110,39 +116,93 @@ public abstract class ArenaScoreboard {
         replacements.put("arena", player -> arena.getName());
         replacements.put("players", player -> String.valueOf(arena.getPlayers()));
         replacements.put("max_players", player -> String.valueOf(arena.getMaxPlayers()));
-        replacements.put("subject", player -> arena.getSubject());
-        replacements.put("seconds", player -> {
-            var timer = arena.getActiveTimer();
 
-            return timer == null ? "0" : String.valueOf(timer.getSeconds());
+        replacements.put("subject", player -> {
+            GamePhase phase = arena.getCurrentPhase();
+
+            if (phase instanceof BuildingGamePhase) {
+                return ((BuildingGamePhase) phase).getSubject();
+            }
+
+            if (phase instanceof VotingGamePhase) {
+                return ((VotingGamePhase) phase).getSubject();
+            }
+
+            if (phase instanceof WinningGamePhase) {
+                return ((WinningGamePhase) phase).getSubject();
+            }
+
+            return "?";
+        });
+        replacements.put("seconds", player -> {
+            GamePhase phase = arena.getCurrentPhase();
+
+            if (!(phase instanceof TimedGamePhase<?>)) {
+                return "0";
+            }
+
+            return String.valueOf(((TimedGamePhase<?>) phase).getRemainingTime().getSeconds());
         });
         replacements.put("minutes", player -> {
-            var timer = arena.getActiveTimer();
+            GamePhase phase = arena.getCurrentPhase();
 
-            return timer == null ? "0" : String.valueOf(timer.getMinutes());
+            if (!(phase instanceof TimedGamePhase<?>)) {
+                return "0";
+            }
+
+            return String.valueOf(((TimedGamePhase<?>) phase).getRemainingTime().getSeconds());
         });
         replacements.put("plot", player -> String.valueOf(arena.getPlot(player).getId()));
         replacements.put("time", player -> {
-            var timer = arena.getActiveTimer();
+            GamePhase phase = arena.getCurrentPhase();
 
-            return timer == null ? "0" : timer.getMinutes() + ":" + timer.getSecondsFromMinute();
+            if (!(phase instanceof TimedGamePhase<?>)) {
+                return "0";
+            }
+
+            Duration remainingTime = ((TimedGamePhase<?>) phase).getRemainingTime();
+
+            return remainingTime.toMinutes() + ":" + (remainingTime.getSeconds() - (remainingTime.toMinutes() * 60));
         });
         replacements.put("seconds_from_minute", player -> {
-            var timer = arena.getActiveTimer();
+            GamePhase phase = arena.getCurrentPhase();
 
-            return timer == null ? "0" : String.valueOf(timer.getSecondsFromMinute());
+            if (!(phase instanceof TimedGamePhase<?>)) {
+                return "0";
+            }
+
+            Duration remainingTime = ((TimedGamePhase<?>) phase).getRemainingTime();
+
+            return String.valueOf(remainingTime.getSeconds() - (remainingTime.toMinutes() * 60));
         });
         replacements.put("blocks_placed", player -> String.valueOf(arena.getPlot(player).getGamePlayer(player)
                 .getBlocksPlaced()));
         replacements.put("money", player ->
                 SDVault.getInstance().isEnabled() ? String.valueOf(SDVault.getEconomy().getBalance(player)) : "0");
         replacements.put("vote", player -> {
-            var plot = arena.getVotingPlot();
+            GamePhase phase = arena.getCurrentPhase();
 
-            return plot == null ? "0" : plot.getVote(player) == null ? "0" : plot.getVote(player) + "";
+            if (!(phase instanceof VotingGamePhase)) {
+                return "0";
+            }
+
+            var plot = ((VotingGamePhase) phase).getVotingPlot();
+
+            if (plot == null) {
+                return "0";
+            }
+
+            return plot.getVote(player) == null ? "0" : String.valueOf(plot.getVote(player));
         });
         replacements.put("playerplot", player -> {
-            var votingPlot = arena.getVotingPlot();
+            GamePhase phase = arena.getCurrentPhase();
+
+            if (!(phase instanceof VotingGamePhase)) {
+                return "?";
+            }
+
+            var votingPlot = ((VotingGamePhase) phase).getVotingPlot();
+
             var plot = arena.getPlot(player);
 
             return votingPlot == null ? plot == null ? "?" : plot.getPlayerFormat() : votingPlot.getPlayerFormat();
@@ -159,7 +219,14 @@ public abstract class ArenaScoreboard {
         replacements.put("date_year", player -> String.valueOf(LocalDateTime.now().getYear()));
         replacements.put("vote_name", player -> {
             YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-            var votingPlot = arena.getVotingPlot();
+
+            GamePhase phase = arena.getCurrentPhase();
+
+            if (!(phase instanceof VotingGamePhase)) {
+                return "?";
+            }
+
+            var votingPlot = ((VotingGamePhase) phase).getVotingPlot();
 
             if (votingPlot == null)
                 return "?";
@@ -169,44 +236,54 @@ public abstract class ArenaScoreboard {
             if (vote == null)
                 return "?";
 
-            switch (vote.getPoints()) {
-                case 2:
-                    return ChatColor.translateAlternateColorCodes('&', messages
-                            .getString("voting.second-slot-block"));
-                case 3:
-                    return ChatColor.translateAlternateColorCodes('&', messages
-                            .getString("voting.third-slot-block"));
-                case 4:
-                    return ChatColor.translateAlternateColorCodes('&', messages
-                            .getString("voting.fourth-slot-block"));
-                case 5:
-                    return ChatColor.translateAlternateColorCodes('&', messages
-                            .getString("voting.fifth-slot-block"));
-                case 6:
-                    return ChatColor.translateAlternateColorCodes('&', messages
-                            .getString("voting.sixth-slot-block"));
-                case 7:
-                    return ChatColor.translateAlternateColorCodes('&', messages
-                            .getString("voting.seventh-slot-block"));
-                case 8:
-                    return ChatColor.translateAlternateColorCodes('&', messages
-                            .getString("voting.eighth-slot-block"));
-                default:
-                    return "?";
-            }
+            return switch (vote.getPoints()) {
+                case 2 -> ChatColor.translateAlternateColorCodes('&', messages
+                    .getString("voting.second-slot-block"));
+                case 3 -> ChatColor.translateAlternateColorCodes('&', messages
+                    .getString("voting.third-slot-block"));
+                case 4 -> ChatColor.translateAlternateColorCodes('&', messages
+                    .getString("voting.fourth-slot-block"));
+                case 5 -> ChatColor.translateAlternateColorCodes('&', messages
+                    .getString("voting.fifth-slot-block"));
+                case 6 -> ChatColor.translateAlternateColorCodes('&', messages
+                    .getString("voting.sixth-slot-block"));
+                case 7 -> ChatColor.translateAlternateColorCodes('&', messages
+                    .getString("voting.seventh-slot-block"));
+                case 8 -> ChatColor.translateAlternateColorCodes('&', messages
+                    .getString("voting.eighth-slot-block"));
+                default -> "?";
+            };
         });
         replacements.put("first_players", player -> {
-            var firstPlot = arena.getFirstPlot();
+            GamePhase phase = arena.getCurrentPhase();
+
+            if (!(phase instanceof WinningGamePhase)) {
+                return "?";
+            }
+
+            var firstPlot = ((WinningGamePhase) phase).getFirstPlot();
 
             return firstPlot == null ? "?" : firstPlot.getPlayerFormat();
         });
         replacements.put("second_players", player -> {
-            var secondPlot = arena.getSecondPlot();
+            GamePhase phase = arena.getCurrentPhase();
+
+            if (!(phase instanceof WinningGamePhase)) {
+                return "?";
+            }
+
+            var secondPlot = ((WinningGamePhase) phase).getSecondPlot();
 
             return secondPlot == null ? "?" : secondPlot.getPlayerFormat();
         });
         replacements.put("third_players", player -> {
-            var thirdPlot = arena.getThirdPlot();
+            GamePhase phase = arena.getCurrentPhase();
+
+            if (!(phase instanceof WinningGamePhase)) {
+                return "?";
+            }
+
+            var thirdPlot = ((WinningGamePhase) phase).getThirdPlot();
 
             return thirdPlot == null ? "?" : thirdPlot.getPlayerFormat();
         });

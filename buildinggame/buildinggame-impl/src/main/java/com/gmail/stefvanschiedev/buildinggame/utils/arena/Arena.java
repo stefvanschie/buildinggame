@@ -1,38 +1,31 @@
 package com.gmail.stefvanschiedev.buildinggame.utils.arena;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+import com.gmail.stefvanschiedev.buildinggame.game.LobbyGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.GamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.JoinObserver;
+import com.gmail.stefvanschiedev.buildinggame.game.util.LeaveObserver;
+import com.gmail.stefvanschiedev.buildinggame.game.util.TransitionSystem;
+import com.gmail.stefvanschiedev.buildinggame.game.util.timed.TimedGamePhase;
 import com.gmail.stefvanschiedev.buildinggame.utils.*;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu.When;
 import com.gmail.stefvanschiedev.buildinggame.utils.item.ClickEvent;
 import com.gmail.stefvanschiedev.buildinggame.utils.item.ItemBuilder;
 import com.gmail.stefvanschiedev.buildinggame.utils.item.datatype.ArenaDataType;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialBlockPosition;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
-import com.gmail.stefvanschiedev.buildinggame.utils.scoreboards.*;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaJoinEvent;
 import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaLeaveEvent;
-import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaStartEvent;
 import com.gmail.stefvanschiedev.buildinggame.api.events.ArenaStopEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.SignManager;
@@ -40,15 +33,8 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.scoreboards.MainScoreboardManager;
-import com.gmail.stefvanschiedev.buildinggame.timers.BuildTimer;
-import com.gmail.stefvanschiedev.buildinggame.timers.VoteTimer;
-import com.gmail.stefvanschiedev.buildinggame.timers.LobbyTimer;
-import com.gmail.stefvanschiedev.buildinggame.timers.WinTimer;
-import com.gmail.stefvanschiedev.buildinggame.timers.utils.Timer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.SubjectMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.TeamSelection;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -59,32 +45,17 @@ import org.jetbrains.annotations.Nullable;
  *
  * @since 2.1.0
  */
-public class Arena {
+public class Arena implements TransitionSystem {
 
     /**
-     * Whether this aren is in solo or team mode
+     * Whether this arena is in solo or team mode
      */
 	private ArenaMode mode = ArenaMode.SOLO;
-
-	/**
-     * The bossbar for the building phase
-     */
-	private BossBar bossbar;
-
-	/**
-     * The state of this arena
-     */
-	private GameState state = GameState.WAITING;
 
 	/**
      * A list of all plots
      */
 	private final List<Plot> plots = new ArrayList<>();
-
-	/**
-     * A list of all plots which has been voted on
-     */
-	private final Collection<Plot> votedPlots = new ArrayList<>();
 
 	/**
      * A list of all join signs belonging to this arena
@@ -105,42 +76,12 @@ public class Arena {
 	/**
      * The maximum amount of players
      */
-	private int maxPlayers = plots.size();
+	private int maxPlayers;
 
 	/**
      * The minimum amount of players
      */
 	private int minPlayers;
-
-	/**
-     * The plot which is currently being voted for
-     */
-	private Plot votingPlot;
-
-	/**
-     * The build scoreboard
-     */
-	private final Map<Plot, ArenaScoreboard> buildScoreboards = new HashMap<>();
-
-	/**
-     * The lobby scoreboard
-     */
-	private final Map<Plot, ArenaScoreboard> lobbyScoreboards = new HashMap<>();
-
-	/**
-     * The vote scoreboard
-     */
-	private final Map<Plot, VoteScoreboard> voteScoreboards = new HashMap<>();
-
-	/**
-     * The win scoreboard
-     */
-	private final Map<Plot, ArenaScoreboard> winScoreboards = new HashMap<>();
-
-	/**
-     * The subject
-     */
-	private String subject;
 
 	/**
      * The amount of matches which have been or are being played
@@ -152,55 +93,16 @@ public class Arena {
      */
 	private int maxMatches;
 
-	/**
-     * The plot that became first
-     */
-	private Plot first;
-
-	/**
-     * The plot that became second
-     */
-	private Plot second;
-
-	/**
-     * The plot that become third
-     */
-	private Plot third;
-
-	/**
-     * The subject menu
-     */
-	private SubjectMenu subjectMenu = new SubjectMenu();
-
-	/**
-     * The team selection
-     */
-	private TeamSelection teamSelection;
-
-	/**
-     * The lobby timer
-     */
-    private LobbyTimer lobbyTimer;
-
-    /**
-     * The win timer
-     */
-    private WinTimer winTimer;
-
-    /**
-     * The build timer
-     */
-    private BuildTimer buildTimer;
-
-    /**
-     * The vote timer
-     */
-    private VoteTimer voteTimer;
-
     /**
      * Whether money is enabled or not
      */
     private boolean moneyEnabled;
+
+    /**
+     * The current game phase.
+     */
+    @NotNull
+    private GamePhase currentGamePhase;
 
     /**
      * Constructs a new arena with the given name as identifier
@@ -208,20 +110,10 @@ public class Arena {
      * @param name the name of the arena
      */
 	public Arena(String name) {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		
 		this.name = name;
 
-        try {
-			this.bossbar = Bukkit.createBossBar(MessageManager.translate(SettingsManager.getInstance().getMessages()
-                            .getString("global.bossbar-header").replace("%subject%", "?")),
-                    BarColor.valueOf(config.getString("bossbar.color").toUpperCase(Locale.getDefault())),
-                    BarStyle.valueOf(config.getString("bossbar.style").toUpperCase(Locale.getDefault())));
-
-			getBossBar().setVisible(false);
-		} catch (IllegalArgumentException e) {
-			Main.getInstance().getLogger().warning("Bossbar couldn't be loaded, check the data and try again.");
-		}
+        this.currentGamePhase = new LobbyGamePhase(this);
+        this.currentGamePhase.onPhaseStart();
 	}
 
 	/**
@@ -233,11 +125,6 @@ public class Arena {
      */
 	public void addPlot(Plot plot) {
 		plots.add(plot);
-
-		lobbyScoreboards.put(plot, new LobbyScoreboard(this));
-        buildScoreboards.put(plot, new BuildScoreboard(this));
-        voteScoreboards.put(plot, new VoteScoreboard(this));
-        winScoreboards.put(plot, new WinScoreboard(this));
 	}
 
 	/**
@@ -253,80 +140,6 @@ public class Arena {
             .anyMatch(gamePlayer -> gamePlayer.getPlayer().equals(player));
 	}
 
-	/**
-     * Forces this arena to stop no matter how many matches have been played
-     *
-     * @since 5.0.0
-     */
-	private void forceStop() {
-	    this.matches = maxMatches;
-	    nextMatch();
-    }
-
-    /**
-     * Returns the timer that is currently active
-     *
-     * @return the timer which is currently active or null if there is no timer active
-     * @see Timer
-     * @since 2.1.0
-     */
-    @Nullable
-    @Contract(pure = true)
-	public Timer getActiveTimer() {
-		if (lobbyTimer.isActive())
-			return lobbyTimer;
-
-		if (buildTimer.isActive())
-			return buildTimer;
-
-		if (voteTimer.isActive())
-			return voteTimer;
-
-		if (winTimer.isActive())
-			return winTimer;
-
-		return null;
-	}
-
-	/**
-     * Returns the bossbar
-     *
-     * @return the bossbar
-     * @since 2.1.0
-     */
-	@NotNull
-    @Contract(pure = true)
-	public BossBar getBossBar() {
-		return bossbar;
-	}
-
-	/**
-     * Returns the build scoreboard for a specific plot
-     *
-     * @param plot the plot this build scoreboard belongs to
-     * @return the build scoreboard
-     * @see BuildScoreboard
-     * @since 5.9.0
-     */
-	@NotNull
-    @Contract(pure = true)
-	public ArenaScoreboard getBuildScoreboard(@NotNull Plot plot) {
-		return buildScoreboards.get(plot);
-	}
-
-	/**
-     * Returns the plot that became first or null if voting isn't over yet
-     *
-     * @return the plot that became first
-     * @see Plot
-     * @since 3.0.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public Plot getFirstPlot() {
-		return first;
-	}
-
     /**
      * Returns the lobby for this arena, may return null when the lobby hasn't been set or hasn't been loaded yet
      *
@@ -338,20 +151,6 @@ public class Arena {
 	public PotentialLocation getLobby() {
 	    return lobby;
     }
-
-	/**
-     * Returns the lobby scoreboard or null if it doesn't exist
-     *
-     * @param plot the plot this lobby scoreboard belongs to
-     * @return the lobby scoreboard
-     * @see LobbyScoreboard
-     * @since 2.3.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public ArenaScoreboard getLobbyScoreboard(@NotNull Plot plot) {
-		return lobbyScoreboards.get(plot);
-	}
 
 	/**
      * Returns the maximum amount of players
@@ -448,19 +247,6 @@ public class Arena {
 	}
 
 	/**
-     * Returns the plot that became second or null if voting isn't over yet
-     *
-     * @return the plot that became second
-     * @see Plot
-     * @since 3.0.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public Plot getSecondPlot() {
-		return second;
-	}
-
-	/**
      * Returns a collection of join signs belonging to this arena
      *
      * @return a collection of signs
@@ -479,53 +265,15 @@ public class Arena {
 	}
 
 	/**
-     * Returns the current state of this arena
+     * Returns the current phase of this arena
      *
-     * @return the current game state
-     * @since 2.1.0
+     * @return the current game phase
+     * @since 12.2.0
      */
 	@NotNull
     @Contract(pure = true)
-	public GameState getState() {
-		return state;
-	}
-
-	/**
-     * Returns the subject or null if no subject has been chosen yet
-     *
-     * @return the subject
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public String getSubject() {
-		return subject;
-	}
-
-	/**
-     * Returns the subject menu
-     *
-     * @return the subject menu
-     * @see SubjectMenu
-     * @since 2.1.0
-     */
-	@NotNull
-    @Contract(pure = true)
-	public SubjectMenu getSubjectMenu() {
-		return subjectMenu;
-	}
-
-	/**
-     * Returns the plot that became third or null if voting isn't over yet
-     *
-     * @return the plot that became third
-     * @see Plot
-     * @since 3.0.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public Plot getThirdPlot() {
-		return third;
+	public GamePhase getCurrentPhase() {
+		return this.currentGamePhase;
 	}
 
 	/**
@@ -538,97 +286,6 @@ public class Arena {
     @Contract(pure = true)
 	public Collection<Plot> getUsedPlots() {
 		return getPlots().stream().filter(plot -> !plot.getGamePlayers().isEmpty()).collect(Collectors.toSet());
-	}
-
-	/**
-     * Returns a collection of plots which haven been or are currently being voted for
-     *
-     * @return a collection of voted plots
-     * @since 2.1.0
-     */
-	@NotNull
-    @Contract(pure = true)
-	public Collection<Plot> getVotedPlots() {
-		return votedPlots;
-	}
-
-	/**
-     * Returns the vote scoreboard or null if it doesn't exist
-     *
-     * @param plot the plot this scoreboard is indexed by
-     * @return the vote scoreboard
-     * @see VoteScoreboard
-     * @since 5.9.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public VoteScoreboard getVoteScoreboard(@NotNull Plot plot) {
-		return voteScoreboards.get(plot);
-	}
-
-	/**
-     * Returns the vote timer
-     *
-     * @return the vote timer
-     * @see VoteTimer
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public VoteTimer getVoteTimer() {
-		return voteTimer;
-	}
-
-	/**
-     * Returns the plot which is currently being voted for
-     *
-     * @return the plot currently being voted for
-     * @see Plot
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public Plot getVotingPlot() {
-		return votingPlot;
-	}
-
-	/**
-     * Returns the lobby timer
-     *
-     * @return the lobby timer
-     * @see LobbyTimer
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public LobbyTimer getLobbyTimer() {
-		return lobbyTimer;
-	}
-
-	/**
-     * Returns the win scoreboard or null if it doesn't exist
-     *
-     * @return the win scoreboard
-     * @see WinScoreboard
-     * @since 2.3.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public ArenaScoreboard getWinScoreboard(@NotNull Plot plot) {
-		return winScoreboards.get(plot);
-	}
-
-	/**
-     * Returns the win timer
-     *
-     * @return the win timer
-     * @see WinTimer
-     * @since 2.1.0
-     */
-	@Nullable
-    @Contract(pure = true)
-	public WinTimer getWinTimer() {
-		return winTimer;
 	}
 
     /**
@@ -735,13 +392,10 @@ public class Arena {
 			return;
 		
 		GamePlayer p = new GamePlayer(player, GamePlayerType.PLAYER);
-		Plot plot = null;
 
-		for (Plot pl : getPlots()) {
-			if (!pl.isFull()) {
-			    plot = pl;
-
-				pl.join(p);
+		for (Plot plot : getPlots()) {
+			if (!plot.isFull()) {
+				plot.join(p);
 				break;
 			}
 		}
@@ -749,28 +403,12 @@ public class Arena {
 		if (config.getBoolean("scoreboards.main.enable"))
 			MainScoreboardManager.getInstance().remove(player);
 
-        boolean enableLobbyScoreboard = config.getBoolean("scoreboards.lobby.enable");
-
-        if (enableLobbyScoreboard && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
-            getLobbyScoreboard(plot).show(player);
-        } else {
-            getBuildScoreboard(plot).show(player);
-        }
-
-        String name = player.getName();
-
-        //add player to red scoreboard of others
-        getPlots().stream().filter(pl -> !pl.getGamePlayers().contains(p)).forEach(pl -> {
-            getLobbyScoreboard(pl).getRedTeam().addEntry(name);
-            getBuildScoreboard(pl).getRedTeam().addEntry(name);
-            getVoteScoreboard(pl).getRedTeam().addEntry(name);
-            getWinScoreboard(pl).getRedTeam().addEntry(name);
-        });
-
         messages.getStringList("join.message").forEach(message ->
             MessageManager.getInstance().send(player, message
-                .replace("%players%", getPlayers() + "")
-                .replace("%max_players%", getMaxPlayers() + "")));
+                .replace("%players%", String.valueOf(getPlayers()))
+                .replace("%max_players%", String.valueOf(getMaxPlayers()))));
+
+        String name = player.getName();
 
         getUsedPlots().stream().flatMap(pl -> pl.getGamePlayers().stream()).forEach(gamePlayer -> {
             Player pla = gamePlayer.getPlayer();
@@ -778,31 +416,30 @@ public class Arena {
             messages.getStringList("join.otherPlayers").forEach(message ->
                 MessageManager.getInstance().send(pla, message
                     .replace("%player%", name)
-                    .replace("%players%", getPlayers() + "")
-                    .replace("%max_players%", getMaxPlayers() + "")));
+                    .replace("%players%", String.valueOf(getPlayers()))
+                    .replace("%max_players%", String.valueOf(getMaxPlayers()))));
         });
 		
-		if (lobby != null && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
-            lobby.teleport(player);
-        } else {
-            plot.getLocation().teleport(player);
-        }
+		if (this.currentGamePhase instanceof LobbyGamePhase) {
+            if (this.lobby == null) {
+                throw new IllegalStateException("Lobby is not set");
+            }
 
-		if (enableLobbyScoreboard && (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
-            getUsedPlots().forEach(pl ->
-                pl.getGamePlayers().forEach(gamePlayer -> lobbyScoreboards.get(pl).show(gamePlayer.getPlayer())));
-        } else {
-            getUsedPlots().forEach(pl ->
-                pl.getGamePlayers().forEach(gamePlayer -> buildScoreboards.get(pl).show(gamePlayer.getPlayer())));
+            this.lobby.teleport(player);
         }
 		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
-		//fill lives and hunger
-		player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+
+        AttributeInstance healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+
+        if (healthAttribute != null) {
+            player.setHealth(healthAttribute.getValue());
+        }
+
 		player.setFoodLevel(20);
 
-        if (getState() == GameState.WAITING || getState() == GameState.STARTING) {
+        if (this.currentGamePhase instanceof LobbyGamePhase) {
             player.setGameMode(GameMode.ADVENTURE);
         } else {
             player.setGameMode(GameMode.CREATIVE);
@@ -811,9 +448,6 @@ public class Arena {
 		//time
 		if (config.getBoolean("join.time-change.change"))
 			player.setPlayerTime(config.getInt("join.time-change.time"), false);
-		
-		//bossbar
-		getBossBar().addPlayer(player);
 		
 		//hide players from tab list
 		if (config.getBoolean("tab-list.adjust"))
@@ -824,22 +458,20 @@ public class Arena {
         getUsedPlots().stream().flatMap(pl -> pl.getGamePlayers().stream()).forEach(gamePlayer ->
             gamePlayer.getPlayer().showPlayer(Main.getInstance(), player));
 		
-		if (getPlayers() >= minPlayers && !lobbyTimer.isActive() &&
-            (getState() == GameState.WAITING || getState() == GameState.STARTING)) {
-            lobbyTimer.runTaskTimer(Main.getInstance(), 0L, 20L);
+		if (getPlayers() >= minPlayers && this.currentGamePhase instanceof TimedGamePhase<?>) {
+            ((TimedGamePhase<?>) this.currentGamePhase).startTimer();
         }
 		
-		if (getPlayers() >= getMaxPlayers())
-			lobbyTimer.setSeconds(0);
-
-		var arena = this;
+		if (getPlayers() >= getMaxPlayers() && this.currentGamePhase instanceof TimedGamePhase<?>) {
+            ((TimedGamePhase<?>) this.currentGamePhase).endTimer();
+        }
 
 		//bukkit runnable because of instant leaving and instant subject opening
 		var runnable = new BukkitRunnable () {
 			@Override
 			public void run() {
 				//give team selection
-                if (getState() == GameState.WAITING || getState() == GameState.STARTING) {
+                if (Arena.this.currentGamePhase instanceof LobbyGamePhase) {
                     if (getMode() == ArenaMode.TEAM) {
                         Material material = SettingsManager.getInstance().getMaterial("team-selection.item.id",
                             Material.BARRIER);
@@ -854,16 +486,6 @@ public class Arena {
                             .setClickEvent(ClickEvent.TEAM_GUI_CLICK)
                             .build()
                         );
-                    }
-
-                    //give paper for subject
-                    if (player.hasPermission("bg.subjectmenu") && config.getBoolean("enable-subject-voting") &&
-                        getSubjectMenu().getWhen() == SubjectMenu.When.LOBBY) {
-                        giveSubjectMenuItem(player);
-
-                        if (getSubjectMenu().opensInstantly()) {
-                            getSubjectMenu().show(player);
-                        }
                     }
 
                     int slot = config.getInt("leave-item.slot");
@@ -887,8 +509,6 @@ public class Arena {
                             .build()
                     );
                     player.updateInventory();
-                } else if (getState() == GameState.BUILDING) {
-                    tryGiveOptionsMenu(player);
                 }
 			}
 		};
@@ -896,6 +516,10 @@ public class Arena {
 		runnable.runTaskLater(Main.getInstance(), 1L);
 		
 		SignManager.getInstance().updateJoinSigns(this);
+
+        if (this.currentGamePhase instanceof JoinObserver) {
+            ((JoinObserver) this.currentGamePhase).onJoin(p);
+        }
 	}
 
 	/**
@@ -908,11 +532,12 @@ public class Arena {
      * @since 2.1.0
      */
 	public void leave(Player player) {
-	    YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-		
-		if (ArenaManager.getInstance().getArena(player) == null) {
+
+        Arena arena = ArenaManager.getInstance().getArena(player);
+
+        if (arena == null) {
 			MessageManager.getInstance().send(player, ChatColor.RED + "You're not in a game");
 			return;
 		}
@@ -928,11 +553,16 @@ public class Arena {
         //this shouldn't happen unless you screwed up with the api
         if (plot == null) {
             MessageManager.getInstance().send(player, "You're not in a game");
-            ArenaManager.getInstance().getArena(player).leave(player);
+            arena.leave(player);
             return;
         }
 
 		GamePlayer p = plot.getGamePlayer(player);
+
+        if (p == null) {
+            throw new IllegalStateException("Plot is missing game player");
+        }
+
 		p.restore();
 
 		if (MainSpawnManager.getInstance().getMainSpawn() != null)
@@ -947,12 +577,11 @@ public class Arena {
 		//show all players again
 		Bukkit.getOnlinePlayers().forEach(pl -> player.showPlayer(Main.getInstance(), pl));
 
-        //reset player display name of removed player
         getPlots().forEach(pl -> {
-            getLobbyScoreboard(pl).getRedTeam().removeEntry(player.getName());
-            getBuildScoreboard(pl).getRedTeam().removeEntry(player.getName());
-            getVoteScoreboard(pl).getRedTeam().removeEntry(player.getName());
-            getWinScoreboard(pl).getRedTeam().removeEntry(player.getName());
+            pl.getLobbyScoreboard().getRedTeam().removeEntry(player.getName());
+            pl.getBuildScoreboard().getRedTeam().removeEntry(player.getName());
+            pl.getVoteScoreboard().getRedTeam().removeEntry(player.getName());
+            pl.getWinScoreboard().getRedTeam().removeEntry(player.getName());
         });
 
 		getUsedPlots().forEach(usedPlot -> {
@@ -961,10 +590,11 @@ public class Arena {
 				if (pl.equals(player)) {
 					usedPlot.leave(gamePlayer);
 
-					if (state == GameState.WAITING)
-					    MessageManager.getInstance().send(player, messages.getStringList("leave.message.lobby"));
-					else
+					if (this.currentGamePhase instanceof LobbyGamePhase) {
+                        MessageManager.getInstance().send(player, messages.getStringList("leave.message.lobby"));
+                    } else {
                         MessageManager.getInstance().send(player, messages.getStringList("leave.message.in-game"));
+                    }
 
 					break;
 				}
@@ -975,113 +605,32 @@ public class Arena {
             usedPlot.getGamePlayers().forEach(gamePlayer -> {
                 Player pl = gamePlayer.getPlayer();
 
-                if (state == GameState.WAITING)
+                if (this.currentGamePhase instanceof LobbyGamePhase) {
                     messages.getStringList("leave.other-players.lobby").forEach(message ->
                         MessageManager.getInstance().send(pl, message
                             .replace("%player%", player.getName())));
-                else
+                } else {
                     messages.getStringList("leave.other-players.in-game").forEach(message ->
                         MessageManager.getInstance().send(pl, message
                             .replace("%player%", player.getName())));
-
-                if (config.getBoolean("scoreboards.lobby.enable"))
-                    getLobbyScoreboard(usedPlot).show(pl);
+                }
             })
         );
 
         //cancel wait timer when user amount drops below minimum
-        if (getPlayers() < minPlayers && lobbyTimer.isActive()) {
-            lobbyTimer.cancel();
-            setLobbyTimer(new LobbyTimer(arenas.getInt(name + ".lobby-timer"), this));
+        if (getPlayers() < minPlayers && this.currentGamePhase instanceof TimedGamePhase<?>) {
+            ((TimedGamePhase<?>) this.currentGamePhase).resetTimer();
         }
 
-		if (getPlayers() <= 1) {
-			if (getLobbyTimer().isActive()) {
-				lobbyTimer.cancel();
-				setLobbyTimer(new LobbyTimer(arenas.getInt(name + ".lobby-timer"), this));
-				setState(GameState.WAITING);
-			}
-			if (buildTimer.isActive()) {
-				buildTimer.cancel();
-				setBuildTimer(new BuildTimer(arenas.getInt(name + ".timer"), this));
-				forceStop();
-			}
-			if (getVoteTimer().isActive()) {
-				voteTimer.cancel();
-				setVoteTimer(new VoteTimer(arenas.getInt(name + ".vote-timer"), this));
-				forceStop();
-			}
-			if (getWinTimer().isActive()) {
-				winTimer.cancel();
-				setWinTimer(new WinTimer(arenas.getInt(name + ".win-timer"), this));
-				forceStop();
-			}
+		if (getPlayers() <= 0) {
+            this.currentGamePhase.forceEnd();
 		}
 		
-		if (getBossBar().getPlayers().contains(player))
-			getBossBar().removePlayer(player);
-		
 		SignManager.getInstance().updateJoinSigns(this);
-	}
 
-    /**
-     * Tries to give the options menu item to the specified player. This may not work in case the options menu has been
-     * disabled in the config.yml.
-     *
-     * @since 9.0.1
-     */
-	public void tryGiveOptionsMenu(@NotNull Player player) {
-	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
-	    YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-        if (config.getBoolean("gui.enable")) {
-            player.getInventory().setItem(config.getInt("gui.slot"), new ItemBuilder(player,
-                Material.EMERALD).setDisplayName(MessageManager.translate(messages
-                .getString("gui.options-emerald"), player)).setLore(MessageManager.translate(messages
-                .getStringList("gui.options-lores"), player)).movable(false)
-                .addContext("arena", ArenaDataType.getInstance(), this)
-                .setClickEvent(ClickEvent.OPTIONS_GUI_CLICK)
-                .build()
-            );
+        if (currentGamePhase instanceof LeaveObserver) {
+            ((LeaveObserver) currentGamePhase).onLeave(player);
         }
-	}
-
-    /**
-     * Returns the team selection and creates one if it doesn't exist yet
-     *
-     * @return the team selection
-     * @see TeamSelection
-     * @since 11.0.1
-     */
-    @NotNull
-    public TeamSelection getTeamSelection() {
-        if (this.teamSelection == null) {
-            this.teamSelection = new TeamSelection(this);
-        }
-
-        return this.teamSelection;
-    }
-
-	/**
-     * Sets a new build timer. This won't cancel the current build timer if started.
-     *
-     * @param buildTimer the new build timer
-     * @see BuildTimer
-     * @since 2.1.0
-     */
-	public void setBuildTimer(BuildTimer buildTimer) {
-		this.buildTimer = buildTimer;
-	}
-
-	/**
-     * Sets the pot that became first after voting
-     *
-     * @param first the plot that became first
-     * @see Plot
-     * @since 3.0.0
-     */
-	public void setFirstPlot(Plot first) {
-		this.first = first;
 	}
 
 	/**
@@ -1145,408 +694,13 @@ public class Arena {
 	    this.moneyEnabled = enabled;
     }
 
-	/**
-     * Sets the plot that became second after voting
-     *
-     * @param second the plot that became second
-     * @see Plot
-     * @since 3.0.0
-     */
-	public void setSecondPlot(Plot second) {
-		this.second = second;
-	}
-
-	/**
-     * Sets the game state
-     *
-     * @param state the new state
-     * @see GameState
-     * @since 2.1.0
-     */
-	public void setState(GameState state) {
-		this.state = state;
-	}
-
-	/**
-     * Sets the plot that became third after voting
-     *
-     * @param third the plot that became third
-     * @see Plot
-     * @since 3.0.0
-     */
-	public void setThirdPlot(Plot third) {
-		this.third = third;
-	}
-
-	/**
-     * Sets the vote timer
-     *
-     * @param voteTimer the new vote timer
-     * @see VoteTimer
-     * @since 2.1.0
-     */
-	public void setVoteTimer(VoteTimer voteTimer) {
-		this.voteTimer = voteTimer;
-	}
-
-	/**
-     * Sets the new voting plot, send messages and titles, teleports all players, gives them new vote items and changes
-     * their time and weather.
-     *
-     * @param votingPlot the new voting plot
-     * @see Plot
-     * @since 2.1.0
-     */
-	public void setVotingPlot(Plot votingPlot) {
-        SettingsManager instance = SettingsManager.getInstance();
-        YamlConfiguration config = instance.getConfig();
-		YamlConfiguration messages = instance.getMessages();
-		
-		this.votingPlot = votingPlot;
-
-		Region boundary = votingPlot.getBoundary();
-        Location safeLocation = boundary.getSafeLocation();
-        Location center = boundary.getCenter();
-
-        //turn head position to center of plot (thanks to bergerkiller)
-        //https://bukkit.org/threads/lookat-and-move-functions.26768/
-        if (safeLocation != null) {
-            //Clone the loc to prevent applied changes to the input loc
-            safeLocation = safeLocation.clone();
-
-            // Values of change in distance (make it relative)
-            double dx = center.getX() - safeLocation.getX();
-            double dz = center.getZ() - safeLocation.getZ();
-
-            // Set yaw
-            if (dx != 0)
-                safeLocation.setYaw((dx < 0 ? ((float) (1.5 * Math.PI)) : ((float) (0.5 * Math.PI))) -
-                        (float) Math.atan(dz / dx));
-            else if (dz < 0)
-                safeLocation.setYaw((float) Math.PI);
-
-            // Set pitch
-            safeLocation.setPitch((float) -Math.atan((center.getY() - safeLocation.getY()) /
-                    (Math.sqrt(Math.pow(dx, 2) + Math.pow(dz, 2)))));
-
-            // Set values, convert to degrees (invert the yaw since Bukkit uses a different yaw dimension format)
-            safeLocation.setYaw(-safeLocation.getYaw() * 180f / (float) Math.PI);
-            safeLocation.setPitch(safeLocation.getPitch() * 180f / (float) Math.PI);
-        }
-
-		for (Plot plot : getUsedPlots()) {
-			for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
-				Player player = gamePlayer.getPlayer();
-			
-				if (!config.getBoolean("names-after-voting")) {
-					messages.getStringList("voting.message").forEach(message ->
-						MessageManager.getInstance().send(player, message
-								.replace("%playerplot%", votingPlot.getPlayerFormat())));
-
-					gamePlayer.addTitleAndSubtitle(messages.getString("voting.title")
-							.replace("%playerplot%", votingPlot.getPlayerFormat()),
-                            messages.getString("voting.subtitle")
-							.replace("%playerplot%", votingPlot.getPlayerFormat()));
-					gamePlayer.sendActionbar(messages.getString("voting.actionbar")
-                        .replace("%playerplot%", votingPlot.getPlayerFormat()));
-				}
-
-                int blockIndex = ThreadLocalRandom.current().nextInt(votingPlot.getBoundary().getAllBlocks().size());
-
-                player.teleport(Objects.requireNonNullElseGet(safeLocation, () ->
-                    boundary.getAllBlocks().get(blockIndex).getLocation()));
-
-				//give blocks
-				player.getInventory().clear();
-				
-				if (gamePlayer.getGamePlayerType() == GamePlayerType.PLAYER) {
-                    config.getConfigurationSection("voting.items").getKeys(false).forEach(identifier -> {
-                        boolean save = false;
-
-                        if (!messages.contains("voting.items." + identifier + ".name")) {
-                            messages.set("voting.items." + identifier + ".name", "Type: Null");
-                            save = true;
-                        }
-
-                        if (!messages.contains("voting.items." + identifier + ".lore")) {
-                            messages.set("voting.items." + identifier + ".lore", new ArrayList<String>(0));
-                            save = true;
-                        }
-
-                        if (save)
-                            instance.save();
-
-                        Material material = SettingsManager.getInstance().getMaterial(
-                            "voting.items." + identifier + ".id", Material.BARRIER
-                        );
-                        int points = config.getInt("voting.items." + identifier + ".points");
-
-                        player.getInventory().setItem(
-                            config.getInt("voting.items." + identifier + ".slot") - 1,
-                            new ItemBuilder(player, material)
-                                .setDisplayName(MessageManager.translate(
-                                    messages.getString("voting.items." + identifier + ".name")
-                                ))
-                                .setLore(MessageManager.translate(
-                                    messages.getStringList("voting.items." + identifier + ".lore")
-                                ))
-                                .movable(false)
-                                .addContext("arena", ArenaDataType.getInstance(), this)
-                                .addContext("points", PersistentDataType.INTEGER, points)
-                                .setClickEvent(ClickEvent.VOTE_CLICK)
-                                .build()
-                        );
-                    });
-
-                    boolean worldEditEnabled = Bukkit.getPluginManager().isPluginEnabled("WorldEdit");
-
-                    if (worldEditEnabled && config.getBoolean("reports.enable")) {
-                        player.getInventory().setItem(8, new ItemBuilder(player, Material.BOOK)
-                            .setDisplayName(ChatColor.RED + "Report build")
-                            .movable(false)
-                            .addContext("arena", ArenaDataType.getInstance(), this)
-                            .setClickEvent(ClickEvent.REPORT_CLICK)
-                            .build()
-                        );
-                    }
-                }
-
-				//update scoreboard and update time and weather
-				if (config.getBoolean("scoreboards.vote.enable"))
-					getVoteScoreboard(plot).show(player);
-				
-				player.setPlayerTime(plot.getTime(), false);
-				player.setPlayerWeather(plot.isRaining() ? WeatherType.DOWNFALL : WeatherType.CLEAR);
-			}
-		}
-		
-		getVotedPlots().add(votingPlot);
-	}
-
     /**
-     * This will give the subject menu item to the specified player.
-     *
-     * @param player the player who should receive the subject menu item
-     * @since 6.4.0
-     */
-	private void giveSubjectMenuItem(@NotNull Player player) {
-        YamlConfiguration config = SettingsManager.getInstance().getConfig();
-        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-        int slot = config.getInt("subject-gui.slot");
-        ItemStack item = player.getInventory().getItem(slot);
-
-        if (item != null && item.getType() != Material.AIR) {
-            Main.getInstance().getLogger().warning(
-                "Subject gui item overrides a different item. This other item will not be visible. Please " +
-                "change the slots in the config.yml file to fix this."
-            );
-        }
-
-        Material material = SettingsManager.getInstance().getMaterial("subject-gui.item.id", Material.BARRIER);
-
-        player.getInventory().setItem(
-            slot,
-            new ItemBuilder(player, material)
-                .setDisplayName(MessageManager.translate(messages.getString("subject-gui.item.name"),
-                    player))
-                .setLore(MessageManager.translate(messages.getStringList("subject-gui.item.lores"),
-                    player))
-                .addContext("arena", ArenaDataType.getInstance(), this)
-                .setClickEvent(ClickEvent.SUBJECT_GUI_CLICK)
-                .build()
-        );
-    }
-
-	/**
-     * Sets the lobby timer
-     *
-     * @param lobbyTimer the new lobby timer
-     * @see LobbyTimer
-     * @since 2.1.0
-     */
-	public void setLobbyTimer(LobbyTimer lobbyTimer) {
-		this.lobbyTimer = lobbyTimer;
-	}
-
-	/**
-     * Sets the win timer
-     *
-     * @param winTimer the new win timer
-     * @see WinTimer
-     * @since 2.1.0
-     */
-	public void setWinTimer(WinTimer winTimer) {
-		this.winTimer = winTimer;
-	}
-
-    /**
-     * This is called before starting the game as to allow the players to vote on a subject if the subject choosing
-     * should be done at {@link When#BEFORE_BUILD}. This will automatically progress the game when needed. When starting
-     * the game this should be called rather than {@link #postStart()}.
-     *
-     * @since 6.4.0
-     */
-	public void preStart() {
-        if (getSubjectMenu().getWhen() == SubjectMenu.When.BEFORE_BUILD) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    postStart();
-                }
-            }.runTaskLater(Main.getInstance(), 200L);
-
-            getUsedPlots().forEach(plot -> plot.getGamePlayers().forEach(gamePlayer -> {
-                var player = gamePlayer.getPlayer();
-
-                plot.getLocation().teleport(player);
-
-                giveSubjectMenuItem(player);
-
-                if (getSubjectMenu().opensInstantly()) {
-                    getSubjectMenu().show(player);
-                }
-            }));
-
-            return;
-        }
-
-        postStart();
-    }
-
-	/**
-     * Starts a new match. An ArenaStartEvent will be fired once this method is called.
-     *
-     * @since 2.1.0
-     */
-	private void postStart() {
-		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
-		//call event
-		ArenaStartEvent event = new ArenaStartEvent(this);
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled())
-			return;
-		
-		subject = getSubjectMenu().getHighestVote();
-		
-		//update bossbar
-		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
-				.replace("%subject%", getSubject())));
-		
-		getUsedPlots().forEach(plot ->
-			plot.getGamePlayers().forEach(gamePlayer -> {
-                plot.getLocation().teleport(gamePlayer.getPlayer());
-				
-				MessageManager.getInstance().send(gamePlayer.getPlayer(), messages
-                        .getStringList("gameStarts.message"));
-
-                messages.getStringList("gameStarts.subject").forEach(message ->
-                    MessageManager.getInstance().send(gamePlayer.getPlayer(), message
-                        .replace("%subject%", getSubject())));
-				
-				gamePlayer.addTitleAndSubtitle(messages.getString("gameStarts.title")
-						.replace("%subject%", getSubject()), messages.getString("gameStarts.subtitle")
-						.replace("%subject%", getSubject()));
-				gamePlayer.sendActionbar(messages.getString("gameStarts.actionbar")
-                    .replace("%subject%", subject));
-				
-				final var player = gamePlayer.getPlayer();
-				player.getInventory().clear();
-				player.setGameMode(GameMode.CREATIVE);
-				player.setPlayerTime(plot.getTime(), false);
-
-				//hotbar
-				for (int i = 0; i < 9; i++) {
-                    Material material = SettingsManager.getInstance().getMaterial(
-                        "hotbar.default.slot-" + (i + 1), Material.AIR
-                    );
-
-                    player.getInventory().setItem(i, new ItemStack(material));
-                }
-				
-				//bossbar
-				getBossBar().setVisible(true);
-
-                tryGiveOptionsMenu(player);
-			})
-		);
-		
-		setState(GameState.BUILDING);
-		
-		//save blocks
-		getPlots().forEach(Plot::save);
-
-        matches++;
-
-		SignManager.getInstance().updateJoinSigns(this);
-
-		buildTimer.runTaskTimer(Main.getInstance(), 20L, 20L);
-	}
-
-	/**
-     * Moves on to the next match or stops the game if all matches have been played. This won't cancel any timers, and
-     * if called incorrectly this will mess with the arena resulting in incorrect behaviour.
-     *
-     * @since 4.0.6
-     */
-	public void nextMatch() {
-        YamlConfiguration arenas = SettingsManager.getInstance().getArenas();
-
-        setState(GameState.WAITING);
-        this.lobbyTimer = new LobbyTimer(arenas.getInt(name + ".lobby-timer"), this);
-        this.buildTimer = new BuildTimer(arenas.getInt(name + ".timer"), this);
-        this.voteTimer = new VoteTimer(arenas.getInt(name + ".vote-timer"), this);
-        this.winTimer = new WinTimer(arenas.getInt(name + ".win-timer"), this);
-        voteScoreboards.replaceAll((plot, voteScoreboard) -> new VoteScoreboard(this));
-        subject = null;
-
-        setFirstPlot(null);
-        setSecondPlot(null);
-        setThirdPlot(null);
-
-        getVotedPlots().clear();
-
-        getUsedPlots().forEach(plot -> {
-            plot.getTimesVoted().clear();
-            plot.getVotes().clear();
-
-            plot.getAllGamePlayers().forEach(gamePlayer -> {
-                var player = gamePlayer.getPlayer();
-
-                player.setPlayerTime(player.getWorld().getFullTime(), true);
-                player.resetPlayerWeather();
-            });
-        });
-
-        getPlots().forEach(plot -> {
-            plot.restore();
-
-            var entities = plot.getEntities();
-
-            entities.keySet().forEach(Entity::remove);
-            entities.clear();
-        });
-
-        subjectMenu = new SubjectMenu();
-        SignManager.getInstance().updateJoinSigns(this);
-
-        if (matches == maxMatches)
-            stop();
-        else
-            postStart();
-    }
-
-    /**
-     * Stops the arena and resets it so it's open for new players. If you want to stop the arena while it's still
-     * running use {@link #forceStop()}.
+     * Stops the arena and resets it so it's open for new players.
      *
      * @since 2.1.0
      */
 	public void stop() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
-		YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 		
 		//call event
 		ArenaStopEvent event = new ArenaStopEvent(this);
@@ -1560,13 +714,6 @@ public class Arena {
                 MainSpawnManager.getInstance().getMainSpawn()
             )
         );
-
-		//update bossbar
-		getBossBar().setTitle(MessageManager.translate(messages.getString("global.bossbar-header")
-				.replace("%subject%", "?")));
-		getBossBar().setVisible(false);
-
-		getBossBar().getPlayers().forEach(player -> getBossBar().removePlayer(player));
 
         getUsedPlots().stream().flatMap(plot -> plot.getAllGamePlayers().stream()).forEach(gamePlayer -> {
             Player player = gamePlayer.getPlayer();
@@ -1599,11 +746,7 @@ public class Arena {
      */
 	@Contract(pure = true)
 	public boolean canJoin() {
-	    YamlConfiguration config = SettingsManager.getInstance().getConfig();
-        boolean joinInGame = config.getBoolean("join-during-game");
-
-        return ((getState() == GameState.STARTING || getState() == GameState.WAITING || getState() == GameState.BUILDING) &&
-            (joinInGame || getState() != GameState.BUILDING) && !isFull());
+        return this.currentGamePhase.canJoin() && !isFull();
     }
 
     /**
@@ -1615,6 +758,12 @@ public class Arena {
     public void addSign(@NotNull PotentialBlockPosition position) {
         this.signs.putIfAbsent(position.getChunkCoordinates(), new HashSet<>());
         this.signs.get(position.getChunkCoordinates()).add(position);
+    }
+
+    @Override
+    public void transition(@NotNull GamePhase gamePhase) {
+        this.currentGamePhase = gamePhase;
+        this.currentGamePhase.onPhaseStart();
     }
 
     /**
@@ -1638,6 +787,35 @@ public class Arena {
      */
     public void clearSigns() {
         this.signs.clear();
+    }
+
+    /**
+     * Increases the amount of matches that have been played.
+     *
+     * @since 12.2.0
+     */
+    public void increaseMatches() {
+        this.matches++;
+    }
+
+    /**
+     * Gets the amount of matches that have currently been played.
+     *
+     * @return the amount of matches
+     * @since 12.2.0
+     */
+    public int getMatches() {
+        return matches;
+    }
+
+    /**
+     * Gets the maximum amount of matches this arena will play.
+     *
+     * @return the maximum amount of matches
+     * @since 12.2.0
+     */
+    public int getMaxMatches() {
+        return maxMatches;
     }
 
     /**
@@ -1665,4 +843,5 @@ public class Arena {
     public int hashCode() {
 	    return name.hashCode();
     }
+
 }

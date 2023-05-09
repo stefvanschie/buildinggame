@@ -1,10 +1,10 @@
 package com.gmail.stefvanschiedev.buildinggame.events.block;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.gmail.stefvanschiedev.buildinggame.game.BuildingGamePhase;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -48,7 +48,7 @@ public class BlockEdit implements Listener {
             return;
         }
 
-        if (arena.getState() != GameState.BUILDING) {
+        if (!(arena.getCurrentPhase() instanceof BuildingGamePhase)) {
             MessageManager.getInstance().send(player, ChatColor.RED + "You can not build right now");
             e.setCancelled(true);
             return;

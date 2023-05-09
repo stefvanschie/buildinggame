@@ -75,7 +75,7 @@ public final class MessageManager {
      * @since 2.1.0
      */
 	@SuppressWarnings("MethodMayBeStatic")
-    public void send(CommandSender sender, Iterable<String> messages) {
+    public void send(CommandSender sender, Iterable<? extends String> messages) {
 		for (String message : messages) {
 			if (message.isEmpty())
 				return;

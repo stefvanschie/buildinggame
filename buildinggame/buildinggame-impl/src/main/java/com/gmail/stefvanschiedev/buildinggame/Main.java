@@ -164,13 +164,9 @@ public class Main extends JavaPlugin {
 		getLogger().info("Loading arenas");
 		ArenaManager.getInstance().setup();
 		ArenaModeManager.getInstance().setup();
-		BuildTimerManager.getInstance().setup();
 		LobbyManager.getInstance().setup();
-		LobbyTimerManager.getInstance().setup();
 		MinPlayersManager.getInstance().setup();
         MatchesManager.getInstance().setup();
-		VoteTimerManager.getInstance().setup();
-		WinTimerManager.getInstance().setup();
 		
 		getLogger().info("Loading plots");
 		PlotManager.getInstance().setup();

@@ -1,12 +1,12 @@
 package com.gmail.stefvanschiedev.buildinggame.events.player.voting;
 
+import com.gmail.stefvanschiedev.buildinggame.game.VotingGamePhase;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 
 /**
  * Handles interaction while voting
@@ -30,7 +30,8 @@ public class Interact implements Listener {
         if (arena == null)
 			return;
 		
-		if (arena.getState() == GameState.VOTING)
-			e.setCancelled(true);
+		if (arena.getCurrentPhase() instanceof VotingGamePhase) {
+            e.setCancelled(true);
+        }
 	}
 }

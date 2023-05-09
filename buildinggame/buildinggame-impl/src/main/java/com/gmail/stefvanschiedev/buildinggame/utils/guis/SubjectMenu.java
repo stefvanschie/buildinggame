@@ -79,7 +79,7 @@ public class SubjectMenu {
 	public SubjectMenu() {
 		var amountOfSubjects = CONFIG.getInt("subject-gui.subject-amount");
 
-        when = When.fromName(CONFIG.getString("subject-gui.when"));
+        when = When.getDefault();
         openInstantly = CONFIG.getBoolean("subject-gui.open-instantly");
 
         List<String> allSubjects = CONFIG.getStringList("subjects");
@@ -369,7 +369,7 @@ public class SubjectMenu {
      *
      * @return the theme that received the highest amount of votes
      */
-	@Nullable
+	@NotNull
 	@Contract(pure = true)
 	public String getHighestVote() {
 		if (forcedTheme != null)
@@ -486,6 +486,10 @@ public class SubjectMenu {
                 .toUpperCase(Locale.getDefault())
                 .replace('-', '_')
                 .replace(' ', '_'));
+        }
+
+        public static When getDefault() {
+            return When.fromName(CONFIG.getString("subject-gui.when", ""));
         }
     }
 }

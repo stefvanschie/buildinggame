@@ -1,8 +1,8 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
+import com.gmail.stefvanschiedev.buildinggame.game.BuildingGamePhase;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
@@ -86,7 +86,7 @@ public class EntityOptionsMenu implements Listener {
             }
         }
 
-        if (plot == null || plot.getArena().getState() != GameState.BUILDING) {
+        if (plot == null || !(plot.getArena().getCurrentPhase() instanceof BuildingGamePhase)) {
             return;
         }
 

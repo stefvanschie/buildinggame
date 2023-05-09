@@ -3,6 +3,11 @@ package com.gmail.stefvanschiedev.buildinggame.events.player;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.gmail.stefvanschiedev.buildinggame.game.BuildingGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.LobbyGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.VotingGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.WinningGamePhase;
+import com.gmail.stefvanschiedev.buildinggame.game.util.GamePhase;
 import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
@@ -17,7 +22,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.GameState;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -47,8 +51,9 @@ public class Move implements Listener {
 		if (ArenaManager.getInstance().getArena(player) == null) {
 			//check if player wants to go inside (except spectators of course)
 			for (var arena : ArenaManager.getInstance().getArenas()) {
-				if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING)
-					continue;
+				if (arena.getCurrentPhase() instanceof LobbyGamePhase) {
+                    continue;
+                }
 				
 				for (var plot : arena.getPlots()) {
 					if (plot.getBoundary().isInside(to) && !plot.getBoundary().isInside(from)) {
@@ -83,18 +88,20 @@ public class Move implements Listener {
 			
 			return;
 		}
-		
-		if (arena.getState() == GameState.VOTING) {
-            teleportBack(arena.getVotingPlot(), player, from, to);
+
+        GamePhase phase = arena.getCurrentPhase();
+
+        if (phase instanceof VotingGamePhase) {
+            teleportBack(((VotingGamePhase) phase).getVotingPlot(), player, from, to);
             return;
         }
 		
-		if (arena.getState() == GameState.RESETING) {
-            teleportBack(arena.getFirstPlot(), player, from, to);
+		if (phase instanceof WinningGamePhase) {
+            teleportBack(((WinningGamePhase) phase).getFirstPlot(), player, from, to);
             return;
 		}
 		
-		if (arena.getState() != GameState.BUILDING) {
+		if (!(phase instanceof BuildingGamePhase)) {
             return;
         }
 
@@ -161,8 +168,9 @@ public class Move implements Listener {
 
                             //loop through all plots
                             for (var arena : ArenaManager.getInstance().getArenas()) {
-                                if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING)
+                                if (!(arena.getCurrentPhase() instanceof LobbyGamePhase)) {
                                     continue;
+                                }
 
                                 for (var plot : arena.getPlots()) {
                                     if (!plot.getBoundary().isInside(loc)) {
