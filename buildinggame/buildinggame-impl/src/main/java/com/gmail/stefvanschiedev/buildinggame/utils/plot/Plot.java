@@ -20,7 +20,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -30,14 +30,12 @@ import org.bukkit.entity.Player;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.mainspawn.MainSpawnManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayerType;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.BuildMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.spectatormenu.SpectatorMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -81,9 +79,14 @@ public class Plot {
     private final List<GamePlayer> gamePlayers = new ArrayList<>();
 
     /**
-     * A collection of the states of the blocks before the building phase started
+     * A collection of the data of the blocks before the building phase started, associated to their location
      */
-    private final Map<BlockState, Biome> blocks = new HashMap<>();
+    private final Map<Location, BlockData> blockData = new HashMap<>();
+
+    /**
+     * A collection of the biomes before the building phase started, associated to their location
+     */
+    private final Map<Location, Biome> biomes = new HashMap<>();
 
     /**
      * A map containing an entity and their previous stored location
@@ -763,12 +766,13 @@ public class Plot {
         if (!SettingsManager.getInstance().getConfig().getBoolean("restore-plots"))
             return;
 
-        blocks.forEach((blockState, biome) -> {
-            Block block = blockState.getLocation().getBlock();
+        for (Map.Entry<Location, BlockData> entry : this.blockData.entrySet()) {
+            entry.getKey().getBlock().setBlockData(entry.getValue());
+        }
 
-            block.setType(blockState.getType());
-            block.setBiome(biome);
-        });
+        for (Map.Entry<Location, Biome> entry : this.biomes.entrySet()) {
+            entry.getKey().getBlock().setBiome(entry.getValue());
+        }
 
         //refresh chunks because of the biomes
         arena.getPlots().forEach(plot -> plot.getBoundary().getChunks().forEach(chunk ->
@@ -803,7 +807,12 @@ public class Plot {
             return;
         }
 
-        getBoundary().getAllBlocks().forEach(block -> blocks.put(block.getState(), block.getBiome()));
+        for (Block block : getBoundary().getAllBlocks()) {
+            Location location = block.getLocation();
+
+            this.blockData.put(location, block.getBlockData());
+            this.biomes.put(location, block.getBiome());
+        }
     }
 
     /**
