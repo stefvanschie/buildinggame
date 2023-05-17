@@ -74,6 +74,12 @@ public class BlockEdit implements Listener {
     public void onBlockPlace(@NotNull BlockPlaceEvent e) {
         blockEdit(e.getPlayer(), e);
 
+        var arena = ArenaManager.getInstance().getArena(e.getPlayer());
+
+        if (arena == null) {
+            return;
+        }
+
         for (String materialString : SettingsManager.getInstance().getConfig().getStringList("blocks.blocked")) {
             Material material = Material.matchMaterial(materialString);
 
