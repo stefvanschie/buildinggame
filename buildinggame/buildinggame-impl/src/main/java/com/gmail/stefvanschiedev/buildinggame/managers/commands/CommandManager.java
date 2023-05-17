@@ -405,7 +405,7 @@ public class CommandManager extends BaseCommand {
      * @param id the plot id to set the boundary of
      * @since 5.8.0
      */
-    @Subcommand("setbounds")
+    @Subcommand("setbounds|setboundary")
     @Description("Set the boundary of a plot (inclusive)")
     @CommandPermission("bg.setbounds")
     @CommandCompletion("@arenas @nothing")
