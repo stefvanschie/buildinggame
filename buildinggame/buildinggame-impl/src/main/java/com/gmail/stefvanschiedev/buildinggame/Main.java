@@ -134,8 +134,11 @@ public class Main extends JavaPlugin {
 		else
 			StatManager.getInstance().saveToDatabase();
 
-        if (!SettingsManager.getInstance().getRunnable().isCancelled())
-            SettingsManager.getInstance().getRunnable().cancel();
+        FileCheckerTimer fileChecker = SettingsManager.getInstance().getRunnable();
+
+        if (fileChecker != null && !fileChecker.isCancelled()) {
+            fileChecker.cancel();
+        }
 
         getLogger().info("BuildingGame has been disabled");
 

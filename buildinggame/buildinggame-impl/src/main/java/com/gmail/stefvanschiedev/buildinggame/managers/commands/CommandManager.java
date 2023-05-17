@@ -370,8 +370,9 @@ public class CommandManager extends BaseCommand {
 
         FileCheckerTimer runnable = SettingsManager.getInstance().getRunnable();
 
-        if (!runnable.isCancelled())
+        if (runnable != null && !runnable.isCancelled()) {
             runnable.cancel();
+        }
 
         Main.getInstance().loadPlugin(true);
 

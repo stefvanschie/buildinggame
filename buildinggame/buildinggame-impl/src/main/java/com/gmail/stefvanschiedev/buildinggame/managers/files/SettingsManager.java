@@ -323,8 +323,12 @@ public final class SettingsManager {
 		if (runnable != null)
 		    return;
 
-        runnable = new FileCheckerTimer();
-        runnable.runTaskTimerAsynchronously(p, 20L, 20L);
+        try {
+            runnable = new FileCheckerTimer();
+            runnable.runTaskTimerAsynchronously(p, 20L, 20L);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**

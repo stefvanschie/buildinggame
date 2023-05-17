@@ -44,14 +44,10 @@ public class FileCheckerTimer extends BukkitRunnable {
     /**
      * Will construct a new timer which will check for files
      */
-    public FileCheckerTimer() {
-        try {
-            watchService = FileSystems.getDefault().newWatchService();
+    public FileCheckerTimer() throws IOException {
+        watchService = FileSystems.getDefault().newWatchService();
 
-            Main.getInstance().getDataFolder().toPath().register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Main.getInstance().getDataFolder().toPath().register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
     }
 
     /**
@@ -59,6 +55,10 @@ public class FileCheckerTimer extends BukkitRunnable {
      */
     @Override
     public void run() {
+        if (this.watchService == null) {
+            return;
+        }
+
         WatchKey key = watchService.poll();
 
         if (key == null)
