@@ -51,7 +51,9 @@ public final class StatManager {
 	public void setup() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		YamlConfiguration stats = SettingsManager.getInstance().getStats();
-		
+
+        this.stats.clear();
+
 		if (config.getBoolean("stats.database.enable")) {
 			database = new MySQLDatabase(Main.getInstance());
 			
