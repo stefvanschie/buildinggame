@@ -489,6 +489,10 @@ gui:
       name: "&aSculk soul"
       lore:
         - "&7Place a sculk soul particle effect"
+    cherry_leaves:
+      name: "&aCherry leaves"
+      lore:
+      - "&7Place a cherry leaves particle effect"
     clear-particles:
       name: "&cClear particles"
       lores:

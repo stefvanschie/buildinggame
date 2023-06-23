@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui title="*gui.particles.title" rows="4">
+    <outlinepane x="0" y="0" length="9" height="4">
+        <item id="flint_and_steel" onClick="particleClick">
+            <displayname>*gui.particles.flames.name</displayname>
+            <lore>
+                <line>*gui.particles.flames.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FLAME</property>
+            </properties>
+        </item>
+        <item id="diamond_sword" onClick="particleClick">
+            <displayname>*gui.particles.magic-crit.name</displayname>
+            <lore>
+                <line>*gui.particles.magic-crit.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">CRIT_MAGIC</property>
+            </properties>
+        </item>
+        <item id="lava_bucket" onClick="particleClick">
+            <displayname>*gui.particles.lava-drip.name</displayname>
+            <lore>
+                <line>*gui.particles.lava-drip.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DRIP_LAVA</property>
+            </properties>
+        </item>
+        <item id="water_bucket" onClick="particleClick">
+            <displayname>*gui.particles.water-drip.name</displayname>
+            <lore>
+                <line>*gui.particles.water-drip.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DRIP_WATER</property>
+            </properties>
+        </item>
+        <item id="enchanting_table" onClick="particleClick">
+            <displayname>*gui.particles.enchantment.name</displayname>
+            <lore>
+                <line>*gui.particles.enchantment.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">ENCHANTMENT_TABLE</property>
+            </properties>
+        </item>
+        <item id="poppy" onClick="particleClick">
+            <displayname>*gui.particles.hearts.name</displayname>
+            <lore>
+                <line>*gui.particles.hearts.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">HEART</property>
+            </properties>
+        </item>
+        <item id="clay" onClick="particleClick">
+            <displayname>*gui.particles.angry-villager.name</displayname>
+            <lore>
+                <line>*gui.particles.angry-villager.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">VILLAGER_ANGRY</property>
+            </properties>
+        </item>
+        <item id="emerald" onClick="particleClick">
+            <displayname>*gui.particles.happy-villager.name</displayname>
+            <lore>
+                <line>*gui.particles.happy-villager.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">VILLAGER_HAPPY</property>
+            </properties>
+        </item>
+        <item id="redstone" onClick="particleClick">
+            <displayname>*gui.particles.redstone-magic.name</displayname>
+            <lore>
+                <line>*gui.particles.redstone-magic.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">REDSTONE</property>
+            </properties>
+        </item>
+        <item id="potion" onClick="particleClick">
+            <displayname>*gui.particles.spell.name</displayname>
+            <lore>
+                <line>*gui.particles.spell.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SPELL</property>
+            </properties>
+        </item>
+        <item id="snowball" onClick="particleClick">
+            <displayname>*gui.particles.snowball-poof.name</displayname>
+            <lore>
+                <line>*gui.particles.snowball-poof.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SNOWBALL</property>
+            </properties>
+        </item>
+        <item id="furnace" onClick="particleClick">
+            <displayname>*gui.particles.smoke.name</displayname>
+            <lore>
+                <line>*gui.particles.smoke.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SMOKE_NORMAL</property>
+            </properties>
+        </item>
+        <item id="damaged_anvil" onClick="particleClick">
+            <displayname>*gui.particles.damage-indicator.name</displayname>
+            <lore>
+                <line>*gui.particles.damage-indicator.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DAMAGE_INDICATOR</property>
+            </properties>
+        </item>
+        <item id="fire_charge" onClick="particleClick">
+            <displayname>*gui.particles.dragon-breath.name</displayname>
+            <lore>
+                <line>*gui.particles.dragon-breath.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DRAGON_BREATH</property>
+            </properties>
+        </item>
+        <item id="end_rod" onClick="particleClick">
+            <displayname>*gui.particles.end-rod.name</displayname>
+            <lore>
+                <line>*gui.particles.end-rod.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">END_ROD</property>
+            </properties>
+        </item>
+        <item id="shield" onClick="particleClick">
+            <displayname>*gui.particles.sweep-attack.name</displayname>
+            <lore>
+                <line>*gui.particles.sweep-attack.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SWEEP_ATTACK</property>
+            </properties>
+        </item>
+        <item id="sand" onClick="particleClick">
+            <displayname>*gui.particles.falling-dust.name</displayname>
+            <lore>
+                <line>*gui.particles.falling-dust.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FALLING_DUST</property>
+            </properties>
+        </item>
+        <item id="totem_of_undying" onClick="particleClick">
+            <displayname>*gui.particles.totem.name</displayname>
+            <lore>
+                <line>*gui.particles.totem.lores</line>
+            </lore>
+            <properties>
+                <property type="particle-type">TOTEM</property>
+            </properties>
+        </item>
+        <item id="ink_sac" onClick="particleClick">
+            <displayname>*gui.particles.squid-ink.name</displayname>
+            <lore>
+                <line>*gui.particles.squid-ink.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SQUID_INK</property>
+            </properties>
+        </item>
+        <item id="nautilus_shell" onClick="particleClick">
+            <displayname>*gui.particles.nautilus.name</displayname>
+            <lore>
+                <line>*gui.particles.nautilus.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">NAUTILUS</property>
+            </properties>
+        </item>
+        <item id="campfire" onClick="particleClick">
+            <displayname>*gui.particles.campfire-smoke.name</displayname>
+            <lore>
+                <line>*gui.particles.campfire-smoke.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">CAMPFIRE_COSY_SMOKE</property>
+            </properties>
+        </item>
+        <item id="honey_bottle" onClick="particleClick">
+            <displayname>*gui.particles.honey.name</displayname>
+            <lore>
+                <line>*gui.particles.honey.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FALLING_HONEY</property>
+            </properties>
+        </item>
+        <item id="azure_bluet" onClick="particleClick">
+            <displayname>*gui.particles.nectar.name</displayname>
+            <lore>
+                <line>*gui.particles.nectar.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">FALLING_NECTAR</property>
+            </properties>
+        </item>
+        <item id="coal" onClick="particleClick">
+            <displayname>*gui.particles.ash.name</displayname>
+            <lore>
+                <line>*gui.particles.ash.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">ASH</property>
+            </properties>
+        </item>
+        <item id="nether_wart_block" onClick="particleClick">
+            <displayname>*gui.particles.crimson-spore.name</displayname>
+            <lore>
+                <line>*gui.particles.crimson-spore.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">CRIMSON_SPORE</property>
+            </properties>
+        </item>
+        <item id="soul_sand" onClick="particleClick">
+            <displayname>*gui.particles.soul-fire-flame.name</displayname>
+            <lore>
+                <line>*gui.particles.soul-fire-flame.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SOUL_FIRE_FLAME</property>
+            </properties>
+        </item>
+        <item id="warped_wart_block" onClick="particleClick">
+            <displayname>*gui.particles.warped-spore.name</displayname>
+            <lore>
+                <line>*gui.particles.warped-spore.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">WARPED_SPORE</property>
+            </properties>
+        </item>
+        <item id="crying_obsidian" onClick="particleClick">
+            <displayname>*gui.particles.obsidian-tear.name</displayname>
+            <lore>
+                <line>*gui.particles.obsidian-tear.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">DRIPPING_OBSIDIAN_TEAR</property>
+            </properties>
+        </item>
+        <item id="soul_soil" onClick="particleClick">
+            <displayname>*gui.particles.soul.name</displayname>
+            <lore>
+                <line>*gui.particles.soul.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SOUL</property>
+            </properties>
+        </item>
+        <item id="snow_block" onClick="particleClick">
+            <displayname>*gui.particles.snowflake.name</displayname>
+            <lore>
+                <line>*gui.particles.snowflake.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SNOWFLAKE</property>
+            </properties>
+        </item>
+        <item id="lightning_rod" onClick="particleClick">
+            <displayname>*gui.particles.electric-spark.name</displayname>
+            <lore>
+                <line>*gui.particles.electric-spark.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">ELECTRIC_SPARK</property>
+            </properties>
+        </item>
+        <item id="honeycomb" onClick="particleClick">
+            <displayname>*gui.particles.wax.name</displayname>
+            <lore>
+                <line>*gui.particles.wax.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">WAX_ON</property>
+            </properties>
+        </item>
+        <item id="sculk_catalyst" onClick="particleClick">
+            <displayname>*gui.particles.sculk_soul.name</displayname>
+            <lore>
+                <line>*gui.particles.sculk_soul.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">SCULK_SOUL</property>
+            </properties>
+        </item>
+        <item id="cherry_leaves" onClick="particleClick">
+            <displayname>*gui.particles.cherry_leaves.name</displayname>
+            <lore>
+                <line>*gui.particles.cherry_leaves.lore</line>
+            </lore>
+            <properties>
+                <property type="particle-type">CHERRY_LEAVES</property>
+            </properties>
+        </item>
+    </outlinepane>
+    <!--Clearing all particles and closing menu-->
+    <outlinepane x="7" y="3" length="2" height="1">
+        <item id="barrier" onClick="clearParticlesClick">
+            <displayname>*gui.particles.clear-particles.name</displayname>
+            <lore>
+                <line>*gui.particles.clear-particles.lores</line>
+            </lore>
+        </item>
+        <item id="book" onClick="backClick">
+            <displayname>*gui.particles.back.name</displayname>
+            <lore>
+                <line>*gui.particles.back.lores</line>
+            </lore>
+        </item>
+    </outlinepane>
+</gui>

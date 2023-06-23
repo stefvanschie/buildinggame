@@ -208,7 +208,6 @@ public final class SignManager {
      */
     public void updateJoinSign(@NotNull Arena arena, @NotNull PotentialBlockPosition blockPos) {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
-        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
 
         Sign sign = tryGetSign(blockPos);
 
@@ -220,42 +219,76 @@ public final class SignManager {
             updateBlockBehindJoinSigns(arena);
 
         //get lines
-        String line1 = MessageManager.translate(messages.getString("signs.join.line-1")
-                .replace("%arena%", arena.getName())
-                .replace("%players%", arena.getPlayers() + "")
-                .replace("%max_players%", arena.getMaxPlayers() + "")
-                .replace("%status%", messages.getString("variables.join-sign.status." +
-                    arena.getCurrentPhase().getName())));
-        String line2 = MessageManager.translate(messages.getString("signs.join.line-2")
-                .replace("%arena%", arena.getName())
-                .replace("%players%", arena.getPlayers() + "")
-                .replace("%max_players%", arena.getMaxPlayers() + "")
-                .replace("%status%", messages.getString("variables.join-sign.status." +
-                    arena.getCurrentPhase().getName())));
-        String line3 = MessageManager.translate(messages.getString("signs.join.line-3")
-                .replace("%arena%", arena.getName())
-                .replace("%players%", arena.getPlayers() + "")
-                .replace("%max_players%", arena.getMaxPlayers() + "")
-                .replace("%status%", messages.getString("variables.join-sign.status." +
-                    arena.getCurrentPhase().getName())));
-        String line4 = MessageManager.translate(messages.getString("signs.join.line-4")
-                .replace("%arena%", arena.getName())
-                .replace("%players%", arena.getPlayers() + "")
-                .replace("%max_players%", arena.getMaxPlayers() + "")
-                .replace("%status%", messages.getString("variables.join-sign.status." +
-                    arena.getCurrentPhase().getName())));
+        String[] lines = getJoinSignLines(arena);
+
+        if (lines == null) {
+            throw new IllegalStateException("Unable to find required settings for join signs in messages.yml.");
+        }
 
         if (config.getBoolean("bungeecord.enable"))
-            BungeeCordHandler.getInstance().sign(BungeeCordHandler.Receiver.SUB_SERVER, arena, line1, line2, line3,
-                    line4, null);
+            BungeeCordHandler.getInstance().sign(BungeeCordHandler.Receiver.SUB_SERVER, arena, lines[0], lines[1],
+                lines[2], lines[3], null);
 
-        sign.setLine(0, line1);
-        sign.setLine(1, line2);
-        sign.setLine(2, line3);
-        sign.setLine(3, line4);
+        sign.setLine(0, lines[0]);
+        sign.setLine(1, lines[1]);
+        sign.setLine(2, lines[2]);
+        sign.setLine(3, lines[3]);
 
         sign.update();
 	}
+
+    /**
+     * Gets the lines for a join sign for the given arena. This does not update any sign. The returned lines are given
+     * in an array, where the first element corresponds to the first line, the second element corresponds to the second
+     * element, etc. The returned array will always have four elements if it's not null. This method returns null if one
+     * of the required values from the messages.yml cannot be found.
+     *
+     * @param arena the arena to get the lines for a join sign for
+     * @return an array containing the lines for a join sign
+     * @since 12.4.0
+     */
+    @Contract(pure = true)
+    public @NotNull String @Nullable [] getJoinSignLines(@NotNull Arena arena) {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        String name = arena.getName();
+        String players = String.valueOf(arena.getPlayers());
+        String maxPlayers = String.valueOf(arena.getMaxPlayers());
+        String status = messages.getString("variables.join-sign.status." +
+            arena.getCurrentPhase().getName());
+
+        String line1 = messages.getString("signs.join.line-1");
+        String line2 = messages.getString("signs.join.line-2");
+        String line3 = messages.getString("signs.join.line-3");
+        String line4 = messages.getString("signs.join.line-4");
+
+        if (line1 == null || line2 == null || line3 == null || line4 == null || status == null) {
+            return null;
+        }
+
+        return new String[] {
+            MessageManager.translate(line1
+                .replace("%arena%", name)
+                .replace("%players%", players)
+                .replace("%max_players%", maxPlayers)
+                .replace("%status%", status)),
+            MessageManager.translate(line2
+                .replace("%arena%", name)
+                .replace("%players%", players)
+                .replace("%max_players%", maxPlayers)
+                .replace("%status%", status)),
+            MessageManager.translate(line3
+                .replace("%arena%", name)
+                .replace("%players%", players)
+                .replace("%max_players%", maxPlayers)
+                .replace("%status%", status)),
+            MessageManager.translate(line4
+                .replace("%arena%", name)
+                .replace("%players%", players)
+                .replace("%max_players%", maxPlayers)
+                .replace("%status%", status))
+        };
+    }
 
 	/**
      * Updates all random join signs
@@ -263,20 +296,54 @@ public final class SignManager {
      * @since 4.0.6
      */
 	private void updateRandomJoinSign(@NotNull PotentialBlockPosition blockPos) {
-        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
-
         Sign sign = tryGetSign(blockPos);
 
         if (sign == null) {
             return;
         }
 
-        sign.setLine(0, MessageManager.translate(messages.getString("signs.join.random.line-1")));
-        sign.setLine(1, MessageManager.translate(messages.getString("signs.join.random.line-2")));
-        sign.setLine(2, MessageManager.translate(messages.getString("signs.join.random.line-3")));
-        sign.setLine(3, MessageManager.translate(messages.getString("signs.join.random.line-4")));
+        String[] lines = getRandomJoinSignLines();
+
+        if (lines == null) {
+            throw new IllegalStateException("Unable to find required settings for random join signs in messages.yml.");
+        }
+
+        sign.setLine(0, lines[0]);
+        sign.setLine(1, lines[1]);
+        sign.setLine(2, lines[2]);
+        sign.setLine(3, lines[3]);
 
         sign.update();
+    }
+
+    /**
+     * Gets the lines for a random join sign. This does not update any sign. The returned lines are given in an array,
+     * where the first element corresponds to the first line, the second element corresponds to the second element, etc.
+     * The returned array will always have four elements if it's not null. This method returns null if one of the
+     * required values from the messages.yml cannot be found.
+     *
+     * @return an array containing the lines for a random join sign
+     * @since 12.4.0
+     */
+    @Contract(pure = true)
+    public @NotNull String @Nullable [] getRandomJoinSignLines() {
+        YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        String line1 = messages.getString("signs.join.random.line-1");
+        String line2 = messages.getString("signs.join.random.line-2");
+        String line3 = messages.getString("signs.join.random.line-3");
+        String line4 = messages.getString("signs.join.random.line-4");
+
+        if (line1 == null || line2 == null || line3 == null || line4 == null) {
+            return null;
+        }
+
+        return new String[] {
+            MessageManager.translate(line1),
+            MessageManager.translate(line2),
+            MessageManager.translate(line3),
+            MessageManager.translate(line4)
+        };
     }
 
     /**

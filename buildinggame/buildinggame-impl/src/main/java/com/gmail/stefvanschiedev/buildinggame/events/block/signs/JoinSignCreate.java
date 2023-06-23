@@ -36,9 +36,9 @@ public class JoinSignCreate implements Listener {
 		
 		if (!e.getLine(1).equalsIgnoreCase("join"))
 			return;
-		
+
 		var arena = ArenaManager.getInstance().getArena(e.getLine(2));
-		
+
 		if (!player.hasPermission("bg.sign.create")) {
 			MessageManager.getInstance().send(player, messages.getString("global.permissionNode"));
 			return;
@@ -63,9 +63,26 @@ public class JoinSignCreate implements Listener {
 		signs.set(number + ".y", location.getBlockY());
 		signs.set(number + ".z", location.getBlockZ());
 		SettingsManager.getInstance().save();
-		
-		SignManager.getInstance().setup();
 
-		e.setCancelled(true);
+        SignManager signManager = SignManager.getInstance();
+
+        signManager.setup();
+
+        String[] lines;
+
+        if (arena == null) {
+            lines = signManager.getRandomJoinSignLines();
+        } else {
+            lines = signManager.getJoinSignLines(arena);
+        }
+
+        if (lines == null) {
+            throw new IllegalStateException("Unable to find required settings for join signs in messages.yml.");
+        }
+
+		e.setLine(0, lines[0]);
+        e.setLine(1, lines[1]);
+        e.setLine(2, lines[2]);
+        e.setLine(3, lines[3]);
 	}
 }

@@ -362,7 +362,7 @@ public class Main extends JavaPlugin {
 		new StatSaveTimer().runTaskTimerAsynchronously(this, 0L, SettingsManager.getInstance().getConfig()
                 .getLong("stats.save-delay"));
 		new EntityTimer().runTaskTimer(this, 0L, 20L);
-		new StatSignUpdater().runTaskTimerAsynchronously(this, 0L, 1L);
+		new StatSignUpdater().runTaskTimer(this, 0L, 1L);
 		
 		long end = System.currentTimeMillis();
 

@@ -14,8 +14,9 @@
         <module>nms/1_19_1</module>
         <module>nms/1_19_2</module>
         <module>nms/1_19_3</module>
-        <module>nms/abstraction</module>
         <module>nms/1_19_4</module>
+        <module>nms/1_20</module>
+        <module>nms/abstraction</module>
     </modules>
 
     <properties>
