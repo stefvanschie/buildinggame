@@ -1,22 +1,23 @@
-package com.gmail.stefvanschiedev.buildinggame.nms.v1_20;
+package com.gmail.stefvanschiedev.buildinggame.nms.v1_20_2;
 
 import com.gmail.stefvanschiedev.buildinggame.abstraction.NMSManager;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 import net.minecraft.server.level.ServerLevel;
-import org.bukkit.craftbukkit.v1_20_R1.CraftChunk;
-import org.bukkit.craftbukkit.v1_20_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
+import net.minecraft.world.level.ChunkPos;
 import org.bukkit.Chunk;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_20_R2.CraftChunk;
+import org.bukkit.craftbukkit.v1_20_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An NMS manager for 1.20.
+ * An NMS manager for 1.20.2.
  *
- * @since 12.4.0
+ * @since 12.5.0
  */
 public class NMSManagerImpl implements NMSManager {
 
@@ -35,7 +36,7 @@ public class NMSManagerImpl implements NMSManager {
         int x = chunk.getX();
         int z = chunk.getZ();
 
-        sendPacket(player, new ClientboundForgetLevelChunkPacket(x, z));
+        sendPacket(player, new ClientboundForgetLevelChunkPacket(new ChunkPos(x, z)));
 
         ServerLevel serverLevel = ((CraftWorld) world).getHandle();
 
@@ -52,7 +53,7 @@ public class NMSManagerImpl implements NMSManager {
      *
      * @param player the player to send the packet to
      * @param packet the packet to send
-     * @since 12.2.0
+     * @since 12.5.0
      */
     private void sendPacket(@NotNull Player player, @NotNull Packet<?> packet) {
         if (!(player instanceof CraftPlayer)) {

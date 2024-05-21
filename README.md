@@ -30,7 +30,8 @@ mvn paper-nms:init -pl buildinggame/nms/1_19_1
 mvn paper-nms:init -pl buildinggame/nms/1_19_2
 mvn paper-nms:init -pl buildinggame/nms/1_19_3
 mvn paper-nms:init -pl buildinggame/nms/1_19_4
-mvn paper-nms:init -pl buildinggame/nms/1_20
+mvn paper-nms:init -pl buildinggame/nms/1_20_0-1
+mvn paper-nms:init -pl buildinggame/nms/1_20_2
 ```
 
 After doing this, you can build the project with Maven, similar to how the other modules are build.

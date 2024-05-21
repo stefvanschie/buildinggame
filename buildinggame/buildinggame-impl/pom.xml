@@ -88,7 +88,12 @@
         </dependency>
         <dependency>
             <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_20</artifactId>
+            <artifactId>1_20_0-1</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gmail.stefvanschiedev</groupId>
+            <artifactId>1_20_2</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -151,7 +156,7 @@
         <dependency>
             <groupId>com.github.stefvanschie.inventoryframework</groupId>
             <artifactId>IF</artifactId>
-            <version>0.10.11</version>
+            <version>0.10.14</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
