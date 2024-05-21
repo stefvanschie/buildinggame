@@ -95,6 +95,7 @@ public class CommandManager extends BaseCommand {
         arenas.set(name + ".lobby-timer", lobbyTime);
         arenas.set(name + ".vote-timer", voteTime);
         arenas.set(name + ".win-timer", winTime);
+        arenas.set(name + ".matches", 1);
         SettingsManager.getInstance().save();
 
         Arena arena = new Arena(name);
