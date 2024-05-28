@@ -68,7 +68,14 @@ public enum Version {
      *
      * @since 12.5.0
      */
-    V1_20_2;
+    V1_20_2,
+
+    /**
+     * Version 1.20.3
+     *
+     * @since 12.5.0
+     */
+    V1_20_3;
 
     /**
      * A collection of versions that all belong to the 1.19 version set.
@@ -80,7 +87,13 @@ public enum Version {
      * A collection of versions that all belong to the 1.20 version set.
      */
     @NotNull
-    private static final Collection<Version> VERSION_1_20 = EnumSet.of(V1_20_0, V1_20_1, V1_20_2);
+    private static final Collection<Version> VERSION_1_20 = EnumSet.of(V1_20_0, V1_20_1, V1_20_2, V1_20_3);
+
+    /**
+     * A collection of versions that are Minecraft 1.20.3 or later.
+     */
+    @NotNull
+    private static final Collection<Version> VERSION_1_20_3_PLUS = EnumSet.of(V1_20_3);
 
     /**
      * Checks whether this version is part of the 1.19 version set.
@@ -105,6 +118,17 @@ public enum Version {
     }
 
     /**
+     * Checks whether the Minecraft version the server is running is 1.20.3 or later.
+     *
+     * @return true if the server is running version 1.20.3 or later
+     * @since 12.5.0
+     */
+    @Contract(pure = true)
+    public boolean isAtLeast1_20_3() {
+        return VERSION_1_20_3_PLUS.contains(this);
+    }
+
+    /**
      * Gets the version the server is currently running, or throws an {@link UnsupportedVersionException} when the
      * version the server is running is not supported.
      *
@@ -125,6 +149,7 @@ public enum Version {
             case "1.20" -> V1_20_0;
             case "1.20.1" -> V1_20_1;
             case "1.20.2" -> V1_20_2;
+            case "1.20.3" -> V1_20_3;
             default -> throw new UnsupportedVersionException("This server's version is not supported");
         };
     }

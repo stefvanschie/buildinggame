@@ -5,12 +5,15 @@ import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.nms.Version;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Cancellable;
+
+import java.io.InputStream;
 
 /**
  * The gui to change the biome of your plot
@@ -41,7 +44,22 @@ class BiomeMenu {
      */
     BiomeMenu(Plot plot) {
         this.plot = plot;
-        this.gui = ChestGui.load(this, Main.getInstance().getResource("gui/buildmenu/biomemenu.xml"));
+
+        String resourceLocation;
+
+        if (Version.getVersion().isAtLeast1_20_3()) {
+            resourceLocation = "gui/buildmenu/biome/biomemenu_geq_1_20_3.xml";
+        } else {
+            resourceLocation = "gui/buildmenu/biome/biomemenu_le_1_20_3.xml";
+        }
+
+        InputStream resource = Main.getInstance().getResource(resourceLocation);
+
+        if (resource == null) {
+            throw new IllegalStateException("Unable to find file to load biome menu");
+        }
+
+        this.gui = ChestGui.load(this, resource);
 
         var title = gui.getTitle();
 
