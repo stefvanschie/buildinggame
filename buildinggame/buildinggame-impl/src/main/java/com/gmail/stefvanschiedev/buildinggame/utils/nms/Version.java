@@ -75,7 +75,14 @@ public enum Version {
      *
      * @since 12.5.0
      */
-    V1_20_3;
+    V1_20_3,
+
+    /**
+     * Version 1.20.4
+     *
+     * @since 12.5.0
+     */
+    V1_20_4;
 
     /**
      * A collection of versions that all belong to the 1.19 version set.
@@ -87,13 +94,13 @@ public enum Version {
      * A collection of versions that all belong to the 1.20 version set.
      */
     @NotNull
-    private static final Collection<Version> VERSION_1_20 = EnumSet.of(V1_20_0, V1_20_1, V1_20_2, V1_20_3);
+    private static final Collection<Version> VERSION_1_20 = EnumSet.of(V1_20_0, V1_20_1, V1_20_2, V1_20_3, V1_20_4);
 
     /**
      * A collection of versions that are Minecraft 1.20.3 or later.
      */
     @NotNull
-    private static final Collection<Version> VERSION_1_20_3_PLUS = EnumSet.of(V1_20_3);
+    private static final Collection<Version> VERSION_1_20_3_PLUS = EnumSet.of(V1_20_3, V1_20_4);
 
     /**
      * Checks whether this version is part of the 1.19 version set.
@@ -150,6 +157,7 @@ public enum Version {
             case "1.20.1" -> V1_20_1;
             case "1.20.2" -> V1_20_2;
             case "1.20.3" -> V1_20_3;
+            case "1.20.4" -> V1_20_4;
             default -> throw new UnsupportedVersionException("This server's version is not supported");
         };
     }

@@ -18,6 +18,7 @@
         <module>nms/1_20_0-1</module>
         <module>nms/1_20_2</module>
         <module>nms/1_20_3</module>
+        <module>nms/1_20_4</module>
         <module>nms/abstraction</module>
     </modules>
 
