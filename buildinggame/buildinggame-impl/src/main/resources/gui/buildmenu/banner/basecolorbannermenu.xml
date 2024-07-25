@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.banners.base-color.title" rows="2">
-    <outlinepane x="0" y="0" length="9" height="2">
+    <outlinepane x="0" y="0" length="9" height="2" alignment="center">
         <item id="black_banner" onClick="bannerClick">
             <displayname>*gui.banners.base-color.black.name</displayname>
             <lore>
@@ -82,7 +82,6 @@
                 <property type="material">GRAY_BANNER</property>
             </properties>
         </item>
-        <empty />
         <item id="pink_banner" onClick="bannerClick">
             <displayname>*gui.banners.base-color.pink.name</displayname>
             <lore>

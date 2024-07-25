@@ -4443,6 +4443,14 @@ gui:
         name: "&aPiglin pattern"
         lore:
         -
+      flow:
+        name: "&aFlow pattern"
+        lore:
+        -
+      guster:
+        name: "&aGuster pattern"
+        lore:
+        -
   biome:
     name: "&aBiomes"
     lores:

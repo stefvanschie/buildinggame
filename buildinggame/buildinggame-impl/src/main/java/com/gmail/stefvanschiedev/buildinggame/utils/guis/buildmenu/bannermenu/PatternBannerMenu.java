@@ -7,6 +7,7 @@ import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.nms.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -800,6 +801,14 @@ class PatternBannerMenu extends ChestGui {
 
         StaticPane staticPane = new StaticPane(0, 4, 9, 2);
 
+        int[] indexes;
+
+        if (Version.getVersion().isAtLeast(Version.V1_20_5)) {
+            indexes = new int[] {1, 2, 3, 5, 6, 7};
+        } else {
+            indexes = new int[] {1, 3, 5, 7};
+        }
+
         //dyed flower charge pattern
         var dyedFlowerChargeBanner =
             new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
@@ -819,7 +828,7 @@ class PatternBannerMenu extends ChestGui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), 1, 0);
+        }), indexes[0], 0);
 
         //dyed thing pattern
         var dyedThingBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
@@ -839,7 +848,7 @@ class PatternBannerMenu extends ChestGui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), 3, 0);
+        }), indexes[1], 0);
 
         var globeBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var globeBannerMeta = (BannerMeta) globeBanner.getItemMeta();
@@ -858,7 +867,7 @@ class PatternBannerMenu extends ChestGui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), 5, 0);
+        }), indexes[2], 0);
 
         //piglin pattern
         var piglinBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
@@ -876,7 +885,45 @@ class PatternBannerMenu extends ChestGui {
             new ColorBannerMenu(banner).show(event.getWhoClicked());
 
             event.setCancelled(true);
-        }), 7, 0);
+        }), indexes[3], 0);
+
+        if (Version.getVersion().isAtLeast(Version.V1_20_5)) {
+            //flow
+            var flowBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
+            BannerMeta flowBannerMeta = (BannerMeta) flowBanner.getItemMeta();
+            flowBannerMeta.addPattern(new Pattern(dyeColor, PatternType.valueOf("FLOW")));
+            flowBannerMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.pattern.flow.name")));
+            flowBannerMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.pattern.flow.lore")));
+            flowBanner.setItemMeta(flowBannerMeta);
+
+            staticPane.addItem(new GuiItem(flowBanner, event -> {
+                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.valueOf("FLOW")));
+                banner.setItemMeta(bannerMeta);
+
+                new ColorBannerMenu(banner).show(event.getWhoClicked());
+
+                event.setCancelled(true);
+            }), indexes[4], 0);
+
+            //guster
+            var gusterBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
+            BannerMeta gusterBannerMeta = (BannerMeta) gusterBanner.getItemMeta();
+            gusterBannerMeta.addPattern(new Pattern(dyeColor, PatternType.valueOf("GUSTER")));
+            gusterBannerMeta.setDisplayName(MessageManager.translate(MESSAGES.getString("gui.banners.pattern.guster.name")));
+            gusterBannerMeta.setLore(MessageManager.translate(MESSAGES.getStringList("gui.banners.pattern.guster.lore")));
+            gusterBanner.setItemMeta(gusterBannerMeta);
+
+            staticPane.addItem(new GuiItem(gusterBanner, event -> {
+                BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+                bannerMeta.addPattern(new Pattern(dyeColor, PatternType.valueOf("GUSTER")));
+                banner.setItemMeta(bannerMeta);
+
+                new ColorBannerMenu(banner).show(event.getWhoClicked());
+
+                event.setCancelled(true);
+            }), indexes[5], 0);
+        }
 
         //preview
         staticPane.addItem(new GuiItem(banner, event -> {
