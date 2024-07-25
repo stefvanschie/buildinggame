@@ -54,6 +54,7 @@ public class EntityOptionsMenu implements Listener {
         ?,
         ? extends BiFunction<? super Plot, ? super Entity, ? extends Gui>
     > GUI_MAPPING = Map.ofEntries(
+        Map.entry(EntityType.ARMADILLO, BabyMenu::new),
         Map.entry(EntityType.AXOLOTL, (Plot plot, Entity axolotl) -> new AxolotlMenu(plot, (Axolotl) axolotl)),
         Map.entry(EntityType.BEE, (Plot plot, Entity bee) -> new BeeMenu(plot, (Bee) bee)),
         Map.entry(EntityType.CAMEL, BabyMenu::new),
