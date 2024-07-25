@@ -116,7 +116,8 @@ public class ParticlesMenu {
             }
 
             plot.addParticle(particle, player);
-        } else if (particleType == org.bukkit.Particle.REDSTONE) {
+        //Spigot will remap this to DUST for modern versions
+        } else if (particleType == org.bukkit.Particle.valueOf("REDSTONE")) {
             plot.addParticle(new RedstoneParticle(location), player);
         } else {
             plot.addParticle(new Particle(location, particleType), player);

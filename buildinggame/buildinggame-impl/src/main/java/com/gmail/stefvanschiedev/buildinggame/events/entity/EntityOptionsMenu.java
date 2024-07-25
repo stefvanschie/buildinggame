@@ -1,5 +1,6 @@
 package com.gmail.stefvanschiedev.buildinggame.events.entity;
 
+import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.game.BuildingGamePhase;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -33,11 +34,77 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Map;
+import java.util.function.BiFunction;
 
 /**
  * Handles opening the options menu for entities
  */
 public class EntityOptionsMenu implements Listener {
+
+    /**
+     * A mapping between an {@link EntityType} and a function which returns a {@link Gui} for the corresponding
+     * {@link EntityType}. When calling the function from K/V pair, the {@link Entity} instance must be of the class
+     * that corresponds with the {@link EntityType} from the key. For example, the function attached to
+     * {@link EntityType#TROPICAL_FISH}, must be invoked with an {@link Entity} that is an instance of
+     * {@link TropicalFish}.
+     */
+    @NotNull
+    private static final Map<
+        ?,
+        ? extends BiFunction<? super Plot, ? super Entity, ? extends Gui>
+    > GUI_MAPPING = Map.ofEntries(
+        Map.entry(EntityType.AXOLOTL, (Plot plot, Entity axolotl) -> new AxolotlMenu(plot, (Axolotl) axolotl)),
+        Map.entry(EntityType.BEE, (Plot plot, Entity bee) -> new BeeMenu(plot, (Bee) bee)),
+        Map.entry(EntityType.CAMEL, BabyMenu::new),
+        Map.entry(EntityType.CAT, (Plot plot, Entity cat) -> new CatMenu(plot, (Cat) cat)),
+        Map.entry(EntityType.CHICKEN, BabyMenu::new),
+        Map.entry(EntityType.COW, BabyMenu::new),
+        Map.entry(EntityType.CREEPER, (Plot plot, Entity creeper) -> new CreeperMenu(plot, (Creeper) creeper)),
+        Map.entry(EntityType.DONKEY, (Plot plot, Entity donkey) -> new ChestMenu(plot, (ChestedHorse) donkey)),
+        Map.entry(EntityType.FOX, (Plot plot, Entity fox) -> new FoxMenu(plot, (Fox) fox)),
+        Map.entry(EntityType.FROG, (Plot plot, Entity frog) -> new FrogMenu(plot, (Frog) frog)),
+        Map.entry(EntityType.GOAT, (Plot plot, Entity goat) -> new GoatMenu(plot, (Goat) goat)),
+        Map.entry(EntityType.HOGLIN, BabyMenu::new),
+        Map.entry(EntityType.HORSE, (Plot plot, Entity horse) -> new HorseMenu(plot, (Horse) horse)),
+        Map.entry(EntityType.HUSK, BabyMenu::new),
+        Map.entry(EntityType.IRON_GOLEM, (Plot plot, Entity ironGolem) ->
+            new IronGolemMenu(plot, (IronGolem) ironGolem)),
+        Map.entry(EntityType.LLAMA, (Plot plot, Entity llama) -> new LlamaMenu(plot, (Llama) llama)),
+        Map.entry(EntityType.MAGMA_CUBE, (Plot plot, Entity magmaCube) -> new SizeMenu(plot, (Mob) magmaCube)),
+        Map.entry(EntityType.MULE, (Plot plot, Entity mule) -> new ChestMenu(plot, (ChestedHorse) mule)),
+        //Spigot will remap this to MOOSHROOM for modern versions
+        Map.entry(EntityType.valueOf("MUSHROOM_COW"), (Plot plot, Entity mooshroom) ->
+            new MooshroomMenu(plot, (MushroomCow) mooshroom)),
+        Map.entry(EntityType.OCELOT, BabyMenu::new),
+        Map.entry(EntityType.PANDA, (Plot plot, Entity panda) -> new PandaMenu(plot, (Panda) panda)),
+        Map.entry(EntityType.PARROT, (Plot plot, Entity parrot) -> new ParrotMenu(plot, (Parrot) parrot)),
+        Map.entry(EntityType.PHANTOM, (Plot plot, Entity phantom) -> new SizeMenu(plot, (Mob) phantom)),
+        Map.entry(EntityType.PIG, (Plot plot, Entity pig) -> new PigMenu(plot, (Pig) pig)),
+        Map.entry(EntityType.PIGLIN, BabyMenu::new),
+        Map.entry(EntityType.POLAR_BEAR, BabyMenu::new),
+        Map.entry(EntityType.PUFFERFISH, (Plot plot, Entity pufferfish) ->
+            new PufferfishMenu(plot, (PufferFish) pufferfish)),
+        Map.entry(EntityType.RABBIT, (Plot plot, Entity rabbit) -> new RabbitMenu(plot, (Rabbit) rabbit)),
+        Map.entry(EntityType.SHEEP, (Plot plot, Entity sheep) -> new SheepMenu(plot, (Sheep) sheep)),
+        Map.entry(EntityType.SHULKER, (Plot plot, Entity shulker) -> new ShulkerMenu(plot, (Shulker) shulker)),
+        Map.entry(EntityType.SKELETON_HORSE, BabyMenu::new),
+        Map.entry(EntityType.SLIME, (Plot plot, Entity slime) -> new SizeMenu(plot, (Mob) slime)),
+        Map.entry(EntityType.SNIFFER, BabyMenu::new),
+        //Spigot will remap this to SNOW_GOLEM for modern versions
+        Map.entry(EntityType.valueOf("SNOWMAN"), (Plot plot, Entity snowGolem) ->
+            new SnowGolemMenu(plot, (Snowman) snowGolem)),
+        Map.entry(EntityType.STRIDER, BabyMenu::new),
+        Map.entry(EntityType.TROPICAL_FISH, (Plot plot, Entity tropicalFish) ->
+            new TropicalFishMenu(plot, (TropicalFish) tropicalFish)),
+        Map.entry(EntityType.TURTLE, BabyMenu::new),
+        Map.entry(EntityType.VILLAGER, (Plot plot, Entity villager) -> new VillagerlikeMenu(plot, (Creature) villager)),
+        Map.entry(EntityType.WOLF, (Plot plot, Entity wolf) -> new ColorMenu(plot, (Animals) wolf)),
+        Map.entry(EntityType.ZOGLIN, BabyMenu::new),
+        Map.entry(EntityType.ZOMBIE, BabyMenu::new),
+        Map.entry(EntityType.ZOMBIE_VILLAGER, (Plot plot, Entity zombieVillager) ->
+            new VillagerlikeMenu(plot, (Creature) zombieVillager))
+    );
 
     /**
      * Represents the entity types for which the options menu only opens in case you hold shift.
@@ -90,35 +157,16 @@ public class EntityOptionsMenu implements Listener {
             return;
         }
 
-        (switch (entityType) {
-            case CAMEL, CHICKEN, COW, OCELOT, SKELETON_HORSE, SNIFFER, POLAR_BEAR, HUSK, ZOMBIE, TURTLE, PIGLIN, HOGLIN,
-                STRIDER, ZOGLIN -> new BabyMenu(plot, entity);
-            case DONKEY, MULE -> new ChestMenu(plot, (ChestedHorse) entity);
-            case VILLAGER, ZOMBIE_VILLAGER -> new VillagerlikeMenu(plot, (Creature) entity);
-            case PHANTOM, MAGMA_CUBE, SLIME -> new SizeMenu(plot, (Mob) entity);
-            case AXOLOTL -> new AxolotlMenu(plot, (Axolotl) entity);
-            case GOAT -> new GoatMenu(plot, (Goat) entity);
-            case PIG -> new PigMenu(plot, (Pig) entity);
-            case RABBIT -> new RabbitMenu(plot, (Rabbit) entity);
-            case SHEEP -> new SheepMenu(plot, (Sheep) entity);
-            case CREEPER -> new CreeperMenu(plot, (Creeper) entity);
-            case SHULKER -> new ShulkerMenu(plot, (Shulker) entity);
-            case HORSE -> new HorseMenu(plot, (Horse) entity);
-            case LLAMA -> new LlamaMenu(plot, (Llama) entity);
-            case PARROT -> new ParrotMenu(plot, (Parrot) entity);
-            case WOLF -> new ColorMenu(plot, (Animals) entity);
-            case SNOWMAN -> new SnowGolemMenu(plot, (Snowman) entity);
-            case PUFFERFISH -> new PufferfishMenu(plot, (PufferFish) entity);
-            case TROPICAL_FISH -> new TropicalFishMenu(plot, (TropicalFish) entity);
-            case MUSHROOM_COW -> new MooshroomMenu(plot, (MushroomCow) entity);
-            case PANDA -> new PandaMenu(plot, (Panda) entity);
-            case CAT -> new CatMenu(plot, (Cat) entity);
-            case FOX -> new FoxMenu(plot, (Fox) entity);
-            case BEE -> new BeeMenu(plot, (Bee) entity);
-            case IRON_GOLEM -> new IronGolemMenu(plot, (IronGolem) entity);
-            case FROG -> new FrogMenu(plot, (Frog) entity);
-            default -> new RemoveMenu(plot, entity);
-        }).show(player);
+        BiFunction<? super Plot, ? super Entity, ? extends Gui> function = GUI_MAPPING.get(entityType);
+        Gui gui;
+
+        if (function == null) {
+            gui = new RemoveMenu(plot, entity);
+        } else {
+            gui = function.apply(plot, entity);
+        }
+
+        gui.show(player);
 
         e.setCancelled(true);
     }

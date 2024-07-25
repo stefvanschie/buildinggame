@@ -201,9 +201,12 @@ class PatternBannerMenu extends ChestGui {
         }));
 
         //paly pattern
+        //Spigot will remap this to SMALL_STRIPES for modern versions
+        PatternType smallStripesPatternType = PatternType.valueOf("STRIPE_SMALL");
+
         var palyBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var palyBannerMeta = (BannerMeta) palyBanner.getItemMeta();
-        palyBannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_SMALL));
+        palyBannerMeta.addPattern(new Pattern(dyeColor, smallStripesPatternType));
         palyBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
                 .getString("gui.banners.pattern.paly.name")));
         palyBannerMeta.setLore(MessageManager.translate(MESSAGES
@@ -212,7 +215,7 @@ class PatternBannerMenu extends ChestGui {
 
         outlinePane.addItem(new GuiItem(palyBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_SMALL));
+            bannerMeta.addPattern(new Pattern(dyeColor, smallStripesPatternType));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());
@@ -282,9 +285,12 @@ class PatternBannerMenu extends ChestGui {
         }));
 
         //per bend pattern
+        //Spigot will remap this to DIAGONAL_RIGHT for modern versions
+        PatternType diagonalRightPatternType = PatternType.valueOf("DIAGONAL_RIGHT_MIRROR");
+
         var perBendBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var perBendBannerMeta = (BannerMeta) perBendBanner.getItemMeta();
-        perBendBannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_RIGHT_MIRROR));
+        perBendBannerMeta.addPattern(new Pattern(dyeColor, diagonalRightPatternType));
         perBendBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
                 .getString("gui.banners.pattern.per-bend.name")));
         perBendBannerMeta.setLore(MessageManager.translate(MESSAGES
@@ -293,7 +299,7 @@ class PatternBannerMenu extends ChestGui {
 
         outlinePane.addItem(new GuiItem(perBendBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_RIGHT_MIRROR));
+            bannerMeta.addPattern(new Pattern(dyeColor, diagonalRightPatternType));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());
@@ -302,10 +308,13 @@ class PatternBannerMenu extends ChestGui {
         }));
 
         //per bend inverted pattern
+        //Spigot will remap this to DIAGONAL_UP_LEFT for modern versions
+        PatternType diagonalUpLeftPatternType = PatternType.valueOf("DIAGONAL_LEFT_MIRROR");
+
         var perBendInvertedBanner =
             new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var perBendInvertedBannerMeta = (BannerMeta) perBendInvertedBanner.getItemMeta();
-        perBendInvertedBannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_LEFT_MIRROR));
+        perBendInvertedBannerMeta.addPattern(new Pattern(dyeColor, diagonalUpLeftPatternType));
         perBendInvertedBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
                 .getString("gui.banners.pattern.per-bend-inverted.name")));
         perBendInvertedBannerMeta.setLore(MessageManager.translate(MESSAGES
@@ -314,7 +323,7 @@ class PatternBannerMenu extends ChestGui {
 
         outlinePane.addItem(new GuiItem(perBendInvertedBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.DIAGONAL_LEFT_MIRROR));
+            bannerMeta.addPattern(new Pattern(dyeColor, diagonalUpLeftPatternType));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());
@@ -364,10 +373,13 @@ class PatternBannerMenu extends ChestGui {
         }));
 
         //per pale inverted pattern
+        //Spigot will remap this to HALF_VERTICAL_RIGHT for modern versions
+        PatternType halfVerticalRightPatternType = PatternType.valueOf("HALF_VERTICAL_MIRROR");
+
         var perPaleInvertedBanner =
             new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var perPaleInvertedBannerMeta = (BannerMeta) perPaleInvertedBanner.getItemMeta();
-        perPaleInvertedBannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_VERTICAL_MIRROR));
+        perPaleInvertedBannerMeta.addPattern(new Pattern(dyeColor, halfVerticalRightPatternType));
         perPaleInvertedBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
                 .getString("gui.banners.pattern.per-pale-inverted.name")));
         perPaleInvertedBannerMeta.setLore(MessageManager.translate(MESSAGES
@@ -376,7 +388,7 @@ class PatternBannerMenu extends ChestGui {
 
         outlinePane.addItem(new GuiItem(perPaleInvertedBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_VERTICAL_MIRROR));
+            bannerMeta.addPattern(new Pattern(dyeColor, halfVerticalRightPatternType));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());
@@ -405,10 +417,13 @@ class PatternBannerMenu extends ChestGui {
         }));
 
         //per fess inverted pattern
+        //Spigot will remap this to HALF_HORIZONTAL_BOTTOM for modern versions
+        PatternType halfHorizontalBottomPatternType = PatternType.valueOf("HALF_HORIZONTAL_MIRROR");
+
         var perFessInvertedBanner =
             new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var perFessInvertedBannerMeta = (BannerMeta) perFessInvertedBanner.getItemMeta();
-        perFessInvertedBannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL_MIRROR));
+        perFessInvertedBannerMeta.addPattern(new Pattern(dyeColor, halfHorizontalBottomPatternType));
         perFessInvertedBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
                 .getString("gui.banners.pattern.per-fess-inverted.name")));
         perFessInvertedBannerMeta.setLore(MessageManager.translate(MESSAGES
@@ -417,7 +432,7 @@ class PatternBannerMenu extends ChestGui {
 
         outlinePane.addItem(new GuiItem(perFessInvertedBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL_MIRROR));
+            bannerMeta.addPattern(new Pattern(dyeColor, halfHorizontalBottomPatternType));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());
@@ -593,9 +608,12 @@ class PatternBannerMenu extends ChestGui {
         }));
 
         //roundel pattern
+        //Spigot will remap this to CIRCLE for modern versions
+        PatternType circlePatternType = PatternType.valueOf("CIRCLE_MIDDLE");
+
         var roundelBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var roundelBannerMeta = (BannerMeta) roundelBanner.getItemMeta();
-        roundelBannerMeta.addPattern(new Pattern(dyeColor, PatternType.CIRCLE_MIDDLE));
+        roundelBannerMeta.addPattern(new Pattern(dyeColor, circlePatternType));
         roundelBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
                 .getString("gui.banners.pattern.roundel.name")));
         roundelBannerMeta.setLore(MessageManager.translate(MESSAGES
@@ -604,7 +622,7 @@ class PatternBannerMenu extends ChestGui {
 
         outlinePane.addItem(new GuiItem(roundelBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CIRCLE_MIDDLE));
+            bannerMeta.addPattern(new Pattern(dyeColor, circlePatternType));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());
@@ -613,9 +631,12 @@ class PatternBannerMenu extends ChestGui {
         }));
 
         //lozenge pattern
+        //Spigot will remap this to RHOMBUS for modern versions
+        PatternType rhombusPatternType = PatternType.valueOf("RHOMBUS_MIDDLE");
+
         var lozengeBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
         var lozengeBannerMeta = (BannerMeta) lozengeBanner.getItemMeta();
-        lozengeBannerMeta.addPattern(new Pattern(dyeColor, PatternType.RHOMBUS_MIDDLE));
+        lozengeBannerMeta.addPattern(new Pattern(dyeColor, rhombusPatternType));
         lozengeBannerMeta.setDisplayName(MessageManager.translate(MESSAGES
                 .getString("gui.banners.pattern.lozenge.name")));
         lozengeBannerMeta.setLore(MessageManager.translate(MESSAGES
@@ -624,7 +645,7 @@ class PatternBannerMenu extends ChestGui {
 
         outlinePane.addItem(new GuiItem(lozengeBanner, event -> {
             var bannerMeta = (BannerMeta) banner.getItemMeta();
-            bannerMeta.addPattern(new Pattern(dyeColor, PatternType.RHOMBUS_MIDDLE));
+            bannerMeta.addPattern(new Pattern(dyeColor, rhombusPatternType));
             banner.setItemMeta(bannerMeta);
 
             new ColorBannerMenu(banner).show(event.getWhoClicked());

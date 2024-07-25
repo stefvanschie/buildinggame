@@ -28,7 +28,8 @@ public class RedstoneParticle extends Particle {
      * @since 10.0.1
      */
     public RedstoneParticle(@NotNull Location location) {
-        super(location, org.bukkit.Particle.REDSTONE);
+        //Spigot will remap this to DUST for modern versions
+        super(location, org.bukkit.Particle.valueOf("REDSTONE"));
 
         this.color = Color.fromRGB(ThreadLocalRandom.current().nextInt(1 << 24));
     }
@@ -46,6 +47,9 @@ public class RedstoneParticle extends Particle {
 
         var dustOptions = new org.bukkit.Particle.DustOptions(color, amount);
 
-        world.spawnParticle(org.bukkit.Particle.REDSTONE, location, amount, offsetX, offsetY, offsetZ, dustOptions);
+        //Spigot will remap this to DUST for modern versions
+        org.bukkit.Particle dustParticleType = org.bukkit.Particle.valueOf("REDSTONE");
+
+        world.spawnParticle(dustParticleType, location, amount, offsetX, offsetY, offsetZ, dustOptions);
     }
 }
