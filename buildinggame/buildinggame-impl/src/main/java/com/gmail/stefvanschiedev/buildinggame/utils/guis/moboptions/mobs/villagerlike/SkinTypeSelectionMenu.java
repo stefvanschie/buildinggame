@@ -51,7 +51,7 @@ class SkinTypeSelectionMenu extends ChestGui {
         var pane = new OutlinePane(1, 0, 7, 1);
 
         //plains
-        ItemStack plains = new ItemStack(Material.GRASS);
+        ItemStack plains = new ItemStack(Material.GRASS_BLOCK);
         ItemMeta plainsMeta = plains.getItemMeta();
         plainsMeta.setDisplayName(ChatColor.GREEN + "Plains");
         plains.setItemMeta(plainsMeta);

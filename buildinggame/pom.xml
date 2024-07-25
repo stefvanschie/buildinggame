@@ -6,7 +6,7 @@
 
     <groupId>com.gmail.stefvanschiedev</groupId>
     <artifactId>buildinggame</artifactId>
-    <version>12.4.0</version>
+    <version>12.5.0</version>
     <packaging>pom</packaging>
     <modules>
         <module>buildinggame-impl</module>
@@ -15,7 +15,13 @@
         <module>nms/1_19_2</module>
         <module>nms/1_19_3</module>
         <module>nms/1_19_4</module>
-        <module>nms/1_20</module>
+        <module>nms/1_20_0-1</module>
+        <module>nms/1_20_2</module>
+        <module>nms/1_20_3</module>
+        <module>nms/1_20_4</module>
+        <module>nms/1_20_5</module>
+        <module>nms/1_20_6</module>
+        <module>nms/1_21</module>
         <module>nms/abstraction</module>
     </modules>
 

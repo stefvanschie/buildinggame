@@ -61,7 +61,49 @@ public enum Version {
      *
      * @since 12.4.0
      */
-    V1_20_1;
+    V1_20_1,
+
+    /**
+     * Version 1.20.2
+     *
+     * @since 12.5.0
+     */
+    V1_20_2,
+
+    /**
+     * Version 1.20.3
+     *
+     * @since 12.5.0
+     */
+    V1_20_3,
+
+    /**
+     * Version 1.20.4
+     *
+     * @since 12.5.0
+     */
+    V1_20_4,
+
+    /**
+     * Version 1.20.5
+     *
+     * @since 12.5.0
+     */
+    V1_20_5,
+
+    /**
+     * Version 1.20.6
+     *
+     * @since 12.5.0
+     */
+    V1_20_6,
+
+    /**
+     * Version 1.21
+     *
+     * @since 12.5.0
+     */
+    V1_21;
 
     /**
      * A collection of versions that all belong to the 1.19 version set.
@@ -73,7 +115,10 @@ public enum Version {
      * A collection of versions that all belong to the 1.20 version set.
      */
     @NotNull
-    private static final Collection<Version> VERSION_1_20 = EnumSet.of(V1_20_0, V1_20_1);
+    private static final Collection<Version> VERSION_1_20 = EnumSet.of(
+        V1_20_0, V1_20_1, V1_20_2, V1_20_3, V1_20_4, V1_20_5, V1_20_6,
+        V1_21
+    );
 
     /**
      * Checks whether this version is part of the 1.19 version set.
@@ -98,6 +143,17 @@ public enum Version {
     }
 
     /**
+     * Checks whether the Minecraft version is the provided version or newer.
+     *
+     * @param version the version
+     * @return true if this version is at least the given version, false otherwise
+     * @since 12.5.0
+     */
+    public boolean isAtLeast(Version version) {
+        return ordinal() >= version.ordinal();
+    }
+
+    /**
      * Gets the version the server is currently running, or throws an {@link UnsupportedVersionException} when the
      * version the server is running is not supported.
      *
@@ -117,6 +173,12 @@ public enum Version {
             case "1.19.4" -> V1_19_4;
             case "1.20" -> V1_20_0;
             case "1.20.1" -> V1_20_1;
+            case "1.20.2" -> V1_20_2;
+            case "1.20.3" -> V1_20_3;
+            case "1.20.4" -> V1_20_4;
+            case "1.20.5" -> V1_20_5;
+            case "1.20.6" -> V1_20_6;
+            case "1.21" -> V1_21;
             default -> throw new UnsupportedVersionException("This server's version is not supported");
         };
     }

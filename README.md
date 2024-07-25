@@ -1,6 +1,6 @@
 # Building Game <a href="https://discord.gg/5AJEGXG"><img align="right" src="https://img.shields.io/discord/389784128700153868" alt="Discord guild"></a>
 
-*This plugin works for Minecraft version 1.19-1.20*
+*This plugin works for Minecraft version 1.19-1.21*
 
 The Building Game is a plugin in which you compete against other users by making the best building. You first vote on a theme you will base your building on. After that you get a set amount of time to make your building. After this time is up, you go through everyone's plot and vote on how good you think each person's building is. The one with the highest amount of points at the end wins.
 
@@ -30,7 +30,41 @@ mvn paper-nms:init -pl buildinggame/nms/1_19_1
 mvn paper-nms:init -pl buildinggame/nms/1_19_2
 mvn paper-nms:init -pl buildinggame/nms/1_19_3
 mvn paper-nms:init -pl buildinggame/nms/1_19_4
-mvn paper-nms:init -pl buildinggame/nms/1_20
+mvn paper-nms:init -pl buildinggame/nms/1_20_0-1
+mvn paper-nms:init -pl buildinggame/nms/1_20_2
+mvn paper-nms:init -pl buildinggame/nms/1_20_3
+mvn paper-nms:init -pl buildinggame/nms/1_20_4
+```
+
+Then you need to build versions 1.20.5 to 1.21 via BuildTools.
+
+```bash
+wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
+
+git clone https://hub.spigotmc.org/stash/scm/spigot/bukkit.git Bukkit
+cd Bukkit
+git checkout 304e83eb384c338546aa96eea51388e0e8407e26
+cd ..
+
+git clone https://hub.spigotmc.org/stash/scm/spigot/craftbukkit.git CraftBukkit
+cd CraftBukkit
+git checkout 91b1fc3f1cf89e2591367dca1fa7362fe376f289
+cd ..
+
+git clone https://hub.spigotmc.org/stash/scm/spigot/spigot.git Spigot
+cd Spigot
+git checkout b698b49caf14f97a717afd67e13fd7ac59f51089
+cd ..
+
+git clone https://hub.spigotmc.org/stash/scm/spigot/builddata.git BuildData
+cd BuildData
+git checkout a7f7c2118b877fde4cf0f32f1f730ffcdee8e9ee
+cd ..
+
+java -jar BuildTools.jar --remapped --disable-java-check --dont-update
+
+java -jar BuildTools.jar --rev 1.20.6 --remapped --disable-java-check
+java -jar BuildTools.jar --rev 1.21 --remapped --disable-java-check
 ```
 
 After doing this, you can build the project with Maven, similar to how the other modules are build.

@@ -91,7 +91,7 @@ public class Arena implements TransitionSystem {
 	/**
      * The maximum amount of matches
      */
-	private int maxMatches;
+	private int maxMatches = 1;
 
     /**
      * Whether money is enabled or not

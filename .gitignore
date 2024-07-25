@@ -5,5 +5,5 @@
 \output
 \out
 \target
-\.paper-nms
+\buildinggame\.paper-nms
 dependency-reduced-pom.xml
