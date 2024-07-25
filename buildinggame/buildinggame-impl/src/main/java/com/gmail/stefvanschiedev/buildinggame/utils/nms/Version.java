@@ -121,15 +121,6 @@ public enum Version {
     );
 
     /**
-     * A collection of versions that are Minecraft 1.20.3 or later.
-     */
-    @NotNull
-    private static final Collection<Version> VERSION_1_20_3_PLUS = EnumSet.of(
-        V1_20_3, V1_20_4, V1_20_5, V1_20_6,
-        V1_21
-    );
-
-    /**
      * Checks whether this version is part of the 1.19 version set.
      *
      * @return true if this version is a 1.19 version, false otherwise.
@@ -152,14 +143,14 @@ public enum Version {
     }
 
     /**
-     * Checks whether the Minecraft version the server is running is 1.20.3 or later.
+     * Checks whether the Minecraft version is the provided version or newer.
      *
-     * @return true if the server is running version 1.20.3 or later
+     * @param version the version
+     * @return true if this version is at least the given version, false otherwise
      * @since 12.5.0
      */
-    @Contract(pure = true)
-    public boolean isAtLeast1_20_3() {
-        return VERSION_1_20_3_PLUS.contains(this);
+    public boolean isAtLeast(Version version) {
+        return ordinal() >= version.ordinal();
     }
 
     /**

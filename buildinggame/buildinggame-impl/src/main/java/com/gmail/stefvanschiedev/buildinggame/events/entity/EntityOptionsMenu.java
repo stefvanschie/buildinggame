@@ -7,7 +7,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.ChestMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
-import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.color.ColorMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.axolotl.AxolotlMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat.CatMenu;
@@ -23,7 +22,9 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferf
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropicalfish.TropicalFishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villagerlike.VillagerlikeMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.wolf.WolfMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size.SizeMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.nms.Version;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -34,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -51,10 +53,9 @@ public class EntityOptionsMenu implements Listener {
      */
     @NotNull
     private static final Map<
-        ?,
-        ? extends BiFunction<? super Plot, ? super Entity, ? extends Gui>
-    > GUI_MAPPING = Map.ofEntries(
-        Map.entry(EntityType.ARMADILLO, BabyMenu::new),
+        ? super EntityType,
+        BiFunction<? super Plot, ? super Entity, ? extends Gui>
+    > GUI_MAPPING = new HashMap<>(Map.ofEntries(
         Map.entry(EntityType.AXOLOTL, (Plot plot, Entity axolotl) -> new AxolotlMenu(plot, (Axolotl) axolotl)),
         Map.entry(EntityType.BEE, (Plot plot, Entity bee) -> new BeeMenu(plot, (Bee) bee)),
         Map.entry(EntityType.CAMEL, BabyMenu::new),
@@ -100,12 +101,12 @@ public class EntityOptionsMenu implements Listener {
             new TropicalFishMenu(plot, (TropicalFish) tropicalFish)),
         Map.entry(EntityType.TURTLE, BabyMenu::new),
         Map.entry(EntityType.VILLAGER, (Plot plot, Entity villager) -> new VillagerlikeMenu(plot, (Creature) villager)),
-        Map.entry(EntityType.WOLF, (Plot plot, Entity wolf) -> new ColorMenu(plot, (Animals) wolf)),
+        Map.entry(EntityType.WOLF, (Plot plot, Entity wolf) -> new WolfMenu(plot, (Wolf) wolf)),
         Map.entry(EntityType.ZOGLIN, BabyMenu::new),
         Map.entry(EntityType.ZOMBIE, BabyMenu::new),
         Map.entry(EntityType.ZOMBIE_VILLAGER, (Plot plot, Entity zombieVillager) ->
             new VillagerlikeMenu(plot, (Creature) zombieVillager))
-    );
+    ));
 
     /**
      * Represents the entity types for which the options menu only opens in case you hold shift.
@@ -170,5 +171,11 @@ public class EntityOptionsMenu implements Listener {
         gui.show(player);
 
         e.setCancelled(true);
+    }
+
+    static {
+        if (Version.getVersion().isAtLeast(Version.V1_20_5)) {
+            GUI_MAPPING.put(EntityType.valueOf("ARMADILLO"), BabyMenu::new);
+        }
     }
 }
