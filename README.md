@@ -64,7 +64,7 @@ cd ..
 java -jar BuildTools.jar --remapped --disable-java-check --dont-update
 
 java -jar BuildTools.jar --rev 1.20.6 --remapped --disable-java-check
-java -jar BuildTools.jar --rev 1.21 --remapped --disable-java-check
+java -jar BuildTools.jar --rev 1.21.1 --remapped --disable-java-check
 ```
 
 After doing this, you can build the project with Maven, similar to how the other modules are build.
