@@ -27,20 +27,14 @@ import com.gmail.stefvanschiedev.buildinggame.utils.item.ItemBuilder;
 import com.gmail.stefvanschiedev.buildinggame.utils.item.datatype.PlotDataType;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import com.gmail.stefvanschiedev.buildinggame.utils.potential.PotentialLocation;
-import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
-import com.gmail.stefvanschiedev.buildinggame.utils.region.RegionFactory;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * This class handles all subcommands for the buildinggame command
@@ -287,16 +281,21 @@ public class CommandManager extends BaseCommand {
     /**
      * Called whenever a player wants to join an arena
      *
-     * @param player the player
+     * @param sender the executor
      * @param arena the arena to join
+     * @param player the player to join. If this is unspecified, the sender will join the game.
      * @since 5.8.0
      */
     @Subcommand("join")
     @Description("Join an arena")
     @CommandPermission("bg.join")
-    @CommandCompletion("@arenas")
-    public void onJoin(Player player, @Optional Arena arena) {
+    @CommandCompletion("@arenas @players")
+    public void onJoin(Player sender, @Optional Arena arena, @Optional @Flags("other") Player player) {
         YamlConfiguration messages = SettingsManager.getInstance().getMessages();
+
+        if (player == null) {
+            player = sender;
+        }
 
         if (arena == null) {
             for (Arena a : ArenaManager.getInstance().getArenas()) {
