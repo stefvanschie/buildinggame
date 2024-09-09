@@ -141,8 +141,12 @@ public class VotingGamePhase extends GamePhase implements JoinObserver, Transiti
     public void transition(@NotNull GamePhase gamePhase) {
         if (gamePhase instanceof WinningGamePhase) {
             this.arena.transition(gamePhase);
-        } else {
+        } else if (gamePhase instanceof PlotVoteGamePhase voteGamePhase) {
+            this.phase = voteGamePhase;
+
             gamePhase.onPhaseStart();
+        } else {
+            throw new IllegalArgumentException("Game phase must be either plot vote game phase or winning game phase");
         }
     }
 
