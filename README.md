@@ -1,4 +1,4 @@
-# Building Game <a href="https://discord.gg/5AJEGXG"><img align="right" src="https://img.shields.io/discord/389784128700153868" alt="Discord guild"></a>
+# Building Game <a href="https://discord.gg/5AJEGXG"><img align="right" src="https://img.shields.io/discord/389784128700153868?label=Discord%20guild" alt="Discord guild"></a>
 
 *This plugin works for Minecraft version 1.19-1.21*
 
