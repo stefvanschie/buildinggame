@@ -72,3 +72,7 @@ After doing this, you can build the project with Maven, similar to how the other
 ```bash
 mvn clean package
 ```
+
+---
+
+NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
