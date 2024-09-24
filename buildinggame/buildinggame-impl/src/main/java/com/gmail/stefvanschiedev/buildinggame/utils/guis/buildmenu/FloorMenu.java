@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -255,14 +256,17 @@ public class FloorMenu extends ChestGui {
 	private static List<Material> getBlocks() {
 		YamlConfiguration config = SettingsManager.getInstance().getConfig();
 		var blocks = new ArrayList<Material>();
-		
-		for (Material material : Material.values()) {
+
+        Collection<?> skipMaterials = Arrays.asList(SKIP_MATERIALS);
+        Collection<?> blocked = config.getStringList("blocks.blocked");
+        Collection<?> excluded = config.getStringList("gui.floor.excluded-blocks");
+
+        for (Material material : Material.values()) {
+            String name = material.toString().toLowerCase(Locale.getDefault());
+
             //noinspection deprecation
-            if (material.isBlock() && !material.isLegacy() && !Arrays.asList(SKIP_MATERIALS).contains(material) &&
-                    !config.getStringList("blocks.blocked").contains(material.toString()
-                            .toLowerCase(Locale.getDefault())) &&
-                    !config.getStringList("gui.floor.excluded-blocks").contains(material.toString()
-                            .toLowerCase(Locale.getDefault())))
+            if (material.isBlock() && material.isItem() && !material.isLegacy() && !skipMaterials.contains(material) &&
+                    !blocked.contains(name) && !excluded.contains(name))
 				blocks.add(material);
 		}
 		
