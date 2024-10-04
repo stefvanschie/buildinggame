@@ -4,315 +4,405 @@
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="515dcb2da02cf734829e1e273e3025617d8071516f953251b52545da8d3e8db8"/>
+                    <properties>
+                        <property>515dcb2da02cf734829e1e273e3025617d8071516f953251b52545da8d3e8db8</property>
+                    </properties>
                     <displayname>*gui.heads.food.nutella.name</displayname>
                     <lore>
                         <line>*gui.heads.food.nutella.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="ae8890874a3066f426e66e37438f45ab29a5bf2582db73cb4cff6954a578ef"/>
+                    <properties>
+                        <property>ae8890874a3066f426e66e37438f45ab29a5bf2582db73cb4cff6954a578ef</property>
+                    </properties>
                     <displayname>*gui.heads.food.vegemite.name</displayname>
                     <lore>
                         <line>*gui.heads.food.vegemite.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="f3487d457f9062d787a3e6ce1c4664bf7402ec67dd111256f19b38ce4f670"/>
+                    <properties>
+                        <property>f3487d457f9062d787a3e6ce1c4664bf7402ec67dd111256f19b38ce4f670</property>
+                    </properties>
                     <displayname>*gui.heads.food.bread.name</displayname>
                     <lore>
                         <line>*gui.heads.food.bread.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="955d611a878e821231749b2965708cad942650672db09e26847a88e2fac2946"/>
+                    <properties>
+                        <property>955d611a878e821231749b2965708cad942650672db09e26847a88e2fac2946</property>
+                    </properties>
                     <displayname>*gui.heads.food.cheese.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cheese.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="c0b8b5889ee1c6388dc6c2c5dbd70b6984aefe54319a095e64db7638097b821"/>
+                    <properties>
+                        <property>c0b8b5889ee1c6388dc6c2c5dbd70b6984aefe54319a095e64db7638097b821</property>
+                    </properties>
                     <displayname>*gui.heads.food.strawberry-jam.name</displayname>
                     <lore>
                         <line>*gui.heads.food.strawberry-jam.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="347f4f5a74c6691280cd80e7148b49b2ce17dcf64fd55368627f5d92a976a6a8"/>
+                    <properties>
+                        <property>347f4f5a74c6691280cd80e7148b49b2ce17dcf64fd55368627f5d92a976a6a8</property>
+                    </properties>
                     <displayname>*gui.heads.food.pancakes.name</displayname>
                     <lore>
                         <line>*gui.heads.food.pancakes.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="f9136514f342e7c5208a1422506a866158ef84d2b249220139e8bf6032e193"/>
+                    <properties>
+                        <property>f9136514f342e7c5208a1422506a866158ef84d2b249220139e8bf6032e193</property>
+                    </properties>
                     <displayname>*gui.heads.food.cake.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cake.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="4561ded8d8385b913a091aef4783fccbfd3d38edd90b2e89b723b5a57434bf4"/>
+                    <properties>
+                        <property>4561ded8d8385b913a091aef4783fccbfd3d38edd90b2e89b723b5a57434bf4</property>
+                    </properties>
                     <displayname>*gui.heads.food.cake-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cake-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="fc91f9507b48b6f719714fbaba77cf68534aa5b728371b11866d55ff833a7f"/>
+                    <properties>
+                        <property>fc91f9507b48b6f719714fbaba77cf68534aa5b728371b11866d55ff833a7f</property>
+                    </properties>
                     <displayname>*gui.heads.food.can-of-soup.name</displayname>
                     <lore>
                         <line>*gui.heads.food.can-of-soup.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d7ab62fb77189352541dd95a8ee7e3631f7c1658f463f661680c283493d8a"/>
+                    <properties>
+                        <property>d7ab62fb77189352541dd95a8ee7e3631f7c1658f463f661680c283493d8a</property>
+                    </properties>
                     <displayname>*gui.heads.food.cup-of-milk.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cup-of-milk.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="83794c736fc76e45706830325b95969466d86f8d7b28fce8edb2c75e2ab25c"/>
+                    <properties>
+                        <property>83794c736fc76e45706830325b95969466d86f8d7b28fce8edb2c75e2ab25c</property>
+                    </properties>
                     <displayname>*gui.heads.food.chocolate-muffin.name</displayname>
                     <lore>
                         <line>*gui.heads.food.chocolate-muffin.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="343216b3ad2f4757a23c3a24cdaf8ce87bc421d4b6e8bc2ce642aa4803e99"/>
+                    <properties>
+                        <property>343216b3ad2f4757a23c3a24cdaf8ce87bc421d4b6e8bc2ce642aa4803e99</property>
+                    </properties>
                     <displayname>*gui.heads.food.muffin.name</displayname>
                     <lore>
                         <line>*gui.heads.food.muffin.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="dfd71e20fc50abf0de2ef7decfc01ce27ad51955759e072ceaab96355f594f0"/>
+                    <properties>
+                        <property>dfd71e20fc50abf0de2ef7decfc01ce27ad51955759e072ceaab96355f594f0</property>
+                    </properties>
                     <displayname>*gui.heads.food.oreo-sandwich.name</displayname>
                     <lore>
                         <line>*gui.heads.food.oreo-sandwich.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="b592cf9f42a5a8c995968493fdd1b11e0b69aad6473ff45384abe58b7fc7c7"/>
+                    <properties>
+                        <property>b592cf9f42a5a8c995968493fdd1b11e0b69aad6473ff45384abe58b7fc7c7</property>
+                    </properties>
                     <displayname>*gui.heads.food.cookie.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cookie.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="4cc3f781c923a2887f14c1eea11050166966f2602578401f1451e6097b979df"/>
+                    <properties>
+                        <property>4cc3f781c923a2887f14c1eea11050166966f2602578401f1451e6097b979df</property>
+                    </properties>
                     <displayname>*gui.heads.food.candy-cane.name</displayname>
                     <lore>
                         <line>*gui.heads.food.candy-cane.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="819f948d17718adace5dd6e050c586229653fef645d7113ab94d17b639cc466"/>
+                    <properties>
+                        <property>819f948d17718adace5dd6e050c586229653fef645d7113ab94d17b639cc466</property>
+                    </properties>
                     <displayname>*gui.heads.food.chocolatebar.name</displayname>
                     <lore>
                         <line>*gui.heads.food.chocolatebar.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="1ed55260dccc8da59338c75e41d544a2e1e7dbef31a69fe42c01b3298bf2d"/>
+                    <properties>
+                        <property>1ed55260dccc8da59338c75e41d544a2e1e7dbef31a69fe42c01b3298bf2d</property>
+                    </properties>
                     <displayname>*gui.heads.food.chocolatebar-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.chocolatebar-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="edf410fdf212964a5606ca0a1b47730922775ca7f9763e5aea9a3ab449b6ec"/>
+                    <properties>
+                        <property>edf410fdf212964a5606ca0a1b47730922775ca7f9763e5aea9a3ab449b6ec</property>
+                    </properties>
                     <displayname>*gui.heads.food.sliced-lemon-citrus-fruit.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sliced-lemon-citrus-fruit.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d525707696bcd15a173056fa39296e80ff41168bb0add552f4523e2558a3119"/>
+                    <properties>
+                        <property>d525707696bcd15a173056fa39296e80ff41168bb0add552f4523e2558a3119</property>
+                    </properties>
                     <displayname>*gui.heads.food.cherry.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cherry.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="cbb311f3ba1c07c3d1147cd210d81fe11fd8ae9e3db212a0fa748946c3633"/>
+                    <properties>
+                        <property>cbb311f3ba1c07c3d1147cd210d81fe11fd8ae9e3db212a0fa748946c3633</property>
+                    </properties>
                     <displayname>*gui.heads.food.apple.name</displayname>
                     <lore>
                         <line>*gui.heads.food.apple.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="c3fed514c3e238ca7ac1c94b897ff6711b1dbe50174afc235c8f80d029"/>
+                    <properties>
+                        <property>c3fed514c3e238ca7ac1c94b897ff6711b1dbe50174afc235c8f80d029</property>
+                    </properties>
                     <displayname>*gui.heads.food.melon.name</displayname>
                     <lore>
                         <line>*gui.heads.food.melon.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="7e96cedc8b5683bea01673936b6ea96fe948a2b6cb444dc29e1fcff4d2e2cf4"/>
+                    <properties>
+                        <property>7e96cedc8b5683bea01673936b6ea96fe948a2b6cb444dc29e1fcff4d2e2cf4</property>
+                    </properties>
                     <displayname>*gui.heads.food.melon-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.melon-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="241412b8c6fd57e4e162166ddfd74b148a596f9eb1d1593c0469638c8d714"/>
+                    <properties>
+                        <property>241412b8c6fd57e4e162166ddfd74b148a596f9eb1d1593c0469638c8d714</property>
+                    </properties>
                     <displayname>*gui.heads.food.melon-3.name</displayname>
                     <lore>
                         <line>*gui.heads.food.melon-3.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="f3903066ccc4695e113fee314c96a544eb919622eee7daa1d1966374f3fe848"/>
+                    <properties>
+                        <property>f3903066ccc4695e113fee314c96a544eb919622eee7daa1d1966374f3fe848</property>
+                    </properties>
                     <displayname>*gui.heads.food.melon-4.name</displayname>
                     <lore>
                         <line>*gui.heads.food.melon-4.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="fec415d702f3292a82f1471c8794cf63122d449d28ab886d4dc58fafd66"/>
+                    <properties>
+                        <property>fec415d702f3292a82f1471c8794cf63122d449d28ab886d4dc58fafd66</property>
+                    </properties>
                     <displayname>*gui.heads.food.carved-pumpkin.name</displayname>
                     <lore>
                         <line>*gui.heads.food.carved-pumpkin.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d7d7ad2dcb57dfa9f023dbb99b698fc53075c3e9d654506139a647ac907fddc5"/>
+                    <properties>
+                        <property>d7d7ad2dcb57dfa9f023dbb99b698fc53075c3e9d654506139a647ac907fddc5</property>
+                    </properties>
                     <displayname>*gui.heads.food.pumpkin.name</displayname>
                     <lore>
                         <line>*gui.heads.food.pumpkin.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="cbc826aaafb8dbf67881e68944414f13985064a3f8f044d8edfb4443e76ba"/>
+                    <properties>
+                        <property>cbc826aaafb8dbf67881e68944414f13985064a3f8f044d8edfb4443e76ba</property>
+                    </properties>
                     <displayname>*gui.heads.food.strawberry.name</displayname>
                     <lore>
                         <line>*gui.heads.food.strawberry.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="e9b0e969cf3fcced36b712350ffb46d8ed761fe5efb10e3b6a9795e6656da97"/>
+                    <properties>
+                        <property>e9b0e969cf3fcced36b712350ffb46d8ed761fe5efb10e3b6a9795e6656da97</property>
+                    </properties>
                     <displayname>*gui.heads.food.coconut.name</displayname>
                     <lore>
                         <line>*gui.heads.food.coconut.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="3063513ecb1a91bbb3481fabd1dc3ac4f131d1c74f61c226df4194812cf3c312"/>
+                    <properties>
+                        <property>3063513ecb1a91bbb3481fabd1dc3ac4f131d1c74f61c226df4194812cf3c312</property>
+                    </properties>
                     <displayname>*gui.heads.food.carrot.name</displayname>
                     <lore>
                         <line>*gui.heads.food.carrot.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="33ca9d8b1d5f2c26547644034a55a4a2463e166f60feb0c7c5af3f724bae"/>
+                    <properties>
+                        <property>33ca9d8b1d5f2c26547644034a55a4a2463e166f60feb0c7c5af3f724bae</property>
+                    </properties>
                     <displayname>*gui.heads.food.sugarcane.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sugarcane.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="411511bdd55bcb82803c8039f1c155fd43062636e23d4d46c4d761c04d22c2"/>
+                    <properties>
+                        <property>411511bdd55bcb82803c8039f1c155fd43062636e23d4d46c4d761c04d22c2</property>
+                    </properties>
                     <displayname>*gui.heads.food.hot-chocolate.name</displayname>
                     <lore>
                         <line>*gui.heads.food.hot-chocolate.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d8e94ddd769a5bea748376b4ec7383fd36d267894d7c3bee011e8e4f5fcd7"/>
+                    <properties>
+                        <property>d8e94ddd769a5bea748376b4ec7383fd36d267894d7c3bee011e8e4f5fcd7</property>
+                    </properties>
                     <displayname>*gui.heads.food.cup-of-tea.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cup-of-tea.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="98ced74a22021a535f6bce21c8c632b273dc2d9552b71a38d57269b3538cf"/>
+                    <properties>
+                        <property>98ced74a22021a535f6bce21c8c632b273dc2d9552b71a38d57269b3538cf</property>
+                    </properties>
                     <displayname>*gui.heads.food.taco.name</displayname>
                     <lore>
                         <line>*gui.heads.food.taco.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="ea1f3585f54849b41da5d326a943956a25494364bb961d2458c430be9a6b27"/>
+                    <properties>
+                        <property>ea1f3585f54849b41da5d326a943956a25494364bb961d2458c430be9a6b27</property>
+                    </properties>
                     <displayname>*gui.heads.food.taco-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.taco-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="6f312a243aa4e69a5edc67e54e44f76eb84f66ec824089557a64bea71f6dc"/>
+                    <properties>
+                        <property>6f312a243aa4e69a5edc67e54e44f76eb84f66ec824089557a64bea71f6dc</property>
+                    </properties>
                     <displayname>*gui.heads.food.baked-potatoe.name</displayname>
                     <lore>
                         <line>*gui.heads.food.baked-poatatoe.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="e7ba22d5df21e821a6de4b8c9d373a3aa187d8ae74f288a82d2b61f272e5"/>
+                    <properties>
+                        <property>e7ba22d5df21e821a6de4b8c9d373a3aa187d8ae74f288a82d2b61f272e5</property>
+                    </properties>
                     <displayname>*gui.heads.food.bacon.name</displayname>
                     <lore>
                         <line>*gui.heads.food.bacon.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="a0eacac41a9eaf051376ef2f959701e1bbe1bf4aa6715adc34b6dc29a13ea9"/>
+                    <properties>
+                        <property>a0eacac41a9eaf051376ef2f959701e1bbe1bf4aa6715adc34b6dc29a13ea9</property>
+                    </properties>
                     <displayname>*gui.heads.food.fries.name</displayname>
                     <lore>
                         <line>*gui.heads.food.fries.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="a6ef1c25f516f2e7d6f7667420e33adcf3cdf938cb37f9a41a8b35869f569b"/>
+                    <properties>
+                        <property>a6ef1c25f516f2e7d6f7667420e33adcf3cdf938cb37f9a41a8b35869f569b</property>
+                    </properties>
                     <displayname>*gui.heads.food.hamburger.name</displayname>
                     <lore>
                         <line>*gui.heads.food.hamburger.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="b0e38c176dbf7df9b0632c256eeb6c5aaca99e1c8c1a530656eaff0417aed22"/>
+                    <properties>
+                        <property>b0e38c176dbf7df9b0632c256eeb6c5aaca99e1c8c1a530656eaff0417aed22</property>
+                    </properties>
                     <displayname>*gui.heads.food.hamburger-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.hamburger-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="cdadf1744433e1c79d1d59d2777d939de159a24cf57e8a61c82bc4fe3777553c"/>
+                    <properties>
+                        <property>cdadf1744433e1c79d1d59d2777d939de159a24cf57e8a61c82bc4fe3777553c</property>
+                    </properties>
                     <displayname>*gui.heads.food.hamburger-3.name</displayname>
                     <lore>
                         <line>*gui.heads.food.hamburger-3.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="1497b147cfae52205597f72e3c4ef52512e9677020e4b4fa7512c3c6acdd8c1"/>
+                    <properties>
+                        <property>1497b147cfae52205597f72e3c4ef52512e9677020e4b4fa7512c3c6acdd8c1</property>
+                    </properties>
                     <displayname>*gui.heads.food.popcorn.name</displayname>
                     <lore>
                         <line>*gui.heads.food.popcorn.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="e9b41e9fe543f2375d0a97dd5922e4d65b8a523baf2265d42398d64c364ef95"/>
+                    <properties>
+                        <property>e9b41e9fe543f2375d0a97dd5922e4d65b8a523baf2265d42398d64c364ef95</property>
+                    </properties>
                     <displayname>*gui.heads.food.glass-of-coca-cola.name</displayname>
                     <lore>
                         <line>*gui.heads.food.glass-of-coca-cola.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="846d3172e7d6ad6df6a2189755ce0b2dc85a1f9ccd109dc932985867ba6"/>
+                    <properties>
+                        <property>846d3172e7d6ad6df6a2189755ce0b2dc85a1f9ccd109dc932985867ba6</property>
+                    </properties>
                     <displayname>*gui.heads.food.sushi-mackerel.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sushi-mackerel.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="23bf8fca2af3592c5574b13e3bcf61e2fae829788535f0ddeaa7a2e45b6ba4"/>
+                    <properties>
+                        <property>23bf8fca2af3592c5574b13e3bcf61e2fae829788535f0ddeaa7a2e45b6ba4</property>
+                    </properties>
                     <displayname>*gui.heads.food.sushi-salmon.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sushi-salmon.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="2e12f267953e76ae66a8dd025a3286aecbc64b4ad98eeb10b3c67a69aae15"/>
+                    <properties>
+                        <property>2e12f267953e76ae66a8dd025a3286aecbc64b4ad98eeb10b3c67a69aae15</property>
+                    </properties>
                     <displayname>*gui.heads.food.sushi-roll.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sushi-roll.lores</line>
@@ -323,315 +413,405 @@
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="69c2ddf2bd74a4655e8f0153a7453e67db2a21dbfac6756789481adbec483a"/>
+                    <properties>
+                        <property>69c2ddf2bd74a4655e8f0153a7453e67db2a21dbfac6756789481adbec483a</property>
+                    </properties>
                     <displayname>*gui.heads.food.riceball.name</displayname>
                     <lore>
                         <line>*gui.heads.food.riceball.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="99dfac171e3c2029676ecf8d3a0fd9b7bb2857b95efdefc59e0f252576b5c68"/>
+                    <properties>
+                        <property>99dfac171e3c2029676ecf8d3a0fd9b7bb2857b95efdefc59e0f252576b5c68</property>
+                    </properties>
                     <displayname>*gui.heads.food.corn-block.name</displayname>
                     <lore>
                         <line>*gui.heads.food.corn-block.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="baee84d19c85aff796c88abda21ec4c92c655e2d67b72e5e77b5aa5e99ed"/>
+                    <properties>
+                        <property>baee84d19c85aff796c88abda21ec4c92c655e2d67b72e5e77b5aa5e99ed</property>
+                    </properties>
                     <displayname>*gui.heads.food.ham-cheese-sandwich.name</displayname>
                     <lore>
                         <line>*gui.heads.food.ham-cheese-sandwich.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="4053e26867bb57538e9789137dbbb53774e18eda6fef51cb2edf426b37264"/>
+                    <properties>
+                        <property>4053e26867bb57538e9789137dbbb53774e18eda6fef51cb2edf426b37264</property>
+                    </properties>
                     <displayname>*gui.heads.food.glass-of-beer.name</displayname>
                     <lore>
                         <line>*gui.heads.food.glass-of-beer.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="229603d82963056be13522cfb7d4520c76ba687f396a0dab125e63b5dacea8"/>
+                    <properties>
+                        <property>229603d82963056be13522cfb7d4520c76ba687f396a0dab125e63b5dacea8</property>
+                    </properties>
                     <displayname>*gui.heads.food.medieval-beer.name</displayname>
                     <lore>
                         <line>*gui.heads.food.medieval-beer.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="26336f5bb9975bf57e14db6615c1896c5c4b9c39aad17b17e4ee20b231cf6"/>
+                    <properties>
+                        <property>26336f5bb9975bf57e14db6615c1896c5c4b9c39aad17b17e4ee20b231cf6</property>
+                    </properties>
                     <displayname>*gui.heads.food.ham.name</displayname>
                     <lore>
                         <line>*gui.heads.food.ham.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="cc14144f61c4e66b3c443660debc73cb2125d0140c51b5522c8a68b789414"/>
+                    <properties>
+                        <property>cc14144f61c4e66b3c443660debc73cb2125d0140c51b5522c8a68b789414</property>
+                    </properties>
                     <displayname>*gui.heads.food.mushroom-stew.name</displayname>
                     <lore>
                         <line>*gui.heads.food.mushroom-stew.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="ec6eb8f15ba0d7993bf8708fa1dd86c1e8fde741a7dde9195f22891e02153"/>
+                    <properties>
+                        <property>ec6eb8f15ba0d7993bf8708fa1dd86c1e8fde741a7dde9195f22891e02153</property>
+                    </properties>
                     <displayname>*gui.heads.food.sweet-roll.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sweet-roll.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d8e3b53bc8fab19c6fd0f8abf13bf2303581d81691141f15973b4777e039f73"/>
+                    <properties>
+                        <property>d8e3b53bc8fab19c6fd0f8abf13bf2303581d81691141f15973b4777e039f73</property>
+                    </properties>
                     <displayname>*gui.heads.food.ice-cream.name</displayname>
                     <lore>
                         <line>*gui.heads.food.ice-cream.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="957fd56ca15978779324df519354b6639a8d9bc1192c7c3de925a329baef6c"/>
+                    <properties>
+                        <property>957fd56ca15978779324df519354b6639a8d9bc1192c7c3de925a329baef6c</property>
+                    </properties>
                     <displayname>*gui.heads.food.lemon.name</displayname>
                     <lore>
                         <line>*gui.heads.food.lemon.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="5cc016f568d1433860d82fa3379d784cbbd52e56b55f78be7291f8618da38c8"/>
+                    <properties>
+                        <property>5cc016f568d1433860d82fa3379d784cbbd52e56b55f78be7291f8618da38c8</property>
+                    </properties>
                     <displayname>*gui.heads.food.plum.name</displayname>
                     <lore>
                         <line>*gui.heads.food.plum.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="1fe92e11a67b56935446a214caa3723d29e6db56c55fa8d43179a8a3176c6c1"/>
+                    <properties>
+                        <property>1fe92e11a67b56935446a214caa3723d29e6db56c55fa8d43179a8a3176c6c1</property>
+                    </properties>
                     <displayname>*gui.heads.food.salad.name</displayname>
                     <lore>
                         <line>*gui.heads.food.salad.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d07b8c51acec2a508bb2fa652fb6e4a08b19485159a099f5982ccb88df1fe27e"/>
+                    <properties>
+                        <property>d07b8c51acec2a508bb2fa652fb6e4a08b19485159a099f5982ccb88df1fe27e</property>
+                    </properties>
                     <displayname>*gui.heads.food.white-frosted-donut.name</displayname>
                     <lore>
                         <line>*gui.heads.food.white-frosted-donut.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="837c9b82b186656e9f6363a2a1c6a4b5b93cfa9ef4dad6f16b94ebb5e362678"/>
+                    <properties>
+                        <property>837c9b82b186656e9f6363a2a1c6a4b5b93cfa9ef4dad6f16b94ebb5e362678</property>
+                    </properties>
                     <displayname>*gui.heads.food.pink-frosted-donut.name</displayname>
                     <lore>
                         <line>*gui.heads.food.pink-frosted-donut.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="59da54ff366e738e31de92919986abb4d50ca944fa9926af63758b7448f18"/>
+                    <properties>
+                        <property>59da54ff366e738e31de92919986abb4d50ca944fa9926af63758b7448f18</property>
+                    </properties>
                     <displayname>*gui.heads.food.chocolate-frosted-donut.name</displayname>
                     <lore>
                         <line>*gui.heads.food.chocolate-frosted-donut.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="f06555706b641fdaf436c07663f923afc5ee72146f90195fb337b9de766588d"/>
+                    <properties>
+                        <property>f06555706b641fdaf436c07663f923afc5ee72146f90195fb337b9de766588d</property>
+                    </properties>
                     <displayname>*gui.heads.food.turkey.name</displayname>
                     <lore>
                         <line>*gui.heads.food.turkey.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="fe3052c535e14597a413ec32b32aafdd28686fdab6eed73030e1b94f7c38ff"/>
+                    <properties>
+                        <property>fe3052c535e14597a413ec32b32aafdd28686fdab6eed73030e1b94f7c38ff</property>
+                    </properties>
                     <displayname>*gui.heads.food.bento-box.name</displayname>
                     <lore>
                         <line>*gui.heads.food.bento-box.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="32c62fd8e474d09940604f82712a44abb249d63aff87f998374ca849ab17412"/>
+                    <properties>
+                        <property>32c62fd8e474d09940604f82712a44abb249d63aff87f998374ca849ab17412</property>
+                    </properties>
                     <displayname>*gui.heads.food.coconut-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.coconut-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="bf61259a7ed75dfc15f4328f69fa5d549ef1ba9c7aa85c53b8c76173fac3c69"/>
+                    <properties>
+                        <property>bf61259a7ed75dfc15f4328f69fa5d549ef1ba9c7aa85c53b8c76173fac3c69</property>
+                    </properties>
                     <displayname>*gui.heads.food.coconut-3.name</displayname>
                     <lore>
                         <line>*gui.heads.food.coconut-3.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="6368a69c94b45dd0a435de217c29cdbd433c7b447391faa33c241dc08271"/>
+                    <properties>
+                        <property>6368a69c94b45dd0a435de217c29cdbd433c7b447391faa33c241dc08271</property>
+                    </properties>
                     <displayname>*gui.heads.food.plate-of-cookies.name</displayname>
                     <lore>
                         <line>*gui.heads.food.plate-of-cookies.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="b7855166984a725becfac1eab5cfbdcbee7e426466ddc3bee4c71cfd72cb5888"/>
+                    <properties>
+                        <property>b7855166984a725becfac1eab5cfbdcbee7e426466ddc3bee4c71cfd72cb5888</property>
+                    </properties>
                     <displayname>*gui.heads.food.marshmallow.name</displayname>
                     <lore>
                         <line>*gui.heads.food.marshmallow.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="c5e27988a6538010efc0e24756bc3e3eea24d7536b20932c17e0404e5cc55f"/>
+                    <properties>
+                        <property>c5e27988a6538010efc0e24756bc3e3eea24d7536b20932c17e0404e5cc55f</property>
+                    </properties>
                     <displayname>*gui.heads.food.hamburger-4.name</displayname>
                     <lore>
                         <line>*gui.heads.food.hamburger-4.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="c377e3d6c379fe34a2e6afabba32e7aecf77bcd31a1c3836ec354a935a7e9"/>
+                    <properties>
+                        <property>c377e3d6c379fe34a2e6afabba32e7aecf77bcd31a1c3836ec354a935a7e9</property>
+                    </properties>
                     <displayname>*gui.heads.food.bowl-of-rice.name</displayname>
                     <lore>
                         <line>*gui.heads.food.bowl-of-rice.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="50405181d39e76197a262be4cc6541e8e3ed24633384c873adb91dfe3901c"/>
+                    <properties>
+                        <property>50405181d39e76197a262be4cc6541e8e3ed24633384c873adb91dfe3901c</property>
+                    </properties>
                     <displayname>*gui.heads.food.sushi-roll-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sushi-roll-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="347fe65eb745468e86873a1bda48a5a489fef91cc522d85e0364b55d53f867e"/>
+                    <properties>
+                        <property>347fe65eb745468e86873a1bda48a5a489fef91cc522d85e0364b55d53f867e</property>
+                    </properties>
                     <displayname>*gui.heads.food.bowl-of-spaghetti.name</displayname>
                     <lore>
                         <line>*gui.heads.food.bowl-of-spaghetti.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="26834b5b25426de63538ec82ca8fbecfcbb3e682d8063643d2e67a7621bd"/>
+                    <properties>
+                        <property>26834b5b25426de63538ec82ca8fbecfcbb3e682d8063643d2e67a7621bd</property>
+                    </properties>
                     <displayname>*gui.heads.food.bowl-of-noodles.name</displayname>
                     <lore>
                         <line>*gui.heads.food.bowl-of-noodles.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="e9485663e65264a3dc30472e6a6931446bed32c2e899905facf18b2919689c1"/>
+                    <properties>
+                        <property>e9485663e65264a3dc30472e6a6931446bed32c2e899905facf18b2919689c1</property>
+                    </properties>
                     <displayname>*gui.heads.food.bowl-of-noodles-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.bowl-of-noodles-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="6e42286da33a238e4f27fe703fc8a087201b6940fc23744df9663fb985da024"/>
+                    <properties>
+                        <property>6e42286da33a238e4f27fe703fc8a087201b6940fc23744df9663fb985da024</property>
+                    </properties>
                     <displayname>*gui.heads.food.chinese-take-out-box.name</displayname>
                     <lore>
                         <line>*gui.heads.food.chinese-take-out-box.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="99172226d276070dc21b75ba25cc2aa5649da5cac745ba977695b59aebd"/>
+                    <properties>
+                        <property>99172226d276070dc21b75ba25cc2aa5649da5cac745ba977695b59aebd</property>
+                    </properties>
                     <displayname>*gui.heads.food.tomato.name</displayname>
                     <lore>
                         <line>*gui.heads.food.tomato.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="87b3d291d3b99bcd4c37a1839dc160d885ecd4e237b3aea1baf0adbb1775cd64"/>
+                    <properties>
+                        <property>87b3d291d3b99bcd4c37a1839dc160d885ecd4e237b3aea1baf0adbb1775cd64</property>
+                    </properties>
                     <displayname>*gui.heads.food.orange.name</displayname>
                     <lore>
                         <line>*gui.heads.food.orange.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="c4c05dd5d7a92889d8d22d4df0f1a1fe2bee3eddf192f78fc44e02e14dbf629"/>
+                    <properties>
+                        <property>c4c05dd5d7a92889d8d22d4df0f1a1fe2bee3eddf192f78fc44e02e14dbf629</property>
+                    </properties>
                     <displayname>*gui.heads.food.green-apple.name</displayname>
                     <lore>
                         <line>*gui.heads.food.green-apple.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="477dd842c975d8fb03b1add66db8377a18ba987052161f22591e6a4ede7f5"/>
+                    <properties>
+                        <property>477dd842c975d8fb03b1add66db8377a18ba987052161f22591e6a4ede7f5</property>
+                    </properties>
                     <displayname>*gui.heads.food.lettuce.name</displayname>
                     <lore>
                         <line>*gui.heads.food.lettuce.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="ee5935863c53a996f5334e90f55de538e83ffc5f6b0b8e83a4dc4f6e6b1208"/>
+                    <properties>
+                        <property>ee5935863c53a996f5334e90f55de538e83ffc5f6b0b8e83a4dc4f6e6b1208</property>
+                    </properties>
                     <displayname>*gui.heads.food.purple-grapes.name</displayname>
                     <lore>
                         <line>*gui.heads.food.purple-grapes.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="8cdcf38a8438ed3a547f8d5b47e0801559c595f0e26c45656a76b5bf8a56f"/>
+                    <properties>
+                        <property>8cdcf38a8438ed3a547f8d5b47e0801559c595f0e26c45656a76b5bf8a56f</property>
+                    </properties>
                     <displayname>*gui.heads.food.green-grapes.name</displayname>
                     <lore>
                         <line>*gui.heads.food.green-grapes.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d511a5ee4d17682a25f7e8a5da6ff7cd9ad9c4844c258a6de23e7f84f27f9b4"/>
+                    <properties>
+                        <property>d511a5ee4d17682a25f7e8a5da6ff7cd9ad9c4844c258a6de23e7f84f27f9b4</property>
+                    </properties>
                     <displayname>*gui.heads.food.red-grapes.name</displayname>
                     <lore>
                         <line>*gui.heads.food.red-grapes.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="9496589fb5c1f69387b7fb17d92312058ff6e8ebeb3eb89e4f73e78196113b"/>
+                    <properties>
+                        <property>9496589fb5c1f69387b7fb17d92312058ff6e8ebeb3eb89e4f73e78196113b</property>
+                    </properties>
                     <displayname>*gui.heads.food.sandwich.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sandwich.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d53c1e87e537f1ab2774ddafb83439b336f4a777b47ad82bcb30d5fcbdf9bc"/>
+                    <properties>
+                        <property>d53c1e87e537f1ab2774ddafb83439b336f4a777b47ad82bcb30d5fcbdf9bc</property>
+                    </properties>
                     <displayname>*gui.heads.food.cherry-pie.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cherry-pie.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="6483912fb2a30d73361c03844611775b1c33218b3a56bded6ae792c2e439881"/>
+                    <properties>
+                        <property>6483912fb2a30d73361c03844611775b1c33218b3a56bded6ae792c2e439881</property>
+                    </properties>
                     <displayname>*gui.heads.food.pie.name</displayname>
                     <lore>
                         <line>*gui.heads.food.pie.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="9119fca4f28a755d37fbe5dcf6d8c3ef50fe394c1a7850bc7e2b71ee78303c4c"/>
+                    <properties>
+                        <property>9119fca4f28a755d37fbe5dcf6d8c3ef50fe394c1a7850bc7e2b71ee78303c4c</property>
+                    </properties>
                     <displayname>*gui.heads.food.chocolate-cake.name</displayname>
                     <lore>
                         <line>*gui.heads.food.chocolate-cake.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="18c2cddeed624a538f349d8c7035fef918e6d7a1781631eac51ec182712a54da"/>
+                    <properties>
+                        <property>18c2cddeed624a538f349d8c7035fef918e6d7a1781631eac51ec182712a54da</property>
+                    </properties>
                     <displayname>*gui.heads.food.honey-pot.name</displayname>
                     <lore>
                         <line>*gui.heads.food.honey-pot.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="2bbae6df99dc82beaf49d064df74a1bbc15e8e376533276912c8c8fe59cb4f4"/>
+                    <properties>
+                        <property>2bbae6df99dc82beaf49d064df74a1bbc15e8e376533276912c8c8fe59cb4f4</property>
+                    </properties>
                     <displayname>*gui.heads.food.pepsi.name</displayname>
                     <lore>
                         <line>*gui.heads.food.pespi.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="93b01fb2f6ba47c9d7638491f37cd8582a937731186df4d1eccd59b65bf37"/>
+                    <properties>
+                        <property>93b01fb2f6ba47c9d7638491f37cd8582a937731186df4d1eccd59b65bf37</property>
+                    </properties>
                     <displayname>*gui.heads.food.coca-cola.name</displayname>
                     <lore>
                         <line>*gui.heads.food.coca-cola.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="b8a34d86a7bb13d45afdc50d3dce5eed95e1844fbdee0cca753c6d3346e339e"/>
+                    <properties>
+                        <property>b8a34d86a7bb13d45afdc50d3dce5eed95e1844fbdee0cca753c6d3346e339e</property>
+                    </properties>
                     <displayname>*gui.heads.food.sprite.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sprite.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="f86b51fb30b5138a4344cc3e6397da28df396241341be92121d5baeef997fb4"/>
+                    <properties>
+                        <property>f86b51fb30b5138a4344cc3e6397da28df396241341be92121d5baeef997fb4</property>
+                    </properties>
                     <displayname>*gui.heads.food.mello-yello.name</displayname>
                     <lore>
                         <line>*gui.heads.food.mello-yello.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="2be9505a38a14d1512c7892fc44d3d7ce6338b1bf0f9123721b121a14b095a3"/>
+                    <properties>
+                        <property>2be9505a38a14d1512c7892fc44d3d7ce6338b1bf0f9123721b121a14b095a3</property>
+                    </properties>
                     <displayname>*gui.heads.food.fanta.name</displayname>
                     <lore>
                         <line>*gui.heads.food.fanta.lores</line>
@@ -642,105 +822,135 @@
         <page>
             <outlinepane x="0" y="0" length="9" height="5">
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="86e5bf657ab897ad5e54867a4c3c2e71b2da24e7518b2f834488da76f62f5216"/>
+                    <properties>
+                        <property>86e5bf657ab897ad5e54867a4c3c2e71b2da24e7518b2f834488da76f62f5216</property>
+                    </properties>
                     <displayname>*gui.heads.food.mountain-dew.name</displayname>
                     <lore>
                         <line>*gui.heads.food.mountain-dew.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="d186863fdf3f3e2979ec6d978a088d8a4f8664c50b5b6d29ad4a7ac264a017"/>
+                    <properties>
+                        <property>d186863fdf3f3e2979ec6d978a088d8a4f8664c50b5b6d29ad4a7ac264a017</property>
+                    </properties>
                     <displayname>*gui.heads.food.tomato-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.tomato-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="69147172072f072483529767fe47554a95a0e0fd9b6cc531b25958a399ef3"/>
+                    <properties>
+                        <property>69147172072f072483529767fe47554a95a0e0fd9b6cc531b25958a399ef3</property>
+                    </properties>
                     <displayname>*gui.heads.food.ripe-tomato.name</displayname>
                     <lore>
                         <line>*gui.heads.food.ripe-tomato.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="487bde7cb6618be1c1c903f6875ea976e5733544248fd505f516a18f29235"/>
+                    <properties>
+                        <property>487bde7cb6618be1c1c903f6875ea976e5733544248fd505f516a18f29235</property>
+                    </properties>
                     <displayname>*gui.heads.food.raspberry.name</displayname>
                     <lore>
                         <line>*gui.heads.food.raspberry.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="b12ef1b486e97e4cb124aa7629aceb91edc51d63338c91a012885493c5d9c"/>
+                    <properties>
+                        <property>b12ef1b486e97e4cb124aa7629aceb91edc51d63338c91a012885493c5d9c</property>
+                    </properties>
                     <displayname>*gui.heads.food.raspberry-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.raspberry-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="cc9eba63a9d12cb6fde63badbe289d888f57219f4122c2820ea654fbe6350a5"/>
+                    <properties>
+                        <property>cc9eba63a9d12cb6fde63badbe289d888f57219f4122c2820ea654fbe6350a5</property>
+                    </properties>
                     <displayname>*gui.heads.food.apple-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.apple-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="8564797cd62664448ed028e487acd95d57075dce49a356fcc65655b2b525ddb"/>
+                    <properties>
+                        <property>8564797cd62664448ed028e487acd95d57075dce49a356fcc65655b2b525ddb</property>
+                    </properties>
                     <displayname>*gui.heads.food.apple-3.name</displayname>
                     <lore>
                         <line>*gui.heads.food.apple-3.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="63e8659478dd28b1ade6ebe7d3e1d6758e219f438db784a5addeda86ed1a38a"/>
+                    <properties>
+                        <property>63e8659478dd28b1ade6ebe7d3e1d6758e219f438db784a5addeda86ed1a38a</property>
+                    </properties>
                     <displayname>*gui.heads.food.apple-4.name</displayname>
                     <lore>
                         <line>*gui.heads.food.apple-4.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="2fb0e221fd81b98b8b569b3522d5231cf8b367732f37b381e7acea29a6e84"/>
+                    <properties>
+                        <property>2fb0e221fd81b98b8b569b3522d5231cf8b367732f37b381e7acea29a6e84</property>
+                    </properties>
                     <displayname>*gui.heads.food.apple-5.name</displayname>
                     <lore>
                         <line>*gui.heads.food.apple-5.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="e2b35bda5ebdf135f4e71ce49726fbec5739f0adedf01c519e2aea7f51951ea2"/>
+                    <properties>
+                        <property>e2b35bda5ebdf135f4e71ce49726fbec5739f0adedf01c519e2aea7f51951ea2</property>
+                    </properties>
                     <displayname>*gui.heads.food.apple-6.name</displayname>
                     <lore>
                         <line>*gui.heads.food.apple-6.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="336a9add25645bfcc377c25ef0c2e9901d19493c3e981ebc6ba7a1a1b6466ce4"/>
+                    <properties>
+                        <property>336a9add25645bfcc377c25ef0c2e9901d19493c3e981ebc6ba7a1a1b6466ce4</property>
+                    </properties>
                     <displayname>*gui.heads.food.cooked-shrimp.name</displayname>
                     <lore>
                         <line>*gui.heads.food.cooked-shrimp.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="ae9d22d9ada63e281420ae33691880869fa1a14bfdf87d8e538e998a8f29595b"/>
+                    <properties>
+                        <property>ae9d22d9ada63e281420ae33691880869fa1a14bfdf87d8e538e998a8f29595b</property>
+                    </properties>
                     <displayname>*gui.heads.food.sushi-salmon-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sushi-salmon-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="cb82d3c9eedc718c07519254f7921a59ff3a6f245939665c9cb017112ce670"/>
+                    <properties>
+                        <property>cb82d3c9eedc718c07519254f7921a59ff3a6f245939665c9cb017112ce670</property>
+                    </properties>
                     <displayname>*gui.heads.food.sushi.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sushi.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="23ca3f926e7a9ab9555fecb69a802743c122d9efc565a2fe5545118fa91d1"/>
+                    <properties>
+                        <property>23ca3f926e7a9ab9555fecb69a802743c122d9efc565a2fe5545118fa91d1</property>
+                    </properties>
                     <displayname>*gui.heads.food.sushi-2.name</displayname>
                     <lore>
                         <line>*gui.heads.food.sushi-2.lores</line>
                     </lore>
                 </item>
                 <item id="player_head" damage="3" onClick="headClick">
-                    <skull id="9179ce4849723434e84747ec85fbbfb1121456c8aeb2e9171fb8328921d45"/>
+                    <properties>
+                        <property>9179ce4849723434e84747ec85fbbfb1121456c8aeb2e9171fb8328921d45</property>
+                    </properties>
                     <displayname>*gui.heads.food.plastic-cup.name</displayname>
                     <lore>
                         <line>*gui.heads.food.plastic-cup.lores</line>

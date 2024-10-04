@@ -2,77 +2,99 @@
 <gui title="*gui.heads.title" rows="5">
     <staticpane x="0" y="0" length="9" height="5">
         <item id="player_head" damage="3" x="1" y="1" field="food" onClick="foodClick">
-            <skull id="edf410fdf212964a5606ca0a1b47730922775ca7f9763e5aea9a3ab449b6ec"/>
+            <properties>
+                <property>edf410fdf212964a5606ca0a1b47730922775ca7f9763e5aea9a3ab449b6ec</property>
+            </properties>
             <displayname>*gui.heads.food.name</displayname>
             <lore>
                 <line>*gui.heads.food.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="3" y="1" field="devices" onClick="devicesClick">
-            <skull id="15c292a24f54a7a43785266552dba7a184f9c50e0d94b337d8d3e76e9e9cce7"/>
+            <properties>
+                <property>15c292a24f54a7a43785266552dba7a184f9c50e0d94b337d8d3e76e9e9cce7</property>
+            </properties>
             <displayname>*gui.heads.devices.name</displayname>
             <lore>
                 <line>*gui.heads.devices.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="5" y="1" field="misc" onClick="miscClick">
-            <skull id="86793bac4a1f974142ef8916642710949d7e38f87aebd380742ccc374f1de1"/>
+            <properties>
+                <property>86793bac4a1f974142ef8916642710949d7e38f87aebd380742ccc374f1de1</property>
+            </properties>
             <displayname>*gui.heads.misc.name</displayname>
             <lore>
                 <line>*gui.heads.misc.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="7" y="1" field="alphabet" onClick="alphabetClick">
-            <skull id="acb419d984d8796373c9646233c7a02664bd2ce3a1d3476dd9b1c5463b14ebe"/>
+            <properties>
+                <property>acb419d984d8796373c9646233c7a02664bd2ce3a1d3476dd9b1c5463b14ebe</property>
+            </properties>
             <displayname>*gui.heads.alphabet.name</displayname>
             <lore>
                 <line>*gui.heads.alphabet.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="2" y="2" field="interior" onClick="interiorClick">
-            <skull id="7acc61666adf1e4cd7cf57af3e1e17ba17310b2fcd8e3ed27cf88b7d0d88518"/>
+            <properties>
+                <property>7acc61666adf1e4cd7cf57af3e1e17ba17310b2fcd8e3ed27cf88b7d0d88518</property>
+            </properties>
             <displayname>*gui.heads.interior.name</displayname>
             <lore>
                 <line>*gui.heads.interior.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="4" y="2" field="colors" onClick="colorsClick">
-            <skull id="d45b44fd19d72fb3d6e189c4978b1ca687dbd6580b18ddd8aa710edffa5"/>
+            <properties>
+                <property>d45b44fd19d72fb3d6e189c4978b1ca687dbd6580b18ddd8aa710edffa5</property>
+            </properties>
             <displayname>*gui.heads.colors.name</displayname>
             <lore>
                 <line>*gui.heads.colors.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="6" y="2" field="blocks" onClick="blocksClick">
-            <skull id="c60b2f9145215a3a5065dca2d89bb8b4ca44b9222dd22060b51c38d9bf587"/>
+            <properties>
+                <property>c60b2f9145215a3a5065dca2d89bb8b4ca44b9222dd22060b51c38d9bf587</property>
+            </properties>
             <displayname>*gui.heads.blocks.name</displayname>
             <lore>
                 <line>*gui.heads.blocks.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="1" y="3" field="mobs" onClick="mobsClick">
-            <skull id="621668ef7cb79dd9c22ce3d1f3f4cb6e2559893b6df4a469514e667c16aa4"/>
+            <properties>
+                <property>621668ef7cb79dd9c22ce3d1f3f4cb6e2559893b6df4a469514e667c16aa4</property>
+            </properties>
             <displayname>*gui.heads.mobs.name</displayname>
             <lore>
                 <line>*gui.heads.mobs.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="3" y="3" field="games" onClick="gamesClick">
-            <skull id="6c82e21a9320953d78daee85477de3bb82d5dfa6b19494d37733265d2d030a8"/>
+            <properties>
+                <property>6c82e21a9320953d78daee85477de3bb82d5dfa6b19494d37733265d2d030a8</property>
+            </properties>
             <displayname>*gui.heads.games.name</displayname>
             <lore>
                 <line>*gui.heads.games.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="5" y="3" field="characters" onClick="charactersClick">
-            <skull id="71be29750ddec80994bda79653e21ed70d5b2eb793da51d5a87b89bf67dcb96"/>
+            <properties>
+                <property>71be29750ddec80994bda79653e21ed70d5b2eb793da51d5a87b89bf67dcb96</property>
+            </properties>
             <displayname>*gui.heads.characters.name</displayname>
             <lore>
                 <line>*gui.heads.characters.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" x="7" y="3" field="pokemon" onClick="pokemonClick">
-            <skull id="222bc95af0557a5940462025f253e9494cfcc56c5ff405e18805d133a87efd2"/>
+            <properties>
+                <property>222bc95af0557a5940462025f253e9494cfcc56c5ff405e18805d133a87efd2</property>
+            </properties>
             <displayname>*gui.heads.pokemon.name</displayname>
             <lore>
                 <line>*gui.heads.pokemon.lores</line>

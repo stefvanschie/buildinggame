@@ -6,11 +6,14 @@ import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.SkullUtil;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu.headsmenu.*;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryClickEvent;
+
+import java.util.List;
 
 /**
  * The gui to get heads
@@ -117,6 +120,12 @@ class HeadsMenu {
 
             if (!lore.isEmpty() && lore.charAt(0) == '*')
                 itemMeta.setLore(MessageManager.translate(MESSAGES.getStringList(lore.substring(1))));
+
+            List<?> properties = item.getProperties();
+
+            if (properties.size() == 1) {
+                SkullUtil.setSkull(itemMeta, properties.get(0).toString());
+            }
 
             item.getItem().setItemMeta(itemMeta);
         });

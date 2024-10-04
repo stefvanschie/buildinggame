@@ -2,238 +2,306 @@
 <gui title="*gui.heads.colors.title" rows="5">
     <outlinepane x="0" y="0" length="9" height="4">
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="c1482b755858657fb51b7d3fbf4cd8c090c05e35bd8cdba98b19499d7833acb2"/>
+            <properties>
+                <property>c1482b755858657fb51b7d3fbf4cd8c090c05e35bd8cdba98b19499d7833acb2</property>
+            </properties>
             <displayname>*gui.heads.colors.sky-blue.name</displayname>
             <lore>
                 <line>*gui.heads.colors.sky-blue.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="489ce89526fc12624678f305493aa65da8a1b360546a505d118eb1fad775"/>
+            <properties>
+                <property>489ce89526fc12624678f305493aa65da8a1b360546a505d118eb1fad775</property>
+            </properties>
             <displayname>*gui.heads.colors.sky-blue-2.name</displayname>
             <lore>
                 <line>*gui.heads.colors.sky-blue-2.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="7d31d21cb54294ee3a2056137d123b576f78bfc4878cd8144cd51e1931c39b5"/>
+            <properties>
+                <property>7d31d21cb54294ee3a2056137d123b576f78bfc4878cd8144cd51e1931c39b5</property>
+            </properties>
             <displayname>*gui.heads.colors.baby-blue.name</displayname>
             <lore>
                 <line>*gui.heads.colors.baby-blue.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="361e5b333c2a3868bb6a58b6674a2639323815738e77e053977419af3f77"/>
+            <properties>
+                <property>361e5b333c2a3868bb6a58b6674a2639323815738e77e053977419af3f77</property>
+            </properties>
             <displayname>*gui.heads.colors.bright-green.name</displayname>
             <lore>
                 <line>*gui.heads.colors.bright-green.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="36f69f7b7538b41dc3439f3658abbd59facca366f190bcf1d6d0a026c8f96"/>
+            <properties>
+                <property>36f69f7b7538b41dc3439f3658abbd59facca366f190bcf1d6d0a026c8f96</property>
+            </properties>
             <displayname>*gui.heads.colors.green.name</displayname>
             <lore>
                 <line>*gui.heads.colors.green.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="c94092014d8fa7981e79029f957b6884c4c2a53a935afc36ae114d279ce58"/>
+            <properties>
+                <property>c94092014d8fa7981e79029f957b6884c4c2a53a935afc36ae114d279ce58</property>
+            </properties>
             <displayname>*gui.heads.colors.grass-green.name</displayname>
             <lore>
                 <line>*gui.heads.colors.grass-green.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="7dc61bfe3f5255c1266751173177dbd389ad80f5c16344beddf2871bf2baa2"/>
+            <properties>
+                <property>7dc61bfe3f5255c1266751173177dbd389ad80f5c16344beddf2871bf2baa2</property>
+            </properties>
             <displayname>*gui.heads.colors.medium-green.name</displayname>
             <lore>
                 <line>*gui.heads.colors.medium-green.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="1cf3e422b322b1e9245b4b368433045c7b43c909e5dd6c792e4b6beda54303c"/>
+            <properties>
+                <property>1cf3e422b322b1e9245b4b368433045c7b43c909e5dd6c792e4b6beda54303c</property>
+            </properties>
             <displayname>*gui.heads.colors.dark-green.name</displayname>
             <lore>
                 <line>*gui.heads.colors.dark-green.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="d45b44fd19d72fb3d6e189c4978b1ca687dbd6580b18ddd8aa710edffa5"/>
+            <properties>
+                <property>d45b44fd19d72fb3d6e189c4978b1ca687dbd6580b18ddd8aa710edffa5</property>
+            </properties>
             <displayname>*gui.heads.colors.dark-yellow.name</displayname>
             <lore>
                 <line>*gui.heads.colors.dark-yellow.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="63e1c697e3106443976da0f53ece9d60a25bd4d4fce461951286ef59bd9091"/>
+            <properties>
+                <property>63e1c697e3106443976da0f53ece9d60a25bd4d4fce461951286ef59bd9091</property>
+            </properties>
             <displayname>*gui.heads.colors.yellow.name</displayname>
             <lore>
                 <line>*gui.heads.colors.yellow.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="26db6648cab054aaea7feff6518e25e4fb7d2f6f272e2502cc3177dd7836c8b"/>
+            <properties>
+                <property>26db6648cab054aaea7feff6518e25e4fb7d2f6f272e2502cc3177dd7836c8b</property>
+            </properties>
             <displayname>*gui.heads.colors.light-orange.name</displayname>
             <lore>
                 <line>*gui.heads.colors.light-orange.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="fea590b681589fb9b0e8664ee945b41eb3851faf66aaf48525fba169c34270"/>
+            <properties>
+                <property>fea590b681589fb9b0e8664ee945b41eb3851faf66aaf48525fba169c34270</property>
+            </properties>
             <displayname>*gui.heads.colors.orange.name</displayname>
             <lore>
                 <line>*gui.heads.colors.orange.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="4bac77520b9eee65068ef1cd8abeadb013b4de3953fd29ac68e90e4866227"/>
+            <properties>
+                <property>4bac77520b9eee65068ef1cd8abeadb013b4de3953fd29ac68e90e4866227</property>
+            </properties>
             <displayname>*gui.heads.colors.light-red.name</displayname>
             <lore>
                 <line>*gui.heads.colors.light-red.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="97c1f1ead4d531caa4a5b0d69edbce29af789a2550e5ddbd23775be05e2df2c4"/>
+            <properties>
+                <property>97c1f1ead4d531caa4a5b0d69edbce29af789a2550e5ddbd23775be05e2df2c4</property>
+            </properties>
             <displayname>*gui.heads.colors.red.name</displayname>
             <lore>
                 <line>*gui.heads.colors.red.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="3f42564720c8e5598eff2cde218b4665f2b6aa4e59a5b4f3fd15ef875648fe"/>
+            <properties>
+                <property>3f42564720c8e5598eff2cde218b4665f2b6aa4e59a5b4f3fd15ef875648fe</property>
+            </properties>
             <displayname>*gui.heads.colors.red-2.name</displayname>
             <lore>
                 <line>*gui.heads.colors.red-2.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="51014e4f41d7729928f215555da2eaf158ce83d9e0c9961bef5eb7613d37e"/>
+            <properties>
+                <property>51014e4f41d7729928f215555da2eaf158ce83d9e0c9961bef5eb7613d37e</property>
+            </properties>
             <displayname>*gui.heads.colors.dark-red.name</displayname>
             <lore>
                 <line>*gui.heads.colors.dark-red.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="3b19dc4d467882dbca1b5c37465f0cfc70ff1f829ecf4a865796b8e5c2809a"/>
+            <properties>
+                <property>3b19dc4d467882dbca1b5c37465f0cfc70ff1f829ecf4a865796b8e5c2809a</property>
+            </properties>
             <displayname>*gui.heads.colors.azure-blue.name</displayname>
             <lore>
                 <line>*gui.heads.colors.azure-blue.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="6f43d885df889c8a16e44ab4661b65fcb73fe22305cfdcc247d21767b0c24d"/>
+            <properties>
+                <property>6f43d885df889c8a16e44ab4661b65fcb73fe22305cfdcc247d21767b0c24d</property>
+            </properties>
             <displayname>*gui.heads.colors.cyan.name</displayname>
             <lore>
                 <line>*gui.heads.colors.cyan.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="8d2774cbcfd7f29fc5b7e5d322846d1d9d077b2fa5fb347328cdb8944fe417"/>
+            <properties>
+                <property>8d2774cbcfd7f29fc5b7e5d322846d1d9d077b2fa5fb347328cdb8944fe417</property>
+            </properties>
             <displayname>*gui.heads.colors.darkish-blue.name</displayname>
             <lore>
                 <line>*gui.heads.colors.darkish-blue.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="f2588972477e807b989983ca27a48fe27c5151b226b6204d92b4b83b9c11ed"/>
+            <properties>
+                <property>f2588972477e807b989983ca27a48fe27c5151b226b6204d92b4b83b9c11ed</property>
+            </properties>
             <displayname>*gui.heads.colors.blue.name</displayname>
             <lore>
                 <line>*gui.heads.colors.blue.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="b784c152bfc3e2e313ef23fc46d44fce41e4adad9421bac2da3894511cc03b"/>
+            <properties>
+                <property>b784c152bfc3e2e313ef23fc46d44fce41e4adad9421bac2da3894511cc03b</property>
+            </properties>
             <displayname>*gui.heads.colors.dark-cyan.name</displayname>
             <lore>
                 <line>*gui.heads.colors.dark-cyan.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="12306a98787e526ce973bd56124e645a2e2329d563dcfa68a1be65767f29b5"/>
+            <properties>
+                <property>12306a98787e526ce973bd56124e645a2e2329d563dcfa68a1be65767f29b5</property>
+            </properties>
             <displayname>*gui.heads.colors.dark-blue.name</displayname>
             <lore>
                 <line>*gui.heads.colors.dark-blue.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="641685f36a4e55a584964b24d668efcf3d94fad49c9ea46478f696e790c3c2"/>
+            <properties>
+                <property>641685f36a4e55a584964b24d668efcf3d94fad49c9ea46478f696e790c3c2</property>
+            </properties>
             <displayname>*gui.heads.colors.purple.name</displayname>
             <lore>
                 <line>*gui.heads.colors.purple.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="1fc25a5320f85c78dddb55fb2571f563ac48e3f53e62bbe1ffbaf6a8ff1b87"/>
+            <properties>
+                <property>1fc25a5320f85c78dddb55fb2571f563ac48e3f53e62bbe1ffbaf6a8ff1b87</property>
+            </properties>
             <displayname>*gui.heads.colors.pink.name</displayname>
             <lore>
                 <line>*gui.heads.colors.pink.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="67d52fdfbc44cac5735388c7bd9a6ef773e3c353182fa63784f1469edda921"/>
+            <properties>
+                <property>67d52fdfbc44cac5735388c7bd9a6ef773e3c353182fa63784f1469edda921</property>
+            </properties>
             <displayname>*gui.heads.colors.magenta.name</displayname>
             <lore>
                 <line>*gui.heads.colors.magenta.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="7557db5f15ca6f3701903cca402ce77ec6f885036b6812e8288abd7e94"/>
+            <properties>
+                <property>7557db5f15ca6f3701903cca402ce77ec6f885036b6812e8288abd7e94</property>
+            </properties>
             <displayname>*gui.heads.colors.pink-2.name</displayname>
             <lore>
                 <line>*gui.heads.colors.pink-2.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="607326d31858ea57e7bc55f3e75e6c85b34ff4bfd28088f94f11eb8e0d1cf"/>
+            <properties>
+                <property>607326d31858ea57e7bc55f3e75e6c85b34ff4bfd28088f94f11eb8e0d1cf</property>
+            </properties>
             <displayname>*gui.heads.colors.pink-3.name</displayname>
             <lore>
                 <line>*gui.heads.colors.pink-3.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="bf76294011cbdcd2e92941dafe6b3726dff02c3e1f84dfa57c6abab6fc33ce6"/>
+            <properties>
+                <property>bf76294011cbdcd2e92941dafe6b3726dff02c3e1f84dfa57c6abab6fc33ce6</property>
+            </properties>
             <displayname>*gui.heads.colors.cream.name</displayname>
             <lore>
                 <line>*gui.heads.colors.cream.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="bad5983dcabc931ab6a49d2fb8879ebc5295cb5ba2f278e3c8a3da7bc8b478"/>
+            <properties>
+                <property>bad5983dcabc931ab6a49d2fb8879ebc5295cb5ba2f278e3c8a3da7bc8b478</property>
+            </properties>
             <displayname>*gui.heads.colors.mokka.name</displayname>
             <lore>
                 <line>*gui.heads.colors.mokka.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="4574a467737295bd9ddc82545a1a4e146a943d05ecc821f9cc6a543ffe9934a"/>
+            <properties>
+                <property>4574a467737295bd9ddc82545a1a4e146a943d05ecc821f9cc6a543ffe9934a</property>
+            </properties>
             <displayname>*gui.heads.colors.brown.name</displayname>
             <lore>
                 <line>*gui.heads.colors.brown.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="9fd3f28efeb068d53ba24b0324b9661b918c88f94b433dbff9a25e2f218b9"/>
+            <properties>
+                <property>9fd3f28efeb068d53ba24b0324b9661b918c88f94b433dbff9a25e2f218b9</property>
+            </properties>
             <displayname>*gui.heads.colors.white-block.name</displayname>
             <lore>
                 <line>*gui.heads.colors.white-block.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="31c45a59550143a44ed4e87ce2955e4a13e94cdfd4c64dee881dfb48dd92e"/>
+            <properties>
+                <property>31c45a59550143a44ed4e87ce2955e4a13e94cdfd4c64dee881dfb48dd92e</property>
+            </properties>
             <displayname>*gui.heads.colors.light-grey.name</displayname>
             <lore>
                 <line>*gui.heads.colors.light-grey.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="5e2e209b9990a63368de29bfa7b8522d54935d3c95cad9a81f4af2f3a7de"/>
+            <properties>
+                <property>5e2e209b9990a63368de29bfa7b8522d54935d3c95cad9a81f4af2f3a7de</property>
+            </properties>
             <displayname>*gui.heads.colors.grey.name</displayname>
             <lore>
                 <line>*gui.heads.colors.grey.lores</line>
             </lore>
         </item>
         <item id="player_head" damage="3" onClick="headClick">
-            <skull id="9ddebbb062f6a385a91ca05f18f5c0acbe33e2d06ee9e7416cef6ee43dfe2fb"/>
+            <properties>
+                <property>9ddebbb062f6a385a91ca05f18f5c0acbe33e2d06ee9e7416cef6ee43dfe2fb</property>
+            </properties>
             <displayname>*gui.heads.colors.black.name</displayname>
             <lore>
                 <line>*gui.heads.colors.black.lores</line>
