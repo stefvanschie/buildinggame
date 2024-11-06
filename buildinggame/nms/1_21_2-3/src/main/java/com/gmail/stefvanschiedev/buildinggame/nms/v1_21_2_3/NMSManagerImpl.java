@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * An NMS manager for 1.21.2 - 1.21.3.
  *
- * @since 12.7.2
+ * @since 12.8.0
  */
 public class NMSManagerImpl implements NMSManager {
 
@@ -53,7 +53,7 @@ public class NMSManagerImpl implements NMSManager {
      *
      * @param player the player to send the packet to
      * @param packet the packet to send
-     * @since 12.7.2
+     * @since 12.8.0
      */
     private void sendPacket(@NotNull Player player, @NotNull Packet<?> packet) {
         if (!(player instanceof CraftPlayer)) {
