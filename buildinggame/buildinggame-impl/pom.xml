@@ -118,7 +118,12 @@
         </dependency>
         <dependency>
             <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_21</artifactId>
+            <artifactId>1_21_0-1</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gmail.stefvanschiedev</groupId>
+            <artifactId>1_21_2-3</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
