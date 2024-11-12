@@ -213,8 +213,6 @@ public final class StatManager {
                 stats.set(stat.getPlayer().getUniqueId() + "." + type, stat.getValue());
             }
         }));
-		
-		SettingsManager.getInstance().save();
 	}
 
 	/**
