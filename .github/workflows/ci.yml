@@ -7,7 +7,7 @@ on:
     branches: [ '*' ]
   workflow_dispatch:
     branches: [ '*' ]
-	
+
 jobs:
   build-bg:
     name: 'Build Building Game'
