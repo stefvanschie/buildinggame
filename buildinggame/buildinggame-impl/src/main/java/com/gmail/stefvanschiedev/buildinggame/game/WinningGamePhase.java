@@ -192,8 +192,8 @@ public class WinningGamePhase extends TimedGamePhase<Arena> implements JoinObser
         for (String message : messages.getStringList("game-ends.winners")) {
             gameEndsWinners.add(message
                 .replace("%first_players%", firstPlayerFormat)
-                .replace("%second_players%", orderedPlots.get(1).getPlayerFormat())
-                .replace("%third_players%", orderedPlots.get(2).getPlayerFormat()));
+                .replace("%second_players%", hasSecond ? secondPlayerFormat.get() : "")
+                .replace("%third_players%", hasThird ? thirdPlayerFormat.get() : ""));
         }
 
         String winnerTitle = messages.getString("winner.title", "")
