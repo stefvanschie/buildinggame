@@ -92,7 +92,7 @@ jobs:
         java-version: 17
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Build with Maven:
+    - name: Build with Maven
       run: |
         cd addon
         mvn -B package --file pom.xml
@@ -106,7 +106,7 @@ jobs:
         java-version: 17
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Build with Maven:
+    - name: Build with Maven
       run: |
         cd bungeecord
         mvn -B package --file pom.xml
