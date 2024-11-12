@@ -78,7 +78,7 @@ jobs:
         java -jar BuildTools.jar --rev 1.21.3 --remapped --disable-java-check
         
         cd ../
-    - name: Build with Maven:
+    - name: Build with Maven
       run: |
         cd buildinggame
         mvn -B package --file pom.xml
