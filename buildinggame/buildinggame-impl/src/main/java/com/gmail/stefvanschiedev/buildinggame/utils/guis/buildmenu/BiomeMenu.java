@@ -45,12 +45,15 @@ class BiomeMenu {
     BiomeMenu(Plot plot) {
         this.plot = plot;
 
+        Version version = Version.getVersion();
         String resourceLocation;
 
-        if (Version.getVersion().isAtLeast(Version.V1_20_3)) {
-            resourceLocation = "gui/buildmenu/biome/biomemenu_geq_1_20_3.xml";
+        if (version.isAtLeast(Version.V1_21_4)) {
+            resourceLocation = "gui/buildmenu/biome/biomemenu_1_21_4.xml";
+        } else if (version.isAtLeast(Version.V1_20_3)) {
+            resourceLocation = "gui/buildmenu/biome/biomemenu_1_20_3.xml";
         } else {
-            resourceLocation = "gui/buildmenu/biome/biomemenu_le_1_20_3.xml";
+            resourceLocation = "gui/buildmenu/biome/biomemenu_1_19.xml";
         }
 
         InputStream resource = Main.getInstance().getResource(resourceLocation);

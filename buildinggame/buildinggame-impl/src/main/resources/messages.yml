@@ -4492,6 +4492,10 @@ gui:
       name: "&aDark Forest"
       lores:
       - "&7Change the biome to Dark Forest"
+    pale-garden:
+      name: "&aPale Garden"
+      lore:
+      - "&7Change the biome to Pale Garden"
     swamp:
       name: "&aSwamp"
       lores:
