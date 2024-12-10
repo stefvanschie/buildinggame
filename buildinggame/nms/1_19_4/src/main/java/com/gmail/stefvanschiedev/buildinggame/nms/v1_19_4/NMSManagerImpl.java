@@ -4,6 +4,7 @@ import com.gmail.stefvanschiedev.buildinggame.abstraction.NMSManager;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
+import net.minecraft.server.level.ServerLevel;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_19_R3.CraftChunk;
@@ -31,11 +32,17 @@ public class NMSManagerImpl implements NMSManager {
             throw new IllegalStateException("Unable to refresh chunks due to invalid world");
         }
 
-        sendPacket(player, new ClientboundForgetLevelChunkPacket(chunk.getX(), chunk.getZ()));
+        int x = chunk.getX();
+        int z = chunk.getZ();
+
+        sendPacket(player, new ClientboundForgetLevelChunkPacket(x, z));
+
+        ServerLevel serverLevel = ((CraftWorld) world).getHandle();
+
         //noinspection deprecation
         sendPacket(player, new ClientboundLevelChunkWithLightPacket(
-            ((CraftChunk) chunk).getHandle(),
-            ((CraftWorld) world).getHandle().getLightEngine(),
+            serverLevel.getChunk(x, z),
+            serverLevel.getLightEngine(),
             null,
             null,
             true

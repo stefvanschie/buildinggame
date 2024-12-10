@@ -1,9 +1,9 @@
 *.iml
 *.bat
-\.idea
-\libs
-\output
-\out
-\target
-\buildinggame\.paper-nms
+.idea
+libs
+output
+out
+target
+buildinggame/.paper-nms
 dependency-reduced-pom.xml
