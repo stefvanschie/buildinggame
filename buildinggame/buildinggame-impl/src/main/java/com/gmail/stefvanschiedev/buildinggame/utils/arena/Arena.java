@@ -431,7 +431,8 @@ public class Arena implements TransitionSystem {
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
 
-        AttributeInstance healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        //noinspection deprecation
+        AttributeInstance healthAttribute = player.getAttribute(Attribute.valueOf("GENERIC_MAX_HEALTH"));
 
         if (healthAttribute != null) {
             player.setHealth(healthAttribute.getValue());

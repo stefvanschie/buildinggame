@@ -24,6 +24,7 @@
         <module>nms/1_21_0-1</module>
         <module>nms/1_21_2-3</module>
         <module>nms/1_21_4</module>
+        <module>nms/1_21_5</module>
         <module>nms/abstraction</module>
     </modules>
 

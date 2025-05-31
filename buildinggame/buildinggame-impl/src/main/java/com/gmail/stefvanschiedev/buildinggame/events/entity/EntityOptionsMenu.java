@@ -10,6 +10,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.RemoveMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.axolotl.AxolotlMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat.CatMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.chicken.ChickenMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cow.CowMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox.FoxMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.frog.FrogMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse.HorseMenu;
@@ -18,6 +20,7 @@ import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama.L
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.mooshroom.MooshroomMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.panda.PandaMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot.ParrotMenu;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pig.PigMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pufferfish.PufferfishMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit.RabbitMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropicalfish.TropicalFishMenu;
@@ -60,8 +63,6 @@ public class EntityOptionsMenu implements Listener {
         Map.entry(EntityType.BEE, (Plot plot, Entity bee) -> new BeeMenu(plot, (Bee) bee)),
         Map.entry(EntityType.CAMEL, BabyMenu::new),
         Map.entry(EntityType.CAT, (Plot plot, Entity cat) -> new CatMenu(plot, (Cat) cat)),
-        Map.entry(EntityType.CHICKEN, BabyMenu::new),
-        Map.entry(EntityType.COW, BabyMenu::new),
         Map.entry(EntityType.CREEPER, (Plot plot, Entity creeper) -> new CreeperMenu(plot, (Creeper) creeper)),
         Map.entry(EntityType.DONKEY, (Plot plot, Entity donkey) -> new ChestMenu(plot, (ChestedHorse) donkey)),
         Map.entry(EntityType.FOX, (Plot plot, Entity fox) -> new FoxMenu(plot, (Fox) fox)),
@@ -115,8 +116,8 @@ public class EntityOptionsMenu implements Listener {
      */
     @NotNull
     private static final Collection<EntityType> SHIFT_CLICK_TYPES = EnumSet.of(
-        EntityType.BOAT,
-        EntityType.CHEST_BOAT,
+        EntityType.valueOf("BOAT"),
+        EntityType.valueOf("CHEST_BOAT"),
         EntityType.ITEM_FRAME,
         EntityType.MINECART
     );
@@ -174,8 +175,19 @@ public class EntityOptionsMenu implements Listener {
     }
 
     static {
-        if (Version.getVersion().isAtLeast(Version.V1_20_5)) {
+        Version version = Version.getVersion();
+
+        if (version.isAtLeast(Version.V1_20_5)) {
             GUI_MAPPING.put(EntityType.valueOf("ARMADILLO"), BabyMenu::new);
+        }
+
+        if (version.isAtLeast(Version.V1_21_5)) {
+            GUI_MAPPING.put(EntityType.CHICKEN, (Plot plot, Entity chicken) ->
+                new ChickenMenu(plot, (Chicken) chicken));
+            GUI_MAPPING.put(EntityType.COW, (Plot plot, Entity cow) -> new CowMenu(plot, (Cow) cow));
+        } else {
+            GUI_MAPPING.put(EntityType.CHICKEN, BabyMenu::new);
+            GUI_MAPPING.put(EntityType.COW, BabyMenu::new);
         }
     }
 }

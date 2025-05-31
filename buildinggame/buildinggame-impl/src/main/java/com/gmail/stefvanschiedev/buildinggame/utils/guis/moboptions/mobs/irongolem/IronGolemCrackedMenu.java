@@ -35,7 +35,8 @@ class IronGolemCrackedMenu extends ChestGui {
         noCracks.setItemMeta(noCracksMeta);
 
         pane.addItem(new GuiItem(noCracks, event -> {
-            ironGolem.setHealth(ironGolem.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+            //noinspection deprecation
+            ironGolem.setHealth(ironGolem.getAttribute(Attribute.valueOf("GENERIC_MAX_HEALTH")).getValue());
 
             event.setCancelled(true);
         }));
@@ -47,7 +48,8 @@ class IronGolemCrackedMenu extends ChestGui {
         chipped.setItemMeta(chippedMeta);
 
         pane.addItem(new GuiItem(chipped, event -> {
-            ironGolem.setHealth((ironGolem.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 4) * 3);
+            //noinspection deprecation
+            ironGolem.setHealth((ironGolem.getAttribute(Attribute.valueOf("GENERIC_MAX_HEALTH")).getValue() / 4) * 3);
 
             event.setCancelled(true);
         }));
@@ -59,7 +61,8 @@ class IronGolemCrackedMenu extends ChestGui {
         damaged.setItemMeta(damagedMeta);
 
         pane.addItem(new GuiItem(damaged, event -> {
-            ironGolem.setHealth(ironGolem.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 4);
+            //noinspection deprecation
+            ironGolem.setHealth(ironGolem.getAttribute(Attribute.valueOf("GENERIC_MAX_HEALTH")).getValue() / 4);
 
             event.setCancelled(true);
         }));
