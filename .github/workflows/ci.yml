@@ -23,7 +23,7 @@ jobs:
           paperclip
           ~/.m2/repository/io/papermc/paper
           ~/.m2/repository/ca/bkaw/paper-nms
-          ~/.m2/repository/org/spigotmc/spigot
+          ~/.m2/repository/org/spigotmc
         key: ${{ runner.os }}-jars
     - name: Set up JDK 21
       uses: actions/setup-java@v1
