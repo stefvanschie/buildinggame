@@ -1,4 +1,4 @@
-package com.gmail.stefvanschiedev.buildinggame.nms.v1_21_6;
+package com.gmail.stefvanschiedev.buildinggame.nms.v1_21_6_7;
 
 import com.gmail.stefvanschiedev.buildinggame.abstraction.NMSManager;
 import net.minecraft.network.protocol.Packet;
@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An NMS manager for 1.21.6.
+ * An NMS manager for 1.21.6 - 1.21.7.
  *
  * @since 12.11.0
  */
