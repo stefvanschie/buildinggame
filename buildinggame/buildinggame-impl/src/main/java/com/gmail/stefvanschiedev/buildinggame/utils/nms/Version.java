@@ -124,7 +124,14 @@ public enum Version {
      *
      * @since 12.10.0
      */
-    V1_21_5;
+    V1_21_5,
+
+    /**
+     * Version 1.21.6.
+     *
+     * @since 12.11.0
+     */
+    V1_21_6;
 
     /**
      * A collection of versions that all belong to the 1.19 version set.
@@ -138,7 +145,7 @@ public enum Version {
     @NotNull
     private static final Collection<Version> VERSION_1_20 = EnumSet.of(
         V1_20_0, V1_20_1, V1_20_2, V1_20_3, V1_20_4, V1_20_5, V1_20_6,
-        V1_21_0_1, V1_21_2_3, V1_21_4, V1_21_5
+        V1_21_0_1, V1_21_2_3, V1_21_4, V1_21_5, V1_21_6
     );
 
     /**
@@ -203,6 +210,7 @@ public enum Version {
             case "1.21.2", "1.21.3" -> V1_21_2_3;
             case "1.21.4" -> V1_21_4;
             case "1.21.5" -> V1_21_5;
+            case "1.21.6" -> V1_21_6;
             default -> throw new UnsupportedVersionException("This server's version is not supported");
         };
     }
