@@ -68,7 +68,7 @@ java -jar BuildTools.jar --rev 1.21.1 --remapped --disable-java-check
 java -jar BuildTools.jar --rev 1.21.3 --remapped --disable-java-check
 java -jar BuildTools.jar --rev 1.21.4 --remapped --disable-java-check
 java -jar BuildTools.jar --rev 1.21.5 --remapped --disable-java-check
-java -jar BuildTools.jar --rev 1.21.7 --remapped --disable-java-check
+java -jar BuildTools.jar --rev 1.21.8 --remapped --disable-java-check
 ```
 
 After doing this, you can build the project with Maven, similar to how the other modules are build.
