@@ -138,7 +138,7 @@
         </dependency>
         <dependency>
             <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_21_6-7</artifactId>
+            <artifactId>1_21_6-8</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

@@ -1,4 +1,4 @@
-package com.gmail.stefvanschiedev.buildinggame.nms.v1_21_6_7;
+package com.gmail.stefvanschiedev.buildinggame.nms.v1_21_6_8;
 
 import com.gmail.stefvanschiedev.buildinggame.abstraction.NMSManager;
 import net.minecraft.network.protocol.Packet;

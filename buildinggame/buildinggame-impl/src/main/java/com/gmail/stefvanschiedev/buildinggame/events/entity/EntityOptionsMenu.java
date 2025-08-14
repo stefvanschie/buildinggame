@@ -190,7 +190,7 @@ public class EntityOptionsMenu implements Listener {
             GUI_MAPPING.put(EntityType.COW, BabyMenu::new);
         }
 
-        if (version.isAtLeast(Version.V1_21_6_7)) {
+        if (version.isAtLeast(Version.V1_21_6_8)) {
             GUI_MAPPING.put(EntityType.valueOf("HAPPY_GHAST"), BabyMenu::new);
         }
     }
