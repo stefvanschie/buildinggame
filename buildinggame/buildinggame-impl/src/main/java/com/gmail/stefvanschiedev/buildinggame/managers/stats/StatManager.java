@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
-import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -186,8 +185,6 @@ public final class StatManager {
         Stat newStat = new Stat(player, value);
 
         statsByType.add(index, newStat);
-
-        TopStatHologram.update(type);
 
         if (player.isOnline()) {
             Achievement.getAchievements(type).stream()

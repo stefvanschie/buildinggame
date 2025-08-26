@@ -17,8 +17,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.Placehol
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
 import com.gmail.stefvanschiedev.buildinggame.utils.NPCFloorChangeTrait;
-import com.gmail.stefvanschiedev.buildinggame.utils.PlaceholderSupplier;
-import com.gmail.stefvanschiedev.buildinggame.utils.TopStatHologram;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.ArenaMode;
 import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
@@ -258,8 +256,6 @@ public class Main extends JavaPlugin {
                     .collect(Collectors.toList()));
             manager.getCommandCompletions().registerCompletion("stattypes", context ->
                 Stream.of(StatType.values()).map(Enum::toString).collect(Collectors.toList()));
-            manager.getCommandCompletions().registerCompletion("holograms", context ->
-                TopStatHologram.getHolograms().stream().map(TopStatHologram::getName).collect(Collectors.toList()));
 
             //register conditions
             manager.getCommandConditions().addCondition(String.class, "arenanotexist",
