@@ -13,7 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateS
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.WorldEditBoundaryAssertion;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
-import com.gmail.stefvanschiedev.buildinggame.managers.softdependencies.PlaceholderAPIPlaceholders;
+import com.gmail.stefvanschiedev.buildinggame.utils.placeholder.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
 import com.gmail.stefvanschiedev.buildinggame.utils.NPCFloorChangeTrait;
