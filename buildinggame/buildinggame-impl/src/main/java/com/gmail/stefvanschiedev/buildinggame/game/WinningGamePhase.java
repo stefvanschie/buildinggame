@@ -413,7 +413,7 @@ public class WinningGamePhase extends TimedGamePhase<Arena> implements JoinObser
     @NotNull
     private List<? extends Plot> determineWinners() {
         List<? extends Plot> plots = new ArrayList<>(super.transitionSystem.getPlots());
-        plots.sort(Comparator.comparingInt(Plot::getPoints));
+        plots.sort(Comparator.comparingInt(Plot::getPoints).reversed());
 
         if (plots.size() > 0) {
             List<GamePlayer> gamePlayers = plots.get(0).getGamePlayers();
