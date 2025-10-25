@@ -138,9 +138,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.gmail.stefvanschiedev</groupId>
+            <artifactId>1_21_9</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.21.5-R0.1-SNAPSHOT</version>
+            <version>1.21.9-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
