@@ -1,0 +1,70 @@
+name: Bug Report
+description: File a bug report.
+labels:
+  - "bug"
+body:
+  - type: input
+    attributes:
+      label: Which version of the plugin are you using?
+      placeholder: "x.y.z"
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Which Minecraft version are you using?
+      options:
+      - "1.19"
+      - "1.19.1"
+      - "1.19.2"
+      - "1.19.3"
+      - "1.19.4"
+      - "1.20"
+      - "1.20.1"
+      - "1.20.2"
+      - "1.20.3"
+      - "1.20.4"
+      - "1.20.5"
+      - "1.20.6"
+      - "1.21"
+      - "1.21.1"
+      - "1.21.2"
+      - "1.21.3"
+      - "1.21.4"
+      - "1.21.5"
+      - "1.21.6"
+      - "1.21.7"
+      - "1.21.8"
+      - "1.21.9"
+      - "1.21.10"
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Which platform are you using?
+      options:
+      - "Paper"
+      - "Spigot"
+      - "Purpur"
+      - "Leaf"
+      - "Mohist"
+      - "Arclight"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "What should've happened?"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: How can we reproduce this bug?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Do you have any additional information that might be relevant?
