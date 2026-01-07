@@ -6,7 +6,6 @@ import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
-import com.gmail.stefvanschiedev.buildinggame.utils.nms.Version;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.FallingDustParticle;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.Particle;
 import com.gmail.stefvanschiedev.buildinggame.utils.particle.RedstoneParticle;
@@ -43,16 +42,7 @@ public class ParticlesMenu {
      * Constructs a new Particles menu
      */
 	ParticlesMenu() {
-        Version version = Version.getVersion();
-        InputStream resource;
-
-        if (version.is1_19()) {
-            resource = Main.getInstance().getResource("gui/buildmenu/particles/particlesmenu_1_19.xml");
-        } else if (version.is1_20()) {
-            resource = Main.getInstance().getResource("gui/buildmenu/particles/particlesmenu_1_20.xml");
-        } else {
-            throw new UnsupportedOperationException("Unknown version '" + version + "'");
-        }
+        InputStream resource = Main.getInstance().getResource("gui/buildmenu/particlesmenu.xml");
 
         this.gui = ChestGui.load(this, resource);
 

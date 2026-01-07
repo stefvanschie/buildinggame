@@ -35,11 +35,6 @@ jobs:
       if: steps.cache-jars.outputs.cache-hit != 'true'
       run: |
         cd buildinggame
-        mvn paper-nms:init -pl nms/1_19_0
-        mvn paper-nms:init -pl nms/1_19_1
-        mvn paper-nms:init -pl nms/1_19_2
-        mvn paper-nms:init -pl nms/1_19_3
-        mvn paper-nms:init -pl nms/1_19_4
         mvn paper-nms:init -pl nms/1_20_0-1
         mvn paper-nms:init -pl nms/1_20_2
         mvn paper-nms:init -pl nms/1_20_3

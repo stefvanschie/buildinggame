@@ -40,11 +40,6 @@ public class VersionMatcher {
 
     static {
         NMS_MANAGERS = new EnumMap<>(Version.class);
-        NMS_MANAGERS.put(Version.V1_19_0, com.gmail.stefvanschiedev.buildinggame.nms.v1_19_0.NMSManagerImpl.class);
-        NMS_MANAGERS.put(Version.V1_19_1, com.gmail.stefvanschiedev.buildinggame.nms.v1_19_1.NMSManagerImpl.class);
-        NMS_MANAGERS.put(Version.V1_19_2, com.gmail.stefvanschiedev.buildinggame.nms.v1_19_2.NMSManagerImpl.class);
-        NMS_MANAGERS.put(Version.V1_19_3, com.gmail.stefvanschiedev.buildinggame.nms.v1_19_3.NMSManagerImpl.class);
-        NMS_MANAGERS.put(Version.V1_19_4, com.gmail.stefvanschiedev.buildinggame.nms.v1_19_4.NMSManagerImpl.class);
         NMS_MANAGERS.put(Version.V1_20_0, com.gmail.stefvanschiedev.buildinggame.nms.v1_20_0_1.NMSManagerImpl.class);
         NMS_MANAGERS.put(Version.V1_20_1, com.gmail.stefvanschiedev.buildinggame.nms.v1_20_0_1.NMSManagerImpl.class);
         NMS_MANAGERS.put(Version.V1_20_2, com.gmail.stefvanschiedev.buildinggame.nms.v1_20_2.NMSManagerImpl.class);

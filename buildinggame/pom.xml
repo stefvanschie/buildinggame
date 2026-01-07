@@ -10,11 +10,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>buildinggame-impl</module>
-        <module>nms/1_19_0</module>
-        <module>nms/1_19_1</module>
-        <module>nms/1_19_2</module>
-        <module>nms/1_19_3</module>
-        <module>nms/1_19_4</module>
         <module>nms/1_20_0-1</module>
         <module>nms/1_20_2</module>
         <module>nms/1_20_3</module>

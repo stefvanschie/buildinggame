@@ -59,31 +59,6 @@
         </dependency>
         <dependency>
             <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_19_0</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_19_1</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_19_2</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_19_3</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>1_19_4</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gmail.stefvanschiedev</groupId>
             <artifactId>1_20_0-1</artifactId>
             <version>${project.version}</version>
         </dependency>

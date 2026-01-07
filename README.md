@@ -1,6 +1,6 @@
 # Building Game <a href="https://discord.gg/5AJEGXG"><img align="right" src="https://img.shields.io/discord/389784128700153868?logo=Discord&logoColor=white&label=Discord" alt="Discord guild"></a>
 
-*This plugin works for Minecraft version 1.19-1.21*
+*This plugin works for Minecraft version 1.20-1.21*
 
 The Building Game is a plugin in which you compete against other users by making the best building. You first vote on a theme you will base your building on. After that you get a set amount of time to make your building. After this time is up, you go through everyone's plot and vote on how good you think each person's building is. The one with the highest amount of points at the end wins.
 
@@ -25,11 +25,6 @@ mvn clean package
 To build the Building Game module, you first need to initialize the NMS versions, for the NMS modules. To do this, you'll first have to run the following commands.
 
 ```bash
-mvn paper-nms:init -pl buildinggame/nms/1_19_0
-mvn paper-nms:init -pl buildinggame/nms/1_19_1
-mvn paper-nms:init -pl buildinggame/nms/1_19_2
-mvn paper-nms:init -pl buildinggame/nms/1_19_3
-mvn paper-nms:init -pl buildinggame/nms/1_19_4
 mvn paper-nms:init -pl buildinggame/nms/1_20_0-1
 mvn paper-nms:init -pl buildinggame/nms/1_20_2
 mvn paper-nms:init -pl buildinggame/nms/1_20_3
