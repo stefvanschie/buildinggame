@@ -100,7 +100,14 @@ public enum Version {
      *
      * @since 13.1.0
      */
-    V1_21_9_10;
+    V1_21_9_10,
+
+    /**
+     * Version 1.21.11.
+     *
+     * @since 14.0.0
+     */
+    V1_21_11;
 
     /**
      * Checks whether the Minecraft version is the provided version or newer.
@@ -139,6 +146,7 @@ public enum Version {
             case "1.21.5" -> V1_21_5;
             case "1.21.6", "1.21.7", "1.21.8" -> V1_21_6_8;
             case "1.21.9", "1.21.10" -> V1_21_9_10;
+            case "1.21.11" -> V1_21_11;
             default -> throw new UnsupportedVersionException("This server's version is not supported");
         };
     }

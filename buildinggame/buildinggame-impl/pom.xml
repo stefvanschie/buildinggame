@@ -118,6 +118,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.gmail.stefvanschiedev</groupId>
+            <artifactId>1_21_11</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.21.9-R0.1-SNAPSHOT</version>
@@ -177,7 +182,7 @@
         <dependency>
             <groupId>com.github.stefvanschie.inventoryframework</groupId>
             <artifactId>IF</artifactId>
-            <version>0.10.19</version>
+            <version>0.11.6</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
