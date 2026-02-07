@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui title="*gui.banners.color.title" rows="3">
     <outlinepane x="0" y="0" length="9" height="2" alignment="center">
-        <item id="black_dye" onClick="bannerClick">
+        <item id="black_dye" onClick="dyeClick">
             <displayname>*gui.banners.color.black.name</displayname>
             <lore>
                 <line>*gui.banners.color.black.lore</line>
