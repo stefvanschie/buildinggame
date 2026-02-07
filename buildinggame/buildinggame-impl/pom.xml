@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.gmail.stefvanschiedev</groupId>
         <artifactId>buildinggame</artifactId>
-        <version>14.0.0</version>
+        <version>14.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
