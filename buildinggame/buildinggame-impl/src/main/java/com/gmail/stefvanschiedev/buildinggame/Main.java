@@ -13,6 +13,7 @@ import com.gmail.stefvanschiedev.buildinggame.events.player.signs.ClickSpectateS
 import com.gmail.stefvanschiedev.buildinggame.events.softdependencies.WorldEditBoundaryAssertion;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.*;
 import com.gmail.stefvanschiedev.buildinggame.managers.commands.CommandManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.guis.ConfirmationMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.placeholder.PlaceholderAPIPlaceholders;
 import com.gmail.stefvanschiedev.buildinggame.timers.*;
 import com.gmail.stefvanschiedev.buildinggame.utils.Achievement;
@@ -157,6 +158,7 @@ public class Main extends JavaPlugin {
             Gui.registerProperty("biome", Biome::valueOf);
             Gui.registerProperty("dye-color", DyeColor::valueOf);
             Gui.registerProperty("material", Material::valueOf);
+            Gui.registerProperty("response", ConfirmationMenu.Response::valueOf);
         }
 		
 		getLogger().info("Loading files");
