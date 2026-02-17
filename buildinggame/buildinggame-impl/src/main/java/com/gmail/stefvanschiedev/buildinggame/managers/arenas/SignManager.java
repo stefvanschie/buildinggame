@@ -10,6 +10,8 @@ import com.gmail.stefvanschiedev.buildinggame.utils.bungeecord.BungeeCordHandler
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.stefvanschiedev.buildinggame.Main;
@@ -18,8 +20,6 @@ import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatSign;
 import com.gmail.stefvanschiedev.buildinggame.utils.stats.StatType;
-import org.bukkit.material.Attachable;
-import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -508,22 +508,29 @@ public final class SignManager {
      * Updates the blocks behind the signs according to the values given in the configuration.
      * @param arena The arena wherefrom the signs need to be updated.
      */
-    @SuppressWarnings("deprecation")
     private void updateBlockBehindJoinSigns(@NotNull Arena arena){
         arena.getSigns().forEach(sign -> {
             if (!sign.isLoaded()) {
                 return;
             }
 
-            MaterialData signMaterialData = sign.getBlock().getState().getData();
+            Block block = sign.getBlock();
 
-            if (signMaterialData instanceof Attachable) {
-                Block attachedBlock = sign.getBlock().getRelative(((Attachable) signMaterialData).getAttachedFace());
-                DyeColor dyeColor = arena.getCurrentPhase().getColor();
-
-                attachedBlock.setType(Material.valueOf(dyeColor.name() + "_STAINED_GLASS"));
-                attachedBlock.getState().update();
+            if (block == null) {
+                return;
             }
+
+            BlockData blockData = block.getBlockData();
+
+            if (!(blockData instanceof Directional directional)) {
+                return;
+            }
+
+            Block attachedBlock = block.getRelative(directional.getFacing().getOppositeFace());
+            DyeColor dyeColor = arena.getCurrentPhase().getColor();
+
+            attachedBlock.setType(Material.valueOf(dyeColor.name() + "_STAINED_GLASS"));
+            attachedBlock.getState().update();
         });
     }
 }
