@@ -55,7 +55,12 @@ public class NMSManagerImpl implements NMSManager {
      * @param packet the packet to send
      * @since 13.1.0
      */
-    private void sendPacket(@NotNull Player player, @NotNull Packet<?> packet) {
+    //Restore annotation after JDK-8370800 is resolved
+    private void sendPacket(@NotNull Player player, /*@NotNull*/ Packet<?> packet) {
+        if (packet == null) {
+            throw new IllegalArgumentException("packet must not be null");
+        }
+
         if (!(player instanceof CraftPlayer)) {
             throw new IllegalStateException("Unable to send packet due to invalid player");
         }
