@@ -2,6 +2,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs;
 
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.BabyMenu;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
 import org.bukkit.ChatColor;
@@ -29,11 +30,10 @@ public final class GoatMenu extends BabyMenu {
 
         super.setRows(2);
 
-        super.pane.setY(1);
-        super.pane.setX(7);
-        super.pane.setLength(2);
+        super.pane.setHeight(2);
+        super.pane.flipVertically(true);
 
-        var pane = new OutlinePane(0, 0, 9, 1);
+        var pane = new OutlinePane(9, 1);
         pane.align(OutlinePane.Alignment.CENTER);
         pane.setGap(3);
 
@@ -59,7 +59,6 @@ public final class GoatMenu extends BabyMenu {
             event.setCancelled(true);
         }));
 
-        super.addPane(pane);
-        super.addPane(super.pane); //workaround for an issue in IF 0.10.6 see #227 on its issue tracker
+        super.addPane(Slot.fromXY(0, 0), pane);
     }
 }

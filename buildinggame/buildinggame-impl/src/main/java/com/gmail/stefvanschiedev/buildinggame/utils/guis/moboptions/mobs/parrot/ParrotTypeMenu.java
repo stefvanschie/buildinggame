@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.parrot
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Parrot;
@@ -21,7 +22,7 @@ class ParrotTypeMenu extends ChestGui {
     ParrotTypeMenu(Parrot parrot) {
         super(1, ChatColor.GREEN + "Select the parrot type");
 
-        var pane = new OutlinePane(2, 0, 7, 1);
+        var pane = new OutlinePane(7, 1);
 
         //blue
         var blue = new ItemStack(Material.BLUE_WOOL);
@@ -83,6 +84,6 @@ class ParrotTypeMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(2, 0), pane);
     }
 }

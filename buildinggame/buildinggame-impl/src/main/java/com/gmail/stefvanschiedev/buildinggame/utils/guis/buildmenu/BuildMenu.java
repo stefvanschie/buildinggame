@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.buildmenu;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.arenas.ArenaManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
@@ -94,7 +95,7 @@ public class BuildMenu extends ChestGui {
 		bannerMenu = new BaseColorBannerMenu();
 		biomeMenu = new BiomeMenu(plot);
 
-        var pane = new StaticPane(0, 0, 9, 5);
+        var pane = new StaticPane(9, 5);
 
         //particles
         Material particlesMaterial = SettingsManager.getInstance().getMaterial("gui.particles.id",
@@ -302,7 +303,7 @@ public class BuildMenu extends ChestGui {
             event.setCancelled(true);
         }), 4, 3);
 
-        addPane(pane);
+        addPane(Slot.fromXY(0, 0), pane);
 	}
 
     /**

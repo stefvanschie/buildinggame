@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.tropic
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -27,7 +28,7 @@ final class TropicalFishPatternMenu extends ChestGui {
     TropicalFishPatternMenu(TropicalFish tropicalFish) {
         super(2, ChatColor.GREEN + "Select a pattern");
 
-        var pane = new OutlinePane(0, 0, 9, 2);
+        var pane = new OutlinePane(9, 2);
 
         for (var pattern : TropicalFish.Pattern.values()) {
             String name = pattern.toString().replace("_", " ").toLowerCase(Locale.getDefault());
@@ -51,6 +52,6 @@ final class TropicalFishPatternMenu extends ChestGui {
             }));
         }
 
-        addPane(pane);
+        addPane(Slot.fromXY(0, 0), pane);
     }
 }

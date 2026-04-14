@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
@@ -35,7 +36,7 @@ class PatternBannerMenu extends ChestGui {
     PatternBannerMenu(ItemStack banner, DyeColor dyeColor) {
         super(6, MessageManager.translate(MESSAGES.getString("gui.banners.pattern.title")));
 
-        var outlinePane = new OutlinePane(0, 0, 9, 6);
+        var outlinePane = new OutlinePane(9, 6);
 
         //base pattern
         var baseBanner = new ItemStack(dyeColor == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
@@ -799,7 +800,7 @@ class PatternBannerMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        StaticPane staticPane = new StaticPane(0, 4, 9, 2);
+        StaticPane staticPane = new StaticPane(9, 2);
 
         int[] indexes;
 
@@ -935,7 +936,7 @@ class PatternBannerMenu extends ChestGui {
             event.setCancelled(true);
         }), 4, 1);
 
-        addPane(outlinePane);
-        addPane(staticPane);
+        addPane(Slot.fromXY(0, 0), outlinePane);
+        addPane(Slot.fromXY(0, 4), staticPane);
     }
 }

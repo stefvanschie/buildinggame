@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
@@ -56,8 +57,7 @@ public class TeamSelection extends ChestGui {
         YamlConfiguration config = SettingsManager.getInstance().getConfig();
         int iteration = 0;
 
-        var outlinePane =
-            new OutlinePane(0, 0, 9, (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
+        var outlinePane = new OutlinePane(9, (int) Math.max(Math.ceil(arena.getPlots().size() / 9.0), 6));
 
         for (final var plot : arena.getPlots()) {
             Material material = SettingsManager.getInstance().getMaterial("team-selection.team." + (iteration + 1) + ".id",
@@ -98,7 +98,7 @@ public class TeamSelection extends ChestGui {
             iteration++;
         }
 
-        addPane(outlinePane);
+        addPane(Slot.fromXY(0, 0), outlinePane);
 
 	    super.show(humanEntity);
     }

@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villag
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -48,7 +49,7 @@ class SkinTypeSelectionMenu extends ChestGui {
         final Object finalNMSVillager = nmsVillager;
         final Object finalVillagerData = villagerData;
 
-        var pane = new OutlinePane(1, 0, 7, 1);
+        var pane = new OutlinePane(7, 1);
 
         //plains
         ItemStack plains = new ItemStack(Material.GRASS_BLOCK);
@@ -197,7 +198,7 @@ class SkinTypeSelectionMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(1, 0), pane);
     }
 
     //OBC / NMS helpers

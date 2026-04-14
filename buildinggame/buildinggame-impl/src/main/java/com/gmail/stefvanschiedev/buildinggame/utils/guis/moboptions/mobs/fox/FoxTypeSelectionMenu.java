@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.fox;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Fox;
@@ -23,7 +24,7 @@ class FoxTypeSelectionMenu extends ChestGui {
     FoxTypeSelectionMenu(@NotNull Fox fox) {
         super(1, ChatColor.GREEN + "Change the fox's type");
 
-        var pane = new StaticPane(0, 0, 9, 1);
+        var pane = new StaticPane(9, 1);
 
         ItemStack red = new ItemStack(Material.RED_DYE);
         ItemMeta redMeta = red.getItemMeta();
@@ -47,6 +48,6 @@ class FoxTypeSelectionMenu extends ChestGui {
             event.setCancelled(true);
         }), 6, 0);
 
-        addPane(pane);
+        addPane(Slot.fromXY(0, 0), pane);
     }
 }

@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.size;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Mob;
@@ -23,7 +24,7 @@ class SizeSelectionMenu extends ChestGui {
     SizeSelectionMenu(Mob mob) {
         super(1, ChatColor.GREEN + "Change size");
 
-        var pane = new OutlinePane(3, 0, 6, 1);
+        var pane = new OutlinePane(6, 1);
 
         //small
         var goldNugget = new ItemStack(Material.GOLD_NUGGET);
@@ -70,6 +71,6 @@ class SizeSelectionMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(3, 0), pane);
     }
 }

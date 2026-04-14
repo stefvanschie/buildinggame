@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.puffer
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.PufferFish;
@@ -21,7 +22,7 @@ class PufferfishInflationStateMenu extends ChestGui {
     PufferfishInflationStateMenu(PufferFish pufferfish) {
         super(1, ChatColor.GREEN + "Set pufferfish inflation state");
 
-        var pane = new OutlinePane(3, 0, 3, 1);
+        var pane = new OutlinePane(3, 1);
 
         //deflated
         var goldNugget = new ItemStack(Material.GOLD_NUGGET);
@@ -59,6 +60,6 @@ class PufferfishInflationStateMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(3, 0), pane);
     }
 }

@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.llama;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Llama;
@@ -21,7 +22,7 @@ class LlamaColorSelectionMenu extends ChestGui {
     LlamaColorSelectionMenu(Llama llama) {
         super(1, ChatColor.GREEN + "Change the llama color");
 
-        var pane = new StaticPane(2, 0, 5, 1);
+        var pane = new StaticPane(5, 1);
 
         //brown
         var brown = new ItemStack(Material.BROWN_WOOL);
@@ -71,6 +72,6 @@ class LlamaColorSelectionMenu extends ChestGui {
             event.setCancelled(true);
         }), 4, 0);
 
-        addPane(pane);
+        addPane(Slot.fromXY(2, 0), pane);
     }
 }

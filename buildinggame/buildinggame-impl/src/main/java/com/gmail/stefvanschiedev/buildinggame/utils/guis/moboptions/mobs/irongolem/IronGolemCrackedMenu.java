@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.irongo
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -26,7 +27,7 @@ class IronGolemCrackedMenu extends ChestGui {
     IronGolemCrackedMenu(@NotNull IronGolem ironGolem) {
         super(1, ChatColor.GREEN + "Change the cracked state of an iron golem");
 
-        var pane = new OutlinePane(0, 0, 9, 1);
+        var pane = new OutlinePane(9, 1);
 
         //80, 160
         var noCracks = new ItemStack(Material.IRON_CHESTPLATE);
@@ -79,6 +80,6 @@ class IronGolemCrackedMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(0, 0), pane);
     }
 }

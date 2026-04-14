@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.pig;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Pig;
@@ -30,7 +31,7 @@ public class PigVariantMenu extends ChestGui {
 
         setOnGlobalClick(event -> event.setCancelled(true));
 
-        var pane = new OutlinePane(0, 0, 9, 1);
+        var pane = new OutlinePane(9, 1);
         pane.align(OutlinePane.Alignment.CENTER);
         pane.setGap(1);
 
@@ -58,6 +59,6 @@ public class PigVariantMenu extends ChestGui {
 
         pane.addItem(new GuiItem(warm, event -> pig.setVariant(Pig.Variant.WARM)));
 
-        addPane(pane);
+        addPane(Slot.fromXY(0, 0), pane);
     }
 }

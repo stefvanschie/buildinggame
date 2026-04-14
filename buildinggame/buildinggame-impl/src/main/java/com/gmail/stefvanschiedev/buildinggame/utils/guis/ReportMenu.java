@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.Report;
@@ -42,7 +43,7 @@ public class ReportMenu extends ChestGui {
     public ReportMenu() {
         super(6, ChatColor.GREEN + "Reports");
 
-        var paginatedPane = new PaginatedPane(0, 0, 9, 5);
+        var paginatedPane = new PaginatedPane(9, 5);
 
         List<OfflinePlayer> players = Report.getReports().stream()
             .map(Report::getReportee)
@@ -53,7 +54,7 @@ public class ReportMenu extends ChestGui {
         int paginatedPaneArea = paginatedPane.getHeight() * paginatedPane.getLength();
 
         for (int page = 0; page < Math.max(1, Math.ceil((double) players.size() / paginatedPaneArea)); page++) {
-            var outlinePane = new OutlinePane(0, 0, 9, 5);
+            var outlinePane = new OutlinePane(9, 5);
 
             for (int i = 0; i < paginatedPaneArea; i++) {
                 int index = i + (page * paginatedPaneArea);
@@ -100,12 +101,12 @@ public class ReportMenu extends ChestGui {
                 }));
             }
 
-            paginatedPane.addPane(page, outlinePane);
+            paginatedPane.addPage(Slot.fromXY(0, 0), outlinePane);
         }
 
-        addPane(paginatedPane);
+        addPane(Slot.fromXY(0, 0), paginatedPane);
 
-        var backItemPane = new OutlinePane(4, 5, 1, 1);
+        var backItemPane = new OutlinePane(1, 1);
 
         var backItem = new ItemStack(Material.BOOK);
         var backMeta = backItem.getItemMeta();
@@ -114,11 +115,11 @@ public class ReportMenu extends ChestGui {
 
         backItemPane.addItem(new GuiItem(backItem, event -> event.getWhoClicked().closeInventory()));
 
-        addPane(backItemPane);
+        addPane(Slot.fromXY(4, 5), backItemPane);
 
         if (paginatedPane.getPages() > 1) {
-            var previousPageItemPane = new OutlinePane(2, 5, 1, 1);
-            var nextPageItemPane = new OutlinePane(6, 5, 1, 1);
+            var previousPageItemPane = new OutlinePane(1, 1);
+            var nextPageItemPane = new OutlinePane(1, 1);
 
             var previousPageItem = new ItemStack(Material.SUGAR_CANE);
             var previousPageMeta = previousPageItem.getItemMeta();
@@ -158,8 +159,8 @@ public class ReportMenu extends ChestGui {
                 event.setCancelled(true);
             }));
 
-            addPane(previousPageItemPane);
-            addPane(nextPageItemPane);
+            addPane(Slot.fromXY(2, 5), previousPageItemPane);
+            addPane(Slot.fromXY(6, 5), nextPageItemPane);
         }
     }
 
@@ -175,12 +176,12 @@ public class ReportMenu extends ChestGui {
     private ChestGui playerReportsGui(@NotNull OfflinePlayer player) {
         ChestGui gui = new ChestGui(6, ChatColor.GREEN + player.getName() + "'s reports");
 
-        var paginatedPane = new PaginatedPane(0, 0, 9, 5);
+        var paginatedPane = new PaginatedPane(9, 5);
 
         int paginatedPaneArea = paginatedPane.getLength() * paginatedPane.getHeight();
 
         for (int page = 0; page < Math.min(1, Math.ceil((double) Report.getReports(player).size() / paginatedPaneArea)); page++) {
-            var outlinePane = new OutlinePane(0, 0, 9, 5);
+            var outlinePane = new OutlinePane(9, 5);
 
             for (int i = 0; i < paginatedPaneArea; i++) {
                 var index = i + (page * paginatedPaneArea);
@@ -251,12 +252,12 @@ public class ReportMenu extends ChestGui {
                 }));
             }
 
-            paginatedPane.addPane(page, outlinePane);
+            paginatedPane.addPage(Slot.fromXY(0, 0), outlinePane);
         }
 
-        gui.addPane(paginatedPane);
+        gui.addPane(Slot.fromXY(0, 0), paginatedPane);
 
-        var backItemPane = new OutlinePane(4, 5, 1, 1);
+        var backItemPane = new OutlinePane(1, 1);
 
         var backItem = new ItemStack(Material.BOOK);
         var backMeta = backItem.getItemMeta();
@@ -265,11 +266,11 @@ public class ReportMenu extends ChestGui {
 
         backItemPane.addItem(new GuiItem(backItem, event -> show(event.getWhoClicked())));
 
-        gui.addPane(backItemPane);
+        gui.addPane(Slot.fromXY(4, 5), backItemPane);
 
         if (paginatedPane.getPages() > 1) {
-            var previousPageItemPane = new OutlinePane(2, 5, 1, 1);
-            var nextPageItemPane = new OutlinePane(6, 5, 1, 1);
+            var previousPageItemPane = new OutlinePane(1, 1);
+            var nextPageItemPane = new OutlinePane(1, 1);
 
             var previousPageItem = new ItemStack(Material.SUGAR_CANE);
             var previousPageMeta = previousPageItem.getItemMeta();
@@ -309,8 +310,8 @@ public class ReportMenu extends ChestGui {
                 event.setCancelled(true);
             }));
 
-            gui.addPane(previousPageItemPane);
-            gui.addPane(nextPageItemPane);
+            gui.addPane(Slot.fromXY(2, 5), previousPageItemPane);
+            gui.addPane(Slot.fromXY(6, 5), nextPageItemPane);
         }
 
         return gui;

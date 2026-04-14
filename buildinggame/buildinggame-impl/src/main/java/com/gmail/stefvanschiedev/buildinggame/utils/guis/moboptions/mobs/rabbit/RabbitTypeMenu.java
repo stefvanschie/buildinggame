@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.rabbit
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Rabbit;
@@ -19,7 +20,7 @@ class RabbitTypeMenu extends ChestGui {
     RabbitTypeMenu(Rabbit rabbit) {
         super(1, ChatColor.GREEN + "Set rabbit type");
 
-        var pane = new OutlinePane(1, 0, 8, 1);
+        var pane = new OutlinePane(8, 1);
 
         //black type
         var black = new ItemStack(Material.BLACK_WOOL, 1);
@@ -105,6 +106,6 @@ class RabbitTypeMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(1, 0), pane);
     }
 }

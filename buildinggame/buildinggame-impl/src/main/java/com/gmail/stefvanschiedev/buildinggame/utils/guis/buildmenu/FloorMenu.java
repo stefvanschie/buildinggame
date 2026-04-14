@@ -4,6 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
@@ -156,12 +157,12 @@ public class FloorMenu extends ChestGui {
 	FloorMenu(final Plot plot) {
 		super(6, MessageManager.translate(MESSAGES.getString("gui.floor.title")));
 
-        var paginatedPane = new PaginatedPane(0, 0, 9, 5);
+        var paginatedPane = new PaginatedPane(9, 5);
 
         List<Material> blocks = getBlocks();
 
         for (var page = 0; page < Math.ceil(blocks.size() / 45.0); page++) {
-            var outlinePane = new OutlinePane(0, 0, 9, 5);
+            var outlinePane = new OutlinePane(9, 5);
 
             for (var i = 0; i < 45; i++) {
                 if (i + (45 * page) == blocks.size())
@@ -176,12 +177,12 @@ public class FloorMenu extends ChestGui {
                 }));
             }
 
-            paginatedPane.addPane(page, outlinePane);
+            paginatedPane.addPage(Slot.fromXY(0, 0), outlinePane);
         }
 
-        var previous = new OutlinePane(2, 5, 1, 1);
-        var back = new OutlinePane(4, 5, 1, 1);
-        var next = new OutlinePane(6, 5, 1, 1);
+        var previous = new OutlinePane(1, 1);
+        var back = new OutlinePane(1, 1);
+        var next = new OutlinePane(1, 1);
 
         var previousPage = new ItemStack(Material.SUGAR_CANE);
         ItemMeta previousPageMeta = previousPage.getItemMeta();
@@ -237,11 +238,11 @@ public class FloorMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(paginatedPane);
+        addPane(Slot.fromXY(0, 0), paginatedPane);
 
-        addPane(previous);
-        addPane(back);
-        addPane(next);
+        addPane(Slot.fromXY(2, 5), previous);
+        addPane(Slot.fromXY(4, 5), back);
+        addPane(Slot.fromXY(6, 5), next);
 	}
 
 	/**

@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.villag
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -48,7 +49,7 @@ class LevelSelectionMenu extends ChestGui {
         final Object finalNMSVillager = nmsVillager;
         final Object finalVillagerData = villagerData;
 
-        var pane = new OutlinePane(2, 0, 5, 1);
+        var pane = new OutlinePane(5, 1);
 
         //level 1
         ItemStack level1 = new ItemStack(Material.STONE);
@@ -155,7 +156,7 @@ class LevelSelectionMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(2, 0), pane);
     }
 
     //OBC / NMS helpers

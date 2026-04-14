@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.panda;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.bukkit.ChatColor;
@@ -30,7 +31,7 @@ class PandaGeneMenu extends ChestGui {
     PandaGeneMenu(Panda panda) {
         super(1, ChatColor.GREEN + "Change the panda's personality");
 
-        var pane = new OutlinePane(1, 0, 7, 1);
+        var pane = new OutlinePane(7, 1);
 
         //lazy
         ItemStack lazy = getSkull(
@@ -122,7 +123,7 @@ class PandaGeneMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(1, 0), pane);
     }
 
     /**

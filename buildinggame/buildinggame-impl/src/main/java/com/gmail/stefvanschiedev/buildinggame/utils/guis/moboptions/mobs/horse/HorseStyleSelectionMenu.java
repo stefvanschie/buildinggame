@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.horse;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
@@ -21,7 +22,7 @@ class HorseStyleSelectionMenu extends ChestGui {
     HorseStyleSelectionMenu(Horse horse) {
         super(1, ChatColor.GREEN + "Change the horse style");
 
-        var pane = new OutlinePane(2, 0, 7, 1);
+        var pane = new OutlinePane(7, 1);
 
         //black dots
         var blackDots = new ItemStack(Material.MELON_SEEDS);
@@ -83,6 +84,6 @@ class HorseStyleSelectionMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(2, 0), pane);
     }
 }

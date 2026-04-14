@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.axolot
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Axolotl;
@@ -26,7 +27,7 @@ class AxolotlVariantMenu extends ChestGui {
     AxolotlVariantMenu(@NotNull Axolotl axolotl) {
         super(1, ChatColor.GREEN + "Axolotl variant");
 
-        var pane = new OutlinePane(2, 0, 5, 1);
+        var pane = new OutlinePane(5, 1);
 
         //lucy
         var lucy = new ItemStack(Material.PINK_WOOL);
@@ -88,6 +89,6 @@ class AxolotlVariantMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(2, 0), pane);
     }
 }

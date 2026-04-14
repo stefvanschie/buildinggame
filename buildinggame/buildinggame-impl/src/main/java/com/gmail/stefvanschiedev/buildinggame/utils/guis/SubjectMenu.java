@@ -9,6 +9,7 @@ import com.github.stefvanschie.inventoryframework.pane.Orientable;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.component.PercentageBar;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -113,7 +114,7 @@ public class SubjectMenu {
         for (var page = 0;
              page < Math.ceil((float) subjects.size() / (paginatedPane.getHeight() * paginatedPane.getLength()));
              page++) {
-            var pane = new OutlinePane(0, 0, paginatedPane.getLength(), paginatedPane.getHeight());
+            var pane = new OutlinePane(paginatedPane.getLength(), paginatedPane.getHeight());
 
             pane.setOrientation(Orientable.Orientation.valueOf(
                 CONFIG.getString("subject-gui.vote-items.orientation").toUpperCase(Locale.getDefault())
@@ -180,14 +181,14 @@ public class SubjectMenu {
                     int totalVotes = votes.stream().mapToInt(SubjectVote::getVotes).sum();
                     int userVotes = getSubjectVote(subject).getVotes();
 
-                    var percentageBar = new PercentageBar(x + xOffset, y + yOffset, 7, 1);
+                    var percentageBar = new PercentageBar(7, 1);
                     percentageBar.setPercentage(totalVotes == 0 ? 0 : (float) userVotes / totalVotes);
 
-                    gui.addPane(percentageBar);
+                    gui.addPane(Slot.fromXY(x + xOffset, y + yOffset), percentageBar);
                 }
             }
 
-            paginatedPane.addPane(page, pane);
+            paginatedPane.addPage(Slot.fromXY(0, 0), pane);
         }
     }
 
@@ -202,7 +203,7 @@ public class SubjectMenu {
             MessageManager.translate(MESSAGES.getString("subject-gui.title")));
 
         int rows = gui.getRows();
-        var paginatedPane = new PaginatedPane(0, 0, 9, rows - 1);
+        var paginatedPane = new PaginatedPane(9, rows - 1);
 
         initializePages(gui, paginatedPane);
 
@@ -212,11 +213,11 @@ public class SubjectMenu {
             initializePages(gui, paginatedPane);
         }
 
-        gui.addPane(paginatedPane);
+        gui.addPane(Slot.fromXY(0, 0), paginatedPane);
 
         if (paginatedPane.getPages() != 1) {
-            var previousPane = new OutlinePane(2, rows - 1, 1, 1);
-            var nextPane = new OutlinePane(6, rows - 1, 1, 1);
+            var previousPane = new OutlinePane(1, 1);
+            var nextPane = new OutlinePane(1, 1);
 
             //previous page
             var prevItem = new ItemStack(Material.SUGAR_CANE);
@@ -241,7 +242,7 @@ public class SubjectMenu {
 
             previousPane.setVisible(false);
 
-            gui.addPane(previousPane);
+            gui.addPane(Slot.fromXY(2, rows - 1), previousPane);
 
             //next page
             var nextItem = new ItemStack(Material.SUGAR_CANE);
@@ -263,11 +264,11 @@ public class SubjectMenu {
                 event.setCancelled(true);
             }));
 
-            gui.addPane(nextPane);
+            gui.addPane(Slot.fromXY(6, rows - 1), nextPane);
         }
 
         if (CONFIG.getBoolean("subject-gui.close-item.enable")) {
-            var closePane = new OutlinePane(4, rows - 1, 1, 1);
+            var closePane = new OutlinePane(1, 1);
 
             var closeItem = new ItemStack(Material.BOOK);
             var closeMeta = closeItem.getItemMeta();
@@ -280,7 +281,7 @@ public class SubjectMenu {
                 event.setCancelled(true);
             }));
 
-            gui.addPane(closePane);
+            gui.addPane(Slot.fromXY(4, rows - 1), closePane);
         }
 
         //additional items
@@ -290,7 +291,7 @@ public class SubjectMenu {
             int x = CONFIG.getInt(baseNode + ".x") - 1;
             int y = CONFIG.getInt(baseNode + ".y") - 1;
 
-            var pane = new OutlinePane(x, y, 1, 1);
+            var pane = new OutlinePane(1, 1);
 
             Material material = SettingsManager.getInstance().getMaterial(baseNode + ".id", Material.BARRIER);
 
@@ -322,7 +323,7 @@ public class SubjectMenu {
 
             pane.addItem(new GuiItem(item, event -> event.setCancelled(true)));
 
-            gui.addPane(pane);
+            gui.addPane(Slot.fromXY(x, y), pane);
         });
 
         gui.setOnClose(event -> openGuis.remove(gui));

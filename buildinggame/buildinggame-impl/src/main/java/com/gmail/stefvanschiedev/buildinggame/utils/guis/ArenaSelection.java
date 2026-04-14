@@ -3,7 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.gmail.stefvanschiedev.buildinggame.Main;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import com.gmail.stefvanschiedev.buildinggame.utils.arena.Arena;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -36,7 +36,7 @@ public class ArenaSelection extends ChestGui {
      */
 	@Override
 	public void show(@NotNull HumanEntity humanEntity) {
-		var outlinePane = new OutlinePane(0, 0, 9, 6);
+		var outlinePane = new OutlinePane(9, 6);
 
         for (Arena arena : ArenaManager.getInstance().getArenas()) {
             if (!arena.canJoin()) {
@@ -55,7 +55,7 @@ public class ArenaSelection extends ChestGui {
             }));
         }
 
-		addPane(outlinePane);
+		addPane(Slot.fromXY(0, 0), outlinePane);
 		
 		super.show(humanEntity);
 	}

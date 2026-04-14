@@ -3,6 +3,7 @@ package com.gmail.stefvanschiedev.buildinggame.utils.guis.moboptions.mobs.cat;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -26,7 +27,7 @@ class CatAppearanceMenu extends ChestGui {
      CatAppearanceMenu(Cat cat) {
         super(2, ChatColor.GREEN + "Change the cat's appearance");
 
-        var pane = new OutlinePane(0, 0, 9, 2);
+        var pane = new OutlinePane(9, 2);
 
         //tabby
         ItemStack tabby = new ItemStack(Material.BROWN_BANNER);
@@ -169,6 +170,6 @@ class CatAppearanceMenu extends ChestGui {
             event.setCancelled(true);
         }));
 
-        addPane(pane);
+        addPane(Slot.fromXY(0, 0), pane);
     }
 }
