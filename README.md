@@ -1,6 +1,6 @@
 # Building Game <a href="https://discord.gg/5AJEGXG"><img align="right" src="https://img.shields.io/discord/389784128700153868?logo=Discord&logoColor=white&label=Discord" alt="Discord guild"></a>
 
-*This plugin works for Minecraft version 1.20-1.21*
+*This plugin works for Minecraft version 1.20, 1.21, and 26.1*
 
 The Building Game is a plugin in which you compete against other users by making the best building. You first vote on a theme you will base your building on. After that you get a set amount of time to make your building. After this time is up, you go through everyone's plot and vote on how good you think each person's building is. The one with the highest amount of points at the end wins.
 
@@ -66,6 +66,7 @@ java -jar BuildTools.jar --rev 1.21.5 --remapped --disable-java-check
 java -jar BuildTools.jar --rev 1.21.8 --remapped --disable-java-check
 java -jar BuildTools.jar --rev 1.21.10 --remapped --disable-java-check
 java -jar BuildTools.jar --rev 1.21.11 --remapped --disable-java-check
+java -jar BuildTools.jar --rev 26.1 --remapped --disable-java-check
 ```
 
 After doing this, you can build the project with Maven, similar to how the other modules are build.
