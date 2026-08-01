@@ -85,7 +85,7 @@ jobs:
       run: |
         cd build/
         
-        java -jar BuildTools.jar --rev 26.1 --disable-java-check
+        java -jar BuildTools.jar --rev 26.2 --disable-java-check
     - name: Build with Maven
       run: |
         cd buildinggame
