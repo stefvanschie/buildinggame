@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -135,7 +136,7 @@ public class Region {
      */
     @NotNull
     @Contract(pure = true)
-    public Iterable<Chunk> getChunks() {
+    public Collection<? extends Chunk> getChunks() {
         return getAllBlocks().stream().map(Block::getChunk).collect(Collectors.toSet());
     }
 

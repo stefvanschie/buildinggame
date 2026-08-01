@@ -4532,6 +4532,10 @@ gui:
       name: "&aDeep Dark"
       lores:
       - "&7Change the biome to Deep Dark"
+    sulfur-caves:
+      name: "&aSulfur Caves"
+      lore:
+        - "&7Change the biome to Sulfur Caves"
     mangrove-swamp:
       name: "&aMangrove Swamp"
       lore:

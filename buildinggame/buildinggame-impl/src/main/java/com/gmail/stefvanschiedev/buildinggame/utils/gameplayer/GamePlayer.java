@@ -333,13 +333,13 @@ public class GamePlayer {
 	}
 
     /**
-     * Refreshes the specified chunk for this game player
+     * Refreshes the specified chunks for this game player
      *
-     * @param chunk the chunk to refresh
-     * @since 5.2.0
+     * @param chunks the chunks to refresh
+     * @since 14.2.0
      */
-	public void refreshChunk(Chunk chunk) {
-        NMS_MANAGER.refreshChunk(getPlayer(), chunk);
+	public void refreshChunks(Collection<? extends Chunk> chunks) {
+        NMS_MANAGER.refreshChunks(getPlayer(), chunks);
     }
 
 	/**

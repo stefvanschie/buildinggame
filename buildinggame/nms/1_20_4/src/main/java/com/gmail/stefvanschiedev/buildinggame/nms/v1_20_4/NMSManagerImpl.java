@@ -2,17 +2,16 @@ package com.gmail.stefvanschiedev.buildinggame.nms.v1_20_4;
 
 import com.gmail.stefvanschiedev.buildinggame.abstraction.NMSManager;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket;
-import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.ChunkPos;
+import net.minecraft.network.protocol.game.ClientboundChunksBiomesPacket;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.bukkit.Chunk;
-import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_20_R3.CraftChunk;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * An NMS manager for 1.20.4.
@@ -22,30 +21,18 @@ import org.jetbrains.annotations.NotNull;
 public class NMSManagerImpl implements NMSManager {
 
     @Override
-    public void refreshChunk(@NotNull Player player, @NotNull Chunk chunk) {
-        if (!(chunk instanceof CraftChunk)) {
-            throw new IllegalStateException("Unable to refresh chunks due to invalid chunk");
+    public void refreshChunks(@NotNull Player player, @NotNull Collection<? extends Chunk> chunks) {
+        var levelChunks = new ArrayList<LevelChunk>(chunks.size());
+
+        for (Chunk chunk : chunks) {
+            if (!(chunk.getWorld() instanceof CraftWorld craftWorld)) {
+                throw new IllegalStateException("Unable to refresh chunk due to invalid world");
+            }
+
+            levelChunks.add(craftWorld.getHandle().getChunk(chunk.getX(), chunk.getZ()));
         }
 
-        World world = chunk.getWorld();
-
-        if (!(world instanceof CraftWorld)) {
-            throw new IllegalStateException("Unable to refresh chunks due to invalid world");
-        }
-
-        int x = chunk.getX();
-        int z = chunk.getZ();
-
-        sendPacket(player, new ClientboundForgetLevelChunkPacket(new ChunkPos(x, z)));
-
-        ServerLevel serverLevel = ((CraftWorld) world).getHandle();
-
-        sendPacket(player, new ClientboundLevelChunkWithLightPacket(
-            serverLevel.getChunk(x, z),
-            serverLevel.getLightEngine(),
-            null,
-            null
-        ));
+        sendPacket(player, ClientboundChunksBiomesPacket.forChunks(levelChunks));
     }
 
     /**

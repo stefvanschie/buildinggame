@@ -124,13 +124,13 @@
         </dependency>
         <dependency>
             <groupId>com.gmail.stefvanschiedev</groupId>
-            <artifactId>26_1</artifactId>
+            <artifactId>26</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.21.9-R0.1-SNAPSHOT</version>
+            <version>26.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -775,8 +775,15 @@ public class Plot {
         }
 
         //refresh chunks because of the biomes
-        arena.getPlots().forEach(plot -> plot.getBoundary().getChunks().forEach(chunk ->
-                gamePlayers.forEach(gamePlayer -> gamePlayer.refreshChunk(chunk))));
+        arena.getPlots().forEach(plot -> {
+            Region boundary = plot.getBoundary();
+
+            assert boundary != null;
+
+            for (GamePlayer gamePlayer : gamePlayers) {
+                gamePlayer.refreshChunks(boundary.getChunks());
+            }
+        });
 
         setRaining(false);
         setTime(0);

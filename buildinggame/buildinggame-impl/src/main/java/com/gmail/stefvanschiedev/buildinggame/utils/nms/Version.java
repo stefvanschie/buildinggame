@@ -110,11 +110,18 @@ public enum Version {
     V1_21_11,
 
     /**
-     * Version 26.1 and higher.
+     * Version 26.1.
      *
      * @since 14.1.0
      */
-    V26_1;
+    V26_1,
+
+    /**
+     * Version 26.2 and higher.
+     *
+     * @since 14.2.0
+     */
+    V26_2;
 
     /**
      * Checks whether the Minecraft version is the provided version or newer.
@@ -140,7 +147,11 @@ public enum Version {
         String version = Bukkit.getBukkitVersion().split("-")[0];
 
         if (version.indexOf('.') == 2) {
-            return V26_1;
+            if (version.charAt(3) == '1') {
+                return V26_1;
+            }
+
+            return V26_2;
         }
 
         return switch (version) {

@@ -5,8 +5,10 @@ import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import com.gmail.stefvanschiedev.buildinggame.Main;
 import com.gmail.stefvanschiedev.buildinggame.managers.files.SettingsManager;
 import com.gmail.stefvanschiedev.buildinggame.managers.messages.MessageManager;
+import com.gmail.stefvanschiedev.buildinggame.utils.gameplayer.GamePlayer;
 import com.gmail.stefvanschiedev.buildinggame.utils.nms.Version;
 import com.gmail.stefvanschiedev.buildinggame.utils.plot.Plot;
+import com.gmail.stefvanschiedev.buildinggame.utils.region.Region;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -48,7 +50,9 @@ class BiomeMenu {
         Version version = Version.getVersion();
         String resourceLocation;
 
-        if (version.isAtLeast(Version.V1_21_4)) {
+        if (version.isAtLeast(Version.V26_2)) {
+            resourceLocation = "gui/buildmenu/biome/biomemenu_26_2.xml";
+        } else if (version.isAtLeast(Version.V1_21_4)) {
             resourceLocation = "gui/buildmenu/biome/biomemenu_1_21_4.xml";
         } else if (version.isAtLeast(Version.V1_20_3)) {
             resourceLocation = "gui/buildmenu/biome/biomemenu_1_20_3.xml";
@@ -112,8 +116,15 @@ class BiomeMenu {
         plot.getBoundary().getAllBlocks().forEach(block -> block.setBiome(biome));
 
         //just send it to all players directly, so we don't have to do weird trickery
-        plot.getBoundary().getChunks().forEach(chunk -> plot.getArena().getUsedPlots().stream().flatMap(p ->
-            p.getAllGamePlayers().stream()).forEach(gamePlayer -> gamePlayer.refreshChunk(chunk)));
+        for (Plot plot : plot.getArena().getUsedPlots()) {
+            Region boundary = plot.getBoundary();
+
+            assert boundary != null;
+
+            for (GamePlayer gamePlayer : plot.getAllGamePlayers()) {
+                gamePlayer.refreshChunks(boundary.getChunks());
+            }
+        }
 
         cancellable.setCancelled(true);
     }

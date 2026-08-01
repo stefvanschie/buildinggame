@@ -193,5 +193,10 @@ public class EntityOptionsMenu implements Listener {
         if (version.isAtLeast(Version.V1_21_6_8)) {
             GUI_MAPPING.put(EntityType.valueOf("HAPPY_GHAST"), BabyMenu::new);
         }
+
+        if (version.isAtLeast(Version.V26_2)) {
+            GUI_MAPPING.put(EntityType.valueOf("SULFUR_CUBE"), (Plot plot, Entity entity) ->
+                new SizeMenu(plot, (Mob) entity));
+        }
     }
 }

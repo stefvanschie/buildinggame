@@ -1,12 +1,12 @@
-package com.gmail.stefvanschiedev.buildinggame.nms.v1_21_0_1;
+package com.gmail.stefvanschiedev.buildinggame.nms.v26;
 
 import com.gmail.stefvanschiedev.buildinggame.abstraction.NMSManager;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundChunksBiomesPacket;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_21_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * An NMS manager for 1.21.0 - 1.21.1.
+ * An NMS manager for 26.1.
  *
- * @since 12.5.0
+ * @since 14.1.0
  */
 public class NMSManagerImpl implements NMSManager {
 
@@ -40,7 +40,7 @@ public class NMSManagerImpl implements NMSManager {
      *
      * @param player the player to send the packet to
      * @param packet the packet to send
-     * @since 12.5.0
+     * @since 14.1.0
      */
     //Restore annotation after JDK-8370800 is resolved
     private void sendPacket(@NotNull Player player, /*@NotNull*/ Packet<?> packet) {

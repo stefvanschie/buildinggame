@@ -4,6 +4,8 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
+
 /**
  * A manager to interface with NMS.
  *
@@ -12,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
 public interface NMSManager {
 
     /**
-     * Refreshes the specified chunk for the specified player.
+     * Refreshes the specified chunks for the specified player.
      *
      * @param player the player to refresh the chunk for
-     * @param chunk the chunk to refresh
-     * @since 12.1.0
+     * @param chunks the chunks to refresh
+     * @since 14.2.0
      */
-    void refreshChunk(@NotNull Player player, @NotNull Chunk chunk);
+    void refreshChunks(@NotNull Player player, @NotNull Collection<? extends Chunk> chunks);
 }
