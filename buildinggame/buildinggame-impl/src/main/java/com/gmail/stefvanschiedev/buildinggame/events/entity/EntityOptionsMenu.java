@@ -198,5 +198,9 @@ public class EntityOptionsMenu implements Listener {
             GUI_MAPPING.put(EntityType.valueOf("SULFUR_CUBE"), (Plot plot, Entity entity) ->
                 new SizeMenu(plot, (Mob) entity));
         }
+
+        if (version.isAtLeast(Version.V26_3)) {
+            SHIFT_CLICK_TYPES.add(EntityType.valueOf("CUSHION"));
+        }
     }
 }
