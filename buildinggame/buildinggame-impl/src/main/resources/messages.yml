@@ -4496,6 +4496,10 @@ gui:
       name: "&aPale Garden"
       lore:
       - "&7Change the biome to Pale Garden"
+    dappled-forest:
+      name: "&aDappled Forest"
+      lore:
+      - "&7Change the biome to Dappled Forest"
     swamp:
       name: "&aSwamp"
       lores:

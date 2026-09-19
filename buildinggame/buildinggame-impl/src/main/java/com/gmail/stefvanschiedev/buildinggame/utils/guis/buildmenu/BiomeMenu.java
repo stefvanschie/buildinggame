@@ -50,7 +50,9 @@ class BiomeMenu {
         Version version = Version.getVersion();
         String resourceLocation;
 
-        if (version.isAtLeast(Version.V26_2)) {
+        if (version.isAtLeast(Version.V26_3)) {
+            resourceLocation = "gui/buildmenu/biome/biomemenu_26_3.xml";
+        } else if (version.isAtLeast(Version.V26_2)) {
             resourceLocation = "gui/buildmenu/biome/biomemenu_26_2.xml";
         } else if (version.isAtLeast(Version.V1_21_4)) {
             resourceLocation = "gui/buildmenu/biome/biomemenu_1_21_4.xml";

@@ -57,5 +57,6 @@ public class VersionMatcher {
         NMS_MANAGERS.put(Version.V1_21_11, com.gmail.stefvanschiedev.buildinggame.nms.v1_21_11.NMSManagerImpl.class);
         NMS_MANAGERS.put(Version.V26_1, com.gmail.stefvanschiedev.buildinggame.nms.v26.NMSManagerImpl.class);
         NMS_MANAGERS.put(Version.V26_2, com.gmail.stefvanschiedev.buildinggame.nms.v26.NMSManagerImpl.class);
+        NMS_MANAGERS.put(Version.V26_3, com.gmail.stefvanschiedev.buildinggame.nms.v26.NMSManagerImpl.class);
     }
 }
